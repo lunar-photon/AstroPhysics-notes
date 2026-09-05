@@ -78,7 +78,13 @@ $\vecL$ supplies three constants of motion: its magnitude $L$, and two angles fi
 =\mu\dot{\vecr}\cdot\ddot{\vecr}+\nabla V\cdot\dot{\vecr}
 =\big(\mu\ddot{\vecr}+\nabla V\big)\cdot\dot{\vecr}=0
 \]
-by \eqref{eq:relEOM}. So $E$ is conserved for \emph{any} central potential $V(r)$, not just gravity.
+by \eqref{eq:relEOM}. So $E$ is conserved for \emph{any} central potential $V(r)$, not just gravity. Therefore, \textbf{total energy and angular momentum} constitutes four constant of integration. We will learn that there is one more, known as Runge Lenz vector which points towards periapsis and hence encodes the orientation of periapsis and the last constant of integration which is needed specifies the initial phase of the relative orbit ($t_p$)
+\[
+\underbrace{\mathbf R_0,\mathbf V_{\rm CM}}_{6}
++
+\underbrace{a,e,i,\Omega,\omega,t_p}_{6}
+=12.
+\]
 
 \section{Coordinate Systems and Orbital Elements}
 
@@ -568,7 +574,7 @@ Hence,
 		\draw[very thick,red!70!black,->](\Ox,\Oy,\Oz)-- ({\Ox+2.4*cos(\Om)},{\Oy+2.4*sin(\Om)},\Oz)node[right] {$\hatn$};
 		
 	\end{tikzpicture}}
-    \caption{Orientation of an orbit relative to sky plane. $\Omega$ (longitude of ascending node) is measured from the reference direction $\alpha$ to the ascending node along the sku plane; $\omega$ (argument of periapsis) is measured from the ascending node to perigee \emph{within} the orbital plane; $\iota$ (inclination) is the dihedral angle between the two planes, read off at the node; $\nu$ (true anomaly) is measured from perigee to the heavenly body's current position. This is exactly $(\Omega,\iota,\omega)$ of Eqs.~\eqref{eq:node}--\eqref{eq:yhat} describe.}
+    \caption{Orientation of an orbit relative to sky plane. $\Omega$ (longitude of ascending node) is measured from the reference direction $\alpha$ to the ascending node along the sky plane; $\omega$ (argument of periapsis) is measured from the ascending node to perigee \emph{within} the orbital plane; $\iota$ (inclination) is the dihedral angle between the two planes, read off at the node; $\nu$ (true anomaly) is measured from perigee to the heavenly body's current position. This is exactly $(\Omega,\iota,\omega)$ of Eqs.~\eqref{eq:node}--\eqref{eq:yhat} describe.}
 \label{fig:elements}
 \end{figure}
 so that $\iota=\arccos(\hat L\cdot\hat R)$ is the angle between orbital and reference planes, and $(\hatn,\hat y,\hat L)$ is a right-handed orthonormal triad spanning the orbital plane plus its normal. In this plane use polar coordinates $(r,\phi)$ measured from $\hatn$:
@@ -1183,7 +1189,7 @@ Using \eqref{eq:rhat_phihat}:
 \begin{equation}
 \hat A = \cos\omega\,\hatn+\sin\omega\,\hat y. \label{eq:Ahat}
 \end{equation}
-Equivalently, the \textbf{eccentricity vector} $\vec e \equiv \vecA/(GM\mu^2) = e\hat A$ is a conserved vector encoding $(e,\omega)$ together. Since $e,\Omega,\iota$ are already determined by $(E,\vecL)$, the only \emph{new} information in $\vecA$ is $\omega$ — the in-plane orientation of the ellipse.
+Equivalently, the \textbf{eccentricity vector} $\vec e \equiv \vecA/(GM\mu^2) = e\hat A=e(\cos\omega,\sin\omega,0)$ is a conserved vector encoding $(e,\omega)$ together. Since $e,\Omega,\iota$ are already determined by $(E,\vecL)$, the only \emph{new} information in $\vecA$ is $\omega$, i.e. the in-plane orientation of the ellipse or the direction of periapsis from the line of ascending node.
 
 \section{Perturbed Orbits}
 
