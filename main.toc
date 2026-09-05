@@ -1,0 +1,54 @@
+\contentsline {section}{\numberline {1}The Two-Body Problem}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Central force problem}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Separating centre-of-mass motion}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Conserved quantities}{3}{subsection.1.3}%
+\contentsline {paragraph}{Angular momentum.}{3}{section*.2}%
+\contentsline {paragraph}{Energy.}{3}{section*.3}%
+\contentsline {section}{\numberline {2}Coordinate Systems and Orbital Elements}{3}{section.2}%
+\contentsline {paragraph}{The projected orbit in the sky plane}{4}{section*.4}%
+\contentsline {paragraph}{The six orbital elements.}{5}{section*.5}%
+\contentsline {section}{\numberline {3}Planar Motion and Kepler's Second Law}{5}{section.3}%
+\contentsline {paragraph}{Areal velocity.}{5}{section*.6}%
+\contentsline {paragraph}{Equations of motion in $(r,\phi )$.}{5}{section*.7}%
+\contentsline {section}{\numberline {4}The Orbit Equation}{6}{section.4}%
+\contentsline {section}{\numberline {5}Keplerian Orbits}{6}{section.5}%
+\contentsline {section}{\numberline {6}Energy and Angular Momentum in Terms of $a,e$}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Energy}{8}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Angular momentum}{8}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Instantaneous kinetic energy}{8}{subsection.6.3}%
+\contentsline {paragraph}{Inverting for $a,e$.}{8}{section*.8}%
+\contentsline {section}{\numberline {7}True and Eccentric Anomaly; Kepler's Equation}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Elliptical orbits: eccentric anomaly}{9}{subsection.7.1}%
+\contentsline {paragraph}{Relating true anomaly $v$ and eccentric anomaly $u$:}{9}{section*.9}%
+\contentsline {subsection}{\numberline {7.2}Hyperbolic trajectories}{9}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Kepler's Third Law}{10}{section.8}%
+\contentsline {section}{\numberline {9}Kepler's Equation}{10}{section.9}%
+\contentsline {section}{\numberline {10}Keplerian Parametrization}{10}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Elliptical orbits}{10}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Hyperbolic trajectories}{10}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Hyperbolic-Trajectory Parameters}{11}{section.11}%
+\contentsline {section}{\numberline {12}Fourier Solution of Kepler's Equation}{11}{section.12}%
+\contentsline {section}{\numberline {13}The Laplace--Runge--Lenz Vector}{12}{section.13}%
+\contentsline {paragraph}{Direction and magnitude of $\vec A$.}{12}{section*.11}%
+\contentsline {section}{\numberline {14}Perturbed Orbits}{13}{section.14}%
+\contentsline {subsection}{\numberline {14.1}The osculating-orbit ansatz (variation of parameters)}{13}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Rates of the fundamental constants}{14}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Special case: $\vec F$ in the orbital plane}{15}{subsection.14.3}%
+\contentsline {paragraph}{Rate of $|\vec A|$ (i.e.\ $\dot e$).}{15}{section*.12}%
+\contentsline {paragraph}{Rate of $\hat A$'s rotation (i.e.\ $\dot \omega $).}{15}{section*.13}%
+\contentsline {paragraph}{Rate of $a$.}{15}{section*.14}%
+\contentsline {paragraph}{Rate of $e$.}{16}{section*.15}%
+\contentsline {paragraph}{Rate of true anomaly.}{16}{section*.16}%
+\contentsline {paragraph}{Osculating-element summary (planar perturbation).}{16}{section*.17}%
+\contentsline {subsection}{\numberline {14.4}Nearly circular orbits: Laplace--Lagrange variables}{16}{subsection.14.4}%
+\contentsline {section}{\numberline {15}Rømer Delay for a Keplerian Orbit}{17}{section.15}%
+\contentsline {section}{\numberline {16}Worked Example: the Radial Perturbation $\vec F=\alpha \hat r/r^3$}{17}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Energy rate and $\dot a$}{18}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Assembling $\dot a(u)$}{18}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}No secular drift in $a$}{18}{subsection.16.3}%
+\contentsline {subsection}{\numberline {16.4}Angular momentum: exact conservation}{18}{subsection.16.4}%
+\contentsline {subsection}{\numberline {16.5}$\dot e$ from $L^2=$ const}{19}{subsection.16.5}%
+\contentsline {subsection}{\numberline {16.6}The Laplace--Runge--Lenz vector: general perturbed rate}{19}{subsection.16.6}%
+\contentsline {subsection}{\numberline {16.7}Specializing to $\vec F=\alpha \hat r/r^3$}{19}{subsection.16.7}%
+\contentsline {subsection}{\numberline {16.8}Extracting $\dot \omega $}{19}{subsection.16.8}%
+\contentsline {subsection}{\numberline {16.9}Orbit-averaged precession rate}{20}{subsection.16.9}%
