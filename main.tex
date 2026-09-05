@@ -890,16 +890,16 @@ We now want $r(t)$ (and hence $\phi(t)$), not just $r(\phi)$. From the vis-viva 
 =\sqrt{GM}\,\frac1r\left(2r-\frac{r^2}{a}-\lambda\right)^{1/2},
 \]
 using \eqref{eq:visviva_E}--\eqref{eq:L_of_ae} to trade $E,L$ for $a,\lambda$. Then
-\[
-t-t_0 = \frac{1}{\sqrt{GM}}\int_{r_0}^{r}\frac{r'\,dr'}{\left(2r'-r'^2/a-\lambda\right)^{1/2}}.
-\]
-
+\begin{align}
+	 dt&=\int_{r_0}^{r}\frac{1}{\sqrt{GM}}\int_{r_0}^{r}\frac{r'\,dr'}{\left(2r'-r'^2/a-\lambda\right)^{1/2}}\\
+	t-t_0&=\sqrt{a}\int_{r_0}^{r}\frac{rdr}{\sqrt{a^2e^2-(r-a)^2}}\tag{using $\lambda=a(1-e^2)$}
+\end{align}
 \subsection{Elliptical orbits: eccentric anomaly}
 For $a>0$, substitute
 \begin{equation}
 r=a\big(1-e\cos u\big), \label{eq:r_of_u}
 \end{equation}
-where $u$ is the \textbf{eccentric anomaly} (this choice guarantees $r>0$ throughout, since $-1\le\cos u\le1$). Then $dr=ae\sin u\,du$, and the bracket under the square root simplifies (using $\lambda=a(1-e^2)$) to $a e^2\sin^2u$, so the square root is simply $\sqrt a\, e\,|\sin u|$. The integral collapses to
+where $u$ is the \textbf{eccentric anomaly} (this choice guarantees $r>0$ throughout, since $-1\le\cos u\le1$). Then $dr=ae\sin u\,du$, and the bracket under the square root simplifies to $a e^2\sin^2u$, so the square root is simply $\sqrt a\, e\,|\sin u|$. The integral collapses to
 \[
 t-t_0=\frac{a^{3/2}}{\sqrt{GM}}\int_0^u (1-e\cos u')\,du' = \frac{a^{3/2}}{\sqrt{GM}}\big[u-e\sin u\big],
 \]
