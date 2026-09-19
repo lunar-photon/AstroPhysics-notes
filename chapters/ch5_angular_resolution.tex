@@ -1,16 +1,35 @@
 \chapter{Angular Resolution: Baselines, Diffraction, and Pixel Sampling}
 
-The ability of an astronomical telescope to distinguish fine spatial details on the sky is governed by four interconnected physical and geometric principles:
+\section{Windows on the Universe: Why We Observe the Way We Do}
+\label{sec:windows}
+
+Chapters~1--4 treated the detection of a photon and the reduction of its flux, position, and motion as given. Before asking \emph{how sharply} we can see the sky, it is worth asking a more basic question: \emph{how do we see it at all?} Electromagnetic radiation from a cosmic source must first survive an $\sim 100\,\mathrm{km}$ trip through the Earth's atmosphere before it ever reaches a mirror, dish, or detector. Whether astronomers build an optical telescope on a mountaintop, a radio dish array spread across a continent, or an X-ray observatory in orbit is not a matter of taste --- it is dictated entirely by which photons the atmosphere actually lets through.
+
+\begin{itemize}
+	\item \textbf{Gamma rays and X-rays} ionize and are absorbed high in the atmosphere (this is, in fact, what protects the biosphere from them). No ground-based telescope can see this light directly; it must be observed from orbit (e.g.\ Chandra, NuSTAR).
+	\item \textbf{Ultraviolet light} below $\sim 300\,\mathrm{nm}$ is absorbed by ozone ($\mathrm{O}_3$) in the stratosphere through electronic transitions. This is the same absorption that shields us from UV at ground level, and it makes ground-based UV astronomy essentially impossible below the ozone cutoff.
+	\item \textbf{Visible light} ($\sim 350$--$800\,\mathrm{nm}$) falls in a fortunate spectral gap: it is too low in energy to drive the electronic transitions of $\mathrm{O}_2$ and $\mathrm{O}_3$ that absorb the UV, and too low in frequency to excite the vibrational--rotational transitions of $\mathrm{H}_2\mathrm{O}$, $\mathrm{CO}_2$, and $\mathrm{CH}_4$ that absorb the infrared. Rayleigh scattering off air molecules ($\propto \lambda^{-4}$) still preferentially scatters the blue end of this window (hence the daytime sky glow), but it does not extinguish the beam --- this is precisely why the \emph{optical window} exists, and why our eyes (and our telescopes) are tuned to it.
+	\item \textbf{Infrared light} is chopped into narrow ``windows'' ($J, H, K, L, M$ bands, etc.) squeezed between strong telluric water-vapour and $\mathrm{CO}_2$ absorption bands. This is why infrared observatories sit at high, dry sites (Mauna Kea, Atacama) or fly above most of the water vapour, on aircraft, balloons, or in space (SOFIA, JWST).
+	\item \textbf{Radio waves} pass through comparatively freely from $\sim 10\,\mathrm{MHz}$ up to hundreds of GHz --- the \textbf{radio window}. Below $\sim 10\,\mathrm{MHz}$, the ionosphere reflects radio waves back into space (the same effect that lets AM radio signals bounce around the globe), so the very longest wavelengths are again inaccessible from the ground. At the millimetre/submillimetre end, water vapour absorption dominates once more, which is why facilities such as ALMA are built at $5000\,\mathrm{m}$ altitude in the Atacama desert, above most of the water column.
+\end{itemize}
+
+This chapter concerns itself with the two atmospheric windows that dominate everyday astronomy: the \textbf{optical window} and the \textbf{radio window}. Crucially, these two windows favour two very different strategies for achieving high angular resolution. Radio astronomers can freely combine antennas separated by continental (or even intercontinental) distances, because the atmosphere barely perturbs radio wavefronts over such scales; optical astronomers, by contrast, are largely restricted to a single, monolithic (or segmented) aperture, whose resolution is set by wave diffraction and, from the ground, further degraded by atmospheric turbulence even though the light itself is not absorbed. Both strategies, and the detectors that ultimately record the result, are the subject of this chapter.
+
+\section{The Chain of Sharpness: What Sets a Telescope's Angular Resolution}
+
+Once light has survived its journey through the atmosphere, a chain of four physical and geometric effects determines how much fine spatial detail we can actually recover from it. Each link in this chain is the subject of one section of this chapter:
 \begin{enumerate}[leftmargin=2em]
-	\item \textbf{Interferometric baseline geometry:} The physical straight-line chord separation between distributed collecting elements.
-	\item \textbf{Telescope optics and focal scaling:} The geometric mapping of angular angles on the sky to linear physical displacements in the focal plane.
-	\item \textbf{Diffraction wave optics:} The fundamental wave limit imposed by Fraunhofer diffraction through a finite circular aperture (the Airy disk and Rayleigh criterion).
-	\item \textbf{Detector pixelization and sampling:} The matching between physical pixel sizes and the optical point spread function via the Nyquist--Shannon sampling theorem, along with atmospheric seeing and Adaptive Optics ($\mathrm{AO}$).
+	\item \textbf{Interferometric baseline geometry} (Section~\ref{sec:baselines}): if a single mirror is replaced by an array of separated antennas, the effective aperture becomes the physical straight-line chord separation between them --- an idea that works spectacularly well in the radio window.
+	\item \textbf{Telescope optics and focal scaling} (Section~\ref{sec:optics}): for a conventional single-aperture telescope, we first need the purely geometric mapping that converts an angle on the sky into a physical displacement in the focal plane, since that displacement is what a detector actually measures.
+	\item \textbf{Diffraction wave optics} (Section~\ref{sec:diffraction}): no matter how perfectly a mirror or lens is figured, the finite size of the aperture imposes a fundamental wave-optical blur (Fraunhofer diffraction) through single slits, $N$-slit gratings, and circular/annular apertures (the Airy disk, chromatic resolving power, and resolution criteria) --- this sets the ultimate resolution any telescope can achieve.
+	\item \textbf{Detector pixelization and sampling} (Section~\ref{sec:sampling}): the diffraction blur is only useful if the detector samples it finely enough; this trade-off is governed by the Nyquist--Shannon sampling theorem.
 \end{enumerate}
+For ground-based optical telescopes, one further complication reappears at the end of the chapter (Section~\ref{sec:seeing}): the atmosphere may be \emph{transparent} in the optical window, but it is not \emph{still} --- turbulent pockets of air with fluctuating refractive index blur the image well beyond the diffraction limit, which is precisely what Adaptive Optics ($\mathrm{AO}$) is built to correct.
 
 \section{Interferometric Baselines: Chord Distance Between Ground Stations}
+\label{sec:baselines}
 
-In Very Long Baseline Interferometry (VLBI) and connected-element radio interferometers (such as the GMRT or ALMA), the physical separation between two antennas defines the interferometer \emph{baseline}.
+The radio window identified above is where the idea of synthesizing a huge aperture out of small, widely separated pieces works best, since the atmosphere leaves radio wavefronts largely undisturbed over kilometre-to-continent scales. In Very Long Baseline Interferometry (VLBI) and connected-element radio interferometers (such as the GMRT or ALMA), the physical separation between two antennas defines the interferometer \emph{baseline}.
 
 \subsection{Central Angle on a Spherical Earth}
 
@@ -354,6 +373,60 @@ The baseline length $B = C$ determines the synthesized angular resolution as der
 \end{example}
 
 \section{Telescope Optics: Cassegrain Geometry, Focal Length, and Scale Relations}
+\label{sec:optics}
+
+Away from the radio window, spreading antennas across a continent is not an option: at optical wavelengths the atmosphere itself sets a coherence scale of only tens of centimetres (Section~\ref{sec:seeing}), so a single figured mirror (or a phased, co-mounted segmented one, such as an ELT) is the only practical way to collect light. Before we can even talk about the diffraction limit of such a mirror, we need the purely geometric machinery that turns an angle on the sky into a position on a detector --- this is the job of the telescope's optical train, worked out below for the common Cassegrain design, after first surveying why reflectors are preferred and how the focused beam is actually routed to a detector.
+
+\subsection{Reflectors versus Refractors}
+
+A telescope's primary collecting element is either a lens (\emph{refractor}) or a mirror (\emph{reflector}). Nearly all modern research telescopes are reflectors, for reasons that are all consequences of the primary being a first-surface mirror rather than a bulk transmissive optic:
+\begin{itemize}
+	\item Light never passes through the mirror substrate, so there is no chromatic aberration and negligible bulk absorption (a lens disperses different wavelengths to different foci, and thick glass absorbs UV and parts of the IR).
+	\item Only one surface must be figured to optical precision (a lens requires two), and a mirror can be made far lighter than an equal-aperture lens.
+	\item A mirror can be mechanically supported across its entire back surface, whereas a lens can only be held at its edge --- a much less rigid, more gravity-sag-prone support for large apertures.
+	\item Because the back surface carries no optical function, it can be fitted with actuators that actively deform the mirror to cancel gravitational sag or (partially) atmospheric distortion (\emph{active optics}, a slower, whole-mirror-shape cousin of the adaptive optics of Section~\ref{sec:seeing}).
+\end{itemize}
+The unavoidable price of a reflector is that the secondary mirror or the detector itself must be mounted \emph{in front of} the primary, in the converging beam, physically obstructing part of the aperture (Section~\ref{sec:spiders_domes}).
+
+\subsection{Focus Configurations: Prime, Newtonian, Cassegrain, and Coud\'e}
+
+The same primary mirror can route its light to a detector in several standard ways, distinguished by what (if anything) intercepts the beam before the primary focus:
+\begin{itemize}
+	\item \textbf{Prime focus:} The detector sits directly at the primary's own focal plane, with no secondary mirror at all. This is optically the simplest configuration and wastes no light on a second reflection, but the detector package itself obstructs the incoming beam and is awkward to service on a large telescope.
+	\item \textbf{Newtonian:} A flat secondary mirror, inclined at $45^\circ$ just before the primary focus, folds the beam out through the side of the telescope tube --- convenient for smaller, amateur-scale reflectors.
+	\item \textbf{Cassegrain:} A convex secondary reflects the converging beam back through a central hole in the primary (derived in detail below), keeping the instrument compactly mounted behind the primary mirror.
+	\item \textbf{Coud\'e:} A train of additional folding mirrors (often routed along the telescope's mounting axes) carries the beam to a fixed focus in a separate, environmentally stable room, decoupled from the telescope's own motion. This sacrifices some light to extra reflections but allows very large, heavy, temperature-sensitive instruments (notably high-resolution echelle spectrographs) that could never be mounted directly on the moving telescope structure.
+\end{itemize}
+Whichever focus is used, the telescope mount itself must continuously drive the optical axis to counteract the diurnal motion derived in Chapters~1--2 (i.e.\ to track at the sidereal rate in Hour Angle, Eq.~\eqref{eq:hour_angle_formula}), whether by an equatorial mount aligned with the polar axis or by a computer-driven altitude-azimuth mount.
+
+\subsection{Obstruction Effects and Observatory Domes}
+\label{sec:spiders_domes}
+
+The secondary mirror (or prime-focus detector) must be held in place by a support structure --- the \emph{spider} --- spanning the tube in front of the primary. Because the spider vanes are themselves a set of thin opaque strips inserted into the pupil, they modify the aperture transmission function $t(x,y)$ of Eq.~\eqref{eq:aperture_field_def} exactly as the slit boundaries did in Section~\ref{sec:diffraction}: by the same Fraunhofer machinery, thin linear obstructions produce their own linear diffraction pattern, oriented perpendicular to each vane, superposed on the stellar Airy pattern. These are the familiar four-pointed (or six-pointed) \emph{diffraction spikes} seen radiating from bright stars in reflector images; irregularities in the mirror's own figure can produce weaker spikes by the same mechanism. Finally, telescopes are typically enclosed in a rotating \emph{dome}, which protects the optics and instruments from wind, precipitation, and temperature swings (air currents inside an open tube degrade the effective seeing of Section~\ref{sec:seeing}), and blocks stray light from the surrounding site.
+
+\subsection{Telescope Technologies Across the Electromagnetic Spectrum}
+
+Section~\ref{sec:windows} identified which photons reach which vantage point; here we survey how each band is actually focused into an image, since ordinary front-surface mirrors --- perfectly adequate through the optical and much of the UV/IR --- eventually fail entirely as photon energy increases.
+
+\paragraph{UV and IR.} Ultraviolet and infrared telescopes are optically identical in principle to optical reflectors (mirrors focusing light obey the same geometry regardless of wavelength), differing mainly in their reflective coatings, which must be optimized for reflectivity at the wavelength of interest. As established in Section~\ref{sec:windows}, they must additionally be flown in space (UV: AstroSat-UVIT; IR: JWST) or at high, dry sites, since the atmosphere itself is the limiting factor rather than the optics.
+
+\paragraph{X-rays.} At X-ray energies, ordinary mirrors fail even in principle: photon energies now exceed the atomic binding energies of the mirror material, so the refractive index for X-rays is very slightly \emph{less} than unity, $n = 1-\delta$ with $\delta \sim 10^{-5}$--$10^{-6}$ (equivalently, the X-ray phase velocity in the medium slightly exceeds $c$). Ordinary near-normal-incidence reflectivity is essentially zero. However, exactly as light undergoes total internal reflection when travelling from a dense to a rare medium beyond a critical angle, X-rays undergo \emph{total external reflection} off a denser medium when the grazing angle is sufficiently shallow.
+
+\begin{example}[Critical Grazing Angle for X-ray Reflection]
+	Let $\alpha$ be the grazing angle, measured from the mirror surface (so the angle of incidence from the normal is $90^\circ - \alpha$). Applying Snell's law at the vacuum--mirror interface ($n_1 = 1 \to n_2 = 1-\delta$), total reflection sets in once the refracted ray would require $\sin\theta_{\rm refr} > 1$, i.e.\ once
+	\[
+	\sin(90^\circ - \alpha) = \cos\alpha \ge 1 - \delta.
+	\]
+	For the shallow grazing angles relevant here ($\alpha \ll 1$), expand $\cos\alpha \approx 1 - \alpha^2/2$:
+	\[
+	1 - \frac{\alpha_c^2}{2} = 1 - \delta \quad\Longrightarrow\quad \boxed{\alpha_c \approx \sqrt{2\delta}}.
+	\]
+	Below this critical grazing angle $\alpha_c$, X-rays reflect almost perfectly. This is the physical basis of the \emph{Wolter Type-I} grazing-incidence mirror assemblies (nested, shallow-angle paraboloid--hyperboloid shells) used by Chandra and XMM-Newton to focus soft X-rays.
+\end{example}
+
+\paragraph{Gamma rays.} At still higher (hard X-ray/gamma-ray) energies, reflectivity is too low at any angle of incidence, and focusing mirrors of any kind become impractical. Imaging instead relies on \emph{coded aperture masks}: a pattern of opaque and transparent elements placed in front of a position-sensitive detector casts a known shadow pattern that depends on source direction, and the sky image is recovered computationally by deconvolving the recorded shadow against the known mask pattern (used by AstroSat-CZTI and Swift-BAT).
+
+\paragraph{Radio.} At the opposite end of the spectrum, a radio telescope is simply a metallic reflecting dish (solid or open mesh, since the mesh spacing need only be small compared to the (centimetre-to-metre scale) observing wavelength) with a receiver at the prime focus --- structurally the simplest telescope of all. This simplicity is precisely what makes the baseline interferometry of Section~\ref{sec:baselines} practical in a way that has no simple optical analogue: because radio periods ($\sim$ns--$\mu$s) are slow enough to digitize directly, each dish's signal can be independently timestamped against a precision atomic clock (Chapter~1's $\TAI$-referenced standards) and correlated computationally long after the fact --- exactly how VLBI synthesizes continental baselines without ever physically combining light in real time. Optical interferometry, by contrast, oscillates far too fast ($\sim 10^{14}\,\mathrm{Hz}$) to digitize directly, and so must combine the beams optically, in real time, using physical beam combiners.
 
 \subsection{Cassegrain Reflector Telescope Geometry}
 
@@ -536,16 +609,29 @@ In a Cassegrain reflector telescope, incoming parallel light rays from infinity 
 
 \subsection{Plate Scale and Pixel Scale Formulations}
 
-\paragraph{Plate Scale ($P$):} Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel and is defined as:
+Every camera design boils down to one practical question: how many arcseconds of sky does a millimetre of detector real estate --- or, ultimately, a single pixel --- correspond to? The \textbf{plate scale} answers the first version of this question and the \textbf{pixel scale} answers the second; we will need both later in this chapter to decide whether a given detector is fine enough to keep up with the diffraction limit (Section~\ref{sec:sampling}). Both quantities are just restatements of the ray geometry already sketched in Fig.~\ref{fig:telescope_ray_diagram}, where a source at angle $\theta$ from the optical axis forms its image at focal-plane height $y$.
+
+\paragraph{Exact Geometric Relation:} For a chief ray passing through the centre of an ideal thin lens (or the vertex of a mirror) of focal length $F$, elementary ray tracing gives the \emph{exact} relation between sky angle and focal-plane position:
+\begin{equation}
+	y = F\tan\theta \quad\Longrightarrow\quad \theta = \arctan\left(\frac{y}{F}\right).
+	\label{eq:exact_angle_position_relation}
+\end{equation}
+
+\paragraph{Plate Scale ($P$):} Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel, and is defined as the local derivative of Eq.~\eqref{eq:exact_angle_position_relation}:
+\begin{equation}
+	P \equiv \dv{\theta}{s} = \dv{\theta}{y} = \frac{1}{F}\cdot\frac{1}{1+(y/F)^2} = \frac{\cos^2\theta}{F}.
+	\label{eq:plate_scale_exact}
+\end{equation}
+This exact form shows that the plate scale is, strictly, \emph{not} uniform across the field: since $\cos^2\theta$ decreases away from the optical axis, a millimetre near the edge of a wide field covers slightly fewer arcseconds than a millimetre near the centre. In practice, however, imaging fields of view rarely exceed a few degrees, so $\theta \ll 1\,\mathrm{rad}$ and $\cos^2\theta \to 1$ to extremely high precision (even at $\theta = 1^\circ$, $\cos^2\theta = 0.9994$). In this small-angle (paraxial) limit, Eq.~\eqref{eq:plate_scale_exact} reduces to $1/F$, and $\theta$ itself becomes directly proportional to $y$ (Eq.~\eqref{eq:exact_angle_position_relation} linearizes to $\theta \approx y/F$), so the plate scale can equally well be read off as the simple ratio of the two rather than a derivative. This is the working form used throughout the rest of this chapter:
 \begin{keyresult}
 	\begin{equation}
 		P = \dv{\theta}{s} = \frac{\theta}{y},
 		\label{eq:plate_scale_def}
 	\end{equation}
 \end{keyresult}
-where $\theta$ is measured in arcsec ($=\frac{1}{3600}^\circ$).
+where $\theta$ is measured in arcsec ($=\frac{1}{3600}^\circ$). This is why a telescope's plate scale is normally quoted as a single number (arcsec/mm) rather than a function of position on the detector: outside of dedicated wide-field survey cameras, the $\cos^2\theta$ correction is negligible.
 
-\paragraph{Pixel Scale ($\theta_{\rm pix}$):} The pixel scale is the angular extent corresponding to a single physical pixel, and can be defined as:
+\paragraph{Pixel Scale ($\theta_{\rm pix}$):} The pixel scale is the angular extent corresponding to a single physical pixel --- it is what tells us, in practice, how many arcseconds of sky get dumped into one pixel's worth of charge --- and can be defined as:
 \begin{equation}
 	\theta_{\rm pix} = \frac{y_{\rm pix}}{F} = \frac{p}{F}.
 	\label{eq:pixel_scale_def}
@@ -580,106 +666,444 @@ which relates the two scales.
 	\]
 \end{example}
 
-\section{The Physical and Universal Derivation of Optical Resolution Limits}
+\section{Diffraction Wave Optics: Superposition, Apertures, and Resolution Limits}
+\label{sec:diffraction}
 
-In wave optics, the resolution limit of an imaging system defines its ability to distinguish two closely spaced point sources. According to the \textbf{Rayleigh Criterion}, two sources are considered just resolved when the central maximum of the diffraction pattern of one source falls directly on the first minimum (dark fringe) of the other. 
+The two-antenna argument of Section~\ref{sec:baselines} was really a first taste of the interference story: two point-like collectors, separated by a baseline $B$, produce a fringe pattern, and shifting that fringe by one full cycle marked the resolution limit $\theta_{\rm res} = \lambda/B$. A single telescope aperture is the continuous version of exactly this idea --- instead of two point antennas, an entire continuum of points across the mirror interferes with itself. Formalizing this continuum limit is the job of \textbf{Fraunhofer diffraction}, and it is what ultimately limits the sharpness of every image any telescope, of any size, can ever produce.
 
-While constructive interference requires an optical path difference of $n\lambda$, the boundary of image resolution is fundamentally dictated by the condition for the \textbf{first destructive minimum}, which depends entirely on the geometry of the aperture.
+Before the mathematics, the physical idea in one paragraph: light is a wave, and a wave passing through any finite opening cannot continue onward as a perfectly parallel beam --- it inevitably spreads out (bends) into a range of angles, an effect called \textbf{diffraction}. The narrower the opening is relative to the wavelength, the more the wave spreads. A telescope aperture, however large, is still a finite opening, so even a perfect, aberration-free mirror does not form a point image of a star but rather a smeared-out \textbf{diffraction pattern}; this is the hard physical floor beneath which no amount of manufacturing precision can push the resolution. The subsections below build this pattern up rigorously and in increasing realism: first a single narrow slit, then a grating of many slits (useful for spectroscopy), and finally the circular aperture relevant to actual telescope mirrors.
 
-\subsection{Geometric Derivation: The Single Slit ($1.00\lambda$)}
+In wave optics, the spatial and chromatic resolution of an astronomical instrument is fundamentally limited by Fraunhofer diffraction. While constructive interference determines the directions of principal bright maxima, the resolution threshold is governed by the \textbf{first destructive minimum} (null) created by phase interference across the aperture.
 
-Consider monochromatic light of wavelength $\lambda$ incident normally on a long rectangular slit of width $D$. We seek the angular position $\theta$ of the first minimum on a distant screen:
+\subsection{Physical Principle: Diffraction as Linear Superposition of Wavelets}
+
+Diffraction is simply the \textbf{linear Superposition Principle} applied to wave propagation: by Huygens' construction, every point in an illuminated aperture acts as a new source of an outgoing spherical wavelet, and the field observed at any point downstream is the coherent sum of all these wavelets, each carrying its own phase set by how far it has travelled. In telescope optics, the field across the pupil plane is determined in three direct steps:
 \begin{enumerate}
-    \item \textbf{Slit Subdivision:} Imagine dividing the slit of width $D$ into two equal halves (zones): a top half and a bottom half.
-    \item \textbf{Ray Pairing:} For every light ray originating from a point in the top half, there exists a corresponding ray originating from a point exactly $D/2$ below it in the bottom half.
-    \item \textbf{Destructive Condition:} For these paired rays to cancel each other out completely, they must arrive out of phase, requiring a local path difference of exactly half a wavelength:
-    \begin{equation}
-        \Delta x_{\text{pair}} = \frac{\lambda}{2}.
-        \label{eq:slit_destructive_condition}
-    \end{equation}
-    \item \textbf{Geometric Relation:} From the path geometry at a far diffraction angle $\theta$, the path difference between these two zone halves is given by $\frac{D}{2}\sin\theta$. Equating this to the destructive condition:
-    \begin{equation}
-        \frac{D}{2}\sin\theta = \frac{\lambda}{2} \implies D\sin\theta = \lambda.
-        \label{eq:slit_geometric_relation}
-    \end{equation}
+	\item \textbf{Incident Starlight Wave:} Light from an unresolved distant star arrives at the telescope as a uniform, planar wavefront: $E_{\rm inc}(x,y) = E_0 = \text{const}$.
+	\item \textbf{Pupil Transmission Mask $t(x,y)$:} The physical opening (mirror boundary, rectangular slit, grating grooves, or secondary obstruction) defines a spatial mask: $t=1$ where light enters, and $t=0$ where blocked.
+	\item \textbf{Exit Pupil Field $A(x,y)$:} The field emerging immediately after the aperture is the product:
+	\begin{equation}
+		A(x,y) = E_{\rm inc}(x,y) \cdot t(x,y) = \begin{cases}
+			E_0, & \text{inside open aperture}, \\
+			0, & \text{outside (blocked)}.
+		\end{cases}
+		\label{eq:aperture_field_def}
+	\end{equation}
 \end{enumerate}
 
-Thus, the total path difference between the extreme top and bottom edges of a rectangular slit must be exactly \textbf{$1.00\lambda$} to form the first minimum. Using the small-angle approximation ($\sin\theta \approx \theta$):
-\begin{keyresult}
-	\begin{equation}
-	    \theta \approx \frac{\lambda}{D}.
-	    \label{eq:single_slit_minimum}
-	\end{equation}
-\end{keyresult}
-
-\subsection{The Universal Framework: Fourier Optics}
-
-To derive resolution limits arbitrarily for any aperture shape, we deploy \textbf{Fraunhofer Diffraction}. In the far-field region, the electric field amplitude $E(\vec{k})$ on the screen is mathematically the \textbf{2D Fourier Transform} of the aperture transmission function:
-\begin{keyresult}
-	\begin{equation}
-	    E(\vec{k}) = \iint_{\text{Aperture}} A(\vec{r}) e^{-i \vec{k} \cdot \vec{r}} \, d^2r.
-	    \label{eq:fourier_optics_integral}
-	\end{equation}
-\end{keyresult}
-Where:
-\begin{itemize}
-    \item $A(\vec{r})$ is the transmission aperture function ($1$ inside the opening, $0$ outside).
-    \item $\vec{r} = (x, y)$ denotes spatial coordinates inside the aperture.
-    \item $\vec{k} = (k_x, k_y)$ is the wave vector mapping to angular screen positions, where $k_x = \frac{2\pi}{\lambda}\sin\theta_x$ and $k_y = \frac{2\pi}{\lambda}\sin\theta_y$.
-    \item The exponent term $\vec{k} \cdot \vec{r}$ represents the exact optical phase difference ($\phi = \frac{2\pi}{\lambda}\Delta x$) scaled across the aperture geometry.
-\end{itemize}
-
-\subsection{Specializing to a Circular Aperture: The Airy Disk ($1.22\lambda$)}
-
-For most astronomical telescopes, cameras, and the human eye, the entrance pupil is a circular aperture of diameter $D$ (radius $R = D/2$). Transforming the universal Fourier integral Eq.~\eqref{eq:fourier_optics_integral} into polar coordinates $(r', \phi')$:
-\[
-E(\theta) = \int_0^{D/2} r'\,dr' \int_0^{2\pi} e^{-i k r' \sin\theta \cos\phi'}\,d\phi'.
-\]
-The azimuthal angular integral produces the Bessel function of order zero, $2\pi J_0(k r' \sin\theta)$. Performing the radial integration via $\int x J_0(x)\,dx = x J_1(x)$ yields the \textbf{First-Order Bessel Function of the First Kind} ($J_1$):
-\begin{keyresult}
-	\begin{equation}
-	    I(\theta) = |E(\theta)|^2 = I_0 \left[ \frac{2 J_1\left(\frac{\pi D \sin\theta}{\lambda}\right)}{\frac{\pi D \sin\theta}{\lambda}} \right]^2.
-	    \label{eq:airy_disk_intensity}
-	\end{equation}
-\end{keyresult}
-This diffraction pattern is known as the \textbf{Airy Disk}. The first minimum occurs precisely at the first non-zero root of $J_1(x)$, which evaluates to:
-\begin{equation}
-    x_1 = \frac{\pi D \sin\theta}{\lambda} \approx 3.8317.
-    \label{eq:bessel_first_zero}
-\end{equation}
-Solving explicitly for $\sin\theta$:
-\begin{equation}
-    \sin\theta = \frac{3.8317}{\pi} \frac{\lambda}{D} \approx 1.21966 \frac{\lambda}{D} \approx 1.22 \frac{\lambda}{D}.
-    \label{eq:circular_aperture_sin_theta}
-\end{equation}
-Applying the small-angle approximation ($\sin\theta \approx \theta$) yields the standard \textbf{Rayleigh Criterion for a Circular Aperture}:
-\begin{keyresult}
-	\begin{equation}
-	    \theta_{\rm Rayleigh} \approx 1.22 \frac{\lambda}{D}\quad [\text{rad}] = 1.22\frac{\lambda}{D}\times\frac{180 \times 3600}{\pi}''\quad [\text{arcsec}].
-	    \label{eq:rayleigh_criterion_result}
-	\end{equation}
-\end{keyresult}
-
-Consequently, due to the curved chord-weighting of the circular geometry, the edge-to-edge optical path difference required to reach the first dark resolving ring scales from $1.00\lambda$ up to exactly \textbf{$1.22\lambda$}.
-
-\subsection{Summary Comparison of Aperture Geometries}
-
-\begin{table}[htbp]
+\begin{figure}[htbp]
 \centering
-\small
-\begin{tabular}{llll}
-\toprule
-\textbf{Aperture Geometry} & \textbf{Fourier Transform Result} & \textbf{First Minimum ($\theta$)} & \textbf{Edge-to-Edge Path Difference} \\ 
-\midrule
-Single Slit (Rectangular)  & $\text{sinc}^2(x)$                 & $\frac{\lambda}{D}$               & $1.00\lambda$                         \\
-Circular Hole             & $\left[\frac{2J_1(x)}{x}\right]^2$ & $1.22\frac{\lambda}{D}$           & $1.22\lambda$                         \\ 
-\bottomrule
-\end{tabular}
-\caption{Geometric dependence of resolution limitations, Fourier intensity profiles, and first minimum criteria.}
-\label{tab:aperture_resolution_comparison}
-\end{table}
+\begin{tikzpicture}[scale=1.1, >=Stealth]
+    % Coordinates & parameters
+    \def\apertureTop{1.8}
+    \def\apertureBot{-1.8}
+    \def\thetaDeg{16}
+    \def\rayLen{3.8}
+    
+    % Colors
+    \definecolor{incidentCol}{HTML}{1D4ED8}
+    \definecolor{waveletCol}{HTML}{0D9488}
+    \definecolor{rayCol}{HTML}{DC2626}
+    \definecolor{opaqueCol}{HTML}{334155}
+    
+    % 1. Incident Plane Wave from Distant Star (Left)
+    \foreach \x in {-4.2, -3.4, -2.6, -1.8, -1.0} {
+        \draw[thick, incidentCol!40, dashed] (\x, -2.4) -- (\x, 2.4);
+    }
+    \foreach \y in {-1.4, -0.7, 0, 0.7, 1.4} {
+        \draw[->, line width=1.1pt, incidentCol] (-4.2, \y) -- (-0.1, \y);
+    }
+    \node[incidentCol, fill=white, inner sep=2pt, font=\bfseries\footnotesize, align=center] at (-2.6, 2.7) {Incident Plane Wave ($E_0$)};
 
-\subsection{The Rayleigh Criterion for Point-Source Imaging}
+    % 2. Aperture Mask Plane (x = 0)
+    % Top opaque mask
+    \fill[opaqueCol!30] (-0.12, \apertureTop) rectangle (0.12, 2.5);
+    \draw[thick, opaqueCol] (-0.12, \apertureTop) rectangle (0.12, 2.5);
+    \node[opaqueCol, font=\scriptsize\bfseries, align=center, fill=white, inner sep=1pt] at (-1.1, 2.15) {Opaque Baffle\\($t=0$)};
+    \draw[->, thin, opaqueCol] (-0.45, 2.15) -- (-0.15, 2.15);
+
+    % Bottom opaque mask
+    \fill[opaqueCol!30] (-0.12, \apertureBot) rectangle (0.12, -2.5);
+    \draw[thick, opaqueCol] (-0.12, \apertureBot) rectangle (0.12, -2.5);
+    \node[opaqueCol, font=\scriptsize\bfseries, align=center, fill=white, inner sep=1pt] at (-1.1, -2.15) {Opaque Baffle\\($t=0$)};
+    \draw[->, thin, opaqueCol] (-0.45, -2.15) -- (-0.15, -2.15);
+
+    % Open Aperture Bracket
+    \draw[decorate, decoration={brace, amplitude=6pt, mirror}, thick, incidentCol]
+        (-0.25, \apertureBot) -- (-0.25, \apertureTop) 
+        node[midway, left=8pt, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] {Open Pupil ($t=1$)\\$A(x,y) = E_0$};
+
+    % 3. Huygens Point Sources & Secondary Wavelets
+    \foreach \y [count=\idx] in {1.4, 0.7, 0, -0.7, -1.4} {
+        \coordinate (H\idx) at (0, \y);
+        \fill[waveletCol!90!black] (H\idx) circle (2.2pt);
+        
+        \foreach \r in {0.4, 0.8, 1.2, 1.6, 2.0} {
+            \draw[waveletCol!35, line width=0.7pt] (H\idx) ++(-50:\r) arc (-50:50:\r);
+        }
+        
+        \draw[->, line width=1.1pt, rayCol] (H\idx) -- ++(\thetaDeg:\rayLen);
+    }
+    
+    \node[waveletCol!90!black, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] at (1.8, 2.5) {Huygens Secondary\\Wavelets ($dE$)};
+    \draw[->, thin, waveletCol!80!black] (1.3, 2.2) -- (0.8, 1.6);
+
+    % 4. Perpendicular Diffracted Wavefront & Path Differences
+    \coordinate (Wtop) at (H1);
+    \pgfmathsetmacro{\xDelay}{2.8*sin(\thetaDeg)*cos(\thetaDeg)}
+    \pgfmathsetmacro{\yDelay}{-1.4 + 2.8*sin(\thetaDeg)*sin(\thetaDeg)}
+    \coordinate (Wbot) at (\xDelay, \yDelay);
+    
+    \draw[dashed, line width=1.3pt, waveletCol] ($(Wtop)!-0.2!(Wbot)$) -- ($(Wtop)!1.4!(Wbot)$) 
+        node[below right=2pt and 0pt, font=\bfseries\scriptsize, waveletCol] {Diffracted Wavefront};
+    
+    \draw[line width=3.0pt, waveletCol] (H5) -- (Wbot);
+    \node[waveletCol, font=\bfseries\scriptsize, below=3pt, fill=white, inner sep=1pt] at ($(H5)!0.45!(Wbot)$) {$\Delta L = y\sin\theta$};
+
+    \pgfmathsetmacro{\sq}{0.18}
+    \draw[thick, waveletCol] 
+        ($(Wbot) + ({-\sq*cos(\thetaDeg)}, {-\sq*sin(\thetaDeg)})$) -- 
+        ++({-\sq*sin(\thetaDeg)}, {\sq*cos(\thetaDeg)}) -- 
+        ($(Wbot) + ({-\sq*sin(\thetaDeg)}, {\sq*cos(\thetaDeg)})$);
+
+    \draw[dashed, gray!70] (H3) -- ++(2.2, 0);
+    \draw[->, thick, rayCol] (1.3, 0) arc (0:\thetaDeg:1.3);
+    \node[rayCol, font=\footnotesize\bfseries, right] at ({1.3*cos(0.5*\thetaDeg)}, {1.3*sin(0.5*\thetaDeg)+0.05}) {$\theta$};
+
+    \node[rayCol, font=\bfseries\footnotesize, above right=0pt and 2pt] at ({\rayLen*cos(\thetaDeg)}, {1.4 + \rayLen*sin(\thetaDeg)}) {Diffracted Rays};
+\end{tikzpicture}
+\caption{The physical foundation of diffraction: an incident star plane wave is clipped by the aperture mask $t(x,y)$. Every point in the open pupil emits a secondary Huygens wavelet with geometric path lag $\Delta L = y\sin\theta$, superposing constructively or destructively in the far field.}
+\label{fig:huygens_superposition_principle}
+\end{figure}
+
+According to the \textbf{Huygens--Fresnel principle}, every point $(x,y)$ across the open aperture emits a coherent secondary wavelet. In a direction $(\theta_x, \theta_y)$, a wavelet incurs an optical path lag $\Delta L = x\sin\theta_x + y\sin\theta_y$ and phase shift $\Delta\phi = k(x\sin\theta_x + y\sin\theta_y)$. Superposing all wavelets gives the \textbf{Fraunhofer Fourier integral}:
+\begin{keyresult}
+	\begin{equation}
+		E(\vec{k}) = \iint_{\mathbb{R}^2} A(\vec{r}) e^{-i \vec{k} \cdot \vec{r}} \, d^2r, \qquad I(\vec{\theta}) = |E(\vec{\theta})|^2,
+		\label{eq:fourier_optics_integral}
+	\end{equation}
+	where $\vec{k} = \left(\frac{2\pi}{\lambda}\sin\theta_x, \, \frac{2\pi}{\lambda}\sin\theta_y\right)$ represents the spatial frequency on the sky.
+\end{keyresult}
+
+\subsection{Single-Slit Diffraction: Geometric and Fourier Derivations}
+
+Consider a slit of width $a$ illuminated normally by monochromatic light of wavelength $\lambda$.
+
+\paragraph{Geometric Zone-Pairing:} Subdivide the slit into two equal halves $[ -a/2, 0 ]$ and $[ 0, a/2 ]$. For every ray from $x$ in the top half, pair it with a ray from $x + a/2$ in the bottom half. Complete destructive cancellation occurs when their path difference is $\frac{\lambda}{2}$:
+\begin{equation}
+	\frac{a}{2}\sin\theta = \frac{\lambda}{2} \implies a\sin\theta = \lambda \implies \theta_{\rm min} \approx \frac{\lambda}{a}.
+	\label{eq:single_slit_minimum}
+\end{equation}
+
+\paragraph{Fourier Integration:} Integrating $E(\theta) = \int_{-a/2}^{a/2} \frac{E_0}{a} e^{-i k x \sin\theta} dx = E_0 \frac{\sin\beta}{\beta}$ yields the intensity:
+\begin{keyresult}
+	\begin{equation}
+		I(\theta) = I_0 \operatorname{sinc}^2(\beta) = I_0 \left[ \frac{\sin\left(\frac{\pi a\sin\theta}{\lambda}\right)}{\frac{\pi a\sin\theta}{\lambda}} \right]^2.
+		\label{eq:single_slit_intensity}
+	\end{equation}
+\end{keyresult}
+
+\subsection{$N$-Slit Diffraction Grating: Dispersion and Resolving Power}
+
+A diffraction grating consists of $N$ parallel slits of width $a$ separated by center-to-center pitch $d$, covering a total illuminated width $W \approx N d$.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.95\textwidth}{!}{
+\begin{tikzpicture}[scale=1.05, >=Stealth]
+    % Parameters
+    \def\Nslits{4}
+    \def\d{1.35}     % Slit pitch
+    \def\a{0.32}     % Slit width
+    \def\thetaDeg{16} % Diffraction angle (clean, modest angle)
+    \def\lensX{5.5}  % Distance to lens
+    \def\screenX{9.2} % Distance to screen
+    \def\yMid{2.025} % (0 + 3*1.35)/2 = 2.025 (center of grating & optical axis)
+    
+    \pgfmathsetmacro{\fLen}{\screenX - \lensX}
+    \pgfmathsetmacro{\focalY}{\yMid + \fLen*tan(\thetaDeg)}
+    
+    % Colors
+    \definecolor{gratingCol}{HTML}{2B3A42}
+    \definecolor{rayCol}{HTML}{C0392B}
+    \definecolor{waveCol}{HTML}{0D9488}
+    \definecolor{guideCol}{HTML}{94A3B8}
+    \definecolor{accentCol}{HTML}{1B4F72}
+    
+    % Optical Axis
+    \draw[dashdotted, guideCol!80, line width=0.9pt] (-2.2, \yMid) -- (\screenX+0.6, \yMid) 
+        node[right, font=\scriptsize\bfseries\color{guideCol!90!black}] {Optical Axis};
+
+    % Grating Plane at x = 0
+    \fill[gratingCol!30] (-0.08, -0.6) rectangle (0.08, {-0.5*\a});
+    \draw[thick, gratingCol] (-0.08, -0.6) -- (-0.08, {-0.5*\a}) -- (0.08, {-0.5*\a}) -- (0.08, -0.6);
+    
+    \fill[gratingCol!30] (-0.08, {3*\d + 0.5*\a}) rectangle (0.08, 4.8);
+    \draw[thick, gratingCol] (-0.08, {3*\d + 0.5*\a}) -- (-0.08, 4.8) -- (0.08, 4.8) -- (0.08, {3*\d + 0.5*\a});
+    
+    % Slits and rays
+    \foreach \i in {0, 1, 2, 3} {
+        \pgfmathsetmacro{\yCenter}{\i*\d}
+        \coordinate (S\i) at (0, \yCenter);
+        
+        \draw[->, line width=1.1pt, astroblue] (-2.0, \yCenter) -- (-0.05, \yCenter);
+        
+        \pgfmathsetmacro{\yLens}{\yCenter + \lensX*tan(\thetaDeg)}
+        \coordinate (L\i) at (\lensX, \yLens);
+        \draw[line width=1.1pt, rayCol] (S\i) -- (L\i);
+        \draw[->, line width=1.1pt, rayCol] (S\i) -- ($(S\i)!0.55!(L\i)$);
+        
+        \coordinate (P) at (\screenX, \focalY);
+        \draw[line width=1.1pt, rayCol] (L\i) -- (P);
+        \draw[->, line width=1.1pt, rayCol] (L\i) -- ($(L\i)!0.6!(P)$);
+        
+        \ifnum\i<3
+            \pgfmathsetmacro{\yTop}{\yCenter + 0.5*\a}
+            \pgfmathsetmacro{\yNextBottom}{(\i+1)*\d - 0.5*\a}
+            \fill[gratingCol!75] (-0.08, \yTop) rectangle (0.08, \yNextBottom);
+            \draw[thick, gratingCol] (-0.08, \yTop) rectangle (0.08, \yNextBottom);
+        \fi
+    }
+    
+    % Incoming wavefronts
+    \foreach \xw in {-1.6, -1.1, -0.6} {
+        \draw[line width=1.0pt, astroblue!60, dashed] (\xw, -0.4) -- (\xw, 4.6);
+    }
+    \node[astroblue, font=\bfseries\scriptsize, align=center] at (-1.1, 4.9) {Incident Plane Wave\\($\lambda$)};
+
+    % Normal reference lines & angle arcs at each slit
+    \foreach \i in {0, 1, 2, 3} {
+        \draw[dashed, guideCol, thick] (S\i) -- ++(1.8, 0);
+        \draw[->, thick, accentCol] ({0.75}, {\i*\d}) arc (0:\thetaDeg:0.75);
+        \node[accentCol, font=\scriptsize\bfseries, right] at ({0.75*cos(0.5*\thetaDeg)}, {\i*\d + 0.75*sin(0.5*\thetaDeg)}) {$\theta$};
+    }
+    
+    % Diffracted Wavefront
+    \foreach \i in {0, 1, 2} {
+        \pgfmathsetmacro{\ti}{(3 - \i)*\d*sin(\thetaDeg)}
+        \pgfmathsetmacro{\wXi}{\ti*cos(\thetaDeg)}
+        \pgfmathsetmacro{\wYi}{\i*\d + \ti*sin(\thetaDeg)}
+        \coordinate (W\i) at ({\wXi}, {\wYi});
+        \draw[line width=3.2pt, waveCol] (S\i) -- (W\i);
+        
+        \pgfmathsetmacro{\sqSize}{0.18}
+        \draw[thick, waveCol] 
+            ($(W\i) + ({-\sqSize*cos(\thetaDeg)}, {-\sqSize*sin(\thetaDeg)})$) -- 
+            ++({-\sqSize*sin(\thetaDeg)}, {\sqSize*cos(\thetaDeg)}) -- 
+            ($(W\i) + ({-\sqSize*sin(\thetaDeg)}, {\sqSize*cos(\thetaDeg)})$);
+    }
+    
+    \coordinate (Wext) at ($(S3)!1.26!(W0)$);
+    \draw[dashed, line width=1.4pt, waveCol] (S3) -- (Wext);
+    \node[waveCol, font=\bfseries\scriptsize, above right=1pt and 2pt] at (Wext) {Diffracted Wavefront};
+        
+    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S0)!0.5!(W0)$) {$3d\sin\theta$};
+    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S1)!0.5!(W1)$) {$2d\sin\theta$};
+    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S2)!0.5!(W2)$) {$d\sin\theta$};
+
+    % Focusing Lens
+    \draw[thick, fill=blue!10, draw=astroblue] 
+        (\lensX, -0.6) to[out=25, in=-25] (\lensX, 6.1) 
+        to[out=-155, in=155] (\lensX, -0.6);
+    \node[astroblue, font=\bfseries\footnotesize, align=center] at (\lensX, -1.0) {Focusing Lens\\(Focal length $f$)};
+    \draw[dashdotted, gray!60] (\lensX, -0.8) -- (\lensX, 6.3);
+
+    % Spectral Focal Plane Screen
+    \draw[very thick, ink] (\screenX, -0.6) -- (\screenX, 6.1);
+    \node[ink, font=\bfseries\footnotesize, align=center] at (\screenX, -1.0) {Spectral Focal\\Plane (Detector)};
+    
+    \fill[red!80!black] (P) circle (2.5pt);
+    \node[right=3pt, red!80!black, font=\bfseries\footnotesize, align=left] at (P) {$P(\theta)$ ($m$-th Order\\Spectral Peak)};
+
+    \draw[<->, thick, gray!80!black] (\lensX, -0.4) -- (\screenX, -0.4) 
+        node[midway, above, font=\scriptsize\bfseries] {$f$};
+
+    \draw[decorate, decoration={brace, amplitude=3pt, mirror}, thick]
+        (-0.2, -0.16) -- (-0.2, 0.16) node[midway, left=4pt, font=\scriptsize\bfseries] {$a$};
+        
+    \draw[decorate, decoration={brace, amplitude=4pt, mirror}, thick]
+        (-0.5, 0) -- (-0.5, \d) node[midway, left=5pt, font=\scriptsize\bfseries] {$d$};
+
+    \draw[decorate, decoration={brace, amplitude=6pt, mirror}, thick]
+        (-0.9, 0) -- (-0.9, {3*\d}) node[midway, left=7pt, font=\footnotesize\bfseries] {$W = (N-1)d$};
+
+    \node[gratingCol, font=\bfseries\footnotesize, align=center] at (0, -1.0) {$N$-Slit\\Grating};
+\end{tikzpicture}
+}
+\caption{Optical path delays across an $N$-slit diffraction grating. Rays diffracted at angle $\theta$ incur progressive lags $\Delta L_n = n d\sin\theta$ and focus onto the detector plane forming sharp spectral lines.}
+\label{fig:n_slit_geometry}
+\end{figure}
+
+\subsubsection{Derivation of the Grating Intensity Profile}
+Summing the Fraunhofer fields across all $N$ slits with adjacent phase delay $\delta = \frac{2\pi d}{\lambda}\sin\theta = 2\gamma$:
+\begin{align}
+	E(\theta) &= \left[E_0 \frac{\sin\beta}{\beta}\right] \sum_{n=0}^{N-1} e^{-i n \delta} = \left[E_0 \frac{\sin\beta}{\beta}\right] \left(\frac{1 - e^{-i N\delta}}{1 - e^{-i\delta}}\right) \notag\\
+	&= E_0 \left(\frac{\sin\beta}{\beta}\right) \left[\frac{\sin(N\gamma)}{\sin\gamma}\right] e^{-i(N-1)\gamma},
+	\label{eq:n_slit_field_sum}
+\end{align}
+where $\beta = \frac{\pi a}{\lambda}\sin\theta$ and $\gamma = \frac{\pi d}{\lambda}\sin\theta$. Squaring yields the intensity:
+\begin{keyresult}
+	\begin{equation}
+		I(\theta) = I_0 \underbrace{\left(\frac{\sin\beta}{\beta}\right)^2}_{\text{Single-slit envelope}} \times \underbrace{\left(\frac{\sin N\gamma}{\sin\gamma}\right)^2}_{\text{$N$-beam interference factor}}.
+		\label{eq:grating_intensity_formula}
+	\end{equation}
+\end{keyresult}
+
+\subsubsection{Key Properties: Maxima, Minima, and Resolving Power}
+\begin{enumerate}
+	\item \textbf{Principal Maxima (The Grating Equation):} When $\sin\gamma = 0 \implies \gamma = m\pi$, the factor $\frac{\sin N\gamma}{\sin\gamma} \to N$. The peak intensity scales as $I_{\rm peak} = N^2 I_0$, yielding the standard \textbf{Grating Equation}:
+	\begin{equation}
+		d\left(\sin\theta_m + \sin\theta_i\right) = m\lambda \qquad (m \in \mathbb{Z}).
+		\label{eq:grating_equation}
+	\end{equation}
+	\item \textbf{Destructive Minima \& Angular Width:} The first zero next to the $m$-th peak occurs when $N\gamma = N m\pi + \pi$, corresponding to:
+	\begin{equation}
+		\Delta\theta_{\rm grating} = \frac{\lambda}{N d\cos\theta_m} = \frac{\lambda}{W_{\rm eff}}.
+		\label{eq:grating_angular_width}
+	\end{equation}
+	\item \textbf{Chromatic Resolving Power ($\mathcal{R} \equiv \lambda/\Delta\lambda$):} By the Rayleigh criterion, two wavelengths $\lambda$ and $\lambda + \Delta\lambda$ are just resolved when the maximum of one falls on the first minimum of the other:
+	\begin{equation}
+		m(\lambda + \Delta\lambda) = m\lambda + \frac{\lambda}{N} \implies m\Delta\lambda = \frac{\lambda}{N}.
+	\end{equation}
+\end{enumerate}
+\begin{keyresult}
+	\begin{equation}
+		\mathcal{R} \equiv \frac{\lambda}{\Delta\lambda} = m N = \frac{W\left(\sin\theta_m + \sin\theta_i\right)}{\lambda}.
+		\label{eq:grating_resolving_power}
+	\end{equation}
+	The resolving power equals the product of the diffraction order $m$ and the number of illuminated grooves $N$, and scales directly with the total physical grating width $W$.
+\end{keyresult}
+
+\subsection{Circular Aperture: The Airy Disk and the Rayleigh Criterion}
+
+The slit and grating results above are essential for spectroscopy, but an actual telescope mirror is a circular (or annular, for a Cassegrain) opening, not a slit --- so we must redo the same Fraunhofer superposition in two dimensions. For a circular telescope pupil of diameter $D$ ($R = D/2$), transforming the 2D Fourier integral into polar coordinates $(r', \phi')$ yields:
+\begin{equation}
+	E(\theta) = \int_0^{D/2} r'\,dr' \int_0^{2\pi} e^{-i k r' \sin\theta \cos\phi'}\,d\phi' = 2\pi \int_0^{D/2} r' J_0(k r' \sin\theta)\,dr'.
+\end{equation}
+Using the identity $\int u J_0(u) du = u J_1(u)$, where $J_1$ is the first-order Bessel function:
+\begin{keyresult}
+	\begin{equation}
+		I(\theta) = I_0 \left[ \frac{2 J_1(v)}{v} \right]^2, \qquad \text{with} \quad v = \frac{\pi D \sin\theta}{\lambda}.
+		\label{eq:airy_disk_intensity}
+	\end{equation}
+\end{keyresult}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\linewidth]{Diffraction.pdf}
+    \caption{Ray optics focusing through a circular entrance pupil and the resulting rotated Airy diffraction profile in the focal plane.}
+    \label{fig:diffraction_pdf_diagram}
+\end{figure}
+
+The first dark ring occurs at the first non-zero zero of $J_1(v)$, which is $v_1 \approx 3.8317$:
+\begin{equation}
+	\frac{\pi D \sin\theta_1}{\lambda} \approx 3.8317 \implies \sin\theta_1 \approx 1.2197\frac{\lambda}{D}.
+	\label{eq:airy_first_null}
+\end{equation}
+Under the small-angle approximation, this gives the standard \textbf{Rayleigh Resolution Criterion}:
+\begin{keyresult}
+	\begin{equation}
+		\theta_{\rm Rayleigh} \approx 1.22 \frac{\lambda}{D}\quad [\text{rad}] = 206{,}265 \times 1.22\frac{\lambda}{D}\quad [\text{arcsec}].
+		\label{eq:rayleigh_criterion_result}
+	\end{equation}
+\end{keyresult}
+The central Airy core encloses $83.8\%$ of the total incident energy. For a Cassegrain reflector with secondary mirror obscuration $\epsilon = d_{\rm sec}/D$, the annular field $E_{\rm ann}(v) \propto \frac{2J_1(v)}{v} - \epsilon^2\frac{2J_1(\epsilon v)}{\epsilon v}$ slightly narrows the core ($\theta \approx 1.15\lambda/D$), but scatters more energy into the bright outer diffraction rings ($6\text{--}8\%$).
+
+\subsection{Resolution Criteria for Point-Source Imaging}
+
+When two incoherent point sources of equal intensity are separated by angle $\Delta\theta$, their intensities sum linearly: $I_{\rm tot}(\theta) = I(\theta + \Delta\theta/2) + I(\theta - \Delta\theta/2)$.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+    scale=1.05, 
+    >=Stealth,
+    declare function={
+        sinc(\x) = (\x==0 ? 1.0 : sin(deg(\x))/\x);
+        psf1(\x,\sep) = pow(sinc(3.14159*(\x + 0.5*\sep)), 2);
+        psf2(\x,\sep) = pow(sinc(3.14159*(\x - 0.5*\sep)), 2);
+        psftot(\x,\sep) = psf1(\x,\sep) + psf2(\x,\sep);
+    }
+]
+    % 1. Rayleigh Criterion (\sep = 1.0)
+    \begin{scope}[shift={(0,0)}]
+        \def\sep{1.0}
+        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Rayleigh Criterion\\[2pt]\footnotesize\mdseries $\left(\Delta\theta = \frac{\lambda}{a}\right)$};
+        
+        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
+        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
+        
+        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
+        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
+        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
+        
+        \node[font=\scriptsize\bfseries, red!80!black, align=center] at (-1.65, 1.45) {Source 1};
+        \draw[->, thick, red!80!black] (-1.35, 1.35) -- (-0.65, 1.08);
+        
+        \node[font=\scriptsize\bfseries, blue!80!black, align=center] at (1.65, 1.45) {Source 2};
+        \draw[->, thick, blue!80!black] (1.35, 1.35) -- (0.65, 1.08);
+        
+        \draw[dashed, gray!60, thin] (-0.5, 1.0) -- (0.5, 1.0);
+        \draw[<->, thick, astroblue] (0, 0.81) -- (0, 1.0);
+        \node[font=\scriptsize\bfseries, astroblue, align=center] at (0, 2.05) {$19\%$ Central Dip\\[1pt]\mdseries ($I_{\rm dip} = 0.81\,I_{\rm peak}$)};
+        \draw[->, thick, astroblue] (0, 1.68) -- (0, 1.08);
+        \fill[astroblue] (0, 0.81) circle (1.8pt);
+        
+        \draw[dashed, gray!70] (-0.5, 0) -- (-0.5, -0.65);
+        \draw[dashed, gray!70] (0.5, 0) -- (0.5, -0.65);
+        \draw[<->, thick, gray!80!black] (-0.5, -0.5) -- (0.5, -0.5) 
+            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = \frac{\lambda}{a}$};
+    \end{scope}
+
+    % 2. Sparrow Criterion (\sep = 0.83)
+    \begin{scope}[shift={(6.2,0)}]
+        \def\sep{0.83}
+        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Sparrow Criterion\\[2pt]\footnotesize\mdseries $\left(\Delta\theta = 0.83\,\frac{\lambda}{a}\right)$};
+        
+        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
+        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
+        
+        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
+        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
+        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
+        
+        \node[font=\scriptsize\bfseries, astroblue, align=center] at (0, 2.15) {Flat Plateau\\[1pt]\mdseries $\left.\frac{d^2 I}{d\theta^2}\right|_{\theta=0} = 0$};
+        \draw[->, thick, astroblue] (0, 1.70) -- (0, 1.15);
+        \fill[astroblue] (0, 1.05) circle (2pt);
+        
+        \draw[dashed, gray!70] (-0.415, 0) -- (-0.415, -0.65);
+        \draw[dashed, gray!70] (0.415, 0) -- (0.415, -0.65);
+        \draw[<->, thick, gray!80!black] (-0.415, -0.5) -- (0.415, -0.5) 
+            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = 0.83\,\frac{\lambda}{a}$};
+    \end{scope}
+
+    % 3. Unresolved (\sep = 0.50)
+    \begin{scope}[shift={(12.4,0)}]
+        \def\sep{0.50}
+        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Unresolved\\[2pt]\footnotesize\mdseries $(\Delta\theta < \theta_{\rm Sparrow})$};
+        
+        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
+        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
+        
+        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
+        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
+        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
+        
+        \node[font=\scriptsize\bfseries, ink, align=center] at (0, 2.50) {Single Blended Peak\\[1pt]\mdseries (No central dip)};
+        \draw[->, thick, ink] (0, 2.08) -- (0, 1.75);
+        \fill[ink] (0, 1.65) circle (1.8pt);
+        
+        \draw[dashed, gray!70] (-0.25, 0) -- (-0.25, -0.65);
+        \draw[dashed, gray!70] (0.25, 0) -- (0.25, -0.65);
+        \draw[<->, thick, gray!80!black] (-0.25, -0.5) -- (0.25, -0.5) 
+            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = 0.5\,\frac{\lambda}{a}$};
+    \end{scope}
+\end{tikzpicture}
+}
+\caption{Comparison of two-source resolution criteria: Rayleigh criterion ($19\%$ dip for slits, $26.5\%$ for Airy disk), Sparrow criterion (flat inflection plateau $\frac{d^2 I}{d\theta^2}=0$), and an unresolved profile.}
+\label{fig:rayleigh_sparrow_comparison}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering
@@ -690,64 +1114,81 @@ Circular Hole             & $\left[\frac{2J_1(x)}{x}\right]^2$ & $1.22\frac{\lam
         sinc(\x) = (\x==0 ? 1 : sin(deg(\x))/\x);
     }
 ]
-
-    % Geometry Parameters
-    % Red peak at x = -1.2, Blue peak at x = 1.2
-    % Peak separation alpha = theta_1 = 2.4 units (Rayleigh Criterion)
     \def\xR{-1.2}
     \def\xB{1.2}
     \def\dx{2.4} 
 
-    % Base axis line
     \draw[->, thick] (-6.5,0) -- (6.5,0);
 
-    % Red diffraction pattern: I(x) = (sinc(pi*(x - xR)/dx))^2
     \draw[red, thick, domain=-6.2:4.5, samples=300, smooth] 
         plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xR) / \dx), 2)});
 
-    % Blue diffraction pattern: I(x) = (sinc(pi*(x - xB)/dx))^2
     \draw[blue, thick, domain=-4.5:6.2, samples=300, smooth] 
         plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xB) / \dx), 2)});
 
-    % Vertical dashed lines
     \draw[dashed, thick] (\xR, -1.2) -- (\xR, 3.0);
     \draw[dashed, thick] (\xB, -1.2) -- (\xB, 3.0);
     \draw[dashed, thick] ({\xR - \dx}, -1.2) -- ({\xR - \dx}, 0);
     \draw[dashed, thick] ({\xB + \dx}, -1.2) -- ({\xB + \dx}, 0);
 
-    % Bottom arrows explicitly labeling theta_1 = 1.22 lambda / D
     \draw[<->, thick] ({\xR - \dx}, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xR, -0.7);
     \draw[<->, thick] (\xR, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xB, -0.7);
     \draw[<->, thick] (\xB, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} ({\xB + \dx}, -0.7);
 
-    % Labels and pointer lines
-    % Red central maximum label
     \draw[thin] (-1.5, 3.3) -- (\xR, 3.0);
     \node[red, font=\bfseries\sffamily, left] at (-1.5, 3.3) {central maximum};
 
-    % Blue central maximum label
     \draw[thin] (1.5, 3.3) -- (\xB, 3.0);
     \node[blue, font=\bfseries\sffamily, right] at (1.5, 3.3) {central maximum};
 
-    % Blue first minimum label (coincident with Red central peak)
     \draw[thin] (-1.8, 0.7) -- (\xR, 0.05);
     \node[blue, font=\bfseries\sffamily, left] at (-1.8, 0.7) {first minimum};
 
-    % Red first minimum label (coincident with Blue central peak)
     \draw[thin] (1.8, 0.7) -- (\xB, 0.05);
     \node[red, font=\bfseries\sffamily, right] at (1.8, 0.7) {first minimum};
-
     \end{tikzpicture}
     \caption{Diffraction patterns of two barely resolved point sources under the Rayleigh criterion, where the central maximum of one source coincides with the first minimum ($\theta_1 = 1.22\lambda/D$) of the second.}
     \label{fig:rayleigh_diffraction_sinc}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{Diffraction.pdf}
-    \caption{Ray optics focusing through a circular entrance pupil and the resulting rotated Airy diffraction profile in the focal plane.}
-    \label{fig:diffraction_pdf_diagram}
-\end{figure}
+\begin{itemize}
+	\item \textbf{Rayleigh Criterion ($\theta_{\rm Rayleigh}$):} Peak of one PSF coincides with the first minimum of the second. Produces a \textbf{$19\%$ central dip} for 1D slits ($I_{\rm mid} = 0.81 I_0$) and a \textbf{$26.5\%$ central dip} for 2D circular Airy disks ($I_{\rm mid} \approx 0.735 I_0$).
+	\item \textbf{Sparrow Criterion ($\theta_{\rm Sparrow}$):} Point where the central dip disappears into a flat inflection plateau ($\left.\frac{d^2 I}{d\theta^2}\right|_{\theta=0} = 0$), yielding $\theta_{\rm Sp} \approx 0.83 \lambda/a$ (slit) and $\theta_{\rm Sp} \approx 0.94 \lambda/D$ (circular pupil).
+\end{itemize}
+
+\subsection{Summary Comparison and Worked Examples}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lp{4.0cm}llc}
+\toprule
+\textbf{Aperture Geometry} & \textbf{Intensity Profile $I(\theta)$} & \textbf{First Minimum ($\theta_{\rm min}$)} & \textbf{Resolution Limit} & \textbf{Core Energy} \\ 
+\midrule
+\textbf{Single Slit} ($a$)       & $I_0 \operatorname{sinc}^2\left(\frac{\pi a\sin\theta}{\lambda}\right)$ & $\frac{\lambda}{a}$ & $1.00 \frac{\lambda}{a}$ & $90.3\%$ \\
+\textbf{$N$-Slit Grating} ($d, N$) & $I_0 \operatorname{sinc}^2(\beta)\left[\frac{\sin N\gamma}{\sin\gamma}\right]^2$ & Peak Width: $\frac{\lambda}{Nd\cos\theta}$ & $\mathcal{R} = m N$ & $\propto N^2$ \\
+\textbf{Circular Pupil} ($D$)    & $I_0 \left[\frac{2J_1(v)}{v}\right]^2$ & $1.22\frac{\lambda}{D}$ & $1.22 \frac{\lambda}{D}$ & $83.8\%$ \\
+\textbf{Annular Pupil} ($\epsilon D, D$) & $I_0 \left[\frac{2J_1(v)}{v} - \epsilon^2 \frac{2J_1(\epsilon v)}{\epsilon v}\right]^2$ & $\approx 1.22(1-0.42\epsilon^2)\frac{\lambda}{D}$ & $\approx 1.15 \frac{\lambda}{D}$ & $\approx 65\text{--}75\%$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparison of diffraction geometries, analytical intensity forms, first minima, and resolution limits.}
+\label{tab:aperture_resolution_comparison}
+\end{table}
+
+\begin{example}[Resolving the Solar Sodium D-lines with a Grating Spectrograph]
+	The Fraunhofer Sodium D-doublet consists of two absorption lines at $\lambda_1 = 589.59\,\mathrm{nm}$ and $\lambda_2 = 588.99\,\mathrm{nm}$ ($\Delta\lambda = 0.60\,\mathrm{nm}$, $\bar{\lambda} = 589.3\,\mathrm{nm}$).
+	\begin{enumerate}
+		\item \textbf{Required Resolving Power:}
+		\[
+		\mathcal{R} = \frac{\bar{\lambda}}{\Delta\lambda} = \frac{589.3\,\mathrm{nm}}{0.60\,\mathrm{nm}} \approx 982.
+		\]
+		\item \textbf{Required Grating Grooves in Order $m=2$:}
+		\[
+		N = \frac{\mathcal{R}}{m} = \frac{982}{2} = 491 \text{ illuminated grooves}.
+		\]
+		For a grating ruled at $600\,\text{grooves/mm}$, the required illuminated beam diameter is $W = N d = \frac{491}{600}\,\mathrm{mm} \approx 0.82\,\mathrm{mm}$.
+	\end{enumerate}
+\end{example}
 
 \begin{example}[Diffraction Resolution at $\lambda = 500\,\mathrm{nm}$]
 	For an optical telescope with aperture $D = 0.30\,\mathrm{m}$ observing at $\lambda = 500\,\mathrm{nm} = 500 \times 10^{-9}\,\mathrm{m}$:
@@ -757,6 +1198,9 @@ Circular Hole             & $\left[\frac{2J_1(x)}{x}\right]^2$ & $1.22\frac{\lam
 \end{example}
 
 \section{Comparing Pixel Scale to the Diffraction Limit: Nyquist Sampling}
+\label{sec:sampling}
+
+We now have both halves of the picture needed to judge whether a telescope--camera combination is actually delivering the resolution it is capable of. Section~\ref{sec:optics} gave us the \textbf{pixel scale} $\theta_{\rm pix} = p/F$: how many arcseconds of sky a single physical pixel records. Section~\ref{sec:diffraction} gave us the \textbf{diffraction limit} $\theta_{\rm res}$ (e.g.\ $1.22\lambda/D$ for a circular aperture): the smallest true angular feature the optics can physically resolve. If the pixels are too coarse compared to this blur, fine spatial information is thrown away before it is even recorded, no matter how good the optics are; this is exactly the kind of question the Nyquist--Shannon sampling theorem was built to answer.
 
 \subsection{The Nyquist Sampling Criterion}
 
@@ -814,6 +1258,9 @@ Thus, \textbf{one pixel covers almost five diffraction-limited resolution elemen
 \end{table}
 
 \section{Atmospheric Seeing, PSF Profiles, and Adaptive Optics}
+\label{sec:seeing}
+
+We opened this chapter (Section~\ref{sec:windows}) by noting that the optical window is \emph{transparent} --- visible light is not absorbed on its way down. Transparency, however, is not the same as stillness. The same atmosphere that lets the light through is also turbulently mixing pockets of air at slightly different temperatures (and hence slightly different refractive indices) along the line of sight. A telescope's diffraction limit $\theta_{\rm res} = 1.22\lambda/D$ from Section~\ref{sec:diffraction} is only achieved if the incoming wavefront is genuinely flat when it reaches the aperture; from the ground, it rarely is.
 
 \subsection{Atmospheric Seeing and the Fried Parameter ($r_0$)}
 

@@ -1,7 +1,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-These notes provide a self-contained, pedagogically ordered, and rigorous exposition of the foundational physics and observational methods underlying the Astrophysics course. Rather than following isolated problem sets, the material is organized systematically into seven cohesive thematic chapters:
+These notes provide a self-contained, pedagogically ordered, and rigorous exposition of the foundational physics and observational methods underlying the Astrophysics course. Rather than following isolated problem sets, the material is organized systematically into eight cohesive thematic chapters:
 
 \begin{itemize}[leftmargin=1.5em, itemsep=0.4em]
 	\item \textbf{Chapter 1 (Time Systems and the Rotating Earth):} Analyzes solar versus sidereal time, Local and Greenwich Sidereal Time ($\LST, \GST$), the seasonal ecliptic motion of the Sun, the Equation of Time ($\EoT$), Earth axis precession and nutation, modern relativistic time standards ($\UT1, \TAI, \UTC, \TT, \TDB$), and Julian Dates ($\JD, \MJD$).
@@ -11,6 +11,38 @@ These notes provide a self-contained, pedagogically ordered, and rigorous exposi
 	\item \textbf{Chapter 5 (Angular Resolution: Baselines, Optics, and Sampling):} Covers ground station baseline geometry, radio and optical interferometry, telescope optical scaling (focal ratio, plate scale, pixel scale), diffraction theory (Airy disks, Rayleigh criterion), digital Nyquist sampling, atmospheric seeing, and Adaptive Optics ($\mathrm{AO}$).
 	\item \textbf{Chapter 6 (The Two-Body Problem and Orbital Mechanics):} Develops the classical Kepler problem from central force Lagrangian mechanics, derives conic section orbits, Kepler's laws, Kepler's equation and Fourier solutions, the Laplace-Runge-Lenz vector, orbital perturbation theory (Gauss and Lagrange planetary equations, secular pericenter precession from $J_2$ and General Relativity), and binary pulsar Rømer delays.
 	\item \textbf{Chapter 7 (Signal, Noise, and Detection in CCD Photometry):} Formulates a first-principles statistical treatment of CCD noise, derives the Poisson distribution from the binomial limit, establishes the Master CCD Signal-to-Noise Equation, evaluates Gaussian false-alarm probabilities in wide-field surveys ($5\sigma$ standard), and analyzes the three observational regimes (photon shot noise, sky background, and readout noise) with practical exposure planning strategies.
+	\item \textbf{Chapter 8 (The Interstellar Medium and Gravitational Collapse):} Characterizes the composition, phases, extinction, and line emission of the interstellar medium, derives the scalar virial theorem for a self-gravitating gas cloud from first principles, obtains the Jeans mass and Jeans length as the resulting stability criterion, and derives the free-fall collapse time via the degenerate ($L\to0$) limit of the Keplerian orbit of Chapter~6, concluding with fragmentation and the onset of protostellar collapse.
 \end{itemize}
 
 Throughout these notes, all mathematical derivations are worked out from first principles, and worked examples reproduce numerical calculations so that the reader can verify every step.
+
+\section*{Orders of Magnitude: The Scale of the Universe}
+
+Before the systematic development begins, it is useful to fix the numerical scale of the objects under discussion.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l l@{}}
+		\toprule
+		\textbf{Quantity} & \textbf{Value} \\
+		\midrule
+		Solar mass, $M_\odot$ & $1.99 \times 10^{30}\,\mathrm{kg}$ \\
+		Solar radius, $R_\odot$ & $6.957 \times 10^{5}\,\mathrm{km}$ \\
+		Astronomical Unit, $1\,\mathrm{AU}$ & $1.496 \times 10^{8}\,\mathrm{km}$ \\
+		Light-year, $1\,\mathrm{ly}$ & $9.461 \times 10^{12}\,\mathrm{km}$ \\
+		Parsec, $1\,\mathrm{pc}$ & $3.086 \times 10^{13}\,\mathrm{km} = 3.26156\,\mathrm{ly}$ \\
+		\bottomrule
+	\end{tabular}
+	\caption{Fundamental astronomical units of mass, length, and distance used throughout this volume.}
+	\label{tab:preface_units}
+\end{table}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=0.2em]
+	\item \textbf{Solar System:} $8$ planets, $9$ dwarf planets, $468$ known moons, $\sim 1.5$ million cataloged asteroids, and an effectively unbounded reservoir of comets in the Kuiper belt ($30\text{--}50\,\mathrm{AU}$) and the Oort cloud ($2000\text{--}200{,}000\,\mathrm{AU} \sim 3\,\mathrm{ly}$ at its outer edge). Total system mass is $\approx 1.0014\,M_\odot$; the nearest star, Proxima Centauri, lies $4.24\,\mathrm{ly}$ away.
+	\item \textbf{The Milky Way:} $\sim 10^{11}\text{--}4\times10^{11}$ stars, total mass $\approx 1.15\times10^{12}\,M_\odot$, a central supermassive black hole of mass $\approx 4.3\times10^{6}\,M_\odot$, a radius of $\sim 27\,\mathrm{kpc}$, with the Sun located $\sim 8\,\mathrm{kpc}$ from the Galactic Center (the frame adopted for the $(U,V,W)$ velocities of Chapter~3).
+	\item \textbf{The Observable Universe:} An estimated $\sim 2\times10^{12}$ galaxies within a diameter of $\sim 93\,\mathrm{Gly}$. Of the total mass-energy budget, ordinary (baryonic) matter contributes only $4.9\%$ (mean density $\sim 8.5\times10^{-27}\,\mathrm{kg/m^3}$, or about $5$ protons per cubic metre); the remainder is dark matter ($26.8\%$) and dark energy ($68.3\%$), neither of which is addressed further in this volume.
+\end{itemize}
+
+\section*{The Messengers of Astrophysics}
+
+Everything derived in this book concerns exactly one of four physical channels by which information reaches us from the cosmos: \emph{electromagnetic waves}, \emph{gravitational waves}, \emph{neutrinos}, and \emph{cosmic rays}. These four messengers are produced by different physical processes, propagate (and are absorbed) differently, and therefore carry complementary information about the same astrophysical source; simultaneous detection of a single event through more than one channel --- \emph{multi-messenger astronomy} --- has become one of the most powerful tools in modern astrophysics (e.g.\ GW170817, a neutron-star merger detected in both gravitational waves and across the electromagnetic spectrum). This book is concerned exclusively with the electromagnetic channel: the propagation of that radiation through the atmosphere and the interstellar medium (Chapters~5 and~8), and its detection, positional reduction, and statistical interpretation (Chapters~1--4 and~7).

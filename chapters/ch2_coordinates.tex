@@ -1,6 +1,6 @@
 \chapter{Coordinate Systems on the Celestial Sphere}
 
-To specify the locations of stars, planets, and galaxies, astronomers project the three-dimensional Universe onto the two-dimensional surface of an imaginary sphere of arbitrary radius centered on the observer: the \emph{celestial sphere}. Because astronomical measurements are performed from different vantage points (from an observatory on Earth, from the moving Earth relative to the Sun, or across the Milky Way), several coordinate systems are employed. In this chapter, we derive the four principal celestial coordinate systems --- Equatorial, Horizontal, Ecliptic, and Galactic --- and establish the rigorous vector transformations relating them.
+Chapter~1 established the temporal frameworks -- solar time, sidereal time, and precession -- against which every astronomical observation must be referenced. To specify the locations of stars, planets, and galaxies, astronomers project the three-dimensional Universe onto the two-dimensional surface of an imaginary sphere of arbitrary radius centered on the observer: the \emph{celestial sphere}. Because astronomical measurements are performed from different vantage points (from an observatory on Earth, from the moving Earth relative to the Sun, or across the Milky Way), several coordinate systems are employed. In this chapter, we derive the four principal celestial coordinate systems --- Equatorial, Horizontal, Ecliptic, and Galactic --- and establish the rigorous vector transformations relating them.
 
 \section{The Equatorial Coordinate System}
 
@@ -26,6 +26,13 @@ In the equatorial Cartesian frame centered on the Earth, a source with coordinat
 \end{keyresult}
 
 Because the equatorial grid is attached to the celestial sphere, stellar catalog coordinates $(\alpha, \delta)$ remain nearly constant on human timescales (subject only to proper motion and precession). The apparent daily rising and setting of celestial objects reflects the rotation of the observer's horizon underneath this fixed background.
+
+\subsection{Coordinate Epochs}
+\label{sec:coordinate_epochs}
+
+Because the equinox $\hat\gamma$ that anchors the $(\alpha,\delta)$ grid precesses at the rate derived in Chapter~1 (Eq.~\eqref{eq:precession_rate}), a catalogued position $(\alpha,\delta)$ is meaningless without a stated \emph{epoch} -- the instant at which the equatorial grid used to define it is evaluated. The current standard is J2000.0; older catalogs commonly used B1950.0. Some source names encode the epoch directly in the identifier itself: for example, the pulsar $\mathrm{PSR\ J1939{+}2134}$ is named for its J2000 coordinates $\alpha \approx 19^{\rm h}39^{\rm m}$, $\delta \approx +21^\circ34'$.
+
+Converting a cataloged position from one epoch to another in general requires \emph{two} independent corrections: the purely geometric precession of the reference grid (Eqs.~\eqref{eq:precess_alpha}--\eqref{eq:precess_delta}), and the star's own physical proper motion $(\mu_\alpha^*, \mu_\delta)$ across the sky (derived in Chapter~3). The two effects are independent and additive over the (typically short, $\Delta t \lesssim$ decades) baseline of a proper-motion correction, but only precession is required to transform a fixed grid definition (e.g.\ B1950.0 $\to$ J2000.0) when the object itself is treated as stationary.
 
 \section{The Horizontal (Alt-Az) Coordinate System and the Hour Angle}
 
@@ -301,3 +308,5 @@ The \emph{parallactic angle} $q$ is the angle between the great circle through t
 	\label{eq:parallactic_angle}
 \end{equation}
 Aligning a spectrograph slit along the parallactic angle ($q$) minimizes atmospheric differential dispersion light loss across optical wavelengths.
+
+Chapters~1 and~2 together fix \emph{when} and \emph{where} on the sky an observation is made. Chapter~3 now asks how far away the observed object actually is, and how it is moving -- the coordinates $(\alpha,\delta)$ derived here become, once combined with a distance, the angular half of a full three-dimensional position and velocity vector.

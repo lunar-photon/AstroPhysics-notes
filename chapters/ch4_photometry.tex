@@ -1,6 +1,6 @@
 \chapter{Stellar Photometry: Flux, Magnitudes, and Radii}
 
-Photometry is the quantitative measurement of electromagnetic flux received from celestial objects. From the measured radiant flux, astronomers deduce fundamental astrophysical properties of stars, including luminosity ($L$), effective surface temperature ($T_{\rm eff}$), radius ($R_*$), and distance ($d$). In this chapter, we develop the inverse-square law, Pogson's logarithmic magnitude system, blackbody radiation thermodynamics, and the determination of stellar physical dimensions.
+Chapter~3 used photometric distance indicators (spectroscopic parallax, standard candles) without yet justifying the underlying flux measurements themselves. Photometry is the quantitative measurement of electromagnetic flux received from celestial objects. From the measured radiant flux, astronomers deduce fundamental astrophysical properties of stars, including luminosity ($L$), effective surface temperature ($T_{\rm eff}$), radius ($R_*$), and distance ($d$). In this chapter, we develop the inverse-square law, Pogson's logarithmic magnitude system, blackbody radiation thermodynamics, and the determination of stellar physical dimensions.
 
 \section{Radiant Energy, Flux, and the Inverse-Square Law}
 
@@ -101,7 +101,7 @@ Astronomical detectors measure flux through calibrated optical transmission filt
 \end{definition}
 
 \paragraph{Interstellar Reddening and Extinction.}
-Interstellar dust grains preferentially scatter shorter-wavelength blue photons (Rayleigh-like scattering $\sigma_{\rm dust} \propto \lambda^{-\gamma}$ with $\gamma \sim 1$). This dims and reddens the transmitted starlight. The observed distance modulus is modified by the total visual extinction $A_V$:
+Interstellar dust grains preferentially scatter shorter-wavelength blue photons (Rayleigh-like scattering $\sigma_{\rm dust} \propto \lambda^{-\gamma}$ with $\gamma \sim 1$; the microphysical origin of this power law in Mie and Rayleigh grain scattering is derived in Chapter~8). This dims and reddens the transmitted starlight. The observed distance modulus is modified by the total visual extinction $A_V$:
 \begin{equation}
 	m_V - M_V = 5\log_{10}d - 5 + A_V.
 	\label{eq:extinction_modulus}
@@ -217,3 +217,5 @@ Converting $\theta$ to arcseconds ($1\,\mathrm{rad} = 206{,}264.8''$):
 	\]
 	This matches direct optical interferometric measurements ($42\text{--}44\,\mathrm{mas}$), demonstrating that giant stars can be directly resolved with modern optical/IR interferometers (such as the VLTI).
 \end{example}
+
+Resolving an angular diameter of tens of milliarcseconds, as in the Betelgeuse example above, is only possible because of the interferometric and diffraction-limited resolution machinery developed next in Chapter~5.

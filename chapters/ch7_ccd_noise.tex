@@ -255,6 +255,17 @@
 	\end{keyresult}
 	Note the fundamental structural difference: $\sigma_{\rm read}^2 \propto N_{\rm exp}$ rather than $\propto t$. Splitting an exposure of duration $t$ into $N_{\rm exp}$ shorter exposures incurs the read noise penalty $N_{\rm exp}$ times in variance.
 
+	\subsection{Practical Detector Artefacts Beyond the Statistical Noise Budget}
+
+	Not every imperfection in a CCD frame is captured by the four variance terms above; several practical artefacts must be identified and removed \emph{before} the statistical noise budget of Eq.~\eqref{eq:variance_addition} is even meaningful.
+	\begin{itemize}
+		\item \textbf{Hot and cold pixels:} Individual pixels with anomalously high dark current (hot) or anomalously low quantum efficiency (cold), identified from calibration frames and flagged or interpolated over.
+		\item \textbf{Saturation and pixel bleed:} Once a pixel's accumulated charge exceeds the detector's full-well capacity (Section~\ref{sec:regime1}), the response becomes non-linear and excess charge can leak into neighbouring pixels along the readout register (\emph{bleed trails}).
+		\item \textbf{Cosmic rays:} High-energy particles depositing a sharp, single-frame spike of charge unrelated to any astronomical source; rejected by comparing multiple sub-exposures (Section~\ref{sec:regime2}) or by spatial-profile discrimination.
+		\item \textbf{Airglow and city lights:} Time- and location-dependent contributions to $R_{\rm sky}$ itself --- upper-atmosphere airglow line emission and anthropogenic light pollution --- that inflate the sky background term $\sigma_{\rm sky}$ of Eq.~\eqref{eq:sigma_sky} beyond the natural (dark-site, moonless) night-sky level.
+	\end{itemize}
+	\textbf{Dithering} --- deliberately offsetting the telescope pointing by a few arcseconds between sub-exposures --- is the standard operational defence against several of these at once: it places any given sky pixel on a different physical detector pixel in each sub-exposure, so that hot/cold pixels, bleed trails, and cosmic-ray hits (which are fixed to the detector or occur in only one frame) can be statistically rejected during image co-addition, rather than contaminating the final stacked image.
+
 	\section{The Master Signal-to-Noise Ratio Equation}
 
 	\begin{tcolorbox}[notebox, title=FIRST-PRINCIPLES DERIVATION: WHY VARIANCES ADD FOR INDEPENDENT NOISE SOURCES]
@@ -311,6 +322,7 @@
 	Depending on target flux, background brightness, and detector characteristics, the master equation simplifies into three distinct physical regimes.
 
 	\subsection{Regime 1: Bright Source (Photon Shot-Noise Limited)}
+	\label{sec:regime1}
 	When observing a bright star, the source count rate dominates over sky, dark current, and read noise ($R_{\rm src}t \gg n_{\rm pix}(R_{\rm sky} + R_{\rm dark})t + n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$):
 	\begin{keyresult}
 		\begin{equation}
@@ -321,6 +333,7 @@
 	\paragraph{Observational Strategy.} The limitation in this regime is never achieving adequate $\mathrm{SNR}$, but avoiding detector saturation (full-well capacity, typically $\sim 10^5\,\mathrm{e^-/pixel}$) and non-linear response. Observers should shorten $t_{\rm exp}$ or defocus the telescope (spread light over more pixels) to prevent saturation while accumulating the desired total photon count.
 
 	\subsection{Regime 2: Sky-Background Limited}
+	\label{sec:regime2}
 	For faint targets observed in broadband optical filters, the night sky background is much brighter than the source ($n_{\rm pix}R_{\rm sky}t \gg R_{\rm src}t, n_{\rm pix}R_{\rm dark}t, n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$):
 	\begin{keyresult}
 		\begin{equation}
@@ -378,4 +391,16 @@
 
 	\FloatBarrier
 
-\end{document}
+	\section{A Second Case Study: Noise Budgets Beyond the Optical CCD}
+
+	The variance-in-quadrature framework developed above is not specific to CCDs; it applies to any measurement built from multiple independent noise processes. As a second, structurally analogous case study, consider timing the arrival of radio pulses from a pulsar: the signal is the pulse arrival time itself (rather than a photon count), and the total timing uncertainty is again a quadrature sum of independent contributions.
+	\begin{itemize}
+		\item \textbf{Radiometer noise:} Instrumental noise intrinsic to the telescope receiver and electronics, analogous to the read/dark noise floor of a CCD.
+		\item \textbf{Sky noise:} Radio emission from all other sources in the beam, the direct radio analogue of $\sigma_{\rm sky}$.
+		\item \textbf{Source noise:} Intrinsic variability of the pulsar itself, with no CCD analogue: \emph{pulse jitter} (shot-to-shot variation in individual pulse shape) and \emph{spin noise} (intrinsic rotational irregularity of the neutron star).
+		\item \textbf{Dispersion noise:} A frequency-dependent group delay imposed on the pulse as it propagates through the free electrons of the ionized interstellar medium (Chapter~8) --- a propagation-path noise term with no counterpart in CCD imaging, where the atmosphere and ISM merely attenuate and scatter (Section~\ref{sec:windows}) rather than delay the signal itself.
+		\item \textbf{Radio-frequency interference (RFI):} Human-made radio emission (television, mobile networks, radar, power infrastructure) that must be flagged and excised, the radio equivalent of a CCD's cosmic-ray hits.
+	\end{itemize}
+	As with the CCD budget of Eq.~\eqref{eq:variance_addition}, identifying which of these terms dominates a given observation --- and only that term --- determines the optimal observing and data-reduction strategy.
+
+	Both case studies in this chapter treated the astronomical source and its intervening medium as a fixed, known background against which noise is quantified. Chapter~8 turns this around: it examines that intervening medium --- the interstellar medium --- as a physical system in its own right, developing the dynamics that ultimately determine where, and when, a source such as a pulsar is created in the first place.
