@@ -58,6 +58,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			% Reference axes
 			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
 			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
+			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $0^{\rm h}$};
 
 			% Observer's meridian great circle (through NCP, M, and SCP)
 			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
@@ -67,13 +68,13 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
 				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
 
-			% LST arc, drawn OUTSIDE the sphere
-			\draw[->, astroblue, line width=1.3pt] plot[domain=0:\LSTdeg, samples=30] ({1.45*\R*cos(\x)},{1.45*\R*sin(\x)},0);
-			\node[astroblue, align=center] at ({1.85*\R*cos(0.5*\LSTdeg)},{1.85*\R*sin(0.5*\LSTdeg)},0) {$\alpha_{\rm Meridian}$\\$=\LST$};
+			% LST arc, directly on the sphere (equator), from vernal equinox to the meridian
+			\draw[->, astroblue, line width=1.6pt] plot[domain=0:\LSTdeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[astroblue] at ({1.14*\R*cos(0.5*\LSTdeg)},{1.14*\R*sin(0.5*\LSTdeg)},0) {$\LST$};
 
-			% H arc: measured directly from the meridian to the star, along the equator
-			\draw[->, muted, line width=1.4pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({0.55*\R*cos(\x)},{0.55*\R*sin(\x)},0);
-			\node[muted] at ({0.62*\R*cos(0.5*(\LSTdeg+\alphaDeg))},{0.62*\R*sin(0.5*(\LSTdeg+\alphaDeg))},0) {$H$};
+			% H arc, directly on the sphere (equator), from the meridian to the star
+			\draw[->, muted, line width=1.6pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[muted] at ({1.14*\R*cos(0.5*(\LSTdeg+\alphaDeg))},{1.14*\R*sin(0.5*(\LSTdeg+\alphaDeg))},0) {$H$};
 
 			% delta arc (star's declination)
 			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
