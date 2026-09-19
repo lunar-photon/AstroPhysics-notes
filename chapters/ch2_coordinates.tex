@@ -17,101 +17,109 @@ The \emph{equatorial coordinate system} extends the Earth's terrestrial latitude
 	\label{fig:declination}
 \end{figure}
 
-To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are just two more angles read off this same sphere, Figure~\ref{fig:lst_meridian_schematic} marks the vernal equinox, the observer's local meridian, and a star's own right ascension and declination together on one diagram.
+To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are just two more angles read off this same sphere, Figure~\ref{fig:lst_meridian_schematic} marks the vernal equinox, the observer's local meridian, and a star's own right ascension and declination together on one diagram; Figure~\ref{fig:ra_dec_polar_grid} beside it shows the same construction flattened into the polar view actually used by star charts.
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[
-		scale=1.5,
-		x={(-0.6cm,-0.3cm)},
-		y={(0.9cm,-0.2cm)},
-		z={(0cm,0.95cm)},
-		>=Stealth
-	]
-		\def\R{2.0}
-		\def\LSTdeg{55}
-		\def\alphaDeg{20}
-		\def\deltaDeg{35}
-		\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[
+			scale=1.5,
+			x={(-0.6cm,-0.3cm)},
+			y={(0.9cm,-0.2cm)},
+			z={(0cm,0.95cm)},
+			>=Stealth
+		]
+			\def\R{2.0}
+			\def\LSTdeg{20}
+			\def\alphaDeg{55}
+			\def\deltaDeg{35}
+			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
 
-		\coordinate (O) at (0,0,0);
-		\coordinate (Xaxis) at (2.6,0,0);
-		\coordinate (Zaxis) at (0,0,2.5);
+			\coordinate (O) at (0,0,0);
+			\coordinate (Xaxis) at (2.6,0,0);
+			\coordinate (Zaxis) at (0,0,2.5);
 
-		\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
-		\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
-		\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
+			\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
+			\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
+			\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
 
-		% Celestial equator
-		\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
-		\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
+			% Sphere outline (a sphere's silhouette is always a circle in screen space)
+			\draw[gray!45, line width=0.7pt] (0,0) circle (1.05*\R cm);
 
-		% Star's declination (small) circle, for context
-		\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
+			% Celestial equator
+			\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
 
-		% Reference axes
-		\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
-		\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
+			% Star's declination (small) circle, for context
+			\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
 
-		% Observer's meridian great circle (through NCP, M, and SCP)
-		\draw[astroblue, thick] plot[domain=-70:90, samples=60]
-			({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
+			% Reference axes
+			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
+			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
 
-		% Star's own hour circle (through NCP, Sfoot, Star, and SCP)
-		\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
-			({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+			% Observer's meridian great circle (through NCP, M, and SCP)
+			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
+				({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
 
-		% alpha arc (star's right ascension), on the sphere's equator
-		\draw[->, accent, line width=1.3pt] plot[domain=0:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-		\node[accent] at ({1.18*\R*cos(0.5*\alphaDeg)},{1.18*\R*sin(0.5*\alphaDeg)},0) {$\alpha$};
+			% Star's own hour circle (through NCP, Sfoot, Star, and SCP)
+			\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
+				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
 
-		% LST arc, drawn OUTSIDE the sphere so it never crowds the alpha/delta arcs near O
-		\draw[->, astroblue, line width=1.3pt] plot[domain=0:\LSTdeg, samples=30] ({1.45*\R*cos(\x)},{1.45*\R*sin(\x)},0);
-		\node[astroblue, align=center] at ({1.85*\R*cos(0.5*\LSTdeg)},{1.85*\R*sin(0.5*\LSTdeg)},0) {$\alpha_{\rm Meridian}$\\$=\LST$};
+			% LST arc, drawn OUTSIDE the sphere
+			\draw[->, astroblue, line width=1.3pt] plot[domain=0:\LSTdeg, samples=30] ({1.45*\R*cos(\x)},{1.45*\R*sin(\x)},0);
+			\node[astroblue, align=center] at ({1.85*\R*cos(0.5*\LSTdeg)},{1.85*\R*sin(0.5*\LSTdeg)},0) {$\alpha_{\rm Meridian}$\\$=\LST$};
 
-		% delta arc (star's declination)
-		\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
-			({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
-		\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
+			% H arc: measured directly from the meridian to the star, along the equator
+			\draw[->, muted, line width=1.4pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({0.55*\R*cos(\x)},{0.55*\R*sin(\x)},0);
+			\node[muted] at ({0.62*\R*cos(0.5*(\LSTdeg+\alphaDeg))},{0.62*\R*sin(0.5*(\LSTdeg+\alphaDeg))},0) {$H$};
 
-		% Points
-		\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian};
-		\fill[accent] (Sfoot) circle (1.2pt);
-		\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
-	\end{tikzpicture}
-	\caption{The vernal equinox $\hat\gamma$, the observer's local meridian, and a star $S$ at right ascension $\alpha$ and declination $\delta$, all measured on the same celestial sphere. The meridian's own right ascension is by definition the Local Sidereal Time, $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}); the angular gap between the meridian and the star's hour circle, both measured from $\hat\gamma$, is the Hour Angle $H = \LST - \alpha$ (Chapter~1, Eq.~\eqref{eq:hour_angle_def}). This is the same construction used algebraically in Section~\ref{sec:coordinate_epochs} and Section~\ref{sec:parallactic_angle} below.}
-	\label{fig:lst_meridian_schematic}
-\end{figure}
+			% delta arc (star's declination)
+			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
+				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
 
-The same grid looks rather different once actually projected on the sky and viewed from underneath, near a celestial pole, which is how a star atlas or planetarium app would normally display it (Figure~\ref{fig:ra_dec_polar_grid}); together, Figures~\ref{fig:lst_meridian_schematic} and~\ref{fig:ra_dec_polar_grid} give the same construction from two complementary viewpoints.
-
-\begin{figure}[htbp]
-	\centering
-	\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
-		\foreach \r in {1,2,3,4,5} {
-			\draw[astroblue!55] (0,0) circle (\r);
+			% Points
+			\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian};
+			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
+			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
+		\end{tikzpicture}%
 		}
-		\foreach \h in {0,...,23} {
-			\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
-		}
-		\foreach \h in {0,2,...,22} {
-			\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
-		}
-		\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
-			\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
-		}
+		\caption{The vernal equinox $\hat\gamma$, the local meridian, and a star $S$ at $(\alpha,\delta)$, all on one celestial sphere. The meridian's own right ascension is by definition the Local Sidereal Time, $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}); the angle measured directly from the meridian to the star's hour circle is the Hour Angle $H = \LST - \alpha$ (Chapter~1, Eq.~\eqref{eq:hour_angle_def}).}
+		\label{fig:lst_meridian_schematic}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
+			\foreach \r in {1,2,3,4,5} {
+				\draw[astroblue!55] (0,0) circle (\r);
+			}
+			\foreach \h in {0,...,23} {
+				\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
+			}
+			\foreach \h in {0,2,...,22} {
+				\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
+			}
+			\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
+				\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
+			}
 
-		\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
-		\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
+			\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
+			\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
 
-		\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
-		\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
+			\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
+			\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
 
-		\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
-		\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
-	\end{tikzpicture}
-	\caption{The equatorial grid projected on the sky near the North Celestial Pole (compare against an actual star chart of Ursa Minor/Ursa Major around Polaris). Radiating lines are hour circles of constant right ascension $\alpha$, spaced $15^\circ=1^{\rm h}$ apart (labeled every $2^{\rm h}$); concentric circles are parallels of constant declination $\delta$. Right ascension increases eastward, i.e.\ anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}), which is why the hour labels increase in that sense here. Polaris sits within $\sim 1^\circ$ of the true pole --- close enough that, to the eye, it appears to stay fixed while every other star wheels around it nightly.}
-	\label{fig:ra_dec_polar_grid}
+			\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
+			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
+		\end{tikzpicture}%
+		}
+		\caption{The equatorial grid projected on the sky near the NCP (compare a star chart of Ursa Minor/Major around Polaris). Radiating lines are hour circles of constant $\alpha$, $15^\circ=1^{\rm h}$ apart; concentric circles are parallels of constant $\delta$. Right ascension increases anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}). Polaris sits within $\sim 1^\circ$ of the true pole, which is why it appears fixed while every other star wheels around it nightly.}
+		\label{fig:ra_dec_polar_grid}
+	\end{minipage}
 \end{figure}
 
 In the equatorial Cartesian frame centered on the Earth, a source with coordinates $(\alpha, \delta)$ has the unit position vector:
