@@ -46,7 +46,7 @@ The \emph{equatorial coordinate system} extends the Earth's terrestrial latitude
 			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
 		\end{tikzpicture}%
 		}
-		\caption{The equatorial grid projected on the sky near the NCP (compare a star chart of Ursa Minor/Major around Polaris). Radiating lines are hour circles of constant $\alpha$, $15^\circ=1^{\rm h}$ apart; concentric circles are parallels of constant $\delta$. Right ascension increases anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}). Polaris sits within $\sim 1^\circ$ of the true pole, which is why it appears fixed while every other star wheels around it nightly.}
+		\caption{The equatorial grid projected on the sky near the NCP. Radiating lines are hour circles of constant $\alpha$ ($15^\circ=1^{\rm h}$ apart); concentric circles are parallels of constant $\delta$.}
 		\label{fig:ra_dec_polar_grid}
 	\end{minipage}
 \end{figure}
@@ -56,7 +56,7 @@ The same grid is exactly what appears on an actual star chart of this region (Fi
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.6\linewidth]{RA-Dec-celestial-pole.jpg}
-	\caption{An actual equatorial grid overlay near the North Celestial Pole, directly comparable to Figure~\ref{fig:ra_dec_polar_grid}: hour circles of right ascension ($0^{\rm h}$--$23^{\rm h}$) and parallels of declination ($+40^\circ$ to $+90^\circ$), with Polaris and the constellations Ursa Minor and Ursa Major shown for reference.}
+	\caption{An actual equatorial grid overlay near the North Celestial Pole, with Polaris and the constellations Ursa Minor and Ursa Major shown for reference.}
 	\label{fig:ra_dec_real_photo}
 \end{figure}
 
@@ -128,12 +128,12 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
 
 			% Points
-			\fill[astroblue] (M) circle (1.4pt) node[anchor=south east, xshift=-2pt, yshift=52pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
+			\fill[astroblue] (M) circle (1.4pt) node[anchor=south east, xshift=-2pt, yshift=72pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
 			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
 			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
 		\end{tikzpicture}%
 		}
-		\caption{The vernal equinox $\hat\gamma$, the local meridian, and a star $S$ at $(\alpha,\delta)$, all on one celestial sphere. The meridian's own right ascension is by definition the Local Sidereal Time, $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}); the angle measured directly from the meridian to the star's hour circle is the Hour Angle $H = \LST - \alpha$ (Chapter~1, Eq.~\eqref{eq:hour_angle_def}).}
+		\caption{The vernal equinox $\hat\gamma$, the observer's local meridian, and a star $S$ at $(\alpha,\delta)$, shown together on the celestial sphere.}
 		\label{fig:lst_meridian_schematic}
 	\end{minipage}
 	\hfill
@@ -205,7 +205,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
 		\end{tikzpicture}%
 		}
-		\caption{The same sky as Figure~\ref{fig:lst_meridian_schematic}, at a later instant: the vernal equinox and the star $S$ are exactly where they were, but the Earth's rotation has carried the meridian's right ascension --- the LST --- past the star's own $\alpha$. The Hour Angle $H=\LST-\alpha$ has grown accordingly (and changed sign): it is now measured backward from the meridian to reach the star, since the meridian has overtaken it. This is the same steady growth of $H$ with time used throughout Chapter~1.}
+		\caption{The same sky as Figure~\ref{fig:lst_meridian_schematic}, at a later instant: $\hat\gamma$ and $S$ are unchanged, but the meridian has advanced past the star.}
 		\label{fig:lst_meridian_schematic_later}
 	\end{minipage}
 \end{figure}
