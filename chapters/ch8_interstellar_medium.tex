@@ -91,20 +91,80 @@ Since $E = h\nu$, this maps directly onto a minimum frequency width
 \end{equation}
 where $\Delta\tau$ is the mean radiative lifetime of the upper state against spontaneous decay. Short-lived (strongly allowed) transitions are intrinsically broad; long-lived (forbidden) transitions are intrinsically narrow — a point revisited for the $21\,\mathrm{cm}$ line below.
 
+\paragraph{Shape: the Lorentzian profile.} The uncertainty argument above fixes only the \emph{width}; the line's actual \emph{shape} follows from modelling the radiating atom classically as a damped oscillator whose emitted wave train decays exponentially once excited. If the radiated energy (intensity $\propto |E(t)|^2$) decays as $e^{-t/\Delta\tau}$, the field amplitude itself decays at half that rate:
+\begin{equation}
+	E(t) = E_0\,e^{-t/(2\Delta\tau)}\,e^{-i\omega_0 t}\,\Theta(t),
+\end{equation}
+where $\Theta(t)$ is the step function (the wave train starts at $t=0$, when the atom is excited). The observed spectrum is the power spectrum of this finite wave train, obtained via its Fourier transform:
+\begin{equation}
+	\tilde E(\omega) = \int_0^\infty E_0\,e^{-t/(2\Delta\tau)}\,e^{-i\omega_0t}\,e^{i\omega t}\,dt = \frac{E_0}{\dfrac{1}{2\Delta\tau} - i(\omega-\omega_0)}.
+\end{equation}
+Squaring to get the intensity spectrum, $I(\omega) \propto |\tilde E(\omega)|^2$, gives the \textbf{Lorentzian profile}:
+\begin{keyresult}
+	\begin{equation}
+		I(\omega) \propto \frac{1}{(\omega-\omega_0)^2 + \left(\dfrac{1}{2\Delta\tau}\right)^2},
+		\label{eq:natural_lorentzian_profile}
+	\end{equation}
+\end{keyresult}
+whose full width at half maximum, $\Delta\omega = 1/\Delta\tau$ (i.e.\ $\Delta\nu=1/(2\pi\Delta\tau)$), exactly reproduces the uncertainty-principle estimate of Eq.~\eqref{eq:natural_broadening_freq}. The defining feature of a Lorentzian --- slowly-decaying power-law wings, $I\propto(\omega-\omega_0)^{-2}$ far from line centre --- is the spectral signature of this exponential (i.e.\ single-exponential-decay) damping process.
+
 \subsection{Pressure (Collisional) Broadening}
 
-Collisions with neighbouring particles interrupt the phase of an emitting atom before it would otherwise have finished radiating, effectively truncating its coherence time. Formally this is identical to natural broadening with $\Delta\tau$ replaced by the mean time between collisions, $\tau_{\rm coll} \sim 1/(n\sigma_{\rm coll} v)$: denser, hotter gas produces broader, more pressure-sensitive lines.
+Collisions with neighbouring particles interrupt the phase of an emitting atom before it would otherwise have finished radiating, effectively truncating its coherence time. Formally this is identical to natural broadening with $\Delta\tau$ replaced by the mean time between collisions, $\tau_{\rm coll} \sim 1/(n\sigma_{\rm coll} v)$: denser, hotter gas produces broader, more pressure-sensitive lines. Because the underlying physical picture --- an exponentially-truncated wave train --- is identical to the natural-broadening case above (only the truncation mechanism differs: spontaneous decay versus a dephasing collision), the same Fourier-transform argument applies unchanged, and pressure broadening also produces a \textbf{Lorentzian} line shape, Eq.~\eqref{eq:natural_lorentzian_profile}, but with $\Delta\tau \to \tau_{\rm coll}$.
 
 \subsection{Doppler Broadening}
 
-A line-emitting particle moving with line-of-sight velocity $v_\parallel$ has its rest-frame frequency $\nu_0$ Doppler-shifted according to the classical relation already used in Chapter~3 (Eq.~\eqref{eq:doppler_classical}), $\Delta\nu/\nu_0 = v_\parallel/c$. In a gas at temperature $T$, the equipartition theorem assigns mean kinetic energy $\frac{1}{2}k_BT$ to each translational degree of freedom, so the line-of-sight velocity component satisfies $\frac{1}{2}m\avg{v_\parallel^2} = \frac{1}{2}k_BT$, i.e.\ the line-of-sight velocities of individual emitters follow a one-dimensional Maxwell--Boltzmann distribution with standard deviation $\sigma_v = \sqrt{\avg{v_\parallel^2}} = \sqrt{k_B T/m}$ ($m$ the particle mass). The ensemble of Doppler-shifted photons therefore produces a Gaussian line profile of characteristic (thermal) width
+A line-emitting particle moving with line-of-sight velocity $v_\parallel$ has its rest-frame frequency $\nu_0$ Doppler-shifted according to the classical relation already used in Chapter~3 (Eq.~\eqref{eq:doppler_classical}), $\Delta\nu/\nu_0 = v_\parallel/c$. In a gas at temperature $T$, the equipartition theorem assigns mean kinetic energy $\frac{1}{2}k_BT$ to each translational degree of freedom, so the line-of-sight velocity component satisfies $\frac{1}{2}m\avg{v_\parallel^2} = \frac{1}{2}k_BT$, i.e.\ the line-of-sight velocities of individual emitters follow a one-dimensional Maxwell--Boltzmann distribution,
+\begin{equation}
+	f(v_\parallel)\,dv_\parallel \propto \exp\!\left(-\frac{v_\parallel^2}{2\sigma_v^2}\right)dv_\parallel, \qquad \sigma_v \equiv \sqrt{\avg{v_\parallel^2}} = \sqrt{\frac{k_BT}{m}} \quad (m\text{ the particle mass}).
+	\label{eq:maxwell_boltzmann_1d}
+\end{equation}
+
+\paragraph{Shape: the Gaussian profile.} Unlike natural or pressure broadening, Doppler broadening is not an intrinsic property of any single emitter --- it is the observational blending of many individually narrow lines, each merely Doppler-shifted by a different emitter's own $v_\parallel$. The line shape is therefore just the velocity distribution itself, rewritten in frequency units. Inverting the classical Doppler relation, $v_\parallel = c(\nu-\nu_0)/\nu_0$, and substituting into Eq.~\eqref{eq:maxwell_boltzmann_1d}:
+\begin{equation}
+	I(\nu)\,d\nu \propto \exp\!\left[-\frac{c^2(\nu-\nu_0)^2}{2\nu_0^2\sigma_v^2}\right]d\nu,
+\end{equation}
+which is precisely a \textbf{Gaussian profile} in frequency,
 \begin{keyresult}
 	\begin{equation}
-		\frac{\Delta\nu_{\rm D}}{\nu_0} \sim \frac{\sigma_v}{c} = \sqrt{\frac{k_B T}{mc^2}}.
-		\label{eq:thermal_doppler_width}
+		I(\nu) \propto \exp\!\left[-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right], \qquad \sigma_D = \frac{\nu_0\sigma_v}{c},
+		\label{eq:doppler_gaussian_profile}
 	\end{equation}
 \end{keyresult}
-Bulk, non-thermal gas motions (turbulence, infall, rotation) add an additional, generally larger, Doppler contribution with the same functional form but $\sigma_v$ replaced by the turbulent or bulk velocity dispersion; a net systemic line-of-sight velocity (e.g.\ Galactic rotation) simply shifts the line centroid rather than broadening it.
+of characteristic (thermal) width
+\begin{equation}
+	\frac{\Delta\nu_{\rm D}}{\nu_0} \sim \frac{\sigma_v}{c} = \sqrt{\frac{k_B T}{mc^2}}.
+	\label{eq:thermal_doppler_width}
+\end{equation}
+The Gaussian shape is thus a direct fingerprint of the underlying Maxwellian velocity distribution --- in sharp contrast to the power-law-winged Lorentzian of natural/pressure broadening, a Gaussian falls off exponentially fast in its wings, since the population of atoms with any given $|v_\parallel|$ itself falls off exponentially in $v_\parallel^2$. Bulk, non-thermal gas motions (turbulence, infall, rotation) add an additional, generally larger, Doppler contribution with the same Gaussian functional form but $\sigma_v$ replaced by the turbulent or bulk velocity dispersion; a net systemic line-of-sight velocity (e.g.\ Galactic rotation) simply shifts the line centroid $\nu_0$ rather than broadening it.
+
+\paragraph{Remark: the observed profile is a Voigt profile.} A real interstellar line is simultaneously subject to (Lorentzian) natural/pressure broadening and (Gaussian) Doppler broadening; the observed profile is the convolution of the two, known as a \emph{Voigt profile}. In the ISM, Doppler broadening from the low densities and non-thermal turbulence discussed in Section~\ref{sec:ism_heating_cooling} generally dominates over the intrinsically much narrower natural/pressure Lorentzian core, except far out in the line wings, where the slowly-decaying Lorentzian tail can still exceed the exponentially-suppressed Gaussian.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		scale=1.15,
+		declare function={
+			lorentzian(\x) = 1/(1+(\x)^2);
+			gaussian(\x) = exp(-ln(2)*(\x)^2);
+		}
+	]
+		\draw[->, thick] (-4.7,0) -- (4.9,0) node[below right, font=\small] {$(\nu-\nu_0)\,/\,(\Delta\nu/2)$};
+		\draw[->, thick] (0,-0.15) -- (0,1.65) node[above, font=\small] {$I(\nu)/I_0$};
+
+		\draw[dashed, gray!50, thin] (-4.5,0.5) -- (4.5,0.5);
+		\node[gray!70, font=\scriptsize, anchor=east] at (-0.15,0.5) {$0.5$};
+		\node[gray!70, font=\scriptsize, anchor=north] at (0,-0.02) {$0$};
+
+		\draw[very thick, accent, domain=-4.5:4.5, samples=200] plot (\x, {lorentzian(\x)});
+		\draw[very thick, astroblue, dashed, domain=-4.5:4.5, samples=200] plot (\x, {gaussian(\x)});
+
+		\node[astroblue, font=\small\bfseries, align=center] at (-2.55,1.15) {Gaussian\\\footnotesize(Doppler)};
+		\node[accent, font=\small\bfseries, align=center] at (3.15,0.95) {Lorentzian\\\footnotesize(natural / pressure)};
+	\end{tikzpicture}
+	\caption{The two elementary line-broadening shapes, normalized to the same peak intensity $I_0$ and the same half-width $\Delta\nu/2$. The Lorentzian profile (Eq.~\eqref{eq:natural_lorentzian_profile}) retains extended power-law wings, $I\propto(\nu-\nu_0)^{-2}$, far from line centre, while the Gaussian profile (Eq.~\eqref{eq:doppler_gaussian_profile}) is already negligible by $3$--$4$ half-widths out. The observed \emph{Voigt} profile --- their convolution --- looks essentially Gaussian in its core (where Doppler broadening dominates) but reverts to the Lorentzian's power-law decay far out in the wings.}
+	\label{fig:lorentzian_gaussian_comparison}
+\end{figure}
 
 \section{Hydrogen in the ISM: HI, HII, \texorpdfstring{H$_2$}{H2}, and the 21 cm Line}
 \label{sec:ism_hydrogen}

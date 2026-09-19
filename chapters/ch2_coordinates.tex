@@ -56,11 +56,62 @@ The \emph{horizontal} coordinate system is attached to the observer's local hori
 
 \section{Derivation of the Horizontal $\leftrightarrow$ Equatorial Transformations}
 
-We now derive the transformations relating horizontal coordinates $(h, A)$ and equatorial coordinates $(\delta, H)$ for an observer at terrestrial latitude $\phi_0$. We express the unit vector toward a celestial source in two orthonormal coordinate frames sharing the same origin and relate them via an orthogonal rotation matrix.
+We now derive the transformations relating horizontal coordinates $(h, A)$ and equatorial coordinates $(\delta, H)$ for an observer at terrestrial latitude $\phi_0$. We express the unit vector toward a celestial source in two orthonormal coordinate frames sharing the same origin and relate them via an orthogonal rotation matrix. Every relation derived in this section is spherical trigonometry applied to a single spherical triangle formed by the celestial pole, the zenith, and the star (Figure~\ref{fig:astronomical_triangle}).
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.3, font=\small]
+		\draw[thick] (0,0) circle (3);
+		\coordinate (P) at (0.3, 2.6);
+		\coordinate (Z) at (2.3, 1.0);
+		\coordinate (S) at (-1.0, -1.8);
+
+		\draw[dashed, gray!60] (-3,-0.4) to[out=10,in=170] (3,0.6);
+		\node[gray!70, font=\scriptsize] at (2.1, 0.95) {Celestial Equator};
+
+		\draw[dashed, astroblue!70] (-2.6,2.0) to[out=-40,in=140] (2.9,-1.6);
+		\node[astroblue!80, font=\scriptsize] at (-2.05,1.9) {Horizon};
+
+		\draw[very thick, accent] (P) to[out=-60,in=140] (Z);
+		\draw[very thick, accent] (P) to[out=-100,in=100] (S);
+		\draw[very thick, accent] (Z) to[out=200,in=30] (S);
+
+		\fill (P) circle(1.5pt) node[above=2pt]{NCP};
+		\fill (Z) circle(1.5pt) node[right=2pt]{Zenith ($Z$)};
+		\fill (S) circle(1.5pt) node[below left=2pt]{Star ($S$)};
+
+		\node[accent, font=\scriptsize] at ($(P)!0.5!(Z)+(0.45,0.05)$) {$90^\circ-\phi_0$};
+		\node[accent, font=\scriptsize] at ($(P)!0.5!(S)+(-0.55,0.1)$) {$90^\circ-\delta$};
+		\node[accent, font=\scriptsize] at ($(Z)!0.5!(S)+(0.25,-0.4)$) {$z = 90^\circ-h$};
+
+		\node[font=\scriptsize] at ($(P)+(0.55,-0.35)$) {$H$};
+		\node[font=\scriptsize] at ($(Z)+(-0.6,-0.15)$) {$A$};
+		\node[font=\scriptsize] at ($(S)+(0.15,0.55)$) {$q$};
+	\end{tikzpicture}
+	\caption{The astronomical (Pole--Zenith--Star) triangle. Its three sides are the star's polar distance ($90^\circ-\delta$), the observer's co-latitude ($90^\circ-\phi_0$), and the star's zenith distance ($z = 90^\circ-h$); its three angles are the Hour Angle $H$ (at the pole), the Azimuth $A$ (at the zenith), and the Parallactic Angle $q$ (at the star itself, Section~\ref{sec:parallactic_angle}). The horizontal$\leftrightarrow$equatorial transformation, the rise/set condition, and the parallactic angle formula are all spherical trigonometry applied to this one triangle.}
+	\label{fig:astronomical_triangle}
+\end{figure}
 
 \subsection{Source Vector in the Meridian-Aligned Equatorial Frame}
 
-Align the Cartesian $x$-axis with the observer's \emph{local celestial meridian} at the instant of observation ($H = 0$). In this frame, the source's equatorial coordinate along the equator is $-H$:
+Align the Cartesian $x$-axis with the observer's \emph{local celestial meridian} at the instant of observation, i.e.\ with the direction of right ascension $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}). This new frame is reached from the standard equatorial frame of Eq.~\eqref{eq:unit_vector_eq} (whose $x$-axis points to the vernal equinox instead) by rotating the axes, \emph{within the equatorial plane}, anticlockwise by the angle $\alpha_{\rm Meridian}$ --- anticlockwise because right ascension is itself defined to increase eastward, i.e.\ anticlockwise as seen from the North Celestial Pole, so this is precisely the rotation that carries the old $x$-axis around to the new reference direction.
+
+Under a passive anticlockwise rotation of the $x$-$y$ axes by an angle $\theta$, standard 2D rotation gives the new coordinates $(x',y') = (x\cos\theta + y\sin\theta,\ -x\sin\theta + y\cos\theta)$, and correspondingly any angle $\alpha$ measured from the old $x$-axis becomes, measured from the new one, the angle $\alpha' \equiv \alpha - \theta$ --- i.e., writing $\theta = \alpha_{\rm Meridian}$,
+\begin{equation}
+	\alpha = \alpha_{\rm Meridian} + \alpha'.
+	\label{eq:alpha_prime_def}
+\end{equation}
+Applying this rotation to the source's equatorial-frame coordinates $(\cos\delta\cos\alpha,\ \cos\delta\sin\alpha,\ \sin\delta)$ of Eq.~\eqref{eq:unit_vector_eq} (the $z$-component is untouched, since the rotation is about the polar axis), and using the angle-addition identities together with Eq.~\eqref{eq:alpha_prime_def}:
+\begin{align}
+	x' &= \cos\delta\cos\alpha\cos\alpha_{\rm Meridian} + \cos\delta\sin\alpha\sin\alpha_{\rm Meridian} = \cos\delta\cos(\alpha-\alpha_{\rm Meridian}) = \cos\delta\cos\alpha', \\
+	y' &= -\cos\delta\cos\alpha\sin\alpha_{\rm Meridian} + \cos\delta\sin\alpha\cos\alpha_{\rm Meridian} = \cos\delta\sin(\alpha-\alpha_{\rm Meridian}) = \cos\delta\sin\alpha'.
+\end{align}
+So quite generally, in \emph{any} frame rotated by $\alpha_{\rm Meridian}$ from the vernal equinox,
+\begin{equation}
+	\hat{\mathbf s}_{\rm eq} = \begin{pmatrix}\cos\delta\cos\alpha' \\ \cos\delta\sin\alpha' \\ \sin\delta\end{pmatrix}, \qquad \alpha' = \alpha - \alpha_{\rm Meridian}.
+	\label{eq:meridian_frame_general}
+\end{equation}
+Only now do we use the specific physical identity of $\alpha'$: by the Hour Angle definition of Chapter~1 (Eq.~\eqref{eq:hour_angle_def}), $H \equiv \LST - \alpha = \alpha_{\rm Meridian} - \alpha = -\alpha'$, so $\alpha' = -H$. Substituting into Eq.~\eqref{eq:meridian_frame_general}, the source's equatorial coordinate along the equator in this frame is $-H$:
 \begin{equation}
 	\hat{\mathbf s}_{\rm eq} = \begin{pmatrix} \cos\delta\cos(-H) \\ \cos\delta\sin(-H) \\ \sin\delta \end{pmatrix} = \begin{pmatrix} \cos\delta\cos H \\ -\cos\delta\sin H \\ \sin\delta \end{pmatrix}.
 	\label{eq:unit_meridian_frame}
@@ -333,6 +384,7 @@ This plane-parallel result diverges unphysically as $z\to 90^\circ$; in reality 
 \end{equation}
 
 \subsection{The Parallactic Angle ($q$)}
+\label{sec:parallactic_angle}
 The \emph{parallactic angle} $q$ is the angle, measured at the star itself, between the great circle joining the star to the celestial pole and the great circle joining the star to the zenith. These two great circles, together with the great circle joining the pole to the zenith (an arc of length $90^\circ-\phi_0$), form a spherical triangle --- the \emph{astronomical triangle} --- with the star, the pole, and the zenith as its three vertices, and $H$ and $z=90^\circ-h$ as two of its known sides/angles. Applying the spherical laws of sines and cosines to this triangle (the same kind of spherical trigonometry that produced Eqs.~\eqref{eq:sinh_master}--\eqref{eq:cosh_cosA} for the pole-zenith-star triangle's other angle) yields $q$ directly:
 \begin{equation}
 	\sin q = \frac{\sin H\cos\phi_0}{\cos h}, \qquad \cos q = \frac{\sin\phi_0 - \sin h\sin\delta}{\cos h\cos\delta}.
