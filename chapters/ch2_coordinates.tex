@@ -17,7 +17,73 @@ The \emph{equatorial coordinate system} extends the Earth's terrestrial latitude
 	\label{fig:declination}
 \end{figure}
 
-The same grid looks rather different once actually projected on the sky and viewed from underneath, near a celestial pole, which is how a star atlas or planetarium app would normally display it (Figure~\ref{fig:ra_dec_polar_grid}).
+To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are just two more angles read off this same sphere, Figure~\ref{fig:lst_meridian_schematic} marks the vernal equinox, the observer's local meridian, and a star's own right ascension and declination together on one diagram.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		scale=1.5,
+		x={(-0.6cm,-0.3cm)},
+		y={(0.9cm,-0.2cm)},
+		z={(0cm,0.95cm)},
+		>=Stealth
+	]
+		\def\R{2.0}
+		\def\LSTdeg{55}
+		\def\alphaDeg{20}
+		\def\deltaDeg{35}
+		\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
+
+		\coordinate (O) at (0,0,0);
+		\coordinate (Xaxis) at (2.6,0,0);
+		\coordinate (Zaxis) at (0,0,2.5);
+
+		\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
+		\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
+		\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
+
+		% Celestial equator
+		\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
+		\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
+
+		% Star's declination (small) circle, for context
+		\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
+
+		% Reference axes
+		\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
+		\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
+
+		% Observer's meridian great circle (through NCP, M, and SCP)
+		\draw[astroblue, thick] plot[domain=-70:90, samples=60]
+			({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
+
+		% Star's own hour circle (through NCP, Sfoot, Star, and SCP)
+		\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
+			({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+
+		% alpha arc (star's right ascension), on the sphere's equator
+		\draw[->, accent, line width=1.3pt] plot[domain=0:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
+		\node[accent] at ({1.18*\R*cos(0.5*\alphaDeg)},{1.18*\R*sin(0.5*\alphaDeg)},0) {$\alpha$};
+
+		% LST arc, drawn OUTSIDE the sphere so it never crowds the alpha/delta arcs near O
+		\draw[->, astroblue, line width=1.3pt] plot[domain=0:\LSTdeg, samples=30] ({1.45*\R*cos(\x)},{1.45*\R*sin(\x)},0);
+		\node[astroblue, align=center] at ({1.85*\R*cos(0.5*\LSTdeg)},{1.85*\R*sin(0.5*\LSTdeg)},0) {$\alpha_{\rm Meridian}$\\$=\LST$};
+
+		% delta arc (star's declination)
+		\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
+			({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+		\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
+
+		% Points
+		\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian};
+		\fill[accent] (Sfoot) circle (1.2pt);
+		\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
+	\end{tikzpicture}
+	\caption{The vernal equinox $\hat\gamma$, the observer's local meridian, and a star $S$ at right ascension $\alpha$ and declination $\delta$, all measured on the same celestial sphere. The meridian's own right ascension is by definition the Local Sidereal Time, $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}); the angular gap between the meridian and the star's hour circle, both measured from $\hat\gamma$, is the Hour Angle $H = \LST - \alpha$ (Chapter~1, Eq.~\eqref{eq:hour_angle_def}). This is the same construction used algebraically in Section~\ref{sec:coordinate_epochs} and Section~\ref{sec:parallactic_angle} below.}
+	\label{fig:lst_meridian_schematic}
+\end{figure}
+
+The same grid looks rather different once actually projected on the sky and viewed from underneath, near a celestial pole, which is how a star atlas or planetarium app would normally display it (Figure~\ref{fig:ra_dec_polar_grid}); together, Figures~\ref{fig:lst_meridian_schematic} and~\ref{fig:ra_dec_polar_grid} give the same construction from two complementary viewpoints.
 
 \begin{figure}[htbp]
 	\centering
