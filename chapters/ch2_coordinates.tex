@@ -60,35 +60,28 @@ We now derive the transformations relating horizontal coordinates $(h, A)$ and e
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[>=Stealth, scale=1.3, font=\small]
-		\draw[thick] (0,0) circle (3);
-		\coordinate (P) at (0.3, 2.6);
-		\coordinate (Z) at (2.3, 1.0);
-		\coordinate (S) at (-1.0, -1.8);
+	\begin{tikzpicture}[>=Stealth, scale=0.72, font=\small]
+		\coordinate (NCP) at (0, 4.2);
+		\coordinate (Znode) at (3.6, 0.8);
+		\coordinate (Snode) at (-2.2, -1.8);
 
-		\draw[dashed, gray!60] (-3,-0.4) to[out=10,in=170] (3,0.6);
-		\node[gray!70, font=\scriptsize] at (2.1, 0.95) {Celestial Equator};
+		\draw[gray!35] (0.3,1.1) circle (4.3);
 
-		\draw[dashed, astroblue!70] (-2.6,2.0) to[out=-40,in=140] (2.9,-1.6);
-		\node[astroblue!80, font=\scriptsize] at (-2.05,1.9) {Horizon};
+		\draw[very thick, accent] (NCP) -- (Znode) -- (Snode) -- cycle;
 
-		\draw[very thick, accent] (P) to[out=-60,in=140] (Z);
-		\draw[very thick, accent] (P) to[out=-100,in=100] (S);
-		\draw[very thick, accent] (Z) to[out=200,in=30] (S);
+		\fill (NCP) circle(2.6pt) node[above, font=\normalsize] {NCP};
+		\fill (Znode) circle(2.6pt) node[right, font=\normalsize] {Zenith ($Z$)};
+		\fill (Snode) circle(2.6pt) node[below left, font=\normalsize] {Star ($S$)};
 
-		\fill (P) circle(1.5pt) node[above=2pt]{NCP};
-		\fill (Z) circle(1.5pt) node[right=2pt]{Zenith ($Z$)};
-		\fill (S) circle(1.5pt) node[below left=2pt]{Star ($S$)};
+		\node[accent, font=\normalsize] at (2.1, 2.8) {$90^\circ - \phi_0$};
+		\node[accent, font=\normalsize] at (-1.6, 1.25) {$90^\circ - \delta$};
+		\node[accent, font=\normalsize] at (0.8, -0.95) {$z = 90^\circ - h$};
 
-		\node[accent, font=\scriptsize] at ($(P)!0.5!(Z)+(0.45,0.05)$) {$90^\circ-\phi_0$};
-		\node[accent, font=\scriptsize] at ($(P)!0.5!(S)+(-0.55,0.1)$) {$90^\circ-\delta$};
-		\node[accent, font=\scriptsize] at ($(Z)!0.5!(S)+(0.25,-0.4)$) {$z = 90^\circ-h$};
-
-		\node[font=\scriptsize] at ($(P)+(0.55,-0.35)$) {$H$};
-		\node[font=\scriptsize] at ($(Z)+(-0.6,-0.15)$) {$A$};
-		\node[font=\scriptsize] at ($(S)+(0.15,0.55)$) {$q$};
+		\node[font=\normalsize] at (0.1, 3.55) {$H$};
+		\node[font=\normalsize] at (2.95, 0.9) {$A$};
+		\node[font=\normalsize] at (-1.75, -1.3) {$q$};
 	\end{tikzpicture}
-	\caption{The astronomical (Pole--Zenith--Star) triangle. Its three sides are the star's polar distance ($90^\circ-\delta$), the observer's co-latitude ($90^\circ-\phi_0$), and the star's zenith distance ($z = 90^\circ-h$); its three angles are the Hour Angle $H$ (at the pole), the Azimuth $A$ (at the zenith), and the Parallactic Angle $q$ (at the star itself, Section~\ref{sec:parallactic_angle}). The horizontal$\leftrightarrow$equatorial transformation, the rise/set condition, and the parallactic angle formula are all spherical trigonometry applied to this one triangle.}
+	\caption{The astronomical (Pole--Zenith--Star) triangle, drawn flattened out for clarity (on the real celestial sphere each side is a great-circle arc, not a straight line). Its three sides are the star's polar distance ($90^\circ-\delta$), the observer's co-latitude ($90^\circ-\phi_0$), and the star's zenith distance ($z = 90^\circ-h$); its three angles are the Hour Angle $H$ (at the pole), the Azimuth $A$ (at the zenith), and the Parallactic Angle $q$ (at the star itself, Section~\ref{sec:parallactic_angle}). The horizontal$\leftrightarrow$equatorial transformation, the rise/set condition, and the parallactic angle formula are all spherical trigonometry applied to this one triangle.}
 	\label{fig:astronomical_triangle}
 \end{figure}
 
@@ -96,17 +89,23 @@ We now derive the transformations relating horizontal coordinates $(h, A)$ and e
 
 Align the Cartesian $x$-axis with the observer's \emph{local celestial meridian} at the instant of observation, i.e.\ with the direction of right ascension $\alpha_{\rm Meridian} = \LST$ (Chapter~1, Eq.~\eqref{eq:lst_def}). This new frame is reached from the standard equatorial frame of Eq.~\eqref{eq:unit_vector_eq} (whose $x$-axis points to the vernal equinox instead) by rotating the axes, \emph{within the equatorial plane}, anticlockwise by the angle $\alpha_{\rm Meridian}$ --- anticlockwise because right ascension is itself defined to increase eastward, i.e.\ anticlockwise as seen from the North Celestial Pole, so this is precisely the rotation that carries the old $x$-axis around to the new reference direction.
 
-Under a passive anticlockwise rotation of the $x$-$y$ axes by an angle $\theta$, standard 2D rotation gives the new coordinates $(x',y') = (x\cos\theta + y\sin\theta,\ -x\sin\theta + y\cos\theta)$, and correspondingly any angle $\alpha$ measured from the old $x$-axis becomes, measured from the new one, the angle $\alpha' \equiv \alpha - \theta$ --- i.e., writing $\theta = \alpha_{\rm Meridian}$,
+A passive anticlockwise rotation of the $x$-$y$ axes by an angle $\theta$ about the (untouched) polar $z$-axis is, quite generally, the orthogonal rotation matrix
 \begin{equation}
-	\alpha = \alpha_{\rm Meridian} + \alpha'.
-	\label{eq:alpha_prime_def}
+	\begin{pmatrix} x' \\ y' \\ z' \end{pmatrix} = \begin{pmatrix} \cos\theta & \sin\theta & 0 \\ -\sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix},
+	\label{eq:z_axis_rotation_matrix}
 \end{equation}
-Applying this rotation to the source's equatorial-frame coordinates $(\cos\delta\cos\alpha,\ \cos\delta\sin\alpha,\ \sin\delta)$ of Eq.~\eqref{eq:unit_vector_eq} (the $z$-component is untouched, since the rotation is about the polar axis), and using the angle-addition identities together with Eq.~\eqref{eq:alpha_prime_def}:
+with $\theta = \alpha_{\rm Meridian}$ here. Applying this matrix to the source's equatorial-frame coordinates $(x,y,z) = (\cos\delta\cos\alpha,\ \cos\delta\sin\alpha,\ \sin\delta)$ of Eq.~\eqref{eq:unit_vector_eq}:
+\begin{equation}
+	\begin{pmatrix} x' \\ y' \\ z' \end{pmatrix} = \begin{pmatrix} \cos\alpha_{\rm Meridian} & \sin\alpha_{\rm Meridian} & 0 \\ -\sin\alpha_{\rm Meridian} & \cos\alpha_{\rm Meridian} & 0 \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}.
+	\label{eq:meridian_rotation_applied}
+\end{equation}
+Multiplying out row by row, and using the angle-addition identities on the top two rows:
 \begin{align}
-	x' &= \cos\delta\cos\alpha\cos\alpha_{\rm Meridian} + \cos\delta\sin\alpha\sin\alpha_{\rm Meridian} = \cos\delta\cos(\alpha-\alpha_{\rm Meridian}) = \cos\delta\cos\alpha', \\
-	y' &= -\cos\delta\cos\alpha\sin\alpha_{\rm Meridian} + \cos\delta\sin\alpha\cos\alpha_{\rm Meridian} = \cos\delta\sin(\alpha-\alpha_{\rm Meridian}) = \cos\delta\sin\alpha'.
+	x' &= \cos\delta\cos\alpha\cos\alpha_{\rm Meridian} + \cos\delta\sin\alpha\sin\alpha_{\rm Meridian} = \cos\delta\cos(\alpha-\alpha_{\rm Meridian}), \\
+	y' &= -\cos\delta\cos\alpha\sin\alpha_{\rm Meridian} + \cos\delta\sin\alpha\cos\alpha_{\rm Meridian} = \cos\delta\sin(\alpha-\alpha_{\rm Meridian}), \\
+	z' &= \sin\delta.
 \end{align}
-So quite generally, in \emph{any} frame rotated by $\alpha_{\rm Meridian}$ from the vernal equinox,
+Defining $\alpha' \equiv \alpha - \alpha_{\rm Meridian}$ (i.e.\ $\alpha = \alpha_{\rm Meridian} + \alpha'$), this is, quite generally, in \emph{any} frame rotated by $\alpha_{\rm Meridian}$ from the vernal equinox,
 \begin{equation}
 	\hat{\mathbf s}_{\rm eq} = \begin{pmatrix}\cos\delta\cos\alpha' \\ \cos\delta\sin\alpha' \\ \sin\delta\end{pmatrix}, \qquad \alpha' = \alpha - \alpha_{\rm Meridian}.
 	\label{eq:meridian_frame_general}
