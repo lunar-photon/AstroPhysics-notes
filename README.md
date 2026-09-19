@@ -98,9 +98,7 @@ pdflatex -interaction=nonstopmode AstroPhysics.tex
 │   ├── 3D_Spherical.png
 │   ├── Binary_Star.png
 │   ├── Two Body Problem.png
-│   ├── ... (20+ diagram assets)
-├── ccd_signal_noise_notes_latex.tex
-├── Diffraction.tex
+│   └── ... (20+ diagram assets)
 ├── .gitignore
 └── README.md
 ```
