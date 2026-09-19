@@ -3214,34 +3214,36 @@ Since $u$ and $v$ share the same quadrant branch about periapsis, taking the pos
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[scale=0.9, >=Stealth]
-		% Axes
-		\draw[->, thick] (0,0) -- (7.5,0) node[right] {$r$};
-		\draw[->, thick] (0,-2.5) -- (0,5.5) node[above] {$V_{\text{eff}}(r)$};
-		
-		% L=0 curve (pure -k/r)
-		\draw[dashed, red!80!black, thick, domain=0.7:7.2, samples=100] 
-			plot (\x, {-2.5/\x});
-		\node[red!80!black, right] at (5.5,-0.6) {$L=0$ (pure attraction)};
-		
-		% L > 0 curve (effective potential well)
-		\draw[blue!80!black, very thick, domain=0.65:7.2, samples=150] 
-			plot (\x, {-3.5/\x + 2.2/(\x*\x)});
-		
-		% Energy levels
-		\draw[dashed, gray] (0, 1.2) -- (6.8, 1.2) node[right] {$E > 0$ (Hyperbolic)};
-		\draw[dashed, green!60!black, thick] (0, -0.6) -- (6.0, -0.6) node[right] {$E < 0$ (Bound Elliptic)};
-		\draw[dotted, purple, thick] (0, -1.39) -- (1.25, -1.39) node[midway, below] {$E_{\rm min}$ (Circular)};
-		
-		% Minimum point
-		\fill[blue!80!black] (1.25, -1.39) circle (2.5pt);
-		\node[below=3pt] at (1.25, 0) {$r_{\rm circ}$};
-		\draw[dotted] (1.25, 0) -- (1.25, -1.39);
-		
-		% Effective potential box
-		\node at (4.5, 4.2) {$\boxed{V_{\rm eff}(r) = -\frac{GM\mu}{r} + \frac{L^2}{2\mu r^2}}$};
+	\resizebox{0.95\textwidth}{!}{
+	\begin{tikzpicture}[>={Latex[length=4,width=4]}]
+		% Axis
+		\draw[-latex, thick] (0,-1) -- (0,7) node[left] {$V_{\text{eff}}$};
+		\draw[-latex, thick] (0,3) -- (9,3) node[below] {$r$};
+		\draw[rounded corners=30,thick] (8,2.8) to[out=180,in=40] (2,0.3) to[out=120,in=-85] (0.2,7) ;
+		\draw[dashed,rounded corners=30,thick] (3,1.14) to[out=220,in=60] (1.2,-1);
+		\node[left=3] at (0,3) {$E_{\text{parabola}}$};
+		\draw[dashed] (0,0.75)--(2.2,0.75);
+		\node[left=15] at (0,0.75) {$E_{\text{circle}}$};
+		\draw[<-,gray] (2.2,0.6)  to[out=-60,in=170](6,-0.1)node[below right]{$\boxed{\grad{V}=\nicefrac{mv^2}{r}}$};
+		\draw[dashed] (0,2)--(4.25,2);
+		\node[left=13] at (0,2) {$E_{\text{ellipse}}$};
+		\draw[dashed] (0,5)--(0.425,5);
+		\node[left] at (0,5) {$E_{\text{hyperbola}}$};
+		\draw[dashed] (2.2,.75)--(2.2,3);
+		\node[above] at (2.2,3) {$r_{\text{circle}}$};
+		\draw[dashed] (1.1,2)--(1.1,3);
+		\node[above] at (1.1,3) {$r_{\text{min}}$};
+		\fill (1.1,2) circle (2pt) node[below left,scale=0.4] {$E=V_{\text{eff}}(r_{\text{min}})$};
+		\draw[dashed] (4.3,2)--(4.3,3);
+		\fill (4.3,2) circle (2pt) node[below right,scale=0.4] {$E=V_{\text{eff}}(r_{\text{max}})$};
+		\node[above] at (4.3,3) {$r_{\text{max}}$};
+		\node[right] at (1.8,-0.3) {$L=0$};
+		\draw[<->,thick] (2.3,0.75)--(2.3,2);
+		\draw[<-] (2.4,1.5) to[out=0,in=180] (5,1) node[right] {Radial Kinetic Energy};
+		\node at (6,6) {$\boxed{V_{\text{eff}}=-\frac{k}{r^n}+\frac{L^2}{2mr^2}}$};
 	\end{tikzpicture}
-	\caption{Effective potential well for $L > 0$, defining circular orbit equilibrium and turning points for bound Keplerian motion.}
+	}
+	\caption{Effective potential well $V_{\rm eff}(r) = -k/r^n + L^2/(2mr^2)$, showing the energy levels corresponding to parabolic, circular, elliptical, and hyperbolic orbits, and the turning points $r_{\rm min}, r_{\rm max}$ bounding radial motion at fixed energy $E$.}
 	\label{fig:effective_potential_well}
 \end{figure}
 
@@ -3279,11 +3281,6 @@ Since $u$ and $v$ share the same quadrant branch about periapsis, taking the pos
 		\fill (0,\rtwo) circle (2.5pt);
 		\node[below=5pt] at (0,-\rone) {\textbf{Burn 1} ($\Delta v_1$)};
 		\node[above=5pt] at (0,\rtwo) {\textbf{Burn 2} ($\Delta v_2$)};
-		
-		% Labels
-		\node[green!60!black, rotate=60] at (-1.1, 0.65) {\textbf{Initial Orbit}};
-		\node[blue!75!black, rotate=70] at (-2.5, 1.45) {\textbf{Final GEO Orbit}};
-		\node[red!75!black] at (2.2, 0.8) {\textbf{Transfer Ellipse}};
 	\end{tikzpicture}
 	\caption{Hohmann transfer ellipse between initial low-Earth orbit $r_1$ and geostationary orbit $r_2$.}
 	\label{fig:hohmann_transfer_ellipse}

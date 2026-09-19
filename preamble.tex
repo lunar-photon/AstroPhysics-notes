@@ -17,6 +17,7 @@
 \usepackage{mathtools}
 \usepackage{physics}
 \usepackage{bm}
+\usepackage{nicefrac}
 
 % ---------- Fonts, Typography & Formatting ----------
 \usepackage{booktabs}
@@ -72,10 +73,6 @@
 \newtheorem{result}{Result}[chapter]
 \newtheorem{example}{Example}[chapter]
 
-\newenvironment{keyresult}
-  {\begin{result}\begin{quote}}
-  {\end{quote}\end{result}}
-
 % ---------- tcolorbox Styling ----------
 \usepackage[most]{tcolorbox}
 \tcbset{
@@ -86,10 +83,14 @@
     fonttitle=\bfseries\sffamily\footnotesize,
     coltitle=muted, before skip=10pt, after skip=12pt
   },
-  notebox/.style={basestyle, colframe=accent2, colback=panel},
-  flagbox/.style={basestyle, colframe=accent, colback=panel},
-  keybox/.style={basestyle, colframe=astroblue, colback=white}
+  notebox/.style={basestyle, colframe=accent2, colback=panel, coltitle=white, colbacktitle=accent2},
+  flagbox/.style={basestyle, colframe=accent, colback=panel, coltitle=white, colbacktitle=accent},
+  keybox/.style={basestyle, colframe=astroblue, colback=white, coltitle=white, colbacktitle=astroblue}
 }
+
+\newenvironment{keyresult}
+  {\begin{result}\begin{tcolorbox}[keybox]}
+  {\end{tcolorbox}\end{result}}
 
 % ---------- Custom Astronomical & Vector Macros ----------
 \newcommand{\vecr}{\vec r}
