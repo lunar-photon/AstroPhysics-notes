@@ -142,9 +142,13 @@ In frequency space:
 
 \subsection{Wien's Displacement Law}
 
-Differentiating $B_\lambda(T)$ with respect to $\lambda$ and setting $dB_\lambda/d\lambda = 0$ yields the condition:
+To find the wavelength of peak emission, write $B_\lambda \propto \lambda^{-5}(e^x-1)^{-1}$ with $x \equiv hc/(\lambda k_BT)$, and note that since $x \propto 1/\lambda$, the chain rule gives $dx/d\lambda = -x/\lambda$. Differentiating with respect to $\lambda$ (product and chain rule) and setting the result to zero:
 \begin{equation}
-	\frac{x e^x}{e^x - 1} = 5, \quad \text{where } x \equiv \frac{hc}{\lambda_{\max} k_B T} \approx 4.965114.
+	\dv{B_\lambda}{\lambda} \propto -5\lambda^{-6}(e^x-1)^{-1} + \lambda^{-5}(e^x-1)^{-2}e^x\left(\frac{x}{\lambda}\right) = 0.
+\end{equation}
+Multiplying through by $-\lambda^{6}(e^x-1)$ gives the transcendental condition on $x$:
+\begin{equation}
+	\frac{x e^x}{e^x - 1} = 5, \quad \text{where } x \equiv \frac{hc}{\lambda_{\max} k_B T} \approx 4.965114 \quad \text{(solved numerically).}
 \end{equation}
 This establishes \emph{Wien's Displacement Law}:
 \begin{keyresult}
@@ -156,12 +160,16 @@ This establishes \emph{Wien's Displacement Law}:
 
 \subsection{The Stefan-Boltzmann Law and Effective Temperature}
 
-Integrating Planck's specific intensity over all wavelengths and across the outward hemisphere ($\int_0^{2\pi}d\phi\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta = \pi$) gives the total emergent surface flux:
+Integrating Planck's specific intensity over all wavelengths and across the outward hemisphere ($\int_0^{2\pi}d\phi\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta = \pi$, the projected solid angle of a hemisphere) gives the total emergent surface flux $F_{\rm surface} = \pi\int_0^\infty B_\lambda(T)\,d\lambda$. Substituting $x = hc/(\lambda k_BT)$ (so $\lambda = hc/(xk_BT)$ and $d\lambda = -hc\,dx/(xk_BT)^2$... more directly, in frequency form with $x=h\nu/k_BT$) converts the integral into a pure number times $T^4$:
 \begin{equation}
-	F_{\rm surface} = \pi \int_0^\infty B_\lambda(T)\,d\lambda = \sigma_{\rm SB} T^4,
+	\int_0^\infty B_\nu(T)\,d\nu = \frac{2k_B^4T^4}{h^3c^2}\int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{2k_B^4T^4}{h^3c^2}\cdot\frac{\pi^4}{15},
+\end{equation}
+using the standard result $\int_0^\infty x^3/(e^x-1)\,dx = \pi^4/15$ (a tabulated integral, obtained by expanding $1/(e^x-1)=\sum_{n=1}^\infty e^{-nx}$ and summing the resulting Gamma-function integrals, $\sum_n \Gamma(4)/n^4 = 6\zeta(4) = 6\cdot\pi^4/90 = \pi^4/15$). Multiplying by $\pi$ gives
+\begin{equation}
+	F_{\rm surface} = \sigma_{\rm SB} T^4,
 	\label{eq:surface_flux_sb}
 \end{equation}
-where the \emph{Stefan-Boltzmann constant} is:
+where the \emph{Stefan-Boltzmann constant} collects all the remaining factors:
 \begin{equation}
 	\sigma_{\rm SB} = \frac{2\pi^5 k_B^4}{15 c^2 h^3} \approx 5.670374 \times 10^{-8}\,\mathrm{W\cdot m^{-2}\cdot K^{-4}}.
 	\label{eq:stefan_boltzmann_constant}

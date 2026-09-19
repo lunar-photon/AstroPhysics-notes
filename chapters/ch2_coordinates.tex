@@ -200,12 +200,23 @@ As starlight enters the Earth's atmosphere, the increasing refractive index bend
 \begin{equation}
 	h_{\rm apparent} = h_{\rm true} + R(h).
 \end{equation}
-For $h > 15^\circ$, the plane-parallel approximation yields:
+To see where the numerical coefficient in this bending comes from, again use the plane-parallel approximation: treat the atmosphere as a single slab of refractive index $n$ (vacuum, $n=1$, above it). Snell's law relates the true zenith angle $z$ (outside the atmosphere) to the apparent zenith angle $z' = z - R$ seen by the observer at the surface:
 \begin{equation}
-	R \approx 58.2''\cot h_{\rm true}.
-	\label{eq:refraction_cot}
+	\sin z = n\sin z' = n\sin(z - R).
 \end{equation}
-Near the horizon, Bennett's formula provides sub-arcsecond accuracy:
+Expanding $\sin(z-R) \approx \sin z - R\cos z$ for small $R$:
+\begin{equation}
+	\sin z \approx n\sin z - nR\cos z \quad\Longrightarrow\quad R \approx \frac{(n-1)\sin z}{n\cos z} \approx (n-1)\tan z,
+	\label{eq:refraction_derivation}
+\end{equation}
+using $n\approx 1$ in the denominator. With the refractive index of air at the surface $n - 1 \approx 2.8\times10^{-4}$ (a measured property of air, not something derivable from geometry alone), and converting to arcseconds ($1\,\text{rad} = 206{,}265''$):
+\begin{keyresult}
+	\begin{equation}
+		R \approx (n-1)\tan z \times 206{,}265'' \approx 58.2''\tan z = 58.2''\cot h_{\rm true} \qquad (h_{\rm true} > 15^\circ).
+		\label{eq:refraction_cot}
+	\end{equation}
+\end{keyresult}
+Because $n-1$ itself depends on air density (hence on local temperature and pressure), this coefficient is only a standard-atmosphere reference value; the empirical formula below builds in an explicit correction for the actual $(P,T)$ at the telescope. Near the horizon, the single-slab approximation breaks down entirely (as $z\to90^\circ$ the ray grazes the atmosphere over a curved path), so Bennett's formula provides sub-arcsecond accuracy there instead, as an empirical fit rather than a derived result:
 \begin{equation}
 	R[\text{arcmin}] \approx \frac{1.02}{\tan\!\left(h + \dfrac{10.3^\circ}{h + 5.11^\circ}\right)}\times\left(\frac{P}{1010\,\text{hPa}}\right)\left(\frac{283}{273 + T[^\circ\text{C}]}\right).
 	\label{eq:bennett_formula}
@@ -213,17 +224,31 @@ Near the horizon, Bennett's formula provides sub-arcsecond accuracy:
 At the horizon ($h = 0^\circ$), $R \approx 34'$ (greater than the Sun's angular diameter $\sim 32'$).
 
 \subsection{Stellar Aberration}
-The finite speed of light combined with the Earth's orbital motion around the Sun at velocity $v \approx 29.8\,\mathrm{km/s}$ produces an apparent angular displacement:
+The finite speed of light combined with the observer's own motion tilts the apparent direction of an incoming ray, exactly as vertically falling rain appears to slant forward when run through by a moving observer. Consider a photon arriving from directly overhead (velocity $-c\hat{\vec y}$ in the Sun's rest frame) while the Earth moves with velocity $v\hat{\vec x}$ transverse to that direction. Since $v \ll c$, Galilean velocity addition is an excellent approximation: in the Earth's frame, the photon's apparent velocity is
+\begin{equation}
+	\vec c\,' = \vec c - \vec v = -v\,\hat{\vec x} - c\,\hat{\vec y},
+\end{equation}
+so the ray appears tilted from the vertical by an angle $\kappa$ with
+\begin{equation}
+	\tan\kappa = \frac{v}{c} \quad\Longrightarrow\quad \kappa \approx \frac{v}{c} \quad (\text{since } v\ll c).
+\end{equation}
+Using Earth's orbital speed $v \approx 29.8\,\mathrm{km/s}$ (transverse to the line of sight to a star near the ecliptic pole, the maximal case) and converting to arcseconds:
 \begin{keyresult}
 	\begin{equation}
 		\kappa = \frac{v}{c} \approx 20.4955'' \approx 20.5''.
 		\label{eq:aberration_constant}
 	\end{equation}
 \end{keyresult}
+Because $v$ is Earth's \emph{orbital} velocity, $\kappa$ varies sinusoidally over the year and traces out a small ellipse (or, for stars at the ecliptic pole, a circle) of angular semi-major axis $20.5''$ on the sky --- geometrically a much smaller, much faster analogue of the parallax ellipse of Chapter~3, and one that (unlike parallax) is completely independent of the star's distance.
 
 \section{Angular Distance on a Sphere}
 
-The angular separation $\theta$ between two points $(\alpha_1, \delta_1)$ and $(\alpha_2, \delta_2)$ is given by the dot product of their unit vectors:
+The angular separation $\theta$ between two points $(\alpha_1, \delta_1)$ and $(\alpha_2, \delta_2)$ is given by the dot product of their unit vectors (Eq.~\eqref{eq:unit_vector_eq}), since for any two unit vectors $\cos\theta = \hat{\mathbf r}_1\cdot\hat{\mathbf r}_2$:
+\begin{align}
+	\cos\theta &= (\cos\delta_1\cos\alpha_1)(\cos\delta_2\cos\alpha_2) + (\cos\delta_1\sin\alpha_1)(\cos\delta_2\sin\alpha_2) + \sin\delta_1\sin\delta_2 \notag \\
+	&= \cos\delta_1\cos\delta_2\big(\cos\alpha_1\cos\alpha_2 + \sin\alpha_1\sin\alpha_2\big) + \sin\delta_1\sin\delta_2,
+\end{align}
+which, using $\cos\alpha_1\cos\alpha_2+\sin\alpha_1\sin\alpha_2=\cos(\alpha_1-\alpha_2)$, gives the spherical law of cosines:
 \begin{keyresult}
 	\begin{equation}
 		\cos\theta = \hat{\mathbf r}_1 \cdot \hat{\mathbf r}_2 = \sin\delta_1\sin\delta_2 + \cos\delta_1\cos\delta_2\cos(\alpha_1 - \alpha_2).
@@ -249,7 +274,7 @@ For small angular separations ($\theta \ll 1$), the Haversine formula avoids flo
 	\label{fig:equator_elliptic}
 \end{figure}
 
-The rotation between the equatorial and ecliptic frames by obliquity $\epsilon$ is:
+The ecliptic and equatorial planes intersect exactly along the line to the vernal equinox $\hat\gamma$ (by definition of $\hat\gamma$, Section~\ref{sec:sun_coordinates} of Chapter~1), so a rotation by the obliquity $\epsilon$ about that shared axis (the Cartesian $x$-axis in both frames) carries one frame into the other --- precisely the same kind of orthogonal-rotation-matrix argument used to derive the horizontal transformation above, only with a fixed rotation axis and angle rather than one set by the observer's latitude:
 \begin{equation}
 	\begin{pmatrix} \cos\beta\cos\lambda \\ \cos\beta\sin\lambda \\ \sin\beta \end{pmatrix} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos\epsilon & \sin\epsilon \\ 0 & -\sin\epsilon & \cos\epsilon \end{pmatrix} \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}.
 	\label{eq:ecliptic_rotation_matrix}
@@ -277,7 +302,7 @@ By IAU definition (epoch J2000.0), the North Galactic Pole ($\mathrm{NGP}$) and 
 	\text{Position Angle of NCP at NGP:}\quad &\theta_0 = 122.932^\circ.
 \end{align}
 
-The transformation from equatorial coordinates $(\alpha, \delta)$ to Galactic coordinates $(l, b)$ is:
+By exactly the same rotation-matrix method as above --- now rotating (and shifting the longitude origin) to align the polar axis with the Galactic pole $(\alpha_{\rm GP},\delta_{\rm GP})$ instead of the ecliptic pole --- the transformation from equatorial coordinates $(\alpha, \delta)$ to Galactic coordinates $(l, b)$ is:
 \begin{keyresult}
 	\begin{align}
 		\sin b &= \sin\delta_{\rm GP}\sin\delta + \cos\delta_{\rm GP}\cos\delta\cos(\alpha - \alpha_{\rm GP}), \label{eq:gal_b} \\
@@ -290,19 +315,25 @@ where $l_{\rm CP} = 122.932^\circ$ is the Galactic longitude of the North Celest
 \section{Airmass and the Parallactic Angle}
 
 \subsection{Airmass ($X$)}
-The \emph{airmass} $X$ measures the optical path length through the atmosphere relative to the zenith path:
+The \emph{airmass} $X$ measures the optical path length through the atmosphere relative to the zenith path. Model the atmosphere as a stack of thin, flat, horizontal slabs (the \emph{plane-parallel approximation}, valid away from the horizon where Earth's curvature is negligible). A ray arriving at zenith angle $z$ crosses a slab of vertical thickness $dz'$ along a slanted path of length $dz'/\cos z$ (elementary right-triangle geometry: the slant path is the hypotenuse of a triangle with vertical leg $dz'$ and angle $z$ from the vertical). Summing over all slabs,
 \begin{equation}
-	X \equiv \frac{\int \rho(s)\,ds}{\int \rho(z)\,dz} \approx \sec z = \frac{1}{\cos z} = \frac{1}{\sin h}.
-	\label{eq:airmass_secz}
+	\int \rho(s)\,ds = \frac{1}{\cos z}\int \rho(z')\,dz',
 \end{equation}
-For $z > 60^\circ$, Earth's curvature becomes significant, well modeled by Kasten \& Young (1989):
+so the ratio of the slant path to the vertical (zenith) path is
+\begin{keyresult}
+	\begin{equation}
+		X \equiv \frac{\int \rho(s)\,ds}{\int \rho(z)\,dz} \approx \sec z = \frac{1}{\cos z} = \frac{1}{\sin h}.
+		\label{eq:airmass_secz}
+	\end{equation}
+\end{keyresult}
+This plane-parallel result diverges unphysically as $z\to 90^\circ$; in reality Earth's curvature caps the path length at a finite value. For $z > 60^\circ$, this curvature becomes significant, and no simple geometric argument like the one above applies — instead one uses the empirical fitting formula of Kasten \& Young (1989):
 \begin{equation}
 	X = \frac{1}{\cos z + 0.50572\,(96.07995^\circ - z)^{-1.6364}}.
 	\label{eq:airmass_kasten}
 \end{equation}
 
 \subsection{The Parallactic Angle ($q$)}
-The \emph{parallactic angle} $q$ is the angle between the great circle through the celestial pole and the vertical great circle through the zenith:
+The \emph{parallactic angle} $q$ is the angle, measured at the star itself, between the great circle joining the star to the celestial pole and the great circle joining the star to the zenith. These two great circles, together with the great circle joining the pole to the zenith (an arc of length $90^\circ-\phi_0$), form a spherical triangle --- the \emph{astronomical triangle} --- with the star, the pole, and the zenith as its three vertices, and $H$ and $z=90^\circ-h$ as two of its known sides/angles. Applying the spherical laws of sines and cosines to this triangle (the same kind of spherical trigonometry that produced Eqs.~\eqref{eq:sinh_master}--\eqref{eq:cosh_cosA} for the pole-zenith-star triangle's other angle) yields $q$ directly:
 \begin{equation}
 	\sin q = \frac{\sin H\cos\phi_0}{\cos h}, \qquad \cos q = \frac{\sin\phi_0 - \sin h\sin\delta}{\cos h\cos\delta}.
 	\label{eq:parallactic_angle}

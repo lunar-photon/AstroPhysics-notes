@@ -19,7 +19,27 @@ Before establishing spatial coordinate grids on the sky (the subject of Chapter~
 	\item \textbf{Continuous Chronology:} The Julian Date system ($\JD, \MJD$) used in computational ephemerides.
 \end{enumerate}
 
+\section{A Minimal Primer: The Celestial Sphere}
+\label{sec:celestial_sphere_primer}
+
+This chapter must use a handful of astronomical terms before Chapter~2 develops them rigorously, so we first fix their meaning geometrically, assuming nothing beyond ordinary three-dimensional geometry.
+
+An observer on Earth cannot judge the distance to a star by eye; every direction in the sky can equally well be represented as a point on an abstract sphere of arbitrary radius centered on the observer --- the \emph{celestial sphere}. Two features of this sphere are fixed purely by Earth's own rotation, independent of where the observer stands:
+\begin{itemize}
+	\item The \emph{celestial poles} (North/South) are the two points where Earth's rotation axis, extended outward to infinity, pierces the celestial sphere.
+	\item The \emph{celestial equator} is the great circle in which the plane of Earth's equator (perpendicular to the rotation axis) intersects the celestial sphere.
+\end{itemize}
+Because the entire celestial sphere appears to rotate rigidly about this axis once per sidereal day (defined in Section~\ref{sec:solar_sidereal_day} below), an observer's local \emph{celestial meridian} --- the great circle running through both celestial poles and the observer's zenith (the point directly overhead) --- sweeps past every point of the celestial equator exactly once per rotation. This single fact is what makes a sidereal clock possible: naming which point on the celestial equator currently sits on the meridian is equivalent to reading a clock face.
+
+To label a direction on the celestial sphere unambiguously (and, since stars are so distant that their apparent positions barely shift over a human lifetime, this label stays valid for years), astronomers use two angles directly analogous to terrestrial latitude and longitude:
+\begin{itemize}
+	\item \emph{Declination} $\delta$ plays the role of latitude: angular distance north ($+$) or south ($-$) of the celestial equator.
+	\item \emph{Right ascension} $\alpha$ plays the role of longitude: angular distance measured eastward along the celestial equator from a chosen zero point.
+\end{itemize}
+That zero point is the \emph{vernal equinox} $\hat\gamma$: the fixed direction, among the stars, in which the Sun crosses from the southern to the northern side of the celestial equator each year (Section~\ref{sec:sun_coordinates} explains why the Sun crosses the equator at all, and why $(\alpha,\delta)$ is not quite as fixed as claimed above). Chapter~2 derives this $(\alpha,\delta)$ system in full, together with its relation to an observer's local horizon and its transformation to other coordinate frames; the present chapter needs only this much of it to construct a sidereal clock.
+
 \section{Two Natural Clocks: The Solar Day and the Sidereal Day}
+\label{sec:solar_sidereal_day}
 
 Every classical timekeeping system is anchored to the Earth's rotation. However, because rotation must be measured relative to a chosen reference direction, nature presents two fundamentally distinct clocks.
 
@@ -139,7 +159,11 @@ Just as there are two natural days, the Earth's complex orbital motion gives ris
 	\begin{equation}
 		\Delta T_{\rm prec} \approx \frac{50.29''}{360^\circ \times 3600''/^\circ} \times 365.256\ \text{d} \approx 20.4\ \text{minutes}.
 	\end{equation}
-	\item \textbf{The Anomalistic Year ($365.259636\ \text{d}$):} The time between consecutive perihelion passages. Gravitational perturbations from other planets (principally Jupiter and Venus) cause the Earth's orbital major axis to precess prograde (eastward) by $\approx 11.6''/\text{year}$, making the anomalistic year $\approx 4.7\ \text{minutes}$ longer than the sidereal year.
+	\item \textbf{The Anomalistic Year ($365.259636\ \text{d}$):} The time between consecutive perihelion passages. Gravitational perturbations from other planets (principally Jupiter and Venus) cause the Earth's orbital major axis itself to precess prograde (eastward) by $\approx 11.6''/\text{year}$, so the Earth must travel slightly \emph{past} its previous sidereal position to catch up with the receding perihelion direction:
+	\begin{equation}
+		\Delta T_{\rm apsidal} \approx \frac{11.6''}{360^\circ \times 3600''/^\circ} \times 365.256\ \text{d} \approx 4.7\ \text{minutes},
+	\end{equation}
+	making the anomalistic year longer than the sidereal year by this amount.
 \end{enumerate}
 
 \paragraph{The Gregorian Calendar Reform.}
@@ -206,7 +230,7 @@ where longitude $\lambda$ is converted to time units ($15^\circ = 1^{\rm h}$).
 
 \subsection{The Hour Angle ($H$)}
 
-The \emph{Hour Angle} $H$ of a celestial object with cataloged right ascension $\alpha$ measures the time elapsed since the object crossed the local meridian:
+By definition (Eq.~\eqref{eq:lst_def}), $\LST$ is the right ascension currently on the meridian; a cataloged object's own right ascension $\alpha$ tells us where \emph{it} sits on the celestial equator's coordinate grid (Section~\ref{sec:celestial_sphere_primer}). Since both are angles along the same celestial equator, their difference is exactly the angle the sky has rotated since that object was last on the meridian. This defines the \emph{Hour Angle} $H$ of a celestial object with cataloged right ascension $\alpha$, measuring the time elapsed since the object crossed the local meridian:
 \begin{keyresult}
 	\begin{equation}
 		H \equiv \LST - \alpha.
@@ -220,8 +244,9 @@ The \emph{Hour Angle} $H$ of a celestial object with cataloged right ascension $
 \end{itemize}
 
 \section{The Sun's Coordinates and Ecliptic Motion Across the Seasons}
+\label{sec:sun_coordinates}
 
-Because the Earth orbits the Sun in a plane tilted by the \emph{obliquity of the ecliptic} ($\epsilon \approx 23.44^\circ$) relative to the celestial equator, the Sun's apparent equatorial coordinates $(\alpha_\odot, \delta_\odot)$ change continuously throughout the year.
+An observer fixed on the orbiting Earth sees the Sun's direction, projected onto the celestial sphere of Section~\ref{sec:celestial_sphere_primer}, slowly trace out a great circle over the course of a year, simply because the Earth's orbital position changes; this apparent annual path of the Sun against the background stars is called the \emph{ecliptic}. If Earth's rotation axis were exactly perpendicular to its orbital plane, the ecliptic would coincide with the celestial equator and the Sun's declination would stay fixed at $\delta_\odot = 0^\circ$ all year. Instead, the rotation axis is tilted by the \emph{obliquity of the ecliptic} ($\epsilon \approx 23.44^\circ$) relative to the orbital plane, so the ecliptic and the celestial equator are two great circles inclined to one another by $\epsilon$, crossing at exactly two points (the equinoxes). Because the Earth orbits the Sun in this tilted plane, the Sun's apparent equatorial coordinates $(\alpha_\odot, \delta_\odot)$ change continuously throughout the year as it moves along the ecliptic.
 
 \begin{figure}[htbp]
 	\centering
@@ -353,10 +378,15 @@ At any instant of universal time $t_{\rm UT}$ (in hours):
 \section{Precession of the Equinoxes and Reference Epochs}
 
 \begin{definition}[Lunisolar Precession]
-	\emph{Lunisolar precession} is the slow, steady conical rotation of the Earth's spin axis around the normal to the ecliptic plane, with period $P_{\rm prec} \approx 25{,}772\ \text{years}$ (the Platonic Year). The spin axis traces out a cone of half-angle equal to the obliquity ($\epsilon \approx 23.44^\circ$), driven by the gravitational torque that the Sun and Moon exert on the Earth's oblate equatorial bulge --- the same torque-on-a-spinning-top mechanism responsible for ordinary gyroscopic precession.
+	\emph{Lunisolar precession} is the slow, steady conical rotation of the Earth's spin axis around the normal to the ecliptic plane, with period $P_{\rm prec} \approx 25{,}772\ \text{years}$ (the Platonic Year). The spin axis traces out a cone of half-angle equal to the obliquity ($\epsilon \approx 23.44^\circ$).
 \end{definition}
 
-The vernal equinox drifts westward along the ecliptic at the rate:
+\paragraph{Physical Origin: A Gyroscope, Not an Orbit.} Because Earth is an oblate spheroid (an equatorial bulge left over from its own rotation), the Sun's and Moon's gravity pull slightly harder on the near side of the bulge than the far side, producing a net torque $\vec\tau$ that tries to twist the tilted equatorial bulge into alignment with the ecliptic plane. Earth, however, is already spinning with a large angular momentum $\vec L = I_\oplus\vec\omega_\oplus$ directed along its rotation axis. For a rapidly spinning body, an applied torque does not tip the spin axis toward itself; instead, exactly as for a toy gyroscope or spinning top, it obeys $\vec\tau = d\vec L/dt$, which for a torque perpendicular to $\vec L$ rotates the axis \emph{sideways}, sweeping it around a cone rather than toppling it, at the steady precession rate
+\begin{equation}
+	\Omega_{\rm prec} = \frac{\tau}{L\sin\epsilon}.
+	\label{eq:gyroscopic_precession_rate}
+\end{equation}
+Evaluating $\tau$ explicitly requires the detailed torque produced by the Sun and Moon on Earth's measured oblateness (the $J_2$ quadrupole moment) averaged over both orbits --- a lengthy calculation in celestial mechanics that we do not reproduce here --- but Eq.~\eqref{eq:gyroscopic_precession_rate} already explains, from ordinary rigid-body mechanics alone, why the effect exists at all and why it is a slow conical sweep rather than any kind of orbital motion. The measured result of that full calculation is the precession period $P_{\rm prec} \approx 25{,}772\ \mathrm{years}$ quoted above, from which the vernal equinox drifts westward along the ecliptic at the rate:
 \begin{equation}
 	\dot\lambda_{\rm prec} \simeq 50.29''/\text{year} \approx 1^\circ/71.6\ \text{years}.
 	\label{eq:precession_rate}

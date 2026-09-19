@@ -1204,10 +1204,10 @@ We now have both halves of the picture needed to judge whether a telescope--came
 
 \subsection{The Nyquist Sampling Criterion}
 
-To record all spatial information contained in the image without aliasing, the \textbf{Nyquist sampling criterion} requires:
+This is a special case of a completely general result in signal processing, the \emph{Nyquist--Shannon sampling theorem}: a signal that contains no spatial variation finer than some highest frequency $f_{\max}$ can be perfectly reconstructed from discrete samples only if those samples are taken at intervals no coarser than $1/(2f_{\max})$ (samples any sparser cause distinct high-frequency features to become indistinguishable from one another --- \emph{aliasing}). Here, the diffraction blur $\theta_{\rm res}$ is the smallest angular feature the optical image can contain, i.e.\ the finest structure varies on an angular scale $\sim\theta_{\rm res}$, corresponding to a highest angular spatial frequency $f_{\max}\sim 1/\theta_{\rm res}$. The detector pixel grid is precisely a discrete sampling of the (continuous) focal-plane image, with sampling interval equal to the pixel scale. Applying the theorem directly:
 \begin{keyresult}
 	\begin{equation}
-		\text{Pixel Scale} \le \frac{\theta_{\rm res}}{2}.
+		\text{Pixel Scale} \le \frac{1}{2f_{\max}} \sim \frac{\theta_{\rm res}}{2}.
 		\label{eq:nyquist_sampling_criterion}
 	\end{equation}
 \end{keyresult}
@@ -1264,9 +1264,7 @@ We opened this chapter (Section~\ref{sec:windows}) by noting that the optical wi
 
 \subsection{Atmospheric Seeing and the Fried Parameter ($r_0$)}
 
-For ground-based optical telescopes, turbulent temperature and density variations in the Earth's atmosphere distort incoming plane wavefronts. The spatial scale over which wavefront phases remain coherent is parameterized by the \textbf{Fried coherence parameter} $r_0$ (typically $r_0 \sim 10\text{--}20\,\mathrm{cm}$ in the $V$-band at premier mountain observatories).
-
-For any telescope with aperture diameter $D > r_0$, the delivered angular resolution is limited not by $D$, but by $r_0$:
+For ground-based optical telescopes, turbulent temperature and density variations in the Earth's atmosphere continuously perturb the local refractive index along the line of sight, so a wavefront that left a star perfectly flat arrives at the ground with small, randomly-varying extra path delays across its width. The \textbf{Fried coherence parameter} $r_0$ is defined as the transverse separation over which the root-mean-square phase difference across the wavefront reaches of order $1\,\mathrm{radian}$ (typically $r_0 \sim 10\text{--}20\,\mathrm{cm}$ in the $V$-band at premier mountain observatories): patches of the wavefront closer together than $r_0$ are still mutually coherent and interfere constructively as in an undisturbed Airy pattern, while patches separated by more than $r_0$ have essentially independent, uncorrelated phases. The full theory of how $r_0$ follows from the statistics of atmospheric (Kolmogorov) turbulence is beyond our present scope, but the qualitative consequence is immediate: an aperture larger than $r_0$ is effectively not one coherent aperture of diameter $D$ but a patchwork of $\sim(D/r_0)^2$ independently-phased sub-apertures of size $r_0$ each. For any telescope with aperture diameter $D > r_0$, the delivered angular resolution is therefore limited not by $D$ (as Eq.~\eqref{eq:rayleigh_criterion_result} would suggest) but by the effective aperture $r_0$, via the same diffraction relation with $D\to r_0$:
 \begin{keyresult}
 	\begin{equation}
 		\theta_{\rm seeing} \approx 0.98\frac{\lambda}{r_0} \sim 0.5''\text{--}1.5''.

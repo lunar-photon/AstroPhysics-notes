@@ -61,6 +61,15 @@ Absorption occurs either as sharp line absorption by atoms and molecules, or as 
 	\label{tab:scattering_regimes}
 \end{table}
 
+\paragraph{Physical origin of the three regimes.} The geometric limit is simple ray optics: a grain much larger than the wavelength blocks light over its own projected area, $\sigma = \pi a^2$, independent of $\lambda$. The Rayleigh limit is a classical driven-dipole problem: an incident wave of amplitude $E_0$ induces a dipole moment $p = \alpha E_0$ in the grain, with polarizability $\alpha \propto a^3$ (the response of a sub-wavelength dielectric or conducting sphere scales with its volume). This oscillating dipole radiates according to the Larmor formula, $P_{\rm rad} \propto \ddot p^{\,2} \propto \omega^4 p^2$, so the re-radiated power scales as $\omega^4 a^6 E_0^2 \propto a^6/\lambda^4$ (using $\omega = 2\pi c/\lambda$); dividing by the incident intensity $I \propto E_0^2$ gives the scattering cross-section
+\begin{keyresult}
+	\begin{equation}
+		\sigma_{\rm Rayleigh} \propto \frac{a^6}{\lambda^4}.
+		\label{eq:rayleigh_scattering_cross_section}
+	\end{equation}
+\end{keyresult}
+This is precisely the same dipole-scattering result invoked in Chapter~5 (Section~\ref{sec:windows}) for air molecules rather than dust grains, and is the microscopic origin of the $\lambda^{-4}$ law responsible for the blue daytime sky. The intermediate Mie regime, by contrast, has no elementary derivation of this kind: the exact solution requires expanding the scattered field in an infinite series of vector spherical harmonics (the Mie series), whose terms do not collapse to a simple power law; the scaling $\sigma \propto a^3\lambda^{-1}$ quoted in Table~\ref{tab:scattering_regimes} is only the effective average behaviour across this transition regime, not a closed-form result.
+
 Interstellar grains ($a \sim 0.01\text{--}1\,\mu\mathrm{m}$) are comparable to or smaller than optical wavelengths, so ISM scattering is generically in the Mie or Rayleigh regime, both of which share the qualitative feature that $\sigma$ \emph{decreases} with increasing $\lambda$. A beam of white starlight passing through a dusty cloud therefore loses blue photons preferentially, emerging both dimmer (extinction) and redder (\emph{interstellar reddening}) than it left the source. This is the microphysical origin of the empirical extinction law $A_V = R_V\,E(B-V)$ with $R_V \approx 3.1$ already introduced in Chapter~4 (Eq.~\eqref{eq:rv_extinction}): the observed $\gamma \sim 1$ power-law is the net effect of averaging over a realistic grain-size distribution straddling the Mie and Rayleigh regimes, rather than a single clean $\lambda^{-4}$ Rayleigh law. A well-known consequence is visible directly in absorption and reflection nebulae: dense dust lanes such as Barnard 68 appear as near-total silhouettes in the optical yet become largely transparent in the infrared (where $a \ll \lambda$ deep in the Rayleigh regime and $\sigma$ is small), while starlight scattered off the dust surrounding the Pleiades produces a blue reflection nebula for the same Rayleigh-type reason that the terrestrial daytime sky is blue.
 
 \section{Spectral Lines: Formation and Broadening}
@@ -88,7 +97,7 @@ Collisions with neighbouring particles interrupt the phase of an emitting atom b
 
 \subsection{Doppler Broadening}
 
-A line-emitting particle moving with line-of-sight velocity $v_\parallel$ has its rest-frame frequency $\nu_0$ Doppler-shifted according to the classical relation already used in Chapter~3 (Eq.~\eqref{eq:doppler_classical}), $\Delta\nu/\nu_0 = v_\parallel/c$. In a gas at temperature $T$, the line-of-sight velocities of individual emitters follow a one-dimensional Maxwell--Boltzmann distribution with standard deviation $\sigma_v = \sqrt{k_B T/m}$ ($m$ the particle mass), so the ensemble of Doppler-shifted photons produces a Gaussian line profile of characteristic (thermal) width
+A line-emitting particle moving with line-of-sight velocity $v_\parallel$ has its rest-frame frequency $\nu_0$ Doppler-shifted according to the classical relation already used in Chapter~3 (Eq.~\eqref{eq:doppler_classical}), $\Delta\nu/\nu_0 = v_\parallel/c$. In a gas at temperature $T$, the equipartition theorem assigns mean kinetic energy $\frac{1}{2}k_BT$ to each translational degree of freedom, so the line-of-sight velocity component satisfies $\frac{1}{2}m\avg{v_\parallel^2} = \frac{1}{2}k_BT$, i.e.\ the line-of-sight velocities of individual emitters follow a one-dimensional Maxwell--Boltzmann distribution with standard deviation $\sigma_v = \sqrt{\avg{v_\parallel^2}} = \sqrt{k_B T/m}$ ($m$ the particle mass). The ensemble of Doppler-shifted photons therefore produces a Gaussian line profile of characteristic (thermal) width
 \begin{keyresult}
 	\begin{equation}
 		\frac{\Delta\nu_{\rm D}}{\nu_0} \sim \frac{\sigma_v}{c} = \sqrt{\frac{k_B T}{mc^2}}.
@@ -223,11 +232,12 @@ The marginal case $2K = |U|$ defines the critical condition for instability, eva
 
 \subsection{The Jeans Mass and Jeans Length}
 
-Model the cloud as a uniform sphere of mass $M$, radius $R$, and temperature $T$. Its gravitational self-energy, computed by assembling the sphere shell by shell ($U = -\int_0^R \frac{Gm(r)}{r}\,dm$ with $m(r) = M(r/R)^3$, $dm = 3M r^2/R^3\,dr$), is the standard result
-\begin{equation}
-	U = -\frac{3}{5}\frac{GM^2}{R}.
+Model the cloud as a uniform sphere of mass $M$, radius $R$, and temperature $T$. Its gravitational self-energy is computed by imagining the sphere assembled shell by shell, bringing successive layers of matter in from infinity. When a partially-built sphere has radius $r < R$, its already-accreted mass (uniform density) is $m(r) = M(r/R)^3$. Bringing in the next infinitesimal shell $dm = 4\pi r^2\rho\,dr = 3Mr^2/R^3\,dr$ from infinity releases gravitational energy $dU = -Gm(r)\,dm/r$; integrating over the full assembly from $r=0$ to $r=R$:
+\begin{align}
+	U &= -\int_0^R \frac{G\,m(r)}{r}\,dm = -\int_0^R \frac{GM(r/R)^3}{r}\cdot\frac{3Mr^2}{R^3}\,dr = -\frac{3GM^2}{R^6}\int_0^R r^4\,dr \notag \\
+	&= -\frac{3GM^2}{R^6}\cdot\frac{R^5}{5} = -\frac{3}{5}\frac{GM^2}{R}.
 	\label{eq:uniform_sphere_self_energy}
-\end{equation}
+\end{align}
 Its thermal kinetic energy, with $N = M/(\mu m_{\rm H})$ particles of mean molecular weight $\mu$, is $K = \frac{3}{2}Nk_BT = \frac{3}{2}\frac{M}{\mu m_{\rm H}}k_BT$. Imposing the marginal virial condition $2K = |U|$:
 \begin{equation}
 	3\,\frac{Mk_BT}{\mu m_{\rm H}} = \frac{3}{5}\frac{GM^2}{R} \quad\Longrightarrow\quad R = \frac{GM\mu m_{\rm H}}{5k_BT}.
@@ -244,11 +254,29 @@ A cloud with $M > M_J$ (equivalently $R > R_J$ at fixed density) has insufficien
 
 \subsection{A Dynamical Cross-Check: The Jeans Dispersion Relation}
 
-The energy argument above is global and geometry-dependent (it assumed a uniform sphere); it is worth confirming the same physics from a local, dynamical perspective. Linearize the isothermal fluid equations (continuity, Euler, Poisson) about a uniform background of density $\rho_0$ at rest, writing $\rho = \rho_0 + \rho_1$, and seek plane-wave perturbations $\rho_1 \propto \exp[i(\vec k\cdot\vecr - \omega t)]$ with sound speed $c_s^2 = k_BT/(\mu m_{\rm H})$. The linearized equations combine into the dispersion relation
+The energy argument above is global and geometry-dependent (it assumed a uniform sphere); it is worth confirming the same physics from a local, dynamical perspective. Consider an infinite, isothermal (sound speed $c_s^2 = k_BT/\mu m_{\rm H}$), self-gravitating fluid at rest with uniform background density $\rho_0$, and perturb it slightly: $\rho = \rho_0 + \rho_1$, velocity $\vec v = \vec v_1$, potential $\Phi = \Phi_0 + \Phi_1$. To linear order in the perturbation, continuity, Euler (with $\delta P = c_s^2\rho_1$), and Poisson's equation read
+\begin{align}
+	\pdv{\rho_1}{t} + \rho_0\nabla\cdot\vec v_1 &= 0, \label{eq:jeans_lin_continuity} \\
+	\rho_0\pdv{\vec v_1}{t} &= -c_s^2\nabla\rho_1 - \rho_0\nabla\Phi_1, \label{eq:jeans_lin_euler} \\
+	\nabla^2\Phi_1 &= 4\pi G\rho_1. \label{eq:jeans_lin_poisson}
+\end{align}
+Seeking plane-wave solutions $\propto \exp[i(\vec k\cdot\vecr - \omega t)]$ (with $\vec v_1 = v_1\hat{\vec k}$ along the wavevector) turns the derivatives into algebraic factors, $\partial_t \to -i\omega$ and $\nabla \to i\vec k$:
 \begin{equation}
-	\omega^2 = c_s^2k^2 - 4\pi G\rho_0.
-	\label{eq:jeans_dispersion_relation}
+	-i\omega\rho_1 + i\rho_0 k v_1 = 0, \qquad
+	-i\omega\rho_0 v_1 = -ic_s^2k\rho_1 - i\rho_0k\Phi_1, \qquad
+	-k^2\Phi_1 = 4\pi G\rho_1.
 \end{equation}
+The first equation gives $v_1 = \omega\rho_1/(\rho_0 k)$; the third gives $\Phi_1 = -4\pi G\rho_1/k^2$. Dividing the second equation by $-i$ gives $\omega\rho_0 v_1 = c_s^2k\rho_1 + \rho_0k\Phi_1$; substituting both $v_1$ and $\Phi_1$:
+\begin{equation}
+	\rho_0\omega\cdot\frac{\omega\rho_1}{\rho_0 k} = c_s^2 k\rho_1 + \rho_0 k\left(-\frac{4\pi G\rho_1}{k^2}\right) \quad\Longrightarrow\quad \frac{\omega^2}{k}\rho_1 = c_s^2 k\rho_1 - \frac{4\pi G\rho_0}{k}\rho_1.
+\end{equation}
+Dividing through by $\rho_1/k$ yields the \textbf{Jeans dispersion relation}:
+\begin{keyresult}
+	\begin{equation}
+		\omega^2 = c_s^2k^2 - 4\pi G\rho_0.
+		\label{eq:jeans_dispersion_relation}
+	\end{equation}
+\end{keyresult}
 Short-wavelength (large-$k$) perturbations have $\omega^2 > 0$ and oscillate as ordinary sound waves, stabilized by pressure. Long-wavelength perturbations with $k$ below the critical wavenumber $k_J \equiv \sqrt{4\pi G\rho_0}/c_s$ have $\omega^2 < 0$: $\omega$ is purely imaginary, and the perturbation grows exponentially rather than oscillating — gravitational instability. The corresponding critical wavelength,
 \begin{equation}
 	\lambda_J = \frac{2\pi}{k_J} = c_s\sqrt{\frac{\pi}{G\rho_0}},

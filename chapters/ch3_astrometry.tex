@@ -4,14 +4,15 @@ The coordinate systems of Chapter~2 fix a star's \emph{direction} on the sky but
 
 \section{Trigonometric Parallax and the Parsec}
 
-As the Earth orbits the Sun, a nearby star appears to trace a tiny elliptical path on the sky relative to distant background objects. This apparent angular shift is the \emph{annual trigonometric parallax}.
+As the Earth orbits the Sun, a nearby star appears to trace a tiny elliptical path on the sky relative to distant background objects, for exactly the same reason that a nearby lamppost appears to shift against a distant skyline as you walk sideways past it. This apparent angular shift is the \emph{annual trigonometric parallax}.
 
 \begin{definition}[Trigonometric Parallax and Parsec]
-	The \emph{parallax angle} $p$ (or $\varpi$) of a star is the semi-major axis of its apparent parallactic ellipse, subtended by the Earth-Sun distance ($1\,\mathrm{AU} = 1.495978707 \times 10^{11}\,\mathrm{m}$):
+	Consider the right triangle formed by the Sun, the Earth, and a star at distance $d$, at the instant Earth's orbital position gives the maximum angular offset (when the Earth--Sun line is perpendicular to the line of sight, i.e.\ the Sun itself would appear $90^\circ$ from the star as seen from Earth). This triangle has a right angle at the Sun, an adjacent side of length $1\,\mathrm{AU}$ (the Earth--Sun distance), a hypotenuse $d$ (the Sun--star distance), and an angle $p$ at the star between the hypotenuse and the line to the Sun. Elementary trigonometry on this right triangle gives
 	\begin{equation}
-		\sin p = \frac{1\,\mathrm{AU}}{d} \quad\Longrightarrow\quad p \approx \frac{1\,\mathrm{AU}}{d}\quad (\text{for } p \ll 1\,\text{rad}).
+		\sin p = \frac{1\,\mathrm{AU}}{d} \quad\Longrightarrow\quad p \approx \frac{1\,\mathrm{AU}}{d}\quad (\text{for } p \ll 1\,\text{rad}),
 		\label{eq:parallax_def}
 	\end{equation}
+	where $p$ (or $\varpi$), the \emph{parallax angle}, is by construction the semi-major axis of the star's apparent parallactic ellipse on the sky over the year, and $1\,\mathrm{AU} = 1.495978707\times10^{11}\,\mathrm{m}$ is the Earth--Sun distance.
 	A \emph{parsec} ($\mathrm{pc}$) is defined as the distance at which an astronomical unit subtends an angle of exactly one arcsecond ($1''$):
 	\begin{keyresult}
 		\begin{equation}
@@ -94,14 +95,14 @@ k \equiv \frac{3.085678 \times 10^{13}}{206264.806 \times 3.15576 \times 10^7} \
 The component of stellar velocity along the line of sight, $v_r$, is measured spectroscopically via the Doppler shift of absorption or emission lines.
 
 \begin{definition}[Doppler Shift and Radial Velocity]
-	For non-relativistic velocities ($v_r \ll c$), the relative wavelength shift $z$ is:
+	Consider a source emitting successive wave crests spaced by one period $T_0 = \lambda_0/c$ in its own rest frame, receding directly away from the observer at speed $v_r \ll c$. Between the emission of one crest and the next, the source recedes an extra distance $v_r T_0$, so the second crest must travel that much farther to reach the observer, arriving a time $v_r T_0/c$ later than it would from a stationary source. The observed period is therefore stretched to $T_{\rm obs} = T_0 + v_rT_0/c = T_0(1+v_r/c)$, and since $\lambda = cT$, the relative wavelength shift $z$ is:
 	\begin{keyresult}
 		\begin{equation}
-			z \equiv \frac{\Delta\lambda}{\lambda_0} = \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0} = \frac{v_r}{c},
+			z \equiv \frac{\Delta\lambda}{\lambda_0} = \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0} = \frac{T_{\rm obs}-T_0}{T_0} = \frac{v_r}{c},
 			\label{eq:doppler_classical}
 		\end{equation}
 	\end{keyresult}
-	where $v_r > 0$ denotes recession (redshift) and $v_r < 0$ denotes approach (blueshift).
+	valid for non-relativistic velocities ($v_r \ll c$), where $v_r > 0$ denotes recession (redshift) and $v_r < 0$ denotes approach (blueshift).
 \end{definition}
 
 For relativistic velocities (cosmological redshift, relativistic jets), the exact special-relativistic Doppler relation must be used:
@@ -118,7 +119,12 @@ Combining proper motion components and radial velocity, the space velocity vecto
 \end{equation}
 where $v_\alpha = 4.74047\,\mu_\alpha^*\,d$ and $v_\delta = 4.74047\,\mu_\delta\,d$.
 
-The orthonormal equatorial coordinate basis vectors in Cartesian coordinates are:
+The directions $\hat{\boldsymbol\alpha}$ and $\hat{\boldsymbol\delta}$ needed here are simply the local compass directions ``increasing $\alpha$'' and ``increasing $\delta$'' tangent to the celestial sphere at the star's position --- precisely the (normalized) partial derivatives of the position unit vector $\hat{\mathbf r}$ (Eq.~\eqref{eq:unit_vector_eq}) with respect to each spherical coordinate, a standard construction for a local tangent basis on a sphere:
+\begin{equation}
+	\hat{\boldsymbol\delta} = \pdv{\hat{\mathbf r}}{\delta} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}, \qquad
+	\hat{\boldsymbol\alpha} = \frac{1}{\cos\delta}\pdv{\hat{\mathbf r}}{\alpha} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix},
+\end{equation}
+where the $1/\cos\delta$ in $\hat{\boldsymbol\alpha}$ restores unit length ($\partial\hat{\mathbf r}/\partial\alpha$ alone has magnitude $\cos\delta$, since displacements in $\alpha$ shrink physically toward the poles). One can check directly that $\hat{\mathbf r}$, $\hat{\boldsymbol\alpha}$, $\hat{\boldsymbol\delta}$ are mutually orthogonal unit vectors at every point, so together they form the orthonormal equatorial coordinate basis:
 \begin{equation}
 	\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
 	\hat{\boldsymbol{\alpha}} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
@@ -148,7 +154,7 @@ In Galactic dynamics, stellar velocities are expressed in a right-handed Cartesi
 	\item $W$: Velocity directed toward the North Galactic Pole ($b = +90^\circ$).
 \end{itemize}
 
-The Galactic velocity vector $(U, V, W)^T$ is obtained from the equatorial Cartesian velocity $(v_x, v_y, v_z)^T$ via the transformation matrix $\mathbf T_{\rm Gal}$:
+Because $(U,V,W)$ and $(v_x,v_y,v_z)$ are both Cartesian components of the \emph{same} physical velocity vector, expressed in two frames sharing a common origin (the Sun), they are related by a pure rotation --- the same rigid-rotation argument used in Chapter~2 to transform coordinates between celestial frames, applied here to a velocity rather than a position. The Galactic velocity vector $(U, V, W)^T$ is obtained from the equatorial Cartesian velocity $(v_x, v_y, v_z)^T$ via the transformation matrix $\mathbf T_{\rm Gal}$, whose numerical entries are fixed once and for all by the IAU-adopted direction of the Galactic pole (Chapter~2, Eq.~\eqref{eq:gal_b}):
 \begin{keyresult}
 	\begin{equation}
 		\begin{pmatrix} U \\ V \\ W \end{pmatrix} = \mathbf T_{\rm Gal} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} -0.054876 & -0.873437 & -0.483835 \\ +0.494109 & -0.444830 & +0.746982 \\ -0.867666 & -0.198076 & +0.455984 \end{pmatrix} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}.
