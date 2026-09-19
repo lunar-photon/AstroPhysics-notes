@@ -39,10 +39,10 @@ The same grid looks rather different once actually projected on the sky and view
 		\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
 
 		\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
-		\draw[->, astroblue!80, thin] (-3.3,4.5) -- ({90+15*3}:3.4);
+		\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
 
 		\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
-		\draw[->, astroblue!80, thin] (3.7,-4.1) -- ({-40}:3.1);
+		\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
 	\end{tikzpicture}
 	\caption{The equatorial grid projected on the sky near the North Celestial Pole (compare against an actual star chart of Ursa Minor/Ursa Major around Polaris). Radiating lines are hour circles of constant right ascension $\alpha$, spaced $15^\circ=1^{\rm h}$ apart (labeled every $2^{\rm h}$); concentric circles are parallels of constant declination $\delta$. Right ascension increases eastward, i.e.\ anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}), which is why the hour labels increase in that sense here. Polaris sits within $\sim 1^\circ$ of the true pole --- close enough that, to the eye, it appears to stay fixed while every other star wheels around it nightly.}
 	\label{fig:ra_dec_polar_grid}
