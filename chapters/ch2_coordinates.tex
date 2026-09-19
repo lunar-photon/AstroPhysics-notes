@@ -103,7 +103,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
 
 			% 0h tick-arc at the vernal equinox, same visual language as the other angle arcs
-			\draw[ink, line width=1.8pt] plot[domain=-6:6, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\draw[ink, line width=1.8pt] plot[domain=0:8, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
 			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
 
 			% Observer's meridian great circle (through NCP, M, and SCP)
@@ -128,7 +128,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
 
 			% Points
-			\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
+			\fill[astroblue] (M) circle (1.4pt) node[anchor=south east, xshift=-2pt, yshift=10pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
 			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
 			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
 		\end{tikzpicture}%
@@ -174,7 +174,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			% Reference axes -- vernal equinox is unchanged
 			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
 			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
-			\draw[ink, line width=1.8pt] plot[domain=-6:6, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\draw[ink, line width=1.8pt] plot[domain=0:8, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
 			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
 
 			% Observer's meridian great circle -- now advanced past the star
