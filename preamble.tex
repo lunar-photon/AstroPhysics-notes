@@ -1,0 +1,125 @@
+% ==============================================================================
+% ASTROPHYSICS COURSE COMPANION - GLOBAL PREAMBLE
+% ==============================================================================
+
+% ---------- Geometry & Page Setup ----------
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\graphicspath{{figs/}}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{comment}
+
+% ---------- Mathematics & Physics ----------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{bm}
+
+% ---------- Fonts, Typography & Formatting ----------
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{listings}
+\lstset{
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{panel},
+  frame=single,
+  rulecolor=\color{linecol},
+  keywordstyle=\color{accent2}\bfseries,
+  commentstyle=\color{muted}\itshape,
+  stringstyle=\color{accent},
+  breaklines=true,
+  showstringspaces=false
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em plus 0.1em minus 0.1em}
+\raggedbottom
+\usepackage{wasysym}
+
+% ---------- Colors ----------
+\usepackage{xcolor}
+\definecolor{colone}{RGB}{180,60,60}
+\definecolor{coltwo}{RGB}{60,110,180}
+\definecolor{colthree}{RGB}{60,140,80}
+
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{astrodark}{HTML}{17202A}
+
+% ---------- Hyperlinks ----------
+\usepackage[colorlinks=true, 
+            linkcolor=blue!80!black, 
+            citecolor=accent2, 
+            urlcolor=blue!80!black,
+            bookmarksdepth=3]{hyperref}
+
+% ---------- TikZ & Diagramming ----------
+\usepackage{tikz}
+\usetikzlibrary{calc,arrows.meta,positioning,decorations.pathreplacing,decorations.markings,angles,quotes}
+\usepackage{tikz-3dplot}
+
+% ---------- Theorem & Definition Environments ----------
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{result}{Result}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+\newenvironment{keyresult}
+  {\begin{result}\begin{quote}}
+  {\end{quote}\end{result}}
+
+% ---------- tcolorbox Styling ----------
+\usepackage[most]{tcolorbox}
+\tcbset{
+  basestyle/.style={
+    enhanced, breakable, colback=panel, colframe=linecol,
+    boxrule=0.5pt, leftrule=2.5pt, arc=2pt, outer arc=2pt,
+    left=10pt, right=10pt, top=7pt, bottom=7pt,
+    fonttitle=\bfseries\sffamily\footnotesize,
+    coltitle=muted, before skip=10pt, after skip=12pt
+  },
+  notebox/.style={basestyle, colframe=accent2, colback=panel},
+  flagbox/.style={basestyle, colframe=accent, colback=panel},
+  keybox/.style={basestyle, colframe=astroblue, colback=white}
+}
+
+% ---------- Custom Astronomical & Vector Macros ----------
+\newcommand{\vecr}{\vec r}
+\newcommand{\vecL}{\vec L}
+\newcommand{\vecA}{\vec A}
+\newcommand{\vecf}{\vec f}
+\newcommand{\vecF}{\vec F}
+\newcommand{\vecp}{\vec p}
+\newcommand{\avg}[1]{\left\langle #1\right\rangle}
+\newcommand{\vecx}{\vec x}
+\newcommand{\hatn}{\hat \leo}
+\newcommand{\rhat}{\hat r}
+\newcommand{\phihat}{\hat\phi}
+\newcommand{\thetahat}{\hat\theta}
+\newcommand{\note}[1]{\textcolor{blue!60!black}{\textit{[#1]}}}
+
+% Astronomical acronyms
+\newcommand{\LST}{\mathrm{LST}}
+\newcommand{\GST}{\mathrm{GST}}
+\newcommand{\GMST}{\mathrm{GMST}}
+\newcommand{\GAST}{\mathrm{GAST}}
+\newcommand{\LMST}{\mathrm{LMST}}
+\newcommand{\LAST}{\mathrm{LAST}}
+\newcommand{\UT}{\mathrm{UT}}
+\newcommand{\UTC}{\mathrm{UTC}}
+\newcommand{\TAI}{\mathrm{TAI}}
+\newcommand{\TT}{\mathrm{TT}}
+\newcommand{\TDB}{\mathrm{TDB}}
+\newcommand{\JD}{\mathrm{JD}}
+\newcommand{\MJD}{\mathrm{MJD}}
+\newcommand{\EoT}{\mathrm{EoT}}
+\newcommand{\SNR}{\mathrm{SNR}}
+\newcommand{\RON}{\mathrm{RON}}

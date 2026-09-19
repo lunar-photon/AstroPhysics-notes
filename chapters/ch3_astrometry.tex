@@ -1,0 +1,183 @@
+\chapter{Astrometry: Distances, Motions, and the Space Velocity Vector}
+
+Astrometry is the branch of astrophysics dedicated to precise measurements of the positions, distances, and kinematics of celestial bodies. By combining angular coordinates $(\alpha, \delta)$, trigonometric parallax ($p$), proper motions $(\mu_\alpha^*, \mu_\delta)$, and spectroscopic radial velocities ($v_r$), astronomers reconstruct the full six-dimensional phase-space distribution of stars in the Galaxy: position $\vecr = (x, y, z)$ and space velocity $\vec v = (v_x, v_y, v_z)$. In this chapter, we develop the foundations of astrometric measurements, distance determination, and 3D velocity reconstruction.
+
+\section{Trigonometric Parallax and the Parsec}
+
+As the Earth orbits the Sun, a nearby star appears to trace a tiny elliptical path on the sky relative to distant background objects. This apparent angular shift is the \emph{annual trigonometric parallax}.
+
+\begin{definition}[Trigonometric Parallax and Parsec]
+	The \emph{parallax angle} $p$ (or $\varpi$) of a star is the semi-major axis of its apparent parallactic ellipse, subtended by the Earth-Sun distance ($1\,\mathrm{AU} = 1.495978707 \times 10^{11}\,\mathrm{m}$):
+	\begin{equation}
+		\sin p = \frac{1\,\mathrm{AU}}{d} \quad\Longrightarrow\quad p \approx \frac{1\,\mathrm{AU}}{d}\quad (\text{for } p \ll 1\,\text{rad}).
+		\label{eq:parallax_def}
+	\end{equation}
+	A \emph{parsec} ($\mathrm{pc}$) is defined as the distance at which an astronomical unit subtends an angle of exactly one arcsecond ($1''$):
+	\begin{keyresult}
+		\begin{equation}
+			d\,[\mathrm{pc}] = \frac{1}{p\,[\mathrm{arcsec}]}.
+			\label{eq:parallax_distance_pc}
+		\end{equation}
+	\end{keyresult}
+	In metric units:
+	\begin{equation}
+		1\,\mathrm{pc} = \frac{1\,\mathrm{AU}}{\tan(1'')} = \frac{1.4959787 \times 10^{11}\,\mathrm{m}}{\pi / (180 \times 3600)} \approx 3.08567758 \times 10^{16}\,\mathrm{m} \approx 3.26156\,\mathrm{ly}.
+	\end{equation}
+\end{definition}
+
+\begin{example}[Distance to Sirius]
+	Sirius has a measured parallax $p = 379.21\,\mathrm{mas} = 0.37921''$ (from the \emph{Hipparcos}/\emph{Gaia} catalogs). Its distance is:
+	\[
+	d = \frac{1}{0.37921} \approx 2.637\,\mathrm{pc} \approx 8.60\,\mathrm{ly}.
+	\]
+\end{example}
+
+\paragraph{Parallax Inversion and the Lutz-Kelker Bias.}
+When converting a measured parallax $p_{\rm obs}$ into distance, non-linear error propagation means $\langle 1/p \rangle \neq 1/\langle p \rangle$. For fractional parallax errors $\sigma_p/p \gtrsim 0.15$, symmetrical Gaussian errors on $p$ produce strongly asymmetric, biased distance estimates (the \emph{Lutz-Kelker bias}), requiring Bayesian distance priors (e.g., exponentially decreasing space density models in \emph{Gaia} data releases).
+
+\section{Three-Dimensional Cartesian Position Vector}
+
+From the distance $d$ and equatorial coordinates $(\alpha, \delta)$, the heliocentric Cartesian position vector is:
+\begin{keyresult}
+	\begin{equation}
+		\vecr = \begin{pmatrix} x \\ y \\ z \end{pmatrix} = d\,\hat{\mathbf r}_{\rm eq} = \begin{pmatrix} d\cos\delta\cos\alpha \\ d\cos\delta\sin\alpha \\ d\sin\delta \end{pmatrix}.
+		\label{eq:cartesian_pos_3d}
+	\end{equation}
+\end{keyresult}
+
+\section{Proper Motion and Transverse Velocity}
+
+Stars possess intrinsic space velocities relative to the Sun. The component of stellar motion perpendicular to the line of sight projects onto the celestial sphere as an angular displacement over time, known as \emph{proper motion} $\boldsymbol{\mu}$.
+
+\begin{definition}[Proper Motion Components]
+	Proper motion is resolved into two orthogonal components on the sky:
+	\begin{itemize}
+		\item $\mu_\delta = \dfrac{d\delta}{dt}$: Rate of change of declination ($\mathrm{mas/yr}$ or $\mathrm{arcsec/yr}$).
+		\item $\mu_\alpha^* \equiv \mu_\alpha\cos\delta = \dfrac{d\alpha}{dt}\cos\delta$: True angular rate of change along the parallel of declination ($\mathrm{mas/yr}$).
+	\end{itemize}
+	The total proper motion magnitude is:
+	\begin{equation}
+		\mu = \sqrt{(\mu_\alpha\cos\delta)^2 + \mu_\delta^2} = \sqrt{(\mu_\alpha^*)^2 + \mu_\delta^2}.
+		\label{eq:total_proper_motion}
+	\end{equation}
+\end{definition}
+
+\paragraph{Derivation of the $4.74047$ Kinematic Conversion Constant.}
+The physical transverse velocity $v_t$ (in $\mathrm{km/s}$) across a distance $d$ (in $\mathrm{pc}$) with proper motion $\mu$ (in $\mathrm{arcsec/yr}$) is:
+\[
+v_t = d\,\mu = \left(d\,[\mathrm{pc}] \times 3.085678 \times 10^{13}\,\mathrm{km/pc}\right) \times \left(\mu\,[\mathrm{arcsec/yr}] \times \frac{1\,\mathrm{rad}}{206264.806''}\right) \times \left(\frac{1\,\mathrm{yr}}{3.15576 \times 10^7\,\mathrm{s}}\right).
+\]
+Evaluating the numerical coefficient:
+\[
+k \equiv \frac{3.085678 \times 10^{13}}{206264.806 \times 3.15576 \times 10^7} \approx 4.7404705\,\mathrm{km\cdot s^{-1}\cdot yr\cdot arcsec^{-1}\cdot pc^{-1}}.
+\]
+\begin{keyresult}
+	\begin{equation}
+		v_t\,[\mathrm{km/s}] = 4.74047 \times \mu\,[\mathrm{arcsec/yr}] \times d\,[\mathrm{pc}] = 4.74047 \times \frac{\mu\,[\mathrm{arcsec/yr}]}{p\,[\mathrm{arcsec}]}.
+		\label{eq:vt_master}
+	\end{equation}
+\end{keyresult}
+
+\begin{example}[Transverse Velocity of Sirius]
+	Sirius has proper motion $\mu_\alpha^* = -546.01\,\mathrm{mas/yr} = -0.54601''/\mathrm{yr}$ and $\mu_\delta = -1223.07\,\mathrm{mas/yr} = -1.22307''/\mathrm{yr}$, giving total proper motion:
+	\[
+	\mu = \sqrt{(-0.54601)^2 + (-1.22307)^2} \approx 1.3396''/\mathrm{yr}.
+	\]
+	With $d = 2.637\,\mathrm{pc}$, its transverse velocity is:
+	\[
+	v_t = 4.74047 \times 1.3396 \times 2.637 \approx 16.75\,\mathrm{km/s}.
+	\]
+\end{example}
+
+\section{Radial Velocity and the Doppler Effect}
+
+The component of stellar velocity along the line of sight, $v_r$, is measured spectroscopically via the Doppler shift of absorption or emission lines.
+
+\begin{definition}[Doppler Shift and Radial Velocity]
+	For non-relativistic velocities ($v_r \ll c$), the relative wavelength shift $z$ is:
+	\begin{keyresult}
+		\begin{equation}
+			z \equiv \frac{\Delta\lambda}{\lambda_0} = \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0} = \frac{v_r}{c},
+			\label{eq:doppler_classical}
+		\end{equation}
+	\end{keyresult}
+	where $v_r > 0$ denotes recession (redshift) and $v_r < 0$ denotes approach (blueshift).
+\end{definition}
+
+For relativistic velocities (cosmological redshift, relativistic jets), the exact special-relativistic Doppler relation must be used:
+\begin{equation}
+	1 + z = \sqrt{\frac{1 + v_r/c}{1 - v_r/c}} \quad\Longrightarrow\quad \frac{v_r}{c} = \frac{(1+z)^2 - 1}{(1+z)^2 + 1}.
+	\label{eq:doppler_relativistic}
+\end{equation}
+
+\section{The Full 3D Space Velocity Vector}
+
+Combining proper motion components and radial velocity, the space velocity vector in the spherical equatorial basis $\{\hat{\mathbf r}, \hat{\boldsymbol{\alpha}}, \hat{\boldsymbol{\delta}}\}$ is:
+\begin{equation}
+	\vec v = v_r\,\hat{\mathbf r} + v_\alpha\,\hat{\boldsymbol{\alpha}} + v_\delta\,\hat{\boldsymbol{\delta}},
+\end{equation}
+where $v_\alpha = 4.74047\,\mu_\alpha^*\,d$ and $v_\delta = 4.74047\,\mu_\delta\,d$.
+
+The orthonormal equatorial coordinate basis vectors in Cartesian coordinates are:
+\begin{equation}
+	\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
+	\hat{\boldsymbol{\alpha}} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
+	\hat{\boldsymbol{\delta}} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}.
+	\label{eq:equatorial_basis_vectors}
+\end{equation}
+
+Transforming to the equatorial Cartesian velocity frame $\vec v = (v_x, v_y, v_z)^T$:
+\begin{keyresult}
+	\begin{equation}
+		\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} \cos\delta\cos\alpha & -\sin\alpha & -\sin\delta\cos\alpha \\ \cos\delta\sin\alpha & \cos\alpha & -\sin\delta\sin\alpha \\ \sin\delta & 0 & \cos\delta \end{pmatrix} \begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}.
+		\label{eq:cartesian_velocity_transform}
+	\end{equation}
+\end{keyresult}
+The total speed through space relative to the Sun is:
+\begin{equation}
+	v_{\rm total} = \sqrt{v_r^2 + v_t^2} = \sqrt{v_x^2 + v_y^2 + v_z^2}.
+	\label{eq:v_total_speed}
+\end{equation}
+
+\section{Galactic Space Velocity Components $(U, V, W)$}
+
+In Galactic dynamics, stellar velocities are expressed in a right-handed Cartesian frame centered on the Sun:
+\begin{itemize}
+	\item $U$: Velocity directed toward the Galactic Center ($l = 0^\circ, b = 0^\circ$).
+	\item $V$: Velocity directed along the direction of Galactic rotation ($l = 90^\circ, b = 0^\circ$).
+	\item $W$: Velocity directed toward the North Galactic Pole ($b = +90^\circ$).
+\end{itemize}
+
+The Galactic velocity vector $(U, V, W)^T$ is obtained from the equatorial Cartesian velocity $(v_x, v_y, v_z)^T$ via the transformation matrix $\mathbf T_{\rm Gal}$:
+\begin{keyresult}
+	\begin{equation}
+		\begin{pmatrix} U \\ V \\ W \end{pmatrix} = \mathbf T_{\rm Gal} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} -0.054876 & -0.873437 & -0.483835 \\ +0.494109 & -0.444830 & +0.746982 \\ -0.867666 & -0.198076 & +0.455984 \end{pmatrix} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}.
+		\label{eq:uvw_transform}
+	\end{equation}
+\end{keyresult}
+
+\paragraph{Correction to the Local Standard of Rest (LSR).}
+The Local Standard of Rest is a reference frame moving on a circular orbit around the Galactic Center at the Sun's Galactocentric radius ($R_0 \approx 8.2\,\mathrm{kpc}$) with circular speed $v_0 \approx 220\text{--}240\,\mathrm{km/s}$. The Sun's peculiar motion with respect to the LSR (Schönrich et al. 2010) is:
+\begin{equation}
+	(U_\odot, V_\odot, W_\odot) = (11.10^{+0.69}_{-0.75},\, 12.24^{+0.47}_{-0.47},\, 7.25^{+0.37}_{-0.36})\,\mathrm{km/s}.
+\end{equation}
+The stellar velocity relative to the LSR is:
+\begin{equation}
+	(U_{\rm LSR}, V_{\rm LSR}, W_{\rm LSR}) = (U + U_\odot, V + V_\odot, W + W_\odot).
+\end{equation}
+
+\section{The Cosmic Distance Ladder}
+
+Trigonometric parallax provides the foundational, geometric rung of the cosmic distance ladder without astrophysical assumptions. Beyond the reach of direct parallax ($d \gtrsim \text{few kpc}$ from ground, $\sim 10\text{--}20\,\mathrm{kpc}$ from \emph{Gaia}), successive secondary and tertiary distance indicators are calibrated:
+
+\begin{enumerate}
+	\item \textbf{Spectroscopic Parallax:} Inferring absolute magnitude $M_V$ from spectral type and luminosity class on the H-R diagram, determining distance from $m - M = 5\log_{10}d - 5$.
+	\item \textbf{Main-Sequence Fitting:} Matching the color-magnitude diagram of star clusters to the zero-age main sequence (ZAMS).
+	\item \textbf{Standard Candles (Cepheids and RR Lyrae):} Leavitt's Period-Luminosity relation for Classical Cepheid variables ($M_V \approx -2.81\log_{10}P - 1.43$) bridges distances out to $\sim 30\,\mathrm{Mpc}$ (Hubble Space Telescope key project).
+	\item \textbf{Type Ia Supernovae:} White dwarf thermonuclear detonations standardized via the Phillips light-curve width-luminosity relation ($M_B \approx -19.3$), extending distances to cosmological scales ($z \sim 1\text{--}2$).
+	\item \textbf{The Hubble-Lemaître Law:} On cosmological scales, galaxy recession velocities follow the expansion of spacetime:
+	\begin{equation}
+		v_r = H_0\,d, \qquad H_0 \approx 70\,\mathrm{km\cdot s^{-1}\cdot Mpc^{-1}}.
+		\label{eq:hubble_law}
+	\end{equation}
+\end{enumerate}

@@ -1,0 +1,219 @@
+\chapter{Stellar Photometry: Flux, Magnitudes, and Radii}
+
+Photometry is the quantitative measurement of electromagnetic flux received from celestial objects. From the measured radiant flux, astronomers deduce fundamental astrophysical properties of stars, including luminosity ($L$), effective surface temperature ($T_{\rm eff}$), radius ($R_*$), and distance ($d$). In this chapter, we develop the inverse-square law, Pogson's logarithmic magnitude system, blackbody radiation thermodynamics, and the determination of stellar physical dimensions.
+
+\section{Radiant Energy, Flux, and the Inverse-Square Law}
+
+\begin{definition}[Luminosity and Flux]
+	The \emph{luminosity} $L$ of a star is the total energy radiated into space per unit time (power in Watts, $\mathrm{W}$). The \emph{radiant flux} $F$ (or apparent brightness) is the energy received per unit time per unit collecting area perpendicular to the line of sight:
+	\begin{keyresult}
+		\begin{equation}
+			F = \frac{L}{4\pi d^2}\quad \left[\mathrm{W\cdot m^{-2}}\right],
+			\label{eq:inverse_square_flux}
+		\end{equation}
+	\end{keyresult}
+	where $d$ is the distance from the source to the observer.
+\end{definition}
+
+Eq.~\eqref{eq:inverse_square_flux} is the geometric \emph{inverse-square law of radiation}, arising from energy conservation as radiant power spreads uniformly over a concentric spherical surface of area $4\pi d^2$ in an isotropic, non-absorbing medium.
+
+\begin{example}[Solar Constant]
+	The Sun has luminosity $L_\odot = 3.828 \times 10^{26}\,\mathrm{W}$. At the mean Earth-Sun distance ($1\,\mathrm{AU} = 1.4959787 \times 10^{11}\,\mathrm{m}$), the total solar irradiance (the \emph{solar constant}) at the top of Earth's atmosphere is:
+	\[
+	F_\odot = \frac{3.828 \times 10^{26}}{4\pi (1.4959787 \times 10^{11})^2} \approx 1361\,\mathrm{W\cdot m^{-2}}.
+	\]
+\end{example}
+
+\section{The Astronomical Magnitude System}
+
+Human vision responds logarithmically to perceived optical brightness (the Weber-Fechner law). In the 2nd century BCE, Hipparchus cataloged stars into six discrete brightness classes ($1^{\rm st}$ magnitude for the brightest down to $6^{\rm th}$ magnitude for the faintest naked-eye stars).
+
+\subsection{Apparent Magnitude and Pogson's Formula}
+
+In 1856, Norman Pogson formalized this ancient scale mathematically after noticing that a difference of 5 magnitudes corresponds to a flux ratio of exactly $100:1$. Thus, a single magnitude step corresponds to a flux ratio of:
+\begin{equation}
+	\sqrt[5]{100} = 100^{1/5} = 10^{0.4} \approx 2.511886.
+\end{equation}
+
+\begin{definition}[Pogson's Formula for Apparent Magnitude]
+	The difference in \emph{apparent magnitude} $m_1 - m_2$ between two sources with measured fluxes $F_1$ and $F_2$ is:
+	\begin{keyresult}
+		\begin{equation}
+			m_1 - m_2 = -2.5\log_{10}\left(\frac{F_1}{F_2}\right).
+			\label{eq:pogson_difference}
+		\end{equation}
+	\end{keyresult}
+	Inverting Pogson's relation:
+	\begin{equation}
+		\frac{F_1}{F_2} = 10^{-0.4(m_1 - m_2)}.
+		\label{eq:flux_ratio_from_mag}
+	\end{equation}
+\end{definition}
+
+On an absolute scale, apparent magnitude is defined relative to a standard zero-point flux $F_0$:
+\begin{equation}
+	m = -2.5\log_{10}\left(\frac{F}{F_0}\right) = -2.5\log_{10}F + C_0.
+	\label{eq:apparent_mag_single}
+\end{equation}
+
+\subsection{Absolute Magnitude and Distance Modulus}
+
+Because apparent magnitude $m$ depends on both intrinsic luminosity $L$ and distance $d$, it cannot directly measure a star's true physical power.
+
+\begin{definition}[Absolute Magnitude]
+	The \emph{absolute magnitude} $M$ is defined as the apparent magnitude a star would possess if it were located at a standard fiducial distance of exactly $d_0 = 10\,\mathrm{pc}$.
+\end{definition}
+
+Applying Pogson's formula between a star's actual distance $d$ and the fiducial distance $10\,\mathrm{pc}$:
+\[
+m - M = -2.5\log_{10}\left(\frac{F(d)}{F(10\,\mathrm{pc})}\right) = -2.5\log_{10}\left(\frac{L/(4\pi d^2)}{L/(4\pi (10)^2)}\right) = -2.5\log_{10}\left(\frac{10}{d}\right)^2 = 5\log_{10}\left(\frac{d}{10}\right).
+\]
+\begin{keyresult}
+	\begin{equation}
+		\mu \equiv m - M = 5\log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right) = 5\log_{10}d\,[\mathrm{pc}] - 5.
+		\label{eq:distance_modulus}
+	\end{equation}
+\end{keyresult}
+The quantity $\mu = m - M$ is known as the \emph{distance modulus}. In terms of trigonometric parallax $p$ (in arcseconds):
+\begin{equation}
+	m - M = -5\log_{10}p - 5.
+	\label{eq:distance_modulus_parallax}
+\end{equation}
+
+\subsection{Photometric Passbands, Color Indices, and Interstellar Extinction}
+
+Astronomical detectors measure flux through calibrated optical transmission filters (e.g., the Johnson-Cousins $UBVRI$ system or SDSS $ugriz$ system):
+\begin{itemize}
+	\item $U$ (Ultraviolet, $\lambda_{\rm eff} \approx 365\,\mathrm{nm}$)
+	\item $B$ (Blue, $\lambda_{\rm eff} \approx 440\,\mathrm{nm}$)
+	\item $V$ (Visual, $\lambda_{\rm eff} \approx 550\,\mathrm{nm}$)
+	\item $R$ (Red, $\lambda_{\rm eff} \approx 640\,\mathrm{nm}$)
+	\item $I$ (Infrared, $\lambda_{\rm eff} \approx 790\,\mathrm{nm}$)
+\end{itemize}
+
+\begin{definition}[Color Index]
+	A \emph{color index} is the difference in apparent magnitude between two distinct wavelength passbands (e.g., $B - V$ or $U - B$). Because flux appears in the denominator of the logarithmic ratio:
+	\begin{equation}
+		B - V = -2.5\log_{10}\left(\frac{F_B}{F_V}\right) + \text{const}.
+		\label{eq:color_index_def}
+	\end{equation}
+	Hotter stars emit relatively more blue flux ($F_B > F_V$), resulting in \emph{smaller (or negative) color indices} ($B - V < 0$). Cooler stars have $F_B < F_V$, yielding \emph{larger positive color indices} ($B - V > 0$).
+\end{definition}
+
+\paragraph{Interstellar Reddening and Extinction.}
+Interstellar dust grains preferentially scatter shorter-wavelength blue photons (Rayleigh-like scattering $\sigma_{\rm dust} \propto \lambda^{-\gamma}$ with $\gamma \sim 1$). This dims and reddens the transmitted starlight. The observed distance modulus is modified by the total visual extinction $A_V$:
+\begin{equation}
+	m_V - M_V = 5\log_{10}d - 5 + A_V.
+	\label{eq:extinction_modulus}
+\end{equation}
+The \emph{color excess} $E(B-V)$ is defined as:
+\begin{equation}
+	E(B-V) \equiv (B - V)_{\rm observed} - (B - V)_{\rm intrinsic}.
+	\label{eq:color_excess}
+\end{equation}
+In the diffuse interstellar medium of the Milky Way, the ratio of total to selective extinction is standardly:
+\begin{keyresult}
+	\begin{equation}
+		R_V \equiv \frac{A_V}{E(B-V)} \approx 3.1.
+		\label{eq:rv_extinction}
+	\end{equation}
+\end{keyresult}
+
+\section{Thermal Radiation and the Stefan-Boltzmann Law}
+
+To relate radiant emission to stellar physical properties, we model stellar photospheres as thermodynamic blackbodies.
+
+\subsection{Planck's Law of Blackbody Radiation}
+
+A blackbody in thermodynamic equilibrium at temperature $T$ radiates a specific intensity $B_\lambda(T)$ (energy per unit time, area, solid angle, and wavelength):
+\begin{keyresult}
+	\begin{equation}
+		B_\lambda(T) = \frac{2hc^2}{\lambda^5} \frac{1}{\exp\!\left(\dfrac{hc}{\lambda k_B T}\right) - 1}\quad \left[\mathrm{W\cdot m^{-2}\cdot sr^{-1}\cdot m^{-1}}\right],
+		\label{eq:planck_wavelength}
+	\end{equation}
+\end{keyresult}
+where $h = 6.62607 \times 10^{-34}\,\mathrm{J\cdot s}$ is Planck's constant, $c = 2.99792 \times 10^8\,\mathrm{m/s}$ is the speed of light, and $k_B = 1.38065 \times 10^{-23}\,\mathrm{J/K}$ is Boltzmann's constant.
+
+In frequency space:
+\begin{equation}
+	B_\nu(T) = \frac{2h\nu^3}{c^2} \frac{1}{\exp\!\left(\dfrac{h\nu}{k_B T}\right) - 1}\quad \left[\mathrm{W\cdot m^{-2}\cdot sr^{-1}\cdot Hz^{-1}}\right].
+	\label{eq:planck_frequency}
+\end{equation}
+
+\subsection{Wien's Displacement Law}
+
+Differentiating $B_\lambda(T)$ with respect to $\lambda$ and setting $dB_\lambda/d\lambda = 0$ yields the condition:
+\begin{equation}
+	\frac{x e^x}{e^x - 1} = 5, \quad \text{where } x \equiv \frac{hc}{\lambda_{\max} k_B T} \approx 4.965114.
+\end{equation}
+This establishes \emph{Wien's Displacement Law}:
+\begin{keyresult}
+	\begin{equation}
+		\lambda_{\max} T = \frac{hc}{4.965114\,k_B} \approx 2.89777 \times 10^{-3}\,\mathrm{m\cdot K} = 2898\,\mathrm{\mu m\cdot K}.
+		\label{eq:wien_law}
+	\end{equation}
+\end{keyresult}
+
+\subsection{The Stefan-Boltzmann Law and Effective Temperature}
+
+Integrating Planck's specific intensity over all wavelengths and across the outward hemisphere ($\int_0^{2\pi}d\phi\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta = \pi$) gives the total emergent surface flux:
+\begin{equation}
+	F_{\rm surface} = \pi \int_0^\infty B_\lambda(T)\,d\lambda = \sigma_{\rm SB} T^4,
+	\label{eq:surface_flux_sb}
+\end{equation}
+where the \emph{Stefan-Boltzmann constant} is:
+\begin{equation}
+	\sigma_{\rm SB} = \frac{2\pi^5 k_B^4}{15 c^2 h^3} \approx 5.670374 \times 10^{-8}\,\mathrm{W\cdot m^{-2}\cdot K^{-4}}.
+	\label{eq:stefan_boltzmann_constant}
+\end{equation}
+
+\begin{definition}[Effective Temperature]
+	The \emph{effective surface temperature} $T_{\rm eff}$ of a star with total luminosity $L$ and radius $R_*$ is the temperature of an ideal blackbody having the identical surface area and total bolometric power:
+	\begin{keyresult}
+		\begin{equation}
+			L = 4\pi R_*^2\,\sigma_{\rm SB} T_{\rm eff}^4.
+			\label{eq:stefan_boltzmann_luminosity}
+		\end{equation}
+	\end{keyresult}
+\end{definition}
+
+\section{Determination of Stellar Physical Radii}
+
+\subsection{Radius from Bolometric Luminosity and Temperature}
+
+Normalizing Eq.~\eqref{eq:stefan_boltzmann_luminosity} relative to solar values ($L_\odot = 3.828 \times 10^{26}\,\mathrm{W}$, $R_\odot = 6.957 \times 10^8\,\mathrm{m}$, $T_{\rm eff,\odot} = 5772\,\mathrm{K}$):
+\begin{keyresult}
+	\begin{equation}
+		\frac{R_*}{R_\odot} = \sqrt{\frac{L_*}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2.
+		\label{eq:stellar_radius_solar_units}
+	\end{equation}
+\end{keyresult}
+In terms of absolute bolometric magnitude $M_{\rm bol}$:
+\begin{equation}
+	\log_{10}\left(\frac{R_*}{R_\odot}\right) = -0.2(M_{\rm bol,*} - M_{\rm bol,\odot}) - 2\log_{10}\left(\frac{T_{\rm eff}}{T_{\rm eff,\odot}}\right),
+	\label{eq:radius_from_mbol}
+\end{equation}
+where $M_{\rm bol,\odot} = +4.74\,\mathrm{mag}$.
+
+\subsection{Angular Diameter ($\theta$)}
+
+A spherical star of physical radius $R_*$ located at distance $d$ subtends an angular diameter $\theta$:
+\begin{equation}
+	\tan\left(\frac{\theta}{2}\right) = \frac{R_*}{d} \quad\Longrightarrow\quad \theta \approx \frac{2 R_*}{d}\quad (\text{radians}).
+	\label{eq:angular_diameter_rad}
+\end{equation}
+Converting $\theta$ to arcseconds ($1\,\mathrm{rad} = 206{,}264.8''$):
+\begin{keyresult}
+	\begin{equation}
+		\theta\,[\mathrm{mas}] = 206{,}264{,}800 \times \frac{2 R_*}{d} = 9.300 \times 10^{-3} \left(\frac{R_*}{R_\odot}\right)\left(\frac{1\,\mathrm{pc}}{d}\right).
+		\label{eq:angular_diameter_mas}
+	\end{equation}
+\end{keyresult}
+
+\begin{example}[Angular Diameter of Betelgeuse]
+	Betelgeuse ($\alpha$ Orionis) is a red supergiant with $R_* \approx 764\,R_\odot$ at a distance $d \approx 168\,\mathrm{pc}$ ($p \approx 5.95\,\mathrm{mas}$). Its expected angular diameter is:
+	\[
+	\theta = 9.300 \times 10^{-3} \times \frac{764}{168} \approx 42.3\,\mathrm{mas}.
+	\]
+	This matches direct optical interferometric measurements ($42\text{--}44\,\mathrm{mas}$), demonstrating that giant stars can be directly resolved with modern optical/IR interferometers (such as the VLTI).
+\end{example}
