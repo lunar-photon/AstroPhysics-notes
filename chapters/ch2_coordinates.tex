@@ -12,12 +12,55 @@ The \emph{equatorial coordinate system} extends the Earth's terrestrial latitude
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.55\linewidth]{declination_celestial_coordinates_en_bviPcZn.pdf}
-	\caption{The equatorial Cartesian frame: the $z$-axis lies along the Earth's rotation axis ($\mathrm{NCP}$), the $xy$-plane is the celestial equator, and the $x$-axis points toward the vernal equinox $\hat\gamma$.}
-	\label{fig:declination}
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{declination_celestial_coordinates_en_bviPcZn.pdf}
+		\caption{The equatorial Cartesian frame: the $z$-axis lies along the Earth's rotation axis ($\mathrm{NCP}$), the $xy$-plane is the celestial equator, and the $x$-axis points toward the vernal equinox $\hat\gamma$.}
+		\label{fig:declination}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
+			\foreach \r in {1,2,3,4,5} {
+				\draw[astroblue!55] (0,0) circle (\r);
+			}
+			\foreach \h in {0,...,23} {
+				\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
+			}
+			\foreach \h in {0,2,...,22} {
+				\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
+			}
+			\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
+				\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
+			}
+
+			\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
+			\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
+
+			\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
+			\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
+
+			\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
+			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
+		\end{tikzpicture}%
+		}
+		\caption{The equatorial grid projected on the sky near the NCP (compare a star chart of Ursa Minor/Major around Polaris). Radiating lines are hour circles of constant $\alpha$, $15^\circ=1^{\rm h}$ apart; concentric circles are parallels of constant $\delta$. Right ascension increases anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}). Polaris sits within $\sim 1^\circ$ of the true pole, which is why it appears fixed while every other star wheels around it nightly.}
+		\label{fig:ra_dec_polar_grid}
+	\end{minipage}
 \end{figure}
 
-To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are just two more angles read off this same sphere, Figure~\ref{fig:lst_meridian_schematic} marks the vernal equinox, the observer's local meridian, and a star's own right ascension and declination together on one diagram; Figure~\ref{fig:ra_dec_polar_grid} beside it shows the same construction flattened into the polar view actually used by star charts.
+The same grid is exactly what appears on an actual star chart of this region (Figure~\ref{fig:ra_dec_real_photo}): the hour circles and declination parallels of Figure~\ref{fig:ra_dec_polar_grid} are not just a schematic abstraction, but literally the coordinate overlay planetarium software draws on the real sky.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\linewidth]{RA-Dec-celestial-pole.jpg}
+	\caption{An actual equatorial grid overlay near the North Celestial Pole, directly comparable to Figure~\ref{fig:ra_dec_polar_grid}: hour circles of right ascension ($0^{\rm h}$--$23^{\rm h}$) and parallels of declination ($+40^\circ$ to $+90^\circ$), with Polaris and the constellations Ursa Minor and Ursa Major shown for reference.}
+	\label{fig:ra_dec_real_photo}
+\end{figure}
+
+To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are just two more angles read off this same sphere, Figure~\ref{fig:lst_meridian_schematic} marks the vernal equinox, the observer's local meridian, and a star's own right ascension and declination together on one diagram, at some particular instant. Because the Earth keeps rotating, the meridian's own right ascension --- the LST --- keeps advancing eastward while the star's $\alpha$ stays fixed; Figure~\ref{fig:lst_meridian_schematic_later} shows the identical sky at a later moment, after the meridian has swept past the star, so the Hour Angle has grown.
 
 \begin{figure}[htbp]
 	\centering
@@ -58,7 +101,10 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			% Reference axes
 			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
 			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
-			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $0^{\rm h}$};
+
+			% 0h tick-arc at the vernal equinox, same visual language as the other angle arcs
+			\draw[ink, line width=1.8pt] plot[domain=-6:6, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
 
 			% Observer's meridian great circle (through NCP, M, and SCP)
 			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
@@ -70,11 +116,11 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 
 			% LST arc, directly on the sphere (equator), from vernal equinox to the meridian
 			\draw[->, astroblue, line width=1.6pt] plot[domain=0:\LSTdeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[astroblue] at ({1.14*\R*cos(0.5*\LSTdeg)},{1.14*\R*sin(0.5*\LSTdeg)},0) {$\LST$};
+			\node[astroblue] at ({\R*cos(0.5*\LSTdeg)},{\R*sin(0.5*\LSTdeg)},{-0.4}) {$\LST$};
 
 			% H arc, directly on the sphere (equator), from the meridian to the star
 			\draw[->, muted, line width=1.6pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[muted] at ({1.14*\R*cos(0.5*(\LSTdeg+\alphaDeg))},{1.14*\R*sin(0.5*(\LSTdeg+\alphaDeg))},0) {$H$};
+			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.4}) {$H$};
 
 			% delta arc (star's declination)
 			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
@@ -82,7 +128,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
 
 			% Points
-			\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian};
+			\fill[astroblue] (M) circle (1.4pt) node[below right=3pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
 			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
 			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
 		\end{tikzpicture}%
@@ -94,32 +140,73 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\resizebox{\linewidth}{!}{%
-		\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
-			\foreach \r in {1,2,3,4,5} {
-				\draw[astroblue!55] (0,0) circle (\r);
-			}
-			\foreach \h in {0,...,23} {
-				\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
-			}
-			\foreach \h in {0,2,...,22} {
-				\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
-			}
-			\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
-				\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
-			}
+		\begin{tikzpicture}[
+			scale=1.5,
+			x={(-0.6cm,-0.3cm)},
+			y={(0.9cm,-0.2cm)},
+			z={(0cm,0.95cm)},
+			>=Stealth
+		]
+			\def\R{2.0}
+			\def\LSTdeg{80}
+			\def\alphaDeg{55}
+			\def\deltaDeg{35}
+			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
 
-			\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
-			\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
+			\coordinate (O) at (0,0,0);
+			\coordinate (Xaxis) at (2.6,0,0);
+			\coordinate (Zaxis) at (0,0,2.5);
 
-			\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
-			\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
+			\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
+			\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
+			\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
 
-			\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
-			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
+			% Sphere outline
+			\draw[gray!45, line width=0.7pt] (0,0) circle (1.05*\R cm);
+
+			% Celestial equator
+			\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
+
+			% Star's declination (small) circle, for context -- unchanged from Figure 2.4
+			\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
+
+			% Reference axes -- vernal equinox is unchanged
+			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
+			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
+			\draw[ink, line width=1.8pt] plot[domain=-6:6, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
+
+			% Observer's meridian great circle -- now advanced past the star
+			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
+				({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
+
+			% Star's own hour circle -- unchanged
+			\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
+				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+
+			% LST arc: full sweep from vernal equinox to the NEW (later) meridian position
+			\draw[->, astroblue, line width=1.6pt] plot[domain=0:\LSTdeg, samples=40] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[astroblue] at ({\R*cos(0.35*\LSTdeg)},{\R*sin(0.35*\LSTdeg)},{-0.4}) {$\LST$};
+
+			% H arc: the meridian has now overtaken the star; dashed overlay on the
+			% shared portion of the equator, running from the meridian back to the star
+			\draw[->, muted, dash pattern=on 2pt off 2pt, line width=2pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
+			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.42}) {$H$};
+
+			% delta arc (star's declination) -- unchanged
+			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
+				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
+			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
+
+			% Points
+			\fill[astroblue] (M) circle (1.4pt) node[above right=2pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
+			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
+			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
 		\end{tikzpicture}%
 		}
-		\caption{The equatorial grid projected on the sky near the NCP (compare a star chart of Ursa Minor/Major around Polaris). Radiating lines are hour circles of constant $\alpha$, $15^\circ=1^{\rm h}$ apart; concentric circles are parallels of constant $\delta$. Right ascension increases anticlockwise as seen from the NCP (Chapter~1, Section~\ref{sec:celestial_sphere_primer}). Polaris sits within $\sim 1^\circ$ of the true pole, which is why it appears fixed while every other star wheels around it nightly.}
-		\label{fig:ra_dec_polar_grid}
+		\caption{The same sky as Figure~\ref{fig:lst_meridian_schematic}, at a later instant: the vernal equinox and the star $S$ are exactly where they were, but the Earth's rotation has carried the meridian's right ascension --- the LST --- past the star's own $\alpha$. The Hour Angle $H=\LST-\alpha$ has grown accordingly (and changed sign): it is now measured backward from the meridian to reach the star, since the meridian has overtaken it. This is the same steady growth of $H$ with time used throughout Chapter~1.}
+		\label{fig:lst_meridian_schematic_later}
 	\end{minipage}
 \end{figure}
 
