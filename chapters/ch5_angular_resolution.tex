@@ -776,7 +776,18 @@ Diffraction is simply the \textbf{linear Superposition Principle} applied to wav
 \label{fig:huygens_superposition_principle}
 \end{figure}
 
-According to the \textbf{Huygens--Fresnel principle}, every point $(x,y)$ across the open aperture emits a coherent secondary wavelet. In a direction $(\theta_x, \theta_y)$, a wavelet incurs an optical path lag $\Delta L = x\sin\theta_x + y\sin\theta_y$ and phase shift $\Delta\phi = k(x\sin\theta_x + y\sin\theta_y)$. Superposing all wavelets gives the \textbf{Fraunhofer Fourier integral}:
+According to the \textbf{Huygens--Fresnel principle}, every point $(x,y)$ across the open aperture emits a coherent secondary wavelet. Write a general far-field observation direction in full three-dimensional, spherical-polar form about the optical axis $\hat z$:
+\begin{equation}
+	\hat{\mathbf k} = (\sin\theta\cos\phi,\ \sin\theta\sin\phi,\ \cos\theta),
+	\label{eq:khat_spherical}
+\end{equation}
+where $\theta$ is the angle between $\hat{\mathbf k}$ and the axis and $\phi$ is the azimuth around it. A wavelet launched from the aperture point $(x,y,0)$ then travels an extra path, relative to one launched from the origin, of $\Delta L = \mathbf r \cdot \hat{\mathbf k} = x\sin\theta\cos\phi + y\sin\theta\sin\phi$, exact at any obliquity, with no approximation yet made.
+
+Every diffraction angle of astronomical interest, however, is minuscule (arcseconds down to milliarcseconds, i.e.\ $\theta \ll 1\,\mathrm{rad}$), so $\sin\theta \approx \theta$ and $\cos\theta \approx 1$ in Eq.~\eqref{eq:khat_spherical}, and it becomes natural to define the two small Cartesian angle components
+\[
+\theta_x \equiv \theta\cos\phi, \qquad \theta_y \equiv \theta\sin\phi,
+\]
+so that $\theta = \sqrt{\theta_x^2+\theta_y^2}$ is the total angular offset from the axis and $\phi = \arctan(\theta_y/\theta_x)$ its azimuth. In this small-angle limit, $\sin\theta_x \approx \theta_x$ and $\sin\theta_y \approx \theta_y$ as well, so the path lag takes the working form used throughout this section: in a direction $(\theta_x, \theta_y)$, a wavelet incurs an optical path lag $\Delta L \approx x\sin\theta_x + y\sin\theta_y \approx x\theta_x + y\theta_y$ and phase shift $\Delta\phi = k(x\sin\theta_x + y\sin\theta_y)$. Superposing all wavelets gives the \textbf{Fraunhofer Fourier integral}:
 \begin{keyresult}
 	\begin{equation}
 		E(\vec{k}) = \iint_{\mathbb{R}^2} A(\vec{r}) e^{-i \vec{k} \cdot \vec{r}} \, d^2r, \qquad I(\vec{\theta}) = |E(\vec{\theta})|^2,
