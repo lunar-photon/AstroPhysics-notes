@@ -1,0 +1,190 @@
+\chapter{Statistical Methods and Estimators in Astrophysics}
+
+Every physical quantity in this book so far --- a parallax, a period, a mass, an eccentricity --- has been treated as if it were simply read off from perfect data. In practice every such number is \emph{inferred} from noisy, finite, often awkwardly-sampled measurements: a handful of radial velocities scattered across a few observing seasons, a magnitude with Poisson and read-noise uncertainty (Chapter~7), a proper motion fit through atmospheric seeing. This chapter develops the statistical machinery that turns noisy data into a best estimate and an honest uncertainty on that estimate, and then applies it to the three families of astrophysical estimator singled out through the rest of this book: mass, eccentricity, and velocity.
+
+\section{What Is an Estimator?}
+
+\begin{definition}[Estimator, Bias, Variance]
+	An \textbf{estimator} $\hat\theta$ of a parameter $\theta$ is any function of the data, $\hat\theta=\hat\theta(x_1,\dots,x_N)$, computed without knowledge of the true $\theta$. Its quality is characterized by
+	\begin{align}
+		\textbf{Bias:} \qquad & b(\hat\theta) \equiv \avg{\hat\theta}-\theta, \\
+		\textbf{Variance:} \qquad & \mathrm{Var}(\hat\theta) \equiv \avg{(\hat\theta-\avg{\hat\theta})^2},
+	\end{align}
+	where $\avg{\cdot}$ denotes the average over infinitely many hypothetical repeats of the same experiment. An estimator is \textbf{unbiased} if $b(\hat\theta)=0$ for all $\theta$, and \textbf{consistent} if $\hat\theta\to\theta$ as $N\to\infty$.
+\end{definition}
+
+These two failure modes combine into a single figure of merit, the \textbf{mean squared error}:
+\begin{equation}
+	\mathrm{MSE}(\hat\theta) \equiv \avg{(\hat\theta-\theta)^2} = \mathrm{Var}(\hat\theta) + b(\hat\theta)^2.
+	\label{eq:mse_decomposition}
+\end{equation}
+This is the origin of the \textbf{bias--variance trade-off} that recurs throughout the chapter: a more constrained (e.g.\ lower-dimensional, more heavily regularized) estimator typically has lower variance but higher bias, and vice versa, and the MSE is what actually matters, not either term alone.
+
+\begin{example}[The Sample Mean Is an Unbiased, Consistent Estimator]
+	Given $N$ independent measurements $x_i$ drawn from a distribution of mean $\mu$ and variance $\sigma^2$ (e.g.\ $N$ independent Poisson photon counts, Section~7.3), the sample mean $\hat\mu=\frac1N\sum_i x_i$ satisfies
+	\[
+	\avg{\hat\mu} = \frac1N\sum_i\avg{x_i} = \mu \quad(\text{unbiased}), \qquad
+	\mathrm{Var}(\hat\mu) = \frac{1}{N^2}\sum_i\mathrm{Var}(x_i) = \frac{\sigma^2}{N} \quad(\to0 \text{ as } N\to\infty).
+	\]
+	This is exactly why co-adding $N$ exposures improves $\mathrm{SNR}\propto\sqrt N$ in the sky- and source-limited regimes of Chapter~7: the sample mean of $N$ independent noisy measurements is a consistent estimator of the true underlying rate.
+\end{example}
+
+\section{Maximum Likelihood Estimation}
+
+\begin{definition}[Likelihood and the Maximum Likelihood Estimator]
+	Given data $\{x_i\}$ and a model with probability density $p(x\mid\theta)$, the \textbf{likelihood} of $\theta$ is the joint probability of the observed data, viewed as a function of $\theta$ with the data held fixed:
+	\[
+	\mathcal L(\theta) \equiv \prod_{i=1}^N p(x_i\mid\theta), \qquad \ell(\theta)\equiv\ln\mathcal L(\theta)=\sum_{i=1}^N\ln p(x_i\mid\theta).
+	\]
+	The \textbf{maximum likelihood estimator} (MLE) is $\hat\theta_{\rm ML}=\arg\max_\theta\mathcal L(\theta)$, found from the \textbf{score equation} $d\ell/d\theta=0$.
+\end{definition}
+
+\begin{keyresult}
+	The \textbf{Fisher information} $I(\theta)\equiv-\avg{d^2\ell/d\theta^2}$ bounds the variance of \emph{any} unbiased estimator (the \textbf{Cramér--Rao bound}):
+	\begin{equation}
+		\mathrm{Var}(\hat\theta) \ge \frac{1}{I(\theta)}.
+		\label{eq:cramer_rao}
+	\end{equation}
+	The MLE saturates this bound as $N\to\infty$ (it is \emph{asymptotically efficient}), which is why it is the default choice whenever the likelihood is known.
+\end{keyresult}
+
+\begin{example}[MLE of a Poisson Rate]
+	For $N$ independent Poisson counts $n_i$ with common mean $\lambda$ (Eq.~\eqref{eq:poisson_dist}), $\ell(\lambda)=\sum_i(n_i\ln\lambda-\lambda-\ln n_i!)$. Setting $d\ell/d\lambda=\sum_i(n_i/\lambda-1)=0$ gives
+	\[
+	\boxed{\hat\lambda_{\rm ML}=\frac1N\sum_i n_i,}
+	\]
+	the sample mean --- and since $I(\lambda)=N/\lambda$ here, the Cramér--Rao bound $\mathrm{Var}(\hat\lambda)\ge\lambda/N$ is saturated exactly, matching the Poisson variance-of-the-mean result already used in Chapter~7.
+\end{example}
+
+\section{Least-Squares and \texorpdfstring{$\chi^2$}{Chi-Squared} Fitting}
+
+\begin{result}[Gaussian MLE Is Chi-Square Minimization]
+	If each measurement $y_i$ has independent Gaussian noise of known standard deviation $\sigma_i$ about a model $y_i=f(x_i;\vec\theta)+\text{noise}$, the log-likelihood is
+	\[
+	\ell(\vec\theta) = -\frac12\sum_i\left[\frac{(y_i-f(x_i;\vec\theta))^2}{\sigma_i^2}+\ln(2\pi\sigma_i^2)\right].
+	\]
+	Maximizing $\ell$ over $\vec\theta$ is identical to \emph{minimizing}
+	\begin{equation}
+		\chi^2(\vec\theta) \equiv \sum_i\frac{(y_i-f(x_i;\vec\theta))^2}{\sigma_i^2},
+		\label{eq:chi_square_def}
+	\end{equation}
+	since the $\ln(2\pi\sigma_i^2)$ term does not depend on $\vec\theta$. This is why ``least-squares fitting'' and ``maximum likelihood'' coincide for Gaussian errors, and why every $\chi^2$ fit implicitly assumes Gaussian noise.
+\end{result}
+
+For a model linear in its parameters, $\vec y = A\vec\theta+\vec n$ (design matrix $A$, noise covariance $\vec\Sigma=\mathrm{diag}(\sigma_i^2)$, weight matrix $W\equiv\vec\Sigma^{-1}$), minimizing Eq.~\eqref{eq:chi_square_def} in matrix form, $\chi^2=(\vec y-A\vec\theta)^TW(\vec y-A\vec\theta)$, gives $\partial\chi^2/\partial\vec\theta=-2A^TW(\vec y-A\vec\theta)=0$, so
+\begin{keyresult}
+	\begin{equation}
+		\hat{\vec\theta}=(A^TWA)^{-1}A^TW\vec y, \qquad \mathrm{Cov}(\hat{\vec\theta})=(A^TWA)^{-1},
+		\label{eq:weighted_least_squares}
+	\end{equation}
+\end{keyresult}
+the \textbf{weighted least-squares} solution and its parameter covariance matrix, obtained in one matrix inversion regardless of how many parameters $\vec\theta$ contains. At the best fit, $\chi^2_{\rm min}$ itself is a \textbf{goodness-of-fit} statistic: for a correct model and correctly estimated $\sigma_i$, $\chi^2_{\rm min}$ should be of order the number of degrees of freedom $\nu=N-\dim(\vec\theta)$, and the \textbf{reduced chi-square} $\chi^2_\nu\equiv\chi^2_{\rm min}/\nu$ should be of order unity; $\chi^2_\nu\gg1$ signals an inadequate model or underestimated errors, while $\chi^2_\nu\ll1$ usually signals overestimated errors.
+
+\section{Bayesian Inference}
+
+Maximum likelihood answers ``which $\theta$ makes the observed data most probable?'' A different, complementary question --- ``given the data, what do I now believe about $\theta$?'' --- is answered by \textbf{Bayes' theorem}:
+\begin{keyresult}
+	\begin{equation}
+		p(\theta\mid \rm{data}) = \frac{\mathcal L(\rm{data}\mid\theta)\,p(\theta)}{p(\rm{data})} \propto \mathcal L(\theta)\,p(\theta),
+		\label{eq:bayes_theorem}
+	\end{equation}
+\end{keyresult}
+where $p(\theta)$ is the \textbf{prior} (what was believed before this data) and $p(\theta\mid\rm{data})$ the \textbf{posterior}. A Bayesian \textbf{credible interval} (``there is a 68\% probability $\theta$ lies in this range, given the data and the prior'') is conceptually distinct from a frequentist confidence interval (``68\% of such intervals, over infinitely many repeated experiments, would contain the true $\theta$''), though the two frequently coincide numerically for large $N$ and uninformative priors. When the posterior in Eq.~\eqref{eq:bayes_theorem} has no closed form --- the usual case once a model has more than a few parameters, e.g.\ fitting an eccentric radial-velocity curve (Section~\ref{sec:eccentricity_estimator}) or a full set of cosmological parameters --- it is sampled numerically by \textbf{Markov Chain Monte Carlo} (MCMC): a chain of trial parameter values is proposed and accepted or rejected with a probability (the Metropolis--Hastings rule) chosen so that, after enough steps, the chain's own visited-parameter histogram converges to the true posterior, with no need to ever evaluate the normalizing constant $p(\rm{data})$. MCMC posterior sampling is today the standard tool for essentially any many-parameter astrophysical fit.
+
+\section{Resampling Methods: Bootstrap and Jackknife}
+
+Sections above assumed the noise model (Gaussian, Poisson, \dots) is known. When it is not --- or when an estimator's variance has no clean analytic formula --- its uncertainty can instead be estimated directly from the data itself.
+
+\begin{definition}[Bootstrap]
+	Given $N$ data points, a \textbf{bootstrap resample} is a new synthetic dataset of size $N$ drawn \emph{with replacement} from the original data. Recomputing the estimator $\hat\theta^{(b)}$ on many ($B\sim10^3$--$10^4$) such resamples builds up an empirical distribution of $\hat\theta$, whose spread \emph{is} the estimate of $\mathrm{Var}(\hat\theta)$ --- with no assumption about the underlying noise distribution at all.
+\end{definition}
+
+\begin{definition}[Jackknife]
+	The \textbf{jackknife} instead recomputes the estimator $N$ times, each time leaving out one data point: $\hat\theta_{(i)}$ using all data except point $i$. Its variance and bias estimators are
+	\begin{equation}
+		\widehat{\mathrm{Var}}_{\rm jack}(\hat\theta) = \frac{N-1}{N}\sum_{i=1}^N\big(\hat\theta_{(i)}-\bar\theta_{(\cdot)}\big)^2, \qquad
+		\hat b_{\rm jack} = (N-1)\big(\bar\theta_{(\cdot)}-\hat\theta\big),
+		\label{eq:jackknife}
+	\end{equation}
+	with $\bar\theta_{(\cdot)}\equiv\frac1N\sum_i\hat\theta_{(i)}$. The jackknife is cheaper than the bootstrap ($N$ recomputations rather than thousands) but can behave poorly for estimators that are not smooth functions of the data (e.g.\ the sample median).
+\end{definition}
+
+\section{Hypothesis Testing and Goodness of Fit}
+
+Beyond fitting parameters, one often must ask whether a model is consistent with the data at all, or whether two datasets could plausibly be drawn from the same distribution.
+
+\begin{itemize}
+	\item \textbf{The $\chi^2$ test}: comparing $\chi^2_{\rm min}$ (Eq.~\eqref{eq:chi_square_def}) against the $\chi^2$ distribution with $\nu$ degrees of freedom gives a $p$-value --- the probability of a fit at least this bad if the model were true --- formalizing the reduced-$\chi^2$ heuristic above.
+	\item \textbf{The Kolmogorov--Smirnov (KS) test}: compares an empirical cumulative distribution $\hat F_N(x)$ (the fraction of data $\le x$) against a model CDF $F(x)$ via their maximum vertical separation, $D\equiv\max_x|\hat F_N(x)-F(x)|$, or between two empirical CDFs to test whether two samples share a parent distribution. Unlike the $\chi^2$ test it requires no binning of the data and works for any continuous distribution.
+	\item \textbf{Correlation coefficients}: the \textbf{Pearson} coefficient $r=\dfrac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sqrt{\sum_i(x_i-\bar x)^2\sum_i(y_i-\bar y)^2}}$ measures \emph{linear} association; the \textbf{Spearman} coefficient is the Pearson coefficient applied to the \emph{ranks} of $x_i,y_i$ instead of their values, and so detects any monotonic (not necessarily linear) relationship, e.g.\ testing whether a proposed period--luminosity or mass--luminosity relation holds without assuming its functional form in advance.
+\end{itemize}
+
+\section{Finding Periods in Unevenly Sampled Data: The Lomb--Scargle Periodogram}
+
+The radial-velocity curves of Chapter~6 (Problem~\ref{prob:sb2}) and light curves generally are never sampled at uniform time intervals --- weather, scheduling, and the day/night cycle guarantee gaps --- so a textbook Fourier transform, which assumes uniform sampling, is not directly applicable. The \textbf{Lomb--Scargle periodogram} generalizes the idea of a Fourier power spectrum to irregular sampling by, at each trial angular frequency $\omega$, performing a weighted least-squares fit (Eq.~\eqref{eq:weighted_least_squares}) of a single sinusoid $y(t)=A\cos\omega t+B\sin\omega t$ to the data and using the resulting fit power as that frequency's periodogram value:
+\begin{equation}
+	P_{\rm LS}(\omega) = \frac{1}{2}\left[\frac{\big(\sum_i y_i\cos\omega(t_i-\tau)\big)^2}{\sum_i\cos^2\omega(t_i-\tau)} + \frac{\big(\sum_i y_i\sin\omega(t_i-\tau)\big)^2}{\sum_i\sin^2\omega(t_i-\tau)}\right],
+	\label{eq:lomb_scargle}
+\end{equation}
+where the offset $\tau$ is chosen at each $\omega$ to make the periodogram exactly invariant under time-shifts (equivalently, to orthogonalize the $\cos,\sin$ terms). Scanning $P_{\rm LS}(\omega)$ over a grid of trial periods and identifying its highest peak is the standard method for first determining an unknown orbital period $P$ before ever fitting the full eccentric radial-velocity model of Section~\ref{sec:eccentricity_estimator}.
+
+\section{Astrophysical Estimators in Practice}
+
+\subsection{Mass Estimators}
+
+Chapter~6 (Problem~\ref{prob:halo_mass}) already derived a \emph{single-object, orbit-based} dynamical mass estimator: given one satellite's position, velocity, and orbital eccentricity, the host mass follows from the vis-viva and angular-momentum relations. Two complementary mass estimators are standard when instead a whole population of bound objects (e.g.\ galaxies in a cluster, stars in a globular cluster) is observed statistically rather than as individual resolved orbits.
+
+\begin{result}[The Virial Mass Estimator]
+	For a self-gravitating system in a time-steady statistical equilibrium, the \textbf{virial theorem} states $2\avg{K}+\avg{U}=0$, i.e.\ twice the mean kinetic energy balances the (negative) mean potential energy. Writing $\avg{K}=\tfrac12 M\avg{v^2}$ and $\avg{U}\sim-GM^2/R$ for a system of total mass $M$, characteristic radius $R$, and 3D velocity dispersion $\avg{v^2}=3\sigma_v^2$ (isotropic velocities, with $\sigma_v$ the \emph{line-of-sight} dispersion, the only one directly measurable via $v_r=\vec v\cdot\hat R$, Problem~\ref{prob:sb2}),
+	\begin{equation}
+		\boxed{M_{\rm vir} \sim \frac{\sigma_v^2 R}{G},}
+		\label{eq:virial_mass}
+	\end{equation}
+	up to an order-unity geometric factor fixed by the system's actual density profile. This is a \emph{statistical} estimator: it uses the velocity dispersion of many tracer objects, not the full orbit of any single one, and so remains valid even though no individual orbit is ever resolved.
+\end{result}
+
+When even $R$ is uncertain and only line-of-sight velocities and projected (sky-plane) separations $R_{\rm proj}$ are observable, the \textbf{projected mass estimator} (Bahcall \& Tremaine 1981) replaces Eq.~\eqref{eq:virial_mass} with a suitably calibrated average $M_{\rm proj}\propto\avg{v_r^2 R_{\rm proj}}/G$ over the tracer population, correcting for the systematic underestimate of both $v$ and $R$ that projection onto the line of sight and the sky plane otherwise introduces.
+
+\subsection{Eccentricity Estimators}
+\label{sec:eccentricity_estimator}
+
+Given a set of noisy radial-velocity measurements $v_r(t_i)$ (Chapter~6, Problem~\ref{prob:sb2}), the eccentricity is extracted by nonlinear least-squares fitting (an $N$-parameter generalization of Eq.~\eqref{eq:chi_square_def}, since the model is nonlinear in $e$) of
+\[
+v_r(t) = \gamma + K\big[\cos(\omega+f(t))+e\cos\omega\big]
+\]
+to the data, where the true anomaly $f(t)$ is obtained at each trial $(P,e)$ by solving Kepler's equation (Section~6.9) for the mean anomaly at time $t$. The period $P$ is normally first localized with a Lomb--Scargle periodogram (Eq.~\eqref{eq:lomb_scargle}) before this full fit is attempted, since the $\chi^2$ surface in $P$ is riddled with narrow aliased minima that a local nonlinear fit alone would not escape.
+
+\begin{tcolorbox}[flagbox, title=A FAMOUS ESTIMATOR BIAS: THE LUCY--SWEENEY EFFECT]
+	Because $e\ge0$ by definition, noise in a fit to a genuinely circular ($e=0$) orbit cannot push the best-fit $e$ negative --- it can only be pushed to some small positive value. The MLE/least-squares estimator of $e$ is therefore \emph{biased high} whenever the true eccentricity is comparable to or smaller than its own uncertainty $\sigma_e$, a well-known effect (Lucy \& Sweeney 1971) in exactly the same family as the Rice-distribution bias that inflates low-signal-to-noise polarization-fraction measurements: a strictly non-negative quantity, estimated from noisy data, has a sampling distribution pinned against zero and consequently a positive mean bias. The practical fix is the same as elsewhere in this chapter: report $e$ together with its bootstrap or MCMC-derived credible interval, not as a bare best-fit value, whenever $e\lesssim\sigma_e$.
+\end{tcolorbox}
+
+\subsection{Velocity Estimators}
+
+\textbf{Radial velocity} is measured by \textbf{cross-correlation}: the observed spectrum $O(\lambda)$ is cross-correlated against a template spectrum $T(\lambda)$ (a model or a reference star) over a grid of trial Doppler shifts $\delta$,
+\[
+C(\delta) = \int O(\lambda)\,T(\lambda(1+\delta/c))\,d\lambda,
+\]
+and the Doppler shift $\hat\delta$ that maximizes $C(\delta)$ is the radial-velocity estimate, $v_r=c\hat\delta$. Under Gaussian pixel noise this cross-correlation is exactly the maximum-likelihood estimator of the shift between two otherwise identical profiles --- a matched filter, in signal-processing language --- which is why cross-correlation, rather than fitting individual line centroids one at a time, is the standard technique for the SB2 radial-velocity curves of Chapter~6.
+
+\textbf{Proper motion}, by contrast, is a weighted-least-squares \emph{position} fit rather than a Doppler measurement at all: given a star's measured sky positions $(\alpha_i,\delta_i)$ at times $t_i$ (Chapter~2), fitting $\alpha(t)=\alpha_0+\mu_\alpha^* t$ and $\delta(t)=\delta_0+\mu_\delta t$ via Eq.~\eqref{eq:weighted_least_squares} gives the proper-motion components directly, which Chapter~3 then converts to a transverse velocity via $v_t=4.74047\,\mu\,d$. Between them, cross-correlation radial velocities and least-squares proper motions are precisely the two orthogonal (line-of-sight and sky-plane) halves of a star's full space-velocity vector introduced in Chapter~3.
+
+\section{Summary: A Map of This Book's Estimators}
+
+\begin{center}
+	\begin{tabular}{@{}p{3.1cm}p{4.3cm}p{3.0cm}p{3.4cm}@{}}
+		\toprule
+		\textbf{Quantity} & \textbf{Estimator} & \textbf{Statistical tool} & \textbf{Where used} \\
+		\midrule
+		Flux / magnitude & Aperture sum, co-added exposures & Sample mean, MLE & Chapter~7 \\
+		Distance & Parallax inversion & MLE, Lutz--Kelker prior & Chapter~3 \\
+		Radial velocity & Spectral cross-correlation & Matched filter (MLE) & Chapter~6 (SB2) \\
+		Proper motion & Position vs.\ time fit & Weighted least squares & Chapters~2--3 \\
+		Orbital period & Periodogram peak & Lomb--Scargle & Chapter~6 (SB2) \\
+		Eccentricity & RV-curve fit & Nonlinear $\chi^2$/MCMC & Chapter~6 (Prob.~\ref{prob:sb2}) \\
+		Single-object mass & Vis-viva + angular momentum & Direct inversion & Chapter~6 (Prob.~\ref{prob:halo_mass}) \\
+		Population mass & Velocity dispersion & Virial / projected-mass estimator & This chapter \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+Every row above shares the same underlying logic: state a likelihood (or, lacking one, a resampling scheme) for how the data arose from the parameter of interest, and invert it --- by direct algebra when the model is simple enough (Chapters~3, 6), or numerically by least-squares, periodogram search, or MCMC when it is not. That single idea, more than any specific formula, is this chapter's real content.

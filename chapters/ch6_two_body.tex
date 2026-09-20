@@ -15,6 +15,7 @@
 	Six second-order ODEs $\Rightarrow$ 12 constants of integration in the general solution.
 	
 	\subsection{Separating centre-of-mass motion}
+	\label{sec:com_separation}
 	With $M=m_1+m_2$, $\mu = m_1m_2/M$, transform to relative and centre-of-mass coordinates,
 	\[
 	\begin{bmatrix}\vecr\\ \vec X\end{bmatrix}=\begin{bmatrix}1&-1\\ m_1/M& m_2/M\end{bmatrix}\begin{bmatrix}\vecx_1\\\vecx_2\end{bmatrix},
@@ -51,7 +52,8 @@
 	\]
 	
 	\section{Coordinate Systems and Orbital Elements}
-	
+	\label{sec:coord_orbital_elements}
+
 	Fix an equatorial (reference) frame with $\hat\Upsilon$ (vernal equinox / first point of Aries) along $X$ and celestial north $\hat N$ along $Z$; $\hat Y$ completes the right-handed triad. For a source at $(\mathrm{RA},\mathrm{DEC})=(\alpha,\delta)$ the line of sight is
 	\[
 	\hat R = \cos\delta\cos\alpha\,\hat\Upsilon+\cos\delta\sin\alpha\,\hat Y+\sin\delta\,\hat N,
@@ -64,10 +66,11 @@
 	
 	The orbital plane has its own frame: origin at the barycentre, $X$-axis along the \textbf{line of nodes} (through the ascending node and the descending node), $Z$-axis along $\vecL$. Denote the unit vector towards the ascending node by $\hatn$. Then
 	
-	\begin{align}
-		\begin{pmatrix} \hatn\\ \hat y\\ \hat L \end{pmatrix} = 
+	\begin{equation}
+		\begin{pmatrix} \hatn\\ \hat y\\ \hat L \end{pmatrix} =
 		\begin{pmatrix} 1&0&0\\ 0&\cos\iota&\sin\iota\\ 0&-\sin\iota&\cos\iota \end{pmatrix} \begin{pmatrix} \cos\Omega&\sin\Omega&0\\ -\sin\Omega&\cos\Omega&0\\ 0&0&1 \end{pmatrix} \begin{pmatrix} \hat\alpha\\ \hat\delta\\ \hat R \end{pmatrix}.
-	\end{align}
+		\label{eq:orbital_frame_rotation}
+	\end{equation}
 	Hence,
 	\begin{align}
 		\hatn  &= \cos\Omega\,\hat\alpha+\sin\Omega\,\hat\delta, \label{eq:node}\\
@@ -839,6 +842,7 @@
 	\]
 	
 	\subsection{Instantaneous kinetic energy}
+	\label{sec:vis_viva}
 	From $E=K+V$: $K=\tfrac12\mu\dot{\vecr}^2 = E-V= GM\mu\left(\dfrac1r-\dfrac1{2a}\right)$ — the \emph{vis-viva} equation. Splitting between the two bodies via $\vecx_i$: $K_1=\tfrac12 m_1v_1^2=\tfrac{m_2}{M}K$, $K_2=\tfrac{m_1}{M}K$.
 	
 	\paragraph{Inverting for $a,e$.} Equations \eqref{eq:visviva_E}--\eqref{eq:L_of_ae} give the orbital elements directly from the (conserved) energy and angular momentum:
@@ -906,7 +910,8 @@
 	\end{equation}
 	
 	\section{Kepler's Equation}
-	
+	\label{sec:kepler_equation}
+
 	Substituting $n=\sqrt{GM/a^3}$ into $t-t_0=(a^{3/2}/\sqrt{GM})(u-e\sin u)$ and defining the \textbf{mean anomaly} $\ell\equiv n(t-t_0)$:
 	\begin{equation}
 		\boxed{\ell = u - e\sin u} \qquad\text{(elliptical Kepler's equation).} \label{eq:kepler_eq}
@@ -3033,7 +3038,7 @@
 
 \section{Applied Orbital Mechanics: Binary Stars, Transfer Orbits, and Perturbations}
 
-This section brings together the theoretical framework of two-body dynamics through eight comprehensive worked problems covering binary star astrometry, symmetric mass ratios, numerical solution of Kepler's equation, orbital transfers, conserved vectors, and continuous thrust perturbation theory.
+This section brings together the theoretical framework of two-body dynamics through eleven comprehensive worked problems covering binary star astrometry, spectroscopic radial-velocity mass determination, symmetric mass ratios, numerical solution of Kepler's equation, orbital transfers, conserved vectors, continuous thrust perturbation theory, dynamical mass estimation for extended (halo-scale) systems, and the line-of-sight projection connecting an orbit's orientation in space to what an observer actually measures.
 
 \subsection{Problem 1: Astrometric Binary White Dwarf System}
 
@@ -3247,6 +3252,48 @@ Since $u$ and $v$ share the same quadrant branch about periapsis, taking the pos
 	\label{fig:effective_potential_well}
 \end{figure}
 
+\textbf{Problem Statement}: The relative-orbit energy derived in Section~\ref{sec:vis_viva}, divided through by $\mu$ (exactly as in Problem 10), reads
+\[
+\varepsilon\equiv\frac{E}{\mu}=\frac12\dot r^2+v_{\rm eff}(r), \qquad v_{\rm eff}(r)\equiv\frac{\ell^2}{2r^2}-\frac{GM}{r}, \qquad \ell\equiv\frac{L}{\mu},
+\]
+which is exactly one-dimensional motion in the \emph{effective potential} $v_{\rm eff}(r)$ --- Newtonian gravity's case of the general power-law form $V_{\rm eff}=-k/r^n+L^2/(2mr^2)$ boxed in Figure~\ref{fig:effective_potential_well}, with $n=1$, $k=GM$, $m=1$. Since $\tfrac12\dot r^2\ge0$ always, the radii accessible at fixed $\varepsilon$ are exactly those with $v_{\rm eff}(r)\le\varepsilon$.
+\begin{enumerate}[label=(\alph*)]
+	\item Find the circular-orbit radius $r_{\rm circle}$ (where $v_{\rm eff}$ is stationary) and the corresponding energy $\varepsilon_{\rm circle}\equiv v_{\rm eff}(r_{\rm circle})$, in terms of $\ell,GM$.
+	\item For $\varepsilon_{\rm circle}<\varepsilon<0$, solve $v_{\rm eff}(r)=\varepsilon$ for its two roots $r_{\rm min},r_{\rm max}$, and show they are exactly the periapsis and apoapsis $a(1\mp e)$ already implied by Eqs.~\eqref{eq:visviva_E} and~\eqref{eq:L_of_ae}.
+	\item Show that $\varepsilon=\varepsilon_{\rm circle}$, $\varepsilon=0$, and $\varepsilon>0$ correspond respectively to the circular, parabolic, and hyperbolic rows of the eccentricity/conic-section table earlier in this chapter.
+	\item An object orbits the Sun ($GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$) with $\ell=4.089\times10^{15}\,\mathrm{m^2\,s^{-1}}$ and $\varepsilon=-4.423\times10^{8}\,\mathrm{J\,kg^{-1}}$. Find $r_{\rm min}$, $r_{\rm max}$, and $e$.
+\end{enumerate}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item Setting $v_{\rm eff}'(r)=-\ell^2/r^3+GM/r^2=0$:
+	\[
+	\boxed{r_{\rm circle}=\frac{\ell^2}{GM}}, \qquad
+	\varepsilon_{\rm circle}=\frac{\ell^2}{2r_{\rm circle}^2}-\frac{GM}{r_{\rm circle}}=\frac{GM}{2r_{\rm circle}}-\frac{GM}{r_{\rm circle}}
+	\;\Longrightarrow\;
+	\boxed{\varepsilon_{\rm circle}=-\frac{G^2M^2}{2\ell^2}.}
+	\]
+
+	\item Multiplying $v_{\rm eff}(r)=\varepsilon$ through by $2r^2$ gives the quadratic $2\varepsilon r^2+2GMr-\ell^2=0$, with roots
+	\[
+	r=\frac{-GM\pm\sqrt{G^2M^2+2\varepsilon\ell^2}}{2\varepsilon}.
+	\]
+	Substituting $\varepsilon=-GM/(2a)$ and $\ell^2=GMa(1-e^2)$ (Eqs.~\eqref{eq:visviva_E},~\eqref{eq:L_of_ae} divided by $\mu,\mu^2$) gives $2\varepsilon\ell^2=-G^2M^2(1-e^2)$, so the discriminant collapses to $G^2M^2e^2$, and
+	\[
+	\boxed{r_{\rm min}=a(1-e), \qquad r_{\rm max}=a(1+e),}
+	\]
+	the periapsis and apoapsis distances, confirming that the effective-potential turning points and the conic-section geometry are two descriptions of the same orbit.
+
+	\item From $\varepsilon=-GM/(2a)$: $\varepsilon=\varepsilon_{\rm circle}$ forces $r_{\rm min}=r_{\rm max}$, i.e.\ $e=0$ (circular); $\varepsilon=0$ forces $a\to\infty$, i.e.\ $e=1$ (parabolic); $\varepsilon>0$ forces $a<0$, i.e.\ $e>1$ (hyperbolic) --- exactly the classification already tabulated in this chapter.
+
+	\item With $GM=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$: $r_{\rm circle}=\ell^2/GM=1.260\times10^{11}\,\mathrm m$, and from $\varepsilon=-GM/(2a)$, $a=-GM/(2\varepsilon)=1.500\times10^{11}\,\mathrm m$. Then $\ell^2=GMa(1-e^2)$ gives $1-e^2=\ell^2/(GMa)=0.8400$, so
+	\[
+	\boxed{e\simeq0.400, \qquad r_{\rm min}=a(1-e)\simeq9.00\times10^{10}\,\mathrm m, \qquad r_{\rm max}=a(1+e)\simeq2.10\times10^{11}\,\mathrm m.}
+	\]
+\end{enumerate}
+
+\subsection{Problem 6: Hohmann Transfer Impulses and Energy Budget}
+
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}[scale=1.05, >=Stealth]
@@ -3255,27 +3302,27 @@ Since $u$ and $v$ share the same quadrant branch about periapsis, taking the pos
 		\pgfmathsetmacro{\a}{(\rone+\rtwo)/2}
 		\pgfmathsetmacro{\b}{sqrt(\rone*\rtwo)}
 		\pgfmathsetmacro{\c}{(\rtwo-\rone)/2}
-		
+
 		% Central body
 		\fill[gray!35] (0,0) circle (0.72);
 		\draw[thick] (0,0) circle (0.72) node {$\oplus$};
-		
+
 		% Initial orbit
 		\draw[green!60!black, dashed, thick, domain=-90:360, samples=100] plot ({\rone*cos(\x)}, {\rone*sin(\x)});
 		\draw[green!60!black, very thick, domain=60:270, samples=50, ->] plot ({\rone*cos(\x)}, {\rone*sin(\x)});
-		
+
 		% Final orbit
 		\draw[blue!75!black, dashed, thick, domain=-90:90, samples=100] plot ({\rtwo*cos(\x)}, {\rtwo*sin(\x)});
 		\draw[blue!75!black, very thick, domain=90:290, samples=100, ->] plot ({\rtwo*cos(\x)}, {\rtwo*sin(\x)});
-		
+
 		% Transfer ellipse
 		\draw[red!75!black, dashed, thick, domain=90:270, samples=100] plot ({\b*cos(\x)}, {\c+\a*sin(\x)});
 		\draw[red!75!black, very thick, domain=-90:90, samples=100, ->] plot ({\b*cos(\x)}, {\c+\a*sin(\x)});
-		
+
 		% Radial vectors
 		\draw[->, gray!75!black, thick] (0,0) -- (0,-\rone) node[midway, left] {$r_1$};
 		\draw[->, blue!80!black, thick] (0,0) -- (0,\rtwo) node[midway, left] {$r_2$};
-		
+
 		% Burn points
 		\fill (0,-\rone) circle (2.5pt);
 		\fill (0,\rtwo) circle (2.5pt);
@@ -3285,8 +3332,6 @@ Since $u$ and $v$ share the same quadrant branch about periapsis, taking the pos
 	\caption{Hohmann transfer ellipse between initial low-Earth orbit $r_1$ and geostationary orbit $r_2$.}
 	\label{fig:hohmann_transfer_ellipse}
 \end{figure}
-
-\subsection{Problem 6: Hohmann Transfer Impulses and Energy Budget}
 
 \textbf{Problem Statement}: A $1000\,\mathrm{kg}$ satellite transfers from an initial circular orbit of period $T_1 = 6\,\mathrm{h}$ to a geostationary orbit ($T_{\rm GEO} \approx 86164\,\mathrm{s}$).
 \begin{enumerate}[label=(\alph*)]
@@ -3359,4 +3404,477 @@ Differentiating $e^2 = 1 + 2\epsilon h^2/\mu_E^2$ with $\dot{\vec h} = (A/v)\vec
 	\boxed{\frac{de}{dt} = \frac{A}{v}\frac{v^2h^2+2\epsilon h}{\mu_E^2 e}}.
 \end{equation}
 Because the derivatives depend on the instantaneous orbital phase $v_f(t)$, the system cannot be solved in closed elementary form and requires orbit-averaging or numerical integration.
+
+\subsection{Problem 9: Double-Lined Spectroscopic Binary --- Radial Velocities and Masses}
+\label{prob:sb2}
+
+\textbf{Problem Statement}: In a \emph{double-lined spectroscopic binary} (SB2), we see absorption lines from \emph{both} stars in the combined spectrum. Each line is Doppler-shifted by that star's own orbital motion around the center of mass. A Doppler shift only measures the \emph{radial velocity} $v_r\equiv\vec v\cdot\hat R$, the part of a star's velocity along the line of sight $\hat R$. Motion across the sky (perpendicular to $\hat R$) does not stretch or compress the wavelength, so it leaves no Doppler signal at all. That sideways motion only shows up as proper motion (Chapter~3), not in the spectrum. Tracking each star's wavelength shift separately gives two radial-velocity curves, $v_{r,1}(t)$ and $v_{r,2}(t)$. Both share the same period $P$ and eccentricity $e$, but usually have different semi-amplitudes $K_1$ and $K_2$ (Figures~\ref{fig:sb2_schematic} and \ref{fig:sb2_rvcurve}). A particular system is measured to have $P=4.20\,\mathrm{d}$, $e=0.15$, $K_1=88\,\mathrm{km\,s^{-1}}$, and $K_2=132\,\mathrm{km\,s^{-1}}$.
+\begin{enumerate}[label=(\alph*)]
+	\item Without knowing the orbital inclination $i$, what can already be said about the mass ratio $m_1/m_2$?
+	\item Derive $(m_1+m_2)\sin^3i$ in terms of $P$, $K_1$, $K_2$, and $e$, and evaluate it numerically.
+	\item Hence find $m_1\sin^3i$ and $m_2\sin^3i$ individually.
+	\item This same system is also observed to be eclipsing, so $i\simeq90^\circ$. What are the actual masses $m_1$ and $m_2$?
+\end{enumerate}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[>=Stealth, scale=1.0, font=\normalsize]
+			\def\aone{1.6}
+			\def\atwo{2.4}
+			\coordinate (COM) at (0,0);
+
+			% Barycentric orbits
+			\draw[muted, dashed, line width=0.6pt] (COM) circle (\aone);
+			\draw[muted, dashed, line width=0.6pt] (COM) circle (\atwo);
+			\draw[ink!50, thin] (COM) -- (0,\aone) node[midway, right=1pt] {$a_1$};
+			\draw[ink!50, thin] (COM) -- (0,-\atwo) node[midway, right=1pt] {$a_2$};
+			\fill[ink] (COM) circle (1.6pt);
+			\node[ink, below=2pt] at (COM) {COM};
+
+			% Stars shown at quadrature, the orbital phase of extremal radial
+			% velocity. Each star carries only its mass label, tied to its
+			% own velocity arrow: above the arrow for Star 1 (top), below
+			% the arrow for Star 2 (bottom).
+			\fill[astroblue] (0,\aone) circle (3.2pt);
+			\draw[->, astroblue, thick] (0,\aone) -- (-1.3,\aone);
+			\node[astroblue, above=2pt] at (-0.65,\aone) {$m_1$};
+
+			\fill[accent] (0,-\atwo) circle (3.2pt);
+			\draw[->, accent, thick] (0,-\atwo) -- (1.3,-\atwo);
+			\node[accent, below=2pt] at (0.65,-\atwo) {$m_2$};
+
+			% Line of sight: a dashed ray to a small eye icon standing in for the
+			% observer, placed level with the COM on the horizontal (line-of-sight)
+			% axis, far to the left.
+			\coordinate (Eye) at (-10,0);
+			\draw[ink!60, dashed] (-\atwo,0) -- (Eye);
+			\draw[ink!80, thick] (Eye) ++(-0.28,0) to[bend left=35] ++(0.56,0) to[bend left=35] ++(-0.56,0);
+			\fill[ink!80] (Eye) circle (0.05);
+		\end{tikzpicture}%
+		}
+		\caption{A binary at quadrature, with $m_1$, $m_2$, and the COM in a line. $m_1$ moves away and $m_2$ moves toward the observer, along the line of sight $\hat R$.}
+		\label{fig:sb2_schematic}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[font=\scriptsize]
+			% Axes
+			\draw[->, thick] (-0.2,0) -- (6.2,0) node[right] {Phase $\phi$};
+			\draw[->, thick] (0,-1.8) -- (0,2.3) node[above] {$v_r$};
+			\foreach \p/\lab in {0/0, 2.5/0.5, 5/1} {
+				\draw (\p,0.05) -- (\p,-0.05) node[below=2pt] {\lab};
+			}
+
+			% Systemic velocity
+			\draw[ink!50, dashed] (-0.1,0.2) -- (5.9,0.2) node[right] {$\gamma$};
+
+			% v1 = gamma + K1 sin(2 pi phase), K1 = 1.0
+			\draw[astroblue, thick, domain=0:1, samples=60, smooth, variable=\p]
+				plot ({5*\p}, {0.2 + 1.0*sin(360*\p)});
+			% v2 = gamma - K2 sin(2 pi phase), K2 = 1.5
+			\draw[accent, thick, domain=0:1, samples=60, smooth, variable=\p]
+				plot ({5*\p}, {0.2 - 1.5*sin(360*\p)});
+
+			% Amplitude brackets, both read off at quadrature phases
+			\draw[<->, astroblue!70] (1.25,0.2) -- (1.25,1.2) node[midway, right] {$K_1$};
+			\draw[<->, accent!70] (3.75,0.2) -- (3.75,1.7) node[midway, right] {$K_2$};
+
+			% Lines-blended crossings, where v_{r,1}=v_{r,2}
+			\foreach \xc in {0,2.5,5}{
+				\fill[ink] (\xc,0.2) circle (1.3pt);
+			}
+			\draw[ink!70, thin] (2.5,0.2) -- (2.5,-1.4);
+			\node[ink!70, align=center] at (2.5,-1.65) {lines blended ($v_{r,1}=v_{r,2}$)};
+
+			\node[astroblue] at (1.3,1.55) {Star 1};
+			\node[accent] at (3.8,2.05) {Star 2};
+		\end{tikzpicture}%
+		}
+		\caption{Radial-velocity curves for both stars, circular-orbit case. Anti-phase sine curves about $\gamma$, with semi-amplitudes $K_1\neq K_2$.}
+		\label{fig:sb2_rvcurve}
+	\end{minipage}
+\end{figure}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item Start from $\vec r_1=(m_2/M)\vec r$, $\vec r_2=-(m_1/M)\vec r$ (Problem 1). Differentiate and project onto $\hat R$.
+	\[
+	v_{r,1}-\gamma = \frac{m_2}{M}\,v_{r,\rm rel}, \qquad v_{r,2}-\gamma = -\frac{m_1}{M}\,v_{r,\rm rel}, \qquad \gamma\equiv\vec V_{\rm CM}\cdot\hat R,
+	\]
+	Here $v_{r,\rm rel}\equiv v_{r,1}-v_{r,2}$, and $\gamma$ is constant (Eq.~\eqref{eq:comEOM}). This holds at every phase. So
+	\[
+	\frac{K_1}{K_2}=\frac{m_2}{m_1},
+	\]
+	no matter what $i$ and $e$ are.
+	\item A Keplerian orbit's line-of-sight speed has semi-amplitude $K=2\pi a\sin i/(P\sqrt{1-e^2})$. Apply this to the relative orbit ($a=a_1+a_2$). Then $v_{r,\rm rel}=v_{r,1}-v_{r,2}$ has amplitude $K_1+K_2$.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Mass ratio}.
+	\[
+	\boxed{\frac{m_1}{m_2}=\frac{K_2}{K_1}=\frac{132}{88}=1.50.}
+	\]
+
+	\item \textbf{Total mass}. Apply $K=2\pi a\sin i/(P\sqrt{1-e^2})$ to the relative orbit (amplitude $K_1+K_2$), and use Kepler's third law, $P^2=4\pi^2a^3/[G(m_1+m_2)]$.
+	\[
+	(m_1+m_2)\sin^3i=\frac{4\pi^2(a\sin i)^3}{GP^2} = \frac{P(K_1+K_2)^3(1-e^2)^{3/2}}{2\pi G}.
+	\]
+	Use $P=3.629\times10^5\,\mathrm s$, $K_1+K_2=2.20\times10^5\,\mathrm{m\,s^{-1}}$, $(1-e^2)^{3/2}=0.966$.
+	\[
+	\boxed{(m_1+m_2)\sin^3i \simeq 8.91\times10^{30}\,\mathrm{kg}\simeq 4.48\,M_\odot.}
+	\]
+
+	\item \textbf{Individual masses}. Use $m_1=\dfrac{K_2}{K_1+K_2}(m_1+m_2)$, $m_2=\dfrac{K_1}{K_1+K_2}(m_1+m_2)$, the same COM weighting as (a).
+	\[
+	\boxed{m_1\sin^3i \simeq 2.69\,M_\odot,\qquad m_2\sin^3i \simeq 1.79\,M_\odot.}
+	\]
+
+	\item \textbf{Eclipsing case}. $i\simeq90^\circ$, so $\sin^3i\simeq1$ and the factors in (c) drop out directly.
+	\[
+	\boxed{m_1\simeq2.69\,M_\odot, \qquad m_2\simeq1.79\,M_\odot.}
+	\]
+	Double-lined eclipsing binaries are valuable for exactly this reason. Both masses, and from the light curve both radii, come out this way, with almost no model assumptions.
+\end{enumerate}
+
+\subsection{Problem 10: Dynamical Mass of a Host Halo from a Satellite's Orbit}
+\label{prob:halo_mass}
+
+\textbf{Problem Statement}: A satellite of mass $m_s$ (for example a dwarf galaxy or globular cluster) orbits a much bigger dark-matter halo of mass $M_h$. We measure its present distance $r$ from the Galactic center and its full space velocity $\vec v$ (from proper motion plus radial velocity). We also estimate its orbital eccentricity $e$ independently, for example from similar orbits in cosmological simulations. As in Section~\ref{sec:com_separation}, let $M\equiv m_s+M_h$ be the total mass and $\mu\equiv m_sM_h/M$ the reduced mass. If the satellite sits well outside the halo's inner mass, we can treat the halo as a point mass. Then the satellite follows an ordinary Keplerian orbit, with energy $E=-GM\mu/(2a)$ (Eq.~\eqref{eq:visviva_E}) and angular momentum $\vec L=\mu\,\vec r\times\vec v$, $L^2=GM\mu^2a(1-e^2)$ (Eq.~\eqref{eq:L_of_ae}).
+\begin{enumerate}[label=(\alph*)]
+	\item Show that $\mu$ cancels out of both the vis-viva equation and the angular-momentum relation, leaving two equations in the directly observable quantities $r$, $v$, and $\ell\equiv|\vec r\times\vec v|=L/\mu$. Combine them to show that the total mass $M$ satisfies
+	\[
+	\frac{G^2(1-e^2)}{\ell^2}M^2-\frac{2G}{r}M+v^2=0,
+	\]
+	and solve for $M$ in terms of $r,v,\ell,e$.
+	\item Suppose instead the satellite happens to be caught exactly at apocenter, where the velocity is purely tangential ($\vec v\perp\vec r$) and $r=r_{\rm apo}=a(1+e)$. Show that the mass estimate then collapses to the much simpler
+	\[
+	M=\frac{v_{\rm apo}^2\,r_{\rm apo}}{G(1-e)}.
+	\]
+	\item A dwarf satellite is observed at apocenter with $r_{\rm apo}=250\,\mathrm{kpc}$ and $v_{\rm apo}=95\,\mathrm{km\,s^{-1}}$, and its orbit is modeled to have $e=0.6$. Evaluate $M$, in kg and in $M_\odot$, and argue that it is an excellent estimate of $M_h$ alone.
+	\item Eccentricity is only one possible choice of the ``extra'' datum used here. What property of the governing equations makes some third quantity beyond $(r,v)$ necessary at all, and what else could play that role?
+	\item This method returns only the total mass $M=m_s+M_h$, never $m_s$ and $M_h$ separately. Explain why no amount of additional \emph{orbital} data --- more precise $r$, $v$, or $e$, or even more satellites on more orbits --- could ever split $M$ into $m_s$ and $M_h$ individually, and say what kind of information could.
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item $\mu$ cancels. Just as in the vis-viva equation ($v^2=GM(2/r-1/a)$, Sec.~\ref{sec:vis_viva}), the orbit's shape and motion depend on $m_s,M_h$ only through $M$. $\mu$ drops out once $E,L$ are turned into relations among $r,v,\ell\equiv|\vec r\times\vec v|$.
+	\item There are three unknowns $(a,e,M)$ but only two equations relating $(r,v,\ell)$. So one more independent piece of data is needed, and $e$ is the usual choice.
+	\item At apocenter $\dot r=0$, so $v$ is purely tangential and $r_{\rm apo}=a(1+e)$ directly, without needing $\ell$.
+	\item Test-particle limit. Since $m_s\ll M_h$, $M=m_s+M_h$ is almost exactly $M_h$.
+	\item \textbf{Degeneracy, not just ignorance}. $\mu$ is the one combination of $m_s,M_h$ that is \emph{not} their sum, and it cancels completely from both relations. So every orbital observable depends on the masses only through $M$, and any split of $M$ gives the identical orbit. This is different from Problem~9's mass \emph{ratio}, where two tracers gave one comparison. Here there is only one tracer, so only one orbit.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{General mass estimator}. Divide $E=\frac12\mu v^2-\dfrac{GM\mu}{r}=-\dfrac{GM\mu}{2a}$ by $\mu$ to recover vis-viva. Divide $L^2=GM\mu^2a(1-e^2)$ by $\mu^2$ and write $\ell\equiv L/\mu=|\vec r\times\vec v|$, which needs no mass.
+	\[
+	v^2=GM\left(\frac2r-\frac1a\right),\qquad \ell^2=GMa(1-e^2)\;\Longrightarrow\;a=\frac{\ell^2}{GM(1-e^2)}.
+	\]
+	Substituting,
+	\[
+	v^2=\frac{2GM}{r}-\frac{G^2M^2(1-e^2)}{\ell^2}
+	\;\Longrightarrow\;
+	\boxed{\frac{G^2(1-e^2)}{\ell^2}M^2-\frac{2G}{r}M+v^2=0,}
+	\]
+	a quadratic in $M$, giving
+	\[
+	\boxed{M=\frac{\ell^2}{G(1-e^2)}\left[\frac1r\pm\sqrt{\frac{1}{r^2}-\frac{(1-e^2)v^2}{\ell^2}}\right],}
+	\]
+	with $M>0$ selecting the physical root.
+
+	\item \textbf{Apocenter simplification}. Here $\dot r=0$, and $r=r_{\rm apo}=a(1+e)$, so $1/a=(1+e)/r_{\rm apo}$.
+	\[
+	v_{\rm apo}^2=GM\left(\frac{2}{r_{\rm apo}}-\frac{1+e}{r_{\rm apo}}\right)=\frac{GM(1-e)}{r_{\rm apo}}
+	\;\Longrightarrow\;
+	\boxed{M=\frac{v_{\rm apo}^2\,r_{\rm apo}}{G(1-e)}.}
+	\]
+	(Matches part (a) at apocenter, where $\ell=r_{\rm apo}v_{\rm apo}$.)
+
+	\item \textbf{Numerical evaluation}. Use $r_{\rm apo}=7.714\times10^{21}\,\mathrm m$, $v_{\rm apo}=9.5\times10^4\,\mathrm{m\,s^{-1}}$, $e=0.6$.
+	\[
+	M=\frac{(9.5\times10^4)^2(7.714\times10^{21})}{(6.674\times10^{-11})(1-0.6)}
+	\;\Longrightarrow\;
+	\boxed{M\simeq2.61\times10^{42}\,\mathrm{kg}\simeq1.31\times10^{12}\,M_\odot,}
+	\]
+	which is typical for a Milky-Way-sized halo. Dwarf-satellite masses ($10^4$--$10^8\,M_\odot$) are tiny next to this, so $M\simeq M_h$ to six figures.
+
+	\item \textbf{Why a third datum is unavoidable}. $(r,v)$ give two independent numbers, but the orbit has three unknowns $(a,e,M)$, related by only two equations (vis-viva, and $\ell^2=GMa(1-e^2)$). So we need one more independent piece of data to close the system. It could be $e$, as used here, or $\ell$ itself, or the time elapsed since a known pericenter passage, found from Kepler's equation (Sec.~\ref{sec:kepler_equation}). This last option is the basis of the Local Group timing argument for the Milky Way--M31 mass.
+
+	\item \textbf{The barycenter location is the missing parameter}. To specify $\vec x_s(t)$ and $\vec x_h(t)$ separately, we need the six orbital elements $(a,e,i,\Omega,\omega,t_p)$ of the \emph{relative} orbit $\vec r\equiv\vec x_s-\vec x_h$, the total mass $M$, and one more number. Those six elements describe only the shape, orientation, and timing of $\vec r(t)$. They say nothing about where the pair sits in space or how the total mass $M$ is split between the two bodies, and it is that split we are still missing. The extra number is the mass fraction $f\equiv M_h/M$, which is the same as the barycenter's location on the line joining the two bodies. Parts (a)--(d) only give us the first seven, $(a,e,M)$. The relative orbit cannot see $f$, and this is an exact symmetry, not just a practical limit. Newton's third law gives $\ddot{\vec x}_s=-GM_h\hat r/r^2$ and $\ddot{\vec x}_h=Gm_s\hat r/r^2$, so
+	\[
+	\ddot{\vec r}=\ddot{\vec x}_s-\ddot{\vec x}_h=-\frac{GM}{r^2}\hat r,
+	\]
+	which depends on $m_s$ and $M_h$ only through $M$. So $\vec r(t)$ stays exactly the same under $m_s\to m_s+\delta$, $M_h\to M_h-\delta$ at fixed $M$. No relative-orbit measurement, however precise, can pin down $f$.
+
+	The individual position $\vec x_s=\vec x_{\rm cm}+(M_h/M)\vec r$ does depend on $f$. And $f=r_s/r$ is a purely geometric ratio, so it needs no dynamics to measure. This is exactly the missing eighth parameter. It is the same idea as Problem~1, where $m_1/m_2=a_2/a_1$ came from each star's distance to the visible barycenter.
+
+	For a satellite and its halo, the problem is one of scale, not principle. Since $m_s/M_h\sim10^{-6}$--$10^{-8}$, the barycenter sits only a tiny fraction of $r_s$ from the halo's center, far too small to measure astrometrically (unlike Problem~1's pair of comparable masses). Without $f$, we instead estimate $m_s$ some other way, for example from its luminosity via a mass-to-light ratio, or from its own virial mass (Eq.~\eqref{eq:virial_mass}). Then $M_h=M-m_s$.
+\end{enumerate}
+
+\subsection{Problem 11: The Line-of-Sight Direction, in Matrices and Without Them}
+
+\textbf{Problem Statement}: Both Problem 9 (the radial-velocity amplitude $K$) and Problem 10 (the mass estimator built on $\vec V_{\rm CM}\cdot\hat R$) projected an orbital quantity onto the line of sight $\hat R$ without ever pinning down what $\hat R$ \emph{is} in terms of the orbital elements $(i,\Omega,\omega)$.
+\begin{enumerate}[label=(\alph*)]
+	\item Starting from the rotation relating the orbital frame $(\hatn,\hat y,\hat L)$ to the observer frame $(\hat\alpha,\hat\delta,\hat R)$, Eq.~\eqref{eq:orbital_frame_rotation}, invert it to express $\hat R$ in terms of $\hatn,\hat y,\hat L$. Show that the result does not depend on $\Omega$ at all.
+	\[
+	\hat R = \sin\iota\,\hat y+\cos\iota\,\hat L.
+	\]
+	\item Rederive the same identity without any matrix algebra. Use only two facts. First, the node line $\hatn$ is, by construction, the intersection of the orbital plane and the sky plane. Second, the inclination is the angle between the two planes' normals, $\hat L$ and $\hat R$.
+	\item A body follows a Keplerian orbit of elements $(a,e,i,\omega)$ in the plane spanned by $\hatn,\hat y$, at true anomaly $f$ (so its polar angle from $\hatn$ is $\phi=\omega+f$). Using $\hat R=\sin\iota\,\hat y+\cos\iota\,\hat L$ together with the fact that $\vec v$ lies entirely in the orbital plane, show that the line-of-sight (radial) velocity $v_r=\vec v\cdot\hat R$ takes the form
+	\[
+	v_r = \gamma + K\big[\cos(\omega+f)+e\cos\omega\big],
+	\]
+	and identify $K$ in terms of $G$, $M$, $a$, $e$, $i$.
+	\item Using Kepler's third law, show that this $K$ is exactly the semi-amplitude $K=2\pi a\sin i/(P\sqrt{1-e^2})$ quoted without proof in Problem 9.
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item A rotation matrix is orthogonal, so $R^{-1}=R^T$. Undoing it costs no more than transposing and reversing the product order.
+	\item Simple geometric facts about an orthonormal triad, such as which vectors are perpendicular, or what a named angle is the cosine of, can rebuild a rotation result with less algebra than the matrix itself.
+	\item Angular momentum conservation confines $\vec r,\vec v$ to the orbital plane, so $\vec r\cdot\hat L=\vec v\cdot\hat L=0$. This drops $\hat L$ from $v_r=\vec v\cdot\hat R$ in part (c).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Matrix version}. Both $3\times3$ factors in Eq.~\eqref{eq:orbital_frame_rotation} are rotation matrices, so they are orthogonal, $R^{-1}=R^T$. Inverting the product just reverses the order and transposes each factor.
+	\begin{align*}
+	\begin{pmatrix}\hat\alpha\\\hat\delta\\\hat R\end{pmatrix}
+	&=\begin{pmatrix}\cos\Omega&\sin\Omega&0\\-\sin\Omega&\cos\Omega&0\\0&0&1\end{pmatrix}^{\!T}
+	\begin{pmatrix}1&0&0\\0&\cos\iota&\sin\iota\\0&-\sin\iota&\cos\iota\end{pmatrix}^{\!T}
+	\begin{pmatrix}\hatn\\\hat y\\\hat L\end{pmatrix}\\[4pt]
+	&=\begin{pmatrix}\cos\Omega&-\sin\Omega&0\\\sin\Omega&\cos\Omega&0\\0&0&1\end{pmatrix}
+	\begin{pmatrix}1&0&0\\0&\cos\iota&-\sin\iota\\0&\sin\iota&\cos\iota\end{pmatrix}
+	\begin{pmatrix}\hatn\\\hat y\\\hat L\end{pmatrix}.
+	\end{align*}
+	Multiply the two matrices, and read off the third row, the coefficients of $\hat R$.
+	\[
+	\hat R = \underbrace{(0)}_{\hatn\text{-coefficient}}\hatn+\sin\iota\,\hat y+\cos\iota\,\hat L
+	\;\Longrightarrow\;
+	\boxed{\hat R=\sin\iota\,\hat y+\cos\iota\,\hat L,}
+	\]
+	since $\Omega$ only enters the $\hatn$-mixing block, which never touches the row producing $\hat R$.
+
+	\item \textbf{Geometric version}. $\hatn$ is the intersection of the orbital and sky planes. So it is perpendicular to both planes' normals, $\hatn\cdot\hat L=0$ and $\hatn\cdot\hat R=0$. Since $\{\hatn,\hat y,\hat L\}$ is orthonormal, any unit vector with zero $\hatn$-component is a combination of $\hat y,\hat L$ alone.
+	\[
+	\hat R = (\hat R\cdot\hat y)\,\hat y+(\hat R\cdot\hat L)\,\hat L.
+	\]
+	By definition, $i$ is the angle between the planes' normals, so $\hat R\cdot\hat L=\cos\iota$. Since $\hat R\cdot\hatn=0$ and $\hat R$ is a unit vector, $(\hat R\cdot\hat y)^2=\sin^2\iota$. The orientation convention, that $\hat y$ leads $\hatn$ by $90^\circ$ toward $\hat R$, fixes the sign.
+	\[
+	\boxed{\hat R=\sin\iota\,\hat y+\cos\iota\,\hat L,}
+	\]
+	the same as part (a), with no matrix multiplied.
+
+	\item \textbf{Radial velocity}. Angular momentum conservation confines the orbit to the plane spanned by $\hatn,\hat y$, so $\vec v\cdot\hat L=0$, and
+	\[
+	v_r=\vec v\cdot\hat R = \sin\iota\,(\vec v\cdot\hat y).
+	\]
+	With $\vec r=r\cos\phi\,\hatn+r\sin\phi\,\hat y$ and the planar-polar velocity $\vec v=\dot r\,\hat r+r\dot\phi\,\hat\phi$,
+	\[
+	\vec v\cdot\hat y = \dot r\sin\phi+r\dot\phi\cos\phi.
+	\]
+	Substitute $\dot r=\dfrac{Le\sin f}{\mu\lambda}$ (Eq.~\eqref{eq:rdot_true_anomaly}) and $r\dot\phi=\dfrac{L}{\mu r}=\dfrac{L(1+e\cos f)}{\mu\lambda}$ (Eq.~\eqref{eq:theta_dot_keplerian}), with $\phi=\omega+f$.
+	\[
+	\vec v\cdot\hat y = \frac{L}{\mu\lambda}\Big[e\sin f\sin(\omega+f)+(1+e\cos f)\cos(\omega+f)\Big]
+	=\frac{L}{\mu\lambda}\Big[\cos(\omega+f)+e\cos\omega\Big],
+	\]
+	using $\sin f\sin(\omega+f)+\cos f\cos(\omega+f)=\cos\omega$. Since $L=\mu\sqrt{GM\lambda}$ (Eq.~\eqref{eq:L_of_ae}) and $\lambda=a(1-e^2)$, we get $L/(\mu\lambda)=\sqrt{GM/[a(1-e^2)]}$. Add back $\gamma$, Problem 9's line-of-sight COM velocity, as the baseline.
+	\[
+	v_r = \sin\iota\sqrt{\frac{GM}{a(1-e^2)}}\Big[\cos(\omega+f)+e\cos\omega\Big] + \gamma.
+	\]
+	Matching to the stated form,
+	\[
+	\boxed{K=\sin\iota\sqrt{\frac{GM}{a(1-e^2)}}.}
+	\]
+
+	\item \textbf{Consistency with Problem 9}. Kepler's third law gives $GM=4\pi^2a^3/P^2$, so
+	\[
+	K=\sin\iota\sqrt{\frac{4\pi^2a^3/P^2}{a(1-e^2)}}=\sin\iota\sqrt{\frac{4\pi^2a^2}{P^2(1-e^2)}}
+	\;\Longrightarrow\;
+	\boxed{K=\frac{2\pi a\sin\iota}{P\sqrt{1-e^2}},}
+	\]
+	the radial-velocity semi-amplitude of a spectroscopic binary, Problem 9's $K$.
+\end{enumerate}
+
+\subsection{Problem 12: The Gravitational Slingshot}
+
+\textbf{Problem Statement}: A spacecraft flies by Jupiter. Jupiter's own speed around the Sun is $V_p\simeq13.1\,\mathrm{km\,s^{-1}}$. Relative to Jupiter, the spacecraft moves on a hyperbolic orbit with $e=1.2$ and $v_\infty=10\,\mathrm{km\,s^{-1}}$ (Eq.~\eqref{eq:vinf}). Find the change in the spacecraft's speed around the Sun, given that its speed relative to Jupiter cannot change.
+
+\begin{figure}[htbp]
+	\centering
+	\resizebox{0.68\textwidth}{!}{%
+	\begin{tikzpicture}[>=Stealth, scale=1.0, font=\normalsize]
+
+		% ---------- Shared geometry, computed once at top level so both
+		% panels can reference the same numbers (a TikZ scope is a TeX
+		% group, so macros set inside one scope are not visible in another)
+		\def\ecc{1.5}
+		\def\lsr{2.5}
+		\def\cut{105}
+		\pgfmathsetmacro{\finf}{acos(-1/\ecc)}   % 131.81 deg
+		\pgfmathsetmacro{\vin}{180-\finf}         % 48.19 deg
+		\pgfmathsetmacro{\aa}{\lsr/(\ecc*\ecc-1)}
+		\pgfmathsetmacro{\cc}{\aa*\ecc}
+
+		% True local tangent directions at the curve's own endpoints (not
+		% the infinite-limit angle, which the curve has not fully reached
+		% yet at this finite truncation): with r(v)=lsr/(1+e cos v),
+		% dr/dv = e sin(v) r(v)^2/lsr, and the tangent direction is
+		% atan2(dy/dv, dx/dv) with x=r cos v, y=r sin v
+		\pgfmathsetmacro{\rcut}{\lsr/(1+\ecc*cos(\cut))}
+		\pgfmathsetmacro{\rpout}{\ecc*sin(\cut)*\rcut*\rcut/\lsr}
+		\pgfmathsetmacro{\dxout}{\rpout*cos(\cut)-\rcut*sin(\cut)}
+		\pgfmathsetmacro{\dyout}{\rpout*sin(\cut)+\rcut*cos(\cut)}
+		\pgfmathsetmacro{\tangout}{atan2(\dyout,\dxout)}
+		\pgfmathsetmacro{\rpin}{\ecc*sin(-\cut)*\rcut*\rcut/\lsr}
+		\pgfmathsetmacro{\dxin}{\rpin*cos(-\cut)-\rcut*sin(-\cut)}
+		\pgfmathsetmacro{\dyin}{\rpin*sin(-\cut)+\rcut*cos(-\cut)}
+		\pgfmathsetmacro{\tangin}{atan2(\dyin,\dxin)}
+
+		% ================= Panel A: hyperbolic geometry in Jupiter's frame =================
+		% NOTE: drawn with a schematic eccentricity (ecc=1.5, not the
+		% problem's e=1.2) purely so the asymptotes cross visibly close to
+		% the curve; no numeric angle values are printed in this panel,
+		% only the symbols delta and f_infty, so this substitution
+		% introduces no inconsistency -- the actual numbers are computed
+		% from the real e=1.2 in the text below.
+		\begin{scope}
+			\coordinate (O) at (0,0);
+			\coordinate (Ctr) at (\cc,0);
+
+			% Literal asymptotes: two lines through the center, parallel to
+			% the focus's own asymptotic radius directions (+f_infty,
+			% -f_infty), each drawn over a finite stretch that hugs the
+			% curve closely
+			\draw[muted, dashed] ($(Ctr)+({-1*cos(\finf)},{-1*sin(\finf)})$) -- ($(Ctr)+({5.5*cos(\finf)},{5.5*sin(\finf)})$);
+			\draw[muted, dashed] ($(Ctr)+({-1*cos(-\finf)},{-1*sin(-\finf)})$) -- ($(Ctr)+({5.5*cos(-\finf)},{5.5*sin(-\finf)})$);
+
+			% Hyperbola branch, exact polar form r = lsr/(1+e cos v)
+			\draw[astroblue, thick, domain=-\cut:\cut, samples=120, smooth, variable=\v]
+				plot ({(\lsr/(1+\ecc*cos(\v)))*cos(\v)}, {(\lsr/(1+\ecc*cos(\v)))*sin(\v)});
+
+			% Periapsis axis (short reference line) and point
+			\draw[ink!40, dashed] (O) -- (1.3,0);
+			\fill[ink] ({\lsr/(1+\ecc)},0) circle (1.6pt);
+
+			% Focus
+			\fill[ink] (O) circle (2pt) node[below=2pt] {Jupiter};
+
+			% Reference points for the angle pics (named coordinates only;
+			% the angles library cannot parse inline calc expressions as
+			% pic vertices). These use the exact, infinite-limit asymptotic
+			% directions (vin, f_infty), since delta and f_infty are
+			% defined as limits at r->infty, and are marked at the actual
+			% asymptote crossing point, Ctr.
+			\coordinate (Pref) at ($(Ctr)+(1,0)$);
+			\coordinate (Uin) at ($(Ctr)+({cos(\vin)},{sin(\vin)})$);
+			\coordinate (Uout) at ($(Ctr)+({cos(\finf)},{sin(\finf)})$);
+
+			\coordinate (Pin) at ({\rcut*cos(-\cut)},{\rcut*sin(-\cut)});
+			\coordinate (Pout) at ({\rcut*cos(\cut)},{\rcut*sin(\cut)});
+
+			% Velocity-direction arrows, drawn tangent to the curve at its
+			% own endpoints (true local tangent, not the infinite-limit
+			% direction)
+			\draw[->, astroblue, thick] (Pin) -- ($(Pin)+({1.3*cos(\tangin)},{1.3*sin(\tangin)})$) node[right] {$\vec u_{\rm in}$};
+			\draw[->, accent, thick] (Pout) -- ($(Pout)+({1.3*cos(\tangout)},{1.3*sin(\tangout)})$) node[above left] {$\vec u_{\rm out}$};
+
+			% delta and f_infty, both marked at Ctr, the asymptotes' actual
+			% crossing point
+			\draw pic["\small $\delta$", draw=colone, angle radius=11mm, angle eccentricity=1.2]
+				{angle=Uin--Ctr--Uout};
+			\draw pic["\small $f_\infty$", draw=muted, angle radius=6mm]
+				{angle=Pref--Ctr--Uout};
+
+			\node[muted, below right=1pt] at ({\lsr/(1+\ecc)},0) {periapsis};
+			\node[astroblue, left] at (Pin) {incoming};
+			\node[accent, left] at (Pout) {outgoing};
+		\end{scope}
+
+		% ================= Panel B: heliocentric vector addition, two separate diagrams =================
+		% V_p points left; u_in/u_out are parallel-transported copies of
+		% the EXACT SAME vectors drawn in Panel A (same tangout/tangin
+		% angles, same length), attached tip-to-tail at V_p's arrowhead.
+		\def\Vp{3.2}
+		\def\uu{1.6}
+
+		% Diagram 2: V_p + u_out (long resultant)
+		\begin{scope}[xshift=7.4cm, yshift=3.0cm]
+			\coordinate (O) at (0,0);
+			\coordinate (A) at (-\Vp,0);
+			\coordinate (Bout) at ($(A)+({\uu*cos(\tangout)},{\uu*sin(\tangout)})$);
+
+			\draw[->, ink, thick] (O) -- (A) node[pos=0.5, below=2pt] {$\vec V_p$};
+			\draw[->, accent, thick] (A) -- (Bout) node[pos=0.5, left=2pt] {$\vec u_{\rm out}$};
+			\draw[->, accent, very thick] (O) -- (Bout) node[pos=0.5, sloped, above] {$\vec v_{\rm out}$};
+		\end{scope}
+
+		% Diagram 1: V_p + u_in (short resultant)
+		\begin{scope}[xshift=7.4cm, yshift=-3.0cm]
+			\coordinate (O) at (0,0);
+			\coordinate (A) at (-\Vp,0);
+			\coordinate (Bin) at ($(A)+({\uu*cos(\tangin)},{\uu*sin(\tangin)})$);
+
+			\draw[->, ink, thick] (O) -- (A) node[pos=0.5, below=2pt] {$\vec V_p$};
+			\draw[->, astroblue, thick] (A) -- (Bin) node[pos=0.5, left=2pt] {$\vec u_{\rm in}$};
+			\draw[->, astroblue, very thick] (O) -- (Bin) node[pos=0.5, sloped, above] {$\vec v_{\rm in}$};
+		\end{scope}
+	\end{tikzpicture}%
+	}
+	\caption{The gravitational slingshot. Left, Jupiter's frame. The dashed lines are the true asymptotes, crossing at the hyperbola's center, with $\delta$ between them and $f_\infty$ from periapsis. $\vec u_{\rm in}$ and $\vec u_{\rm out}$ are the true tangent directions. Right, $\vec u_{\rm in}$ and $\vec u_{\rm out}$ moved (parallel-transported) onto Jupiter's heliocentric velocity $\vec V_p$.}
+	\label{fig:slingshot_classic}
+\end{figure}
+
+\textbf{Solution}. In the solar frame, we drop the Jupiter--Sun terms that do not involve $\vec x_{\rm sc}$.
+\begin{equation}
+	L = \frac12 m_{\rm sc}\dot{\vec x}_{\rm sc}^2 + \frac{GM_\odot m_{\rm sc}}{|\vec x_{\rm sc}|} + \frac{Gm_{\rm sc}M_J}{|\vec x_{\rm sc}-\vec X_J(t)|}.
+\end{equation}
+Let $\vec r\equiv\vec x_{\rm sc}-\vec X_J(t)$. Over the brief encounter, $\vec X_J(t)\approx\vec X_{J,0}+\vec V_pt$ and $|\vec x_{\rm sc}|\approx X_J(t)$, dropping the small term $O(r/X_J)$. Also $\dot{\vec x}_{\rm sc}=\vec V_p+\dot{\vec r}$, so
+\begin{align}
+	L &\approx \underbrace{\tfrac12m_{\rm sc}V_p^2+\dfrac{GM_\odot m_{\rm sc}}{X_J(t)}}_{f(t)} + \underbrace{m_{\rm sc}\vec V_p\cdot\dot{\vec r}}_{\frac{d}{dt}(m_{\rm sc}\vec V_p\cdot\vec r)} + \frac12m_{\rm sc}\dot{\vec r}^2+\frac{Gm_{\rm sc}M_J}{r}\\
+	&\Longrightarrow\quad L(\vec r,\dot{\vec r}) = \frac12m_{\rm sc}\dot{\vec r}^2+\frac{Gm_{\rm sc}M_J}{r},
+	\label{eq:slingshot_effective_L}
+\end{align}
+this has no explicit $t$. By Noether's theorem, the energy is conserved.
+\begin{align}
+	E &= \dot{\vec r}\cdot\pdv{L}{\dot{\vec r}}-L = \frac12m_{\rm sc}\dot r^2-\frac{Gm_{\rm sc}M_J}{r}=\text{const}\\
+	&\Longrightarrow\quad v_{\infty,\rm in}=v_{\infty,\rm out}\equiv v_\infty=\sqrt{-GM_J/a},
+	\label{eq:slingshot_speed_conserved}
+\end{align}
+This is the Jupiter-relative speed at $r\to\infty$. The solar-frame velocity is $\vec V_p+\vec u$, where $\vec u\equiv\dot{\vec r}$. Its size $|\vec u|=v_\infty$ is fixed, but its direction is free (Figure~\ref{fig:slingshot_classic}).
+
+Put the $x$-axis along periapsis. The orbit is $r(f)=\lambda/(1+e\cos f)$, and $r\to\infty$ at $f=\pm f_\infty$, where
+\begin{equation}
+	\cos f_\infty=-\frac1e,
+\end{equation}
+so $\hat u_{\rm out}$ sits at angle $f_\infty$ from the axis. At periapsis $\dot r=0$, so the velocity is purely tangential, perpendicular to the axis. The trajectory is a mirror image about periapsis, so the total turn $\delta$ splits evenly on each side. This puts $\hat u_{\rm out}$ at $\delta/2$ past that perpendicular.
+\begin{align}
+	f_\infty &= \frac\pi2+\frac\delta2
+	\quad\Longrightarrow\quad
+	\sin\frac\delta2 = \sin\!\left(f_\infty-\frac\pi2\right) = -\cos f_\infty = \frac1e,
+	\label{eq:slingshot_deflection}
+\end{align}
+For $e=1.2$ this gives $\delta\simeq112.9^\circ$. As $e\to1^+$, $\delta\to\pi$, and as $e\to\infty$, $\delta\to0$. By the same symmetry, $\hat u_{\rm in}$ sits at $f_\infty-\delta=\pi/2-\delta/2$ from the axis.
+
+Take $\vec V_p=-V_p\hat x$, so Jupiter moves parallel to periapsis, to the left. $\hat u_{\rm in}$ sits at $\pi-f_\infty$ and $\hat u_{\rm out}$ at $f_\infty$ from the axis, so their angles with $\vec V_p$ are $f_\infty$ and $\pi-f_\infty$. By the law of cosines,
+\begin{align}
+	v_{\rm in}^2 &= V_p^2+v_\infty^2+2V_pv_\infty\cos f_\infty = V_p^2+v_\infty^2-\frac{2V_pv_\infty}{e}\\
+	&= 13.1^2+10^2-\frac{2(13.1)(10)}{1.2}
+	\;\Longrightarrow\; v_{\rm in}\simeq7.3\,\mathrm{km\,s^{-1}},\\
+	v_{\rm out}^2 &= V_p^2+v_\infty^2+2V_pv_\infty\cos(\pi-f_\infty) = V_p^2+v_\infty^2+\frac{2V_pv_\infty}{e}\\
+	&= 13.1^2+10^2+\frac{2(13.1)(10)}{1.2}
+	\;\Longrightarrow\; v_{\rm out}\simeq22.1\,\mathrm{km\,s^{-1}}.
+\end{align}
+
+By momentum conservation, $m_{\rm sc}\Delta\vec v_{\rm sc}=-M_J\Delta\vec V_p$, so
+\begin{equation}
+	\Delta V_p=\frac{m_{\rm sc}}{M_J}\,\Delta v_{\rm sc}<10^{-20}\,\mathrm{km\,s^{-1}},
+\end{equation}
+undetectable on Jupiter.
 

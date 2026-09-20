@@ -11,6 +11,16 @@
 \usepackage{placeins}
 \usepackage{comment}
 
+% ---------- Float placement: let text share a page with a figure whenever
+% ---------- there is room, instead of pushing the figure to its own page
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{5}
+
 % ---------- Mathematics & Physics ----------
 \usepackage{amsmath}
 \usepackage{amssymb}

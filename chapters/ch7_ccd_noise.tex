@@ -101,6 +101,7 @@
 	\end{figure}
 
 	\subsection{Detection Significance and the False-Alarm Probability}
+	\label{sec:detection_significance}
 
 	At the low-SNR threshold ($\mathrm{SNR} = 2\text{--}5$), the central question is whether an observed signal corresponds to a genuine astrophysical source or merely an extreme statistical fluctuation of the background.
 
@@ -402,5 +403,121 @@
 		\item \textbf{Radio-frequency interference (RFI):} Human-made radio emission (television, mobile networks, radar, power infrastructure) that must be flagged and excised, the radio equivalent of a CCD's cosmic-ray hits.
 	\end{itemize}
 	As with the CCD budget of Eq.~\eqref{eq:variance_addition}, identifying which of these terms dominates a given observation --- and only that term --- determines the optimal observing and data-reduction strategy.
+
+	\section{Problem Set: Poisson Statistics and CCD Signal-to-Noise}
+
+	This closing problem set applies the Poisson-statistics and noise-budget machinery developed above to four representative calculations: normalizing and characterizing the Poisson distribution itself, scaling the signal-to-noise ratio with exposure time and image co-addition in the bright-source regime, scaling the signal-to-noise ratio with source distance in the read-noise-limited regime, and separating a dark frame's noise budget into its time-dependent (dark-current) and time-independent (readout) components.
+
+	\subsection{Problem 1: Normalization, Moments, and the Gaussian Limit of the Poisson Distribution}
+
+	\textbf{Problem Statement}: The Poisson distribution is given by $P[X=k]=\dfrac{\lambda^k e^{-\lambda}}{k!}$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that this expression is normalized, $\sum_{k=0}^\infty P[X=k]=1$.
+		\item Prove that the mean and variance of this distribution both equal $\lambda$.
+		\item Plot the distribution for $\lambda=0.1,1,10,100,1000$. Convince yourself that the distribution approaches a Gaussian as $\lambda$ grows.
+	\end{enumerate}
+
+	\textbf{Solution}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Normalization}: Recognizing $\sum_{k=0}^\infty \lambda^k/k!$ as the Maclaurin series for $e^\lambda$,
+		\[
+		\sum_{k=0}^\infty P[X=k] = e^{-\lambda}\sum_{k=0}^\infty\frac{\lambda^k}{k!} = e^{-\lambda}\cdot e^{\lambda} = \boxed{1.}
+		\]
+
+		\item \textbf{Mean and variance}: This is exactly the derivation already carried out in Eqs.~\eqref{eq:poisson_mean}--\eqref{eq:poisson_var} with $\mu\to\lambda$. The mean is
+		\[
+		\langle X\rangle = \sum_{k=0}^\infty k\,\frac{\lambda^k e^{-\lambda}}{k!} = \lambda e^{-\lambda}\sum_{k=1}^\infty\frac{\lambda^{k-1}}{(k-1)!} = \lambda e^{-\lambda}e^{\lambda} = \lambda,
+		\]
+		and the second factorial moment $\langle X(X-1)\rangle=\lambda^2$ by the identical series manipulation, so $\langle X^2\rangle=\lambda^2+\lambda$ and
+		\[
+		\boxed{\mathrm{Var}(X)=\langle X^2\rangle-\langle X\rangle^2 = (\lambda^2+\lambda)-\lambda^2=\lambda=\langle X\rangle.}
+		\]
+
+		\item \textbf{Plot and Gaussian limit}: The distribution can be evaluated and plotted directly from its definition:
+		\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import poisson, norm
+
+lambdas = [0.1, 1, 10, 100, 1000]
+fig, axes = plt.subplots(1, len(lambdas), figsize=(18, 3.2))
+
+for ax, lam in zip(axes, lambdas):
+    k_max = int(lam + 6*np.sqrt(lam) + 5)
+    k = np.arange(0, k_max + 1)
+    ax.bar(k, poisson.pmf(k, lam), color="C0", width=1.0, label="Poisson")
+    if lam >= 10:
+        x = np.linspace(0, k_max, 400)
+        ax.plot(x, norm.pdf(x, loc=lam, scale=np.sqrt(lam)), "C3--", label="Gaussian")
+    ax.set_title(rf"$\lambda={lam}$")
+    ax.set_xlabel("$k$")
+axes[0].set_ylabel("$P[X=k]$")
+axes[-1].legend()
+plt.tight_layout()
+plt.show()
+		\end{lstlisting}
+		For $\lambda=0.1$ the distribution is a sharp, heavily skewed spike (essentially all its mass at $k=0,1$); by $\lambda=10$ it is already visibly bell-shaped and reasonably symmetric; and by $\lambda=100$ and $\lambda=1000$ it is indistinguishable, to the eye, from the Gaussian $\mathcal N(\lambda,\lambda)$ of matching mean and variance overplotted in the code above. This is the same Central Limit Theorem argument invoked in Section~\ref{sec:detection_significance}: a Poisson count is itself a sum of many independent Bernoulli arrivals, so for large $\lambda$ it converges to a Gaussian with $\mu=\sigma^2=\lambda$, which is precisely why $\sigma_{\rm tot}$ could be treated as Gaussian there.
+	\end{enumerate}
+
+	\subsection{Problem 2: Signal-to-Noise Scaling with Exposure Time and Image Co-Addition}
+
+	\textbf{Problem Statement}: Two images $I_1$ and $I_2$ of the same bright astronomical object are taken with the same instrumental setup, dominated by source shot noise. $I_1$ has an exposure time of $1\,\mathrm{min}$ and $\mathrm{SNR}=100$.
+	\begin{enumerate}[label=(\alph*)]
+		\item What is the $\mathrm{SNR}$ of $I_2$ if its exposure time is $5\,\mathrm{min}$?
+		\item If the two images are added pixel-wise, what is the $\mathrm{SNR}$ of the resulting image?
+	\end{enumerate}
+
+	\textbf{Solution}: Being source-shot-noise dominated places both images in Regime 1 (Eq.~\eqref{eq:regime_bright}), $\mathrm{SNR}=\sqrt{R_{\rm src}t}\propto\sqrt t$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Scaling directly from $I_1$,
+		\[
+		\boxed{\mathrm{SNR}_2 = \mathrm{SNR}_1\sqrt{\frac{t_2}{t_1}} = 100\sqrt{5} \simeq 223.6.}
+		\]
+
+		\item Adding the two images pixel-wise sums both the counts and (in quadrature) their independent Poisson variances, which is exactly equivalent to a single exposure of the combined duration $t_1+t_2$: with $R_{\rm src}t_1=(\mathrm{SNR}_1)^2=10^4$,
+		\[
+		\mathrm{SNR}_{1+2}=\sqrt{R_{\rm src}(t_1+t_2)} = \mathrm{SNR}_1\sqrt{1+\frac{t_2}{t_1}} = 100\sqrt{6}
+		\]
+		\[
+		\boxed{\mathrm{SNR}_{1+2}\simeq244.9.}
+		\]
+		Co-adding frames in the source-limited regime is therefore exactly as good as having taken one longer exposure of the same total duration --- the essence of the ``sub-exposure splitting is free'' strategy of Section~\ref{sec:regime2}, here confirmed to hold in Regime 1 as well.
+	\end{enumerate}
+
+	\subsection{Problem 3: Signal-to-Noise Scaling with Source Distance in the Instrumental-Noise Limit}
+
+	\textbf{Problem Statement}: The image of a faint star has $\mathrm{SNR}=5$, with the noise dominated by instrumental (readout) noise. What will the $\mathrm{SNR}$ be if the star were twice as distant?
+
+	\textbf{Solution}: Instrumental-noise domination places this measurement in Regime 3 (Eq.~\eqref{eq:regime_read}),
+	\[
+	\mathrm{SNR}\approx\frac{R_{\rm src}t}{\sqrt{n_{\rm pix}N_{\rm exp}}\,\sigma_{\rm RON}}\propto R_{\rm src},
+	\]
+	since every other factor ($t$, $n_{\rm pix}$, $N_{\rm exp}$, $\sigma_{\rm RON}$) is fixed by the instrumental setup, not the source. The count rate $R_{\rm src}$ is itself proportional to the received flux, which obeys the inverse-square law of Eq.~\eqref{eq:inverse_square_flux}, $F\propto 1/d^2$. Doubling the distance therefore cuts the flux, and hence $R_{\rm src}$ and $\mathrm{SNR}$, by a factor of $2^2=4$:
+	\[
+	\boxed{\mathrm{SNR}_{2d} = \frac{\mathrm{SNR}}{4} = \frac{5}{4} = 1.25.}
+	\]
+	This linear dependence on source flux is the key qualitative difference between the read-noise-limited and photon-limited regimes: in Regime 1, $\mathrm{SNR}\propto\sqrt{R_{\rm src}}$, so the same distance doubling would have cost only a factor of $2$, not $4$.
+
+	\subsection{Problem 4: Separating Dark-Current and Readout-Noise Contributions from Two Dark Frames}
+
+	\textbf{Problem Statement}: Two dark images are taken with the same telescope and CCD. The first has exposure time $1\,\mathrm{min}$ and noise variance $a$; the second has exposure time $3\,\mathrm{min}$ and noise variance $2.6a$. Find the noise variance per unit time of the dark current and the noise variance of the readout noise.
+
+	\textbf{Solution}: A dark frame has no source or sky signal, so only Eqs.~\eqref{eq:sigma_dark} and \eqref{eq:sigma_read} contribute to its noise budget (Eq.~\eqref{eq:variance_addition}). Writing $D\equiv n_{\rm pix}R_{\rm dark}$ for the dark-current variance rate and $\sigma_{\rm RON}'^2\equiv n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$ for the (fixed, per-frame) readout-noise variance, the total dark-frame variance at exposure time $t$ is
+	\[
+	\sigma^2(t) = Dt + \sigma_{\rm RON}'^2.
+	\]
+	The two measurements give two equations in the two unknowns $D$ and $\sigma_{\rm RON}'^2$:
+	\[
+	D(1) + \sigma_{\rm RON}'^2 = a, \qquad D(3) + \sigma_{\rm RON}'^2 = 2.6a.
+	\]
+	Subtracting eliminates $\sigma_{\rm RON}'^2$:
+	\[
+	2D = 1.6a \;\Longrightarrow\; \boxed{D = 0.8a\ \text{per minute}.}
+	\]
+	Back-substituting into the first equation,
+	\[
+	\boxed{\sigma_{\rm RON}'^2 = a - D(1) = a - 0.8a = 0.2a.}
+	\]
+	As a check, the second frame gives $D(3)+\sigma_{\rm RON}'^2 = 2.4a+0.2a=2.6a$, matching the given data exactly. Physically, $0.8a$ is the rate at which dark-current shot noise accumulates each minute, while the fixed $0.2a$ is the amplifier's readout-noise floor, incurred once per readout regardless of exposure time --- precisely the structural distinction between $\sigma_{\rm dark}^2\propto t$ and $\sigma_{\rm read}^2$ independent of $t$ drawn in Section~\ref{sec:regime1} onward.
 
 	Both case studies in this chapter treated the astronomical source and its intervening medium as a fixed, known background against which noise is quantified. Chapter~8 turns this around: it examines that intervening medium --- the interstellar medium --- as a physical system in its own right, developing the dynamics that ultimately determine where, and when, a source such as a pulsar is created in the first place.
