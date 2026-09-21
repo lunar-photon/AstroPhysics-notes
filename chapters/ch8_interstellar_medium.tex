@@ -37,40 +37,87 @@ Studying the ISM matters for three independent reasons: (i) every photon used in
 \label{sec:ism_extinction}
 
 \begin{definition}[Extinction]
-	\emph{Extinction} is the total attenuation of light passing through a medium, defined as the sum of true absorption and scattering out of the line of sight:
+	\emph{Extinction} is the total attenuation of radiant energy propagating through an astrophysical medium, defined as the sum of true absorption (conversion of radiant energy into thermal or internal excitation energy) and scattering (redirection of photons out of the line of sight):
 	\begin{equation}
 		\text{Extinction} = \text{Absorption} + \text{Scattering}.
 		\label{eq:extinction_decomposition}
 	\end{equation}
 \end{definition}
 
-Absorption occurs either as sharp line absorption by atoms and molecules, or as broadband continuum absorption by larger dust grains. Scattering off a grain of radius $a$ falls into three regimes depending on the ratio of grain size to wavelength:
+Absorption occurs either as sharp resonance-line absorption by atoms, ions, and molecules, or as continuous broadband absorption by larger dust grains. Scattering, however, is fundamentally categorized by the conservation of photon energy during the interaction.
+
+\subsection{Physical Classification of Light Scattering Regimes}
+\label{sec:scattering_classification}
+
+In astrophysics and fundamental physics, scattering processes divide into two broad categories based on whether photon kinetic energy is conserved:
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.4em]
+	\item \textbf{Elastic Scattering ($\Delta E = 0$):} The kinetic energy and quantum frequency of the photon are conserved in the center-of-mass frame ($\nu_{\rm scattered} = \nu_{\rm incident}$). The scattered radiation retains its exact wavelength and intrinsic color.
+	\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
+		\item \textbf{Rayleigh Scattering ($a \ll \lambda$):} Occurs when light interacts with particles (atoms, small molecules, or sub-wavelength grain kernels) much smaller than the radiation wavelength. The incident electric field induces an oscillating electric dipole $p = \alpha E_0$ with polarizability $\alpha \propto a^3$. By Larmor's radiative formula ($P_{\rm rad} \propto \ddot p^{\,2} \propto \omega^4$), the re-radiated power scales as $\omega^4 a^6 E_0^2 \propto a^6/\lambda^4$. Dividing by incident intensity yields the cross-section
+		\begin{keyresult}
+			\begin{equation}
+				\sigma_{\rm Rayleigh} \propto \frac{a^6}{\lambda^4}.
+				\label{eq:rayleigh_scattering_cross_section}
+			\end{equation}
+		\end{keyresult}
+		Blue photons are scattered far more strongly than red photons, explaining the blue color of Earth's daytime sky, red sunsets, and blue reflection nebulae around young stellar clusters (e.g., the Pleiades).
+		\item \textbf{Mie Scattering ($a \sim \lambda$):} Arises when electromagnetic waves interact with spherical or spheroidal dielectric and conducting particles (such as interstellar dust grains, water droplets, and aerosols) whose physical radii are comparable to the wavelength. The exact solution requires expanding internal and scattered electromagnetic fields in vector spherical harmonics (the Mie series). Across the optical and near-infrared, realistic interstellar grain size distributions yield an effective cross-section scaling as $\sigma_{\rm ext} \propto a^3\lambda^{-1}$. When particle sizes become substantially larger than the wavelength ($a \gg \lambda$), scattering approaches the geometric limit ($\sigma \approx 2\pi a^2$, including diffraction), where all visible wavelengths are scattered equally, making terrestrial clouds, thick water fog, and large-grain circumstellar envelopes appear white or neutral gray.
+		\item \textbf{Tyndall Scattering:} Closely related to the Mie regime, this describes elastic scattering by small macroscopic particles or colloids suspended in a transparent carrier gas or liquid. Familiar examples include visible shafts of sunlight penetrating dusty rooms or smoky forests, as well as the diffuse illumination of dusty interstellar clouds by nearby starlight.
+	\end{itemize}
+	
+	\item \textbf{Inelastic Scattering ($\Delta E \neq 0$):} Photons exchange energy with the internal quantum or collective dynamical states of the scattering medium, emerging with shifted wavelengths and frequencies ($\nu_{\rm scattered} \neq \nu_{\rm incident}$).
+	\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
+		\item \textbf{Raman Scattering:} Photons interact with atomic or molecular bonds, exciting or de-exciting vibrational or rotational quantum states. The scattered photon emerges at a lower frequency (Stokes scattering, $\nu < \nu_0$, photon loses energy) or higher frequency (anti-Stokes scattering, $\nu > \nu_0$, photon gains energy from an already excited molecule). Widely utilized in laboratory Raman spectroscopy for chemical fingerprinting, it also appears in astrophysical environments such as symbiotic stars and planetary nebulae, where intense ultraviolet resonance photons (e.g., $\mathrm{O\,VI}\,\lambda\lambda 1032, 1038$) Raman-scatter off neutral atomic hydrogen ($\mathrm{H\,I}$) into broad optical emission bands at $\lambda 6825\,\text{\AA}$ and $\lambda 7082\,\text{\AA}$.
+		\item \textbf{Brillouin Scattering:} Occurs when light scatters inelastically off propagating acoustic phonons (coherent density fluctuations or hypersonic sound waves) in dense fluids, solids, or high-density astrophysical plasmas, imparting a Doppler-shifted frequency modulation $\Delta\nu = \pm 2\nu_0 (v_s/c)\sin(\theta/2)$, where $v_s$ is the local sound speed.
+	\end{itemize}
+\end{enumerate}
+
+\paragraph{Free-electron scattering in high-energy astrophysics.} In addition to bound atoms and dust particulates, radiation interacts directly with free electrons in ionized astrophysical plasmas:
+\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
+	\item \textbf{Thomson Scattering ($h\nu \ll m_e c^2$):} The low-energy, classical elastic limit of photon-electron scattering. The cross-section is the universal Thomson cross-section:
+	\begin{equation}
+		\sigma_{\rm T} = \frac{8\pi}{3}\left(\frac{e^2}{4\pi\varepsilon_0 m_e c^2}\right)^2 = \frac{8\pi}{3}r_e^2 \approx 6.6524 \times 10^{-29}\,\mathrm{m^2},
+		\label{eq:thomson_cross_section}
+	\end{equation}
+	which is strictly independent of photon wavelength $\lambda$. Thomson scattering provides the dominant continuous opacity in stellar interiors, hot massive stellar envelopes, accretion disks, and the Cosmic Microwave Background (CMB) last-scattering surface.
+	\item \textbf{Compton and Inverse Compton Scattering ($h\nu \gtrsim m_e c^2$ or relativistic electrons):} The relativistic inelastic regime. In standard Compton scattering, a high-energy $\gamma$-ray photon transfers momentum to a stationary electron, increasing its wavelength by $\Delta\lambda = \lambda_{\rm C}(1-\cos\theta)$, where $\lambda_{\rm C} = h/(m_e c) \approx 2.426 \times 10^{-12}\,\mathrm{m}$. In \emph{Inverse Compton Scattering}, ultra-relativistic electrons ($\gamma_e \gg 1$) collide with low-energy ambient photons (radio, IR, or CMB), up-scattering them by a factor $\sim \gamma_e^2$ into X-ray and $\gamma$-ray energies (the primary emission engine of pulsar wind nebulae, supernova remnants, and active galactic nuclei jets).
+\end{itemize}
 
 \begin{table}[htbp]
 	\centering
-	\begin{tabular}{@{}l l l l@{}}
+	\resizebox{\linewidth}{!}{%
+	\begin{tabular}{@{}l l l l l@{}}
 		\toprule
-		\textbf{Regime} & \textbf{Condition} & \textbf{Cross-section scaling} & \textbf{Physical origin} \\
+		\textbf{Scattering Mechanism} & \textbf{Interacting Medium} & \textbf{Wavelength Scaling} & \textbf{Energy / Color Shift} & \textbf{Astrophysical Manifestation} \\
 		\midrule
-		Geometric & $a \gg \lambda$ & $\sigma \propto a^2$ & Ray optics; grain blocks its own geometric shadow. \\
-		Mie & $a \sim \lambda$ & $\sigma \propto a^3\lambda^{-1}$ & Full electromagnetic (Mie) solution; no closed form. \\
-		Rayleigh & $a \ll \lambda$ & $\sigma \propto a^6\lambda^{-4}$ & Grain acts as a driven electric dipole. \\
+		\textbf{Rayleigh} & Atoms, small molecules ($a \ll \lambda$) & $\sigma \propto a^6\lambda^{-4}$ & Elastic ($\Delta E = 0$) & Blue sky, Pleiades reflection nebulae \\
+		\textbf{Mie (dust)} & Dust grains ($a \sim \lambda$) & $\sigma \propto a^3\lambda^{-1}$ & Elastic ($\Delta E = 0$) & Interstellar reddening \& extinction \\
+		\textbf{Geometric} & Large particles ($a \gg \lambda$) & $\sigma \propto a^2$ (achromatic) & Elastic ($\Delta E = 0$) & White clouds, circumstellar dust shells \\
+		\textbf{Tyndall} & Colloids, dust suspensions & Mixed Mie/Rayleigh & Elastic ($\Delta E = 0$) & Interstellar dust lanes, nebula beams \\
+		\textbf{Raman} & Molecular/atomic bonds & Specific resonances & Inelastic ($\Delta E \neq 0$) & Symbiotic stars, Raman O\,VI emission \\
+		\textbf{Brillouin} & Acoustic phonons / sound waves & Doppler-shifted & Inelastic ($\Delta E \neq 0$) & Dense planetary/stellar atmospheres \\
+		\textbf{Thomson} & Free electrons ($h\nu \ll m_e c^2$) & $\sigma_{\rm T} = \text{const}$ & Elastic ($\Delta E = 0$) & O-star envelopes, accretion disks, CMB \\
+		\textbf{Inverse Compton} & Relativistic electrons & Up-scattered ($\nu' \sim \gamma_e^2\nu$) & Inelastic ($\Delta E > 0$) & AGN jets, pulsar wind nebulae ($\gamma$-rays) \\
 		\bottomrule
-	\end{tabular}
-	\caption{Scattering regimes for a spherical grain of radius $a$ illuminated at wavelength $\lambda$.}
+	\end{tabular}%
+	}
+	\caption{Comprehensive taxonomy of light scattering mechanisms in physics and astrophysics.}
+	\label{tab:scattering_taxomony}
 	\label{tab:scattering_regimes}
 \end{table}
 
-\paragraph{Physical origin of the three regimes.} The geometric limit is simple ray optics: a grain much larger than the wavelength blocks light over its own projected area, $\sigma = \pi a^2$, independent of $\lambda$. The Rayleigh limit is a classical driven-dipole problem: an incident wave of amplitude $E_0$ induces a dipole moment $p = \alpha E_0$ in the grain, with polarizability $\alpha \propto a^3$ (the response of a sub-wavelength dielectric or conducting sphere scales with its volume). This oscillating dipole radiates according to the Larmor formula, $P_{\rm rad} \propto \ddot p^{\,2} \propto \omega^4 p^2$, so the re-radiated power scales as $\omega^4 a^6 E_0^2 \propto a^6/\lambda^4$ (using $\omega = 2\pi c/\lambda$); dividing by the incident intensity $I \propto E_0^2$ gives the scattering cross-section
-\begin{keyresult}
-	\begin{equation}
-		\sigma_{\rm Rayleigh} \propto \frac{a^6}{\lambda^4}.
-		\label{eq:rayleigh_scattering_cross_section}
-	\end{equation}
-\end{keyresult}
-This is precisely the same dipole-scattering result invoked in Chapter~5 (Section~\ref{sec:windows}) for air molecules rather than dust grains, and is the microscopic origin of the $\lambda^{-4}$ law responsible for the blue daytime sky. The intermediate Mie regime, by contrast, has no elementary derivation of this kind: the exact solution requires expanding the scattered field in an infinite series of vector spherical harmonics (the Mie series), whose terms do not collapse to a simple power law; the scaling $\sigma \propto a^3\lambda^{-1}$ quoted in Table~\ref{tab:scattering_regimes} is only the effective average behaviour across this transition regime, not a closed-form result.
+\subsection{Microphysics of Dust Extinction and Interstellar Reddening}
 
-Interstellar grains ($a \sim 0.01\text{--}1\,\mu\mathrm{m}$) are comparable to or smaller than optical wavelengths, so ISM scattering is generically in the Mie or Rayleigh regime, both of which share the qualitative feature that $\sigma$ \emph{decreases} with increasing $\lambda$. A beam of white starlight passing through a dusty cloud therefore loses blue photons preferentially, emerging both dimmer (extinction) and redder (\emph{interstellar reddening}) than it left the source. This is the microphysical origin of the empirical extinction law $A_V = R_V\,E(B-V)$ with $R_V \approx 3.1$ already introduced in Chapter~4 (Eq.~\eqref{eq:rv_extinction}): the observed $\gamma \sim 1$ power-law is the net effect of averaging over a realistic grain-size distribution straddling the Mie and Rayleigh regimes, rather than a single clean $\lambda^{-4}$ Rayleigh law. A well-known consequence is visible directly in absorption and reflection nebulae: dense dust lanes such as Barnard 68 appear as near-total silhouettes in the optical yet become largely transparent in the infrared (where $a \ll \lambda$ deep in the Rayleigh regime and $\sigma$ is small), while starlight scattered off the dust surrounding the Pleiades produces a blue reflection nebula for the same Rayleigh-type reason that the terrestrial daytime sky is blue.
+Interstellar dust grains ($a \sim 0.01\text{--}1\,\mu\mathrm{m}$) are comparable in size to optical wavelengths, placing ISM dust extinction squarely in the \textbf{Mie scattering regime}. 
+
+For a sightline traversing dust column density $N_d = \int n_d\,ds$, the optical depth is $\tau_\lambda = N_d \sigma_{\rm ext}(\lambda)$, giving flux attenuation $F_\lambda = F_{\lambda,0}e^{-\tau_\lambda}$. Expressed in Pogson magnitudes:
+\begin{equation}
+	A_\lambda = \frac{2.5}{\ln 10}\,\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
+	\label{eq:ism_mag_extinction}
+\end{equation}
+
+Because Mie scattering across the optical window satisfies $\sigma_{\rm ext}(\lambda) \propto \lambda^{-1}$, the cross-section decreases monotonically with wavelength. Blue photons suffer greater attenuation than visual or red photons ($\sigma_B > \sigma_V \implies A_B > A_V$). This differential extinction creates the \textbf{color excess} $E(B-V) \equiv A_B - A_V > 0$, causing transmitted starlight to emerge fainter and redder than its intrinsic emission. Correcting for this effect via the \textbf{Color Index Correction} $(B-V)_0 = (B-V)_{\rm obs} - E(B-V)$ and dereddening the distance modulus via $\mu_0 = (m_V - M_V)_{\rm obs} - R_V E(B-V)$ with $R_V \approx 3.1$ (as derived in Chapter~4) is therefore essential for accurate stellar characterization. A direct observational consequence is seen in dark and reflection nebulae: dense dust clouds such as Barnard 68 appear opaque in the optical but become transparent in the infrared where $\lambda \gg a$, while starlight scattered off dust around the Pleiades produces a blue reflection nebula because smaller grains scatter shorter wavelengths more effectively.
 
 \section{Spectral Lines: Formation and Broadening}
 \label{sec:ism_lines}

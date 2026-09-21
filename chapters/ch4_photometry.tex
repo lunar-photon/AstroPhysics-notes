@@ -82,42 +82,127 @@ The quantity $\mu = m - M$ is known as the \emph{distance modulus}. In terms of 
 
 \subsection{Photometric Passbands, Color Indices, and Interstellar Extinction}
 
-Astronomical detectors measure flux through calibrated optical transmission filters (e.g., the Johnson-Cousins $UBVRI$ system or SDSS $ugriz$ system):
-\begin{itemize}
-	\item $U$ (Ultraviolet, $\lambda_{\rm eff} \approx 365\,\mathrm{nm}$)
-	\item $B$ (Blue, $\lambda_{\rm eff} \approx 440\,\mathrm{nm}$)
-	\item $V$ (Visual, $\lambda_{\rm eff} \approx 550\,\mathrm{nm}$)
-	\item $R$ (Red, $\lambda_{\rm eff} \approx 640\,\mathrm{nm}$)
-	\item $I$ (Infrared, $\lambda_{\rm eff} \approx 790\,\mathrm{nm}$)
-\end{itemize}
+Astronomical detectors measure flux through calibrated filters (e.g., the Johnson-Cousins $UBVRI$ system): $U$ ($365\,\mathrm{nm}$), $B$ ($440\,\mathrm{nm}$), $V$ ($550\,\mathrm{nm}$), $R$ ($640\,\mathrm{nm}$), and $I$ ($790\,\mathrm{nm}$).
 
 \begin{definition}[Color Index]
-	A \emph{color index} is the difference in apparent magnitude between two distinct wavelength passbands (e.g., $B - V$ or $U - B$). Because flux appears in the denominator of the logarithmic ratio:
+	A \emph{color index} is the magnitude difference between two passbands (such as $B - V$). Since flux appears in the denominator of Pogson's logarithmic ratio:
 	\begin{equation}
-		B - V = -2.5\log_{10}\left(\frac{F_B}{F_V}\right) + \text{const}.
+		B - V = -2.5\log_{10}\left(\frac{F_B}{F_V}\right) + C_{BV}.
 		\label{eq:color_index_def}
 	\end{equation}
-	Hotter stars emit relatively more blue flux ($F_B > F_V$), resulting in \emph{smaller (or negative) color indices} ($B - V < 0$). Cooler stars have $F_B < F_V$, yielding \emph{larger positive color indices} ($B - V > 0$).
+	Hotter stars emit more blue flux ($F_B > F_V$), yielding smaller or negative color indices ($B - V < 0$), whereas cooler stars yield larger positive color indices ($B - V > 0$). Color index serves as an observational proxy for surface temperature $T_{\rm eff}$.
 \end{definition}
 
-\paragraph{Interstellar Reddening and Extinction.}
-Interstellar dust grains preferentially scatter shorter-wavelength blue photons (Rayleigh-like scattering $\sigma_{\rm dust} \propto \lambda^{-\gamma}$ with $\gamma \sim 1$; the microphysical origin of this power law in Mie and Rayleigh grain scattering is derived in Chapter~8). This dims and reddens the transmitted starlight. The observed distance modulus is modified by the total visual extinction $A_V$:
+\subsubsection{Interstellar Reddening and Extinction: The Mie Scattering Mechanism}
+
+When starlight traverses the interstellar medium, dust grains scatter and absorb photons. While light scattering in physics spans multiple elastic and inelastic mechanisms (detailed in Section~\ref{sec:scattering_classification}), interstellar extinction is governed by \textbf{Mie scattering} off sub-micron dust grains ($a \sim 0.1\,\mu\mathrm{m}$).
+
+In this regime, the scattering cross-section falls with wavelength ($\sigma_{\rm ext} \propto \lambda^{-1}$). Because blue light has a shorter wavelength than visual light ($\lambda_B \approx 440\,\mathrm{nm} < \lambda_V \approx 550\,\mathrm{nm}$), dust attenuates blue photons more heavily ($A_B > A_V$). This preferential blue loss shifts the observed color index toward redder values:
 \begin{equation}
-	m_V - M_V = 5\log_{10}d - 5 + A_V.
-	\label{eq:extinction_modulus}
+	(B - V)_{\rm obs} = (B - V)_0 + E(B - V),
+	\label{eq:color_index_observed_split}
 \end{equation}
-The \emph{color excess} $E(B-V)$ is defined as:
-\begin{equation}
-	E(B-V) \equiv (B - V)_{\rm observed} - (B - V)_{\rm intrinsic}.
-	\label{eq:color_excess}
-\end{equation}
-In the diffuse interstellar medium of the Milky Way, the ratio of total to selective extinction is standardly:
+where $E(B - V) \equiv A_B - A_V > 0$ is the \emph{color excess}. To determine the star's true temperature and intrinsic spectral type, astronomers subtract this excess via the \textbf{Color Index Correction}:
 \begin{keyresult}
 	\begin{equation}
-		R_V \equiv \frac{A_V}{E(B-V)} \approx 3.1.
-		\label{eq:rv_extinction}
+		(B - V)_0 = (B - V)_{\rm obs} - E(B - V).
+		\label{eq:color_index_correction}
 	\end{equation}
 \end{keyresult}
+
+The total visual extinction is parameterized by $A_V = R_V E(B - V)$, where $R_V \approx 3.1$ in the diffuse Milky Way. Removing $A_V$ from the apparent distance modulus yields the true dereddened distance modulus $\mu_0$:
+\begin{keyresult}
+	\begin{equation}
+		\mu_0 \equiv (m_V - M_V)_{\rm obs} - R_V\,E(B - V) = 5\log_{10}d\,[\mathrm{pc}] - 5.
+		\label{eq:dereddened_distance_modulus}
+	\end{equation}
+\end{keyresult}
+
+\begin{tcolorbox}[notebox, title=DERIVATION: COLOR INDEX CORRECTION AND EXTINCTION FROM MIE SCATTERING]
+	Consider unextinguished starlight with flux $F_{\lambda,0}$ traversing dust with column density $N_d = \int n_d\,ds$. The transmitted flux is $F_\lambda = F_{\lambda,0}e^{-\tau_\lambda}$ with optical depth $\tau_\lambda = N_d \sigma_{\rm ext}(\lambda)$. In Pogson magnitudes, the extinction is
+	\begin{equation}
+		A_\lambda = -2.5\log_{10}\left(\frac{F_\lambda}{F_{\lambda,0}}\right) = \frac{2.5}{\ln 10}\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
+	\end{equation}
+	For interstellar grains ($a \sim 0.1\,\mu\mathrm{m} \sim \lambda$), Mie scattering yields $\sigma_{\rm ext}(\lambda) \propto \lambda^{-1}$. Evaluating across the $B$ and $V$ passbands gives
+	\begin{equation}
+		A_B - A_V = 1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B) - \sigma_{\rm ext}(\lambda_V)\right] > 0,
+	\end{equation}
+	since $\lambda_B < \lambda_V \implies \sigma_{\rm ext}(\lambda_B) > \sigma_{\rm ext}(\lambda_V)$. The observed color index is $(B - V)_{\rm obs} = m_B - m_V = (B - V)_0 + (A_B - A_V) = (B - V)_0 + E(B - V)$. Dereddening isolates the intrinsic color $(B - V)_0 = (B - V)_{\rm obs} - E(B - V)$, and subtracting $A_V = R_V E(B-V)$ yields the true distance modulus:
+	\begin{equation}
+		5\log_{10}d - 5 = (m_V - M_V)_{\rm obs} - R_V\,E(B - V).
+	\end{equation}
+\end{tcolorbox}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		scale=1.0,
+		declare function={
+			wl(\x) = 0.30 + \x/20.0;
+			rayleigh(\x) = 1.3 * ((0.55 / wl(\x))^4);
+			mie(\x) = 1.3 * (0.55 / wl(\x));
+			geom(\x) = 1.3 * 1.0;
+		}
+	]
+		% Regime demarker background band
+		\fill[astroblue!5] (1.0,0) rectangle (11.8,5.4);
+
+		% Background passband shading
+		\fill[astroblue!9] (0.7,0) rectangle (1.9,5.0); % U band region
+		\fill[astroblue!15] (2.2,0) rectangle (3.4,5.0); % B band region
+		\fill[sunyellow!18] (4.4,0) rectangle (5.6,5.0); % V band region
+		\fill[accent!12] (6.0,0) rectangle (7.6,5.0); % R band region
+		\fill[accent!18] (8.8,0) rectangle (10.8,5.0); % I band region
+
+		% Grid lines
+		\foreach \yval/\ylabel in {1.3/1.0, 2.6/2.0, 3.9/3.0, 5.2/4.0} {
+			\draw[dashed, gray!30, thin] (0,\yval) -- (12.2,\yval);
+			\node[gray!70, font=\scriptsize, anchor=east] at (-0.15,\yval) {$\ylabel$};
+		}
+
+		% Axes
+		\draw[->, thick, ink] (0,0) -- (12.7,0) node[below right=2pt, font=\small] {Wavelength $\lambda$ [$\mu\mathrm{m}$]};
+		\draw[->, thick, ink] (0,0) -- (0,6.0) node[above, font=\small] {Relative Cross-Section $\sigma(\lambda)\,/\,\sigma_V$};
+
+		% X-axis ticks
+		\foreach \l/\xpos in {0.3/0, 0.4/2.0, 0.5/4.0, 0.6/6.0, 0.7/8.0, 0.8/10.0, 0.9/12.0} {
+			\draw[thick, ink] (\xpos,0) -- (\xpos,-0.12);
+			\node[ink!80, font=\scriptsize, below] at (\xpos,-0.12) {$\l$};
+		}
+		\node[ink!80, font=\scriptsize, anchor=east] at (-0.15,0) {$0.0$};
+
+		% Passband center lines & labels
+		\foreach \wl/\band/\xpos in {0.365/U/1.30, 0.440/B/2.80, 0.550/V/5.00, 0.640/R/6.80, 0.790/I/9.80} {
+			\draw[dotted, thick, ink!35] (\xpos,0) -- (\xpos,5.0);
+			\node[ink, font=\small\bfseries, above] at (\xpos,5.0) {$\band$};
+			\node[ink!60, font=\tiny, below=14pt] at (\xpos,0) {$\wl$};
+		}
+
+		% Regime demarkers (top bar)
+		\draw[<->, thick, astroblue] (1.0, 5.75) -- (11.8, 5.75);
+		\node[astroblue, font=\footnotesize\bfseries, above=1pt] at (6.4, 5.75) {Mie Scattering Regime: $a_{\rm dust} \sim \lambda \quad (a \approx 0.05\text{--}0.3\,\mu\mathrm{m})$};
+		\draw[->, thick, gray!70] (0.8, 5.75) -- (0.0, 5.75);
+		\node[gray!70, font=\tiny, above=1pt] at (0.4, 5.75) {Far-UV ($a \gg \lambda$)};
+		\draw[->, thick, gray!70] (12.0, 5.75) -- (12.6, 5.75);
+		\node[gray!70, font=\tiny, above=1pt] at (12.3, 5.75) {IR ($a \ll \lambda$)};
+
+		% Curves
+		\draw[very thick, accent, domain=1.92:12.2, samples=120] plot (\x, {rayleigh(\x)});
+		\draw[very thick, astroblue, domain=0.4:12.2, samples=100] plot (\x, {mie(\x)});
+		\draw[thick, muted, dash pattern=on 4pt off 3pt, domain=0:12.2] plot (\x, {geom(\x)});
+
+		% Curve labels
+		\node[accent, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (3.6,4.3) {Rayleigh: $\sigma \propto \lambda^{-4}$};
+		\node[astroblue, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (7.8,2.3) {Mie (ISM Dust): $\sigma \propto \lambda^{-1}$};
+		\node[muted, font=\scriptsize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (8.5,1.0) {Geometric: $\sigma \propto \lambda^0$};
+
+		% Differential extinction indicator (A_B - A_V)
+		\draw[<->, thick, astroblue] (2.8,1.625) -- (5.0,1.30);
+		\node[astroblue, font=\scriptsize\bfseries, below=2pt] at (3.9,1.4) {$\Delta\sigma \propto (A_B - A_V)$};
+	\end{tikzpicture}
+	\caption{Wavelength dependence of scattering cross-sections across optical passbands ($U, B, V, R, I$), normalized to $V$ ($\lambda_V = 0.55\,\mu\mathrm{m}$). The top demarker highlights the particle-size regime: for sub-micron interstellar dust ($a \approx 0.05\text{--}0.3\,\mu\mathrm{m}$), optical wavelengths coincide with the size parameter $x = 2\pi a/\lambda \sim 1$ (the Mie regime), where the cross-section exhibits a gentle $\sigma \propto \lambda^{-1}$ power law. At much longer infrared wavelengths ($\lambda \gg a$), dust transitions to the Rayleigh regime ($\sigma \propto \lambda^{-4}$), making interstellar clouds transparent in the IR.}
+	\label{fig:scattering_rayleigh_mie_comparison}
+\end{figure}
 
 \section{Thermal Radiation and the Stefan-Boltzmann Law}
 
@@ -227,3 +312,11 @@ Converting $\theta$ to arcseconds ($1\,\mathrm{rad} = 206{,}264.8''$):
 \end{example}
 
 Resolving an angular diameter of tens of milliarcseconds, as in the Betelgeuse example above, is only possible because of the interferometric and diffraction-limited resolution machinery developed next in Chapter~5.
+
+\section{Problem Set: Stellar Photometry, Color Indices, and Extinction}
+
+\subsection{Problem 1: Distance and Extinction from Observed Color Indices}
+
+\textbf{Problem Statement}: An $\mathrm{A0\,V}$ star with intrinsic color index $(B - V)_0 = 0.00\,\mathrm{mag}$ and absolute magnitude $M_V = +0.60\,\mathrm{mag}$ is observed behind an interstellar cloud with apparent magnitudes $m_B = 14.55\,\mathrm{mag}$ and $m_V = 13.80\,\mathrm{mag}$. For standard dust ($R_V = 3.1$), calculate the color excess $E(B - V)$, visual extinction $A_V$, and true distance $d$.
+
+\textbf{Solution}: The observed color index is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = +0.75\,\mathrm{mag}$. The color excess is $E(B - V) = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = +0.75\,\mathrm{mag}$, which gives visual extinction $A_V = R_V\,E(B - V) = 3.1 \times 0.75 = 2.325\,\mathrm{mag}$. The true dereddened distance modulus is $\mu_0 = m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875\,\mathrm{mag}$, yielding a true distance of $d = 10^{(\mu_0 + 5)/5} = 10^{3.175} \approx 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}$. Neglecting dust extinction would give an apparent distance of $10^{(13.80 - 0.60 + 5)/5} \approx 4365\,\mathrm{pc}$, overestimating the distance by a factor of nearly $3$.
