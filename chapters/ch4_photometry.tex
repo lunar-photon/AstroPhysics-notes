@@ -5,7 +5,7 @@ Chapter~3 used photometric distance indicators (spectroscopic parallax, standard
 \section{Radiant Energy, Flux, and the Inverse-Square Law}
 
 \begin{definition}[Luminosity and Flux]
-	The \emph{luminosity} $L$ of a star is the total energy radiated into space per unit time (power in Watts, $\mathrm{W}$). The \emph{radiant flux} $F$ (or apparent brightness) is the energy received per unit time per unit collecting area perpendicular to the line of sight:
+	The \emph{luminosity} $L$ of a star is the total energy radiated into space per unit time (power in Watts, $\mathrm{W}$) across all wavelengths. The \emph{bolometric radiant flux} $F$ (the radiant flux integrated across all wavelengths) is the total energy received per unit time per unit collecting area perpendicular to the line of sight:
 	\begin{keyresult}
 		\begin{equation}
 			F = \frac{L}{4\pi d^2}\quad \left[\mathrm{W\cdot m^{-2}}\right],
@@ -261,7 +261,7 @@ where the \emph{Stefan-Boltzmann constant} collects all the remaining factors:
 \end{equation}
 
 \begin{definition}[Effective Temperature]
-	The \emph{effective surface temperature} $T_{\rm eff}$ of a star with total luminosity $L$ and radius $R_*$ is the temperature of an ideal blackbody having the identical surface area and total bolometric power:
+	The \emph{effective surface temperature} $T_{\rm eff}$ of a star with total luminosity $L$ and radius $R_*$ is the temperature of an ideal blackbody having the identical surface area and total bolometric power (integrated across all wavelengths):
 	\begin{keyresult}
 		\begin{equation}
 			L = 4\pi R_*^2\,\sigma_{\rm SB} T_{\rm eff}^4.
@@ -281,7 +281,7 @@ Normalizing Eq.~\eqref{eq:stefan_boltzmann_luminosity} relative to solar values 
 		\label{eq:stellar_radius_solar_units}
 	\end{equation}
 \end{keyresult}
-In terms of absolute bolometric magnitude $M_{\rm bol}$:
+In terms of absolute bolometric magnitude $M_{\rm bol}$ (the magnitude integrated across all wavelengths):
 \begin{equation}
 	\log_{10}\left(\frac{R_*}{R_\odot}\right) = -0.2(M_{\rm bol,*} - M_{\rm bol,\odot}) - 2\log_{10}\left(\frac{T_{\rm eff}}{T_{\rm eff,\odot}}\right),
 	\label{eq:radius_from_mbol}
