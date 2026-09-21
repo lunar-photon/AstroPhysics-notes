@@ -198,6 +198,105 @@ Physical conditions in the ISM span many orders of magnitude in density and temp
 
 The historical, purely observational term \emph{nebula} (Latin: ``cloud'') covers any extended, diffuse object, and is refined as follows: \emph{reflection nebulae} shine by starlight scattered off surrounding dust (e.g.\ the Pleiades); \emph{dark nebulae} are simply clouds of sufficiently high extinction to appear as silhouettes (GMCs, Bok globules); \emph{emission nebulae} radiate their own line emission, and are subdivided into $\mathrm{HII}$ regions (gas photoionized by nearby hot stars), planetary nebulae (ionized gas ejected during late stellar evolution, e.g.\ the Ring Nebula), and supernova remnants (shocked ejecta from a stellar explosion, e.g.\ the Crab Nebula, remnant of SN 1054, often hosting a central pulsar).
 
+\subsection{Expanding Planetary Nebulae and the Doppler-Split Line}
+\label{sec:pn_expansion}
+
+A planetary nebula is a shell of gas thrown off by a star near the end of its life. The hot core left behind, a white dwarf, ionizes the shell and makes it glow in emission lines. The shell keeps expanding outward, roughly as a sphere centered on the white dwarf, at some speed $v_{\rm exp}$, typically a few tens of $\mathrm{km/s}$.
+
+Every point on the shell moves outward at the same speed $v_{\rm exp}$, but not every point moves the same way along our line of sight, since the shell is curved. Figure~\ref{fig:pn_expansion} shows why. The point of the shell nearest to us moves straight toward us, so its light is blueshifted. The point on the far side of the star moves straight away from us, so its light is redshifted. Points around the visible rim of the shell move sideways, across our line of sight, so their light is not shifted at all. Every other point on the shell moves at some angle in between, giving a line-of-sight speed somewhere between these two extremes.
+
+\begin{figure}[htbp]
+	\centering
+	\resizebox{\linewidth}{!}{%
+	\begin{tikzpicture}[>=Stealth, scale=1.0, font=\scriptsize]
+
+		% ================= Panel (a): expanding shell geometry =================
+		\coordinate (C) at (0,0); % central white dwarf
+
+		% the expanding shell
+		\draw[linecol, thick] (C) circle (2.0);
+
+		% line of sight axis
+		\draw[ink!50, dash pattern=on 1pt off 2pt, thin] (-3.0,0) -- (4.6,0);
+
+		% radial velocity vectors around the shell, color-coded by line-of-sight sense
+		\foreach \phi in {0,45,90,135,180,225,270,315}{
+			\coordinate (P) at (\phi:2.0);
+			\coordinate (Q) at (\phi:2.55);
+			\pgfmathsetmacro{\c}{cos(\phi)}
+			\ifdim \c pt > 0.35pt
+				\draw[astroblue, thick, ->] (P) -- (Q);
+			\else
+				\ifdim \c pt < -0.35pt
+					\draw[accent, thick, ->] (P) -- (Q);
+				\else
+					\draw[muted, thick, ->] (P) -- (Q);
+				\fi
+			\fi
+		}
+
+		% central white dwarf
+		\fill[white] (C) circle (4.5pt);
+		\draw[astrodark, thick] (C) circle (4.5pt);
+		\node[astrodark, below=2pt] at (C) {White dwarf};
+
+		% near cap (facing observer) and far cap labels
+		\node[astroblue, below, align=center] at (2.0,-0.5) {near cap\\\footnotesize(blueshifted)};
+		\node[accent, below, align=center] at (-2.0,-0.5) {far cap\\\footnotesize(redshifted)};
+		\node[muted, above=2pt] at (0,2.55) {\shortstack{tangential\\\footnotesize(no shift)}};
+
+		% observer
+		\node[ink] at (4.6,0) {$\bigodot$};
+		\node[ink, below] at (4.6,-0.05) {Earth};
+		\node[ink, above, font=\scriptsize] at (3.3,0.05) {to observer};
+
+		\node[muted] at (0,-3.0) {(a) Expanding shell, as seen from Earth};
+
+		% ================= Panel (b): resulting line profile =================
+		\begin{scope}[xshift=8.3cm]
+			\draw[->, thick] (-2.4,0) -- (2.6,0) node[below right] {$\lambda$};
+			\draw[->, thick] (0,-0.15) -- (0,2.1) node[above] {$I_\lambda$};
+
+			% rest wavelength
+			\draw[ink!60, dash pattern=on 1pt off 2pt, thin] (0,0) -- (0,1.9);
+			\node[ink!70, below] at (0,-0.02) {$\lambda_0$};
+
+			% blue / red extremes
+			\draw[astroblue, dash pattern=on 1pt off 2pt, thin] (-1.6,0) -- (-1.6,1.75);
+			\draw[accent, dash pattern=on 1pt off 2pt, thin] (1.6,0) -- (1.6,1.75);
+			\node[astroblue, below] at (-1.6,-0.02) {$\lambda_{\min}$};
+			\node[accent, below] at (1.6,-0.02) {$\lambda_{\max}$};
+
+			% flat-topped emission profile
+			\draw[very thick, ink, rounded corners=2pt]
+				(-1.6,0) -- (-1.6,1.6) -- (1.6,1.6) -- (1.6,0);
+
+			\node[muted] at (0,-1.0) {(b) Observed line profile};
+		\end{scope}
+
+	\end{tikzpicture}%
+	}
+	\caption{(a) An expanding spherical shell around a white dwarf, viewed from Earth. Arrows show the local expansion velocity, color-coded by its line-of-sight sense: blue for the near cap (moving toward Earth), red for the far cap (moving away from Earth), gray for the rim (moving across the line of sight). (b) The resulting emission-line profile, spread between $\lambda_{\min}$ (from the near cap) and $\lambda_{\max}$ (from the far cap), with the unshifted rest wavelength $\lambda_0$ marked in between.}
+	\label{fig:pn_expansion}
+\end{figure}
+
+Apply the classical Doppler relation, Eq.~\eqref{eq:doppler_classical}, to each of these two extreme points in turn. The near cap moves toward Earth at $v_r=-v_{\rm exp}$, so its light lands at
+\[
+\lambda_{\min}=\lambda_0\left(1-\frac{v_{\rm exp}}{c}\right),
+\]
+and the far cap moves away from Earth at $v_r=+v_{\rm exp}$, so its light lands at
+\[
+\lambda_{\max}=\lambda_0\left(1+\frac{v_{\rm exp}}{c}\right).
+\]
+A single sharp rest-frame line, once its light from the whole shell is added together, is therefore seen as one line spread out between $\lambda_{\min}$ and $\lambda_{\max}$, as sketched in panel (b) of Figure~\ref{fig:pn_expansion}. Subtracting the two relations above cancels $\lambda_0$ from the difference and isolates the expansion speed:
+\begin{keyresult}
+	\begin{equation}
+		\lambda_{\max}-\lambda_{\min} = \frac{2\lambda_0\,v_{\rm exp}}{c} \qquad\Longrightarrow\qquad v_{\rm exp} = \frac{c}{2}\,\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_0}.
+		\label{eq:pn_expansion_velocity}
+	\end{equation}
+\end{keyresult}
+Measuring the two extreme edges of an observed emission line therefore gives the shell's expansion speed directly, with no need to know the nebula's distance.
+
 \section{Heating and Cooling of the ISM}
 \label{sec:ism_heating_cooling}
 
@@ -381,3 +480,25 @@ Two effects complicate the idealized homologous collapse of Section~\ref{sec:fre
 \paragraph{The Opacity Limit and the First Hydrostatic Core.} Fragmentation cannot continue indefinitely: once a clump's central density is high enough that it becomes optically thick to its own cooling radiation, compressional heating can no longer be radiated away, the collapse ceases to be isothermal, and the equation of state stiffens toward an adiabat ($P \propto \rho^\gamma$). At this point the innermost region halts its dynamical (free-fall) collapse and settles into a new, small hydrostatic object in approximate virial balance — Eq.~\eqref{eq:virial_equilibrium} is restored, but now with $K$ supplied by adiabatic compressional heating rather than by the fixed external temperature of Section~\ref{sec:ism_heating_cooling}. This \emph{first hydrostatic core}, of order a Jupiter mass, continues to grow by accreting the still-infalling envelope, and marks the transition from ``interstellar cloud'' to ``protostar.''
 
 The subsequent evolution of this object — its contraction toward the main sequence, and the nuclear ignition that finally halts the contraction permanently — is the domain of stellar structure and evolution, and lies beyond the scope of this observationally-oriented volume. It is, however, the direct dynamical continuation of the virial argument constructed in this chapter: the entire life of a star on the main sequence is itself nothing more than another instance of Eq.~\eqref{eq:virial_equilibrium}, now with thermal pressure sustained by nuclear burning rather than by residual gravitational compression.
+
+\section{Problem Set: The Interstellar Medium and Gravitational Collapse}
+
+This problem applies the Doppler-shift machinery of Section~\ref{sec:pn_expansion} to a real planetary nebula spectrum.
+
+\subsection{Problem 1: Planetary Nebula Emission and Expansion}
+
+\textbf{Problem Statement}: Suppose we observe the $\mathrm{H}\alpha$ line from a spherical planetary nebula, and find it has a maximum wavelength of $656.32\,\mathrm{nm}$ and a minimum wavelength of $656.24\,\mathrm{nm}$. Estimate how fast the nebula is expanding. Give your answer in both $\mathrm{km/s}$ and $\mathrm{AU/yr}$.
+
+\textbf{Solution}: As shown in Figure~\ref{fig:pn_expansion}, the near cap of the expanding shell gives the most blueshifted wavelength, $\lambda_{\min}=656.24\,\mathrm{nm}$, and the far cap gives the most redshifted wavelength, $\lambda_{\max}=656.32\,\mathrm{nm}$. The rest wavelength $\lambda_0$ sits midway between them,
+\[
+\lambda_0 = \frac{\lambda_{\max}+\lambda_{\min}}{2} = \frac{656.32+656.24}{2}\,\mathrm{nm} = 656.28\,\mathrm{nm},
+\]
+which agrees with the known rest wavelength of $\mathrm{H}\alpha$, confirming the nebula as a whole is not moving toward or away from us on average. Using Eq.~\eqref{eq:pn_expansion_velocity},
+\[
+v_{\rm exp} = \frac{c}{2}\,\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_0} = \frac{2.998\times10^{5}\,\mathrm{km/s}}{2}\times\frac{656.32-656.24}{656.28} \approx \boxed{18.3\,\mathrm{km/s}.}
+\]
+Converting to $\mathrm{AU/yr}$ using $1\,\mathrm{yr}=3.156\times10^{7}\,\mathrm{s}$ and $1\,\mathrm{AU}=1.496\times10^{8}\,\mathrm{km}$,
+\[
+v_{\rm exp} = 18.3\,\frac{\mathrm{km}}{\mathrm{s}}\times\frac{3.156\times10^{7}\,\mathrm{s/yr}}{1.496\times10^{8}\,\mathrm{km/AU}} \approx \boxed{3.86\,\mathrm{AU/yr}.}
+\]
+This is a typical expansion speed for a planetary nebula shell, consistent with observed values of order $10$--$30\,\mathrm{km/s}$.
