@@ -165,7 +165,7 @@
 
 	\subsection{First-Principles Derivation of Photon Shot Noise}
 
-	Even if an astronomical source emits at a perfectly steady mean luminosity, the number of photoelectrons collected in consecutive equal intervals fluctuates. This fundamental variance arises because electromagnetic radiation is quantized: photons arrive as discrete, independent packets.
+	Even if an astronomical source emits at a perfectly steady mean luminosity, the number of photoelectrons collected in consecutive equal intervals fluctuates. This fundamental variance arises because electromagnetic radiation is quantized: photons arrive as discrete, independent packets.  Note that shot noise isn't an added "interference" or an electronic glitch like static on a radio. It is the fundamental statistical variation built into counting discrete packets of photons.
 
 	\paragraph{Derivation from the Binomial Distribution.}
 	The derivation rests on exactly two physical inputs about the photon
@@ -216,7 +216,8 @@
 			\label{eq:poisson_dist}
 		\end{equation}
 	\end{keyresult}
-
+	Taking $\lambda\to\infty$ makes it Gaussian distribution. The fundamental difference between the two is that Poisson distribution govers random but uncertain events for discrete variables such as counting whereas Gaussian is obeyed by continuous variables. With the caveat that the discrete steps (values n takes) just become so microscopically small relative to the total value that they become completely unnoticeable (histogram resembles gaussian distribution).
+	
 	\paragraph{Derivation of Mean and Variance.}
 	The expectation value of $n$ is:
 	\begin{equation}
@@ -278,12 +279,9 @@
 		\label{eq:sigma_sky}
 	\end{equation}
 	Because the required photometric aperture area scales with seeing disk size
-	($n_{\rm pix} \propto \theta_{\rm see}^2$), superior seeing directly reduces sky noise.
+	($n_{\rm pix} \propto \theta_{\rm see}^2$), superior seeing directly reduces sky noise. 
 	
-	\item \textbf{Dark Current Shot Noise:} Thermal vibrations in the silicon lattice
-	spontaneously generate electron-hole pairs, independently of any light, at the same rate
-	$R_{\rm dark}$ in every pixel --- again a uniform, per-pixel quantity. These accumulate over
-	$n_{\rm pix}$ pixels and duration $t$:
+	\item \textbf{Dark Current Shot Noise:} Just like photons arriving at a sensor, thermal energy in the silicon randomly knocks electrons loose over time creating electron-hole pairs, at the same rate $R_{\rm dark}$ in every pixel --- again a uniform, per-pixel quantity. These are called dark electrons, and they are completely indistinguishable from real photoelectrons. These accumulate over $n_{\rm pix}$ pixels and duration $t$:
 	\begin{equation}
 		\sigma_{\rm dark} = \sqrt{n_{\rm pix}\,R_{\rm dark}\,t}.
 		\label{eq:sigma_dark}
@@ -301,16 +299,7 @@
 	\subsection{Readout Noise: The Additive Amplifier Penalty}
 
 	Unlike the three counting processes above, readout noise is \emph{not} a shot noise: it is not the
-	statistical fluctuation of some quantity of charge carriers generated in the pixel. Dark current
-	noise already introduced one thermal effect --- lattice vibrations thermally exciting electrons
-	into the conduction band, where they add to the charge sitting in the pixel well and are counted
-	along with the signal. Readout noise is thermal in a different sense and at a different stage: even
-	once the charge in the well is fixed and no more carriers are being generated, that charge still has
-	to be converted to a voltage and read out, and the electronics performing that conversion --- the
-	output field-effect transistor (FET) and the analog-to-digital converter (ADC) --- have their own
-	thermal (Johnson--Nyquist) and flicker ($1/f$) noise, which perturbs the voltage reading itself. So
-	where dark current adds spurious \emph{charge} to the well before conversion, read noise adds
-	spurious \emph{uncertainty to the conversion process}, after the charge is already fixed.
+	statistical fluctuation of some quantity of charge carriers generated in the pixel which obeys poisson distribution. Dark current noise already introduced one thermal effect --- lattice vibrations thermally exciting electrons into the conduction band, where they add to the charge sitting in the pixel well and are counted along with the signal. Readout noise is thermal in a different sense and at a different stage: even once the charge in the well is fixed and no more carriers are being generated, that charge still has to be converted to a voltage and read out, and the electronics performing that conversion --- the output field-effect transistor (FET) and the analog-to-digital converter (ADC) --- have their own thermal (Johnson--Nyquist) and flicker ($1/f$) noise, which perturbs the voltage reading itself. So where dark current adds spurious \emph{charge} to the well before conversion, read noise adds spurious \emph{uncertainty to the conversion process}, after the charge is already fixed.
 	
 	Because it enters during conversion rather than during charge accumulation, readout noise is a
 	constant Gaussian uncertainty $\sigma_{\rm RON}$ (in electrons RMS) added to each pixel every time
@@ -322,7 +311,7 @@
 			\label{eq:sigma_read}
 		\end{equation}
 	\end{keyresult}
-	Note the fundamental structural difference: $\sigma_{\rm read}^2 \propto N_{\rm exp}$ rather than $\propto t$. Splitting an exposure of duration $t$ into $N_{\rm exp}$ shorter exposures incurs the read noise penalty $N_{\rm exp}$ times in variance.
+	Note the fundamental structural difference: $\sigma_{\rm read}^2 \propto N_{\rm exp}$ rather than $\propto t$. Splitting an exposure of duration $t$ into $N_{\rm exp}$ shorter exposures incurs the read noise penalty $N_{\rm exp}$ times in variance. Furthermore, this process obeys a Gaussian distribution rather than a Poisson distribution, distinguishing it from the previously discussed counting processes that are fundamentally governed by discrete physical arrivals.
 
 	\subsection{Practical Detector Artefacts Beyond the Statistical Noise Budget}
 
