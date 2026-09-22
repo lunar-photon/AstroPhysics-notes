@@ -135,71 +135,7 @@ The total visual extinction is parameterized by $A_V = R_V E(B - V)$, where $R_V
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[
-		scale=1.0,
-		declare function={
-			wl(\x) = 0.30 + \x/20.0;
-			rayleigh(\x) = 1.3 * ((0.55 / wl(\x))^4);
-			mie(\x) = 1.3 * (0.55 / wl(\x));
-			geom(\x) = 1.3 * 1.0;
-		}
-	]
-		% Regime demarker background band
-		\fill[astroblue!5] (1.0,0) rectangle (11.8,5.4);
-
-		% Background passband shading
-		\fill[astroblue!9] (0.7,0) rectangle (1.9,5.0); % U band region
-		\fill[astroblue!15] (2.2,0) rectangle (3.4,5.0); % B band region
-		\fill[sunyellow!18] (4.4,0) rectangle (5.6,5.0); % V band region
-		\fill[accent!12] (6.0,0) rectangle (7.6,5.0); % R band region
-		\fill[accent!18] (8.8,0) rectangle (10.8,5.0); % I band region
-
-		% Grid lines
-		\foreach \yval/\ylabel in {1.3/1.0, 2.6/2.0, 3.9/3.0, 5.2/4.0} {
-			\draw[dashed, gray!30, thin] (0,\yval) -- (12.2,\yval);
-			\node[gray!70, font=\scriptsize, anchor=east] at (-0.15,\yval) {$\ylabel$};
-		}
-
-		% Axes
-		\draw[->, thick, ink] (0,0) -- (12.7,0) node[below right=2pt, font=\small] {Wavelength $\lambda$ [$\mu\mathrm{m}$]};
-		\draw[->, thick, ink] (0,0) -- (0,6.0) node[above, font=\small] {Relative Cross-Section $\sigma(\lambda)\,/\,\sigma_V$};
-
-		% X-axis ticks
-		\foreach \l/\xpos in {0.3/0, 0.4/2.0, 0.5/4.0, 0.6/6.0, 0.7/8.0, 0.8/10.0, 0.9/12.0} {
-			\draw[thick, ink] (\xpos,0) -- (\xpos,-0.12);
-			\node[ink!80, font=\scriptsize, below] at (\xpos,-0.12) {$\l$};
-		}
-		\node[ink!80, font=\scriptsize, anchor=east] at (-0.15,0) {$0.0$};
-
-		% Passband center lines & labels
-		\foreach \wl/\band/\xpos in {0.365/U/1.30, 0.440/B/2.80, 0.550/V/5.00, 0.640/R/6.80, 0.790/I/9.80} {
-			\draw[dotted, thick, ink!35] (\xpos,0) -- (\xpos,5.0);
-			\node[ink, font=\small\bfseries, above] at (\xpos,5.0) {$\band$};
-			\node[ink!60, font=\tiny, below=14pt] at (\xpos,0) {$\wl$};
-		}
-
-		% Regime demarkers (top bar)
-		\draw[<->, thick, astroblue] (1.0, 5.75) -- (11.8, 5.75);
-		\node[astroblue, font=\footnotesize\bfseries, above=1pt] at (6.4, 5.75) {Mie Scattering Regime: $a_{\rm dust} \sim \lambda \quad (a \approx 0.05\text{--}0.3\,\mu\mathrm{m})$};
-		\draw[->, thick, gray!70] (0.8, 5.75) -- (0.0, 5.75);
-		\node[gray!70, font=\tiny, above=1pt] at (0.4, 5.75) {Far-UV ($a \gg \lambda$)};
-		\draw[->, thick, gray!70] (12.0, 5.75) -- (12.6, 5.75);
-		\node[gray!70, font=\tiny, above=1pt] at (12.3, 5.75) {IR ($a \ll \lambda$)};
-
-		% Curves
-		\draw[very thick, accent, domain=1.92:12.2, samples=120] plot (\x, {rayleigh(\x)});
-		\draw[very thick, astroblue, domain=0.4:12.2, samples=100] plot (\x, {mie(\x)});
-		\draw[thick, muted, dash pattern=on 4pt off 3pt, domain=0:12.2] plot (\x, {geom(\x)});
-
-		% Curve labels
-		\node[accent, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (3.6,4.3) {Rayleigh: $\sigma \propto \lambda^{-4}$};
-		\node[astroblue, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (7.8,2.3) {Mie (ISM Dust): $\sigma \propto \lambda^{-1}$};
-		\node[muted, font=\scriptsize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (8.5,1.0) {Geometric: $\sigma \propto \lambda^0$};
-
-		% Differential extinction indicator (A_B - A_V)
-		\draw[<->, thick, astroblue] (2.8,1.625) -- (5.0,1.30);
-		\node[astroblue, font=\scriptsize\bfseries, below=2pt] at (3.9,1.4) {$\Delta\sigma \propto (A_B - A_V)$};
-	\end{tikzpicture}
+	\includegraphics{fig_ch4_spectral_filters_bands.pdf}
 	\caption{Wavelength dependence of scattering cross-sections across optical passbands ($U, B, V, R, I$), normalized to $V$ ($\lambda_V = 0.55\,\mu\mathrm{m}$). The top demarker highlights the particle-size regime: for sub-micron interstellar dust ($a \approx 0.05\text{--}0.3\,\mu\mathrm{m}$), optical wavelengths coincide with the size parameter $x = 2\pi a/\lambda \sim 1$ (the Mie regime), where the cross-section exhibits a gentle $\sigma \propto \lambda^{-1}$ power law. At much longer infrared wavelengths ($\lambda \gg a$), dust transitions to the Rayleigh regime ($\sigma \propto \lambda^{-4}$), making interstellar clouds transparent in the IR.}
 	\label{fig:scattering_rayleigh_mie_comparison}
 \end{figure}
@@ -320,3 +256,80 @@ Resolving an angular diameter of tens of milliarcseconds, as in the Betelgeuse e
 \textbf{Problem Statement}: An $\mathrm{A0\,V}$ star with intrinsic color index $(B - V)_0 = 0.00\,\mathrm{mag}$ and absolute magnitude $M_V = +0.60\,\mathrm{mag}$ is observed behind an interstellar cloud with apparent magnitudes $m_B = 14.55\,\mathrm{mag}$ and $m_V = 13.80\,\mathrm{mag}$. For standard dust ($R_V = 3.1$), calculate the color excess $E(B - V)$, visual extinction $A_V$, and true distance $d$.
 
 \textbf{Solution}: The observed color index is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = +0.75\,\mathrm{mag}$. The color excess is $E(B - V) = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = +0.75\,\mathrm{mag}$, which gives visual extinction $A_V = R_V\,E(B - V) = 3.1 \times 0.75 = 2.325\,\mathrm{mag}$. The true dereddened distance modulus is $\mu_0 = m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875\,\mathrm{mag}$, yielding a true distance of $d = 10^{(\mu_0 + 5)/5} = 10^{3.175} \approx 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}$. Neglecting dust extinction would give an apparent distance of $10^{(13.80 - 0.60 + 5)/5} \approx 4365\,\mathrm{pc}$, overestimating the distance by a factor of nearly $3$.
+
+\subsection{Problem 2: Photometric Parameters and Physical Radius of Aldebaran}
+
+\textbf{Problem Statement}: The star Aldebaran ($\alpha$ Tauri) has a luminosity of $L = 439\,L_\odot$, an effective surface temperature $T_{\rm eff} = 3900\,\mathrm{K}$, and a trigonometric parallax of $\varpi = 47\,\text{mas}$.
+\begin{enumerate}[label=(\alph*)]
+	\item What is the distance to Aldebaran in parsecs?
+	\item What is the bolometric flux $F$ received at Earth (in $\mathrm{W\cdot m^{-2}}$)?
+	\item Given the Sun's absolute bolometric magnitude $M_{\rm bol,\odot} = +4.74\,\mathrm{mag}$ and solar constant $F_\odot = 1361\,\mathrm{W\cdot m^{-2}}$, compute the apparent bolometric magnitude $m_{\rm bol}$ and absolute bolometric magnitude $M_{\rm bol}$ of Aldebaran.
+	\item What is the physical radius $R_*$ of Aldebaran in solar radii ($R_\odot$)?
+	\item What is the angular diameter $\Theta$ subtended by Aldebaran in milliarcseconds (mas)?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item \textbf{Inverse-Square Law for Flux}: The total bolometric flux received at distance $d$ is:
+	\begin{equation}
+		F = \frac{L}{4\pi d^2}.
+	\end{equation}
+	\item \textbf{Bolometric Magnitudes}: Apparent and absolute bolometric magnitudes follow from Pogson's relation relative to the Sun:
+	\begin{equation}
+		m_{\rm bol} - m_{\rm bol,\odot} = -2.5\log_{10}\left(\frac{F}{F_\odot}\right), \qquad M_{\rm bol} - M_{\rm bol,\odot} = -2.5\log_{10}\left(\frac{L}{L_\odot}\right),
+	\end{equation}
+	and distance modulus $\mu = m_{\rm bol} - M_{\rm bol} = 5\log_{10}d - 5$.
+	\item \textbf{Stefan-Boltzmann Radius}: The stellar radius is determined by total luminosity and surface temperature:
+	\begin{equation}
+		L = 4\pi R_*^2 \sigma_{\rm SB} T_{\rm eff}^4 \implies \frac{R_*}{R_\odot} = \sqrt{\frac{L}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2,
+	\end{equation}
+	where $T_{\rm eff,\odot} = 5772\,\mathrm{K}$ and $R_\odot = 6.957 \times 10^8\,\mathrm{m}$.
+	\item \textbf{Angular Diameter}: The angular diameter subtended at distance $d$ is:
+	\begin{equation}
+		\Theta \approx \frac{2 R_*}{d} \quad [\text{radians}] = 206{,}265{,}000 \times \frac{2 R_*}{d} \quad [\text{mas}].
+	\end{equation}
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Distance}:
+	From the parallax $\varpi = 47\,\text{mas} = 0.047''$:
+	\[
+	\boxed{d = \frac{1}{\varpi} = \frac{1}{0.047''} \simeq 21.28\,\mathrm{pc} = 6.566 \times 10^{17}\,\mathrm{m}}.
+	\]
+
+	\item \textbf{Bolometric Flux at Earth}:
+	With $L = 439\,L_\odot = 439 \times (3.828 \times 10^{26}\,\mathrm{W}) \simeq 1.680 \times 10^{29}\,\mathrm{W}$:
+	\[
+	\boxed{F = \frac{L}{4\pi d^2} = \frac{1.680 \times 10^{29}\,\mathrm{W}}{4\pi (6.566 \times 10^{17}\,\mathrm{m})^2} \simeq 3.10 \times 10^{-8}\,\mathrm{W\cdot m^{-2}}}.
+	\]
+
+	\item \textbf{Absolute and Apparent Bolometric Magnitudes}:
+	The absolute bolometric magnitude is:
+	\[
+	M_{\rm bol} = M_{\rm bol,\odot} - 2.5\log_{10}\left(\frac{L}{L_\odot}\right) = +4.74 - 2.5\log_{10}(439) = 4.74 - 2.5(2.6425) = \boxed{-1.87\,\mathrm{mag}}.
+	\]
+	The apparent bolometric magnitude follows from the distance modulus $\mu = 5\log_{10}(21.28) - 5 \simeq 1.64\,\mathrm{mag}$:
+	\[
+	\boxed{m_{\rm bol} = M_{\rm bol} + 5\log_{10}d - 5 = -1.87 + 1.64 = -0.23\,\mathrm{mag}}.
+	\]
+	(Equivalently, using flux ratio with $m_{\rm bol,\odot} = -26.74$: $m_{\rm bol} = -26.74 - 2.5\log_{10}(3.10 \times 10^{-8} / 1361) \simeq -0.23\,\mathrm{mag}$).
+
+	\item \textbf{Physical Radius}:
+	Using Stefan--Boltzmann scaling with solar effective temperature $T_{\rm eff,\odot} = 5772\,\mathrm{K}$:
+	\[
+	\frac{R_*}{R_\odot} = \sqrt{\frac{L}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2 = \sqrt{439}\left(\frac{5772\,\mathrm{K}}{3900\,\mathrm{K}}\right)^2 = (20.952) \times (1.480)^2 \simeq \boxed{45.9\,R_\odot}.
+	\]
+	In SI units, $R_* \simeq 45.9 \times (6.957 \times 10^8\,\mathrm{m}) \simeq 3.19 \times 10^{10}\,\mathrm{m} \approx 0.213\,\mathrm{AU}$.
+
+	\item \textbf{Angular Diameter}:
+	Subtended angular diameter is:
+	\[
+	\Theta = \frac{2 R_*}{d} = \frac{2 \times (3.193 \times 10^{10}\,\mathrm{m})}{6.566 \times 10^{17}\,\mathrm{m}} \simeq 9.726 \times 10^{-8}\,\mathrm{rad}.
+	\]
+	Converting to milliarcseconds:
+	\[
+	\boxed{\Theta = (9.726 \times 10^{-8}\,\mathrm{rad}) \times 206{,}264{,}800\,\text{mas/rad} \simeq 20.0\,\mathrm{mas}}.
+	\]
+	This angular diameter is readily measurable with optical interferometers (e.g., CHARA, VLTI).
+\end{enumerate}

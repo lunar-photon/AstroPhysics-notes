@@ -1,0 +1,535 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb,mathtools,physics,bm,nicefrac,wasysym}
+\usepackage{xcolor}
+
+\definecolor{colone}{RGB}{180,60,60}
+\definecolor{coltwo}{RGB}{60,110,180}
+\definecolor{colthree}{RGB}{60,140,80}
+
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{astrodark}{HTML}{17202A}
+\definecolor{sunyellow}{HTML}{E8A33D}
+
+\usetikzlibrary{calc,arrows.meta,positioning,decorations.pathreplacing,decorations.markings,angles,quotes,shapes.geometric}
+\usepackage{tikz-3dplot}
+
+\newcommand{\vecr}{\vec r}
+\newcommand{\vecL}{\vec L}
+\newcommand{\vecA}{\vec A}
+\newcommand{\vecf}{\vec f}
+\newcommand{\vecF}{\vec F}
+\newcommand{\vecp}{\vec p}
+\newcommand{\avg}[1]{\left\langle #1\right\rangle}
+\newcommand{\vecx}{\vec x}
+\newcommand{\hatn}{\hat n}
+\newcommand{\rhat}{\hat r}
+\newcommand{\phihat}{\hat\phi}
+\newcommand{\thetahat}{\hat\theta}
+\newcommand{\note}[1]{\textcolor{blue!60!black}{\textit{[#1]}}}
+
+% Astronomical acronyms
+\newcommand{\LST}{\mathrm{LST}}
+\newcommand{\GST}{\mathrm{GST}}
+\newcommand{\GMST}{\mathrm{GMST}}
+\newcommand{\GAST}{\mathrm{GAST}}
+\newcommand{\LMST}{\mathrm{LMST}}
+\newcommand{\LAST}{\mathrm{LAST}}
+\newcommand{\UT}{\mathrm{UT}}
+\newcommand{\UTC}{\mathrm{UTC}}
+\newcommand{\TAI}{\mathrm{TAI}}
+\newcommand{\TT}{\mathrm{TT}}
+\newcommand{\TDB}{\mathrm{TDB}}
+\newcommand{\JD}{\mathrm{JD}}
+\newcommand{\MJD}{\mathrm{MJD}}
+\newcommand{\EoT}{\mathrm{EoT}}
+\newcommand{\SNR}{\mathrm{SNR}}
+\newcommand{\RON}{\mathrm{RON}}
+
+% Helper commands for specific diagrams
+\newcommand{\midlinelabel}[3]{
+    \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+\newcommand{\midlinelabell}[3]{
+    \node[fill = white, inner sep = 0.2pt, outer sep=3pt] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+\newcommand{\midlinelabelll}[3]{
+    \node[fill = white, inner sep = 0.2pt, outer sep=3pt,scale=0.6] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+
+\tdplotsetmaincoords{70}{120}
+
+\begin{document}
+\tdplotsetmaincoords{70}{120}
+\begin{tikzpicture}[tdplot_main_coords, scale=3]
+				
+				%------------------------------------------------
+				% Parameters
+				%------------------------------------------------
+				\def\a{2.7}
+				\def\e{0.45}
+				\def\inc{35}
+				\def\Om{35}
+				\def\om{20}
+				
+				% Position of the whole orbit
+				\def\Ox{0.0}
+				\def\Oy{0.0}
+				\def\Oz{0.0}
+				
+				% Point to mark
+				\def\numark{55}
+				
+				%------------------------------------------------
+				% Sky plane
+				%------------------------------------------------
+				\fill[blue!5]
+				(-4.5,-3.8,0) --
+				( 4.5,-3.8,0) --
+				( 4.5, 3.8,0) --
+				(-4.5, 3.8,0) -- cycle;
+				
+				% X,Y axes: reference / sky plane
+				\draw[->,blue!70!black]
+				(-4.5,0,0) -- (4.8,0,0)
+				node[anchor=north east] {$\hat\delta$};
+				
+				\draw[->,blue!70!black]
+				(0,4.2,0) -- (0,-3.8,0)
+				node[anchor=south] {$\hat\alpha$};
+				
+				% Z axis
+				\draw[->,gray!70!black]
+				(0,0,-1.5) -- (0,0,3.0)
+				node[anchor=south west] {$Z$};
+				
+				\node[blue!60!black] at (3.2,3.2,0)
+				{\small sky plane};
+				
+				%------------------------------------------------
+				% Origin / centre of orbit
+				%------------------------------------------------
+				
+				\fill (\Ox,\Oy,\Oz) circle (1.5pt);
+				
+				\node[above left] at (\Ox,\Oy,\Oz) {$O$};
+				
+				%------------------------------------------------
+				% Omega
+				% Angle from +alpha-hat toward +delta-hat
+				%------------------------------------------------
+				
+				\draw[thick,blue!70!black,->]
+				plot[
+				variable=\theta,
+				domain=-90:\Om,
+				samples=40
+				]
+				(
+				{\Ox+0.65*cos(\theta)},
+				{\Oy+0.65*sin(\theta)},
+				{\Oz}
+				);
+				
+				
+				\node[blue!70!black] at
+				({\Ox+0.85*cos(\Om/2)},
+				{\Oy+0.85*sin(\Om/2)},0)
+				{$\Omega$};
+				%------------------------------------------------
+				% Actual inclined ellipse
+				% Orbital plane
+				%------------------------------------------------
+				
+				\draw[thick,red!70!black]
+				plot[
+				variable=\nu,
+				domain=0:360,
+				samples=250,
+				smooth
+				]
+				(
+				{
+					\Ox+
+					(\a*(1-\e*\e)/(1+\e*cos(\nu)))
+					*
+					(
+					cos(\Om)*cos(\om+\nu)
+					-sin(\Om)*cos(\inc)*sin(\om+\nu)
+					)
+				},
+				{
+					\Oy+
+					(\a*(1-\e*\e)/(1+\e*cos(\nu)))
+					*
+					(
+					sin(\Om)*cos(\om+\nu)
+					+cos(\Om)*cos(\inc)*sin(\om+\nu)
+					)
+				},
+				{
+					\Oz+
+					(\a*(1-\e*\e)/(1+\e*cos(\nu)))
+					*
+					(
+					sin(\inc)*sin(\om+\nu)
+					)
+				}
+				);
+				
+				%------------------------------------------------
+				% Projected ellipse
+				% Lies in XY sky plane
+				%------------------------------------------------
+				
+				\draw[very thick,dashed,blue!45!black]
+				plot[
+				variable=\nu,
+				domain=0:360,
+				samples=250,
+				smooth
+				]
+				(
+				{
+					\Ox+
+					(\a*(1-\e*\e)/(1+\e*cos(\nu)))
+					*
+					(
+					cos(\Om)*cos(\om+\nu)
+					-sin(\Om)*cos(\inc)*sin(\om+\nu)
+					)
+				},
+				{
+					\Oy+
+					(\a*(1-\e*\e)/(1+\e*cos(\nu)))
+					*
+					(
+					sin(\Om)*cos(\om+\nu)
+					+cos(\Om)*cos(\inc)*sin(\om+\nu)
+					)
+				},
+				0
+				);
+				
+				%------------------------------------------------
+				% Periapsis
+				%------------------------------------------------
+				
+				\pgfmathsetmacro{\rp}{\a*(1-\e)}
+				
+				\pgfmathsetmacro{\periX}
+				{\Ox+\rp*(cos(\Om)*cos(\om)
+					-sin(\Om)*cos(\inc)*sin(\om))}
+				
+				\pgfmathsetmacro{\periY}
+				{\Oy+\rp*(sin(\Om)*cos(\om)
+					+cos(\Om)*cos(\inc)*sin(\om))}
+				
+				\pgfmathsetmacro{\periZ}
+				{\Oz+\rp*sin(\inc)*sin(\om)}
+				
+				% Direction to periapsis
+				\draw[thick,red!70!black,->]
+				(\Ox,\Oy,\Oz)
+				-- (\periX,\periY,\periZ);
+				
+				% Periapsis point
+				\fill[red!70!black]
+				(\periX,\periY,\periZ) circle (2pt);
+				
+				\node[red!70!black,above right] at
+				(\periX,\periY,\periZ)
+				{periapsis};
+				
+				%------------------------------------------------
+				% omega
+				% Angle in orbital plane
+				%------------------------------------------------
+				
+				\def\Romega{0.75}
+				
+				\draw[thick,red!70!black,->]
+				plot[
+				variable=\theta,
+				domain=0:\om,
+				samples=30
+				]
+				(
+				{
+					\Ox+\Romega*
+					(
+					cos(\Om)*cos(\theta)
+					-sin(\Om)*cos(\inc)*sin(\theta)
+					)
+				},
+				{
+					\Oy+\Romega*
+					(
+					sin(\Om)*cos(\theta)
+					+cos(\Om)*cos(\inc)*sin(\theta)
+					)
+				},
+				{
+					\Oz+\Romega*sin(\inc)*sin(\theta)
+				}
+				);
+				
+				\node[red!70!black] at
+				(
+				{
+					\Ox+1.0*
+					(
+					cos(\Om)*cos(\om/2)
+					-sin(\Om)*cos(\inc)*sin(\om/2)
+					)
+				},
+				{
+					\Oy+1.0*
+					(
+					sin(\Om)*cos(\om/2)
+					+cos(\Om)*cos(\inc)*sin(\om/2)
+					)
+				},
+				{
+					\Oz+1.0*sin(\inc)*sin(\om/2)
+				}
+				)
+				{$\omega$};
+				
+				%------------------------------------------------
+				% Inclination I
+				% Angle between reference and orbital planes
+				%------------------------------------------------
+				
+				\def\Rinc{1.5}
+				
+				% Reference-plane direction
+				\coordinate (A) at
+				({\Rinc*cos(\Om)},
+				{\Rinc*sin(\Om)},0);
+				
+				% Corresponding direction in orbital plane
+				\coordinate (B) at
+				({\Rinc*cos(\Om)-1.0*sin(\Om)*cos(\inc)},
+				{\Rinc*sin(\Om)+1.0*cos(\Om)*cos(\inc)},
+				{1.0*sin(\inc)});
+				
+				% Direction in reference plane
+				\coordinate (C) at
+				({\Rinc*cos(\Om)-1.0*sin(\Om)},
+				{\Rinc*sin(\Om)+1.0*cos(\Om)},0);
+				
+				% Show the two planes locally
+				\draw[blue!50!black,dashed] (A) -- (C);
+				\draw[red!50!black,dashed] (A) -- (B);
+				
+				% Arc representing inclination
+				\draw[thick,red!70!black,->]
+				plot[
+				variable=\theta,
+				domain=0:\inc,
+				samples=30
+				]
+				(
+				{\Rinc*cos(\Om)-0.55*sin(\Om)*cos(\theta)},
+				{\Rinc*sin(\Om)+0.55*cos(\Om)*cos(\theta)},
+				{0.55*sin(\theta)}
+				);
+				
+				\node[red!70!black] at
+				(
+				{\Rinc*cos(\Om)-0.72*sin(\Om)*cos(\inc/2)},
+				{\Rinc*sin(\Om)+0.72*cos(\Om)*cos(\inc/2)},
+				{0.72*sin(\inc/2)}
+				)
+				{$I$};
+				
+				%------------------------------------------------
+				% Mark a point P on the actual orbit
+				%------------------------------------------------
+				
+				\pgfmathsetmacro{\rr}
+				{\a*(1-\e*\e)/(1+\e*cos(\numark))}
+				
+				\pgfmathsetmacro{\PX}
+				{\Ox+\rr*(cos(\Om)*cos(\om+\numark)
+					-sin(\Om)*cos(\inc)*sin(\om+\numark))}
+				
+				\pgfmathsetmacro{\PY}
+				{\Oy+\rr*(sin(\Om)*cos(\om+\numark)
+					+cos(\Om)*cos(\inc)*sin(\om+\numark))}
+				
+				\pgfmathsetmacro{\PZ}
+				{\Oz+\rr*sin(\inc)*sin(\om+\numark)}
+				
+				% Point on orbit
+				\fill[red!70!black]
+				(\PX,\PY,\PZ) circle (2pt);
+				
+				\node[red!70!black,above right] at
+				(\PX,\PY,\PZ) {$P$};
+				
+				%------------------------------------------------
+				% Projection of P onto sky plane
+				%------------------------------------------------
+				
+				\fill[blue!70!black]
+				(\PX,\PY,0) circle (2pt);
+				
+				\node[blue!70!black,below right] at
+				(\PX,\PY,0) {$P_{\rm sky}$};
+				
+				% Projection line
+				\draw[gray,dotted,thick]
+				(\PX,\PY,\PZ) -- (\PX,\PY,0);
+				
+				%------------------------------------------------
+				% Direction from O to P
+				%------------------------------------------------
+				
+				\draw[red!40!black,dashed]
+				(\Ox,\Oy,\Oz) -- (\PX,\PY,\PZ);
+				
+				%------------------------------------------------
+				% nu
+				% Angle from periapsis to P
+				% in orbital plane
+				%------------------------------------------------
+				
+				\def\Rnu{1.05}
+				
+				\draw[thick,red!70!black,->]
+				plot[
+				variable=\theta,
+				domain=\om:\om+\numark,
+				samples=50,
+				smooth
+				]
+				(
+				{
+					\Ox+\Rnu*
+					(
+					cos(\Om)*cos(\theta)
+					-sin(\Om)*cos(\inc)*sin(\theta)
+					)
+				},
+				{
+					\Oy+\Rnu*
+					(
+					sin(\Om)*cos(\theta)
+					+cos(\Om)*cos(\inc)*sin(\theta)
+					)
+				},
+				{
+					\Oz+\Rnu*sin(\inc)*sin(\theta)
+				}
+				);
+				
+				\node[red!70!black] at
+				(
+				{
+					\Ox+1.25*
+					(
+					cos(\Om)*cos(\om+\numark/2)
+					-sin(\Om)*cos(\inc)*sin(\om+\numark/2)
+					)
+				},
+				{
+					\Oy+1.25*
+					(
+					sin(\Om)*cos(\om+\numark/2)
+					+cos(\Om)*cos(\inc)*sin(\om+\numark/2)
+					)
+				},
+				{
+					\Oz+1.25*sin(\inc)*sin(\om+\numark/2)
+				}
+				)
+				{$\nu$};
+				%------------------------------------------------
+				% Orbital-plane basis vectors
+				%------------------------------------------------
+				
+				\def\Ry{2.0}
+				\def\RL{2.4}
+				
+				%------------------------------------------------
+				% y-hat
+				%
+				% y-hat =
+				% -sin(Omega) cos(i) X
+				% +cos(Omega) cos(i) Y
+				% +sin(i) Z
+				%------------------------------------------------
+				
+				\pgfmathsetmacro{\yX}
+				{\Ox-\Ry*sin(\Om)*cos(\inc)}
+				
+				\pgfmathsetmacro{\yY}
+				{\Oy+\Ry*cos(\Om)*cos(\inc)}
+				
+				\pgfmathsetmacro{\yZ}
+				{\Oz+\Ry*sin(\inc)}
+				
+				\coordinate (Yhat) at (\yX,\yY,\yZ);
+				
+				\draw[
+				very thick,
+				purple!80!black,
+				->,
+				>=stealth
+				]
+				(\Ox,\Oy,\Oz) -- (Yhat)
+				node[above right] {$\hat y$};
+				
+				
+				%------------------------------------------------
+				% L-hat
+				%
+				% L-hat = n-hat x y-hat
+				%
+				% L-hat =
+				% +sin(Omega) sin(i) X
+				% -cos(Omega) sin(i) Y
+				% +cos(i) Z
+				%------------------------------------------------
+				
+				\pgfmathsetmacro{\LX}
+				{\Ox+\RL*sin(\Om)*sin(\inc)}
+				
+				\pgfmathsetmacro{\LY}
+				{\Oy-\RL*cos(\Om)*sin(\inc)}
+				
+				\pgfmathsetmacro{\LZ}
+				{\Oz+\RL*cos(\inc)}
+				
+				\coordinate (Lhat) at (\LX,\LY,\LZ);
+				
+				\draw[
+				very thick,
+				red!70!black,
+				->,
+				>=stealth
+				]
+				(\Ox,\Oy,\Oz) -- (Lhat)
+				node[above right] {$\hat L$};
+				%------------------------------------------------
+				% Line of ascending node
+				% Reference-plane quantity
+				%------------------------------------------------
+				
+				\draw[very thick,red!70!black,->](\Ox,\Oy,\Oz)-- ({\Ox+2.4*cos(\Om)},{\Oy+2.4*sin(\Om)},\Oz)node[right] {$\hatn$};
+				
+		\end{tikzpicture}
+\end{document}

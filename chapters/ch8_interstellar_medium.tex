@@ -112,11 +112,10 @@ In astrophysics and fundamental physics, scattering processes divide into two br
 Interstellar dust grains ($a \sim 0.01\text{--}1\,\mu\mathrm{m}$) are comparable in size to optical wavelengths, placing ISM dust extinction squarely in the \textbf{Mie scattering regime}. 
 
 For a sightline traversing dust column density $N_d = \int n_d\,ds$, the optical depth is $\tau_\lambda = N_d \sigma_{\rm ext}(\lambda)$, giving flux attenuation $F_\lambda = F_{\lambda,0}e^{-\tau_\lambda}$. Expressed in Pogson magnitudes:
-\begin{equation}
-	A_\lambda = \frac{2.5}{\ln 10}\,\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
+\begin{align}
+	m &= M -2.5\log_{10}\left(\frac{F_m e^{-\tau_{\lambda}}}{F_{M}}\right)\implies A_\lambda = \frac{2.5}{\ln 10}\,\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
 	\label{eq:ism_mag_extinction}
-\end{equation}
-
+\end{align}
 Because Mie scattering across the optical window satisfies $\sigma_{\rm ext}(\lambda) \propto \lambda^{-1}$, the cross-section decreases monotonically with wavelength. Blue photons suffer greater attenuation than visual or red photons ($\sigma_B > \sigma_V \implies A_B > A_V$). This differential extinction creates the \textbf{color excess} $E(B-V) \equiv A_B - A_V > 0$, causing transmitted starlight to emerge fainter and redder than its intrinsic emission. Correcting for this effect via the \textbf{Color Index Correction} $(B-V)_0 = (B-V)_{\rm obs} - E(B-V)$ and dereddening the distance modulus via $\mu_0 = (m_V - M_V)_{\rm obs} - R_V E(B-V)$ with $R_V \approx 3.1$ (as derived in Chapter~4) is therefore essential for accurate stellar characterization. A direct observational consequence is seen in dark and reflection nebulae: dense dust clouds such as Barnard 68 appear opaque in the optical but become transparent in the infrared where $\lambda \gg a$, while starlight scattered off dust around the Pleiades produces a blue reflection nebula because smaller grains scatter shorter wavelengths more effectively.
 
 \section{Spectral Lines: Formation and Broadening}
@@ -189,26 +188,7 @@ The Gaussian shape is thus a direct fingerprint of the underlying Maxwellian vel
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[
-		scale=1.15,
-		declare function={
-			lorentzian(\x) = 1/(1+(\x)^2);
-			gaussian(\x) = exp(-ln(2)*(\x)^2);
-		}
-	]
-		\draw[->, thick] (-4.7,0) -- (4.9,0) node[below right, font=\small] {$(\nu-\nu_0)\,/\,(\Delta\nu/2)$};
-		\draw[->, thick] (0,-0.15) -- (0,1.65) node[above, font=\small] {$I(\nu)/I_0$};
-
-		\draw[dashed, gray!50, thin] (-4.5,0.5) -- (4.5,0.5);
-		\node[gray!70, font=\scriptsize, anchor=east] at (-0.15,0.5) {$0.5$};
-		\node[gray!70, font=\scriptsize, anchor=north] at (0,-0.02) {$0$};
-
-		\draw[very thick, accent, domain=-4.5:4.5, samples=200] plot (\x, {lorentzian(\x)});
-		\draw[very thick, astroblue, dashed, domain=-4.5:4.5, samples=200] plot (\x, {gaussian(\x)});
-
-		\node[astroblue, font=\small\bfseries, align=center] at (-2.55,1.15) {Gaussian\\\footnotesize(Doppler)};
-		\node[accent, font=\small\bfseries, align=center] at (3.15,0.95) {Lorentzian\\\footnotesize(natural / pressure)};
-	\end{tikzpicture}
+	\includegraphics{fig_ch8_line_profile_voigt.pdf}
 	\caption{The two elementary line-broadening shapes, normalized to the same peak intensity $I_0$ and the same half-width $\Delta\nu/2$. The Lorentzian profile (Eq.~\eqref{eq:natural_lorentzian_profile}) retains extended power-law wings, $I\propto(\nu-\nu_0)^{-2}$, far from line centre, while the Gaussian profile (Eq.~\eqref{eq:doppler_gaussian_profile}) is already negligible by $3$--$4$ half-widths out. The observed \emph{Voigt} profile --- their convolution --- looks essentially Gaussian in its core (where Doppler broadening dominates) but reverts to the Lorentzian's power-law decay far out in the wings.}
 	\label{fig:lorentzian_gaussian_comparison}
 \end{figure}
@@ -255,73 +235,7 @@ Every point on the shell moves outward at the same speed $v_{\rm exp}$, but not 
 \begin{figure}[htbp]
 	\centering
 	\resizebox{\linewidth}{!}{%
-	\begin{tikzpicture}[>=Stealth, scale=1.0, font=\scriptsize]
-
-		% ================= Panel (a): expanding shell geometry =================
-		\coordinate (C) at (0,0); % central white dwarf
-
-		% the expanding shell
-		\draw[linecol, thick] (C) circle (2.0);
-
-		% line of sight axis
-		\draw[ink!50, dash pattern=on 1pt off 2pt, thin] (-3.0,0) -- (4.6,0);
-
-		% radial velocity vectors around the shell, color-coded by line-of-sight sense
-		\foreach \phi in {0,45,90,135,180,225,270,315}{
-			\coordinate (P) at (\phi:2.0);
-			\coordinate (Q) at (\phi:2.55);
-			\pgfmathsetmacro{\c}{cos(\phi)}
-			\ifdim \c pt > 0.35pt
-				\draw[astroblue, thick, ->] (P) -- (Q);
-			\else
-				\ifdim \c pt < -0.35pt
-					\draw[accent, thick, ->] (P) -- (Q);
-				\else
-					\draw[muted, thick, ->] (P) -- (Q);
-				\fi
-			\fi
-		}
-
-		% central white dwarf
-		\fill[white] (C) circle (4.5pt);
-		\draw[astrodark, thick] (C) circle (4.5pt);
-		\node[astrodark, below=2pt] at (C) {White dwarf};
-
-		% near cap (facing observer) and far cap labels
-		\node[astroblue, below, align=center] at (2.0,-0.5) {near cap\\\footnotesize(blueshifted)};
-		\node[accent, below, align=center] at (-2.0,-0.5) {far cap\\\footnotesize(redshifted)};
-		\node[muted, above=2pt] at (0,2.55) {\shortstack{tangential\\\footnotesize(no shift)}};
-
-		% observer
-		\node[ink] at (4.6,0) {$\bigodot$};
-		\node[ink, below] at (4.6,-0.05) {Earth};
-		\node[ink, above, font=\scriptsize] at (3.3,0.05) {to observer};
-
-		\node[muted] at (0,-3.0) {(a) Expanding shell, as seen from Earth};
-
-		% ================= Panel (b): resulting line profile =================
-		\begin{scope}[xshift=8.3cm]
-			\draw[->, thick] (-2.4,0) -- (2.6,0) node[below right] {$\lambda$};
-			\draw[->, thick] (0,-0.15) -- (0,2.1) node[above] {$I_\lambda$};
-
-			% rest wavelength
-			\draw[ink!60, dash pattern=on 1pt off 2pt, thin] (0,0) -- (0,1.9);
-			\node[ink!70, below] at (0,-0.02) {$\lambda_0$};
-
-			% blue / red extremes
-			\draw[astroblue, dash pattern=on 1pt off 2pt, thin] (-1.6,0) -- (-1.6,1.75);
-			\draw[accent, dash pattern=on 1pt off 2pt, thin] (1.6,0) -- (1.6,1.75);
-			\node[astroblue, below] at (-1.6,-0.02) {$\lambda_{\min}$};
-			\node[accent, below] at (1.6,-0.02) {$\lambda_{\max}$};
-
-			% flat-topped emission profile
-			\draw[very thick, ink, rounded corners=2pt]
-				(-1.6,0) -- (-1.6,1.6) -- (1.6,1.6) -- (1.6,0);
-
-			\node[muted] at (0,-1.0) {(b) Observed line profile};
-		\end{scope}
-
-	\end{tikzpicture}%
+	\includegraphics{fig_ch8_expanding_shell_geometry.pdf}%
 	}
 	\caption{(a) An expanding spherical shell around a white dwarf, viewed from Earth. Arrows show the local expansion velocity, color-coded by its line-of-sight sense: blue for the near cap (moving toward Earth), red for the far cap (moving away from Earth), gray for the rim (moving across the line of sight). (b) The resulting emission-line profile, spread between $\lambda_{\min}$ (from the near cap) and $\lambda_{\max}$ (from the far cap), with the unshifted rest wavelength $\lambda_0$ marked in between.}
 	\label{fig:pn_expansion}

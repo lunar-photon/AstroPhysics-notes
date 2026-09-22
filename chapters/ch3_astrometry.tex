@@ -9,221 +9,7 @@ As the Earth orbits the Sun, a nearby star appears to trace a tiny elliptical pa
 \begin{figure}[htbp]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
-
-			% ================= Panel A: Sun-Earth-star geometry =================
-			\begin{scope}
-				\coordinate (O)  at (0,0);
-				\coordinate (E1) at (3,0);
-				\coordinate (E2) at (-3,0);
-				\coordinate (S)  at (0,5.5);
-				\coordinate (P1) at (-1.31,7.9);
-				\coordinate (P2) at (1.31,7.9);
-
-				\draw[muted, dashed, line width=0.6pt] (O) circle (3);
-
-				\shade[
-				shading=radial,
-				inner color=white,
-				outer color=astroblue!12,
-				rounded corners=8pt
-				]
-				(-3.2,7.3) rectangle (3.2,8.6);
-
-				\draw[linecol, thick, rounded corners=8pt]
-				(-3.2,7.3) rectangle (3.2,8.6);
-
-				\draw[astroblue!25, thin, rounded corners=6pt]
-				(-3.05,7.42) rectangle (3.05,8.48);
-
-				\node[muted, rotate=90] at (-3.2,7.95) {Sky plane};
-
-				\foreach \x/\y/\r/\o in {
-					-2.6/7.45/1.0pt/0.85,
-					-2.0/8.35/0.7pt/0.6,
-					-1.2/7.55/0.9pt/0.75,
-					-0.5/8.4/1.1pt/0.85,
-					0.05/7.5/0.6pt/0.5,
-					0.7/8.3/0.9pt/0.7,
-					1.35/7.6/1.2pt/0.9,
-					1.9/8.35/0.7pt/0.55,
-					2.5/7.5/1.0pt/0.8,
-					2.9/8.25/0.6pt/0.5,
-					-2.9/8.1/0.8pt/0.65,
-					0/7.85/1.3pt/0.9
-				}{
-					\fill[muted, opacity=\o] (\x,\y) circle (\r);
-				}
-
-				\draw[astroblue, thick] (E1) -- (S);
-				\draw[astroblue, dashed, thick] (S) -- (P1);
-				\draw[accent, thick] (E2) -- (S);
-				\draw[accent, dashed, thick] (S) -- (P2);
-
-				\draw[
-				ink!60,
-				dash pattern=on 1pt off 2pt,
-				line width=0.6pt
-				]
-				(O) -- (S);
-
-				\node[
-				ink!70,
-				rotate=90,
-				fill=white,
-				inner sep=1pt
-				]
-				at ($(O)!0.5!(S)$) {$d$};
-
-				\draw[ink, thick] (O) -- (E1);
-				\draw[ink, thick] (O) -- (E2);
-
-				\node[ink, below] at ($(O)!0.5!(E1)$) {$1\,\mathrm{AU}$};
-				\node[ink, below] at ($(O)!0.5!(E2)$) {$1\,\mathrm{AU}$};
-
-				\draw pic[
-				"$p$",
-				draw=colone,
-				angle radius=15,
-				angle eccentricity=1.4
-				]
-				{angle=O--S--E1};
-
-				\draw pic[
-				"$p$",
-				draw=colone,
-				angle radius=15,
-				angle eccentricity=1.4
-				]
-				{angle=E2--S--O};
-
-				\fill[sunyellow] (O) circle (5.5pt);
-				\node[below] at (O) {Sun};
-
-				\fill[astroblue] (E1) circle (3pt);
-				\node[astroblue, below right] at (E1) {Jan};
-
-				\fill[accent] (E2) circle (3pt);
-				\node[accent, below left] at (E2) {Jul};
-
-				\node[
-				colone,
-				star,
-				star points=5,
-				star point ratio=2.2,
-				fill=colone,
-				inner sep=1.3pt
-				] at (S) {};
-
-				\node[colone, above right=1pt] at (S) {Star};
-
-				\node[
-				astroblue,
-				star,
-				star points=5,
-				star point ratio=2.2,
-				fill=astroblue,
-				inner sep=1.3pt
-				] at (P1) {};
-
-				\node[
-				accent,
-				star,
-				star points=5,
-				star point ratio=2.2,
-				fill=accent,
-				inner sep=1.3pt
-				] at (P2) {};
-			\end{scope}
-
-			% ================= Panel B: Earth close-up (same scale as Panel A) =================
-			\begin{scope}
-				\coordinate (E)  at (9,0);
-				\coordinate (S1) at (6.2,5.5); % January
-				\coordinate (S2) at (11.8,5.5);  % July
-				\coordinate (M)  at (9,5.5);
-
-				\shade[
-				shading=radial,
-				inner color=white,
-				outer color=astroblue!12,
-				rounded corners=6pt
-				]
-				(5.5,5.0) rectangle (12.5,6.1);
-
-				\draw[linecol, thick, rounded corners=6pt]
-				(5.5,5.0) rectangle (12.5,6.1);
-
-				\draw[astroblue!25, thin, rounded corners=5pt]
-				(5.65,5.12) rectangle (12.35,5.98);
-
-				\foreach \x/\y/\r/\o in {
-					5.9/5.18/0.7pt/0.55,
-					6.45/5.82/0.8pt/0.65,
-					7.05/5.28/0.6pt/0.5,
-					7.65/5.88/0.9pt/0.7,
-					8.25/5.42/0.6pt/0.45,
-					8.85/5.88/0.8pt/0.6,
-					9.55/5.3/0.7pt/0.5,
-					10.1/5.9/0.6pt/0.55,
-					10.75/5.35/0.9pt/0.7,
-					11.45/5.88/0.7pt/0.5,
-					12.1/5.28/0.6pt/0.45
-				}{
-					\fill[muted,opacity=\o] (\x,\y) circle (\r);
-				}
-
-				\draw[astroblue, thick] (E) -- (S1);
-				\draw[accent, thick] (E) -- (S2);
-
-				\draw[
-				ink!50,
-				dashed,
-				line width=0.6pt
-				]
-				(E) -- (M);
-
-				\draw pic[
-				"$p$",
-				draw=colone,
-				angle radius=15,
-				angle eccentricity=1.4
-				]
-				{angle=M--E--S1};
-
-				\draw pic[
-				"$p$",
-				draw=colone,
-				angle radius=15,
-				angle eccentricity=1.4
-				]
-				{angle=S2--E--M};
-
-				\node[left=4pt] at ($(E)!0.5!(M)$) {$d$};
-
-				\fill[astroblue] (E) circle (4pt);
-				\node[below right] at (E) {Earth};
-
-				\node[
-				astroblue,
-				star,
-				star points=5,
-				star point ratio=2.2,
-				fill=astroblue,
-				inner sep=1.3pt
-				] at (S1) {};
-
-				\node[
-				accent,
-				star,
-				star points=5,
-				star point ratio=2.2,
-				fill=accent,
-				inner sep=1.3pt
-				] at (S2) {};
-			\end{scope}
-
-		\end{tikzpicture}%
+		\includegraphics{fig_ch3_parallax_geometry.pdf}%
 	}
 	\caption{Parallax geometry: Sun-Earth-star triangle (left) and its Earth-centered close-up (right), with baseline $1\,\mathrm{AU}$, distance $d$, and parallax angle $p$.}
 	\label{fig:parallax_geometry}
@@ -424,3 +210,85 @@ Trigonometric parallax provides the foundational, geometric rung of the cosmic d
 \end{enumerate}
 
 Every rung of this distance ladder is calibrated photometrically -- through an apparent brightness, a color, or a light-curve shape -- which is precisely the subject developed next in Chapter~4.
+
+\section{Problem Set: Stellar Astrometry, Kinematics, and Space Velocities}
+
+\subsection{Problem 1: 3D Position, Space Velocity, and Doppler Shift of Sirius}
+
+\textbf{Problem Statement}: For Sirius, the measured astrometric and kinematic parameters are: parallax $\varpi = 41.13\,\text{mas}$, radial velocity $v_r = 4.39\,\text{km/s}$, proper motion in right ascension $\mu_\alpha = -248.73\,\text{mas/yr}$, and proper motion in declination $\mu_\delta = -5.59\,\text{mas/yr}$.
+\begin{enumerate}[label=(\alph*)]
+	\item What is the distance $d$ to Sirius in parsecs?
+	\item Determine the 3D Cartesian position vector $\vec r$ in equatorial coordinates.
+	\item Calculate the total space velocity vector $\vec v$ and total speed $|\vec v|$ relative to the Sun.
+	\item What is the apparent (observed) wavelength of the $\mathrm{H}\alpha$ spectral line ($\lambda_0 = 656.46\,\text{nm}$)?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item \textbf{Trigonometric Distance}: Parallax determines distance directly via $d = 1/\varpi$, where $\varpi$ is in arcseconds and $d$ is in parsecs ($1\,\mathrm{pc} = 1\,\mathrm{AU}/1'' \approx 3.0857 \times 10^{16}\,\mathrm{m}$).
+	\item \textbf{Transverse Velocity}: Proper motion $\mu$ (in $\text{arcsec/yr}$) converts to transverse velocity $v_t$ (in $\text{km/s}$) via the constant $k = 1\,\mathrm{AU}/(1\,\text{Julian yr}) \approx 4.74047\,\mathrm{km\cdot s^{-1}}$:
+	\begin{equation}
+		v_\alpha = 4.74047\,\mu_\alpha d, \qquad v_\delta = 4.74047\,\mu_\delta d.
+	\end{equation}
+	\item \textbf{Coordinate Unit Vectors}: The orthonormal equatorial basis vectors are:
+	\begin{equation}
+		\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
+		\hat{\boldsymbol\alpha} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
+		\hat{\boldsymbol\delta} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}.
+	\end{equation}
+	The total space velocity is $\vec v = v_r\hat{\mathbf r} + v_\alpha\hat{\boldsymbol\alpha} + v_\delta\hat{\boldsymbol\delta}$.
+	\item \textbf{Doppler Shift}: For non-relativistic radial velocities ($v_r \ll c$), the first-order Doppler shift is:
+	\begin{equation}
+		\frac{\Delta\lambda}{\lambda_0} \simeq \frac{v_r}{c}.
+	\end{equation}
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Distance}:
+	Convert the parallax from milliarcseconds to arcseconds:
+	\[
+	\varpi = 41.13\,\text{mas} = 0.04113''.
+	\]
+	The distance is:
+	\[
+	\boxed{d = \frac{1}{\varpi} = \frac{1}{0.04113''} \simeq 24.31\,\mathrm{pc}}.
+	\]
+
+	\item \textbf{Cartesian Position Vector}:
+	For Sirius, the equatorial coordinates are $\alpha \approx 101.287^\circ$ and $\delta \approx -16.716^\circ$. The Cartesian position vector is:
+	\[
+	\vec r = d\begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}
+	= 24.31\,\mathrm{pc} \begin{pmatrix} \cos(-16.716^\circ)\cos(101.287^\circ) \\ \cos(-16.716^\circ)\sin(101.287^\circ) \\ \sin(-16.716^\circ) \end{pmatrix}
+	\simeq \begin{pmatrix} -4.56 \\ 22.84 \\ -6.99 \end{pmatrix}\mathrm{pc}.
+	\]
+
+	\item \textbf{Total Velocity Vector and Speed}:
+	Convert the proper motion components to linear velocities:
+	\begin{align*}
+		v_\alpha &= 4.74047 \times (-0.24873''/\text{yr}) \times 24.31\,\mathrm{pc} \simeq -28.67\,\mathrm{km/s}, \\
+		v_\delta &= 4.74047 \times (-0.00559''/\text{yr}) \times 24.31\,\mathrm{pc} \simeq -0.64\,\mathrm{km/s}.
+	\end{align*}
+	Assembling the full 3D space velocity vector:
+	\begin{align*}
+		\vec v &= v_r\hat{\mathbf r} + v_\alpha\hat{\boldsymbol\alpha} + v_\delta\hat{\boldsymbol\delta} \\
+		&= (4.39)\begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}
+		+ (-28.67)\begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}
+		+ (-0.64)\begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix} \\
+		&\simeq \begin{pmatrix} 27.33 \\ 9.55 \\ -1.88 \end{pmatrix}\mathrm{km/s}.
+	\end{align*}
+	The total space speed relative to the Sun is:
+	\[
+	\boxed{|\vec v| = \sqrt{v_r^2 + v_\alpha^2 + v_\delta^2} = \sqrt{(4.39)^2 + (-28.67)^2 + (-0.64)^2} \simeq 29.01\,\mathrm{km/s}}.
+	\]
+
+	\item \textbf{Apparent Wavelength of $\mathrm{H}\alpha$}:
+	With radial velocity $v_r = +4.39\,\mathrm{km/s}$ (recession) and speed of light $c \approx 299{,}792.458\,\mathrm{km/s}$:
+	\[
+	\Delta\lambda = \lambda_0\frac{v_r}{c} = 656.46\,\mathrm{nm} \times \frac{4.39}{299792.458} \simeq 0.0096\,\mathrm{nm}.
+	\]
+	The observed wavelength is redshifted to:
+	\[
+	\boxed{\lambda_{\rm obs} = \lambda_0 + \Delta\lambda = 656.46 + 0.0096 = 656.4696\,\mathrm{nm} \approx 656.470\,\mathrm{nm}}.
+	\]
+\end{enumerate}

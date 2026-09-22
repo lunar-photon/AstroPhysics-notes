@@ -1,0 +1,107 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb,mathtools,physics,bm,nicefrac,wasysym}
+\usepackage{xcolor}
+
+\definecolor{colone}{RGB}{180,60,60}
+\definecolor{coltwo}{RGB}{60,110,180}
+\definecolor{colthree}{RGB}{60,140,80}
+
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{astrodark}{HTML}{17202A}
+\definecolor{sunyellow}{HTML}{E8A33D}
+
+\usetikzlibrary{calc,arrows.meta,positioning,decorations.pathreplacing,decorations.markings,angles,quotes,shapes.geometric}
+\usepackage{tikz-3dplot}
+
+\newcommand{\vecr}{\vec r}
+\newcommand{\vecL}{\vec L}
+\newcommand{\vecA}{\vec A}
+\newcommand{\vecf}{\vec f}
+\newcommand{\vecF}{\vec F}
+\newcommand{\vecp}{\vec p}
+\newcommand{\avg}[1]{\left\langle #1\right\rangle}
+\newcommand{\vecx}{\vec x}
+\newcommand{\hatn}{\hat n}
+\newcommand{\rhat}{\hat r}
+\newcommand{\phihat}{\hat\phi}
+\newcommand{\thetahat}{\hat\theta}
+\newcommand{\note}[1]{\textcolor{blue!60!black}{\textit{[#1]}}}
+
+% Astronomical acronyms
+\newcommand{\LST}{\mathrm{LST}}
+\newcommand{\GST}{\mathrm{GST}}
+\newcommand{\GMST}{\mathrm{GMST}}
+\newcommand{\GAST}{\mathrm{GAST}}
+\newcommand{\LMST}{\mathrm{LMST}}
+\newcommand{\LAST}{\mathrm{LAST}}
+\newcommand{\UT}{\mathrm{UT}}
+\newcommand{\UTC}{\mathrm{UTC}}
+\newcommand{\TAI}{\mathrm{TAI}}
+\newcommand{\TT}{\mathrm{TT}}
+\newcommand{\TDB}{\mathrm{TDB}}
+\newcommand{\JD}{\mathrm{JD}}
+\newcommand{\MJD}{\mathrm{MJD}}
+\newcommand{\EoT}{\mathrm{EoT}}
+\newcommand{\SNR}{\mathrm{SNR}}
+\newcommand{\RON}{\mathrm{RON}}
+
+% Helper commands for specific diagrams
+\newcommand{\midlinelabel}[3]{
+    \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+\newcommand{\midlinelabell}[3]{
+    \node[fill = white, inner sep = 0.2pt, outer sep=3pt] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+\newcommand{\midlinelabelll}[3]{
+    \node[fill = white, inner sep = 0.2pt, outer sep=3pt,scale=0.6] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+    \draw[stealth-] (#1) --  (midlabel);
+    \draw[-stealth] (midlabel) -- (#2);
+}
+
+
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth, scale=1.0, font=\normalsize]
+			\def\aone{1.6}
+			\def\atwo{2.4}
+			\coordinate (COM) at (0,0);
+
+			% Barycentric orbits
+			\draw[muted, dashed, line width=0.6pt] (COM) circle (\aone);
+			\draw[muted, dashed, line width=0.6pt] (COM) circle (\atwo);
+			\draw[ink!50, thin] (COM) -- (0,\aone) node[midway, right=1pt] {$a_1$};
+			\draw[ink!50, thin] (COM) -- (0,-\atwo) node[midway, right=1pt] {$a_2$};
+			\fill[ink] (COM) circle (1.6pt);
+			\node[ink, below=2pt] at (COM) {COM};
+
+			% Stars shown at quadrature, the orbital phase of extremal radial
+			% velocity. Each star carries only its mass label, tied to its
+			% own velocity arrow: above the arrow for Star 1 (top), below
+			% the arrow for Star 2 (bottom).
+			\fill[astroblue] (0,\aone) circle (3.2pt);
+			\draw[->, astroblue, thick] (0,\aone) -- (-1.3,\aone);
+			\node[astroblue, above=2pt] at (-0.65,\aone) {$m_1$};
+
+			\fill[accent] (0,-\atwo) circle (3.2pt);
+			\draw[->, accent, thick] (0,-\atwo) -- (1.3,-\atwo);
+			\node[accent, below=2pt] at (0.65,-\atwo) {$m_2$};
+
+			% Line of sight: a dashed ray to a small eye icon standing in for the
+			% observer, placed level with the COM on the horizontal (line-of-sight)
+			% axis, far to the left.
+			\coordinate (Eye) at (-10,0);
+			\draw[ink!60, dashed] (-\atwo,0) -- (Eye);
+			\draw[ink!80, thick] (Eye) ++(-0.28,0) to[bend left=35] ++(0.56,0) to[bend left=35] ++(-0.56,0);
+			\fill[ink!80] (Eye) circle (0.05);
+		\end{tikzpicture}
+\end{document}

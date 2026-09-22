@@ -54,71 +54,7 @@ Let two observatories be located at geodetic coordinates $(\phi_1, \lambda_1)$ a
 	\hfill
 	\begin{minipage}[c]{0.58\textwidth}
 		\centering
-		\begin{tikzpicture}[
-			scale=1.4, 
-			x={(-0.6cm,-0.3cm)}, 
-			y={(0.9cm,-0.2cm)}, 
-			z={(0cm,0.95cm)},
-			>=Stealth
-			]
-			% Parameters
-			\def\alphaDeg{45}
-			\def\deltaDeg{35}
-			\def\R{2.0}
-			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
-			
-			% Coordinates
-			\coordinate (O)  at (0,0,0);
-			\coordinate (X)  at (3.5,0,0);
-			\coordinate (Y)  at (0,2.6,0);
-			\coordinate (Z)  at (0,0,2.6);
-			
-			\coordinate (P)  at ({\Rproj*cos(\alphaDeg)}, {\Rproj*sin(\alphaDeg)}, {\R*sin(\deltaDeg)}); 
-			\coordinate (PP) at ({\R*cos(\alphaDeg)}, {\R*sin(\alphaDeg)}, 0);
-			
-			% Colors
-			\definecolor{axisColor}{HTML}{2B3A42}
-			\definecolor{vectorColor}{HTML}{E74C3C}
-			\definecolor{arcColor}{HTML}{0D9488}
-			\definecolor{guideColor}{HTML}{94A3B8}
-			\definecolor{sphereGrid}{HTML}{CBD5E1}
-			
-			% Background
-			\begin{scope}
-				\draw[sphereGrid, line width=0.8pt] (O) circle (1.08*\R cm);
-				\draw[sphereGrid!80, dashed, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
-				({\R*cos(\t)}, {\R*sin(\t)}, 0);
-				\draw[sphereGrid!70, dotted, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
-				({\Rproj*cos(\t)}, {\Rproj*sin(\t)}, {\R*sin(\deltaDeg)});
-			\end{scope}
-			
-			% Axes
-			\draw[->, axisColor, line width=1.1pt] (O) -- (X) node[below left, font=\bfseries] {$\boldsymbol{x}$};
-			\draw[->, axisColor, line width=1.1pt] (O) -- (Y) node[right, font=\bfseries] {$\boldsymbol{y}$};
-			\draw[->, axisColor, line width=1.1pt] (O) -- (Z) node[above, font=\bfseries] {$\boldsymbol z$};
-			\node[axisColor, left=2pt, font=\bfseries] at (O) {$O$};
-			
-			% Reference line to P'
-			\draw[dashed, guideColor, line width=0.9pt] (O) -- (PP);
-			
-			% Radius vector r_eq
-			\draw[->, vectorColor, line width=1.8pt] (O) -- (P) 
-			node[midway, above left, color=axisColor] {$\hat{\mathbf{r}}$};
-			
-			% Spherical Arc \lambda (Equator)
-			\draw[->, arcColor, line width=1.5pt] plot[domain=0:\alphaDeg, variable=\t, smooth]
-			({\R*cos(\t)}, {\R*sin(\t)}, 0);
-			\node[arcColor, font=\bfseries] at ({1.15*\R*cos(\alphaDeg/2)}, {1.15*\R*sin(\alphaDeg/2)}, -0.1) {$\lambda$};
-			
-			% Spherical Arc \phi (Meridian)
-			\draw[->, arcColor, line width=1.5pt] plot[domain=0:\deltaDeg, variable=\t, smooth]
-			({\R*cos(\t)*cos(\alphaDeg)}, {\R*cos(\t)*sin(\alphaDeg)}, {\R*sin(\t)});
-			\node[arcColor, font=\bfseries] at ($(PP)!0.5!(P)+(0.25,0.05,0)$) {$\phi$};
-			
-			% Points P and P'
-			\fill[vectorColor] (P) circle (1.2pt) node[above right=1pt, font=\bfseries, color=axisColor] {$P$};
-			\fill[arcColor!80!black] (PP) circle (1.2pt) node[below right=1pt, font=\bfseries, color=axisColor] {$P'$};
-		\end{tikzpicture}
+		\includegraphics{fig_ch5_earth_geodetic_vector.pdf}
 	\end{minipage}
 	\caption{Geodetic coordinate definition on a spherical Earth with latitude $\phi$ and longitude $\lambda$.}
 	\label{fig:earth_geodetic_vector}
@@ -143,51 +79,7 @@ The straight-line (shortest distance in 3D) between two stations is given by mea
     \hfill
     \begin{minipage}[c]{0.54\textwidth}
     \centering
-    \begin{tikzpicture}[scale=1.0, >=Stealth]
-    % Define the radius and angle
-    \def\RE{3.6}
-    \def\gammaangle{60}
-
-    % Define coordinates rotated by 90 degrees
-    \coordinate (O) at (0,0);
-    \coordinate (A) at (90+\gammaangle/2:\RE);
-    \coordinate (B) at (90-\gammaangle/2:\RE);
-    
-    % M is the midpoint of the chord for the perpendicular bisector
-    \coordinate (M) at (90:{\RE*cos(\gammaangle/2)});
-
-    % Draw the top arc
-    \draw[thick] (0:\RE) arc (0:180:\RE);
-
-    % Draw the radii
-    \draw[thick] (O) -- (A) node[midway, left=4pt] {$R_E$};
-    \draw[thick] (O) -- (B) node[midway, right=4pt] {$R_E$};
-
-    % Draw the full chord
-    \draw[thick, blue] (A) -- (B);
-
-    % Draw the perpendicular bisector
-    \draw[thick, dashed, red] (O) -- (M);
-
-    % Right angle marker at the intersection
-    \draw (M) ++(0,-0.2) -- ++(0.2,0) -- ++(0,0.2);
-
-    % Label the half-chord distances using braces
-    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
-         (A) -- (M) node[midway, above=10pt] {$R_E \sin(\gamma/2)$};
-    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
-         (M) -- (B) node[midway, above=10pt] {$R_E \sin(\gamma/2)$};
-
-    % Draw and label the split angles
-    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=0.9cm] {angle = M--O--A};
-    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=0.9cm] {angle = B--O--M};
-
-    % Mark and label the points
-    \fill (O) circle (2pt) node[below=2pt] {$O$};
-    \fill (A) circle (2pt) node[above left] {$P_1$};
-    \fill (B) circle (2pt) node[above right] {$P_2$};
-    \fill (M) circle (1.5pt) node[below right=1pt] {$M$};
-    \end{tikzpicture}
+    \includegraphics{fig_ch5_vlbi_chord_geometry.pdf}
     \end{minipage}
     \caption{Global VLBI network (left) and the chord baseline geometry $C = 2R_E\sin(\gamma/2)$ through the Earth's interior (right).}
     \label{fig:vlbi_chord_geometry}
@@ -207,88 +99,7 @@ To understand how an interferometer synthesizes high angular resolution from two
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.15, >=Stealth]
-    \def\B{6.0}
-    \def\thOne{20}
-    \def\thTwo{42}
-    \def\rayLen{5.2}
-    
-    \coordinate (A1) at (0,0);
-    \coordinate (A2) at (\B,0);
-    
-    % Normal lines
-    \draw[dashed, gray!60, thick] (A1) -- (0, 4.8) node[above, gray!80!black] {Normal};
-    \draw[dashed, gray!60, thick] (A2) -- (\B, 4.8) node[above, gray!80!black] {Normal};
-    
-    % Source 1 directions (coming from upper right at angle thOne to normal)
-    \pgfmathsetmacro{\sOneX}{\rayLen*sin(\thOne)}
-    \pgfmathsetmacro{\sOneY}{\rayLen*cos(\thOne)}
-    \coordinate (S1_A1) at (\sOneX, \sOneY);
-    \coordinate (S1_A2) at ({\B + \sOneX}, \sOneY);
-    
-    % Source 2 directions (coming from upper right at angle thTwo to normal)
-    \pgfmathsetmacro{\sTwoX}{\rayLen*sin(\thTwo)}
-    \pgfmathsetmacro{\sTwoY}{\rayLen*cos(\thTwo)}
-    \coordinate (S2_A1) at (\sTwoX, \sTwoY);
-    \coordinate (S2_A2) at ({\B + \sTwoX}, \sTwoY);
-    
-    % Intersection points W1 and W2 on ray A1 from wavefronts starting at Antenna 2 (A2)
-    \pgfmathsetmacro{\wOneX}{\B*sin(\thOne)*sin(\thOne)}
-    \pgfmathsetmacro{\wOneY}{\B*sin(\thOne)*cos(\thOne)}
-    \coordinate (W1) at (\wOneX, \wOneY);
-    
-    \pgfmathsetmacro{\wTwoX}{\B*sin(\thTwo)*sin(\thTwo)}
-    \pgfmathsetmacro{\wTwoY}{\B*sin(\thTwo)*cos(\thTwo)}
-    \coordinate (W2) at (\wTwoX, \wTwoY);
-    
-    % Incoming rays for Source 1 (Red)
-    \draw[->, very thick, red!80!black] (S1_A1) -- (A1);
-    \draw[->, very thick, red!80!black] (S1_A2) -- (A2);
-    
-    % Incoming rays for Source 2 (Blue)
-    \draw[->, very thick, blue!80!black] (S2_A1) -- (A1);
-    \draw[->, very thick, blue!80!black] (S2_A2) -- (A2);
-    
-    % Wavefronts from Antenna 2 (A2) hitting rays at Antenna 1 at exact 90 degrees
-    \draw[dashed, line width=1.1pt, red!80!black] (A2) -- (W1);
-    \draw[dashed, line width=1.1pt, blue!80!black] (A2) -- (W2);
-    
-    % Right angle markers at W1 and W2 (exact 90-degree square markers)
-    \pgfmathsetmacro{\sqSize}{0.28}
-    \draw[thick, red!80!black] 
-        ($(W1) + ({\sqSize*cos(\thOne)}, {-\sqSize*sin(\thOne)})$) -- 
-        ++({-\sqSize*sin(\thOne)}, {-\sqSize*cos(\thOne)}) -- 
-        ($(W1) + ({-\sqSize*sin(\thOne)}, {-\sqSize*cos(\thOne)})$);
-        
-    \draw[thick, blue!80!black] 
-        ($(W2) + ({\sqSize*cos(\thTwo)}, {-\sqSize*sin(\thTwo)})$) -- 
-        ++({-\sqSize*sin(\thTwo)}, {-\sqSize*cos(\thTwo)}) -- 
-        ($(W2) + ({-\sqSize*sin(\thTwo)}, {-\sqSize*cos(\thTwo)})$);
-        
-    % Path lags along ray entering Antenna 1
-    \draw[line width=3.0pt, red!80!black] (W1) -- (A1);
-    \node[left=4pt, red!80!black, font=\bfseries] at ($(W1)!0.5!(A1)$) {$\Delta L_1 = B\sin\theta_1$};
-    
-    \draw[line width=3.0pt, blue!80!black] (W2) -- (A1);
-    \node[right=4pt, blue!80!black, font=\bfseries] at ($(W2)!0.6!(A1)$) {$\Delta L_2 = B\sin\theta_2$};
-    
-    % Baseline line
-    \draw[line width=1.6pt, ink] (A1) -- (A2) node[midway, below=6pt] {\textbf{Baseline} $B$};
-    \fill[astroblue] (A1) circle (3pt) node[below left=2pt] {\textbf{Antenna 1} ($A_1$)};
-    \fill[astroblue] (A2) circle (3pt) node[below right=2pt] {\textbf{Antenna 2} ($A_2$)};
-    
-    % Angle arcs at A2
-    \draw[->, thick, red!80!black] (\B, 2.2) arc (90:{90-\thOne}:2.2) node[midway, above] {$\theta_1$};
-    \draw[->, thick, blue!80!black] (\B, 3.2) arc (90:{90-\thTwo}:3.2) node[midway, above right] {$\theta_2$};
-    
-    % Angle arcs at A1
-    \draw[->, thick, red!80!black] (0, 2.2) arc (90:{90-\thOne}:2.2) node[midway, above] {$\theta_1$};
-    \draw[->, thick, blue!80!black] (0, 3.2) arc (90:{90-\thTwo}:3.2) node[midway, above right] {$\theta_2$};
-    
-    % Source labels at top
-    \node[red!80!black, right=2pt, font=\bfseries] at (S1_A2) {Source 1};
-    \node[blue!80!black, right=2pt, font=\bfseries] at (S2_A2) {Source 2};
-\end{tikzpicture}
+\includegraphics{fig_ch5_interferometer_two_sources.pdf}
 \caption{Geometric optical path delays for two distinct sources observed by a two-element interferometer of baseline $B$. Wavefronts from Antenna 2 ($A_2$) strike the rays entering Antenna 1 ($A_1$) at right angles ($90^\circ$), defining the respective geometric lags $\Delta L_1 = B\sin\theta_1$ and $\Delta L_2 = B\sin\theta_2$.}
 \label{fig:interferometer_two_sources}
 \end{figure}
@@ -435,57 +246,7 @@ In a Cassegrain reflector telescope, incoming parallel light rays from infinity 
 \begin{figure}[htbp]
 \centering
 \resizebox{0.95\textwidth}{!}{
-\begin{tikzpicture}[scale=1.0, >=Stealth]
-    \def\D{3.0}     % Primary diameter (30 cm scaled)
-    \def\d{7.5}     % Mirror distance (0.75 m scaled)
-    \def\b{1.875}   % Secondary diameter (18.75 cm scaled)
-    \def\a{5.0}     % CCD distance (0.5 m scaled)
-    \def\F{-12.5}   % Primary focus (2.0 m scaled -> 20 units left of primary at 7.5)
-    
-    % Background shading for the similar triangle
-    \fill[orange!10] (\d, 1.5) -- (\F, 0) -- (\d, -1.5) -- cycle;
-    
-    % Virtual rays continuing to the Primary Focus (completes the similar triangle)
-    \draw[dotted, orange, ultra thick] (0, \b/2) -- (\F, 0);
-    \draw[dotted, orange, ultra thick] (0, -\b/2) -- (\F, 0);
-    \fill[orange] (\F, 0) circle (3pt) node[below=2mm] {\Large Focus};
-    
-    % Mark overall Focal Length (F = 2.0m) at the top
-    \draw[|-|, thick, orange] (\F, 2.5) -- (\d, 2.5) node[midway, above] {\Large $F = 2.0\text{ m}$ (Focal Length)};
-
-    % Incoming Rays from infinity (aligned with the edges of the primary mirror)
-    \draw[dashed, red, thick, ->] (-3, 1.5) -- (\d, 1.5);
-    \draw[dashed, red, thick, ->] (-3, -1.5) -- (\d, -1.5);
-    
-    % Primary Mirror
-    \fill[yellow!60] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5) -- cycle;
-    \fill[yellow!60] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5) -- cycle;
-    \draw[ultra thick, green!60!black] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5);
-    \draw[ultra thick, green!60!black] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5);
-    
-    % Secondary Mirror
-    \draw[ultra thick, teal] (0, \b/2) -- (0, -\b/2) node[midway, left=2mm, text=teal] {\Large $b$};
-    
-    % Reflected converging rays from primary to secondary
-    \draw[dashed, red, thick, ->] (\d, 1.5) -- (0, \b/2);
-    \draw[dashed, red, thick, ->] (\d, -1.5) -- (0, -\b/2);
-    
-    % Reflected rays from secondary to CCD
-    \draw[dashed, red, thick, ->] (0, \b/2) -- (\d+\a, 0);
-    \draw[dashed, red, thick, ->] (0, -\b/2) -- (\d+\a, 0);
-    
-    % CCD at focal plane
-    \draw[ultra thick, blue!80!black] (\d+\a, 0.6) -- (\d+\a, -0.6) node[below=2mm] {\Large CCD};
-    \fill[red] (\d+\a, 0) circle (2.5pt);
-    
-    % Continuous bottom dimension lines showing the geometry
-    \draw[|-|, thick, teal] (\F, -2.4) -- (0, -2.4) node[midway, below] {\Large $1.25\text{ m}$};
-    \draw[|-|, thick, blue] (0, -2.4) -- (\d, -2.4) node[midway, below] {\Large $0.75\text{ m}$};
-    \draw[|-|, thick, blue] (\d, -2.4) -- (\d+\a, -2.4) node[midway, below] {\Large $a = 0.50\text{ m}$};
-    
-    % Primary Mirror Aperture Dimension
-    \draw[|-|, thick, green!60!black] (\d+0.6, -1.5) -- (\d+0.6, 1.5) node[midway, right] {\Large $30\text{ cm}$};
-\end{tikzpicture}
+\includegraphics{fig_ch5_cassegrain_geometry.pdf}
 }
 \caption{Cassegrain reflector telescope: similar-triangle geometry used to compute secondary mirror size $b$ and CCD focal distance $a$.}
 \label{fig:cassegrain_geometry}
@@ -514,95 +275,7 @@ In a Cassegrain reflector telescope, incoming parallel light rays from infinity 
 
 \begin{figure}[htbp]
     \centering
-    \begin{tikzpicture}[
-        >=Stealth,
-        font=\sffamily\small,
-        ray/.style={thick, color=black},
-        marginal/.style={thin, color=black!25} % Faded style for marginal/off-axis non-chief rays
-    ]
-
-        % Coordinates & Parameters
-        \coordinate (LensCenter) at (0,0);
-        \def\FocalLength{4.5}
-        \def\ImageOffset{1.6} % Height y of off-axis image B
-        
-        \coordinate (ImageA) at (\FocalLength, 0);            % Center focal point (Image A)
-        \coordinate (ImageB) at (\FocalLength, \ImageOffset);   % Off-axis focal point (Image B)
-        
-        % Focal Plane Line & Bottom Text
-        \draw[thick] (\FocalLength, -2.5) -- (\FocalLength, 2.5);
-        \node[below=4pt, align=center] at (\FocalLength, -2.5) {FOCAL\\PLANE};
-        
-        % Lens
-        \draw[thick, fill=blue!5, draw=black] 
-            (-0.25,-1.8) to[out=20, in=-20] (-0.25, 1.8) 
-            to[out=-160, in=160] (-0.25,-1.8);
-
-        % Optical Axis (Reference line)
-        \draw[dashed, gray!40] (-6,0) -- (\FocalLength+0.5,0);
-
-        % ================= SOURCE A (On-Axis: 3 Rays) =================
-        % Ray A1 (Top horizontal ray - Faded)
-        \draw[marginal] (-5.5, 0.8) -- (0, 0.8) -- (ImageA);
-        \draw[marginal] (-5.5, 0.8) -- (-2.75, 0.8) [arrows={-Stealth}];
-        \draw[marginal] (0, 0.8) -- ($(0,0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
-
-        % Ray A2 (Central optical axis ray / Chief Ray - Main Focus)
-        \draw[ray] (-5.5, 0) -- (LensCenter) -- (ImageA);
-        \draw[ray] (-5.5, 0) -- (-2.75, 0) [arrows={-Stealth}];
-        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageA)$) [arrows={-Stealth}];
-
-        % Ray A3 (Bottom horizontal ray - Faded)
-        \draw[marginal] (-5.5, -0.8) -- (0, -0.8) -- (ImageA);
-        \draw[marginal] (-5.5, -0.8) -- (-2.75, -0.8) [arrows={-Stealth}];
-        \draw[marginal] (0, -0.8) -- ($(0,-0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
-
-
-        % ================= SOURCE B (Off-Axis: 3 Rays at Angle theta) =================
-        % Ray B1 (Upper angled ray entering lens at y = 0.7 - Faded)
-        \coordinate (B_start_top) at (-5.5, {0.7 - 5.5 * (\ImageOffset / \FocalLength)});
-        \draw[marginal] (B_start_top) -- (0, 0.7) -- (ImageB);
-        \draw[marginal] (B_start_top) -- ($0.5*(B_start_top)+0.5*(0,0.7)$) [arrows={-Stealth}];
-        \draw[marginal] (0, 0.7) -- ($(0,0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
-
-        % Ray B2 (Central chief ray through lens center - Main Focus)
-        \coordinate (B_start_chief) at (-5.5, {-5.5 * (\ImageOffset / \FocalLength)});
-        \draw[ray] (B_start_chief) -- (LensCenter) -- (ImageB);
-        \draw[ray] (B_start_chief) -- ($0.5*(B_start_chief)+0.5*(LensCenter)$) [arrows={-Stealth}];
-        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageB)$) [arrows={-Stealth}];
-
-        % Ray B3 (Lower angled ray entering lens at y = -0.7 - Faded)
-        \coordinate (B_start_lower) at (-5.5, {-0.7 - 5.5 * (\ImageOffset / \FocalLength)});
-        \draw[marginal] (B_start_lower) -- (0, -0.7) -- (ImageB);
-        \draw[marginal] (B_start_lower) -- ($0.5*(B_start_lower)+0.5*(0,-0.7)$) [arrows={-Stealth}];
-        \draw[marginal] (0, -0.7) -- ($(0,-0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
-
-
-        % ================= LABELS & MARKS =================
-        % Angle theta mark
-        \draw [thick] (1.3,0) arc (0:19.5:1.2);
-        \node at (1.5, 0.25) {$\theta$};
-
-        % Source & Image Labels
-        \node[left] at (-5.5, 0) {FROM SOURCE A};
-        \node[left] at (-5.5, -2.2) {FROM SOURCE B};
-
-        \draw[thin] (ImageB) -- (\FocalLength+0.8, 2.0) node[right] {IMAGE OF SOURCE B};
-        \draw[thin] (ImageA) -- (\FocalLength+0.8, -0.4) node[right] {IMAGE OF SOURCE A};
-
-        % Dimension y (displacement on focal plane)
-        \draw[<->, thick] (\FocalLength+0.3, 0) -- (\FocalLength+0.3, \ImageOffset) 
-            node[midway, right] {$y$};
-        \draw[thin, gray] (ImageA) -- (\FocalLength+0.4, 0);
-        \draw[thin, gray] (ImageB) -- (\FocalLength+0.4, \ImageOffset);
-
-        % Dimension F (focal length)
-        \draw[<->, thick] (-0.25, -1.8) -- (\FocalLength, -1.8) 
-            node[midway, fill=white, inner sep=2pt] {$F$};
-        \draw[thin, gray] (-0.25, -1.5) -- (-0.25, -2.0);
-        \draw[thin, gray] (\FocalLength, -0.2) -- (\FocalLength, -2.0);
-
-    \end{tikzpicture}
+    \includegraphics{fig_ch5_telescope_ray_diagram.pdf}
     \caption{Ray diagram illustrating angular resolution of two point sources, highlighting the central chief rays while marginal rays are faded for visual clarity.}
     \label{fig:telescope_ray_diagram}
 \end{figure}
@@ -669,19 +342,22 @@ which relates the two scales.
 \section{Diffraction Wave Optics: Superposition, Apertures, and Resolution Limits}
 \label{sec:diffraction}
 
-The two-antenna argument of Section~\ref{sec:baselines} was really a first taste of the interference story: two point-like collectors, separated by a baseline $B$, produce a fringe pattern, and shifting that fringe by one full cycle marked the resolution limit $\theta_{\rm res} = \lambda/B$. A single telescope aperture is the continuous version of exactly this idea --- instead of two point antennas, an entire continuum of points across the mirror interferes with itself. Formalizing this continuum limit is the job of \textbf{Fraunhofer diffraction}, and it is what ultimately limits the sharpness of every image any telescope, of any size, can ever produce.
+The two-antenna argument of Section~\ref{sec:baselines} introduced the central concept of wave interference: two point-like collectors separated by a baseline $B$ produce an interference fringe pattern, and distinguishing two astronomical sources requires shifting that fringe by one full cycle ($\theta_{\rm res} \sim \lambda/B$). A single telescope aperture is the continuous extension of this exact principle: rather than two discrete antennas, an entire two-dimensional continuum of points across the primary mirror interferes with itself. This self-interference of waves is the domain of \textbf{Fraunhofer diffraction}, and it sets the fundamental, wave-optical resolution limit of any telescope.
 
-Before the mathematics, the physical idea in one paragraph: light is a wave, and a wave passing through any finite opening cannot continue onward as a perfectly parallel beam --- it inevitably spreads out (bends) into a range of angles, an effect called \textbf{diffraction}. The narrower the opening is relative to the wavelength, the more the wave spreads. A telescope aperture, however large, is still a finite opening, so even a perfect, aberration-free mirror does not form a point image of a star but rather a smeared-out \textbf{diffraction pattern}; this is the hard physical floor beneath which no amount of manufacturing precision can push the resolution. The subsections below build this pattern up rigorously and in increasing realism: first a single narrow slit, then a grating of many slits (useful for spectroscopy), and finally the circular aperture relevant to actual telescope mirrors.
+\paragraph{The Physical Picture:}
+Light from a distant star arrives at the top of the telescope as a uniform plane wave. If light were purely a stream of geometric rays, a perfect parabolic mirror would focus this light into an infinitely small mathematical point. However, light is an electromagnetic wave. When a planar wavefront is clipped by a finite aperture of diameter $D$, it inevitably bends and spreads into an angular pattern. Even with perfectly figured optics in space (such as the Hubble Space Telescope or JWST), wave diffraction smears a stellar point source into an extended \textbf{Point Spread Function} (PSF). 
 
-In wave optics, the spatial and chromatic resolution of an astronomical instrument is fundamentally limited by Fraunhofer diffraction. While constructive interference determines the directions of principal bright maxima, the resolution threshold is governed by the \textbf{first destructive minimum} (null) created by phase interference across the aperture.
+In this section, we build this wave-optical diffraction pattern step by step: first establishing the linear superposition principle, analyzing the baseline 1D single slit and the $N$-slit spectroscopic grating, rigorously deriving the 2D circular Airy disk and the origin of its famous $1.22$ geometric factor, and finally comparing the standard resolution criteria for astronomical observations.
 
 \subsection{Physical Principle: Diffraction as Linear Superposition of Wavelets}
 
-Diffraction is simply the \textbf{linear Superposition Principle} applied to wave propagation: by Huygens' construction, every point in an illuminated aperture acts as a new source of an outgoing spherical wavelet, and the field observed at any point downstream is the coherent sum of all these wavelets, each carrying its own phase set by how far it has travelled. In telescope optics, the field across the pupil plane is determined in three direct steps:
+Diffraction is a direct consequence of the \textbf{linear Superposition Principle} governing wave propagation. Under the \textbf{Huygens--Fresnel principle}, every unobstructed point in an illuminated aperture acts as a coherent source of an outgoing spherical secondary wavelet. The total electric field observed at any downstream focal-plane position is simply the coherent linear sum (surface integral) of all these secondary wavelets, each weighted by the optical path length it has travelled.
+
+In telescope optics, the field across the pupil plane is structured in three steps:
 \begin{enumerate}
-	\item \textbf{Incident Starlight Wave:} Light from an unresolved distant star arrives at the telescope as a uniform, planar wavefront: $E_{\rm inc}(x,y) = E_0 = \text{const}$.
-	\item \textbf{Pupil Transmission Mask $t(x,y)$:} The physical opening (mirror boundary, rectangular slit, grating grooves, or secondary obstruction) defines a spatial mask: $t=1$ where light enters, and $t=0$ where blocked.
-	\item \textbf{Exit Pupil Field $A(x,y)$:} The field emerging immediately after the aperture is the product:
+	\item \textbf{Incident Starlight Wave:} Light from an unresolved distant star arrives as a uniform, planar wavefront of amplitude $E_{\rm inc}(x,y) = E_0 = \text{const}$.
+	\item \textbf{Pupil Transmission Mask $t(x,y)$:} The physical opening (mirror boundary, rectangular slit, grating grooves, or secondary obstruction) defines a spatial transmission mask: $t=1$ where light enters unobstructed, and $t=0$ where blocked by baffles or spiders.
+	\item \textbf{Exit Pupil Field $A(x,y)$:} The field immediately behind the aperture is the product:
 	\begin{equation}
 		A(x,y) = E_{\rm inc}(x,y) \cdot t(x,y) = \begin{cases}
 			E_0, & \text{inside open aperture}, \\
@@ -776,47 +452,60 @@ Diffraction is simply the \textbf{linear Superposition Principle} applied to wav
 \label{fig:huygens_superposition_principle}
 \end{figure}
 
-According to the \textbf{Huygens--Fresnel principle}, every point $(x,y)$ across the open aperture emits a coherent secondary wavelet. Write a general far-field observation direction in full three-dimensional, spherical-polar form about the optical axis $\hat z$:
+Consider an observation direction in spherical-polar angles about the optical axis $\hat z$:
 \begin{equation}
 	\hat{\mathbf k} = (\sin\theta\cos\phi,\ \sin\theta\sin\phi,\ \cos\theta),
 	\label{eq:khat_spherical}
 \end{equation}
-where $\theta$ is the angle between $\hat{\mathbf k}$ and the axis and $\phi$ is the azimuth around it. A wavelet launched from the aperture point $(x,y,0)$ then travels an extra path, relative to one launched from the origin, of $\Delta L = \mathbf r \cdot \hat{\mathbf k} = x\sin\theta\cos\phi + y\sin\theta\sin\phi$, exact at any obliquity, with no approximation yet made.
+where $\theta$ is the off-axis angular displacement and $\phi$ is the azimuth. Relative to the origin $(0,0,0)$, a wavelet emitted from aperture position $(x,y,0)$ travels an extra path distance $\Delta L = \mathbf r \cdot \hat{\mathbf k} = x\sin\theta\cos\phi + y\sin\theta\sin\phi$.
 
-Every diffraction angle of astronomical interest, however, is minuscule (arcseconds down to milliarcseconds, i.e.\ $\theta \ll 1\,\mathrm{rad}$), so $\sin\theta \approx \theta$ and $\cos\theta \approx 1$ in Eq.~\eqref{eq:khat_spherical}, and it becomes natural to define the two small Cartesian angle components
+In astronomical imaging, all angles of interest are extremely small ($\theta \ll 1\,\mathrm{rad}$, typically arcseconds). Defining the Cartesian angular components on the sky:
 \[
 \theta_x \equiv \theta\cos\phi, \qquad \theta_y \equiv \theta\sin\phi,
 \]
-so that $\theta = \sqrt{\theta_x^2+\theta_y^2}$ is the total angular offset from the axis and $\phi = \arctan(\theta_y/\theta_x)$ its azimuth. In this small-angle limit, $\sin\theta_x \approx \theta_x$ and $\sin\theta_y \approx \theta_y$ as well, so the path lag takes the working form used throughout this section: in a direction $(\theta_x, \theta_y)$, a wavelet incurs an optical path lag $\Delta L \approx x\sin\theta_x + y\sin\theta_y \approx x\theta_x + y\theta_y$ and phase shift $\Delta\phi = k(x\sin\theta_x + y\sin\theta_y)$. Superposing all wavelets gives the \textbf{Fraunhofer Fourier integral}:
+the small-angle path delay simplifies to $\Delta L \approx x\theta_x + y\theta_y$, corresponding to a phase shift $\Delta\Phi = k\Delta L = \frac{2\pi}{\lambda}(x\theta_x + y\theta_y)$. 
+
+Summing all wavelets across the aperture yields the fundamental \textbf{Fraunhofer Fourier integral}:
 \begin{keyresult}
 	\begin{equation}
-		E(\vec{k}) = \iint_{\mathbb{R}^2} A(\vec{r}) e^{-i \vec{k} \cdot \vec{r}} \, d^2r, \qquad I(\vec{\theta}) = |E(\vec{\theta})|^2,
+		E(\vec{k}) = \iint_{\mathbb{R}^2} A(\vec{r})\, e^{-i \vec{k} \cdot \vec{r}} \, d^2r, \qquad I(\vec{\theta}) = |E(\vec{\theta})|^2,
 		\label{eq:fourier_optics_integral}
 	\end{equation}
-	where $\vec{k} = \left(\frac{2\pi}{\lambda}\sin\theta_x, \, \frac{2\pi}{\lambda}\sin\theta_y\right)$ represents the spatial frequency on the sky.
+	where $\vec{k} = \left(\frac{2\pi}{\lambda}\theta_x, \, \frac{2\pi}{\lambda}\theta_y\right)$ is the angular spatial frequency vector on the sky.
 \end{keyresult}
+In physical terms, the complex electric field amplitude at the telescope focal plane is simply the two-dimensional spatial Fourier transform of the entrance pupil transmission mask.
 
-\subsection{Single-Slit Diffraction: Geometric and Fourier Derivations}
+\subsection{Single-Slit Diffraction: The 1D Cancellation Baseline}
 
-Consider a slit of width $a$ illuminated normally by monochromatic light of wavelength $\lambda$.
+To build intuition before treating the two-dimensional circular mirror, consider first a one-dimensional rectangular slit of width $a$ illuminated normally by monochromatic light of wavelength $\lambda$.
 
-\paragraph{Geometric Zone-Pairing:} Subdivide the slit into two equal halves $[ -a/2, 0 ]$ and $[ 0, a/2 ]$. For every ray from $x$ in the top half, pair it with a ray from $x + a/2$ in the bottom half. Complete destructive cancellation occurs when their path difference is $\frac{\lambda}{2}$:
+\paragraph{Geometric Zone-Pairing Mechanism:}
+Why does a diffraction pattern have dark fringes? Subdivide the slit into two equal halves: the upper half $[0, a/2]$ and the lower half $[-a/2, 0]$. For every point $x$ in the lower half, there exists an identical corresponding point $x + a/2$ in the upper half. The geometric path difference between these paired rays at diffraction angle $\theta$ is $\Delta L = (a/2)\sin\theta$.
+
+Complete destructive cancellation occurs across the entire slit simultaneously when this path difference equals half a wavelength ($\lambda/2$):
 \begin{equation}
 	\frac{a}{2}\sin\theta = \frac{\lambda}{2} \implies a\sin\theta = \lambda \implies \theta_{\rm min} \approx \frac{\lambda}{a}.
 	\label{eq:single_slit_minimum}
 \end{equation}
+Notice that for a 1D slit of uniform height, the geometric factor multiplying $\lambda/a$ is exactly $\mathbf{1.00}$.
 
-\paragraph{Fourier Integration:} Integrating $E(\theta) = \int_{-a/2}^{a/2} \frac{E_0}{a} e^{-i k x \sin\theta} dx = E_0 \frac{\sin\beta}{\beta}$ yields the intensity:
+\paragraph{Analytical Fourier Integration:}
+Integrating the continuous wavelet field across the slit from $x = -a/2$ to $+a/2$:
+\begin{equation}
+	E(\theta) = \int_{-a/2}^{a/2} \frac{E_0}{a} e^{-i k x \sin\theta} \, dx = E_0 \left[ \frac{e^{-i k (a/2)\sin\theta} - e^{i k (a/2)\sin\theta}}{-i k a \sin\theta} \right] = E_0 \frac{\sin\beta}{\beta},
+\end{equation}
+where $\beta \equiv \frac{\pi a\sin\theta}{\lambda} \approx \frac{\pi a\theta}{\lambda}$. The observable intensity is:
 \begin{keyresult}
 	\begin{equation}
 		I(\theta) = I_0 \operatorname{sinc}^2(\beta) = I_0 \left[ \frac{\sin\left(\frac{\pi a\sin\theta}{\lambda}\right)}{\frac{\pi a\sin\theta}{\lambda}} \right]^2.
 		\label{eq:single_slit_intensity}
 	\end{equation}
 \end{keyresult}
+The first null occurs where $\beta = \pi$, giving $\sin\theta_1 = \lambda/a \implies \theta_1 \approx \lambda/a$. The central diffraction maximum contains $90.3\%$ of the total transmitted energy.
 
 \subsection{$N$-Slit Diffraction Grating: Dispersion and Resolving Power}
 
-A diffraction grating consists of $N$ parallel slits of width $a$ separated by center-to-center pitch $d$, covering a total illuminated width $W \approx N d$.
+An astronomical diffraction grating consists of $N$ identical parallel slits of width $a$, spaced at center-to-center pitch $d$, spanning a total physical illuminated width $W \approx N d$.
 
 \begin{figure}[htbp]
 \centering
@@ -946,13 +635,15 @@ A diffraction grating consists of $N$ parallel slits of width $a$ separated by c
 \end{figure}
 
 \subsubsection{Derivation of the Grating Intensity Profile}
-Summing the Fraunhofer fields across all $N$ slits with adjacent phase delay $\delta = \frac{2\pi d}{\lambda}\sin\theta = 2\gamma$:
+Each slit produces a diffracted field modulated by the single-slit envelope $\frac{\sin\beta}{\beta}$. Adjacent slits introduce a mutual path delay $\Delta L = d\sin\theta$, corresponding to a phase delay $\delta = \frac{2\pi d}{\lambda}\sin\theta = 2\gamma$, where $\gamma \equiv \frac{\pi d}{\lambda}\sin\theta$.
+
+Summing the coherent fields across all $N$ slits:
 \begin{align}
 	E(\theta) &= \left[E_0 \frac{\sin\beta}{\beta}\right] \sum_{n=0}^{N-1} e^{-i n \delta} = \left[E_0 \frac{\sin\beta}{\beta}\right] \left(\frac{1 - e^{-i N\delta}}{1 - e^{-i\delta}}\right) \notag\\
 	&= E_0 \left(\frac{\sin\beta}{\beta}\right) \left[\frac{\sin(N\gamma)}{\sin\gamma}\right] e^{-i(N-1)\gamma},
 	\label{eq:n_slit_field_sum}
 \end{align}
-where $\beta = \frac{\pi a}{\lambda}\sin\theta$ and $\gamma = \frac{\pi d}{\lambda}\sin\theta$. Squaring yields the intensity:
+Taking the absolute square $I(\theta) = |E(\theta)|^2$ yields the total intensity distribution:
 \begin{keyresult}
 	\begin{equation}
 		I(\theta) = I_0 \underbrace{\left(\frac{\sin\beta}{\beta}\right)^2}_{\text{Single-slit envelope}} \times \underbrace{\left(\frac{\sin N\gamma}{\sin\gamma}\right)^2}_{\text{$N$-beam interference factor}}.
@@ -962,17 +653,21 @@ where $\beta = \frac{\pi a}{\lambda}\sin\theta$ and $\gamma = \frac{\pi d}{\lamb
 
 \subsubsection{Key Properties: Maxima, Minima, and Resolving Power}
 \begin{enumerate}
-	\item \textbf{Principal Maxima (The Grating Equation):} When $\sin\gamma = 0 \implies \gamma = m\pi$, the factor $\frac{\sin N\gamma}{\sin\gamma} \to N$. The peak intensity scales as $I_{\rm peak} = N^2 I_0$, yielding the standard \textbf{Grating Equation}:
+	\item \textbf{Principal Maxima (The Grating Equation):} 
+	When $\gamma = m\pi$ ($m \in \mathbb{Z}$), all $N$ beams interfere in phase. The quotient $\frac{\sin(N\gamma)}{\sin\gamma} \to N$, concentrating the energy into extremely narrow, intense peaks with $I_{\rm peak} = N^2 I_0$. For incident angle $\theta_i$ and diffracted angle $\theta_m$, this yields the \textbf{Grating Equation}:
 	\begin{equation}
 		d\left(\sin\theta_m + \sin\theta_i\right) = m\lambda \qquad (m \in \mathbb{Z}).
 		\label{eq:grating_equation}
 	\end{equation}
-	\item \textbf{Destructive Minima \& Angular Width:} The first zero next to the $m$-th peak occurs when $N\gamma = N m\pi + \pi$, corresponding to:
+	\item \textbf{Destructive Minima and Spectral Line Width:} 
+	The principal peak drops to zero when the numerator vanishes, $N\gamma = N m\pi + \pi$. The resulting angular half-width between the peak and its first minimum is:
 	\begin{equation}
-		\Delta\theta_{\rm grating} = \frac{\lambda}{N d\cos\theta_m} = \frac{\lambda}{W_{\rm eff}}.
+		\Delta\theta_{\rm grating} = \frac{\lambda}{N d\cos\theta_m} = \frac{\lambda}{W_{\rm eff}},
 		\label{eq:grating_angular_width}
 	\end{equation}
-	\item \textbf{Chromatic Resolving Power ($\mathcal{R} \equiv \lambda/\Delta\lambda$):} By the Rayleigh criterion, two wavelengths $\lambda$ and $\lambda + \Delta\lambda$ are just resolved when the maximum of one falls on the first minimum of the other:
+	where $W_{\rm eff} = W\cos\theta_m$ is the projected width of the illuminated grating.
+	\item \textbf{Chromatic Resolving Power ($\mathcal{R} \equiv \lambda/\Delta\lambda$):} 
+	According to the Rayleigh criterion, two nearby spectral lines at $\lambda$ and $\lambda + \Delta\lambda$ are barely resolved when the peak of one falls on the first zero of the other:
 	\begin{equation}
 		m(\lambda + \Delta\lambda) = m\lambda + \frac{\lambda}{N} \implies m\Delta\lambda = \frac{\lambda}{N}.
 	\end{equation}
@@ -982,19 +677,65 @@ where $\beta = \frac{\pi a}{\lambda}\sin\theta$ and $\gamma = \frac{\pi d}{\lamb
 		\mathcal{R} \equiv \frac{\lambda}{\Delta\lambda} = m N = \frac{W\left(\sin\theta_m + \sin\theta_i\right)}{\lambda}.
 		\label{eq:grating_resolving_power}
 	\end{equation}
-	The resolving power equals the product of the diffraction order $m$ and the number of illuminated grooves $N$, and scales directly with the total physical grating width $W$.
 \end{keyresult}
+In astronomical spectroscopy, Eq.~\eqref{eq:grating_resolving_power} conveys a vital physical insight: \textbf{the resolving power of a spectrograph is simply the total optical path delay between the extreme edges of the grating, measured in wavelengths}. This is why high-resolution spectrographs (such as HARPS or ESPRESSO, reaching $\mathcal{R} > 100{,}000$ for exoplanet radial velocity searches) require very large physical gratings ($W \sim 20\text{--}80\,\mathrm{cm}$) operated in high diffraction orders ($m \gg 1$).
 
-\subsection{Circular Aperture: The Airy Disk and the Rayleigh Criterion}
+\subsection{Circular Apertures and the Airy Disk: Derivation of the $1.22$ Factor}
 
-The slit and grating results above are essential for spectroscopy, but an actual telescope mirror is a circular (or annular, for a Cassegrain) opening, not a slit --- so we must redo the same Fraunhofer superposition in two dimensions. For a circular telescope pupil of diameter $D$ ($R = D/2$), transforming the 2D Fourier integral into polar coordinates $(r', \phi')$ yields:
+Astronomical telescopes do not use narrow rectangular slits; their primary collecting elements are circular mirrors or lenses of diameter $D$ (radius $R = D/2$). 
+
+\paragraph{Physical Intuition: Why $1.22$ Instead of $1.00$?}
+For a rectangular slit of width $a$, every slice across the slit has the exact same height and area. Pairing opposite halves $[-a/2, 0]$ and $[0, a/2]$ provides a 1-to-1 cancellation of equal-amplitude wavelets, achieving complete destructive interference at $\theta = \lambda/a$.
+
+In a circular aperture of diameter $D$, however, the chord length varies continuously from zero at the rim ($y = \pm D/2$) to a maximum of $D$ across the center ($y = 0$). Slices near the central equator contain much more collecting area and emit significantly higher wavelet amplitude than slices near the edges. When the path delay between opposite edges reaches $\lambda$, the weaker wavelets from the narrow edges cannot completely cancel the stronger wavelets from the wide center. To achieve complete phase cancellation across the entire two-dimensional circular surface, the angle must open up further by approximately $22\%$ ($\theta_1 \approx 1.22\lambda/D$).
+
+\subsubsection{Step-by-Step Derivation of the Airy Profile}
+We now derive this result from first principles using linear wave superposition.
+
+\paragraph{Step 1: 2D Surface Integral in Polar Coordinates.}
+Let a circular pupil of radius $R = D/2$ be illuminated by a uniform plane wave of amplitude $E_0$. Choose polar coordinates $(r', \phi')$ in the pupil plane ($r' \in [0, D/2]$, $\phi' \in [0, 2\pi]$).
+
+Consider the diffracted wave propagating toward an off-axis angle $\theta$. By circular symmetry, the pattern depends only on $\theta$ and is azimuthally symmetric. Choosing the observation direction along $\phi = 0$, a wavelet originating from position $(r', \phi')$ travels an extra path distance $\Delta L = r'\sin\theta\cos\phi' \approx r'\theta\cos\phi'$, giving phase lag $\Delta\Phi = k r'\theta\cos\phi'$ with wavenumber $k = 2\pi/\lambda$.
+
+The total diffracted field amplitude is the coherent sum of all secondary wavelets over the circular area:
 \begin{equation}
-	E(\theta) = \int_0^{D/2} r'\,dr' \int_0^{2\pi} e^{-i k r' \sin\theta \cos\phi'}\,d\phi' = 2\pi \int_0^{D/2} r' J_0(k r' \sin\theta)\,dr'.
+	E(\theta) = \int_0^{D/2} r'\,dr' \int_0^{2\pi} e^{-i k r' \theta \cos\phi'}\,d\phi'.
 \end{equation}
-Using the identity $\int u J_0(u) du = u J_1(u)$, where $J_1$ is the first-order Bessel function:
+
+\paragraph{Step 2: Azimuthal Integration via the Bessel Function $J_0$.}
+Recall the integral representation of the zero-order Bessel function of the first kind:
+\begin{equation}
+	J_0(z) = \frac{1}{2\pi}\int_0^{2\pi} e^{-i z \cos\phi'}\,d\phi'.
+\end{equation}
+Substituting this into the field integral resolves the angular integral immediately:
+\begin{equation}
+	E(\theta) = 2\pi \int_0^{D/2} r' J_0(k r' \theta)\,dr'.
+\end{equation}
+
+\paragraph{Step 3: Radial Integration and the $J_1$ Identity.}
+To evaluate the radial integral, introduce the dimensionless variable $x \equiv k r' \theta$, so that $r' = \frac{x}{k\theta}$ and $dr' = \frac{dx}{k\theta}$. The upper integration limit at $r' = D/2$ is:
+\begin{equation}
+	v \equiv k\left(\frac{D}{2}\right)\theta = \left(\frac{2\pi}{\lambda}\right)\left(\frac{D}{2}\right)\theta = \frac{\pi D \theta}{\lambda}.
+\end{equation}
+The field integral transforms to:
+\begin{equation}
+	E(\theta) = 2\pi \int_0^v \left(\frac{x}{k\theta}\right) J_0(x) \left(\frac{dx}{k\theta}\right) = \frac{2\pi}{(k\theta)^2} \int_0^v x J_0(x)\,dx.
+\end{equation}
+Using the standard Bessel recurrence and integration identity:
+\begin{equation}
+	\int_0^u x J_0(x)\,dx = u J_1(u),
+\end{equation}
+where $J_1$ is the first-order Bessel function of the first kind, we obtain:
+\begin{equation}
+	E(\theta) = \frac{2\pi}{(k\theta)^2} \cdot v J_1(v) = 2\pi\left(\frac{v}{k\theta}\right)^2 \frac{J_1(v)}{v} = \left[\pi\left(\frac{D}{2}\right)^2\right] \left[ \frac{2 J_1(v)}{v} \right].
+\end{equation}
+Here, $A_{\rm pup} = \pi(D/2)^2 = \frac{\pi D^2}{4}$ is the physical collecting area of the telescope aperture. In the on-axis limit ($\theta \to 0 \implies v \to 0$), the limit $\lim_{v\to 0}\frac{2J_1(v)}{v} = 1$, giving the on-axis amplitude $E(0) = E_0 A_{\rm pup}$.
+
+\paragraph{Step 4: The Airy Intensity Profile.}
+Squaring the normalized field amplitude yields the celebrated \textbf{Airy disk intensity profile}:
 \begin{keyresult}
 	\begin{equation}
-		I(\theta) = I_0 \left[ \frac{2 J_1(v)}{v} \right]^2, \qquad \text{with} \quad v = \frac{\pi D \sin\theta}{\lambda}.
+		I(\theta) = I_0 \left[ \frac{2 J_1(v)}{v} \right]^2, \qquad \text{with} \quad v = \frac{\pi D \sin\theta}{\lambda} \approx \frac{\pi D \theta}{\lambda}.
 		\label{eq:airy_disk_intensity}
 	\end{equation}
 \end{keyresult}
@@ -1006,23 +747,46 @@ Using the identity $\int u J_0(u) du = u J_1(u)$, where $J_1$ is the first-order
     \label{fig:diffraction_pdf_diagram}
 \end{figure}
 
-The first dark ring occurs at the first non-zero zero of $J_1(v)$, which is $v_1 \approx 3.8317$:
+\paragraph{Step 5: Origin of the $1.22$ Factor (The First Dark Ring).}
+The first dark ring (first destructive minimum / zero of the Airy pattern) occurs where the intensity drops to zero, which requires:
 \begin{equation}
-	\frac{\pi D \sin\theta_1}{\lambda} \approx 3.8317 \implies \sin\theta_1 \approx 1.2197\frac{\lambda}{D}.
+	J_1(v_1) = 0 \qquad (v_1 > 0).
+\end{equation}
+The first positive root of the Bessel function $J_1$ is a standard transcendental value:
+\begin{equation}
+	v_1 \approx 3.83170597\dots
+\end{equation}
+Equating this root to the definition of $v = \frac{\pi D \theta_1}{\lambda}$ yields the angular radius of the first dark ring:
+\begin{equation}
+	\frac{\pi D \theta_1}{\lambda} = 3.831706 \implies \theta_1 = \frac{3.831706}{\pi} \frac{\lambda}{D} \approx 1.21966989\dots \frac{\lambda}{D} \approx 1.22 \frac{\lambda}{D}.
 	\label{eq:airy_first_null}
 \end{equation}
-Under the small-angle approximation, this gives the standard \textbf{Rayleigh Resolution Criterion}:
+This is the rigorous mathematical origin of the factor $\mathbf{1.22}$ in telescope optics! 
+
+In the small-angle regime, this sets the classic \textbf{Rayleigh Resolution Criterion}:
 \begin{keyresult}
 	\begin{equation}
 		\theta_{\rm Rayleigh} \approx 1.22 \frac{\lambda}{D}\quad [\text{rad}] = 206{,}265 \times 1.22\frac{\lambda}{D}\quad [\text{arcsec}].
 		\label{eq:rayleigh_criterion_result}
 	\end{equation}
 \end{keyresult}
-The central Airy core encloses $83.8\%$ of the total incident energy. For a Cassegrain reflector with secondary mirror obscuration $\epsilon = d_{\rm sec}/D$, the annular field $E_{\rm ann}(v) \propto \frac{2J_1(v)}{v} - \epsilon^2\frac{2J_1(\epsilon v)}{\epsilon v}$ slightly narrows the core ($\theta \approx 1.15\lambda/D$), but scatters more energy into the bright outer diffraction rings ($6\text{--}8\%$).
+
+\subsubsection{Encircled Energy and Annular Obstruction Effects}
+\begin{itemize}
+	\item \textbf{Encircled Energy Budget:} The central Airy disk (interior to the first null at $\theta_1 = 1.22\lambda/D$) encloses $\mathbf{83.8\%}$ of the total light energy. The first bright diffraction ring (peak at $v \approx 5.14$, with relative intensity $I/I_0 \approx 1.75\%$) encloses $7.2\%$, the second ring encloses $2.8\%$, and the remainder decays into outer rings.
+	\item \textbf{Cassegrain Annular Obscuration:} In reflecting telescopes with a central secondary mirror of linear obscuration ratio $\epsilon = d_{\rm sec}/D$ (typically $\epsilon \sim 0.2\text{--}0.4$), Babinet's principle gives the annular diffracted field:
+	\begin{equation}
+		E_{\rm ann}(v) \propto \left[ \frac{2J_1(v)}{v} - \epsilon^2 \frac{2J_1(\epsilon v)}{\epsilon v} \right].
+	\end{equation}
+	The central obscuration slightly narrows the core diameter ($\theta_1 \approx 1.15\lambda/D$), but systematically transfers $6\text{--}8\%$ of the core energy into the bright outer diffraction rings. This reduces dynamic range and image contrast, a critical consideration for direct coronagraphic imaging of faint exoplanets around bright host stars.
+\end{itemize}
 
 \subsection{Resolution Criteria for Point-Source Imaging}
 
-When two incoherent point sources of equal intensity are separated by angle $\Delta\theta$, their intensities sum linearly: $I_{\rm tot}(\theta) = I(\theta + \Delta\theta/2) + I(\theta - \Delta\theta/2)$.
+When observing two incoherent, equal-brightness point sources (e.g., a visual binary star system) separated by angular distance $\Delta\theta$, their intensities add linearly:
+\begin{equation}
+	I_{\rm tot}(\theta) = I\left(\theta + \frac{\Delta\theta}{2}\right) + I\left(\theta - \frac{\Delta\theta}{2}\right).
+\end{equation}
 
 \begin{figure}[htbp]
 \centering
@@ -1162,32 +926,30 @@ When two incoherent point sources of equal intensity are separated by angle $\De
     \label{fig:rayleigh_diffraction_sinc}
 \end{figure}
 
-\begin{itemize}
-	\item \textbf{Rayleigh Criterion ($\theta_{\rm Rayleigh}$):} Peak of one PSF coincides with the first minimum of the second. Produces a \textbf{$19\%$ central dip} for 1D slits ($I_{\rm mid} = 0.81 I_0$) and a \textbf{$26.5\%$ central dip} for 2D circular Airy disks ($I_{\rm mid} \approx 0.735 I_0$).
-	\item \textbf{Sparrow Criterion ($\theta_{\rm Sparrow}$):} Point where the central dip disappears into a flat inflection plateau ($\left.\frac{d^2 I}{d\theta^2}\right|_{\theta=0} = 0$), yielding $\theta_{\rm Sp} \approx 0.83 \lambda/a$ (slit) and $\theta_{\rm Sp} \approx 0.94 \lambda/D$ (circular pupil).
-\end{itemize}
-
-\subsection{Summary Comparison and Worked Examples}
-
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{lp{4.0cm}llc}
-\toprule
-\textbf{Aperture Geometry} & \textbf{Intensity Profile $I(\theta)$} & \textbf{First Minimum ($\theta_{\rm min}$)} & \textbf{Resolution Limit} & \textbf{Core Energy} \\ 
-\midrule
-\textbf{Single Slit} ($a$)       & $I_0 \operatorname{sinc}^2\left(\frac{\pi a\sin\theta}{\lambda}\right)$ & $\frac{\lambda}{a}$ & $1.00 \frac{\lambda}{a}$ & $90.3\%$ \\
-\textbf{$N$-Slit Grating} ($d, N$) & $I_0 \operatorname{sinc}^2(\beta)\left[\frac{\sin N\gamma}{\sin\gamma}\right]^2$ & Peak Width: $\frac{\lambda}{Nd\cos\theta}$ & $\mathcal{R} = m N$ & $\propto N^2$ \\
-\textbf{Circular Pupil} ($D$)    & $I_0 \left[\frac{2J_1(v)}{v}\right]^2$ & $1.22\frac{\lambda}{D}$ & $1.22 \frac{\lambda}{D}$ & $83.8\%$ \\
-\textbf{Annular Pupil} ($\epsilon D, D$) & $I_0 \left[\frac{2J_1(v)}{v} - \epsilon^2 \frac{2J_1(\epsilon v)}{\epsilon v}\right]^2$ & $\approx 1.22(1-0.42\epsilon^2)\frac{\lambda}{D}$ & $\approx 1.15 \frac{\lambda}{D}$ & $\approx 65\text{--}75\%$ \\
-\bottomrule
-\end{tabular}
-\caption{Comparison of diffraction geometries, analytical intensity forms, first minima, and resolution limits.}
-\label{tab:aperture_resolution_comparison}
-\end{table}
+Two criteria are commonly used to characterize resolution in astronomical systems:
+\begin{enumerate}
+	\item \textbf{Rayleigh Criterion ($\theta_{\rm Rayleigh}$):} 
+	The central maximum of Source 1 coincides with the first diffraction minimum of Source 2 ($\Delta\theta = \theta_1$). 
+	\begin{itemize}
+		\item For a \textbf{1D slit} ($I \propto \operatorname{sinc}^2\beta$): $\Delta\theta = \lambda/a$, yielding a midpoint intensity dip of \textbf{$19\%$} ($I_{\rm mid} = 0.811 I_{\rm peak}$).
+		\item For a \textbf{2D circular Airy disk} ($I \propto [2J_1(v)/v]^2$): $\Delta\theta = 1.22\lambda/D$, producing a deeper midpoint dip of \textbf{$26.5\%$} ($I_{\rm mid} \approx 0.735 I_{\rm peak}$).
+	\end{itemize}
+	Historically, the Rayleigh criterion represented the empirical threshold where the human eye looking through an eyepiece could reliably detect a brightness dip between two equal stellar images.
+	\item \textbf{Sparrow Criterion ($\theta_{\rm Sparrow}$):} 
+	The physical separation at which the central dip completely disappears, creating a flat plateau with zero second derivative at the midpoint:
+	\begin{equation}
+		\left.\frac{d^2 I_{\rm tot}}{d\theta^2}\right|_{\theta=0} = 0.
+	\end{equation}
+	This yields:
+	\begin{itemize}
+		\item For a \textbf{1D slit}: $\theta_{\rm Sparrow} \approx 0.83 \frac{\lambda}{a}$.
+		\item For a \textbf{2D circular pupil}: $\theta_{\rm Sparrow} \approx 0.94 \frac{\lambda}{D}$.
+	\end{itemize}
+\end{enumerate}
+In modern digital astrophysics, the Rayleigh limit is not a rigid barrier: with high Signal-to-Noise Ratio ($\mathrm{SNR}$) observations and accurate Point Spread Function ($\mathrm{PSF}$) modeling, astronomical deconvolution algorithms can cleanly separate overlapping sources down to the Sparrow limit and beyond.
 
 \begin{example}[Resolving the Solar Sodium D-lines with a Grating Spectrograph]
-	The Fraunhofer Sodium D-doublet consists of two absorption lines at $\lambda_1 = 589.59\,\mathrm{nm}$ and $\lambda_2 = 588.99\,\mathrm{nm}$ ($\Delta\lambda = 0.60\,\mathrm{nm}$, $\bar{\lambda} = 589.3\,\mathrm{nm}$).
+	The Fraunhofer Sodium D-doublet consists of two absorption lines at $\lambda_1 = 589.59\,\mathrm{nm}$ and $\lambda_2 = 588.99\,\mathrm{nm}$ ($\Delta\lambda = 0.60\,\mathrm{nm}$, mean wavelength $\bar{\lambda} = 589.3\,\mathrm{nm}$).
 	\begin{enumerate}
 		\item \textbf{Required Resolving Power:}
 		\[
@@ -1197,14 +959,21 @@ When two incoherent point sources of equal intensity are separated by angle $\De
 		\[
 		N = \frac{\mathcal{R}}{m} = \frac{982}{2} = 491 \text{ illuminated grooves}.
 		\]
-		For a grating ruled at $600\,\text{grooves/mm}$, the required illuminated beam diameter is $W = N d = \frac{491}{600}\,\mathrm{mm} \approx 0.82\,\mathrm{mm}$.
+		For a grating ruled at $600\,\text{grooves/mm}$, the required illuminated beam diameter is:
+		\[
+		W = N d = \frac{491}{600}\,\mathrm{mm} \approx 0.82\,\mathrm{mm}.
+		\]
 	\end{enumerate}
 \end{example}
 
-\begin{example}[Diffraction Resolution at $\lambda = 500\,\mathrm{nm}$]
-	For an optical telescope with aperture $D = 0.30\,\mathrm{m}$ observing at $\lambda = 500\,\mathrm{nm} = 500 \times 10^{-9}\,\mathrm{m}$:
+\begin{example}[Diffraction Resolution of a $30\,\mathrm{cm}$ Telescope at $\lambda = 500\,\mathrm{nm}$]
+	For an optical telescope with aperture diameter $D = 0.30\,\mathrm{m}$ observing in the $V$-band ($\lambda = 500\,\mathrm{nm} = 500 \times 10^{-9}\,\mathrm{m}$):
 	\[
-	\theta_{\rm diff} = 1.22\frac{500 \times 10^{-9}}{0.30} \times \frac{180 \times 3600}{\pi}'' \simeq 2.03 \times 10^{-6} \times 206265'' = 0.42''.
+	\theta_{\rm diff} = 1.22\frac{\lambda}{D} = 1.22 \times \frac{500 \times 10^{-9}\,\mathrm{m}}{0.30\,\mathrm{m}} \approx 2.033 \times 10^{-6}\,\mathrm{rad}.
+	\]
+	Converting to arcseconds ($1\,\mathrm{rad} = 206{,}265''$):
+	\[
+	\boxed{\theta_{\rm diff} \simeq 2.033 \times 10^{-6} \times 206{,}265'' = 0.42''}.
 	\]
 \end{example}
 
@@ -1302,3 +1071,554 @@ Adaptive Optics systems restore diffraction-limited performance to ground-based 
 	\item A \textbf{Deformable Mirror} (with hundreds to thousands of piezoelectric actuators) physically adjusts its surface profile to cancel out the atmospheric optical path difference.
 \end{enumerate}
 This restores the sharp $\theta \approx \lambda/D$ diffraction core on 8--30 meter class telescopes, providing space-quality resolution from the ground.
+
+
+\section{Problem Set: Interferometric Baselines, Optics, and Resolution}
+
+\subsection{Problem 1: GMRT to Ooty Radio Interferometer Baseline and Resolution}
+\textbf{Problem Statement}: Find latitude and longitude of GMRT and
+Ooty Radio Telescope from Google Maps. (a) What is the straight-line
+distance between them? (b) If we do very-long-baseline interferometry
+between these telescopes at $1000\text{ MHz}$, what is the best
+resolution we can get?
+
+\textbf{Essential Ideas}: The straight line (shortest distance in 3D) between them can be given by measuring the chord distance between them:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[c]{0.40\textwidth}
+        \includegraphics[width=\linewidth]{obs_vlbi_ggos_web_v2-1024x949.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\textwidth}
+    \centering
+    \usetikzlibrary{angles, quotes, calc, decorations.pathreplacing}
+    \begin{tikzpicture}
+    % Define the radius and angle
+    \def\RE{4}
+    \def\gammaangle{60}
+
+    % Define coordinates rotated by 90 degrees
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (90+\gammaangle/2:\RE);
+    \coordinate (B) at (90-\gammaangle/2:\RE);
+    
+    % M is the midpoint of the chord for the perpendicular bisector
+    \coordinate (M) at (90:{\RE*cos(\gammaangle/2)});
+
+    % Draw the circle background and top arc
+    %\draw[dashed, gray!70] (O) circle (\RE);
+    \draw[thick] (0:\RE) arc (0:180:\RE);
+
+    % Draw the radii
+    \draw[thick] (O) -- (A) node[midway, left=4pt] {$R_E$};
+    \draw[thick] (O) -- (B) node[midway, right=4pt] {$R_E$};
+
+    % Draw the full chord
+    \draw[thick, blue] (A) -- (B);
+
+    % Draw the perpendicular bisector
+    \draw[thick, dashed, red] (O) -- (M);
+
+    % Right angle marker at the intersection
+    \draw (M) ++(0,-0.2) -- ++(0.2,0) -- ++(0,0.2);
+
+    % Label the half-chord distances using braces
+    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
+         (A) -- (M) node[midway, above=12pt] {$R_E \sin(\gamma/2)$};
+    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
+         (M) -- (B) node[midway, above=12pt] {$R_E \sin(\gamma/2)$};
+
+    % Draw and label the split angles
+    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=1cm] {angle = M--O--A};
+    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=1cm] {angle = B--O--M};
+
+    % Mark and label the points
+    \fill (O) circle (2pt) node[below=2pt] {$O$};
+    \fill (A) circle (2pt) node[above left] {$P_1$};
+    \fill (B) circle (2pt) node[above right] {$P_2$};
+    \fill (M) circle (1.5pt) node[below right=1pt] {$M$};
+\end{tikzpicture}
+\end{minipage}
+\end{figure}
+
+The baseline length $B$ determines the
+angular resolution approximately as
+\[
+\theta\simeq\frac{\lambda}{B}.
+\]
+
+\textbf{Detailed Solutions}:
+\begin{itemize}
+
+    \item[(a)] \textbf{Baseline Distance:}
+
+    The coordinates $(\phi,\lambda)$ are approximately
+    \begin{figure}[H]
+    	\centering
+    	\begin{minipage}[c]{0.35\textwidth}
+    		\[
+    		\begin{aligned}
+    			\text{GMRT}:&\quad
+    			(19.09^\circ\text{N},\,74.05^\circ\text{E}),\\
+    			\text{Ooty}:&\quad
+    			(11.38^\circ\text{N},\,76.66^\circ\text{E}).
+    		\end{aligned}
+    		\]
+    	\end{minipage}
+    	\begin{minipage}[c]{0.55\textwidth}
+    		\begin{tikzpicture}[
+    			scale=1.5, 
+    			% Projection vectors giving a true circular sphere boundary
+    			x={(-0.6cm,-0.3cm)}, 
+    			y={(0.9cm,-0.2cm)}, 
+    			z={(0cm,0.95cm)},
+    			>=Stealth
+    			]
+    			
+    			% Parameters
+    			\def\alphaDeg{45}
+    			\def\deltaDeg{35}
+    			\def\R{2.0}
+    			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
+    			
+    			% Coordinates
+    			\coordinate (O)  at (0,0,0);
+    			\coordinate (X)  at (3.8,0,0);
+    			\coordinate (Y)  at (0,2.8,0);
+    			\coordinate (Z)  at (0,0,2.8);
+    			
+    			\coordinate (P)  at ({\Rproj*cos(\alphaDeg)}, {\Rproj*sin(\alphaDeg)}, {\R*sin(\deltaDeg)}); 
+    			\coordinate (PP) at ({\R*cos(\alphaDeg)}, {\R*sin(\alphaDeg)}, 0);
+    			
+    			% Colors
+    			\definecolor{axisColor}{HTML}{2B3A42}
+    			\definecolor{vectorColor}{HTML}{E74C3C}
+    			\definecolor{arcColor}{HTML}{0D9488}
+    			\definecolor{guideColor}{HTML}{94A3B8}
+    			\definecolor{sphereGrid}{HTML}{CBD5E1}
+    			
+    			% Background: Sphere Boundary Circle & Equatorial Circle
+    			\begin{scope}%[on background layer]
+    				% Outer sphere circle outline
+    				\draw[sphereGrid, line width=0.8pt] (O) circle (1.08*\R cm);
+    				
+    				% Equatorial circle on sphere
+    				\draw[sphereGrid!80, dashed, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
+    				({\R*cos(\t)}, {\R*sin(\t)}, 0);
+    				
+    				% Latitude parallel at angle \delta
+    				\draw[sphereGrid!70, dotted, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
+    				({\Rproj*cos(\t)}, {\Rproj*sin(\t)}, {\R*sin(\deltaDeg)});
+    			\end{scope}
+    			
+    			% Axes
+    			\draw[->, axisColor, line width=1.1pt] (O) -- (X) node[below left, font=\large\bfseries] {$\boldsymbol{x}$};
+    			\draw[->, axisColor, line width=1.1pt] (O) -- (Y) node[right, font=\large\bfseries] {$\boldsymbol{y}$};
+    			\draw[->, axisColor, line width=1.1pt] (O) -- (Z) node[above, font=\large\bfseries] {$\boldsymbol z$};
+    			\node[axisColor, left=2pt, font=\large\bfseries] at (O) {$O$};
+    			
+    			% Reference line to P'
+    			\draw[dashed, guideColor, line width=0.9pt] (O) -- (PP);
+    			
+    			% Radius vector r_eq
+    			\draw[->, vectorColor, line width=2.0pt] (O) -- (P) 
+    			node[midway, above left, font=\large, color=axisColor] {$\hat{\mathbf{r}}_{\rm eq}$};
+    			
+    			% Spherical Arc  (Equator)
+    			\draw[->, arcColor, line width=1.6pt] plot[domain=0:\alphaDeg, variable=\t, smooth]
+    			({\R*cos(\t)}, {\R*sin(\t)}, 0);
+    			\node[arcColor, font=\large\bfseries] at ({1.15*\R*cos(\alphaDeg/2)}, {1.15*\R*sin(\alphaDeg/2)}, -0.1) {$\lambda$};
+    			
+    			% Spherical Arc \delta (Meridian)
+    			\draw[->, arcColor, line width=1.6pt] plot[domain=0:\deltaDeg, variable=\t, smooth]
+    			({\R*cos(\t)*cos(\alphaDeg)}, {\R*cos(\t)*sin(\alphaDeg)}, {\R*sin(\t)});
+    			\node[arcColor, font=\large\bfseries] at ($(PP)!0.5!(P)+(0.25,0.05,0)$) {$\phi$};
+    			
+    			% Points P and P'
+    			\fill[vectorColor] (P) circle (1.3pt) node[above right=1pt, font=\large\bfseries, color=axisColor] {$P$};
+    			\fill[arcColor!80!black] (PP) circle (1.3pt) node[below right=1pt, font=\large\bfseries, color=axisColor] {$P'$};
+    		\end{tikzpicture}
+    	\end{minipage}
+	\end{figure}
+
+    We can calculate the angle between these two coordinates by following the same method as before with $\delta=\phi$ and $\alpha=\lambda$:
+    \begin{align}
+            \cos\gamma&=\begin{pmatrix}
+\cos\phi_1\cos\lambda_1&
+\cos\phi_1\sin\lambda_1&
+\sin\phi_1
+\end{pmatrix}\begin{pmatrix}
+\cos\phi_2\cos\lambda_2\\
+\cos\phi_2\sin\lambda_2\\
+\sin\phi_2
+\end{pmatrix}\notag\\
+&=
+    \sin\phi_1\sin\phi_2+
+    \cos\phi_1\cos\phi_2\cos(\lambda_2-\lambda_1).
+    \end{align}
+
+    The corresponding straight-line distance is
+    \[
+    C=2R_E\sin\left(\frac{\gamma}{2}\right),
+    \qquad R_E=6371\text{ km}.
+    \]
+    This gives approximately
+    \[
+    \boxed{C\simeq904.5\text{ km}}.
+    \]
+
+    \item[(b)] \textbf{Angular Resolution:}
+
+    At
+    \[
+    f=1000\text{ MHz}=10^9\text{ Hz},
+    \]
+    the observing wavelength is
+    \[
+    \lambda=\frac{c}{f}
+    =\frac{3\times10^8}{10^9}
+    =0.30\text{ m}.
+    \]
+
+    Taking the baseline as $B\simeq904.5\text{ km}
+    =9.045\times10^5\text{ m}$,
+    \[
+    \theta\simeq\frac{\lambda}{B}
+    =\frac{0.30}{9.045\times10^5}
+    \simeq3.32\times10^{-7}\text{ rad}.
+    \]
+
+    Converting to milliarcseconds,
+    \[
+    \theta
+    \simeq3.32\times10^{-7}
+    \left(\frac{180}{\pi}\right)
+    (3.6\times10^6)
+    \simeq68.4\text{ mas}.
+    \]
+\end{itemize}
+
+\subsection{Problem 2: Cassegrain Reflector Optics, Pixel Scale, and Sampling}
+\textbf{Problem Statement}: The focal length of the primary mirror is $2\text{ m}$. (1) What are the lengths shown as ``b'' and ``a''? (2) We put a CCD at the focal plane with pixel size $20\ \mu\text{m}$. What is the pixel scale? (3) What is the resolution of this telescope at $500\text{ nm}$ wavelength? (4) Compare diffraction-limited resolution and pixel scale. Is this a good configuration?
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[scale=1.0, >=Stealth]
+    \def\D{3.0}     % Primary diameter (30 cm scaled)
+    \def\d{7.5}     % Mirror distance (0.75 m scaled)
+    \def\b{1.875}   % Secondary diameter (18.75 cm scaled)
+    \def\a{5.0}     % CCD distance (0.5 m scaled)
+    \def\F{-12.5}   % Primary focus (2.0 m scaled -> 20 units left of primary at 7.5)
+    
+    % Background shading for the similar triangle
+    \fill[orange!10] (\d, 1.5) -- (\F, 0) -- (\d, -1.5) -- cycle;
+    
+    % Virtual rays continuing to the Primary Focus (completes the similar triangle)
+    \draw[dotted, orange, ultra thick] (0, \b/2) -- (\F, 0);
+    \draw[dotted, orange, ultra thick] (0, -\b/2) -- (\F, 0);
+    \fill[orange] (\F, 0) circle (3pt) node[below=2mm] {\Large Focus};
+    
+    % Mark overall Focal Length (F = 2.0m) at the top
+    \draw[|-|, thick, orange] (\F, 2.5) -- (\d, 2.5) node[midway, above] {\Large $F = 2.0\text{m}$ (Focal Length)};
+
+    % Incoming Rays from infinity (aligned with the edges of the primary mirror)
+    \draw[dashed, red, thick, ->] (-3, 1.5) -- (\d, 1.5);
+    \draw[dashed, red, thick, ->] (-3, -1.5) -- (\d, -1.5);
+    
+    % Primary Mirror
+    \fill[yellow!60] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5) -- cycle;
+    \fill[yellow!60] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5) -- cycle;
+    \draw[ultra thick, green!60!black] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5);
+    \draw[ultra thick, green!60!black] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5);
+    
+    % Secondary Mirror
+    \draw[ultra thick, teal] (0, \b/2) -- (0, -\b/2) node[midway, left=2mm, text=teal] {\Large $b$};
+    
+    % Reflected converging rays from primary to secondary
+    \draw[dashed, red, thick, ->] (\d, 1.5) -- (0, \b/2);
+    \draw[dashed, red, thick, ->] (\d, -1.5) -- (0, -\b/2);
+    
+    % Reflected rays from secondary to CCD
+    \draw[dashed, red, thick, ->] (0, \b/2) -- (\d+\a, 0);
+    \draw[dashed, red, thick, ->] (0, -\b/2) -- (\d+\a, 0);
+    
+    % CCD at focal plane
+    \draw[ultra thick, blue!80!black] (\d+\a, 0.6) -- (\d+\a, -0.6) node[below=2mm] {\Large CCD};
+    \fill[red] (\d+\a, 0) circle (2.5pt);
+    
+    % Continuous bottom dimension lines showing the geometry
+    \draw[|-|, thick, teal] (\F, -2.4) -- (0, -2.4) node[midway, below] {\Large $1.25\text{m}$};
+    \draw[|-|, thick, blue] (0, -2.4) -- (\d, -2.4) node[midway, below] {\Large $0.75\text{m}$};
+    \draw[|-|, thick, blue] (\d, -2.4) -- (\d+\a, -2.4) node[midway, below] {\Large $a=?$};
+    
+    % Primary Mirror Aperture Dimension
+    \draw[|-|, thick, green!60!black] (\d+0.6, -1.5) -- (\d+0.6, 1.5) node[midway, right] {\Large $30\text{cm}$};
+\end{tikzpicture}
+}
+\caption{Cassegrain reflector telescope}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        >=Stealth,
+        font=\sffamily\small,
+        ray/.style={thick, color=black},
+        marginal/.style={thin, color=black!25} % Faded style for marginal/off-axis non-chief rays
+    ]
+
+        % Coordinates & Parameters
+        \coordinate (LensCenter) at (0,0);
+        \def\FocalLength{4.5}
+        \def\ImageOffset{1.6} % Height y of off-axis image B
+        
+        \coordinate (ImageA) at (\FocalLength, 0);            % Center focal point (Image A)
+        \coordinate (ImageB) at (\FocalLength, \ImageOffset);   % Off-axis focal point (Image B)
+        
+        % Focal Plane Line & Bottom Text
+        \draw[thick] (\FocalLength, -2.5) -- (\FocalLength, 2.5);
+        \node[below=4pt, align=center] at (\FocalLength, -2.5) {FOCAL\\PLANE};
+        
+        % Lens
+        \draw[thick, fill=blue!5, draw=black] 
+            (-0.25,-1.8) to[out=20, in=-20] (-0.25, 1.8) 
+            to[out=-160, in=160] (-0.25,-1.8);
+
+        % Optical Axis (Reference line)
+        \draw[dashed, gray!40] (-6,0) -- (\FocalLength+0.5,0);
+
+        % ================= SOURCE A (On-Axis: 3 Rays) =================
+        % Ray A1 (Top horizontal ray - Faded)
+        \draw[marginal] (-5.5, 0.8) -- (0, 0.8) -- (ImageA);
+        \draw[marginal] (-5.5, 0.8) -- (-2.75, 0.8) [arrows={-Stealth}];
+        \draw[marginal] (0, 0.8) -- ($(0,0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
+
+        % Ray A2 (Central optical axis ray / Chief Ray - Main Focus)
+        \draw[ray] (-5.5, 0) -- (LensCenter) -- (ImageA);
+        \draw[ray] (-5.5, 0) -- (-2.75, 0) [arrows={-Stealth}];
+        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageA)$) [arrows={-Stealth}];
+
+        % Ray A3 (Bottom horizontal ray - Faded)
+        \draw[marginal] (-5.5, -0.8) -- (0, -0.8) -- (ImageA);
+        \draw[marginal] (-5.5, -0.8) -- (-2.75, -0.8) [arrows={-Stealth}];
+        \draw[marginal] (0, -0.8) -- ($(0,-0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
+
+
+        % ================= SOURCE B (Off-Axis: 3 Rays at Angle theta) =================
+        % Ray B1 (Upper angled ray entering lens at y = 0.7 - Faded)
+        \coordinate (B_start_top) at (-5.5, {0.7 - 5.5 * (\ImageOffset / \FocalLength)});
+        \draw[marginal] (B_start_top) -- (0, 0.7) -- (ImageB);
+        \draw[marginal] (B_start_top) -- ($0.5*(B_start_top)+0.5*(0,0.7)$) [arrows={-Stealth}];
+        \draw[marginal] (0, 0.7) -- ($(0,0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
+
+        % Ray B2 (Central chief ray through lens center - Main Focus)
+        \coordinate (B_start_chief) at (-5.5, {-5.5 * (\ImageOffset / \FocalLength)});
+        \draw[ray] (B_start_chief) -- (LensCenter) -- (ImageB);
+        \draw[ray] (B_start_chief) -- ($0.5*(B_start_chief)+0.5*(LensCenter)$) [arrows={-Stealth}];
+        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageB)$) [arrows={-Stealth}];
+
+        % Ray B3 (Lower angled ray entering lens at y = -0.7 - Faded)
+        \coordinate (B_start_lower) at (-5.5, {-0.7 - 5.5 * (\ImageOffset / \FocalLength)});
+        \draw[marginal] (B_start_lower) -- (0, -0.7) -- (ImageB);
+        \draw[marginal] (B_start_lower) -- ($0.5*(B_start_lower)+0.5*(0,-0.7)$) [arrows={-Stealth}];
+        \draw[marginal] (0, -0.7) -- ($(0,-0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
+
+
+        % ================= LABELS & MARKS =================
+        % Angle theta mark
+        \draw [thick] (1.3,0) arc (0:19.5:1.2);
+        \node at (1.5, 0.25) {$\theta$};
+
+        % Source & Image Labels
+        \node[left] at (-5.5, 0) {FROM SOURCE A};
+        \node[left] at (-5.5, -2.2) {FROM SOURCE B};
+
+        \draw[thin] (ImageB) -- (\FocalLength+0.8, 2.0) node[right] {IMAGE OF SOURCE B};
+        \draw[thin] (ImageA) -- (\FocalLength+0.8, -0.4) node[right] {IMAGE OF SOURCE A};
+
+        % Dimension y (displacement on focal plane)
+        \draw[<->, thick] (\FocalLength+0.3, 0) -- (\FocalLength+0.3, \ImageOffset) 
+            node[midway, right] {$y$};
+        \draw[thin, gray] (ImageA) -- (\FocalLength+0.4, 0);
+        \draw[thin, gray] (ImageB) -- (\FocalLength+0.4, \ImageOffset);
+
+        % Dimension F (focal length)
+        \draw[<->, thick] (-0.25, -1.8) -- (\FocalLength, -1.8) 
+            node[midway, fill=white, inner sep=2pt] {$F$};
+        \draw[thin, gray] (-0.25, -1.5) -- (-0.25, -2.0);
+        \draw[thin, gray] (\FocalLength, -0.2) -- (\FocalLength, -2.0);
+
+    \end{tikzpicture}
+    \caption{Ray diagram illustrating angular resolution of two point sources, highlighting the central chief rays while marginal rays are faded for visual clarity.}
+\end{figure}
+Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel and is defined as $P=\dv{\theta}{s}=\frac{\theta}{y}$, where $\theta$ is measured in arcsec $(=\frac{1}{3600}^{\circ})$.
+
+The pixel scale is the angular extent corresponding to a single physical pixel, and can be defined as $\theta_{\rm pix}=\frac{y_{\rm pix}}{F}=\frac{p}{F}.$ From geometry, we have:
+\begin{align}
+    \tan\theta\approx\theta= \frac{y}{F}\implies\frac{1}{F}=\frac{\theta}{y}.
+\end{align}
+which relates the two scales.
+
+\textbf{Detailed Solutions}:
+\begin{itemize}
+
+    \item[(1)] \textbf{Lengths $a$ and $b$:}
+
+    The primary mirror has diameter
+    \[
+    D=30\text{ cm}
+    \]
+    and focal length
+    \[
+    F=2.0\text{ m}.
+    \]
+    Since the secondary mirror is $0.75\text{ m}$ from the primary,
+    it lies
+    \[
+    F-0.75=1.25\text{ m}
+    \]
+    from the primary focus.
+
+    Using similar triangles,
+    \[
+    \frac{b}{D}
+    =\frac{1.25}{2.0},
+    \]
+    so
+    \[
+    b=30\left(\frac{1.25}{2.0}\right)
+    =18.75\text{ cm}.
+    \]
+
+    The folded path from the secondary to the focus is $1.25\text{ m}$.
+    Since the primary--secondary separation is $0.75\text{ m}$,
+    \[
+    a=1.25-0.75=0.50\text{ m}.
+    \]
+    
+    \item[(2)] \textbf{Pixel Scale:}
+
+    For a focal length $F$, a pixel of physical size $p$ subtends
+    the angle
+    \[
+    \theta_{\rm pix}\simeq\frac{y}{F}\bigg\lvert_{y=p}.
+    \]
+    With
+    \[
+    p=20\,\mu\text{m}=20\times10^{-6}\text{ m},
+    \qquad F=2\text{ m},
+    \]
+    we get
+    \[
+    \theta_{\rm pix}
+    =\frac{20\times10^{-6}}{2}
+    =1.0\times10^{-5}\text{ rad}.
+    \]
+    Using $1\text{ rad}=\frac{180\times 3600}{\pi }''=206265''$,
+    \[
+    \boxed{
+    \theta_{\rm pix}\simeq2.06''/\text{pixel}.
+    }
+    \]
+
+    \item[(3)] \textbf{Diffraction-Limited Resolution:}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+    scale=1.2,
+    >=stealth,
+    declare function={
+        sinc(\x) = (\x==0 ? 1 : sin(deg(\x))/\x);
+    }
+]
+
+    % Geometry Parameters
+    % Red peak at x = -1.2, Blue peak at x = 1.2
+    % Peak separation alpha = theta_1 = 2.4 units (Rayleigh Criterion)
+    \def\xR{-1.2}
+    \def\xB{1.2}
+    \def\dx{2.4} 
+
+    % Base axis line
+    \draw[->, thick] (-6.5,0) -- (6.5,0);
+
+    % Red diffraction pattern: I(x) = (sinc(pi*(x - xR)/dx))^2
+    \draw[red, thick, domain=-6.2:4.5, samples=300, smooth] 
+        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xR) / \dx), 2)});
+
+    % Blue diffraction pattern: I(x) = (sinc(pi*(x - xB)/dx))^2
+    \draw[blue, thick, domain=-4.5:6.2, samples=300, smooth] 
+        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xB) / \dx), 2)});
+
+    % Vertical dashed lines
+    \draw[dashed, thick] (\xR, -1.2) -- (\xR, 3.0);
+    \draw[dashed, thick] (\xB, -1.2) -- (\xB, 3.0);
+    \draw[dashed, thick] ({\xR - \dx}, -1.2) -- ({\xR - \dx}, 0);
+    \draw[dashed, thick] ({\xB + \dx}, -1.2) -- ({\xB + \dx}, 0);
+
+ 
+    % Bottom arrows explicitly labeling theta_1 = 1.22 lambda / D
+    \draw[<->, thick] ({\xR - \dx}, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xR, -0.7);
+    \draw[<->, thick] (\xR, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xB, -0.7);
+    \draw[<->, thick] (\xB, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} ({\xB + \dx}, -0.7);
+
+    % Labels and pointer lines
+    % Red central maximum label
+    \draw[thin] (-1.5, 3.3) -- (\xR, 3.0);
+    \node[red, font=\bfseries\sffamily, left] at (-1.5, 3.3) {central maximum};
+
+    % Blue central maximum label
+    \draw[thin] (1.5, 3.3) -- (\xB, 3.0);
+    \node[blue, font=\bfseries\sffamily, right] at (1.5, 3.3) {central maximum};
+
+    % Blue first minimum label (coincident with Red central peak)
+    \draw[thin] (-1.8, 0.7) -- (\xR, 0.05);
+    \node[blue, font=\bfseries\sffamily, left] at (-1.8, 0.7) {first minimum};
+
+    % Red first minimum label (coincident with Blue central peak)
+    \draw[thin] (1.8, 0.7) -- (\xB, 0.05);
+    \node[red, font=\bfseries\sffamily, right] at (1.8, 0.7) {first minimum};
+
+\end{tikzpicture}
+\end{figure}
+    The angular resolution of a circular aperture is approximately
+    \[
+    \theta_{\rm diff}
+    =1.22\frac{\lambda}{D} \text{ rad.}
+    \]
+    For
+    \[
+    \lambda=500\text{ nm}=500\times10^{-9}\text{ m},
+    \qquad D=0.30\text{ m},
+    \]
+    \[
+    \theta_{\rm diff}
+    =1.22\frac{500\times10^{-9}}{0.30}\times \frac{180\times 3600}{\pi }''
+    \simeq2.03\times10^{-6}\times 206265''=0.42''.
+    \]
+
+    \item[(4)] \textbf{Comparison:}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{Diffraction.pdf}
+    \end{figure}
+    The pixel scale is
+    \[
+    \text{Pixel Scale}=\frac{y}{F}\bigg\lvert_{y=p}=2.06''/\text{pixel},
+    \]
+    whereas the diffraction-limited resolution is
+    \[
+    \theta_{\rm res}=1.22\frac{\lambda}{D}=0.42''.
+    \]
+    Nyquist sampling criterion requires
+    $$\text{Pixel Scale} \le \frac{\theta_{\rm res}}{2}$$
+    which is not respected. Their ratio is
+    \[
+    \frac{\text{Pixel Scale}}{\theta_{\rm res}}=\frac{2.06}{0.42}\simeq4.9.
+    \]
+
+    Thus one pixel covers almost five diffraction-limited resolution
+    elements which is bad. 
+\end{itemize}

@@ -22,29 +22,7 @@ The \emph{equatorial coordinate system} extends the Earth's terrestrial latitude
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\resizebox{\linewidth}{!}{%
-		\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
-			\foreach \r in {1,2,3,4,5} {
-				\draw[astroblue!55] (0,0) circle (\r);
-			}
-			\foreach \h in {0,...,23} {
-				\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
-			}
-			\foreach \h in {0,2,...,22} {
-				\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
-			}
-			\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
-				\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
-			}
-
-			\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
-			\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
-
-			\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
-			\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
-
-			\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
-			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
-		\end{tikzpicture}%
+		\includegraphics{fig_ch2_ra_dec_polar_grid.pdf}%
 		}
 		\caption{The equatorial grid projected on the sky near the NCP. Radiating lines are hour circles of constant $\alpha$ ($15^\circ=1^{\rm h}$ apart); concentric circles are parallels of constant $\delta$.}
 		\label{fig:ra_dec_polar_grid}
@@ -67,71 +45,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\resizebox{\linewidth}{!}{%
-		\begin{tikzpicture}[
-			scale=1.5,
-			x={(-0.6cm,-0.3cm)},
-			y={(0.9cm,-0.2cm)},
-			z={(0cm,0.95cm)},
-			>=Stealth
-		]
-			\def\R{2.0}
-			\def\LSTdeg{20}
-			\def\alphaDeg{55}
-			\def\deltaDeg{35}
-			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
-
-			\coordinate (O) at (0,0,0);
-			\coordinate (Xaxis) at (2.6,0,0);
-			\coordinate (Zaxis) at (0,0,2.5);
-
-			\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
-			\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
-			\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
-
-			% Sphere outline (a sphere's silhouette is always a circle in screen space)
-			\draw[gray!45, line width=0.7pt] (0,0) circle (1.05*\R cm);
-
-			% Celestial equator
-			\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
-
-			% Star's declination (small) circle, for context
-			\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
-
-			% Reference axes
-			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
-			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
-
-			% 0h tick-arc at the vernal equinox, same visual language as the other angle arcs
-			\draw[ink, line width=1.8pt] plot[domain=0:8, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
-
-			% Observer's meridian great circle (through NCP, M, and SCP)
-			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
-				({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
-
-			% Star's own hour circle (through NCP, Sfoot, Star, and SCP)
-			\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
-				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
-
-			% LST arc, directly on the sphere (equator), from vernal equinox to the meridian
-			\draw[->, astroblue, line width=1.6pt] plot[domain=0:\LSTdeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[astroblue] at ({\R*cos(0.5*\LSTdeg)},{\R*sin(0.5*\LSTdeg)},{-0.4}) {$\LST$};
-
-			% H arc, directly on the sphere (equator), from the meridian to the star
-			\draw[->, muted, line width=1.6pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.4}) {$H$};
-
-			% delta arc (star's declination)
-			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
-				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
-			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
-
-			% Points
-			\fill[astroblue] (M) circle (1.4pt) node[anchor=south east, xshift=-2pt, yshift=72pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
-			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
-			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
-		\end{tikzpicture}%
+		\includegraphics{fig_ch2_lst_meridian_schematic.pdf}%
 		}
 		\caption{The vernal equinox $\hat\gamma$, the observer's local meridian, and a star $S$ at $(\alpha,\delta)$, shown together on the celestial sphere.}
 		\label{fig:lst_meridian_schematic}
@@ -140,70 +54,7 @@ To see concretely how the Local Sidereal Time and Hour Angle of Chapter~1 are ju
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\resizebox{\linewidth}{!}{%
-		\begin{tikzpicture}[
-			scale=1.5,
-			x={(-0.6cm,-0.3cm)},
-			y={(0.9cm,-0.2cm)},
-			z={(0cm,0.95cm)},
-			>=Stealth
-		]
-			\def\R{2.0}
-			\def\LSTdeg{80}
-			\def\alphaDeg{55}
-			\def\deltaDeg{35}
-			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
-
-			\coordinate (O) at (0,0,0);
-			\coordinate (Xaxis) at (2.6,0,0);
-			\coordinate (Zaxis) at (0,0,2.5);
-
-			\coordinate (M) at ({\R*cos(\LSTdeg)},{\R*sin(\LSTdeg)},0);
-			\coordinate (Sfoot) at ({\R*cos(\alphaDeg)},{\R*sin(\alphaDeg)},0);
-			\coordinate (Star) at ({\Rproj*cos(\alphaDeg)},{\Rproj*sin(\alphaDeg)},{\R*sin(\deltaDeg)});
-
-			% Sphere outline
-			\draw[gray!45, line width=0.7pt] (0,0) circle (1.05*\R cm);
-
-			% Celestial equator
-			\draw[gray!55, dashed, line width=0.6pt] plot[domain=0:360, samples=60] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[gray!65] at ({\R*cos(250)},{\R*sin(250)},0) [below left=2pt] {Celestial Equator};
-
-			% Star's declination (small) circle, for context -- unchanged from Figure 2.4
-			\draw[accent!35, dotted, line width=0.6pt] plot[domain=0:360, samples=60] ({\Rproj*cos(\x)},{\Rproj*sin(\x)},{\R*sin(\deltaDeg)});
-
-			% Reference axes -- vernal equinox is unchanged
-			\draw[->, thick] (O) -- (Xaxis) node[below left] {$\hat\gamma$ (vernal equinox)};
-			\draw[->, thick] (O) -- (Zaxis) node[above] {NCP};
-			\draw[ink, line width=1.8pt] plot[domain=0:8, samples=10] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[above=1pt] at ({\R*cos(3)},{\R*sin(3)},0) {\scriptsize $\alpha{=}0^{\rm h}$};
-
-			% Observer's meridian great circle -- now advanced past the star
-			\draw[astroblue, thick] plot[domain=-70:90, samples=60]
-				({\R*cos(\x)*cos(\LSTdeg)},{\R*cos(\x)*sin(\LSTdeg)},{\R*sin(\x)});
-
-			% Star's own hour circle -- unchanged
-			\draw[accent, dashed, thick] plot[domain=-70:90, samples=60]
-				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
-
-			% LST arc: full sweep from vernal equinox to the NEW (later) meridian position
-			\draw[->, astroblue, line width=1.6pt] plot[domain=0:\LSTdeg, samples=40] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[astroblue] at ({\R*cos(0.35*\LSTdeg)},{\R*sin(0.35*\LSTdeg)},{-0.4}) {$\LST$};
-
-			% H arc: the meridian has now overtaken the star; dashed overlay on the
-			% shared portion of the equator, running from the meridian back to the star
-			\draw[->, muted, dash pattern=on 2pt off 2pt, line width=2pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.42}) {$H$};
-
-			% delta arc (star's declination) -- unchanged
-			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]
-				({\R*cos(\x)*cos(\alphaDeg)},{\R*cos(\x)*sin(\alphaDeg)},{\R*sin(\x)});
-			\node[accent!80!black] at ($(Sfoot)!0.6!(Star)+(0.32,0.05,0)$) {$\delta$};
-
-			% Points
-			\fill[astroblue] (M) circle (1.4pt) node[above right=2pt] {\scriptsize Meridian ($H{=}0^{\rm h}$)};
-			\fill[accent] (Sfoot) circle (1.2pt) node[below=3pt] {\scriptsize $\alpha$};
-			\fill[accent] (Star) circle (1.6pt) node[above right=1pt] {Star ($S$)};
-		\end{tikzpicture}%
+		\includegraphics{fig_ch2_lst_meridian_schematic_later.pdf}%
 		}
 		\caption{The same sky as Figure~\ref{fig:lst_meridian_schematic}, at a later instant: $\hat\gamma$ and $S$ are unchanged, but the meridian has advanced past the star.}
 		\label{fig:lst_meridian_schematic_later}
@@ -253,34 +104,7 @@ We now derive the transformations relating horizontal coordinates $(h, A)$ and e
 
 \begin{figure}[htbp]
 	\centering
-	\begin{tikzpicture}[>=Stealth, scale=0.62, font=\scriptsize]
-		\foreach \r in {1,2,3,4,5} {
-			\draw[gray!35] (0,0) circle (\r);
-		}
-		\foreach \h in {0,2,...,22} {
-			\draw[gray!30] (0,0) -- ({90+15*\h}:5.6);
-		}
-		\draw[astroblue!70, thick] (0,0) -- (0,5.6);
-		\node[astroblue!80, font=\scriptsize, align=center] at (0,6.1) {Meridian\\($\alpha=\LST$)};
-
-		\coordinate (NCPp) at (0,0);
-		\coordinate (Zp) at (0,3);
-		\coordinate (Sp) at ({5*cos(40)},{5*sin(40)});
-
-		\draw[very thick, accent] (NCPp) -- (Zp) -- (Sp) -- cycle;
-
-		\fill (NCPp) circle(2.6pt) node[above left=1pt, font=\normalsize] {NCP};
-		\fill (Zp) circle(2.6pt) node[left=2pt, font=\normalsize] {Zenith ($Z$)};
-		\fill (Sp) circle(2.6pt) node[above right=1pt, font=\normalsize] {Star ($S$)};
-
-		\node[accent, font=\normalsize] at (-0.4,1.34) {$90^\circ-\phi_0$};
-		\node[accent, font=\normalsize] at (2.24,1.37) {$90^\circ-\delta$};
-		\node[accent, font=\normalsize] at (2.13,3.5) {$z=90^\circ-h$};
-
-		\node[font=\normalsize] at (0.28,0.45) {$H$};
-		\node[font=\normalsize] at (0.42,2.68) {$A$};
-		\node[font=\normalsize] at (3.37,3.05) {$q$};
-	\end{tikzpicture}
+	\includegraphics{fig_ch2_horizontal_coords.pdf}
 	\caption{The astronomical (Pole--Zenith--Star) triangle, now drawn on the same equatorial $(\alpha,\delta)$ grid as Figure~\ref{fig:ra_dec_polar_grid} (light background lines) so its construction is visually grounded: the Zenith always sits on the observer's meridian (highlighted) at declination $\delta=\phi_0$, while the Star sits whever its own $(\alpha,\delta)$ happens to place it --- the angle between the meridian and the Star's own hour circle, measured at NCP, is by definition the Hour Angle $H$. As before (drawn flattened for clarity; each side is really a great-circle arc), the triangle's three sides are the star's polar distance ($90^\circ-\delta$), the observer's co-latitude ($90^\circ-\phi_0$), and the star's zenith distance ($z = 90^\circ-h$); its three angles are $H$ (at the pole), the Azimuth $A$ (at the zenith), and the Parallactic Angle $q$ (at the star itself, Section~\ref{sec:parallactic_angle}). The horizontal$\leftrightarrow$equatorial transformation, the rise/set condition, and the parallactic angle formula are all spherical trigonometry applied to this one triangle.}
 	\label{fig:astronomical_triangle}
 \end{figure}
@@ -592,3 +416,725 @@ The \emph{parallactic angle} $q$ is the angle, measured at the star itself, betw
 Aligning a spectrograph slit along the parallactic angle ($q$) minimizes atmospheric differential dispersion light loss across optical wavelengths.
 
 Chapters~1 and~2 together fix \emph{when} and \emph{where} on the sky an observation is made. Chapter~3 now asks how far away the observed object actually is, and how it is moving -- the coordinates $(\alpha,\delta)$ derived here become, once combined with a distance, the angular half of a full three-dimensional position and velocity vector.
+
+
+\section{Problem Set: Celestial Coordinate Transformations}
+
+\subsection{Problem 1: Horizontal $\leftrightarrow$ Equatorial Transformations and Sirius at IISER TVM}
+\textbf{Problem Statement}: We learned about two coordinate systems that co-rotate with the Earth: the \textbf{horizontal coordinate system (altitude $h$, azimuth $A$)} and the co-rotating \textbf{equatorial system (declination $\delta$, hour angle $H$)}. 
+
+(a) Show that these coordinate systems are related by transformation expressions. 
+
+(b) Consider Sirius ($\text{RA } 06^{\text{h}}45^{\text{m}}08.917^{\text{s}}$, $\text{DEC} = -16^\circ 42' 58.02''$). What are its hour angle, altitude, and azimuth at LST 22:00 hours at IISER TVM? 
+
+(c) Compute the rising and setting LST of Sirius at IISER TVM.
+
+\textbf{Essential Ideas}
+
+The equatorial coordinates of an object are $(\alpha,\delta)$, where
+$\alpha$ is right ascension and $\delta$ is declination.  Right
+ascension plays the role of a longitude on the celestial sphere.
+
+For an observer at latitude $\phi_0$, define the local sidereal time
+(LST) as the right ascension of the local meridian $(\alpha_{_{\rm Meridian}})$. The local meridian is fixed to your location on Earth, but as Earth rotates, different directions in the celestial sphere pass across it. 
+\begin{equation}
+	\text{LST}=\alpha_{_{\rm Meridian}}=\alpha_{_\text{Greenwich Meridian}}+\lambda
+\end{equation}
+The hour angle is therefore
+
+\begin{equation}
+\boxed{
+H=\alpha_{_{\rm Meridian}}-\alpha=\mathrm{LST}-\alpha
+}
+\end{equation}
+
+where $H>0$ denotes an object west of the local meridian. 
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{declination_celestial_coordinates_en_bviPcZn.pdf}
+        \caption{$z$ axis is the axis of rotation and equatorial plane is $xy-$plane. The coordinates $(\alpha,\delta)$ is right ascension and declination.}
+        \label{fig:ch2_prob_declination}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{local north and east.png}
+        \caption{Local North and East directions.}
+        \label{fig:ch2_prob_local_coordinates}
+    \end{minipage}
+\end{figure}
+At a given instant, let use an equatorial Cartesian frame whose $x$-axis
+points along the local meridian ($0 \rm RA$ hour circle becomes the local meridian).  The unit vector toward the object is
+
+\begin{equation}
+\hat{\mathbf{s}}_{\rm eq}
+=
+\begin{pmatrix}
+\cos\delta\cos (\alpha-\alpha_{\rm Meridian})\\
+\cos\delta\sin (\alpha-\alpha_{\rm Meridian})\\
+\sin\delta
+\end{pmatrix}=\begin{pmatrix}
+\cos\delta\cos H\\
+-\cos\delta\sin H\\
+\sin\delta
+\end{pmatrix}.\label{eq:ch2_prob_unit_r}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{altitude_azimuth_en.pdf}
+    \caption{Horizontal Coordinate System where the line connecting north and south pole passing through zenith is termed Meridian. The local meridian and the longitude lines are identical when projected onto celestial sphere.}
+    \label{fig:ch2_prob_alt_az}
+\end{figure}
+The local horizontal basis consists of east $(\delta=0,H=-90^\circ)$, zenith $(\delta=\phi_0,H=0)$ and north$(\delta=90^\circ+\phi_0,H=0)$ which is orthogonal to both east and zenith. For an observer at latitude $\phi_0$, using \eqref{eq:ch2_prob_unit_r}
+\begin{align}
+\hat{\mathbf n}
+&=
+\begin{pmatrix}
+-\sin\phi_0\\
+0\\
+\cos\phi_0
+\end{pmatrix},
+&
+\hat{\mathbf e}
+&=
+\begin{pmatrix}
+0\\
+1\\
+0
+\end{pmatrix},
+&
+\hat{\mathbf z}
+&=
+\begin{pmatrix}
+\cos\phi_0\\
+0\\
+\sin\phi_0
+\end{pmatrix}.
+\end{align}
+The unit vector pointing toward the source is written in the local horizontal basis as
+\begin{align}
+\hat{\mathbf s}_{\rm eq}
+&=\begin{pmatrix}
+    \hat{\mathbf n} & \hat{\mathbf e} & \hat{\mathbf z}
+\end{pmatrix}\begin{pmatrix}
+    \cos h\cos A\\
+    \cos h\sin A\\
+    \sin h
+\end{pmatrix}
+%=(\cos h\cos A)\,\hat{\mathbf n}+(\cos h\sin A)\,\hat{\mathbf e}+(\sin h)\,\hat{\mathbf z}\\
+%&=
+%(\cos h\cos A)\begin{pmatrix}
+%-\sin\phi_0\\
+%0\\
+%\cos\phi_0
+%\end{pmatrix}
+%+(\cos h\sin A)
+%\begin{pmatrix}
+%0\\
+%1\\
+%0
+%\end{pmatrix}
+%+
+%(\sin h)
+%\begin{pmatrix}
+%\cos\phi_0\\
+%0\\
+%\sin\phi_0
+%\end{pmatrix}
+%\\[1ex]
+%\begin{pmatrix}
+%\cos\delta\cos H\\
+%-\cos\delta\sin H\\
+%\sin\delta
+%\end{pmatrix}
+%&
+=
+\begin{pmatrix}
+\color{colone}{-\sin\phi_0} &
+\color{coltwo}{0} &
+\color{colthree}{\cos\phi_0}\\
+\color{colone}{0} &
+\color{coltwo}{1} &
+\color{colthree}{0}\\
+\color{colone}{\cos\phi_0} &
+\color{coltwo}{0} &
+\color{colthree}{\sin\phi_0}
+\end{pmatrix}
+\begin{pmatrix}
+\color{colone}{\cos h\cos A}\\
+\color{coltwo}{\cos h\sin A}\\
+\color{colthree}{\sin h}
+\end{pmatrix}.
+\end{align}
+it could be inverted to give:
+\begin{equation}
+\begin{pmatrix}
+\cos h\cos A\\
+\cos h\sin A\\
+\sin h
+\end{pmatrix}
+=
+\begin{pmatrix}
+-\sin\phi_0 & 0 & \cos\phi_0\\
+0 & 1 & 0\\
+\cos\phi_0 & 0 & \sin\phi_0
+\end{pmatrix}
+\begin{pmatrix}
+\cos\delta\cos H\\
+-\cos\delta\sin H\\
+\sin\delta
+\end{pmatrix}.
+\end{equation}
+\textbf{Detailed Solutions}:
+\begin{itemize}
+    \item (a) From above
+\begin{align}
+\cos h\cos A
+&=
+-\sin\phi_0\cos\delta\cos H
++\cos\phi_0\sin\delta,
+\\[3pt]
+\cos h\sin A
+&=
+-\cos\delta\sin H,
+\\[3pt]
+\sin h
+&=
+\cos\phi_0\cos\delta\cos H
++\sin\phi_0\sin\delta.\label{eq:ch2_prob_sinh}
+\end{align}
+
+Therefore, the last equation is precisely what we need, and, taking the ratio of the first two equations, we get the resulting required expression;
+
+\begin{equation}
+\tan A
+=
+\frac{-\cos\delta\sin H}
+{-\sin\phi_0\cos\delta\cos H+\cos\phi_0\sin\delta}=
+\frac{\sin H}
+{\sin\phi_0\cos H-\cos\phi_0\tan\delta}.
+\end{equation}
+    \item (b) \textbf{Hour Angle, Altitude, and Azimuth}: Given $\delta = -16.716^\circ$ and $\phi_0 = 8.6833^\circ, \alpha=06^{\rm h}:45^{\rm m}:08.917^{\rm s}, \text{LST}=22^{\rm h}:00^{\rm m}:00^{\rm s}$, we find:
+\begin{align}
+    H &= \text{LST} - \text{RA} = 22^{\rm h}00^{\rm m}00^{\rm s}-06^{\rm h}45^{\rm m}08.917^{\rm s}=15^{\text{h}}14^{\text{m}}51^{\text{s}} =15\bigg(15+\frac{14}{60}+\frac{51}{3600}\bigg)\notag\\
+    	&\approx 228.71^\circ\\
+	\sin h &= \sin(8.6833^\circ)\sin(-16.716^\circ) + \cos(8.6833^\circ)\cos(-16.716^\circ)\cos(228.71^\circ) \notag\\
+	&= -0.668\notag\\
+	 h &= -41.9^\circ\\
+	\tan A &=\frac{\sin (228.7128^\circ)}{\sin(8.6833^\circ)\cos(228.71^\circ)-\cos(8.6833^\circ)\tan(-16.716^\circ)}\notag\\
+	 A&=-75.26^\circ+180^\circ=104.74^\circ
+ \end{align}
+    \item (c) \textbf{Rise and Set LST}: When the star rises or sets, at both instance one has $h = 0^\circ$, therefore from eq.\eqref{eq:ch2_prob_sinh}, 
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[width=0.7\linewidth]{rising-setting}
+    	\label{fig:ch2_prob_rising_setting}
+    \end{figure}
+    we find $\cos H = -\tan\phi_0 \tan\delta = 0.0458 \Rightarrow H = \pm 87.37^\circ =\pm \frac{87.37}{15}^{\rm h}= \pm 5^{\text{h}}49^{\text{m}}29^{\text{s}}$. $\alpha_{\rm sirius}=06^{\rm h}:45^{\rm m}:09^{\rm s}$. Using $\text{LST}=\alpha+H$, we find:
+    
+    Rise $\text{LST} = 06^{\rm h}:45^{\rm m}:09^{\rm s}-5^{\rm h}:49^{\rm m}:29^{\rm s}=00^{\rm h}\text{:}55^{\rm m}\text{:}40^{\rm s}$, 
+    
+    Set $\text{LST} =06^{\rm h}:45^{\rm m}:09^{\rm s}+5^{\rm h}:49^{\rm m}:29^{\rm s}= 12^{\rm h}\text{:}34^{\rm m}\text{:}38  ^{\rm s}$.
+\end{itemize}
+
+\subsection{Problem 2: Angular Distance on the Sphere and Ecliptic Coordinates of Sirius and Regulus}
+\textbf{Problem Statement}: Consider two stars at equatorial coordinates
+$(\alpha_1,\delta_1)$ and $(\alpha_2,\delta_2)$. What is the angular
+distance between them on the celestial sphere? 
+
+(a) The coordinates of Regulus are
+\[
+\mathrm{RA}=10^{\mathrm h}08^{\mathrm m}22.311^{\mathrm s},
+\qquad
+\mathrm{DEC}=+11^\circ58'01.95''.
+\]
+What is the angular distance between Sirius and Regulus?
+
+(b) What are the ecliptic coordinates of Sirius and Regulus?
+
+\bigskip
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+    \item \textbf{Angular Distance}: Represent each star by a unit
+    vector in the Cartesian equatorial coordinate system. The angular
+    separation $\theta$ between two unit vectors is determined by their
+    dot product:
+    \[
+    \boxed{\cos\theta=\hat{\mathbf r}_1\cdot\hat{\mathbf r}_2}.
+    \]
+
+    \item \textbf{Equatorial Unit Vector}: A point with equatorial
+    coordinates $(\alpha,\delta)$ is represented by
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[c]{0.35\textwidth}
+        \[
+        \hat{\mathbf{r}}_{\rm eq} = 
+        \begin{pmatrix}
+        \cos\delta\cos\alpha\\
+        \cos\delta\sin\alpha\\
+        \sin\delta
+        \end{pmatrix}
+        \]
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\textwidth}
+\begin{tikzpicture}[
+    scale=1.5, 
+    % Projection vectors giving a true circular sphere boundary
+    x={(-0.6cm,-0.3cm)}, 
+    y={(0.9cm,-0.2cm)}, 
+    z={(0cm,0.95cm)},
+    >=Stealth
+]
+
+    % Parameters
+    \def\alphaDeg{45}
+    \def\deltaDeg{35}
+    \def\R{2.0}
+    \pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
+
+    % Coordinates
+    \coordinate (O)  at (0,0,0);
+    \coordinate (X)  at (3.8,0,0);
+    \coordinate (Y)  at (0,2.8,0);
+    \coordinate (Z)  at (0,0,2.8);
+
+    \coordinate (P)  at ({\Rproj*cos(\alphaDeg)}, {\Rproj*sin(\alphaDeg)}, {\R*sin(\deltaDeg)}); 
+    \coordinate (PP) at ({\R*cos(\alphaDeg)}, {\R*sin(\alphaDeg)}, 0);
+
+    % Colors
+    \definecolor{axisColor}{HTML}{2B3A42}
+    \definecolor{vectorColor}{HTML}{E74C3C}
+    \definecolor{arcColor}{HTML}{0D9488}
+    \definecolor{guideColor}{HTML}{94A3B8}
+    \definecolor{sphereGrid}{HTML}{CBD5E1}
+
+    % Background: Sphere Boundary Circle & Equatorial Circle
+    \begin{scope}%[on background layer]
+        % Outer sphere circle outline
+        \draw[sphereGrid, line width=0.8pt] (O) circle (1.08*\R cm);
+
+        % Equatorial circle on sphere
+        \draw[sphereGrid!80, dashed, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
+            ({\R*cos(\t)}, {\R*sin(\t)}, 0);
+
+        % Latitude parallel at angle \delta
+        \draw[sphereGrid!70, dotted, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
+            ({\Rproj*cos(\t)}, {\Rproj*sin(\t)}, {\R*sin(\deltaDeg)});
+    \end{scope}
+
+    % Axes
+    \draw[->, axisColor, line width=1.1pt] (O) -- (X) node[below left, font=\large\bfseries] {$\boldsymbol{x}$};
+    \draw[->, axisColor, line width=1.1pt] (O) -- (Y) node[right, font=\large\bfseries] {$\boldsymbol{y}$};
+    \draw[->, axisColor, line width=1.1pt] (O) -- (Z) node[above, font=\large\bfseries] {$\boldsymbol z$};
+    \node[axisColor, left=2pt, font=\large\bfseries] at (O) {$O$};
+
+    % Reference line to P'
+    \draw[dashed, guideColor, line width=0.9pt] (O) -- (PP);
+
+    % Radius vector r_eq
+    \draw[->, vectorColor, line width=2.0pt] (O) -- (P) 
+        node[midway, above left, font=\large, color=axisColor] {$\hat{\mathbf{r}}_{\rm eq}$};
+
+    % Spherical Arc \alpha (Equator)
+    \draw[->, arcColor, line width=1.6pt] plot[domain=0:\alphaDeg, variable=\t, smooth]
+        ({\R*cos(\t)}, {\R*sin(\t)}, 0);
+    \node[arcColor, font=\large\bfseries] at ({1.15*\R*cos(\alphaDeg/2)}, {1.15*\R*sin(\alphaDeg/2)}, -0.1) {$\alpha$};
+
+    % Spherical Arc \delta (Meridian)
+    \draw[->, arcColor, line width=1.6pt] plot[domain=0:\deltaDeg, variable=\t, smooth]
+        ({\R*cos(\t)*cos(\alphaDeg)}, {\R*cos(\t)*sin(\alphaDeg)}, {\R*sin(\t)});
+    \node[arcColor, font=\large\bfseries] at ($(PP)!0.5!(P)+(0.25,0.05,0)$) {$\delta$};
+
+    % Points P and P'
+    \fill[vectorColor] (P) circle (1.3pt) node[above right=1pt, font=\large\bfseries, color=axisColor] {$P$};
+    \fill[arcColor!80!black] (PP) circle (1.3pt) node[below right=1pt, font=\large\bfseries, color=axisColor] {$P'$};
+\end{tikzpicture}
+\end{minipage}
+\end{figure}
+    \item \textbf{Ecliptic Transformation}: The ecliptic coordinate
+    system is obtained from the equatorial system by rotating the
+    coordinate system through the obliquity of the ecliptic,
+    
+    \begin{figure}[H]
+    	\centering
+    	\begin{minipage}[c]{0.35\textwidth}
+    			\begin{tikzpicture}[>=stealth, line width=0.8pt]
+    			% Origin
+    			\coordinate (O) at (0,0);
+    			
+    			% Parameters
+    			\def\thetaVal{-32} % Rotation angle in degrees
+    			\def\len{2.5}     % Length of axis vectors
+    			
+    			% Original coordinate axes
+    			\draw[->] (O) -- (\len, 0) node[right] {$\hat{y}$};
+    			\draw[->] (O) -- (0, \len) node[above] {$\hat{z}$};
+    			
+    			% Rotated coordinate axes (clockwise by \thetaVal)
+    			\draw[->] (O) -- (-\thetaVal:\len) node[below right] {$\hat{y}'$};
+    			\draw[->] (O) -- (90-\thetaVal:\len) node[above] {$\hat{z}'$};
+    			
+    			% Angle arc between y and y'
+    			\draw[->] (0, 1.2) arc (90:90-\thetaVal:1.2);
+    			\node at (90-\thetaVal/2: 1.5) {$\theta$};
+    			
+    			% Angle arc between x and x'
+    			\draw[->] (1.2, 0) arc (0:-\thetaVal:1.2);
+    			\node at (-\thetaVal/2: 1.4) {$\theta$};
+    		\end{tikzpicture}
+    		\begin{align*}
+    			\begin{pmatrix}
+    				\hat{y}'\\
+    				\hat{z}'
+    			\end{pmatrix}=
+    			\begin{pmatrix}
+    				\cos\theta &
+    				\sin\theta\\
+    				-\sin\theta &\cos\theta
+    			\end{pmatrix}
+    			\begin{pmatrix}
+    			\hat{y}\\
+    			\hat{z}
+    			\end{pmatrix}
+    		\end{align*}
+    		For $\hat{y}'=(1\quad 0), \hat{z'}= (0\quad 1)$,
+    			\begin{align*}
+    			\hat{y}
+    			=\begin{pmatrix}
+    				\cos\theta \\
+    				-\sin\theta
+    			\end{pmatrix};\qquad \hat{z}=
+    			\begin{pmatrix}
+    				\cos\theta \\
+    				\sin\theta
+    			\end{pmatrix}
+    		\end{align*}
+    	\end{minipage}
+    	\begin{minipage}[c]{0.55\textwidth}
+    	\centering
+    	\includegraphics[width=0.7\linewidth]{Equator-Elliptic}
+    	\caption{$\epsilon\simeq23.44^\circ.$}
+    	\label{fig:ch2_prob_equator_elliptic}
+    \end{minipage}
+    \end{figure}
+   
+    Since the equatorial and ecliptic planes intersect along the
+    direction of the vernal equinox, this is a clockwise rotation about the
+    $x$-axis to go from Equatorial coordinate system to Elliptic coordinate system. If we don't want to use the axes to find the transformation. One can alternatively utilise:
+    \begin{align*}
+    	&\begin{pmatrix}
+    		y\\
+    		z
+    	\end{pmatrix}=\begin{pmatrix}
+    		r\cos\Theta\\
+    		r\sin\Theta
+    	\end{pmatrix}
+    	&\begin{pmatrix}
+    		y'\\
+    		z'
+    	\end{pmatrix}=\begin{pmatrix}
+    		r\cos(\Theta-\theta)\\
+    		r\sin(\Theta-\theta)
+    	\end{pmatrix}=\begin{pmatrix}
+    		\cos\theta &
+    		\sin\theta\\
+    		-\sin\theta &\cos\theta
+    	\end{pmatrix}\begin{pmatrix}
+    	r\cos\Theta\\
+    	r\sin\Theta
+    	\end{pmatrix}
+    \end{align*}
+\end{itemize}
+
+\bigskip
+
+\textbf{Detailed Solutions}:
+
+\begin{itemize}
+
+\item[(a)] \textbf{Angular Distance}:
+
+For a star with equatorial coordinates $(\alpha,\delta)$, its unit
+position vector is
+
+\[
+\hat{\mathbf r}_{\rm eq}
+=
+\begin{pmatrix}
+\cos\delta\cos\alpha\\
+\cos\delta\sin\alpha\\
+\sin\delta
+\end{pmatrix}.
+\]
+
+Thus, for the two stars,
+
+\[
+\hat{\mathbf r}_1
+=
+\begin{pmatrix}
+\cos\delta_1\cos\alpha_1\\
+\cos\delta_1\sin\alpha_1\\
+\sin\delta_1
+\end{pmatrix},
+\qquad
+\hat{\mathbf r}_2
+=
+\begin{pmatrix}
+\cos\delta_2\cos\alpha_2\\
+\cos\delta_2\sin\alpha_2\\
+\sin\delta_2
+\end{pmatrix}.
+\]
+
+Since both vectors are normalized,
+
+\[
+\cos\theta
+=
+\hat{\mathbf r}_1\cdot\hat{\mathbf r}_2.
+\]
+
+Therefore,
+
+\begin{align}
+\cos\theta
+&=
+\cos\delta_1\cos\delta_2
+\cos\alpha_1\cos\alpha_2
++
+\cos\delta_1\cos\delta_2
+\sin\alpha_1\sin\alpha_2
++
+\sin\delta_1\sin\delta_2
+\\
+&=
+\sin\delta_1\sin\delta_2
++
+\cos\delta_1\cos\delta_2
+\cos(\alpha_1-\alpha_2).
+\end{align}
+
+For Sirius,
+\begin{align}
+(\alpha_1,\delta_1)
+&=
+(6^{\mathrm h}45^{\mathrm m}08.917^{\mathrm s},-16.716^\circ)
+=
+\left(15\left[
+6+\frac{45}{60}+\frac{8.917}{3600}
+\right]^\circ,-16.716^\circ\right)\\
+&\approx(101.287^\circ,-16.716^\circ).
+\end{align}
+
+For Regulus,
+\begin{align}
+    (\alpha_2,\delta_2)
+&=
+(10^{\mathrm h}08^{\mathrm m}22.311^{\mathrm s},11^\circ58'01.95'')
+=
+\left(15\left[
+10+\frac{8}{60}+\frac{22.311}{3600}
+\right]^\circ,11^\circ58'01.95''\right)\\
+&\approx (152.093^\circ,11.967^\circ).
+\end{align}
+
+Thus
+
+\[
+\cos\theta
+=
+\sin(-16.716^\circ)\sin(11.967^\circ)
++
+\cos(-16.716^\circ)\cos(11.967^\circ)
+\cos(101.287^\circ-152.093^\circ).
+\]
+
+Thus,
+
+\[
+\boxed{\theta\approx57.8^\circ}.
+\]
+
+\bigskip
+
+\item[(b)] \textbf{Ecliptic Coordinates}:
+
+Let $(\lambda,\beta)$ denote ecliptic longitude and latitude.
+The corresponding Cartesian unit vector is
+
+
+\begin{figure}[H]
+	 \centering
+	\begin{minipage}[c]{0.35\textwidth}
+		\[
+		\hat{\mathbf r}_{\rm ecl}
+		=
+		\begin{pmatrix}
+			\cos\beta\cos\lambda\\
+			\cos\beta\sin\lambda\\
+			\sin\beta
+		\end{pmatrix}.
+		\]
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{0.55\textwidth}
+	\begin{tikzpicture}[>=latex, line join=round, line cap=round]
+		
+		% Custom Cyan color
+		\definecolor{mycyan}{RGB}{0, 119, 153}
+		
+		% Coordinates
+		\coordinate (O) at (0, 0);
+		\coordinate (L) at (0, 3.6);
+		\coordinate (Gamma) at (-2.0, -2.0);
+		
+		% Position vector & orthogonal projection point on the xy-plane
+		\coordinate (Star) at (2.5, 2.3);
+		\coordinate (Proj) at (2.5, -0.45);
+		
+		% 1. Orbital Plane Ellipse
+		\draw[mycyan, thick] (0,0) ellipse (3.6cm and 1.0cm);
+		
+		% 2. Vertical Axis L (Orbital Axis)
+		\draw[->, mycyan, thick] (O) -- (L) node[above, black] {$L$};
+		\node[mycyan, right] at (0.2, 3.2) {orbital axis};
+		
+		% 3. Reference Axis (\hat{\gamma})
+		\draw[->, mycyan, thick] (O) -- (Gamma) node[below left, black] {$\hat{\gamma}$};
+		
+		% 4. Origin Label and Circle
+		\node[black, left=2pt] at (-0.1, 0.1) {$O$};
+		\draw[mycyan, fill=white] (O) circle (0.13cm);
+		\fill[mycyan] (O) circle (0.035cm);
+		
+		% 5. Primary Vectors and Projection Lines
+		\draw[->, mycyan, thick] (O) -- (Star);
+		\draw[dashed, mycyan, thick] (O) -- (Proj) node[right=3pt, black] {$P$};
+		\draw[dotted, mycyan, very thick] (Star) -- (Proj);
+		
+		% 6. Right-Angle Symbol at Point P
+		\draw[mycyan, thin] (2.35, -0.42) -- (2.35, -0.27) -- (2.5, -0.30);
+		
+		% 7. Star Marker
+		\node[mycyan, scale=1.4] at (Star) {$\star$};
+		
+		% 8. Longitude (\lambda) Arc with explicit curved 3D plane projection
+		% Parametric arc: R_x = 1.5cm, R_y = 0.4167cm (aspect ratio 3.6)
+		% Starts on \hat{\gamma} at (-0.400, -0.400) [t = 254.5 deg]
+		% Ends on line OP at (1.260, -0.227) [t = 327.1 deg]
+		\draw[mycyan, thick, ->] (-0.400, -0.400) arc[start angle=254.5, end angle=327.1, x radius=1.5cm, y radius=0.4167cm];
+		\node[black] at (0.40, -0.65) {$\lambda$};
+		
+		% 9. Latitude (\beta) Elevation Arc from OP to OStar
+		\draw[mycyan, thick, ->] (1.18, -0.21) arc[start angle=-10.2, end angle=42.6, radius=1.2cm]
+		node[midway, right=2pt, black] {$\beta$};
+		
+		% 10. Legend
+		\node[mycyan, align=left, anchor=west] at (3.8, 1.4) {
+			$\lambda$ -- longitude \\
+			$\beta$ -- latitude
+		};
+		
+	\end{tikzpicture}
+\end{minipage}
+\end{figure}
+\textbf{The equatorial and ecliptic systems have the same $x$-axis}, directed
+toward the vernal equinox. They differ by the obliquity
+$\epsilon$ (rotation about vernal equinox). Hence,
+
+\begin{align}
+\begin{pmatrix}
+\cos\beta\cos\lambda\\
+\cos\beta\sin\lambda\\
+\sin\beta
+\end{pmatrix}
+&=\underbrace{\begin{pmatrix}
+		1\\
+		0\\
+		0
+\end{pmatrix}}_{\hat{x}}\cos\delta\cos\alpha+
+\underbrace{\begin{pmatrix}
+		0\\
+		\cos\epsilon\\
+		-\sin\epsilon
+\end{pmatrix}}_{\hat{y}}\cos\delta\sin\alpha+
+\underbrace{\begin{pmatrix}
+		0\\
+		\sin\epsilon\\
+		\cos\epsilon
+\end{pmatrix}}_{\hat{z}}\sin\delta\\
+&=
+\begin{pmatrix}
+1&0&0\\
+0&\cos\epsilon&\sin\epsilon\\
+0&-\sin\epsilon&\cos\epsilon
+\end{pmatrix}
+\begin{pmatrix}
+\cos\delta\cos\alpha\\
+\cos\delta\sin\alpha\\
+\sin\delta
+\end{pmatrix}
+\\[4pt]
+&=
+\begin{pmatrix}
+\cos\delta\cos\alpha\\
+\cos\delta\sin\alpha\cos\epsilon
++\sin\delta\sin\epsilon\\
+-\cos\delta\sin\alpha\sin\epsilon
++\sin\delta\cos\epsilon
+\end{pmatrix}.
+\end{align}
+
+Thus,
+
+\[
+\boxed{
+\beta
+=
+\sin^{-1}
+\left(
+\sin\delta\cos\epsilon
+-
+\cos\delta\sin\alpha\sin\epsilon
+\right),
+}
+\]
+
+while the longitude is most safely obtained using
+
+\[
+\boxed{
+\lambda = \tan^{-1}\left(\frac{\cos\delta\sin\alpha\cos\epsilon + \sin\delta\sin\epsilon}{\cos\delta\cos\alpha}\right)
+}
+\]
+
+For Sirius,
+
+\[
+\alpha_{\rm S}\approx101.287^\circ,
+\qquad
+\delta_{\rm S}\approx-16.716^\circ\implies \lambda_{\rm S}\approx-75.9^\circ,
+\qquad
+\beta_{\rm S}\approx-39.6^\circ.
+\]
+
+For Regulus,
+
+\[
+\alpha_{\rm R}\approx152.093^\circ,
+\qquad
+\delta_{\rm R}\approx11.967^\circ\implies \lambda_{\rm R}\approx -69.6^\circ,
+\qquad
+\beta_{\rm R}\approx0.46^\circ.
+\]
+
+\end{itemize}
