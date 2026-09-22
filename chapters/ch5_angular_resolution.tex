@@ -369,85 +369,7 @@ In telescope optics, the field across the pupil plane is structured in three ste
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.1, >=Stealth]
-    % Coordinates & parameters
-    \def\apertureTop{1.8}
-    \def\apertureBot{-1.8}
-    \def\thetaDeg{16}
-    \def\rayLen{3.8}
-    
-    % Colors
-    \definecolor{incidentCol}{HTML}{1D4ED8}
-    \definecolor{waveletCol}{HTML}{0D9488}
-    \definecolor{rayCol}{HTML}{DC2626}
-    \definecolor{opaqueCol}{HTML}{334155}
-    
-    % 1. Incident Plane Wave from Distant Star (Left)
-    \foreach \x in {-4.2, -3.4, -2.6, -1.8, -1.0} {
-        \draw[thick, incidentCol!40, dashed] (\x, -2.4) -- (\x, 2.4);
-    }
-    \foreach \y in {-1.4, -0.7, 0, 0.7, 1.4} {
-        \draw[->, line width=1.1pt, incidentCol] (-4.2, \y) -- (-0.1, \y);
-    }
-    \node[incidentCol, fill=white, inner sep=2pt, font=\bfseries\footnotesize, align=center] at (-2.6, 2.7) {Incident Plane Wave ($E_0$)};
-
-    % 2. Aperture Mask Plane (x = 0)
-    % Top opaque mask
-    \fill[opaqueCol!30] (-0.12, \apertureTop) rectangle (0.12, 2.5);
-    \draw[thick, opaqueCol] (-0.12, \apertureTop) rectangle (0.12, 2.5);
-    \node[opaqueCol, font=\scriptsize\bfseries, align=center, fill=white, inner sep=1pt] at (-1.1, 2.15) {Opaque Baffle\\($t=0$)};
-    \draw[->, thin, opaqueCol] (-0.45, 2.15) -- (-0.15, 2.15);
-
-    % Bottom opaque mask
-    \fill[opaqueCol!30] (-0.12, \apertureBot) rectangle (0.12, -2.5);
-    \draw[thick, opaqueCol] (-0.12, \apertureBot) rectangle (0.12, -2.5);
-    \node[opaqueCol, font=\scriptsize\bfseries, align=center, fill=white, inner sep=1pt] at (-1.1, -2.15) {Opaque Baffle\\($t=0$)};
-    \draw[->, thin, opaqueCol] (-0.45, -2.15) -- (-0.15, -2.15);
-
-    % Open Aperture Bracket
-    \draw[decorate, decoration={brace, amplitude=6pt, mirror}, thick, incidentCol]
-        (-0.25, \apertureBot) -- (-0.25, \apertureTop) 
-        node[midway, left=8pt, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] {Open Pupil ($t=1$)\\$A(x,y) = E_0$};
-
-    % 3. Huygens Point Sources & Secondary Wavelets
-    \foreach \y [count=\idx] in {1.4, 0.7, 0, -0.7, -1.4} {
-        \coordinate (H\idx) at (0, \y);
-        \fill[waveletCol!90!black] (H\idx) circle (2.2pt);
-        
-        \foreach \r in {0.4, 0.8, 1.2, 1.6, 2.0} {
-            \draw[waveletCol!35, line width=0.7pt] (H\idx) ++(-50:\r) arc (-50:50:\r);
-        }
-        
-        \draw[->, line width=1.1pt, rayCol] (H\idx) -- ++(\thetaDeg:\rayLen);
-    }
-    
-    \node[waveletCol!90!black, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] at (1.8, 2.5) {Huygens Secondary\\Wavelets ($dE$)};
-    \draw[->, thin, waveletCol!80!black] (1.3, 2.2) -- (0.8, 1.6);
-
-    % 4. Perpendicular Diffracted Wavefront & Path Differences
-    \coordinate (Wtop) at (H1);
-    \pgfmathsetmacro{\xDelay}{2.8*sin(\thetaDeg)*cos(\thetaDeg)}
-    \pgfmathsetmacro{\yDelay}{-1.4 + 2.8*sin(\thetaDeg)*sin(\thetaDeg)}
-    \coordinate (Wbot) at (\xDelay, \yDelay);
-    
-    \draw[dashed, line width=1.3pt, waveletCol] ($(Wtop)!-0.2!(Wbot)$) -- ($(Wtop)!1.4!(Wbot)$) 
-        node[below right=2pt and 0pt, font=\bfseries\scriptsize, waveletCol] {Diffracted Wavefront};
-    
-    \draw[line width=3.0pt, waveletCol] (H5) -- (Wbot);
-    \node[waveletCol, font=\bfseries\scriptsize, below=3pt, fill=white, inner sep=1pt] at ($(H5)!0.45!(Wbot)$) {$\Delta L = y\sin\theta$};
-
-    \pgfmathsetmacro{\sq}{0.18}
-    \draw[thick, waveletCol] 
-        ($(Wbot) + ({-\sq*cos(\thetaDeg)}, {-\sq*sin(\thetaDeg)})$) -- 
-        ++({-\sq*sin(\thetaDeg)}, {\sq*cos(\thetaDeg)}) -- 
-        ($(Wbot) + ({-\sq*sin(\thetaDeg)}, {\sq*cos(\thetaDeg)})$);
-
-    \draw[dashed, gray!70] (H3) -- ++(2.2, 0);
-    \draw[->, thick, rayCol] (1.3, 0) arc (0:\thetaDeg:1.3);
-    \node[rayCol, font=\footnotesize\bfseries, right] at ({1.3*cos(0.5*\thetaDeg)}, {1.3*sin(0.5*\thetaDeg)+0.05}) {$\theta$};
-
-    \node[rayCol, font=\bfseries\footnotesize, above right=0pt and 2pt] at ({\rayLen*cos(\thetaDeg)}, {1.4 + \rayLen*sin(\thetaDeg)}) {Diffracted Rays};
-\end{tikzpicture}
+\includegraphics{fig_ch5_huygens_superposition_principle.pdf}
 \caption{The physical foundation of diffraction: an incident star plane wave is clipped by the aperture mask $t(x,y)$. Every point in the open pupil emits a secondary Huygens wavelet with geometric path lag $\Delta L = y\sin\theta$, superposing constructively or destructively in the far field.}
 \label{fig:huygens_superposition_principle}
 \end{figure}
@@ -510,125 +432,7 @@ An astronomical diffraction grating consists of $N$ identical parallel slits of 
 \begin{figure}[htbp]
 \centering
 \resizebox{0.95\textwidth}{!}{
-\begin{tikzpicture}[scale=1.05, >=Stealth]
-    % Parameters
-    \def\Nslits{4}
-    \def\d{1.35}     % Slit pitch
-    \def\a{0.32}     % Slit width
-    \def\thetaDeg{16} % Diffraction angle (clean, modest angle)
-    \def\lensX{5.5}  % Distance to lens
-    \def\screenX{9.2} % Distance to screen
-    \def\yMid{2.025} % (0 + 3*1.35)/2 = 2.025 (center of grating & optical axis)
-    
-    \pgfmathsetmacro{\fLen}{\screenX - \lensX}
-    \pgfmathsetmacro{\focalY}{\yMid + \fLen*tan(\thetaDeg)}
-    
-    % Colors
-    \definecolor{gratingCol}{HTML}{2B3A42}
-    \definecolor{rayCol}{HTML}{C0392B}
-    \definecolor{waveCol}{HTML}{0D9488}
-    \definecolor{guideCol}{HTML}{94A3B8}
-    \definecolor{accentCol}{HTML}{1B4F72}
-    
-    % Optical Axis
-    \draw[dashdotted, guideCol!80, line width=0.9pt] (-2.2, \yMid) -- (\screenX+0.6, \yMid) 
-        node[right, font=\scriptsize\bfseries\color{guideCol!90!black}] {Optical Axis};
-
-    % Grating Plane at x = 0
-    \fill[gratingCol!30] (-0.08, -0.6) rectangle (0.08, {-0.5*\a});
-    \draw[thick, gratingCol] (-0.08, -0.6) -- (-0.08, {-0.5*\a}) -- (0.08, {-0.5*\a}) -- (0.08, -0.6);
-    
-    \fill[gratingCol!30] (-0.08, {3*\d + 0.5*\a}) rectangle (0.08, 4.8);
-    \draw[thick, gratingCol] (-0.08, {3*\d + 0.5*\a}) -- (-0.08, 4.8) -- (0.08, 4.8) -- (0.08, {3*\d + 0.5*\a});
-    
-    % Slits and rays
-    \foreach \i in {0, 1, 2, 3} {
-        \pgfmathsetmacro{\yCenter}{\i*\d}
-        \coordinate (S\i) at (0, \yCenter);
-        
-        \draw[->, line width=1.1pt, astroblue] (-2.0, \yCenter) -- (-0.05, \yCenter);
-        
-        \pgfmathsetmacro{\yLens}{\yCenter + \lensX*tan(\thetaDeg)}
-        \coordinate (L\i) at (\lensX, \yLens);
-        \draw[line width=1.1pt, rayCol] (S\i) -- (L\i);
-        \draw[->, line width=1.1pt, rayCol] (S\i) -- ($(S\i)!0.55!(L\i)$);
-        
-        \coordinate (P) at (\screenX, \focalY);
-        \draw[line width=1.1pt, rayCol] (L\i) -- (P);
-        \draw[->, line width=1.1pt, rayCol] (L\i) -- ($(L\i)!0.6!(P)$);
-        
-        \ifnum\i<3
-            \pgfmathsetmacro{\yTop}{\yCenter + 0.5*\a}
-            \pgfmathsetmacro{\yNextBottom}{(\i+1)*\d - 0.5*\a}
-            \fill[gratingCol!75] (-0.08, \yTop) rectangle (0.08, \yNextBottom);
-            \draw[thick, gratingCol] (-0.08, \yTop) rectangle (0.08, \yNextBottom);
-        \fi
-    }
-    
-    % Incoming wavefronts
-    \foreach \xw in {-1.6, -1.1, -0.6} {
-        \draw[line width=1.0pt, astroblue!60, dashed] (\xw, -0.4) -- (\xw, 4.6);
-    }
-    \node[astroblue, font=\bfseries\scriptsize, align=center] at (-1.1, 4.9) {Incident Plane Wave\\($\lambda$)};
-
-    % Normal reference lines & angle arcs at each slit
-    \foreach \i in {0, 1, 2, 3} {
-        \draw[dashed, guideCol, thick] (S\i) -- ++(1.8, 0);
-        \draw[->, thick, accentCol] ({0.75}, {\i*\d}) arc (0:\thetaDeg:0.75);
-        \node[accentCol, font=\scriptsize\bfseries, right] at ({0.75*cos(0.5*\thetaDeg)}, {\i*\d + 0.75*sin(0.5*\thetaDeg)}) {$\theta$};
-    }
-    
-    % Diffracted Wavefront
-    \foreach \i in {0, 1, 2} {
-        \pgfmathsetmacro{\ti}{(3 - \i)*\d*sin(\thetaDeg)}
-        \pgfmathsetmacro{\wXi}{\ti*cos(\thetaDeg)}
-        \pgfmathsetmacro{\wYi}{\i*\d + \ti*sin(\thetaDeg)}
-        \coordinate (W\i) at ({\wXi}, {\wYi});
-        \draw[line width=3.2pt, waveCol] (S\i) -- (W\i);
-        
-        \pgfmathsetmacro{\sqSize}{0.18}
-        \draw[thick, waveCol] 
-            ($(W\i) + ({-\sqSize*cos(\thetaDeg)}, {-\sqSize*sin(\thetaDeg)})$) -- 
-            ++({-\sqSize*sin(\thetaDeg)}, {\sqSize*cos(\thetaDeg)}) -- 
-            ($(W\i) + ({-\sqSize*sin(\thetaDeg)}, {\sqSize*cos(\thetaDeg)})$);
-    }
-    
-    \coordinate (Wext) at ($(S3)!1.26!(W0)$);
-    \draw[dashed, line width=1.4pt, waveCol] (S3) -- (Wext);
-    \node[waveCol, font=\bfseries\scriptsize, above right=1pt and 2pt] at (Wext) {Diffracted Wavefront};
-        
-    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S0)!0.5!(W0)$) {$3d\sin\theta$};
-    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S1)!0.5!(W1)$) {$2d\sin\theta$};
-    \node[waveCol, font=\bfseries\scriptsize, above=2pt, fill=white, inner sep=1pt] at ($(S2)!0.5!(W2)$) {$d\sin\theta$};
-
-    % Focusing Lens
-    \draw[thick, fill=blue!10, draw=astroblue] 
-        (\lensX, -0.6) to[out=25, in=-25] (\lensX, 6.1) 
-        to[out=-155, in=155] (\lensX, -0.6);
-    \node[astroblue, font=\bfseries\footnotesize, align=center] at (\lensX, -1.0) {Focusing Lens\\(Focal length $f$)};
-    \draw[dashdotted, gray!60] (\lensX, -0.8) -- (\lensX, 6.3);
-
-    % Spectral Focal Plane Screen
-    \draw[very thick, ink] (\screenX, -0.6) -- (\screenX, 6.1);
-    \node[ink, font=\bfseries\footnotesize, align=center] at (\screenX, -1.0) {Spectral Focal\\Plane (Detector)};
-    
-    \fill[red!80!black] (P) circle (2.5pt);
-    \node[right=3pt, red!80!black, font=\bfseries\footnotesize, align=left] at (P) {$P(\theta)$ ($m$-th Order\\Spectral Peak)};
-
-    \draw[<->, thick, gray!80!black] (\lensX, -0.4) -- (\screenX, -0.4) 
-        node[midway, above, font=\scriptsize\bfseries] {$f$};
-
-    \draw[decorate, decoration={brace, amplitude=3pt, mirror}, thick]
-        (-0.2, -0.16) -- (-0.2, 0.16) node[midway, left=4pt, font=\scriptsize\bfseries] {$a$};
-        
-    \draw[decorate, decoration={brace, amplitude=4pt, mirror}, thick]
-        (-0.5, 0) -- (-0.5, \d) node[midway, left=5pt, font=\scriptsize\bfseries] {$d$};
-
-    \draw[decorate, decoration={brace, amplitude=6pt, mirror}, thick]
-        (-0.9, 0) -- (-0.9, {3*\d}) node[midway, left=7pt, font=\footnotesize\bfseries] {$W = (N-1)d$};
-
-    \node[gratingCol, font=\bfseries\footnotesize, align=center] at (0, -1.0) {$N$-Slit\\Grating};
-\end{tikzpicture}
+\includegraphics{fig_ch5_n_slit_geometry.pdf}
 }
 \caption{Optical path delays across an $N$-slit diffraction grating. Rays diffracted at angle $\theta$ incur progressive lags $\Delta L_n = n d\sin\theta$ and focus onto the detector plane forming sharp spectral lines.}
 \label{fig:n_slit_geometry}
@@ -791,90 +595,7 @@ When observing two incoherent, equal-brightness point sources (e.g., a visual bi
 \begin{figure}[htbp]
 \centering
 \resizebox{\textwidth}{!}{
-\begin{tikzpicture}[
-    scale=1.05, 
-    >=Stealth,
-    declare function={
-        sinc(\x) = (\x==0 ? 1.0 : sin(deg(\x))/\x);
-        psf1(\x,\sep) = pow(sinc(3.14159*(\x + 0.5*\sep)), 2);
-        psf2(\x,\sep) = pow(sinc(3.14159*(\x - 0.5*\sep)), 2);
-        psftot(\x,\sep) = psf1(\x,\sep) + psf2(\x,\sep);
-    }
-]
-    % 1. Rayleigh Criterion (\sep = 1.0)
-    \begin{scope}[shift={(0,0)}]
-        \def\sep{1.0}
-        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Rayleigh Criterion\\[2pt]\footnotesize\mdseries $\left(\Delta\theta = \frac{\lambda}{a}\right)$};
-        
-        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
-        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
-        
-        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
-        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
-        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
-        
-        \node[font=\scriptsize\bfseries, red!80!black, align=center] at (-1.65, 1.45) {Source 1};
-        \draw[->, thick, red!80!black] (-1.35, 1.35) -- (-0.65, 1.08);
-        
-        \node[font=\scriptsize\bfseries, blue!80!black, align=center] at (1.65, 1.45) {Source 2};
-        \draw[->, thick, blue!80!black] (1.35, 1.35) -- (0.65, 1.08);
-        
-        \draw[dashed, gray!60, thin] (-0.5, 1.0) -- (0.5, 1.0);
-        \draw[<->, thick, astroblue] (0, 0.81) -- (0, 1.0);
-        \node[font=\scriptsize\bfseries, astroblue, align=center] at (0, 2.05) {$19\%$ Central Dip\\[1pt]\mdseries ($I_{\rm dip} = 0.81\,I_{\rm peak}$)};
-        \draw[->, thick, astroblue] (0, 1.68) -- (0, 1.08);
-        \fill[astroblue] (0, 0.81) circle (1.8pt);
-        
-        \draw[dashed, gray!70] (-0.5, 0) -- (-0.5, -0.65);
-        \draw[dashed, gray!70] (0.5, 0) -- (0.5, -0.65);
-        \draw[<->, thick, gray!80!black] (-0.5, -0.5) -- (0.5, -0.5) 
-            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = \frac{\lambda}{a}$};
-    \end{scope}
-
-    % 2. Sparrow Criterion (\sep = 0.83)
-    \begin{scope}[shift={(6.2,0)}]
-        \def\sep{0.83}
-        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Sparrow Criterion\\[2pt]\footnotesize\mdseries $\left(\Delta\theta = 0.83\,\frac{\lambda}{a}\right)$};
-        
-        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
-        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
-        
-        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
-        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
-        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
-        
-        \node[font=\scriptsize\bfseries, astroblue, align=center] at (0, 2.15) {Flat Plateau\\[1pt]\mdseries $\left.\frac{d^2 I}{d\theta^2}\right|_{\theta=0} = 0$};
-        \draw[->, thick, astroblue] (0, 1.70) -- (0, 1.15);
-        \fill[astroblue] (0, 1.05) circle (2pt);
-        
-        \draw[dashed, gray!70] (-0.415, 0) -- (-0.415, -0.65);
-        \draw[dashed, gray!70] (0.415, 0) -- (0.415, -0.65);
-        \draw[<->, thick, gray!80!black] (-0.415, -0.5) -- (0.415, -0.5) 
-            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = 0.83\,\frac{\lambda}{a}$};
-    \end{scope}
-
-    % 3. Unresolved (\sep = 0.50)
-    \begin{scope}[shift={(12.4,0)}]
-        \def\sep{0.50}
-        \node[font=\bfseries\normalsize, align=center] at (0, 3.45) {Unresolved\\[2pt]\footnotesize\mdseries $(\Delta\theta < \theta_{\rm Sparrow})$};
-        
-        \draw[->, thick] (-2.5, 0) -- (2.6, 0) node[right, font=\footnotesize] {$\theta$};
-        \draw[->, thick] (-2.4, 0) -- (-2.4, 2.5) node[above, font=\footnotesize] {$I(\theta)$};
-        
-        \draw[dashed, red!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf1(\x,\sep)});
-        \draw[dashed, blue!80!black, line width=1.0pt, domain=-2.3:2.3, samples=150] plot (\x, {psf2(\x,\sep)});
-        \draw[very thick, ink, domain=-2.3:2.3, samples=200] plot (\x, {psftot(\x,\sep)});
-        
-        \node[font=\scriptsize\bfseries, ink, align=center] at (0, 2.50) {Single Blended Peak\\[1pt]\mdseries (No central dip)};
-        \draw[->, thick, ink] (0, 2.08) -- (0, 1.75);
-        \fill[ink] (0, 1.65) circle (1.8pt);
-        
-        \draw[dashed, gray!70] (-0.25, 0) -- (-0.25, -0.65);
-        \draw[dashed, gray!70] (0.25, 0) -- (0.25, -0.65);
-        \draw[<->, thick, gray!80!black] (-0.25, -0.5) -- (0.25, -0.5) 
-            node[midway, below=1pt, font=\scriptsize\bfseries] {$\Delta\theta = 0.5\,\frac{\lambda}{a}$};
-    \end{scope}
-\end{tikzpicture}
+\includegraphics{fig_ch5_rayleigh_sparrow_comparison.pdf}
 }
 \caption{Comparison of two-source resolution criteria: Rayleigh criterion ($19\%$ dip for slits, $26.5\%$ for Airy disk), Sparrow criterion (flat inflection plateau $\frac{d^2 I}{d\theta^2}=0$), and an unresolved profile.}
 \label{fig:rayleigh_sparrow_comparison}
@@ -882,46 +603,7 @@ When observing two incoherent, equal-brightness point sources (e.g., a visual bi
 
 \begin{figure}[htbp]
     \centering
-    \begin{tikzpicture}[
-    scale=1.1,
-    >=stealth,
-    declare function={
-        sinc(\x) = (\x==0 ? 1 : sin(deg(\x))/\x);
-    }
-]
-    \def\xR{-1.2}
-    \def\xB{1.2}
-    \def\dx{2.4} 
-
-    \draw[->, thick] (-6.5,0) -- (6.5,0);
-
-    \draw[red, thick, domain=-6.2:4.5, samples=300, smooth] 
-        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xR) / \dx), 2)});
-
-    \draw[blue, thick, domain=-4.5:6.2, samples=300, smooth] 
-        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xB) / \dx), 2)});
-
-    \draw[dashed, thick] (\xR, -1.2) -- (\xR, 3.0);
-    \draw[dashed, thick] (\xB, -1.2) -- (\xB, 3.0);
-    \draw[dashed, thick] ({\xR - \dx}, -1.2) -- ({\xR - \dx}, 0);
-    \draw[dashed, thick] ({\xB + \dx}, -1.2) -- ({\xB + \dx}, 0);
-
-    \draw[<->, thick] ({\xR - \dx}, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xR, -0.7);
-    \draw[<->, thick] (\xR, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xB, -0.7);
-    \draw[<->, thick] (\xB, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} ({\xB + \dx}, -0.7);
-
-    \draw[thin] (-1.5, 3.3) -- (\xR, 3.0);
-    \node[red, font=\bfseries\sffamily, left] at (-1.5, 3.3) {central maximum};
-
-    \draw[thin] (1.5, 3.3) -- (\xB, 3.0);
-    \node[blue, font=\bfseries\sffamily, right] at (1.5, 3.3) {central maximum};
-
-    \draw[thin] (-1.8, 0.7) -- (\xR, 0.05);
-    \node[blue, font=\bfseries\sffamily, left] at (-1.8, 0.7) {first minimum};
-
-    \draw[thin] (1.8, 0.7) -- (\xB, 0.05);
-    \node[red, font=\bfseries\sffamily, right] at (1.8, 0.7) {first minimum};
-    \end{tikzpicture}
+    \includegraphics{fig_ch5_rayleigh_diffraction_sinc.pdf}
     \caption{Diffraction patterns of two barely resolved point sources under the Rayleigh criterion, where the central maximum of one source coincides with the first minimum ($\theta_1 = 1.22\lambda/D$) of the second.}
     \label{fig:rayleigh_diffraction_sinc}
 \end{figure}
@@ -1093,52 +775,7 @@ resolution we can get?
     \begin{minipage}[c]{0.55\textwidth}
     \centering
     \usetikzlibrary{angles, quotes, calc, decorations.pathreplacing}
-    \begin{tikzpicture}
-    % Define the radius and angle
-    \def\RE{4}
-    \def\gammaangle{60}
-
-    % Define coordinates rotated by 90 degrees
-    \coordinate (O) at (0,0);
-    \coordinate (A) at (90+\gammaangle/2:\RE);
-    \coordinate (B) at (90-\gammaangle/2:\RE);
-    
-    % M is the midpoint of the chord for the perpendicular bisector
-    \coordinate (M) at (90:{\RE*cos(\gammaangle/2)});
-
-    % Draw the circle background and top arc
-    %\draw[dashed, gray!70] (O) circle (\RE);
-    \draw[thick] (0:\RE) arc (0:180:\RE);
-
-    % Draw the radii
-    \draw[thick] (O) -- (A) node[midway, left=4pt] {$R_E$};
-    \draw[thick] (O) -- (B) node[midway, right=4pt] {$R_E$};
-
-    % Draw the full chord
-    \draw[thick, blue] (A) -- (B);
-
-    % Draw the perpendicular bisector
-    \draw[thick, dashed, red] (O) -- (M);
-
-    % Right angle marker at the intersection
-    \draw (M) ++(0,-0.2) -- ++(0.2,0) -- ++(0,0.2);
-
-    % Label the half-chord distances using braces
-    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
-         (A) -- (M) node[midway, above=12pt] {$R_E \sin(\gamma/2)$};
-    \draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick]
-         (M) -- (B) node[midway, above=12pt] {$R_E \sin(\gamma/2)$};
-
-    % Draw and label the split angles
-    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=1cm] {angle = M--O--A};
-    \pic [draw, thick, "$\frac{\gamma}{2}$", angle eccentricity=1.6, angle radius=1cm] {angle = B--O--M};
-
-    % Mark and label the points
-    \fill (O) circle (2pt) node[below=2pt] {$O$};
-    \fill (A) circle (2pt) node[above left] {$P_1$};
-    \fill (B) circle (2pt) node[above right] {$P_2$};
-    \fill (M) circle (1.5pt) node[below right=1pt] {$M$};
-\end{tikzpicture}
+    \includegraphics{fig_ch5_prob_chord_distance.pdf}
 \end{minipage}
 \end{figure}
 
@@ -1167,78 +804,7 @@ angular resolution approximately as
     		\]
     	\end{minipage}
     	\begin{minipage}[c]{0.55\textwidth}
-    		\begin{tikzpicture}[
-    			scale=1.5, 
-    			% Projection vectors giving a true circular sphere boundary
-    			x={(-0.6cm,-0.3cm)}, 
-    			y={(0.9cm,-0.2cm)}, 
-    			z={(0cm,0.95cm)},
-    			>=Stealth
-    			]
-    			
-    			% Parameters
-    			\def\alphaDeg{45}
-    			\def\deltaDeg{35}
-    			\def\R{2.0}
-    			\pgfmathsetmacro{\Rproj}{\R*cos(\deltaDeg)}
-    			
-    			% Coordinates
-    			\coordinate (O)  at (0,0,0);
-    			\coordinate (X)  at (3.8,0,0);
-    			\coordinate (Y)  at (0,2.8,0);
-    			\coordinate (Z)  at (0,0,2.8);
-    			
-    			\coordinate (P)  at ({\Rproj*cos(\alphaDeg)}, {\Rproj*sin(\alphaDeg)}, {\R*sin(\deltaDeg)}); 
-    			\coordinate (PP) at ({\R*cos(\alphaDeg)}, {\R*sin(\alphaDeg)}, 0);
-    			
-    			% Colors
-    			\definecolor{axisColor}{HTML}{2B3A42}
-    			\definecolor{vectorColor}{HTML}{E74C3C}
-    			\definecolor{arcColor}{HTML}{0D9488}
-    			\definecolor{guideColor}{HTML}{94A3B8}
-    			\definecolor{sphereGrid}{HTML}{CBD5E1}
-    			
-    			% Background: Sphere Boundary Circle & Equatorial Circle
-    			\begin{scope}%[on background layer]
-    				% Outer sphere circle outline
-    				\draw[sphereGrid, line width=0.8pt] (O) circle (1.08*\R cm);
-    				
-    				% Equatorial circle on sphere
-    				\draw[sphereGrid!80, dashed, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
-    				({\R*cos(\t)}, {\R*sin(\t)}, 0);
-    				
-    				% Latitude parallel at angle \delta
-    				\draw[sphereGrid!70, dotted, line width=0.5pt] plot[domain=0:360, variable=\t, smooth] 
-    				({\Rproj*cos(\t)}, {\Rproj*sin(\t)}, {\R*sin(\deltaDeg)});
-    			\end{scope}
-    			
-    			% Axes
-    			\draw[->, axisColor, line width=1.1pt] (O) -- (X) node[below left, font=\large\bfseries] {$\boldsymbol{x}$};
-    			\draw[->, axisColor, line width=1.1pt] (O) -- (Y) node[right, font=\large\bfseries] {$\boldsymbol{y}$};
-    			\draw[->, axisColor, line width=1.1pt] (O) -- (Z) node[above, font=\large\bfseries] {$\boldsymbol z$};
-    			\node[axisColor, left=2pt, font=\large\bfseries] at (O) {$O$};
-    			
-    			% Reference line to P'
-    			\draw[dashed, guideColor, line width=0.9pt] (O) -- (PP);
-    			
-    			% Radius vector r_eq
-    			\draw[->, vectorColor, line width=2.0pt] (O) -- (P) 
-    			node[midway, above left, font=\large, color=axisColor] {$\hat{\mathbf{r}}_{\rm eq}$};
-    			
-    			% Spherical Arc  (Equator)
-    			\draw[->, arcColor, line width=1.6pt] plot[domain=0:\alphaDeg, variable=\t, smooth]
-    			({\R*cos(\t)}, {\R*sin(\t)}, 0);
-    			\node[arcColor, font=\large\bfseries] at ({1.15*\R*cos(\alphaDeg/2)}, {1.15*\R*sin(\alphaDeg/2)}, -0.1) {$\lambda$};
-    			
-    			% Spherical Arc \delta (Meridian)
-    			\draw[->, arcColor, line width=1.6pt] plot[domain=0:\deltaDeg, variable=\t, smooth]
-    			({\R*cos(\t)*cos(\alphaDeg)}, {\R*cos(\t)*sin(\alphaDeg)}, {\R*sin(\t)});
-    			\node[arcColor, font=\large\bfseries] at ($(PP)!0.5!(P)+(0.25,0.05,0)$) {$\phi$};
-    			
-    			% Points P and P'
-    			\fill[vectorColor] (P) circle (1.3pt) node[above right=1pt, font=\large\bfseries, color=axisColor] {$P$};
-    			\fill[arcColor!80!black] (PP) circle (1.3pt) node[below right=1pt, font=\large\bfseries, color=axisColor] {$P'$};
-    		\end{tikzpicture}
+    		\includegraphics{fig_ch5_prob_sphere_arc.pdf}
     	\end{minipage}
 	\end{figure}
 
@@ -1305,152 +871,14 @@ angular resolution approximately as
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
-\begin{tikzpicture}[scale=1.0, >=Stealth]
-    \def\D{3.0}     % Primary diameter (30 cm scaled)
-    \def\d{7.5}     % Mirror distance (0.75 m scaled)
-    \def\b{1.875}   % Secondary diameter (18.75 cm scaled)
-    \def\a{5.0}     % CCD distance (0.5 m scaled)
-    \def\F{-12.5}   % Primary focus (2.0 m scaled -> 20 units left of primary at 7.5)
-    
-    % Background shading for the similar triangle
-    \fill[orange!10] (\d, 1.5) -- (\F, 0) -- (\d, -1.5) -- cycle;
-    
-    % Virtual rays continuing to the Primary Focus (completes the similar triangle)
-    \draw[dotted, orange, ultra thick] (0, \b/2) -- (\F, 0);
-    \draw[dotted, orange, ultra thick] (0, -\b/2) -- (\F, 0);
-    \fill[orange] (\F, 0) circle (3pt) node[below=2mm] {\Large Focus};
-    
-    % Mark overall Focal Length (F = 2.0m) at the top
-    \draw[|-|, thick, orange] (\F, 2.5) -- (\d, 2.5) node[midway, above] {\Large $F = 2.0\text{m}$ (Focal Length)};
-
-    % Incoming Rays from infinity (aligned with the edges of the primary mirror)
-    \draw[dashed, red, thick, ->] (-3, 1.5) -- (\d, 1.5);
-    \draw[dashed, red, thick, ->] (-3, -1.5) -- (\d, -1.5);
-    
-    % Primary Mirror
-    \fill[yellow!60] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5) -- cycle;
-    \fill[yellow!60] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5) -- cycle;
-    \draw[ultra thick, green!60!black] (\d, 1.5) to[bend left=10] (\d+0.2, 0.5) -- (\d, 0.5);
-    \draw[ultra thick, green!60!black] (\d, -1.5) to[bend right=10] (\d+0.2, -0.5) -- (\d, -0.5);
-    
-    % Secondary Mirror
-    \draw[ultra thick, teal] (0, \b/2) -- (0, -\b/2) node[midway, left=2mm, text=teal] {\Large $b$};
-    
-    % Reflected converging rays from primary to secondary
-    \draw[dashed, red, thick, ->] (\d, 1.5) -- (0, \b/2);
-    \draw[dashed, red, thick, ->] (\d, -1.5) -- (0, -\b/2);
-    
-    % Reflected rays from secondary to CCD
-    \draw[dashed, red, thick, ->] (0, \b/2) -- (\d+\a, 0);
-    \draw[dashed, red, thick, ->] (0, -\b/2) -- (\d+\a, 0);
-    
-    % CCD at focal plane
-    \draw[ultra thick, blue!80!black] (\d+\a, 0.6) -- (\d+\a, -0.6) node[below=2mm] {\Large CCD};
-    \fill[red] (\d+\a, 0) circle (2.5pt);
-    
-    % Continuous bottom dimension lines showing the geometry
-    \draw[|-|, thick, teal] (\F, -2.4) -- (0, -2.4) node[midway, below] {\Large $1.25\text{m}$};
-    \draw[|-|, thick, blue] (0, -2.4) -- (\d, -2.4) node[midway, below] {\Large $0.75\text{m}$};
-    \draw[|-|, thick, blue] (\d, -2.4) -- (\d+\a, -2.4) node[midway, below] {\Large $a=?$};
-    
-    % Primary Mirror Aperture Dimension
-    \draw[|-|, thick, green!60!black] (\d+0.6, -1.5) -- (\d+0.6, 1.5) node[midway, right] {\Large $30\text{cm}$};
-\end{tikzpicture}
+\includegraphics{fig_ch5_prob_cassegrain_optics.pdf}
 }
 \caption{Cassegrain reflector telescope}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
-        >=Stealth,
-        font=\sffamily\small,
-        ray/.style={thick, color=black},
-        marginal/.style={thin, color=black!25} % Faded style for marginal/off-axis non-chief rays
-    ]
-
-        % Coordinates & Parameters
-        \coordinate (LensCenter) at (0,0);
-        \def\FocalLength{4.5}
-        \def\ImageOffset{1.6} % Height y of off-axis image B
-        
-        \coordinate (ImageA) at (\FocalLength, 0);            % Center focal point (Image A)
-        \coordinate (ImageB) at (\FocalLength, \ImageOffset);   % Off-axis focal point (Image B)
-        
-        % Focal Plane Line & Bottom Text
-        \draw[thick] (\FocalLength, -2.5) -- (\FocalLength, 2.5);
-        \node[below=4pt, align=center] at (\FocalLength, -2.5) {FOCAL\\PLANE};
-        
-        % Lens
-        \draw[thick, fill=blue!5, draw=black] 
-            (-0.25,-1.8) to[out=20, in=-20] (-0.25, 1.8) 
-            to[out=-160, in=160] (-0.25,-1.8);
-
-        % Optical Axis (Reference line)
-        \draw[dashed, gray!40] (-6,0) -- (\FocalLength+0.5,0);
-
-        % ================= SOURCE A (On-Axis: 3 Rays) =================
-        % Ray A1 (Top horizontal ray - Faded)
-        \draw[marginal] (-5.5, 0.8) -- (0, 0.8) -- (ImageA);
-        \draw[marginal] (-5.5, 0.8) -- (-2.75, 0.8) [arrows={-Stealth}];
-        \draw[marginal] (0, 0.8) -- ($(0,0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
-
-        % Ray A2 (Central optical axis ray / Chief Ray - Main Focus)
-        \draw[ray] (-5.5, 0) -- (LensCenter) -- (ImageA);
-        \draw[ray] (-5.5, 0) -- (-2.75, 0) [arrows={-Stealth}];
-        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageA)$) [arrows={-Stealth}];
-
-        % Ray A3 (Bottom horizontal ray - Faded)
-        \draw[marginal] (-5.5, -0.8) -- (0, -0.8) -- (ImageA);
-        \draw[marginal] (-5.5, -0.8) -- (-2.75, -0.8) [arrows={-Stealth}];
-        \draw[marginal] (0, -0.8) -- ($(0,-0.8)!0.5!(ImageA)$) [arrows={-Stealth}];
-
-
-        % ================= SOURCE B (Off-Axis: 3 Rays at Angle theta) =================
-        % Ray B1 (Upper angled ray entering lens at y = 0.7 - Faded)
-        \coordinate (B_start_top) at (-5.5, {0.7 - 5.5 * (\ImageOffset / \FocalLength)});
-        \draw[marginal] (B_start_top) -- (0, 0.7) -- (ImageB);
-        \draw[marginal] (B_start_top) -- ($0.5*(B_start_top)+0.5*(0,0.7)$) [arrows={-Stealth}];
-        \draw[marginal] (0, 0.7) -- ($(0,0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
-
-        % Ray B2 (Central chief ray through lens center - Main Focus)
-        \coordinate (B_start_chief) at (-5.5, {-5.5 * (\ImageOffset / \FocalLength)});
-        \draw[ray] (B_start_chief) -- (LensCenter) -- (ImageB);
-        \draw[ray] (B_start_chief) -- ($0.5*(B_start_chief)+0.5*(LensCenter)$) [arrows={-Stealth}];
-        \draw[ray] (LensCenter) -- ($0.5*(LensCenter)+0.5*(ImageB)$) [arrows={-Stealth}];
-
-        % Ray B3 (Lower angled ray entering lens at y = -0.7 - Faded)
-        \coordinate (B_start_lower) at (-5.5, {-0.7 - 5.5 * (\ImageOffset / \FocalLength)});
-        \draw[marginal] (B_start_lower) -- (0, -0.7) -- (ImageB);
-        \draw[marginal] (B_start_lower) -- ($0.5*(B_start_lower)+0.5*(0,-0.7)$) [arrows={-Stealth}];
-        \draw[marginal] (0, -0.7) -- ($(0,-0.7)!0.5!(ImageB)$) [arrows={-Stealth}];
-
-
-        % ================= LABELS & MARKS =================
-        % Angle theta mark
-        \draw [thick] (1.3,0) arc (0:19.5:1.2);
-        \node at (1.5, 0.25) {$\theta$};
-
-        % Source & Image Labels
-        \node[left] at (-5.5, 0) {FROM SOURCE A};
-        \node[left] at (-5.5, -2.2) {FROM SOURCE B};
-
-        \draw[thin] (ImageB) -- (\FocalLength+0.8, 2.0) node[right] {IMAGE OF SOURCE B};
-        \draw[thin] (ImageA) -- (\FocalLength+0.8, -0.4) node[right] {IMAGE OF SOURCE A};
-
-        % Dimension y (displacement on focal plane)
-        \draw[<->, thick] (\FocalLength+0.3, 0) -- (\FocalLength+0.3, \ImageOffset) 
-            node[midway, right] {$y$};
-        \draw[thin, gray] (ImageA) -- (\FocalLength+0.4, 0);
-        \draw[thin, gray] (ImageB) -- (\FocalLength+0.4, \ImageOffset);
-
-        % Dimension F (focal length)
-        \draw[<->, thick] (-0.25, -1.8) -- (\FocalLength, -1.8) 
-            node[midway, fill=white, inner sep=2pt] {$F$};
-        \draw[thin, gray] (-0.25, -1.5) -- (-0.25, -2.0);
-        \draw[thin, gray] (\FocalLength, -0.2) -- (\FocalLength, -2.0);
-
-    \end{tikzpicture}
+    \includegraphics{fig_ch5_prob_chief_rays.pdf}
     \caption{Ray diagram illustrating angular resolution of two point sources, highlighting the central chief rays while marginal rays are faded for visual clarity.}
 \end{figure}
 Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel and is defined as $P=\dv{\theta}{s}=\frac{\theta}{y}$, where $\theta$ is measured in arcsec $(=\frac{1}{3600}^{\circ})$.
@@ -1526,62 +954,7 @@ which relates the two scales.
     \item[(3)] \textbf{Diffraction-Limited Resolution:}
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
-    scale=1.2,
-    >=stealth,
-    declare function={
-        sinc(\x) = (\x==0 ? 1 : sin(deg(\x))/\x);
-    }
-]
-
-    % Geometry Parameters
-    % Red peak at x = -1.2, Blue peak at x = 1.2
-    % Peak separation alpha = theta_1 = 2.4 units (Rayleigh Criterion)
-    \def\xR{-1.2}
-    \def\xB{1.2}
-    \def\dx{2.4} 
-
-    % Base axis line
-    \draw[->, thick] (-6.5,0) -- (6.5,0);
-
-    % Red diffraction pattern: I(x) = (sinc(pi*(x - xR)/dx))^2
-    \draw[red, thick, domain=-6.2:4.5, samples=300, smooth] 
-        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xR) / \dx), 2)});
-
-    % Blue diffraction pattern: I(x) = (sinc(pi*(x - xB)/dx))^2
-    \draw[blue, thick, domain=-4.5:6.2, samples=300, smooth] 
-        plot (\x, {3.0 * pow(sinc(3.14159 * (\x - \xB) / \dx), 2)});
-
-    % Vertical dashed lines
-    \draw[dashed, thick] (\xR, -1.2) -- (\xR, 3.0);
-    \draw[dashed, thick] (\xB, -1.2) -- (\xB, 3.0);
-    \draw[dashed, thick] ({\xR - \dx}, -1.2) -- ({\xR - \dx}, 0);
-    \draw[dashed, thick] ({\xB + \dx}, -1.2) -- ({\xB + \dx}, 0);
-
- 
-    % Bottom arrows explicitly labeling theta_1 = 1.22 lambda / D
-    \draw[<->, thick] ({\xR - \dx}, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xR, -0.7);
-    \draw[<->, thick] (\xR, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} (\xB, -0.7);
-    \draw[<->, thick] (\xB, -0.7) -- node[above] {$\theta_1 = 1.22 \frac{\lambda}{D}$} ({\xB + \dx}, -0.7);
-
-    % Labels and pointer lines
-    % Red central maximum label
-    \draw[thin] (-1.5, 3.3) -- (\xR, 3.0);
-    \node[red, font=\bfseries\sffamily, left] at (-1.5, 3.3) {central maximum};
-
-    % Blue central maximum label
-    \draw[thin] (1.5, 3.3) -- (\xB, 3.0);
-    \node[blue, font=\bfseries\sffamily, right] at (1.5, 3.3) {central maximum};
-
-    % Blue first minimum label (coincident with Red central peak)
-    \draw[thin] (-1.8, 0.7) -- (\xR, 0.05);
-    \node[blue, font=\bfseries\sffamily, left] at (-1.8, 0.7) {first minimum};
-
-    % Red first minimum label (coincident with Blue central peak)
-    \draw[thin] (1.8, 0.7) -- (\xB, 0.05);
-    \node[red, font=\bfseries\sffamily, right] at (1.8, 0.7) {first minimum};
-
-\end{tikzpicture}
+    \includegraphics{fig_ch5_prob_diffraction_sinc.pdf}
 \end{figure}
     The angular resolution of a circular aperture is approximately
     \[

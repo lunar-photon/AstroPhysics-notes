@@ -33,7 +33,6 @@
 \newcommand{\thetahat}{\hat\theta}
 \newcommand{\note}[1]{\textcolor{blue!60!black}{\textit{[#1]}}}
 
-% Astronomical acronyms
 \newcommand{\LST}{\mathrm{LST}}
 \newcommand{\GST}{\mathrm{GST}}
 \newcommand{\GMST}{\mathrm{GMST}}
@@ -50,23 +49,6 @@
 \newcommand{\EoT}{\mathrm{EoT}}
 \newcommand{\SNR}{\mathrm{SNR}}
 \newcommand{\RON}{\mathrm{RON}}
-
-% Helper commands for specific diagrams
-\newcommand{\midlinelabel}[3]{
-    \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
-\newcommand{\midlinelabell}[3]{
-    \node[fill = white, inner sep = 0.2pt, outer sep=3pt] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
-\newcommand{\midlinelabelll}[3]{
-    \node[fill = white, inner sep = 0.2pt, outer sep=3pt,scale=0.6] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
 
 
 

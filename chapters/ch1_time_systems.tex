@@ -434,54 +434,7 @@ With a continuous, unambiguous time coordinate now established, Chapter~2 turns 
     
     \begin{figure}[htbp]    	
     	\centering
-    	\begin{tikzpicture}[>=Stealth, font=\sffamily, scale=0.9]
-    		% Sun at (-1.5, 0), Radius R = 8.0
-    		\coordinate (Sun) at (-1.5, 0);
-    		\coordinate (Earth1) at (6.5, 0);                 % theta = 0 deg
-    		\coordinate (Earth2) at (5.0532, 4.5886);         % theta = 35 deg, R = 8.0
-    		
-    		% Lines from Sun to Earths
-    		\draw[line width=1.2pt] (Sun) -- (Earth1);
-    		\draw[line width=1.2pt] (Sun) -- (Earth2);
-    		
-    		% Parametrized Orbit Arc
-    		\draw[line width=1.5pt, ->] (Sun) ++(-5:8.0) arc[start angle=-5, end angle=50, radius=8.0];
-    		\node[font=\large, anchor=south west] at (4.2, 6.4) {Orbit around Sun};
-    		
-    		% Sun
-    		\draw[fill=yellow, line width=1.2pt] (Sun) circle (0.75);
-    		\node[font=\bfseries\large] at (Sun) {Sun};
-    		\draw[dashed, ->, line width=1.2pt] (-2.25, 0) -- (-3.8, 0);
-    		
-    		% Earth Day 1
-    		\shade[ball color=cyan!60!blue!40] (Earth1) circle (0.85);
-    		\draw[line width=1.2pt] (Earth1) circle (0.85);
-    		\node[font=\bfseries\large] at (Earth1) {Earth};
-    		\node[font=\bfseries\large, anchor=south west] at (6.8, 0.8) {Day 1};
-    		\draw[line width=1.2pt] (6.5, -0.85) -- (6.5, -1.45);
-    		
-    		% Earth Day 2
-    		\shade[ball color=cyan!60!blue!40] (Earth2) circle (0.85);
-    		\draw[line width=1.2pt] (Earth2) circle (0.85);
-    		\node[font=\bfseries\large] at (Earth2) {Day 2};
-    		
-    		% Inner core + spin arrow on Earth 2
-    		\draw[fill=cyan!80!black!30, line width=0.8pt] (Earth2) circle (0.5);
-    		\draw[->, line width=1.2pt] (Earth2) ++(0:0.4) arc[start angle=0, end angle=230, radius=0.4];
-    		
-    		% Dashed Sidereal Direction Line from Earth 2
-    		\draw[dashed, ->, line width=1.2pt] (Earth2) ++(-0.85, 0) -- (-3.2, 4.5886);
-    		\node[align=center, font=\normalsize, anchor=south] at (-0.8, 4.65) {Direction in space\\defines sidereal day};
-    		
-    		% Angles & Annotations
-    		\draw[line width=1pt] (Sun) ++(1.8, 0) arc[start angle=0, end angle=35, radius=1.8];
-    		\node[font=\normalsize, anchor=west] at (0.8, 0.5) {$\frac{360^{\circ}}{365\text{ days}}\approx 1^\circ/\text{day}$};
-    		
-    		% Angle at Earth 2
-    		\draw[<->, line width=1.2pt] (Earth2) ++(180:1.7) arc[start angle=180, end angle=215, radius=1.7];
-    		\node[align=center, font=\normalsize, anchor=east] at (3.0, 3.6) {Spinning Earth takes further\\$4$ minutes to face Sun again\\
-    			$\left(\frac{24\times 60\,\text{min}}{360^{\circ}}=4\,\text{min/deg}\right)$};
-    	\end{tikzpicture}
+    	\includegraphics{fig_ch1_prob_sidereal_solar.pdf}
     	\caption{Distinction between the sidereal day ($360^\circ$ spatial rotation) and the solar day (which requires an additional $\approx 1^\circ \approx 4\,\text{min}$ of spin to bring the Sun back onto the local meridian).}
     	\label{fig:ch1_prob_sidereal_solar}
     \end{figure}
@@ -489,57 +442,7 @@ With a continuous, unambiguous time coordinate now established, Chapter~2 turns 
     \item \textbf{Zenith Angle at Noon}: The zenith angle $z$ at local solar noon represents the angular distance from the local zenith vector to the Sun, governed by the absolute difference between the observer's latitude $\phi_0$ and solar declination $\delta_\odot$ ($+23.44^\circ$ on summer solstice).
     \begin{figure}[htbp]
     	\centering
-    	\begin{tikzpicture}[scale=1.3, >=stealth]
-    		% Earth circle
-    		\draw[thick, blue!70!black] (0,0) circle (2cm);
-    		\fill (0,0) circle (1.5pt) node[below left] {Earth Center ($O$)};
-
-    		% Equator line
-    		\draw[dashed, gray] (-2.4,0) -- (2.4,0) node[right] {Equator ($\delta = 0^\circ$)};
-
-    		% External Sun Icon
-    		\coordinate (Sun) at (5.2, 3.6);
-    		\fill[sunyellow] (Sun) circle (0.45cm);
-    		\node[orange!90!black, above] at (Sun) {\textbf{Sun (Center)}};
-
-    		% Connecting line
-    		\draw[dashed, orange!70!black] (0,0) -- (Sun);
-
-    		% Subsolar Point at intersection
-    		\coordinate (Subsolar) at (35:2cm);
-    		\fill[orange!90!black] (Subsolar) circle (2pt) node[above right, yshift=2pt] {Subsolar Point ($\phi_s$)};
-    		\draw[thick, orange!80!black] (0,0) -- (Subsolar);
-
-    		% Observer Position
-    		\coordinate (Observer) at (75:2cm);
-    		\fill[black] (Observer) circle (2.5pt) node[above left] {Observer ($\phi_u$)};
-    		\draw[thick, black] (0,0) -- (Observer);
-
-    		% Local Horizon at Observer
-    		\draw[thick, blue!70!black] ($(Observer) + (-15:1.4cm)$) -- ($(Observer) + (165:1.4cm)$) node[above right] {Local Horizon};
-
-    		% Local Zenith at Observer
-    		\draw[->, thick, blue!70!black] (Observer) -- ($(Observer) + (75:1.6cm)$) node[above] {Zenith ($Z$)};
-
-    		% Parallel Sun Ray 1
-    		\draw[->, thick, orange] (Sun) -- (Subsolar);
-
-    		% Parallel Sun Ray 2
-    		\draw[->, thick, orange] ($(Sun) + (Observer) - (Subsolar)$) -- (Observer);
-    		\node[orange, above right] at ($(Sun)!0.4!(Subsolar)$) {Parallel Sun Rays};
-
-    		% Latitude angle of Subsolar point
-    		\draw[thick, purple] (0.5,0) arc (0:35:0.5cm);
-    		\node[purple] at (0.65, 0.18) {$\phi_s$};
-
-    		% Latitude angle of Observer
-    		\draw[thick, purple] (0.85,0) arc (0:75:0.85cm);
-    		\node[purple] at (1.05, 0.48) {$\phi_u$};
-
-    		% Zenith angle z
-    		\draw[thick, red!70!black] (0.38,0.25) arc (35:75:0.38cm);
-    		\node[red!70!black, above] at ($(35:0.38cm)!0.5!(75:0.38cm) + (-0.12, 0.12)$) {$z$ ($\gamma$)};
-    	\end{tikzpicture}
+    	\includegraphics{fig_ch1_prob_subsolar_zenith.pdf}
     	\caption{Geometry of the subsolar point and the noon zenith angle $z = |\phi_u - \phi_s|$ on the meridian.}
     	\label{fig:ch1_prob_subsolar_zenith}
     \end{figure}
