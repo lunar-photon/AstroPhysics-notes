@@ -99,21 +99,21 @@ When starlight traverses the interstellar medium, dust grains scatter and absorb
 
 In this regime, the scattering cross-section falls with wavelength ($\sigma_{\rm ext} \propto \lambda^{-1}$). Because blue light has a shorter wavelength than visual light ($\lambda_B \approx 440\,\mathrm{nm} < \lambda_V \approx 550\,\mathrm{nm}$), dust attenuates blue photons more heavily ($A_B > A_V$). This preferential blue loss shifts the observed color index toward redder values:
 \begin{equation}
-	(B - V)_{\rm obs} = (B - V)_0 + E(B - V),
+	(B - V)_{\rm obs} = (B - V)_0 + E_{B - V},
 	\label{eq:color_index_observed_split}
 \end{equation}
-where $E(B - V) \equiv A_B - A_V > 0$ is the \emph{color excess}. To determine the star's true temperature and intrinsic spectral type, astronomers subtract this excess via the \textbf{Color Index Correction}:
+where $E_{B - V} \equiv A_B - A_V > 0$ is the \emph{color excess}. To determine the star's true temperature and intrinsic spectral type, astronomers subtract this excess via the \textbf{Color Index Correction}:
 \begin{keyresult}
 	\begin{equation}
-		(B - V)_0 = (B - V)_{\rm obs} - E(B - V).
+		(B - V)_0 = (B - V)_{\rm obs} - E_{B-V}.
 		\label{eq:color_index_correction}
 	\end{equation}
 \end{keyresult}
 
-The total visual extinction is parameterized by $A_V = R_V E(B - V)$, where $R_V \approx 3.1$ in the diffuse Milky Way. Removing $A_V$ from the apparent distance modulus yields the true dereddened distance modulus $\mu_0$:
+The total visual extinction is parameterized by $A_V = R_V E_{B-V}$, where $R_V \approx 3.1$ in the diffuse Milky Way. Removing $A_V$ from the apparent distance modulus yields the true dereddened distance modulus $\mu_0$:
 \begin{keyresult}
 	\begin{equation}
-		\mu_0 \equiv (m_V - M_V)_{\rm obs} - R_V\,E(B - V) = 5\log_{10}d\,[\mathrm{pc}] - 5.
+		\mu_0 \equiv (m_V - M_V)_{\rm obs} - R_V\,E_{B-V} = 5\log_{10}d\,[\mathrm{pc}] - 5.
 		\label{eq:dereddened_distance_modulus}
 	\end{equation}
 \end{keyresult}
@@ -127,9 +127,9 @@ The total visual extinction is parameterized by $A_V = R_V E(B - V)$, where $R_V
 	\begin{equation}
 		A_B - A_V = 1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B) - \sigma_{\rm ext}(\lambda_V)\right] > 0,
 	\end{equation}
-	since $\lambda_B < \lambda_V \implies \sigma_{\rm ext}(\lambda_B) > \sigma_{\rm ext}(\lambda_V)$. The observed color index is $(B - V)_{\rm obs} = m_B - m_V = (B - V)_0 + (A_B - A_V) = (B - V)_0 + E(B - V)$. Dereddening isolates the intrinsic color $(B - V)_0 = (B - V)_{\rm obs} - E(B - V)$, and subtracting $A_V = R_V E(B-V)$ yields the true distance modulus:
+	since $\lambda_B < \lambda_V \implies \sigma_{\rm ext}(\lambda_B) > \sigma_{\rm ext}(\lambda_V)$. The observed color index is $(B - V)_{\rm obs} = m_B - m_V = (B - V)_0 + (A_B - A_V) = (B - V)_0 + E_{B-V}$. Dereddening isolates the intrinsic color $(B - V)_0 = (B - V)_{\rm obs} - E_{B-V}$, and subtracting $A_V = R_V E(B-V)$ yields the true distance modulus:
 	\begin{equation}
-		5\log_{10}d - 5 = (m_V - M_V)_{\rm obs} - R_V\,E(B - V).
+		5\log_{10}d - 5 = (m_V - M_V)_{\rm obs} - R_V\,E_{B-V}.
 	\end{equation}
 \end{tcolorbox}
 
@@ -253,9 +253,9 @@ Resolving an angular diameter of tens of milliarcseconds, as in the Betelgeuse e
 
 \subsection{Problem 1: Distance and Extinction from Observed Color Indices}
 
-\textbf{Problem Statement}: An $\mathrm{A0\,V}$ star with intrinsic color index $(B - V)_0 = 0.00\,\mathrm{mag}$ and absolute magnitude $M_V = +0.60\,\mathrm{mag}$ is observed behind an interstellar cloud with apparent magnitudes $m_B = 14.55\,\mathrm{mag}$ and $m_V = 13.80\,\mathrm{mag}$. For standard dust ($R_V = 3.1$), calculate the color excess $E(B - V)$, visual extinction $A_V$, and true distance $d$.
+\textbf{Problem Statement}: An $\mathrm{A0\,V}$ star with intrinsic color index $(B - V)_0 = 0.00\,\mathrm{mag}$ and absolute magnitude $M_V = +0.60\,\mathrm{mag}$ is observed behind an interstellar cloud with apparent magnitudes $m_B = 14.55\,\mathrm{mag}$ and $m_V = 13.80\,\mathrm{mag}$. For standard dust ($R_V = 3.1$), calculate the color excess $E_{B-V}$, visual extinction $A_V$, and true distance $d$.
 
-\textbf{Solution}: The observed color index is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = +0.75\,\mathrm{mag}$. The color excess is $E(B - V) = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = +0.75\,\mathrm{mag}$, which gives visual extinction $A_V = R_V\,E(B - V) = 3.1 \times 0.75 = 2.325\,\mathrm{mag}$. The true dereddened distance modulus is $\mu_0 = m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875\,\mathrm{mag}$, yielding a true distance of $d = 10^{(\mu_0 + 5)/5} = 10^{3.175} \approx 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}$. Neglecting dust extinction would give an apparent distance of $10^{(13.80 - 0.60 + 5)/5} \approx 4365\,\mathrm{pc}$, overestimating the distance by a factor of nearly $3$.
+\textbf{Solution}: The observed color index is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = +0.75\,\mathrm{mag}$. The color excess is $E_{B-V} = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = +0.75\,\mathrm{mag}$, which gives visual extinction $A_V = R_V\,E_{B-V} = 3.1 \times 0.75 = 2.325\,\mathrm{mag}$. The true dereddened distance modulus is $\mu_0 = m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875\,\mathrm{mag}$, yielding a true distance of $d = 10^{(\mu_0 + 5)/5} = 10^{3.175} \approx 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}$. Neglecting dust extinction would give an apparent distance of $10^{(13.80 - 0.60 + 5)/5} \approx 4365\,\mathrm{pc}$, overestimating the distance by a factor of nearly $3$.
 
 \subsection{Problem 2: Photometric Parameters and Physical Radius of Aldebaran}
 
