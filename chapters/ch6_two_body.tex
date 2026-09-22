@@ -1279,15 +1279,27 @@
 	Define the unit vector perpendicular to $\hat A$ in the direction of
 	increasing true anomaly:
 	\begin{equation}
-		\boxed{\dot{\hat{A}}=\sin f\,\rhat+\cos f\,\phihat .}\label{eq:qhat_def}
+		\boxed{
+			\hat q
+			=
+			\sin f\,\rhat+\cos f\,\phihat .
+		}
+		\label{eq:qhat_def}
 	\end{equation}
 	Differentiating \eqref{eq:Ahat_f} gives
 	\begin{align}
-		\dot{\hat A}&=-\dot f\sin f\,\rhat+\cos f\,\dot{\rhat}-\dot f\cos f\,\phihat-\sin f\,\dot{\phihat},
+		\dot{\hat A}
+		&=
+		-\dot f\sin f\,\rhat
+		+\cos f\,\dot{\rhat}
+		-\dot f\cos f\,\phihat
+		-\sin f\,\dot{\phihat},
 	\end{align}
 	with
 	\begin{equation}
-		\dot{\rhat}=\dot\phi\,\phihat,	\qquad	\dot{\phihat}=-\dot\phi\,\rhat.
+		\dot{\rhat}=\dot\phi\,\phihat,
+		\qquad
+		\dot{\phihat}=-\dot\phi\,\rhat.
 	\end{equation}
 	Thus
 	\begin{align}
@@ -1299,7 +1311,7 @@
 		\right)
 		\\
 		&=
-		\dot\omega\,\dot{\hat{A}},
+		\dot\omega\,\hat q,
 	\end{align}
 	because
 	\begin{equation}
@@ -1318,7 +1330,7 @@
 	\begin{equation}
 		A\dot\omega
 		=
-		\dot{\vec A}\cdot\dot{\hat{A}}.
+		\dot{\vec A}\cdot\hat q.
 	\end{equation}
 	Using \eqref{eq:planar_Adot_xi} and \eqref{eq:qhat_def},
 	\begin{align}
