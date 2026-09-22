@@ -2683,18 +2683,94 @@ which is exactly one-dimensional motion in the \emph{effective potential} $v_{\r
 
 \subsection{Problem 8: Continuous Tangential Thrust Orbital Evolution}
 
-\textbf{Problem Statement}: A satellite in circular orbit experiences a continuous thrust $\vec A = A\hat v$ parallel to velocity. Derive the rates of change $\dot a$ and $\dot e$.
+\textbf{Problem Statement}: A $500\,\mathrm{kg}$ satellite initially moves in a circular Earth orbit of period $T = 8\,\mathrm{h}$. At $t=0$, a $100\,\mathrm{N}$ thruster is switched on such that the thrust is always directed parallel to the instantaneous velocity vector ($\vec A = A\hat v$).
+\begin{enumerate}[label=(\alph*)]
+	\item Find the initial orbital radius $a(0)$.
+	\item Derive the rate of change of the semi-major axis $\dot a$.
+	\item Derive the rate of change of the eccentricity $\dot e$ from the exact rate of the Laplace--Runge--Lenz vector $\vec A$.
+	\item Can the coupled evolution equations for $(a, e)$ be solved analytically?
+\end{enumerate}
 
-\textbf{Solution}:
-The specific energy rate is $\dot\epsilon = \vec A \cdot \vec v = Av$. Differentiating $\epsilon = -\mu_E/(2a)$:
-\begin{equation}
-	\boxed{\frac{da}{dt} = \frac{2a^2v}{\mu_E}A = 2A\sqrt{\frac{a^3}{\mu_E}}\sqrt{\frac{1+2e\cos v_f+e^2}{1-e^2}}}.
-\end{equation}
-Differentiating $e^2 = 1 + 2\epsilon h^2/\mu_E^2$ with $\dot{\vec h} = (A/v)\vec h$:
-\begin{equation}
-	\boxed{\frac{de}{dt} = \frac{A}{v}\frac{v^2h^2+2\epsilon h}{\mu_E^2 e}}.
-\end{equation}
-Because the derivatives depend on the instantaneous orbital phase $v_f(t)$, the system cannot be solved in closed elementary form and requires orbit-averaging or numerical integration.
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item \textbf{Thrust Acceleration and Initial Radius}: The continuous thrust acceleration is $A = F/m = 100\,\mathrm{N}/500\,\mathrm{kg} = 0.2\,\mathrm{m\cdot s^{-2}}$. For an initially circular orbit ($e=0$) of period $T = 8\,\mathrm{h} = 28{,}800\,\mathrm{s}$ around Earth ($\mu_E \equiv GM_\oplus \approx 3.986 \times 10^{14}\,\mathrm{m^3\cdot s^{-2}}$), Kepler's third law gives:
+	\[
+	a(0) = \left(\frac{\mu_E T^2}{4\pi^2}\right)^{1/3} \simeq 2.03 \times 10^7\,\mathrm{m} \approx 20{,}300\,\mathrm{km}.
+	\]
+	\item \textbf{Perturbation Force Vector}: Because thrust is tangential, $\vec a_{\rm thrust} = A\hat v$. In polar coordinates $(\hat r, \hat\phi)$, velocity is $\vec v = \dot r\hat r + r\dot\phi\hat\phi = \dot r\hat r + \frac{L}{\mu r}\hat\phi$. The perturbing force $\vec F = \mu A\hat v = F_r\hat r + F_\phi\hat\phi$ has components:
+	\[
+	F_r = \mu A\frac{\dot r}{v}, \qquad F_\phi = \mu A\frac{L}{\mu r v} = \frac{AL}{rv}.
+	\]
+	Using $\xi \equiv \frac{\mu r\dot r}{L} = \frac{e\sin f}{1+e\cos f}$ (Eq.~\eqref{eq:xi_def}), the radial force satisfies $F_r = \xi F_\phi = \frac{\xi L}{r}\frac{A}{v}$.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Initial Semi-Major Axis}:
+	\[
+	\boxed{a(0) = \left(\frac{\mu_E T^2}{4\pi^2}\right)^{1/3} = \left(\frac{3.986 \times 10^{14} \times (28800)^2}{4\pi^2}\right)^{1/3} \simeq 2.03 \times 10^7\,\mathrm{m}}.
+	\]
+
+	\item \textbf{Evolution of Semi-Major Axis $\dot a$}:
+	The work done per unit time by the tangential thrust on the orbiting mass is:
+	\[
+	\dot E = \vec F \cdot \vec v = (\mu A\hat v)\cdot\vec v = \mu A v.
+	\]
+	The specific orbital energy $\epsilon = E/\mu = -\mu_E / (2a)$ changes at the rate $\dot\epsilon = Av$. Differentiating:
+	\[
+	\dot\epsilon = \frac{\mu_E}{2a^2}\dot a \implies \dot a = \frac{2a^2}{\mu_E}Av.
+	\]
+	From the vis-viva equation $v^2 = \mu_E\left(\frac{2}{r} - \frac{1}{a}\right) = \frac{\mu_E}{a}\left(\frac{1+2e\cos f + e^2}{1-e^2}\right)$, the exact rate of change of the semi-major axis is:
+	\begin{equation}
+		\boxed{\frac{da}{dt} = 2A\sqrt{\frac{a^3}{\mu_E}}\sqrt{\frac{1+2e\cos f+e^2}{1-e^2}}}.
+		\label{eq:prob8_adot}
+	\end{equation}
+
+	\item \textbf{Evolution of Eccentricity $\dot e$ via the Laplace--Runge--Lenz Vector}:
+	The Laplace--Runge--Lenz vector $\vec A = \vec p\times\vec L - GM\mu^2\hat r$ has magnitude $A = GM\mu^2 e = \mu_E\mu^2 e$ and points along the periapsis direction $\hat A = \cos f\hat r - \sin f\hat\phi$ (Eq.~\eqref{eq:Ahat_f}).
+	
+	Under a general planar perturbing force $\vec F = F_r\hat r + F_\phi\hat\phi$, the exact rate of change of $\vec A$ from Eq.~\eqref{eq:planar_Adot_xi} is:
+	\[
+	\dot{\vec A} = \vec F\times\vec L + \vec p\times(\vec r\times\vec F) = L\left[2F_\phi\hat r - (F_r + \xi F_\phi)\hat\phi\right].
+	\]
+	Since $\hat A \cdot \hat A = 1 \implies \hat A \cdot \dot{\hat A} = 0$, the scalar rate $\dot A$ is obtained by projecting $\dot{\vec A}$ along $\hat A$:
+	\begin{align*}
+		\dot A &= \dot{\vec A}\cdot\hat A = L\left[2F_\phi\hat r - (F_r+\xi F_\phi)\hat\phi\right]\cdot (\cos f\hat r - \sin f\hat\phi) \\
+		&= L\left[ 2F_\phi\cos f + (F_r + \xi F_\phi)\sin f \right] \\
+		&= L\left[ F_r\sin f + F_\phi(2\cos f + \xi\sin f) \right].
+	\end{align*}
+	Evaluating this on the instantaneous osculating orbit with $A = \mu_E\mu^2 e$ and $L = \mu\sqrt{\mu_E a(1-e^2)}$ yields Gauss's variational equation for eccentricity (Eq.~\eqref{eq:gauss_edot}):
+	\begin{equation}
+		\dot e = \sqrt{\frac{a(1-e^2)}{\mu_E\mu^2}}\left[ F_r\sin f + F_\phi(2\cos f + \xi\sin f) \right].
+	\end{equation}
+	Now substituting the specific components for tangential thrust, $F_r = \xi F_\phi = \frac{\xi L}{r}\frac{A}{v}$ and $F_\phi = \frac{L}{r}\frac{A}{v}$:
+	\begin{align*}
+		F_r\sin f + F_\phi(2\cos f + \xi\sin f) &= \frac{AL}{rv}\left[ \xi\sin f + 2\cos f + \xi\sin f \right] \\
+		&= \frac{2AL}{rv}\left(\cos f + \xi\sin f\right).
+	\end{align*}
+	Using $\xi = \frac{e\sin f}{1+e\cos f}$:
+	\[
+	\cos f + \xi\sin f = \cos f + \frac{e\sin^2 f}{1+e\cos f} = \frac{\cos f(1+e\cos f) + e\sin^2 f}{1+e\cos f} = \frac{\cos f + e}{1+e\cos f}.
+	\]
+	Combining this with $\frac{L}{r} = \frac{\mu\sqrt{\mu_E a(1-e^2)}}{a(1-e^2)/(1+e\cos f)} = \frac{\mu\sqrt{\mu_E}(1+e\cos f)}{\sqrt{a(1-e^2)}}$:
+	\begin{align*}
+		\dot e &= \sqrt{\frac{a(1-e^2)}{\mu_E\mu^2}} \cdot \frac{2A}{v} \left[\frac{\mu\sqrt{\mu_E}(1+e\cos f)}{\sqrt{a(1-e^2)}}\right] \left[\frac{\cos f + e}{1+e\cos f}\right] \\
+		&= \frac{2A}{v}(\cos f + e).
+	\end{align*}
+	Expressing $v$ in terms of orbital elements via the vis-viva equation:
+	\begin{equation}
+		\boxed{\frac{de}{dt} = 2A\left(\frac{\cos f + e}{v}\right) = 2A\sqrt{\frac{a(1-e^2)}{\mu_E}}\left(\frac{\cos f + e}{\sqrt{1+2e\cos f+e^2}}\right)}.
+		\label{eq:prob8_edot}
+	\end{equation}
+	\textbf{Remark}: Unlike naive differentiation of $e^2 = 1 + 2\epsilon h^2/\mu_E^2$ (which yields an ill-defined $0/0$ singularity dividing by $e$ at $e=0$), the Runge--Lenz vector rate directly gives the well-behaved, non-singular initial rate $\dot e\big|_{e=0} = 2A\sqrt{a/\mu_E}\cos f$.
+
+	\item \textbf{Analytical Solvability}:
+	Equations~\eqref{eq:prob8_adot} and~\eqref{eq:prob8_edot} do not form a closed autonomous two-dimensional dynamical system because both derivatives depend explicitly on the instantaneous orbital phase $f(t)$ (true anomaly). The phase itself evolves according to:
+	\[
+	\dot f = \frac{L}{\mu r^2} + \dot\omega,
+	\]
+	where the periapsis precession rate $\dot\omega$ is also driven by the perturbing force. Because the continuous thrust continuously alters the orbit throughout each revolution, the coupled system $(a(t), e(t), f(t))$ cannot be solved in closed elementary analytical form. In mission design and orbital mechanics, it is solved by numerical integration or by \emph{orbit averaging} ($\langle\dot a\rangle = \frac{1}{2\pi}\int_0^{2\pi}\dot a\,df$) over each complete orbital period.
+\end{enumerate}
 
 \subsection{Problem 9: Double-Lined Spectroscopic Binary --- Radial Velocities and Masses}
 \label{prob:sb2}
