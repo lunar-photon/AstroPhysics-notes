@@ -60,6 +60,24 @@ A comprehensive, mathematically rigorous graduate and advanced undergraduate lev
 - **Master CCD SNR Equation**: Exact mathematical proof for $N_{\rm pix}$ aperture summation and $N_{\rm exp}$ exposures.
 - **Observational Regimes**: Source-dominated, sky-dominated, and read-noise-dominated regimes with limit cases.
 
+### **Chapter 8: The Interstellar Medium**
+- Composition and phases, extinction and scattering regimes, line broadening, the 21 cm line, cloud types, planetary-nebula expansion, heating and cooling.
+
+### **Chapter 9: Six Principles**
+- The six principles every later result is built from: conservation (continuity and Euler equations), gravity of a sphere (Gauss's law, gravitational energy), counting states (pressure integral, ideal gas, photon gas, Planck spectrum), balance of rates (steady state, detailed balance), random walk (the √N law, diffusion flux), and comparing two scales.
+
+### **Chapter 10: Self-Gravitating Gas**
+- Hydrostatic equilibrium, the virial theorem by two routes and what it says about temperature, binding and the adiabatic index, negative heat capacity and the ensembles, the Jeans criterion by energy and by waves, free fall and the three clocks of a star, rotation and the end of collapse.
+
+### **Chapter 11: Radiation in Matter**
+- Specific intensity, the transfer equation and its formal solution, Kirchhoff's law and LTE, radiative diffusion, the Eddington luminosity, Einstein coefficients, the grey atmosphere.
+
+### **Chapter 12: The Equations of a Star**
+- The four structure equations in the mass coordinate, convection, mean molecular weight, degeneracy pressure, opacity, the Gamow peak, boundary conditions and how stars are computed (shooting, Henyey relaxation), polytropes and the isothermal sphere, Eddington's standard model, homology and the HR diagram.
+
+### **Chapter 13: Degenerate and Compact Stars**
+- Compactness, white dwarfs and the Chandrasekhar mass, the relativistic structure equations (TOV, Tolman–Ehrenfest), computing neutron stars, black holes.
+
 ---
 
 ## 🛠 Compilation Instructions
@@ -93,12 +111,23 @@ pdflatex -interaction=nonstopmode AstroPhysics.tex
 │   ├── ch4_photometry.tex
 │   ├── ch5_angular_resolution.tex
 │   ├── ch6_two_body.tex
-│   └── ch7_ccd_noise.tex
-├── figs/                  # Figures, plots, and astronomical diagrams
-│   ├── 3D_Spherical.png
-│   ├── Binary_Star.png
-│   ├── Two Body Problem.png
-│   └── ... (20+ diagram assets)
+│   ├── ch7_ccd_noise.tex
+│   ├── ch8_interstellar_medium.tex
+│   ├── ch9_six_principles.tex
+│   ├── ch10_self_gravitating_gas.tex
+│   ├── ch11_radiation_in_matter.tex
+│   ├── ch12_equations_of_a_star.tex
+│   └── ch13_compact_stars.tex
+├── fig_sources/           # Standalone TikZ sources of the figures
+├── figs/                  # Compiled figures (make figs)
+├── code/chNN/             # Python scripts, run on the cluster with tools/run.sh
+├── results/chNN/          # Script outputs: data tables and LaTeX number macros
+├── tools/                 # run.sh (cluster), wl.sh (Wolfram), limit_watchdog.sh
+├── STYLE_GUIDE.md         # House rules for writing the notes
+├── STYLE_CH6.md           # How chapter 6 organises calculations (the model)
+├── NOTATION.md            # Notation register
+├── PLAN_stellar_physics.md
+├── WORKING.md             # Current state of the work
 ├── .gitignore
 └── README.md
 ```

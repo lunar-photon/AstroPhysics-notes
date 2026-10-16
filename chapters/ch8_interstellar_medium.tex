@@ -1,20 +1,37 @@
-\chapter{The Interstellar Medium and Gravitational Collapse}
+\chapter{The Interstellar Medium}
+\label{ch:ism}
 
-Chapters~1--7 treated a star (or a pulsar, or a binary) essentially as an isolated point source: a clock, a moving mass, a blackbody, a photon-emitting aperture problem. In reality, no photon reaches a telescope without first traversing tens to thousands of parsecs of gas and dust --- the \emph{interstellar medium} (ISM). The ISM scatters, absorbs, and disperses the light we use for every measurement in this book, and it is also the raw material out of which every star is born and into which every star eventually returns its processed mass. This chapter first characterizes the ISM as an absorbing, scattering, and line-emitting medium, and then turns to its own internal dynamics: the virial theorem, the Jeans criterion for gravitational instability, and the free-fall collapse that marks the transition from a diffuse cloud to a forming protostar.
+\input{results/ch8/voigt.tex}
 
-\section{Composition, Density, and Temperature}
+Chapters~\ref{ch:astrometry} and~\ref{ch:photometry} measured stars by their light alone, as if the light crossed empty space. It does not. Between the stars lies a thin gas with a little dust in it, the \textbf{interstellar medium}. Every photon we collect has passed through it, and the medium has dimmed it, reddened it and delayed it on the way.
 
-\begin{definition}[Interstellar Medium]
-	The \emph{interstellar medium} is the matter --- gas, dust, cosmic rays, and magnetic field --- occupying the space between stars within a galaxy.
-\end{definition}
+The same gas is the raw material of stars. Stars form out of it, and when they die they return much of their mass to it, enriched with heavier elements.
 
-Despite containing roughly $20\%$ of the ordinary (baryonic) mass of the Milky Way, the ISM is extraordinarily dilute:
+% ==============================================================================
+\section{Composition, Density and Temperature}
+\label{is:sec:composition}
+
+The earlier chapters treated a star as a point of light, and read its position, distance, flux and colour from that light.
+
+They took the space between the star and the telescope to be empty. It is not, and a star seen through a dusty part of the Galaxy can be dimmed by many magnitudes.
+
+Think of a light mist on a cool morning. Across a room nobody notices it. A hill a kilometre away is hidden by it. Each metre of mist holds very little water, but a kilometre of it holds a thousand times as much.
+
+The interstellar medium is a mist of this kind, far thinner than any mist on Earth but thousands of parsecs deep. What decides its effect on light is the total amount of matter along the line of sight, not how dense it is at any point.
+
+Toward the centre of the Galaxy, $8\,\mathrm{kpc}$ away, gas with one atom per cubic centimetre puts $2.5\times10^{22}$ atoms into a column of cross-section $1\,\mathrm{cm^2}$. Air at sea level holds $2.5\times10^{19}$ molecules per cubic centimetre, so a column of air only $10\,\mathrm m$ long holds as many.
+
+Picture a long thin tube from the star to the telescope. What matters is how much matter the tube holds.
+
+That amount is the column density of Chapter~\ref{ch:photometry}. The optical depth compares the length of the tube with the mean distance between grains, a comparison of two scales (P6, Section~\ref{pr:sec:p6}). The same count sets the strength of absorption lines and the brightness of the $21\,\mathrm{cm}$ line of hydrogen. The temperature of the gas is set by a balance of rates (P4) and the widths of its lines by counting states (P3). Here we list what the medium is made of, how dense and hot it is, and why it matters.
+
+\paragraph{What it is.} The \textbf{interstellar medium} is the matter between the stars of a galaxy. It is gas, dust, fast charged particles called cosmic rays, and a magnetic field. It holds of order ten to twenty per cent of the ordinary matter of the Milky Way. Its bulk properties are in Table~\ref{tab:ism_bulk_properties}.
 
 \begin{table}[htbp]
 	\centering
 	\begin{tabular}{@{}l l@{}}
 		\toprule
-		\textbf{Property} & \textbf{Typical Value} \\
+		\textbf{Property} & \textbf{Typical value} \\
 		\midrule
 		Number density $n$ & $10^{-4} \text{--} 10^{6}\,\mathrm{cm^{-3}}$ \\
 		Temperature $T$ & $10\text{--}10^{6}\,\mathrm{K}$ \\
@@ -23,443 +40,775 @@ Despite containing roughly $20\%$ of the ordinary (baryonic) mass of the Milky W
 		Magnetic field strength & $\sim 10^{-10}\,\mathrm{T}$ ($\sim 1\,\mu\mathrm{G}$) \\
 		\bottomrule
 	\end{tabular}
-	\caption{Characteristic bulk properties of the interstellar medium.}
+	\caption{Bulk properties of the interstellar medium.}
 	\label{tab:ism_bulk_properties}
 \end{table}
 
-For comparison, the best vacuum achievable in a terrestrial laboratory (extreme high vacuum, XHV) reaches $\sim 10^{5}\,\mathrm{cm^{-3}}$: the diffuse phase of the ISM is routinely \emph{more rarefied than our best laboratory vacuum}. This has an important physical consequence exploited throughout this chapter: at such densities, collisional de-excitation is so infrequent that highly forbidden atomic and molecular transitions --- undetectable in any terrestrial spectrometer --- become the dominant, and often only, radiative channel available to interstellar gas (Section~\ref{sec:ism_hydrogen}).
+\paragraph{How thin it is.} The best laboratory vacuum, called extreme high vacuum, still holds about $10^{5}$ molecules per cubic centimetre. Much of the interstellar medium has fewer than one atom per cubic centimetre, so it is emptier than any vacuum made on Earth. In such thin gas an excited atom can wait a long time before a collision disturbs it. Transitions too slow to be seen in laboratory gas, the so-called forbidden lines, then become the main way the gas radiates (Section~\ref{sec:ism_hydrogen}).
 
-The gas phase consists of ions (e.g.\ $\mathrm{H^+}$, $\mathrm{He^+}$, $\mathrm{He^{2+}}$), free electrons, and molecules (e.g.\ $\mathrm{H_2}$, CO, CN, $\mathrm{H_2O}$, $\mathrm{NH_3}$). The dust phase consists of sub-micron grains ($\sim 1\,\mathrm{nm}$ to $\sim 1\,\mu\mathrm{m}$) of silicates, amorphous carbon, and metals (Fe, Ni), often mantled with ices ($\mathrm{H_2O, NH_3}$). Although dust carries only $1\%$ of the ISM's mass, its large geometric cross-section per unit mass makes it the dominant agent of interstellar extinction (Section~\ref{sec:ism_extinction}) and the primary catalyst for $\mathrm{H_2}$ formation (Section~\ref{sec:ism_hydrogen}).
+\paragraph{What it is made of.} The gas holds ions such as $\mathrm{H^+}$, $\mathrm{He^+}$ and $\mathrm{He^{2+}}$, free electrons, neutral atoms, and molecules such as $\mathrm{H_2}$, CO, CN, $\mathrm{H_2O}$ and $\mathrm{NH_3}$. The dust is grains from about $1\,\mathrm{nm}$ to $1\,\mu\mathrm m$ across, made of silicates, carbon in several forms, and metals such as iron and nickel, often coated with ices of water and ammonia. Dust is only one per cent of the mass. Per kilogram, small grains block far more light than gas does (Eq.~\eqref{eq:ism_mag_extinction}), so dust causes almost all of the dimming (Section~\ref{sec:ism_extinction}). Its surfaces are also where molecular hydrogen forms (Section~\ref{is:sec:h2}).
 
-Studying the ISM matters for three independent reasons: (i) every photon used in Chapters 1--7 is filtered by it, so its optical properties must be understood before extinction and reddening corrections (Chapter~4) can be trusted; (ii) it hosts physical and chemical regimes --- extreme rarefaction, extreme cold, non-equilibrium chemistry --- inaccessible to any laboratory; and (iii) it is both the birthplace and the graveyard of stars, which is the subject of the second half of this chapter.
+\paragraph{Why it matters.} There are three reasons. Every photon used in the earlier chapters is scattered, absorbed, delayed and dispersed by the medium, so the corrections for dust in Chapter~\ref{ch:photometry} rest on understanding it. It holds conditions that no laboratory can make, gas thinner than any vacuum and colder than $20\,\mathrm K$, with chemistry far from equilibrium. And it is where stars are born and where their matter returns (Chapter~\ref{ch:selfgrav}).
 
-\section{Radiative Interaction with Dust: Extinction, Scattering, and Reddening}
+% ==============================================================================
+\section{How the Medium Acts on Light}
 \label{sec:ism_extinction}
 
-\begin{definition}[Extinction]
-	\emph{Extinction} is the total attenuation of radiant energy propagating through an astrophysical medium, defined as the sum of true absorption (conversion of radiant energy into thermal or internal excitation energy) and scattering (redirection of photons out of the line of sight):
-	\begin{equation}
-		\text{Extinction} = \text{Absorption} + \text{Scattering}.
-		\label{eq:extinction_decomposition}
-	\end{equation}
-\end{definition}
+Chapter~\ref{ch:photometry} found that dust dims a beam by the factor $e^{-\tau_\lambda}$, with optical depth $\tau_\lambda=N_d\,\sigma_{\rm ext}(\lambda)$ (Eq.~\eqref{ph:eq:optical_depth}), and that across the visible the cross-section $\sigma_{\rm ext}$ falls roughly as $1/\lambda$.
 
-Absorption occurs either as sharp resonance-line absorption by atoms, ions, and molecules, or as continuous broadband absorption by larger dust grains. Scattering, however, is fundamentally categorized by the conservation of photon energy during the interaction.
+That cross-section was taken from measurement. Why it depends on wavelength at all, why the sky is blue while clouds are white, and why free electrons scatter every colour alike was left open.
 
-\subsection{Physical Classification of Light Scattering Regimes}
+Hold a weight on a soft spring and move your hand up and down. Move it slowly and the weight follows the hand. Move it at the rate the weight bounces by itself and it swings wildly. Shake fast and the weight hardly moves. What decides is how fast you shake compared with the spring's own rate.
+
+Light shakes the electrons in an atom, a molecule or a grain, and each is held in place as if by a spring. A shaken charge radiates, and the light it sends off in new directions is the scattered light. One shaken spring gives the blue sky, the spectral lines and the scattering by free electrons.
+
+For a molecule of air, visible light shakes far below the natural rate. The scattered power then grows as the fourth power of the frequency, so blue light of $450\,\mathrm{nm}$ is scattered $(700/450)^4=5.9$ times more strongly than red light of $700\,\mathrm{nm}$.
+
+The picture is a curve of cross-section against frequency. It climbs steeply from zero, spikes at the natural rate, and levels off far above it.
+
+The ratio of the driving frequency to the natural one picks the regime, and for a grain the ratio of its size to the wavelength does the same. Both are comparisons of two scales (P6). The same shaken charge gave the colours of materials and the reflection of radio waves by the ionosphere in Chapter~\ref{ch:resolution}, and it gives the refractive index of glass. Here it gives the cross-section of one oscillator, its regimes, the scattering by grains, and the delay of radio waves by free electrons.
+
+\paragraph{Extinction.} Light is taken out of a beam in two ways. It can be absorbed, its energy turned into heat or internal excitation of the absorber. Or it can be scattered, sent off in a new direction. The total loss is the \textbf{extinction},
+\begin{equation}
+	\text{extinction} = \text{absorption} + \text{scattering}.
+	\label{eq:extinction_decomposition}
+\end{equation}
+Absorption happens either at sharp frequencies, as lines of atoms and molecules, or over broad bands, in grains. Scattering is sorted by whether the photon keeps its energy.
+
+\subsection{One Oscillator, Three Regimes}
 \label{sec:scattering_classification}
 
-In astrophysics and fundamental physics, scattering processes divide into two broad categories based on whether photon kinetic energy is conserved:
+\paragraph{The driven electron.} Model a bound electron as a charge $-e$ of mass $m_e$ held by a spring of natural angular frequency $\omega_0$. Left alone it also loses energy, at the rate $\Gamma$, so its energy dies away as $e^{-\Gamma t}$. A light wave with electric field $E_0\cos\omega t$ along $x$ drives it. Newton's law is
+\begin{equation}
+	m_e\ddot x=-m_e\omega_0^2x-m_e\Gamma\dot x-eE_0\cos\omega t .
+\end{equation}
+To find how far it moves, write $x$ as the real part of $\tilde x\,e^{-i\omega t}$ and the force as the real part of $-eE_0\,e^{-i\omega t}$.
+\begin{align}
+	-\omega^2\tilde x
+	&\eqby{1} -\omega_0^2\tilde x+i\omega\Gamma\,\tilde x-\frac{e}{m_e}E_0 \nonumber\\
+	\implies\quad \tilde x
+	&\eqby{2} -\frac{e}{m_e}\,\frac{E_0}{\omega_0^2-\omega^2-i\Gamma\omega}.
+	\label{is:eq:amplitude}
+\end{align}
+\begin{explain}
+	\item Each time derivative becomes a factor $-i\omega$, so $\ddot x\to-\omega^2\tilde x$ and $\dot x\to-i\omega\tilde x$. Divide by $m_e$.
+	\item Collect the terms in $\tilde x$ and divide.
+\end{explain}
 
-\begin{enumerate}[leftmargin=1.5em, itemsep=0.4em]
-	\item \textbf{Elastic Scattering ($\Delta E = 0$):} The kinetic energy and quantum frequency of the photon are conserved in the center-of-mass frame ($\nu_{\rm scattered} = \nu_{\rm incident}$). The scattered radiation retains its exact wavelength and intrinsic color.
-	\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
-		\item \textbf{Rayleigh Scattering ($a \ll \lambda$):} Occurs when light interacts with particles (atoms, small molecules, or sub-wavelength grain kernels) much smaller than the radiation wavelength. The incident electric field induces an oscillating electric dipole $p = \alpha E_0$ with polarizability $\alpha \propto a^3$. By Larmor's radiative formula ($P_{\rm rad} \propto \ddot p^{\,2} \propto \omega^4$), the re-radiated power scales as $\omega^4 a^6 E_0^2 \propto a^6/\lambda^4$. Dividing by incident intensity yields the cross-section
-		\begin{keyresult}
-			\begin{equation}
-				\sigma_{\rm Rayleigh} \propto \frac{a^6}{\lambda^4}.
-				\label{eq:rayleigh_scattering_cross_section}
-			\end{equation}
-		\end{keyresult}
-		Blue photons are scattered far more strongly than red photons, explaining the blue color of Earth's daytime sky, red sunsets, and blue reflection nebulae around young stellar clusters (e.g., the Pleiades).
-		\item \textbf{Mie Scattering ($a \sim \lambda$):} Arises when electromagnetic waves interact with spherical or spheroidal dielectric and conducting particles (such as interstellar dust grains, water droplets, and aerosols) whose physical radii are comparable to the wavelength. The exact solution requires expanding internal and scattered electromagnetic fields in vector spherical harmonics (the Mie series). Across the optical and near-infrared, realistic interstellar grain size distributions yield an effective cross-section scaling as $\sigma_{\rm ext} \propto a^3\lambda^{-1}$. When particle sizes become substantially larger than the wavelength ($a \gg \lambda$), scattering approaches the geometric limit ($\sigma \approx 2\pi a^2$, including diffraction), where all visible wavelengths are scattered equally, making terrestrial clouds, thick water fog, and large-grain circumstellar envelopes appear white or neutral gray.
-		\item \textbf{Tyndall Scattering:} Closely related to the Mie regime, this describes elastic scattering by small macroscopic particles or colloids suspended in a transparent carrier gas or liquid. Familiar examples include visible shafts of sunlight penetrating dusty rooms or smoky forests, as well as the diffuse illumination of dusty interstellar clouds by nearby starlight.
-	\end{itemize}
-	
-	\item \textbf{Inelastic Scattering ($\Delta E \neq 0$):} Photons exchange energy with the internal quantum or collective dynamical states of the scattering medium, emerging with shifted wavelengths and frequencies ($\nu_{\rm scattered} \neq \nu_{\rm incident}$).
-	\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
-		\item \textbf{Raman Scattering:} Photons interact with atomic or molecular bonds, exciting or de-exciting vibrational or rotational quantum states. The scattered photon emerges at a lower frequency (Stokes scattering, $\nu < \nu_0$, photon loses energy) or higher frequency (anti-Stokes scattering, $\nu > \nu_0$, photon gains energy from an already excited molecule). Widely utilized in laboratory Raman spectroscopy for chemical fingerprinting, it also appears in astrophysical environments such as symbiotic stars and planetary nebulae, where intense ultraviolet resonance photons (e.g., $\mathrm{O\,VI}\,\lambda\lambda 1032, 1038$) Raman-scatter off neutral atomic hydrogen ($\mathrm{H\,I}$) into broad optical emission bands at $\lambda 6825\,\text{\AA}$ and $\lambda 7082\,\text{\AA}$.
-		\item \textbf{Brillouin Scattering:} Occurs when light scatters inelastically off propagating acoustic phonons (coherent density fluctuations or hypersonic sound waves) in dense fluids, solids, or high-density astrophysical plasmas, imparting a Doppler-shifted frequency modulation $\Delta\nu = \pm 2\nu_0 (v_s/c)\sin(\theta/2)$, where $v_s$ is the local sound speed.
-	\end{itemize}
-\end{enumerate}
+\paragraph{The cross-section.} The moving electron is a dipole $-ex$. The scattering cross-section is the power it radiates divided by the power per unit area of the wave that drives it. Larmor's formula gives the radiated power of a dipole $p_0\cos\omega t$, averaged over a cycle, as $p_0^2\omega^4/(12\pi\varepsilon_0c^3)$. The wave carries $c\varepsilon_0E_0^2/2$ per unit area, averaged over a cycle.
+\begin{align}
+	\sigma(\omega)
+	&\eqby{1} \frac{e^2|\tilde x|^2\omega^4/(12\pi\varepsilon_0c^3)}{c\varepsilon_0E_0^2/2} \nonumber\\
+	&\eqby{2} \frac{e^4}{6\pi\varepsilon_0^2m_e^2c^4}\,\frac{\omega^4}{(\omega_0^2-\omega^2)^2+\Gamma^2\omega^2} \nonumber\\
+	&\eqby{3} \frac{8\pi}{3}\left(\frac{e^2}{4\pi\varepsilon_0m_ec^2}\right)^2\frac{\omega^4}{(\omega_0^2-\omega^2)^2+\Gamma^2\omega^2}.
+\end{align}
+\begin{explain}
+	\item Larmor's formula with dipole amplitude $e|\tilde x|$, over the flux of the wave.
+	\item $|\tilde x|^2$ from Eq.~\eqref{is:eq:amplitude}. The factor $E_0^2$ cancels.
+	\item $6\pi\varepsilon_0^2=\tfrac{3}{8\pi}\,(4\pi\varepsilon_0)^2$.
+\end{explain}
+The constant in front is the \textbf{Thomson cross-section} $\sigma_T$, written with the \textbf{classical electron radius} $r_e=e^2/(4\pi\varepsilon_0m_ec^2)=2.818\times10^{-15}\,\mathrm m$. So
+\begin{equation}
+	\boxed{\sigma(\omega)=\sigma_T\,\frac{\omega^4}{(\omega_0^2-\omega^2)^2+\Gamma^2\omega^2}.}
+	\label{is:eq:oscillator_sigma}
+\end{equation}
+The answer depends on the frequency only through $\omega/\omega_0$ and $\Gamma/\omega_0$. The damping is weak, $\Gamma\ll\omega_0$, so three regimes appear.
 
-\paragraph{Free-electron scattering in high-energy astrophysics.} In addition to bound atoms and dust particulates, radiation interacts directly with free electrons in ionized astrophysical plasmas:
-\begin{itemize}[leftmargin=1.2em, itemsep=0.2em]
-	\item \textbf{Thomson Scattering ($h\nu \ll m_e c^2$):} The low-energy, classical elastic limit of photon-electron scattering. The cross-section is the universal Thomson cross-section:
-	\begin{equation}
-		\sigma_{\rm T} = \frac{8\pi}{3}\left(\frac{e^2}{4\pi\varepsilon_0 m_e c^2}\right)^2 = \frac{8\pi}{3}r_e^2 \approx 6.6524 \times 10^{-29}\,\mathrm{m^2},
-		\label{eq:thomson_cross_section}
-	\end{equation}
-	which is strictly independent of photon wavelength $\lambda$. Thomson scattering provides the dominant continuous opacity in stellar interiors, hot massive stellar envelopes, accretion disks, and the Cosmic Microwave Background (CMB) last-scattering surface.
-	\item \textbf{Compton and Inverse Compton Scattering ($h\nu \gtrsim m_e c^2$ or relativistic electrons):} The relativistic inelastic regime. In standard Compton scattering, a high-energy $\gamma$-ray photon transfers momentum to a stationary electron, increasing its wavelength by $\Delta\lambda = \lambda_{\rm C}(1-\cos\theta)$, where $\lambda_{\rm C} = h/(m_e c) \approx 2.426 \times 10^{-12}\,\mathrm{m}$. In \emph{Inverse Compton Scattering}, ultra-relativistic electrons ($\gamma_e \gg 1$) collide with low-energy ambient photons (radio, IR, or CMB), up-scattering them by a factor $\sim \gamma_e^2$ into X-ray and $\gamma$-ray energies (the primary emission engine of pulsar wind nebulae, supernova remnants, and active galactic nuclei jets).
-\end{itemize}
+\paragraph{Slow shaking, Rayleigh scattering.} For $\omega\ll\omega_0$ the denominator is $\omega_0^4$ to leading order, and
+\begin{equation}
+	\sigma\approx\sigma_T\left(\frac{\omega}{\omega_0}\right)^4\propto\frac{1}{\lambda^4}.
+	\label{is:eq:rayleigh_molecule}
+\end{equation}
+The electrons of air molecules have natural frequencies in the ultraviolet, so visible light is in this regime. Blue light is scattered most, which makes the daytime sky blue and the setting Sun red. This is \textbf{Rayleigh scattering}.
+
+\paragraph{Fast shaking, Thomson scattering.} For $\omega\gg\omega_0$ the spring no longer matters, and $\sigma\to\sigma_T$. A free electron, with no spring at all ($\omega_0=0$), has $\sigma=\sigma_T$ at every frequency. This is the electron of Chapter~\ref{ch:resolution} (Eq.~\eqref{re:eq:plasma_index}), now asked how much it radiates rather than how it bends a wave.
+\begin{equation}
+	\sigma_{\rm T} = \frac{8\pi}{3}\left(\frac{e^2}{4\pi\varepsilon_0 m_e c^2}\right)^2 = \frac{8\pi}{3}r_e^2 = 6.652 \times 10^{-29}\,\mathrm{m^2}.
+	\label{eq:thomson_cross_section}
+\end{equation}
+It does not depend on the wavelength, so free electrons scatter all colours alike. \textbf{Thomson scattering} is the main opacity of hot ionised gas, in the interiors and envelopes of hot stars (Chapter~\ref{ch:radiation}), in accretion disks, and in the early universe before the cosmic microwave background was released. It holds while the photon energy is small compared with $m_ec^2$.
+
+\paragraph{Shaking at resonance, a line.} Near $\omega_0$, write $\omega=\omega_0+\delta$ with $|\delta|\ll\omega_0$.
+\begin{align}
+	\sigma
+	&\eqby{1} \sigma_T\,\frac{\omega_0^4}{(2\omega_0\delta)^2+\Gamma^2\omega_0^2} \nonumber\\
+	&\eqby{2} \sigma_T\,\frac{\omega_0^2/4}{(\omega-\omega_0)^2+\Gamma^2/4}.
+	\label{is:eq:resonance}
+\end{align}
+\begin{explain}
+	\item $\omega_0^2-\omega^2=(\omega_0-\omega)(\omega_0+\omega)\approx-2\omega_0\delta$, and $\omega\approx\omega_0$ elsewhere.
+	\item Divide the top and bottom by $4\omega_0^2$.
+\end{explain}
+The cross-section has a sharp peak of full width $\Gamma$ at half its height, at the frequency where the oscillator absorbs. At the peak it is $\sigma_T(\omega_0/\Gamma)^2$, far larger than $\sigma_T$, which is why a thin gas makes strong lines. This peak is an absorption line, and its shape is found again by a second route in Section~\ref{sec:ism_lines}.
+
+\subsection{Scattering by Grains}
+
+A grain holds many electrons. How they radiate together depends on the size $a$ of the grain compared with the wavelength. The ratio that decides is $2\pi a/\lambda$ (P6).
+
+\paragraph{Grains much smaller than the wavelength.} When $a\ll\lambda$ the field of the wave is the same across the whole grain. A sphere of material with relative permittivity $\varepsilon_r$ in a uniform field becomes a dipole
+\[
+\tilde p=4\pi\varepsilon_0a^3\,\frac{\varepsilon_r-1}{\varepsilon_r+2}\,E_0 ,
+\]
+a standard result of electrostatics. Here $\varepsilon_r$ is complex when the material absorbs. All the electrons move in step, so the grain radiates as one dipole. Its scattering cross-section is
+\begin{align}
+	\sigma_{\rm sca}
+	&\eqby{1} \frac{|\tilde p|^2\omega^4/(12\pi\varepsilon_0c^3)}{c\varepsilon_0E_0^2/2} \nonumber\\
+	&\eqby{2} \frac{16\pi^2a^6\,\omega^4}{6\pi c^4}\left|\frac{\varepsilon_r-1}{\varepsilon_r+2}\right|^2 \nonumber\\
+	&\eqby{3} \frac{8\pi}{3}\left(\frac{2\pi}{\lambda}\right)^4a^6\left|\frac{\varepsilon_r-1}{\varepsilon_r+2}\right|^2 .
+\end{align}
+\begin{explain}
+	\item Larmor's formula for the dipole $\tilde p$, over the flux of the wave, as for the electron.
+	\item $|\tilde p|^2/E_0^2=16\pi^2\varepsilon_0^2a^6|(\varepsilon_r-1)/(\varepsilon_r+2)|^2$, and $\varepsilon_0^2$ cancels.
+	\item $\omega/c=2\pi/\lambda$.
+\end{explain}
+\begin{equation}
+	\boxed{\sigma_{\rm sca}\propto\frac{a^6}{\lambda^4}.}
+	\label{eq:rayleigh_scattering_cross_section}
+\end{equation}
+The $\lambda^{-4}$ is the same as for one molecule. The $a^6$ comes from radiating in step. The number of electrons grows as $a^3$, the total dipole grows with it, and the power goes as the square. Blue light scattered by small grains makes the blue reflection nebulae around young stars, such as the Pleiades.
+
+The grain also absorbs. The field does work on the dipole at the rate $\tfrac12\omega E_0\,\mathrm{Im}\,\tilde p$, averaged over a cycle, so
+\begin{align}
+	\sigma_{\rm abs}
+	&\eqby{1} \frac{\tfrac12\omega E_0\,\mathrm{Im}\,\tilde p}{c\varepsilon_0E_0^2/2} \nonumber\\
+	&\eqby{2} \frac{2\pi}{\lambda}\,4\pi a^3\,\mathrm{Im}\frac{\varepsilon_r-1}{\varepsilon_r+2}
+	\;\propto\;\frac{a^3}{\lambda}.
+	\label{is:eq:small_grain_abs}
+\end{align}
+\begin{explain}
+	\item Power taken from the wave, over its flux.
+	\item The dipole $\tilde p$ above, and $\omega/c=2\pi/\lambda$.
+\end{explain}
+For small grains absorption beats scattering, since $\sigma_{\rm sca}/\sigma_{\rm abs}\propto(a/\lambda)^3$.
+
+\paragraph{Grains near the wavelength, Mie scattering.} When $2\pi a/\lambda$ is near one, the field changes across the grain and its parts radiate out of step. The exact answer, found by Mie, expands the fields inside and outside the sphere in vector spherical harmonics. Over this range the cross-section of a grain grows roughly as its area times $a/\lambda$, so $\sigma_{\rm ext}\propto a^3/\lambda$, the same form as Eq.~\eqref{is:eq:small_grain_abs}. Interstellar grains have $a\approx0.1\,\mu\mathrm m$, so $2\pi a/\lambda=1.1$ at $550\,\mathrm{nm}$. Visible light is in the \textbf{Mie} regime, and the mix of grain sizes gives the measured extinction that falls roughly as $1/\lambda$ (Figure~\ref{fig:scattering_rayleigh_mie_comparison}).
+
+\paragraph{Grains much larger than the wavelength.} When $a\gg\lambda$ the grain casts a sharp shadow and blocks its own area $\pi a^2$. It also bends light out of the beam by diffraction at its edge. By Babinet's principle a disc diffracts as much power as a hole of the same size lets through, another $\pi a^2$. So $\sigma_{\rm ext}\to2\pi a^2$, the same for every colour. Water droplets in clouds and fog are this large, which is why clouds are white or grey. Large grains in the shells around old stars behave the same way.
+
+\paragraph{Tyndall scattering.} Scattering by fine particles suspended in a gas or a liquid, in the range from Rayleigh to Mie, is called \textbf{Tyndall scattering}. It makes a sunbeam visible in a dusty room or a smoky forest. Dusty interstellar clouds lit by nearby stars shine in the same way.
+
+\subsection{Scattering That Changes the Colour}
+
+In all the cases above the photon leaves with the frequency it came with. This is \textbf{elastic} scattering. In \textbf{inelastic} scattering the photon trades energy with the scatterer and leaves with a new frequency.
+
+\paragraph{Raman scattering.} The photon excites or de-excites a vibration or rotation of a molecule or atom. It leaves with lower frequency if it gave energy (Stokes) and with higher frequency if it took energy from an already excited molecule (anti-Stokes). In the laboratory this identifies chemical bonds. In symbiotic stars and some planetary nebulae, ultraviolet photons of $\mathrm{O\,VI}$ at $103.2$ and $103.8\,\mathrm{nm}$ are Raman-scattered by neutral hydrogen into broad bands at $682.5$ and $708.2\,\mathrm{nm}$.
+
+\paragraph{Brillouin scattering.} Light scatters off sound waves in a dense fluid or solid. The sound wave acts as a moving grating, so the scattered light is Doppler shifted by $\Delta\nu=\pm2\nu_0(c_s/c)\sin(\psi/2)$, times the refractive index of the medium, where $c_s$ is the sound speed and $\psi$ the scattering angle.
+
+\paragraph{Compton and inverse Compton scattering.} When the photon energy approaches $m_ec^2$, the electron recoils and the photon loses energy. Its wavelength grows by $\Delta\lambda=\lambda_C(1-\cos\psi)$ (derived in Eq.~\eqref{fp:eq:compton_shift}), with the Compton wavelength $\lambda_C=h/(m_ec)=2.426\times10^{-12}\,\mathrm m$. In \textbf{inverse Compton} scattering the electron moves near the speed of light, with Lorentz factor $\gamma_e\gg1$, and gives energy to a low-energy photon of the radio, infrared or microwave background. The photon leaves with about $\gamma_e^2$ times its energy, in X-rays or gamma rays. This lights up pulsar wind nebulae, supernova remnants and the jets of active galaxies.
+
+Table~\ref{tab:scattering_regimes} collects the processes.
 
 \begin{table}[htbp]
 	\centering
 	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{@{}l l l l l@{}}
 		\toprule
-		\textbf{Scattering Mechanism} & \textbf{Interacting Medium} & \textbf{Wavelength Scaling} & \textbf{Energy / Color Shift} & \textbf{Astrophysical Manifestation} \\
+		\textbf{Process} & \textbf{Scatterer} & \textbf{Dependence} & \textbf{Photon energy} & \textbf{Where seen} \\
 		\midrule
-		\textbf{Rayleigh} & Atoms, small molecules ($a \ll \lambda$) & $\sigma \propto a^6\lambda^{-4}$ & Elastic ($\Delta E = 0$) & Blue sky, Pleiades reflection nebulae \\
-		\textbf{Mie (dust)} & Dust grains ($a \sim \lambda$) & $\sigma \propto a^3\lambda^{-1}$ & Elastic ($\Delta E = 0$) & Interstellar reddening \& extinction \\
-		\textbf{Geometric} & Large particles ($a \gg \lambda$) & $\sigma \propto a^2$ (achromatic) & Elastic ($\Delta E = 0$) & White clouds, circumstellar dust shells \\
-		\textbf{Tyndall} & Colloids, dust suspensions & Mixed Mie/Rayleigh & Elastic ($\Delta E = 0$) & Interstellar dust lanes, nebula beams \\
-		\textbf{Raman} & Molecular/atomic bonds & Specific resonances & Inelastic ($\Delta E \neq 0$) & Symbiotic stars, Raman O\,VI emission \\
-		\textbf{Brillouin} & Acoustic phonons / sound waves & Doppler-shifted & Inelastic ($\Delta E \neq 0$) & Dense planetary/stellar atmospheres \\
-		\textbf{Thomson} & Free electrons ($h\nu \ll m_e c^2$) & $\sigma_{\rm T} = \text{const}$ & Elastic ($\Delta E = 0$) & O-star envelopes, accretion disks, CMB \\
-		\textbf{Inverse Compton} & Relativistic electrons & Up-scattered ($\nu' \sim \gamma_e^2\nu$) & Inelastic ($\Delta E > 0$) & AGN jets, pulsar wind nebulae ($\gamma$-rays) \\
+		\textbf{Rayleigh} & Atoms, molecules, small grains ($a \ll \lambda$) & $\sigma \propto a^6\lambda^{-4}$ & kept & Blue sky, Pleiades reflection nebula \\
+		\textbf{Mie} & Dust grains ($a \sim \lambda$) & $\sigma \propto a^3\lambda^{-1}$ & kept & Interstellar extinction and reddening \\
+		\textbf{Geometric} & Large particles ($a \gg \lambda$) & $\sigma \to 2\pi a^2$, no colour & kept & White clouds, dust shells of old stars \\
+		\textbf{Tyndall} & Suspended fine particles & between Rayleigh and Mie & kept & Sunbeams, dusty clouds lit by stars \\
+		\textbf{Raman} & Molecular and atomic levels & at set energy steps & changed & Symbiotic stars, Raman O\,VI bands \\
+		\textbf{Brillouin} & Sound waves in dense media & shift $\propto c_s/c$ & changed & Laboratory solids and liquids \\
+		\textbf{Thomson} & Free electrons ($h\nu \ll m_e c^2$) & $\sigma_{\rm T}$, no colour & kept & Hot stars, accretion disks, early universe \\
+		\textbf{Inverse Compton} & Fast electrons ($\gamma_e\gg1$) & $\nu \to \sim\gamma_e^2\nu$ & raised & Jets of active galaxies, pulsar wind nebulae \\
 		\bottomrule
 	\end{tabular}%
 	}
-	\caption{Comprehensive taxonomy of light scattering mechanisms in physics and astrophysics.}
+	\caption{Scattering processes, the scatterer, how the cross-section or the shift depends on size and wavelength, whether the photon energy changes, and where each is seen.}
 	\label{tab:scattering_taxomony}
 	\label{tab:scattering_regimes}
 \end{table}
 
-\subsection{Microphysics of Dust Extinction and Interstellar Reddening}
+\subsection{Dust Extinction and Reddening}
+\label{is:sec:dust}
 
-Interstellar dust grains ($a \sim 0.01\text{--}1\,\mu\mathrm{m}$) are comparable in size to optical wavelengths, placing ISM dust extinction squarely in the \textbf{Mie scattering regime}. 
+Chapter~\ref{ch:photometry} turned the cross-section into magnitudes. The extinction is $A_\lambda=1.086\,\tau_\lambda=1.086\,N_d\,\sigma_{\rm ext}(\lambda)$ (Eq.~\eqref{ph:eq:extinction_tau}). Because $\sigma_{\rm ext}$ is larger in $B$ than in $V$, dust makes a star redder by the colour excess $E(B-V)=A_B-A_V$, and in the Milky Way $A_V=3.1\,E(B-V)$ (Eq.~\eqref{ph:eq:RV}). The intrinsic colour and the distance modulus corrected for dust follow from Eqs.~\eqref{eq:color_index_correction} and~\eqref{eq:dereddened_distance_modulus}. What is new here is what the grains themselves tell us.
 
-For a sightline traversing dust column density $N_d = \int n_d\,ds$, the optical depth is $\tau_\lambda = N_d \sigma_{\rm ext}(\lambda)$, giving flux attenuation $F_\lambda = F_{\lambda,0}e^{-\tau_\lambda}$. Expressed in Pogson magnitudes:
+\paragraph{Extinction per kilogram of dust.} To see why one per cent of the mass does almost all the dimming, write the extinction in terms of the mass of dust along the line of sight. Let each grain be a sphere of radius $a$ and density $\rho_{\rm grain}$, and let $\Sigma_d$ be the mass of dust in a column of cross-section $1\,\mathrm{m^2}$.
 \begin{align}
-	m &= M -2.5\log_{10}\left(\frac{F_m e^{-\tau_{\lambda}}}{F_{M}}\right)\implies A_\lambda = \frac{2.5}{\ln 10}\,\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
-	\label{eq:ism_mag_extinction}
+	A_\lambda
+	&\eqby{1} 1.086\,N_d\,\sigma_{\rm ext} \nonumber\\
+	&\eqby{2} 1.086\,\Sigma_d\,\frac{\sigma_{\rm ext}}{\tfrac43\pi a^3\rho_{\rm grain}} \nonumber\\
+	&\relby{3}{\approx} 1.086\,\Sigma_d\,\frac{3}{4a\rho_{\rm grain}} .
 \end{align}
-Because Mie scattering across the optical window satisfies $\sigma_{\rm ext}(\lambda) \propto \lambda^{-1}$, the cross-section decreases monotonically with wavelength. Blue photons suffer greater attenuation than visual or red photons ($\sigma_B > \sigma_V \implies A_B > A_V$). This differential extinction creates the \textbf{color excess} $E(B-V) \equiv A_B - A_V > 0$, causing transmitted starlight to emerge fainter and redder than its intrinsic emission. Correcting for this effect via the \textbf{Color Index Correction} $(B-V)_0 = (B-V)_{\rm obs} - E(B-V)$ and dereddening the distance modulus via $\mu_0 = (m_V - M_V)_{\rm obs} - R_V E(B-V)$ with $R_V \approx 3.1$ (as derived in Chapter~4) is therefore essential for accurate stellar characterization. A direct observational consequence is seen in dark and reflection nebulae: dense dust clouds such as Barnard 68 appear opaque in the optical but become transparent in the infrared where $\lambda \gg a$, while starlight scattered off dust around the Pleiades produces a blue reflection nebula because smaller grains scatter shorter wavelengths more effectively.
+\begin{explain}
+	\item Eq.~\eqref{ph:eq:extinction_tau}.
+	\item $N_d$ grains each of mass $\tfrac43\pi a^3\rho_{\rm grain}$ make up $\Sigma_d$.
+	\item In the Mie regime the cross-section of a grain is close to its area, $\sigma_{\rm ext}\approx\pi a^2$.
+\end{explain}
+\begin{equation}
+	\boxed{A_\lambda\approx1.086\,\frac{3\,\Sigma_d}{4\,a\,\rho_{\rm grain}}.}
+	\label{eq:ism_mag_extinction}
+\end{equation}
+Per kilogram, a grain blocks light in proportion to $1/(a\rho_{\rm grain})$. Breaking a kilogram of matter into grains of $0.1\,\mu\mathrm m$ gives it an enormous total area. The same kilogram as gas atoms scatters almost nothing at visible wavelengths, because each atom is in the Rayleigh regime, with a cross-section below $\sigma_T$ by Eq.~\eqref{is:eq:rayleigh_molecule}.
 
-\section{Spectral Lines: Formation and Broadening}
+\paragraph{A check against the measured dust.} Take grains of radius $0.1\,\mu\mathrm m$ and density $3000\,\mathrm{kg\,m^{-3}}$, and one per cent of the mass in dust. With hydrogen making up $70$ per cent of the mass, each hydrogen atom comes with $0.01\,m_{\rm H}/0.70=2.4\times10^{-29}\,\mathrm{kg}$ of dust. Each grain has mass $1.26\times10^{-17}\,\mathrm{kg}$, so there are $1.9\times10^{-12}$ grains per hydrogen atom. Each blocks $\pi a^2=3.1\times10^{-14}\,\mathrm{m^2}$, so per hydrogen atom in the column
+\[
+\frac{A_V}{N_{\rm H}}\approx1.086\times1.9\times10^{-12}\times3.1\times10^{-14}\,\mathrm{m^2}=6.5\times10^{-26}\,\mathrm{mag\,m^2},
+\]
+where $N_{\rm H}$ is the column density of hydrogen atoms. Ultraviolet absorption lines of hydrogen toward reddened stars give $N_{\rm H}/E(B-V)=5.8\times10^{25}\,\mathrm{m^{-2}}$ per magnitude, and with $A_V=3.1\,E(B-V)$ that is $A_V/N_{\rm H}=5.3\times10^{-26}\,\mathrm{mag\,m^2}$. The simple estimate is right to within $25$ per cent. In the units of the field, one magnitude of $A_V$ needs a column of $1.9\times10^{21}$ hydrogen atoms per $\mathrm{cm^2}$.
+
+\paragraph{The extinction curve.} Measured toward many stars, the extinction rises from the infrared through the visible into the ultraviolet. At the long-wavelength end it follows the rough $1/\lambda$ of Mie scattering. Near $217.5\,\mathrm{nm}$ there is a broad bump, carried by grains that contain carbon, in the form of graphite or of large molecules called polycyclic aromatic hydrocarbons. The curve differs a little from one line of sight to another, as the mix of grains does.
+
+\paragraph{Dark clouds seen in the infrared.} At $2.2\,\mu\mathrm m$, $2\pi a/\lambda=0.29$ for the same grains. They are close to the Rayleigh regime and block only about a tenth as much as in $V$. A cloud such as Barnard~68, black against the stars in visible light, is nearly transparent in the near infrared, and the stars behind it reappear, reddened.
+
+\subsection{Free Electrons Delay Radio Waves}
+\label{is:sec:dispersion}
+
+Free electrons do not only scatter light. They also slow it, by an amount that depends on its frequency. In Chapter~\ref{ch:resolution} the free electrons of a plasma gave the refractive index $n^2=1-\nu_p^2/\nu^2$ (Eq.~\eqref{re:eq:plasma_index}), with the plasma frequency $\nu_p$ of Eq.~\eqref{re:eq:plasma_frequency}. In interstellar gas with $n_e=3\times10^4\,\mathrm{m^{-3}}$ ($0.03\,\mathrm{cm^{-3}}$), $\nu_p=1.6\,\mathrm{kHz}$, far below any radio frequency used. The wave passes, but a pulse does not travel at $c$.
+
+\paragraph{The speed of a pulse.} A pulse moves at the group velocity $d\omega/dk$, with $k$ the wavenumber and $\omega=2\pi\nu$.
+\begin{align}
+	\omega^2
+	&\eqby{1} \frac{c^2k^2}{n^2} \nonumber\\
+	&\eqby{2} \omega_p^2+c^2k^2 , \nonumber\\
+	\dv{\omega}{k}
+	&\eqby{3} \frac{c^2k}{\omega}
+	\eqby{4} c\sqrt{1-\frac{\nu_p^2}{\nu^2}} .
+\end{align}
+\begin{explain}
+	\item The phase velocity is $\omega/k=c/n$.
+	\item $n^2=1-\omega_p^2/\omega^2$, with $\omega_p=2\pi\nu_p$, multiplied by $\omega^2$ and rearranged.
+	\item Differentiate the second line, $2\omega\,d\omega=2c^2k\,dk$.
+	\item $ck/\omega=n$.
+\end{explain}
+
+\paragraph{The delay.} A pulse that crosses a path of length $d$ to the source arrives after
+\begin{align}
+	t
+	&\eqby{1} \int_0^d\frac{ds}{c}\left(1-\frac{\nu_p^2}{\nu^2}\right)^{-1/2} \nonumber\\
+	&\relby{2}{\approx} \frac dc+\frac{1}{2c\nu^2}\int_0^d\nu_p^2\,ds \nonumber\\
+	&\eqby{3} \frac dc+\frac{e^2}{8\pi^2\varepsilon_0m_ec}\,\frac{1}{\nu^2}\int_0^dn_e\,ds .
+\end{align}
+\begin{explain}
+	\item Time is $\int ds$ over the group velocity.
+	\item $(1-y)^{-1/2}\approx1+y/2$ for $y=\nu_p^2/\nu^2\ll1$.
+	\item $\nu_p^2=n_ee^2/(4\pi^2\varepsilon_0m_e)$ from Eq.~\eqref{re:eq:plasma_frequency}.
+\end{explain}
+The column of electrons $\int n_e\,ds$ is called the \textbf{dispersion measure}, and is usually quoted in $\mathrm{pc\,cm^{-3}}$. The extra delay is
+\begin{equation}
+	\boxed{\Delta t=\frac{e^2}{8\pi^2\varepsilon_0m_ec}\,\frac{\int n_e\,ds}{\nu^2}=4.15\,\mathrm{ms}\times\frac{\int n_e\,ds}{1\,\mathrm{pc\,cm^{-3}}}\left(\frac{\nu}{1\,\mathrm{GHz}}\right)^{-2}.}
+	\label{is:eq:dispersion_delay}
+\end{equation}
+Low frequencies arrive later. A pulsar $1\,\mathrm{kpc}$ away through gas with $0.03$ electrons per $\mathrm{cm^3}$ has a dispersion measure of $30\,\mathrm{pc\,cm^{-3}}$. Its pulses arrive $0.78\,\mathrm s$ late at $400\,\mathrm{MHz}$, and $0.58\,\mathrm s$ later than at $800\,\mathrm{MHz}$. Timing a pulse at two frequencies measures the column of electrons, and with a model of the electron density it gives the distance. The column changes as the pulsar and the gas move, which is the dispersion noise of pulsar timing (Section~\ref{cc:sec:pulsar}).
+
+% ==============================================================================
+\section{Spectral Lines and Their Widths}
 \label{sec:ism_lines}
 
-Atoms and ions possess only electronic transitions; molecules additionally possess rotational and vibrational transitions, giving them a far richer spectrum. An excited species relaxing spontaneously produces an \emph{emission} line; a cooler foreground species illuminated by a hotter background continuum source produces an \emph{absorption} line. In neither case is the line infinitely sharp — three independent physical mechanisms set its width.
+The oscillator of Section~\ref{sec:scattering_classification} absorbs in a narrow peak near its natural frequency, and Chapter~\ref{ch:astrometry} showed that motion along the line of sight shifts a line (Eq.~\eqref{eq:doppler_classical}).
+
+A real line has a width and a shape, and both carry information. The width tells the temperature of the gas, how it churns, and how dense it is. To read them we need the shape each cause produces.
+
+Strike a bell and let it ring. It rings for a long time, and the note is pure. Touch it with a hand while it rings and the sound stops quickly, and what you hear is a dull clunk with no clear pitch. A short ring does not have a sharp pitch. Now load many identical bells on a merry-go-round and strike them all. Those coming toward you sound higher and those going away sound lower, and together they make a blurred chord.
+
+An atom in an excited state is a bell. It radiates for about its lifetime, so its line has a width set by how long it rings. Collisions that interrupt it shorten the ring and widen the line. The atoms of a gas move at random, so the lines of different atoms are Doppler shifted by different amounts and blur together.
+
+The Lyman~$\alpha$ line of hydrogen, at $121.6\,\mathrm{nm}$, decays at the rate $6.27\times10^8\,\mathrm{s^{-1}}$. Its width from the lifetime alone is $1.0\times10^8\,\mathrm{Hz}$. In gas at $100\,\mathrm K$ the random motions blur it over $1.8\times10^{10}\,\mathrm{Hz}$, $176$ times more.
+
+Picture the line as a hill with a rounded top and long, low slopes far out on each side. The top is made by the motions, and the far slopes by the lifetime.
+
+The width from the lifetime is the uncertainty principle of quantum mechanics. The width from motion is the Maxwell distribution, which is counting states (P3, Section~\ref{pr:sec:p3}). Which of the two dominates, at the centre and in the far wings, is a comparison of two scales (P6). The same three causes shape the lines of stars, where pressure matters more, and the lines of lasers. Here we find the shape of a line from each cause and the shape when they act together.
+
+\paragraph{Formation.} An atom or ion has only electronic transitions, from one arrangement of its electrons to another. A molecule can also rotate and vibrate, so its spectrum is much richer. An excited atom or molecule that drops to a lower level by itself sends out a photon, and many such photons make an \textbf{emission line}. A cool gas in front of a hotter source of continuous light takes photons out of it at the same frequencies, and makes an \textbf{absorption line}. The rates of these processes, and when each kind of line appears, are worked out in Chapter~\ref{ch:radiation} (Section~\ref{rad:sec:lines}).
+
+\paragraph{The line profile.} Let $\nu_0$ be the frequency at the centre of the line. The \textbf{line profile} $\phi(\nu)$ is the fraction of the line's photons per unit frequency, normalised so that $\int\phi(\nu)\,d\nu=1$. Its width is measured as the full width at half the maximum.
 
 \subsection{Natural Broadening}
 
-By the time-energy uncertainty relation, a state with a finite lifetime $\Delta\tau$ cannot have an arbitrarily sharp energy:
+\paragraph{The width from the uncertainty principle.} Let the upper level decay at the rate $\Gamma$, so that it lives for a time $\Delta t=1/\Gamma$. By the time--energy uncertainty relation, a state that lasts for $\Delta t$ has an energy spread of about
 \begin{equation}
-	\Delta E\,\Delta\tau \sim \hbar.
+	\Delta E\,\Delta t \sim \hbar.
 	\label{eq:natural_broadening_energy}
 \end{equation}
-Since $E = h\nu$, this maps directly onto a minimum frequency width
+With $\Delta E=h\,\Delta\nu$ this is a spread in frequency,
 \begin{equation}
-	\Delta\nu_{\rm nat} \sim \frac{1}{2\pi\,\Delta\tau},
+	\Delta\nu \sim \frac{1}{2\pi\,\Delta t}=\frac{\Gamma}{2\pi}.
 	\label{eq:natural_broadening_freq}
 \end{equation}
-where $\Delta\tau$ is the mean radiative lifetime of the upper state against spontaneous decay. Short-lived (strongly allowed) transitions are intrinsically broad; long-lived (forbidden) transitions are intrinsically narrow — a point revisited for the $21\,\mathrm{cm}$ line below.
+Strongly allowed lines decay fast and are broad. Forbidden lines decay slowly and are narrow. If the lower level also decays, as for a line between two excited levels, $\Gamma$ is the sum of the two rates.
 
-\paragraph{Shape: the Lorentzian profile.} The uncertainty argument above fixes only the \emph{width}; the line's actual \emph{shape} follows from modelling the radiating atom classically as a damped oscillator whose emitted wave train decays exponentially once excited. If the radiated energy (intensity $\propto |E(t)|^2$) decays as $e^{-t/\Delta\tau}$, the field amplitude itself decays at half that rate:
+\paragraph{The shape, from a decaying wave.} The uncertainty relation gives only the width. To get the shape, treat the radiating atom as an oscillator that is excited at $t=0$ and then rings down. Its energy decays as $e^{-\Gamma t}$, so the field it sends out decays at half that rate,
+\[
+E(t)=E_0\,e^{-\Gamma t/2}\,e^{-i\omega_0t}\quad(t\ge0),\qquad E(t)=0\quad(t<0).
+\]
+The spectrum is the squared size of its Fourier transform.
+\begin{align}
+	\tilde E(\omega)
+	&\eqby{1} \int_0^\infty E_0\,e^{-\Gamma t/2}\,e^{i(\omega-\omega_0)t}\,dt \nonumber\\
+	&\eqby{2} \frac{E_0}{\Gamma/2-i(\omega-\omega_0)}, \nonumber\\
+	|\tilde E(\omega)|^2
+	&\eqby{3} \frac{E_0^2}{(\omega-\omega_0)^2+\Gamma^2/4}.
+\end{align}
+\begin{explain}
+	\item The Fourier transform, $\int E(t)\,e^{i\omega t}\,dt$, over the times when the wave exists.
+	\item $\int_0^\infty e^{-st}dt=1/s$ with $s=\Gamma/2-i(\omega-\omega_0)$, whose real part is positive.
+	\item $|x+iy|^2=x^2+y^2$.
+\end{explain}
+In terms of $\nu=\omega/2\pi$, and normalised to unit area, this is the \textbf{Lorentzian profile},
 \begin{equation}
-	E(t) = E_0\,e^{-t/(2\Delta\tau)}\,e^{-i\omega_0 t}\,\Theta(t),
+	\boxed{\phi_L(\nu)=\frac{\Gamma/4\pi^2}{(\nu-\nu_0)^2+(\Gamma/4\pi)^2}.}
+	\label{eq:natural_lorentzian_profile}
 \end{equation}
-where $\Theta(t)$ is the step function (the wave train starts at $t=0$, when the atom is excited). The observed spectrum is the power spectrum of this finite wave train, obtained via its Fourier transform:
+It falls to half its peak at $\nu-\nu_0=\pm\Gamma/4\pi$, so its full width at half maximum is $\Gamma/2\pi$, the uncertainty estimate~\eqref{eq:natural_broadening_freq} exactly. The driven oscillator gave the same shape and width near resonance, Eq.~\eqref{is:eq:resonance}, a second route to the same result. Far from the centre $\phi_L$ falls only as $(\nu-\nu_0)^{-2}$. These slow wings are the mark of an exponential decay. For Lyman~$\alpha$, $\Gamma=6.27\times10^8\,\mathrm{s^{-1}}$ gives a width of $1.0\times10^8\,\mathrm{Hz}$, or $4.9\times10^{-6}\,\mathrm{nm}$ in wavelength.
+
+\subsection{Pressure Broadening}
+
+A collision with a neighbour disturbs the levels of an emitting atom and resets the phase of its wave at random. The wave before and after a collision no longer add in step. A collision cuts the ring short, like the hand on the bell.
+
+\paragraph{The shape.} Let collisions strike one atom at random times, at the mean rate $1/t_{\rm col}=n\,\sigma_{\rm col}\,\bar v$, where $n$ is the density of colliders, $\sigma_{\rm col}$ the cross-section for a collision and $\bar v$ the mean relative speed. The chance of no collision in a time $t$ is $e^{-t/t_{\rm col}}$, the zero-count probability of the Poisson distribution (Section~\ref{cc:sec:poisson}). Averaged over many atoms, the part of the wave that is still in step with its start after a time $t$ has decayed by $e^{-\Gamma t/2}$ from the lifetime and by $e^{-t/t_{\rm col}}$ from collisions. The spectrum of a steady random signal is the Fourier transform of this average, by the Wiener--Khinchin theorem. The transform is that of the previous chain with $\Gamma/2$ replaced by $\Gamma/2+1/t_{\rm col}$. So pressure broadening also gives a Lorentzian, Eq.~\eqref{eq:natural_lorentzian_profile} with
 \begin{equation}
-	\tilde E(\omega) = \int_0^\infty E_0\,e^{-t/(2\Delta\tau)}\,e^{-i\omega_0t}\,e^{i\omega t}\,dt = \frac{E_0}{\dfrac{1}{2\Delta\tau} - i(\omega-\omega_0)}.
+	\boxed{\Gamma\;\to\;\Gamma+\frac{2}{t_{\rm col}},\qquad \text{full width}=\frac{1}{2\pi}\left(\Gamma+\frac{2}{t_{\rm col}}\right).}
+	\label{is:eq:pressure_width}
 \end{equation}
-Squaring to get the intensity spectrum, $I(\omega) \propto |\tilde E(\omega)|^2$, gives the \textbf{Lorentzian profile}:
-\begin{keyresult}
-	\begin{equation}
-		I(\omega) \propto \frac{1}{(\omega-\omega_0)^2 + \left(\dfrac{1}{2\Delta\tau}\right)^2},
-		\label{eq:natural_lorentzian_profile}
-	\end{equation}
-\end{keyresult}
-whose full width at half maximum, $\Delta\omega = 1/\Delta\tau$ (i.e.\ $\Delta\nu=1/(2\pi\Delta\tau)$), exactly reproduces the uncertainty-principle estimate of Eq.~\eqref{eq:natural_broadening_freq}. The defining feature of a Lorentzian --- slowly-decaying power-law wings, $I\propto(\omega-\omega_0)^{-2}$ far from line centre --- is the spectral signature of this exponential (i.e.\ single-exponential-decay) damping process.
+Denser and hotter gas has more frequent collisions and broader lines.
 
-\subsection{Pressure (Collisional) Broadening}
-
-Collisions with neighbouring particles interrupt the phase of an emitting atom before it would otherwise have finished radiating, effectively truncating its coherence time. Formally this is identical to natural broadening with $\Delta\tau$ replaced by the mean time between collisions, $\tau_{\rm coll} \sim 1/(n\sigma_{\rm coll} v)$: denser, hotter gas produces broader, more pressure-sensitive lines. Because the underlying physical picture --- an exponentially-truncated wave train --- is identical to the natural-broadening case above (only the truncation mechanism differs: spontaneous decay versus a dephasing collision), the same Fourier-transform argument applies unchanged, and pressure broadening also produces a \textbf{Lorentzian} line shape, Eq.~\eqref{eq:natural_lorentzian_profile}, but with $\Delta\tau \to \tau_{\rm coll}$.
+\paragraph{Where it matters.} Take a collision cross-section of order $10^{-19}\,\mathrm{m^2}$, a few times the area of an atom. In interstellar gas with $n=10^6\,\mathrm{m^{-3}}$ and $\bar v\approx2\,\mathrm{km\,s^{-1}}$, $1/t_{\rm col}\approx2\times10^{-10}\,\mathrm{s^{-1}}$, far below $\Gamma\approx10^8\,\mathrm{s^{-1}}$ of a strong line. Pressure broadening does not matter there. In the Sun's photosphere, with $n\approx10^{23}\,\mathrm{m^{-3}}$ and $\bar v\approx10\,\mathrm{km\,s^{-1}}$, $1/t_{\rm col}\approx10^8\,\mathrm{s^{-1}}$, comparable with $\Gamma$. Lines of dense dwarf stars are broader than those of thin giant atmospheres for this reason, which is how a spectrum tells a dwarf from a giant of the same temperature.
 
 \subsection{Doppler Broadening}
 
-A line-emitting particle moving with line-of-sight velocity $v_\parallel$ has its rest-frame frequency $\nu_0$ Doppler-shifted according to the classical relation already used in Chapter~3 (Eq.~\eqref{eq:doppler_classical}), $\Delta\nu/\nu_0 = v_\parallel/c$. In a gas at temperature $T$, the equipartition theorem assigns mean kinetic energy $\frac{1}{2}k_BT$ to each translational degree of freedom, so the line-of-sight velocity component satisfies $\frac{1}{2}m\avg{v_\parallel^2} = \frac{1}{2}k_BT$, i.e.\ the line-of-sight velocities of individual emitters follow a one-dimensional Maxwell--Boltzmann distribution,
+\paragraph{The velocities of the atoms.} An atom moving away from us at line-of-sight velocity $v_r$ has its line shifted by Eq.~\eqref{eq:doppler_classical}. In gas at temperature $T$, the probability of an energy $\tfrac12mv_r^2$ in this one direction carries the Boltzmann weight $e^{-mv_r^2/2k_BT}$, where $m$ is the mass of the atom (P3). Normalised, this is the one-dimensional Maxwell distribution,
 \begin{equation}
-	f(v_\parallel)\,dv_\parallel \propto \exp\!\left(-\frac{v_\parallel^2}{2\sigma_v^2}\right)dv_\parallel, \qquad \sigma_v \equiv \sqrt{\avg{v_\parallel^2}} = \sqrt{\frac{k_BT}{m}} \quad (m\text{ the particle mass}).
+	f(v_r)\,dv_r = \sqrt{\frac{m}{2\pi k_BT}}\,\exp\!\left(-\frac{mv_r^2}{2k_BT}\right)dv_r, \qquad \sigma_v \equiv \sqrt{\avg{v_r^2}} = \sqrt{\frac{k_BT}{m}} .
 	\label{eq:maxwell_boltzmann_1d}
 \end{equation}
+It is one component of the Maxwell distribution derived by counting states in Section~\ref{pr:sec:p3}, which also gives $\avg{v_r^2}=k_BT/m$ and the ideal gas (Eq.~\eqref{pr:eq:ideal_gas}).
 
-\paragraph{Shape: the Gaussian profile.} Unlike natural or pressure broadening, Doppler broadening is not an intrinsic property of any single emitter --- it is the observational blending of many individually narrow lines, each merely Doppler-shifted by a different emitter's own $v_\parallel$. The line shape is therefore just the velocity distribution itself, rewritten in frequency units. Inverting the classical Doppler relation, $v_\parallel = c(\nu-\nu_0)/\nu_0$, and substituting into Eq.~\eqref{eq:maxwell_boltzmann_1d}:
+\paragraph{The shape.} Each atom gives a line much narrower than the spread of shifts, so the profile is the velocity distribution written in frequency. A photon from an atom with velocity $v_r$ arrives at $\nu=\nu_0/(1+v_r/c)\approx\nu_0(1-v_r/c)$, so $v_r=-c(\nu-\nu_0)/\nu_0$ and $|dv_r|=(c/\nu_0)\,d\nu$.
+\begin{align}
+	\phi_D(\nu)\,d\nu
+	&\eqby{1} f(v_r)\,|dv_r| \nonumber\\
+	&\eqby{2} \sqrt{\frac{m}{2\pi k_BT}}\,\exp\!\left[-\frac{mc^2(\nu-\nu_0)^2}{2k_BT\,\nu_0^2}\right]\frac{c}{\nu_0}\,d\nu \nonumber\\
+	&\eqby{3} \frac{1}{\sqrt{2\pi}\,\Delta\nu_D}\exp\!\left[-\frac{(\nu-\nu_0)^2}{2\,\Delta\nu_D^2}\right]d\nu .
+\end{align}
+\begin{explain}
+	\item The fraction of photons in $d\nu$ is the fraction of atoms with velocities in the matching $dv_r$.
+	\item Eq.~\eqref{eq:maxwell_boltzmann_1d} with $v_r=-c(\nu-\nu_0)/\nu_0$.
+	\item Define $\Delta\nu_D=\nu_0\sigma_v/c$. Then $mc^2/(k_BT\nu_0^2)=1/\Delta\nu_D^2$ and $\sqrt{m/2\pi k_BT}\;c/\nu_0=1/(\sqrt{2\pi}\Delta\nu_D)$.
+\end{explain}
+This is the \textbf{Gaussian profile},
 \begin{equation}
-	I(\nu)\,d\nu \propto \exp\!\left[-\frac{c^2(\nu-\nu_0)^2}{2\nu_0^2\sigma_v^2}\right]d\nu,
+	\boxed{\phi_D(\nu)=\frac{1}{\sqrt{2\pi}\,\Delta\nu_D}\exp\!\left[-\frac{(\nu-\nu_0)^2}{2\,\Delta\nu_D^2}\right],}
+	\label{eq:doppler_gaussian_profile}
 \end{equation}
-which is precisely a \textbf{Gaussian profile} in frequency,
-\begin{keyresult}
-	\begin{equation}
-		I(\nu) \propto \exp\!\left[-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right], \qquad \sigma_D = \frac{\nu_0\sigma_v}{c},
-		\label{eq:doppler_gaussian_profile}
-	\end{equation}
-\end{keyresult}
-of characteristic (thermal) width
+with the \textbf{Doppler width} $\Delta\nu_D$ as its standard deviation,
 \begin{equation}
-	\frac{\Delta\nu_{\rm D}}{\nu_0} \sim \frac{\sigma_v}{c} = \sqrt{\frac{k_B T}{mc^2}}.
+	\frac{\Delta\nu_D}{\nu_0} = \frac{\sigma_v}{c} = \sqrt{\frac{k_B T}{mc^2}}.
 	\label{eq:thermal_doppler_width}
 \end{equation}
-The Gaussian shape is thus a direct fingerprint of the underlying Maxwellian velocity distribution --- in sharp contrast to the power-law-winged Lorentzian of natural/pressure broadening, a Gaussian falls off exponentially fast in its wings, since the population of atoms with any given $|v_\parallel|$ itself falls off exponentially in $v_\parallel^2$. Bulk, non-thermal gas motions (turbulence, infall, rotation) add an additional, generally larger, Doppler contribution with the same Gaussian functional form but $\sigma_v$ replaced by the turbulent or bulk velocity dispersion; a net systemic line-of-sight velocity (e.g.\ Galactic rotation) simply shifts the line centroid $\nu_0$ rather than broadening it.
+It falls to half its peak where $(\nu-\nu_0)^2/2\Delta\nu_D^2=\ln2$, so its full width at half maximum is $2\sqrt{2\ln2}\,\Delta\nu_D=2.355\,\Delta\nu_D$. Its wings fall as $e^{-(\nu-\nu_0)^2/2\Delta\nu_D^2}$, much faster than the Lorentzian, because fast atoms are exponentially rare. The width grows as $\sqrt{T/m}$. Hydrogen at $100\,\mathrm K$ has $\sigma_v=0.91\,\mathrm{km\,s^{-1}}$. The $\mathrm H\alpha$ line at $656.28\,\mathrm{nm}$ from gas at $10^4\,\mathrm K$ has a full width of $21\,\mathrm{km\,s^{-1}}$, or $0.047\,\mathrm{nm}$.
 
-\paragraph{Remark: the observed profile is a Voigt profile.} A real interstellar line is simultaneously subject to (Lorentzian) natural/pressure broadening and (Gaussian) Doppler broadening; the observed profile is the convolution of the two, known as a \emph{Voigt profile}. In the ISM, Doppler broadening from the low densities and non-thermal turbulence discussed in Section~\ref{sec:ism_heating_cooling} generally dominates over the intrinsically much narrower natural/pressure Lorentzian core, except far out in the line wings, where the slowly-decaying Lorentzian tail can still exceed the exponentially-suppressed Gaussian.
+\paragraph{Turbulence and bulk motion.} The gas also moves in eddies and streams. If the line-of-sight velocity of an atom is a thermal part plus an independent turbulent part with spread $\sigma_{\rm turb}$, the variances add (Eq.~\eqref{cc:eq:var_add}),
+\[
+\sigma_v^2=\frac{k_BT}{m}+\sigma_{\rm turb}^2 .
+\]
+When the turbulent part is also Gaussian, the profile stays Gaussian with this larger $\sigma_v$. The thermal part depends on the mass of the atom and the turbulent part does not. Comparing the widths of a light and a heavy atom from the same gas therefore separates the temperature from the turbulence. A steady motion of the whole cloud, such as Galactic rotation, shifts the centre $\nu_0$ and does not widen the line.
+
+\subsection{The Voigt Profile}
+
+A real line has all the causes at once. Each atom has a Lorentzian line from its lifetime and collisions, centred on its own Doppler-shifted frequency. The atoms have the Gaussian spread of those centres.
+
+\paragraph{The convolution.} Adding up the atoms, weighted by Eq.~\eqref{eq:doppler_gaussian_profile},
+\begin{equation}
+	\boxed{\phi_V(\nu)=\int_{-\infty}^{\infty}\phi_D(\nu')\,\phi_L(\nu-\nu'+\nu_0)\,d\nu',}
+	\label{is:eq:voigt}
+\end{equation}
+where $\nu'$ is the centre of one group of atoms and $\phi_L(\nu-\nu'+\nu_0)$ is the Lorentzian~\eqref{eq:natural_lorentzian_profile} moved to that centre. This is the \textbf{Voigt profile}. It has no closed form, but both of its limits do.
+
+\paragraph{The core.} In interstellar gas the Lorentzian half-width $\Gamma/4\pi$ is far smaller than $\Delta\nu_D$. Near the centre, $\phi_L$ is then a narrow spike of unit area, and
+\[
+\phi_V(\nu)\approx\phi_D(\nu)\int\phi_L\,d\nu'=\phi_D(\nu).
+\]
+The core of the line is Gaussian.
+
+\paragraph{The wings.} Far from the centre, $|\nu-\nu_0|\gg\Delta\nu_D$. The Gaussian is non-zero only for $\nu'$ within a few $\Delta\nu_D$ of $\nu_0$, and across that small range $\phi_L(\nu-\nu'+\nu_0)$ hardly changes.
+\begin{align}
+	\phi_V(\nu)
+	&\relby{1}{\approx} \phi_L(\nu)\int\phi_D(\nu')\,d\nu' \nonumber\\
+	&\eqby{2} \phi_L(\nu)
+	\relby{3}{\approx} \frac{\Gamma/4\pi^2}{(\nu-\nu_0)^2}.
+\end{align}
+\begin{explain}
+	\item Take $\phi_L$ out of the integral at $\nu'=\nu_0$.
+	\item $\phi_D$ has unit area.
+	\item Eq.~\eqref{eq:natural_lorentzian_profile} with $|\nu-\nu_0|\gg\Gamma/4\pi$.
+\end{explain}
+The wings are Lorentzian. The Gaussian falls exponentially and the Lorentzian only as a power, so however small $\Gamma$ is, the Lorentzian wins far enough out. For Lyman~$\alpha$ at $100\,\mathrm K$, the two are equal at $4.0\,\Delta\nu_D$ from the centre. Inside that the line is Gaussian, and outside it Lorentzian (Figure~\ref{fig:lorentzian_gaussian_comparison}). When the column of gas is so large that the core absorbs all the light, the line can only grow in its wings. The wings of Lyman~$\alpha$ in the spectra of distant quasars give the columns of the largest hydrogen clouds in this way.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics{fig_ch8_line_profile_voigt.pdf}
-	\caption{The two elementary line-broadening shapes, normalized to the same peak intensity $I_0$ and the same half-width $\Delta\nu/2$. The Lorentzian profile (Eq.~\eqref{eq:natural_lorentzian_profile}) retains extended power-law wings, $I\propto(\nu-\nu_0)^{-2}$, far from line centre, while the Gaussian profile (Eq.~\eqref{eq:doppler_gaussian_profile}) is already negligible by $3$--$4$ half-widths out. The observed \emph{Voigt} profile --- their convolution --- looks essentially Gaussian in its core (where Doppler broadening dominates) but reverts to the Lorentzian's power-law decay far out in the wings.}
+	\caption{A Lorentzian profile (solid), a Gaussian profile (dashed) with the same peak intensity $I_0$ and the same half-width $\Delta\nu/2$, and their convolution, the Voigt profile (dotted), scaled to the same peak, against $(\nu-\nu_0)/(\Delta\nu/2)$ from $-4.5$ to $4.5$. The Voigt profile has a half-width of $\EightVoigtHWHM$ in these units. The dashed horizontal line marks half the peak.}
 	\label{fig:lorentzian_gaussian_comparison}
 \end{figure}
 
-\section{Hydrogen in the ISM: HI, HII, \texorpdfstring{H$_2$}{H2}, and the 21 cm Line}
+% ==============================================================================
+\section{Hydrogen in the ISM}
 \label{sec:ism_hydrogen}
 
-Hydrogen, the most abundant element in the ISM, exists in three forms: neutral atomic hydrogen ($\mathrm{HI}$), ionized hydrogen ($\mathrm{HII} \equiv \mathrm{H^+}$), and molecular hydrogen ($\mathrm{H_2}$). $\mathrm{HII}$ forms by photoionization of $\mathrm{HI}$ by ultraviolet photons from hot, massive stars. $\mathrm{H_2}$ forms almost exclusively on the surfaces of dust grains: an $\mathrm{HI}$ atom adsorbs onto a grain (raising the probability of a second atom encountering it), and the recombination $2\mathrm{H} \to \mathrm{H_2}$ is sufficiently exothermic that the grain itself must absorb the excess binding energy for the molecule to remain bound (gas-phase formation is far too slow at ISM densities to compete).
+Section~\ref{sec:ism_lines} gave the width of a line from the lifetime of its upper level and from the motions of the gas.
 
-\paragraph{The 21 cm Line.} Almost all $\mathrm{HI}$ in the Universe sits in its electronic ground state, and the allowed (Lyman-series) transitions out of that state lie in the ultraviolet, requiring hot background sources to excite them in absorption. Neutral hydrogen instead reveals itself through a completely different, much weaker channel: the \emph{hyperfine transition}, a flip of the relative spin orientation of the proton and electron. This transition is so strongly forbidden that its natural radiative lifetime is $\Delta\tau \sim 10^{7}\,\mathrm{yr}$ — by Eq.~\eqref{eq:natural_broadening_freq}, an extraordinarily narrow natural linewidth, but more importantly, so slow a spontaneous decay rate that under any laboratory density collisional de-excitation (Section~\ref{sec:ism_lines}) always wins first, and the line is never seen in a terrestrial spectrometer. In the diffuse ISM, however, densities are low enough ($n \lesssim 1\,\mathrm{cm^{-3}}$ for HI clouds) that collisions are in fact rare compared to $10^7$ years, and the sheer number of hydrogen atoms along a galactic sightline makes the $21\,\mathrm{cm}$ line easily detectable in emission. Because the line's rest frequency ($1420.4\,\mathrm{MHz}$) is known to extreme precision, its observed Doppler shift (Eq.~\eqref{eq:doppler_classical}) directly maps the line-of-sight velocity of HI gas at every point along the sightline — the single most important observational tool for mapping the distribution and rotation of neutral gas across the Milky Way and other galaxies.
+Hydrogen is most of the interstellar medium, but its strong lines are hard to use. Almost every atom sits in its ground state, and the first line up from there, Lyman~$\alpha$, needs $10.2\,\mathrm{eV}$. At $100\,\mathrm K$ the Boltzmann factor for that is $e^{-1184}$, about $10^{-514}$. Cold hydrogen gives no Lyman~$\alpha$ of its own, and is seen in it only as absorption against a hot ultraviolet source behind it.
 
-\paragraph{Molecular Hydrogen.} $\mathrm{H_2}$ survives only in regions shielded from dissociating UV radiation by dust (Section~\ref{sec:ism_extinction}); an unshielded molecule is rapidly photodissociated. Being a homonuclear diatomic molecule, $\mathrm{H_2}$ has no permanent dipole moment and therefore no allowed dipole rotational or vibrational transitions, making it extremely difficult to observe directly. Astronomers instead infer its presence and column density using \emph{tracer molecules} such as $\mathrm{CO}$ (which does have a dipole moment), assuming a fixed $\mathrm{H_2}$-to-tracer abundance ratio calibrated independently.
+Hold two small bar magnets close together. Lined up north to south they attract and sit comfortably. Turned so that like poles face, they push apart. The two arrangements have different energies, and flipping one magnet over moves between them. For tiny magnets the energy difference is tiny.
 
-\section{Interstellar Clouds and Nebulae: A Phase Taxonomy}
+The electron and the proton in a hydrogen atom are such magnets, because both spin. Flipping the electron's spin relative to the proton's changes the energy by a few millionths of an electronvolt. The photon from that flip has a wavelength of $21\,\mathrm{cm}$. Even the coldest gas has enough energy to keep both arrangements populated, so every hydrogen atom can send out this line.
 
-Physical conditions in the ISM span many orders of magnitude in density and temperature, with no sharp boundaries between regimes; Table~\ref{tab:ism_cloud_types} summarizes the loosely-defined classes.
+The energy $5.9\times10^{-6}\,\mathrm{eV}$ corresponds to the temperature $hc/(\lambda k_B)=0.068\,\mathrm K$. In gas at $100\,\mathrm K$ that is negligible, so the upper level, which has three states, holds three times as many atoms as the lower one, which has one. Three quarters of all the atoms are in the upper level.
+
+Picture a tilted magnet that very rarely flips back by itself, but is knocked between its two settings every few hundred years by passing atoms.
+
+The populations follow the Boltzmann weight (P3) only because collisions move atoms between the levels much faster than the atoms decay. That comparison of two rates is P6, and the balance of the rates into and out of each level is P4. The same level balance sets the cooling of the gas (Section~\ref{sec:ism_heating_cooling}) and decides which lines of nebulae can be seen. Here we find the energy of the line, its decay rate, the populations of its levels, and what it measures, and then turn to ionised and molecular hydrogen.
+
+\paragraph{Three forms.} Hydrogen in the interstellar medium is neutral and atomic, written HI, ionised, written HII (the same as $\mathrm{H^+}$), or molecular, $\mathrm{H_2}$. Ionisation needs photons above $13.6\,\mathrm{eV}$, with wavelengths below $91.2\,\mathrm{nm}$. Only hot, massive stars give many of them, so HII is found around such stars. Molecular hydrogen forms on the surfaces of dust grains (Section~\ref{is:sec:h2}).
+
+\subsection{The 21 cm Line}
+\label{is:sec:21cm}
+
+\paragraph{The energy of the spin flip.} The electron and proton have magnetic moments $\vec\mu_e=-g_e\mu_B\vec S_e/\hbar$ and $\vec\mu_p=g_p\mu_N\vec S_p/\hbar$, with spins $\vec S_e$ and $\vec S_p$, the Bohr and nuclear magnetons $\mu_B=e\hbar/2m_e$ and $\mu_N=e\hbar/2m_p$, and $g_e\approx2$, $g_p=5.586$. The proton's field, averaged over the spherical ground state of the electron, leaves only its contact part at the proton, $(2\mu_0/3)\,\vec\mu_p\,\delta^3(\vecr)$, a standard result of magnetostatics. The electron density there is $|\psi(0)|^2=1/(\pi a_0^3)$, with $a_0$ the Bohr radius.
+\begin{align}
+	E_{\rm mag}
+	&\eqby{1} -\avg{\vec\mu_e\cdot\vec B_p} \nonumber\\
+	&\eqby{2} -\frac{2\mu_0}{3}\,\vec\mu_e\cdot\vec\mu_p\,|\psi(0)|^2 \nonumber\\
+	&\eqby{3} \frac{2\mu_0}{3}\,\frac{g_eg_p\mu_B\mu_N}{\pi a_0^3}\,\frac{\vec S_e\cdot\vec S_p}{\hbar^2}.
+\end{align}
+\begin{explain}
+	\item The energy of a magnetic moment in a field, averaged over where the electron is.
+	\item Only the contact part of the proton's field survives the average over the spherical cloud, and it acts where the electron overlaps the proton.
+	\item The two moments in terms of the spins, and $|\psi(0)|^2=1/(\pi a_0^3)$.
+\end{explain}
+The total spin $\vec S=\vec S_e+\vec S_p$ has $S^2=\hbar^2s(s+1)$, with $s=1$ (spins parallel, three states) or $s=0$ (spins opposed, one state). Each spin has $S_e^2=S_p^2=\tfrac34\hbar^2$.
+\begin{align}
+	\frac{\vec S_e\cdot\vec S_p}{\hbar^2}
+	&\eqby{1} \frac{S^2-S_e^2-S_p^2}{2\hbar^2} \nonumber\\
+	&\eqby{2} \tfrac12\big(s(s+1)-\tfrac32\big)
+	= \begin{cases}+\tfrac14, & s=1,\\[2pt] -\tfrac34, & s=0.\end{cases}
+\end{align}
+\begin{explain}
+	\item Square $\vec S=\vec S_e+\vec S_p$ and solve for the cross term.
+	\item $S^2=\hbar^2s(s+1)$ and $S_e^2=S_p^2=\tfrac34\hbar^2$.
+\end{explain}
+The two values differ by one. With $g_e=2$ the gap between the levels is
+\begin{equation}
+	\boxed{E_{21}=\frac{4\mu_0\,g_p\,\mu_B\mu_N}{3\pi a_0^3}=5.88\times10^{-6}\,\mathrm{eV},\qquad \nu_0=\frac{E_{21}}{h}=1421\,\mathrm{MHz}.}
+	\label{is:eq:hyperfine}
+\end{equation}
+The measured frequency is $1420.406\,\mathrm{MHz}$, at a wavelength of $21.1\,\mathrm{cm}$. Using $g_e=2.0023$ and the reduced mass of the electron and proton brings the formula to within $0.01$ per cent of it. Written in terms of the ionisation energy of hydrogen, $13.6\,\mathrm{eV}$, the gap is
+\[
+\frac{E_{21}}{13.6\,\mathrm{eV}}=\frac83\,g_p\,\alpha^2\,\frac{m_e}{m_p}=4.3\times10^{-7},
+\]
+with $\alpha$ the fine-structure constant. It is small because magnetic energies carry $\alpha^2$ against electric ones, and because the proton's moment is smaller than the electron's by the ratio of their masses.
+
+\paragraph{How fast it decays.} An oscillating electric dipole of matrix element $d$ decays at the rate $\omega^3|d|^2/(3\pi\varepsilon_0\hbar c^3)$. A magnetic dipole radiates the same way with $d\to\mu/c$, so
+\[
+A_{21}=\frac{\mu_0\,\omega^3\,|\langle1|\vec\mu|2\rangle|^2}{3\pi\hbar c^3},
+\]
+the spontaneous rate in the notation of Section~\ref{rad:sec:lines}, with level 1 the lower and level 2 the upper. The electron's moment is $658$ times the proton's, so only it counts. Take the upper state with total spin projection zero, $(\uparrow\downarrow+\downarrow\uparrow)/\sqrt2$, with the electron's spin written first. The $z$ part of $-2\mu_B\vec S_e/\hbar$ flips the sign of the second term and turns it into the lower state $(\uparrow\downarrow-\downarrow\uparrow)/\sqrt2$ times $-\mu_B$, so the matrix element is $\mu_B$ in size. The other two upper states give the same. Then
+\begin{equation}
+	\boxed{A_{21}=\frac{\mu_0\,\omega_0^3\,\mu_B^2}{3\pi\hbar c^3}=2.87\times10^{-15}\,\mathrm{s^{-1}},\qquad \frac{1}{A_{21}}=1.1\times10^7\ \text{years}.}
+	\label{is:eq:A21}
+\end{equation}
+The rate is tiny for two reasons. The frequency is low, and the rate goes as $\omega^3$. And the transition is magnetic, which costs a factor of about $\alpha^2$ against an electric one. Lyman~$\alpha$ decays $2\times10^{23}$ times faster. A transition this slow is called \textbf{forbidden}. By Eq.~\eqref{eq:natural_broadening_freq} its natural width is $A_{21}/2\pi=4.6\times10^{-16}\,\mathrm{Hz}$. The thermal width at $100\,\mathrm K$, from Eq.~\eqref{eq:thermal_doppler_width}, is $10\,\mathrm{kHz}$ in full. The width of the $21\,\mathrm{cm}$ line measures only the motions of the gas.
+
+\paragraph{Level populations, a balance of rates.} Collisions knock atoms between the two levels. Let one atom in the upper level be knocked down at the rate $1/t_{\rm col}$. By detailed balance (Eq.~\eqref{pr:eq:detailed_balance}, with $g_1$ and $g_2$ the numbers of states in the lower and upper levels) an atom in the lower level is knocked up at the rate $(g_2/g_1)\,e^{-E_{21}/k_BT}/t_{\rm col}$. The upper level also decays at the rate $A_{21}$. Background radio light can also lift atoms, but for the $21\,\mathrm{cm}$ line it does so far more slowly than collisions do, so we leave it out. In a steady state the rates into and out of the upper level balance (P4). With $n_1$ and $n_2$ the densities of atoms in the two levels,
+\begin{align}
+	n_2\left(A_{21}+\frac{1}{t_{\rm col}}\right)
+	&\eqby{1} n_1\,\frac{g_2}{g_1}\,\frac{e^{-E_{21}/k_BT}}{t_{\rm col}} \nonumber\\
+	\implies\quad \frac{n_2}{n_1}
+	&\eqby{2} \frac{g_2}{g_1}\,e^{-E_{21}/k_BT}\,\frac{1}{1+A_{21}t_{\rm col}} .
+\end{align}
+\begin{explain}
+	\item Out of the upper level by decay and by collisions, into it by collisions from below.
+	\item Divide by $n_1(A_{21}+1/t_{\rm col})$ and multiply the top and bottom by $t_{\rm col}$.
+\end{explain}
+\begin{equation}
+	\boxed{\frac{n_2}{n_1}=\frac{g_2}{g_1}\,e^{-E_{21}/k_BT}\,\frac{1}{1+A_{21}t_{\rm col}}.}
+	\label{is:eq:level_balance}
+\end{equation}
+One number decides, $A_{21}t_{\rm col}$, the ratio of the decay rate to the collision rate (P6). When collisions are much faster, $A_{21}t_{\rm col}\ll1$, the populations take the Boltzmann ratio at the gas temperature (P3). When decay is much faster, $A_{21}t_{\rm col}\gg1$, the upper level is nearly empty and every upward collision ends in a photon. The changeover is at the \textbf{critical density}, where $A_{21}t_{\rm col}=1$, so $n=A_{21}/(\sigma_{\rm col}\bar v)$.
+
+\paragraph{The populations of the 21 cm levels.} For hydrogen at $100\,\mathrm K$ the mean relative speed of two atoms is $\sqrt{16k_BT/(\pi m_{\rm H})}=2.0\,\mathrm{km\,s^{-1}}$. With $n=10^6\,\mathrm{m^{-3}}$ ($1\,\mathrm{cm^{-3}}$) and a cross-section of order $10^{-19}\,\mathrm{m^2}$ for the collisions that exchange the spins, $1/t_{\rm col}=2\times10^{-10}\,\mathrm{s^{-1}}$. An atom is knocked between the levels about once in $150$ years, against once in $11$ million years by decay. So $A_{21}t_{\rm col}=1.4\times10^{-5}$, the populations follow the gas temperature, and with $g_2/g_1=3$ and $E_{21}/k_B=0.068\,\mathrm K$,
+\begin{equation}
+	\boxed{\frac{n_2}{n_1}=3\,e^{-0.068\,\mathrm K/T}\approx3,\qquad n_2\approx\tfrac34\,n_{\rm H}.}
+	\label{is:eq:21cm_populations}
+\end{equation}
+Three quarters of the atoms are in the upper level whatever the temperature of the cloud, because every cloud is far hotter than $0.068\,\mathrm K$.
+
+\paragraph{Why the line is seen.} Each atom in the upper level sends out a photon at the rate $A_{21}$ whatever the collisions do, because they keep the upper level filled. The power per atom is tiny, $\tfrac34A_{21}h\nu_0=2.0\times10^{-39}\,\mathrm W$, but a line of sight through the Galaxy crosses $10^{25}$ or more atoms per square metre, and together they make the line easy to detect with a radio telescope. A gas cell in a laboratory holds far too few atoms to show it in spontaneous emission. Instead the line is measured in the laboratory by stimulated emission in the hydrogen maser, to better than one part in $10^{12}$. Because the populations do not depend on the temperature, the brightness of the line counts the atoms in the column (Problem~\ref{is:prob:21cm}).
+
+\paragraph{What it maps.} The rest frequency is known so well that the Doppler shift of the line, Eq.~\eqref{eq:doppler_classical}, gives the line-of-sight velocity of each cloud of HI along a sight line. Combined with the rotation of the Galaxy, the velocity places each cloud at a distance. The $21\,\mathrm{cm}$ line is the main tool for mapping neutral gas in the Milky Way and for measuring the rotation of other galaxies far beyond their stars.
+
+\subsection{Molecular Hydrogen}
+\label{is:sec:h2}
+
+\paragraph{How it forms.} Two hydrogen atoms that meet in the gas cannot stay together. Binding releases $4.5\,\mathrm{eV}$, and the pair has no fast way to get rid of it, since $\mathrm{H_2}$ has no electric dipole to radiate with. The atoms fly apart again within one vibration. On a grain the energy has somewhere to go. An atom that lands on the grain sticks to its surface and wanders over it, which makes it far more likely to meet a second atom. When they bind, the grain takes up the released energy, and the molecule leaves. In the thin gas, reactions without grains are far too slow to compete.
+
+\paragraph{Where it survives.} Ultraviolet starlight breaks $\mathrm{H_2}$ apart. The molecule survives only deep in clouds, where dust absorbs that light (Section~\ref{is:sec:dust}).
+
+\paragraph{Why it is hard to see.} $\mathrm{H_2}$ is made of two identical atoms, so it has no permanent electric dipole moment and no allowed dipole transitions between its rotation and vibration levels. Its lowest rotational line comes from a level at $E/k_B\approx510\,\mathrm K$, and is a weak quadrupole line. Cold molecular clouds, at $10$ to $20\,\mathrm K$, hardly excite it at all. Astronomers trace $\mathrm{H_2}$ instead by molecules that do have a dipole. The most used is CO, whose first rotational level lies at $E/k_B=5.5\,\mathrm K$ and is easily excited at $10\,\mathrm K$. The amount of $\mathrm{H_2}$ follows from the strength of the CO line and a ratio calibrated by other means. Many other molecules are also found, among them OH, $\mathrm{H_2O}$, $\mathrm{CO_2}$, NH, CH and $\mathrm{CH_2}$.
+
+% ==============================================================================
+\section{Interstellar Clouds and Nebulae}
+\label{is:sec:clouds}
+
+The medium holds hydrogen in three forms, with dust that dims the light, and each form has its own way of being seen.
+
+The density and temperature change smoothly over many powers of ten, so any division into kinds of cloud is rough.
+
+Weather clouds are named by how they look, puffy or layered or wispy, and not by what they are made of, which is always water. The names are still useful, because how a cloud looks tells something about how it formed.
+
+Interstellar clouds are named the same way. The classes overlap, and the same cloud can be called by different names when seen in different ways. Each class is defined by what dominates its light, the $21\,\mathrm{cm}$ line, CO, the dust or the glow of hot gas.
+
+How dark a cloud looks is set by its extinction. A diffuse molecular cloud with $A_V$ between $1$ and $5$ lets through $40$ to $1$ per cent of the visible light behind it. A dense globule with $A_V\approx10$ lets through one part in $10^4$.
+
+Picture the same smooth spread of densities, cut into named ranges.
+
+Whether a cloud is dark or bright is the optical depth compared with one (P6). Whether it is seen in a line is the balance of rates in its levels (P4). Here we list the kinds of clouds and nebulae, and find how fast a planetary nebula expands.
+
+\paragraph{Clouds.} Table~\ref{tab:ism_cloud_types} gives the main kinds. In \textbf{HI clouds} the hydrogen is atomic. In \textbf{diffuse and translucent molecular clouds}, with $1<A_V<5$, the hydrogen is still mostly atomic, with $\mathrm{H_2}$ where the optical depth is higher. They are irregular in shape. \textbf{Giant molecular clouds} are large, clumpy complexes of gas and dust, and the main sites of star formation. The Horsehead Nebula is part of the giant molecular cloud complex in Orion. \textbf{Bok globules} are small, nearly round, dense clouds with $A_V\approx10$ and $T\approx10\,\mathrm K$, where stars also form. They appear to be dense cores whose surrounding gas was stripped away by the light and winds of hot massive stars.
 
 \begin{table}[htbp]
 	\centering
 	\small
 	\begin{tabular}{@{}l l l l l@{}}
 		\toprule
-		\textbf{Cloud Type} & \textbf{$T$ (K)} & \textbf{Size} & \textbf{Mass ($M_\odot$)} & \textbf{Tracer} \\
+		\textbf{Cloud type} & \textbf{$T$ (K)} & \textbf{Size} & \textbf{Mass ($M_\odot$)} & \textbf{Tracer} \\
 		\midrule
 		HI clouds & $\sim 100$ & tens of pc & --- & $21\,\mathrm{cm}$ line \\
-		Diffuse/translucent molecular & $15\text{--}50$ & several pc & $3\text{--}100$ & CO, optical/UV absorption \\
-		Giant Molecular Clouds (GMCs) & $\sim 10\text{--}20$ & $\sim 50\,\mathrm{pc}$ & $10^5\text{--}10^6$ & CO; sites of star formation \\
-		Bok globules & $\sim 10$ & sub-pc & $1\text{--}1000$ & Dense, isolated dark cores \\
+		Diffuse molecular & $15\text{--}50$ & several pc & $3\text{--}100$ & CO, UV absorption \\
+		Giant molecular clouds & $\sim 10\text{--}20$ & $\sim 50\,\mathrm{pc}$ & $10^5\text{--}10^6$ & CO \\
+		Bok globules & $\sim 10$ & below $1\,\mathrm{pc}$ & $1\text{--}1000$ & Dark silhouette \\
 		\bottomrule
 	\end{tabular}
-	\caption{Approximate physical properties of interstellar cloud types (substantial overlap exists between categories).}
+	\caption{Approximate temperature, size, mass and tracer of the kinds of interstellar cloud. The ranges overlap between kinds.}
 	\label{tab:ism_cloud_types}
 \end{table}
 
-The historical, purely observational term \emph{nebula} (Latin: ``cloud'') covers any extended, diffuse object, and is refined as follows: \emph{reflection nebulae} shine by starlight scattered off surrounding dust (e.g.\ the Pleiades); \emph{dark nebulae} are simply clouds of sufficiently high extinction to appear as silhouettes (GMCs, Bok globules); \emph{emission nebulae} radiate their own line emission, and are subdivided into $\mathrm{HII}$ regions (gas photoionized by nearby hot stars), planetary nebulae (ionized gas ejected during late stellar evolution, e.g.\ the Ring Nebula), and supernova remnants (shocked ejecta from a stellar explosion, e.g.\ the Crab Nebula, remnant of SN 1054, often hosting a central pulsar).
+\paragraph{Nebulae.} \emph{Nebula}, Latin for cloud, is an old name for anything in the sky that looks extended and diffuse rather than point-like. Some nebulae turned out to be distant galaxies, such as Andromeda. The rest are clouds in our own Galaxy, of three kinds.
+\begin{itemize}
+	\item \textbf{Reflection nebulae} shine by starlight scattered from dust, such as the blue nebula around the Pleiades.
+	\item \textbf{Dark nebulae} are clouds whose extinction is high enough to show as silhouettes against the stars behind them. Giant molecular clouds such as the Horsehead, Bok globules and diffuse molecular clouds can all appear this way. Barnard~68 is a well-known example.
+	\item \textbf{Emission nebulae} make their own light, mostly in lines. \textbf{HII regions} are gas ionised by nearby hot stars, such as the Monkey Head Nebula, NGC~2174. \textbf{Planetary nebulae} are gas thrown off by a star late in its life, such as the Ring Nebula. \textbf{Supernova remnants} are gas thrown out by a stellar explosion, such as the Crab Nebula, left by the supernova of 1054, which is lit from inside by a pulsar.
+\end{itemize}
 
 \subsection{Expanding Planetary Nebulae and the Doppler-Split Line}
 \label{sec:pn_expansion}
 
-A planetary nebula is a shell of gas thrown off by a star near the end of its life. The hot core left behind, a white dwarf, ionizes the shell and makes it glow in emission lines. The shell keeps expanding outward, roughly as a sphere centered on the white dwarf, at some speed $v_{\rm exp}$, typically a few tens of $\mathrm{km/s}$.
-
-Every point on the shell moves outward at the same speed $v_{\rm exp}$, but not every point moves the same way along our line of sight, since the shell is curved. Figure~\ref{fig:pn_expansion} shows why. The point of the shell nearest to us moves straight toward us, so its light is blueshifted. The point on the far side of the star moves straight away from us, so its light is redshifted. Points around the visible rim of the shell move sideways, across our line of sight, so their light is not shifted at all. Every other point on the shell moves at some angle in between, giving a line-of-sight speed somewhere between these two extremes.
+A planetary nebula is a shell of gas thrown off by a star near the end of its life. The hot core left behind, a white dwarf, ionises the shell and makes it glow in emission lines. The shell expands outward, roughly as a sphere centred on the white dwarf, at a speed $v_{\rm exp}$ of a few tens of $\mathrm{km\,s^{-1}}$. Every point of the shell moves outward at $v_{\rm exp}$, but in different directions relative to us. The near side comes toward us, the far side goes away, and the rim moves across the line of sight (Figure~\ref{fig:pn_expansion}). We want the line profile of the whole shell and the speed it gives.
 
 \begin{figure}[htbp]
 	\centering
 	\resizebox{\linewidth}{!}{%
 	\includegraphics{fig_ch8_expanding_shell_geometry.pdf}%
 	}
-	\caption{(a) An expanding spherical shell around a white dwarf, viewed from Earth. Arrows show the local expansion velocity, color-coded by its line-of-sight sense: blue for the near cap (moving toward Earth), red for the far cap (moving away from Earth), gray for the rim (moving across the line of sight). (b) The resulting emission-line profile, spread between $\lambda_{\min}$ (from the near cap) and $\lambda_{\max}$ (from the far cap), with the unshifted rest wavelength $\lambda_0$ marked in between.}
+	\caption{(a) An expanding spherical shell around a white dwarf, with Earth to the right. Arrows show the local expansion velocity, blue on the near cap, red on the far cap and grey near the rim. (b) A flat-topped emission-line profile between $\lambda_{\min}$ and $\lambda_{\max}$, with the rest wavelength $\lambda_0$ marked between them.}
 	\label{fig:pn_expansion}
 \end{figure}
 
-Apply the classical Doppler relation, Eq.~\eqref{eq:doppler_classical}, to each of these two extreme points in turn. The near cap moves toward Earth at $v_r=-v_{\rm exp}$, so its light lands at
+\paragraph{The velocity of one point.} Let $\theta$ be the angle at the white dwarf between a point of the shell and the direction pointing away from us. The point moves along its radius at speed $v_{\rm exp}$, and the part of that velocity along the line of sight, away from us, is
+\begin{equation}
+	v_r=v_{\rm exp}\cos\theta .
+\end{equation}
+The far cap ($\theta=0$) has $v_r=+v_{\rm exp}$, the near cap ($\theta=\pi$) has $v_r=-v_{\rm exp}$, and the rim ($\theta=\pi/2$) has $v_r=0$.
+
+\paragraph{How much of the shell has each velocity.} Take a thin shell of radius $R$ that glows evenly and is transparent to its own line, all of it inside the telescope's aperture. The band of the shell between $\theta$ and $\theta+d\theta$ is a ring of area $2\pi R^2\sin\theta\,d\theta$. The fraction of the shell in it is
+\begin{align}
+	\frac{dA}{A}
+	&\eqby{1} \frac{2\pi R^2\sin\theta\,d\theta}{4\pi R^2} \nonumber\\
+	&\eqby{2} \frac12\,|d(\cos\theta)| \nonumber\\
+	&\eqby{3} \frac{|dv_r|}{2v_{\rm exp}} .
+\end{align}
+\begin{explain}
+	\item The area of the ring over the area of the sphere.
+	\item $d(\cos\theta)=-\sin\theta\,d\theta$.
+	\item $v_r=v_{\rm exp}\cos\theta$.
+\end{explain}
+Each equal step of $v_r$ between $-v_{\rm exp}$ and $+v_{\rm exp}$ holds an equal share of the shell. So a single sharp line becomes a flat-topped line, as in panel (b) of Figure~\ref{fig:pn_expansion}. Its edges come from the two caps. By Eq.~\eqref{eq:doppler_classical},
 \[
-\lambda_{\min}=\lambda_0\left(1-\frac{v_{\rm exp}}{c}\right),
-\]
-and the far cap moves away from Earth at $v_r=+v_{\rm exp}$, so its light lands at
-\[
+\lambda_{\min}=\lambda_0\left(1-\frac{v_{\rm exp}}{c}\right),\qquad
 \lambda_{\max}=\lambda_0\left(1+\frac{v_{\rm exp}}{c}\right).
 \]
-A single sharp rest-frame line, once its light from the whole shell is added together, is therefore seen as one line spread out between $\lambda_{\min}$ and $\lambda_{\max}$, as sketched in panel (b) of Figure~\ref{fig:pn_expansion}. Subtracting the two relations above cancels $\lambda_0$ from the difference and isolates the expansion speed:
-\begin{keyresult}
-	\begin{equation}
-		\lambda_{\max}-\lambda_{\min} = \frac{2\lambda_0\,v_{\rm exp}}{c} \qquad\Longrightarrow\qquad v_{\rm exp} = \frac{c}{2}\,\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_0}.
-		\label{eq:pn_expansion_velocity}
-	\end{equation}
-\end{keyresult}
-Measuring the two extreme edges of an observed emission line therefore gives the shell's expansion speed directly, with no need to know the nebula's distance.
+A slit placed across the centre of the nebula sees only the two caps, and the line splits into two lines at these same wavelengths.
 
+\paragraph{The expansion speed.} Subtracting the two edges removes the unknown $\lambda_0$ from the difference,
+\begin{equation}
+	\boxed{\lambda_{\max}-\lambda_{\min} = \frac{2\lambda_0\,v_{\rm exp}}{c} \qquad\Longrightarrow\qquad v_{\rm exp} = \frac{c}{2}\,\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_0}.}
+	\label{eq:pn_expansion_velocity}
+\end{equation}
+The speed comes from the two edges of one line, without the distance of the nebula. Their mean is $\lambda_0$ shifted by any motion of the nebula as a whole, which cancels from the difference. The thermal width of Section~\ref{sec:ism_lines} rounds the edges. For hydrogen at $10^4\,\mathrm K$ it is $21\,\mathrm{km\,s^{-1}}$ in full, as large as the expansion itself, so the lines of heavier ions such as $\mathrm{O^{2+}}$, with $\sigma_v=2.3\,\mathrm{km\,s^{-1}}$, give sharper edges.
+
+% ==============================================================================
 \section{Heating and Cooling of the ISM}
 \label{sec:ism_heating_cooling}
 
-The ISM's temperature is set by a local balance between heating and cooling processes, and this balance determines the thermal pressure that Section~\ref{sec:virial_theorem} will show is what resists gravitational collapse.
+Section~\ref{sec:ism_hydrogen} balanced the rates into and out of an energy level, Eq.~\eqref{is:eq:level_balance}.
 
-\paragraph{Heating.} Cosmic rays ($10\text{--}10^{14}\,\mathrm{MeV}$ particles accelerated in stellar flares and supernova shocks) ionize atoms and molecules; the ejected energetic electron then collisionally heats the surrounding gas. Ultraviolet photons from massive stars photoionize hydrogen and eject photoelectrons directly from dust-grain surfaces (the dominant heating mechanism in many regions), while stellar X-rays provide a harder, more penetrating ionizing source. Dust grains also absorb continuum radiation directly, and mechanical shocks from stellar winds and supernovae thermalize bulk kinetic energy.
+That fixes how atoms share out among levels at a given temperature. It does not say what the temperature is. Gas in the medium is heated by starlight and fast particles and cooled by the light it sends out, and its temperature is wherever the two meet.
 
-\paragraph{Cooling.} Collisionally excited molecules and fine-structure atomic levels decay radiatively in the infrared; because infrared photons are scattered comparatively weakly by dust (Table~\ref{tab:scattering_regimes}, Rayleigh regime), they escape the cloud efficiently and carry thermal energy away with them. Thermal continuum emission from dust grains provides a second, generally slower, cooling channel.
+Put a pan of water on a flame with no lid. The flame heats it. Water evaporates from the surface and cools it. Evaporation rises steeply with temperature. Turn the flame up or down and the water settles at almost the same temperature, a little below boiling, because a small rise in temperature is enough to carry away a lot more heat.
 
-Efficient cooling is a physical prerequisite for star formation: a cloud that could not radiate away the heat generated by compression would simply be pushed back by its own rising pressure. The next section makes this competition between gravity and pressure quantitative.
+Interstellar gas is cooled in the same way. Collisions lift atoms and molecules into excited levels, and the photons they then send out escape and carry the energy away. The number of collisions with enough energy grows as $e^{-E_{21}/k_BT}$, steeply, so the temperature settles near $E_{21}/k_B$ of the main cooling line, almost whatever the heating.
 
-\section{Gravitational Instability: The Virial Theorem}
-\label{sec:virial_theorem}
+The main coolant of atomic clouds is the ion $\mathrm{C^+}$, with a line at $157.7\,\mu\mathrm m$. Its upper level lies at $E_{21}/k_B=91\,\mathrm K$, and HI clouds sit near $100\,\mathrm K$. In molecular clouds CO cools, with levels at $5.5$ and $16.6\,\mathrm K$, and these clouds sit at $10$ to $20\,\mathrm K$.
 
-We now turn from radiative properties to self-gravitating dynamics: under what conditions does an interstellar cloud, supported until now by its own thermal (and bulk) pressure, instead collapse under its own weight? The essential tool is the \emph{virial theorem}, derived here from Newtonian mechanics applied to a self-gravitating fluid.
+Picture a flat line for the heating and a steep rising curve for the cooling, crossing at one temperature.
 
-\subsection{The Second Moment of the Mass Distribution}
+The temperature is a steady state of rates, heat in equal to heat out (P4, Section~\ref{pr:sec:p4}). The steep rise comes from the Boltzmann factor (P3). The photons escape only if the cloud is transparent to them, a comparison of two lengths (P6). The same balance sets the temperature of a planet in sunlight, and of a star's atmosphere (Chapter~\ref{ch:radiation}). Here we list the sources of heating and cooling, and find the temperature where they balance.
 
-Consider a cloud of gas of density $\rho(\vecr, t)$ occupying a finite volume, isolated from external pressure. Define its (scalar) second moment of mass about the origin,
-\begin{equation}
-	I \equiv \int \rho\,r^2\,dV = \int r^2\,dm,
-	\label{eq:moment_of_inertia_def}
-\end{equation}
-where the second form treats the integral as running over fixed fluid mass elements $dm = \rho\,dV$ following the flow (a Lagrangian sum). Differentiating once,
-\begin{equation}
-	\dv{I}{t} = \int 2\vecr\cdot\vec v\,dm,
-	\label{eq:moment_first_derivative}
-\end{equation}
-and differentiating again,
-\begin{equation}
-	\dv[2]{I}{t} = 2\int v^2\,dm + 2\int \vecr\cdot\dv{\vec v}{t}\,dm = 4K_{\rm bulk} + 2\int \vecr\cdot\dv{\vec v}{t}\,dm,
-	\label{eq:moment_second_derivative}
-\end{equation}
-where $K_{\rm bulk} \equiv \frac{1}{2}\int v^2\,dm$ is the cloud's bulk (macroscopic) kinetic energy.
-
-\subsection{The Force Terms: Pressure and Self-Gravity}
-
-Each fluid element obeys Euler's equation under pressure and self-gravity,
-\begin{equation}
-	\rho\,\dv{\vec v}{t} = -\nabla P - \rho\,\nabla\Phi,
-	\label{eq:euler_equation}
-\end{equation}
-where $\Phi$ is the gravitational potential sourced by the cloud's own density via Poisson's equation, $\nabla^2\Phi = 4\pi G\rho$. Substituting into the last term of Eq.~\eqref{eq:moment_second_derivative}:
-\begin{equation}
-	\int \vecr\cdot\dv{\vec v}{t}\,dm = -\int \vecr\cdot\nabla P\,dV - \int \rho\,\vecr\cdot\nabla\Phi\,dV.
-	\label{eq:force_term_split}
-\end{equation}
-
-\paragraph{Pressure term.} Integrating by parts and discarding the surface term (zero external pressure at the cloud's edge):
-\begin{equation}
-	-\int \vecr\cdot\nabla P\,dV = -\oint P\,(\vecr\cdot\hat{\vec n})\,dA + \int P\,(\nabla\cdot\vecr)\,dV = 3\int P\,dV,
-	\label{eq:pressure_term_integration}
-\end{equation}
-using $\nabla\cdot\vecr = 3$ in three dimensions.
-
-\paragraph{Self-gravity term.} A standard identity for a potential sourced entirely by its own density (proved by symmetrizing the double integral $\Phi(\vecr) = -G\int \rho(\vecr')/|\vecr - \vecr'|\,d^3r'$ under $\vecr \leftrightarrow \vecr'$) gives
-\begin{equation}
-	-\int \rho\,\vecr\cdot\nabla\Phi\,dV = U, \qquad U \equiv -\frac{1}{2}\iint \frac{G\rho(\vecr)\rho(\vecr')}{|\vecr - \vecr'|}\,d^3r\,d^3r',
-	\label{eq:self_gravity_identity}
-\end{equation}
-where $U < 0$ is the cloud's total gravitational self-energy.
-
-\subsection{The Scalar Virial Theorem}
-
-Collecting Eqs.~\eqref{eq:moment_second_derivative}, \eqref{eq:pressure_term_integration}, and \eqref{eq:self_gravity_identity}:
-\begin{equation}
-	\dv[2]{I}{t} = 4K_{\rm bulk} + 6\int P\,dV + 2U.
-	\label{eq:virial_pre_ideal_gas}
-\end{equation}
-For a monatomic ideal gas, the thermal energy density is $\frac{3}{2}P$, so the total thermal kinetic energy is $K_{\rm th} = \frac{3}{2}\int P\,dV$, i.e.\ $\int P\,dV = \frac{2}{3}K_{\rm th}$. Substituting and defining the total kinetic energy $K \equiv K_{\rm bulk} + K_{\rm th}$:
-\begin{keyresult}
-	\begin{equation}
-		\boxed{\dv[2]{I}{t} = 4K + 2U} \qquad\Longleftrightarrow\qquad \frac{1}{2}\dv[2]{I}{t} = 2K + U.
-		\label{eq:scalar_virial_theorem}
-	\end{equation}
-\end{keyresult}
-This is the \textbf{scalar virial theorem} for a self-gravitating, thermally supported gas cloud.
-
-\subsection{Virial Equilibrium and the Onset of Collapse}
-
-A cloud in a long-term statistically steady state has, by definition, a bounded, non-growing $I(t)$, so its time-average satisfies $\avg{\ddot I} = 0$:
-\begin{equation}
-	2K + U = 0 \qquad (\text{virial equilibrium}).
-	\label{eq:virial_equilibrium}
-\end{equation}
-More generally, Eq.~\eqref{eq:scalar_virial_theorem} is a statement about stability:
+\paragraph{Heating.} Several processes put energy into the gas.
 \begin{itemize}
-	\item If $2K > |U|$: $\ddot I > 0$, the cloud's mean-square radius accelerates outward — the cloud disperses.
-	\item If $2K < |U|$: $\ddot I < 0$ — self-gravity overwhelms thermal support and the cloud accelerates \emph{inward}: gravitational collapse.
+	\item \textbf{Cosmic rays}, charged particles of $10$ to $10^{14}\,\mathrm{MeV}$ accelerated in stellar flares and supernova shocks, ionise atoms and molecules. The freed electron shares its energy with the gas by collisions. Cosmic rays reach deep into dense clouds where starlight cannot.
+	\item \textbf{Ultraviolet photons} from massive stars ionise atoms, and the freed electrons heat the gas.
+	\item \textbf{Photoelectrons from grains}, knocked out of dust grains by ultraviolet photons, are the main heating in much of the diffuse gas.
+	\item \textbf{X-rays} from stars ionise more deeply than ultraviolet light.
+	\item \textbf{Dust} absorbs continuous starlight and warms.
+	\item \textbf{Shocks} from stellar winds and supernovae turn the energy of bulk motion into heat.
 \end{itemize}
-The marginal case $2K = |U|$ defines the critical condition for instability, evaluated explicitly below.
 
-\subsection{The Jeans Mass and Jeans Length}
+\paragraph{Cooling.} Collisions excite molecules and the fine-structure levels of atoms and ions, which then decay by sending out infrared and millimetre photons. Grains are much smaller than these wavelengths, so the photons are in the Rayleigh regime, where $\sigma\propto\lambda^{-4}$ is small (Table~\ref{tab:scattering_regimes}). They escape the cloud and carry the energy with them. Dust also cools by its own thermal emission in the far infrared.
 
-Model the cloud as a uniform sphere of mass $M$, radius $R$, and temperature $T$. Its gravitational self-energy is computed by imagining the sphere assembled shell by shell, bringing successive layers of matter in from infinity. When a partially-built sphere has radius $r < R$, its already-accreted mass (uniform density) is $m(r) = M(r/R)^3$. Bringing in the next infinitesimal shell $dm = 4\pi r^2\rho\,dr = 3Mr^2/R^3\,dr$ from infinity releases gravitational energy $dU = -Gm(r)\,dm/r$; integrating over the full assembly from $r=0$ to $r=R$:
+\paragraph{The balance.} Let each gas particle receive heat at the rate $\dot E_{\rm heat}$, and let a coolant with density $n_c$ have a line of energy $E_{21}$ that escapes. In thin gas, below the critical density ($A_{21}t_{\rm col}\gg1$), nearly every coolant particle is in its lower level and every upward collision ends in an escaping photon. With $1/t_{\rm col}=n\sigma_{\rm col}\bar v$ from Section~\ref{sec:ism_lines}, heat in equals heat out (P4),
 \begin{align}
-	U &= -\int_0^R \frac{G\,m(r)}{r}\,dm = -\int_0^R \frac{GM(r/R)^3}{r}\cdot\frac{3Mr^2}{R^3}\,dr = -\frac{3GM^2}{R^6}\int_0^R r^4\,dr \notag \\
-	&= -\frac{3GM^2}{R^6}\cdot\frac{R^5}{5} = -\frac{3}{5}\frac{GM^2}{R}.
-	\label{eq:uniform_sphere_self_energy}
+	n\,\dot E_{\rm heat}
+	&\eqby{1} n_2\,A_{21}\,E_{21} \nonumber\\
+	&\eqby{2} n_c\,\frac{g_2}{g_1}\,\frac{e^{-E_{21}/k_BT}}{t_{\rm col}}\,E_{21} \nonumber\\
+	&\eqby{3} n_c\,n\,\sigma_{\rm col}\bar v\,\frac{g_2}{g_1}\,E_{21}\,e^{-E_{21}/k_BT}.
 \end{align}
-Its thermal kinetic energy, with $N = M/(\mu m_{\rm H})$ particles of mean molecular weight $\mu$, is $K = \frac{3}{2}Nk_BT = \frac{3}{2}\frac{M}{\mu m_{\rm H}}k_BT$. Imposing the marginal virial condition $2K = |U|$:
+\begin{explain}
+	\item Heating per unit volume equals the energy carried off per unit volume by escaping photons.
+	\item Eq.~\eqref{is:eq:level_balance} with $A_{21}t_{\rm col}\gg1$, so $n_2A_{21}=n_1(g_2/g_1)e^{-E_{21}/k_BT}/t_{\rm col}$, and $n_1\approx n_c$.
+	\item $1/t_{\rm col}=n\sigma_{\rm col}\bar v$.
+\end{explain}
+Dividing by $n$ and taking the logarithm,
 \begin{equation}
-	3\,\frac{Mk_BT}{\mu m_{\rm H}} = \frac{3}{5}\frac{GM^2}{R} \quad\Longrightarrow\quad R = \frac{GM\mu m_{\rm H}}{5k_BT}.
-	\label{eq:jeans_critical_radius}
+	\boxed{k_BT=\frac{E_{21}}{\ln\!\big(n_c\,\sigma_{\rm col}\,\bar v\,(g_2/g_1)\,E_{21}/\dot E_{\rm heat}\big)}.}
+	\label{is:eq:balance_T}
 \end{equation}
-Eliminating $R$ in favor of the ambient density via $M = \frac{4}{3}\pi R^3\rho$ yields the \textbf{Jeans mass}, and eliminating $M$ instead yields the \textbf{Jeans length}:
-\begin{keyresult}
-	\begin{align}
-		M_J &= \left(\frac{5k_BT}{G\mu m_{\rm H}}\right)^{3/2}\left(\frac{3}{4\pi\rho}\right)^{1/2}, \label{eq:jeans_mass} \\
-		R_J &= \left(\frac{15\,k_BT}{4\pi G\mu m_{\rm H}\rho}\right)^{1/2}. \label{eq:jeans_length}
-	\end{align}
-\end{keyresult}
-A cloud with $M > M_J$ (equivalently $R > R_J$ at fixed density) has insufficient thermal pressure support and is gravitationally unstable. Both quantities decrease with density and increase with temperature: hot, tenuous gas is stable; cold, dense gas is not — precisely why star formation is observed in cold ($T \sim 10\text{--}20\,\mathrm{K}$) molecular clouds (Table~\ref{tab:ism_cloud_types}) rather than in the warm diffuse ISM.
+The heating and the density enter only through a logarithm. Changing the heating tenfold changes the logarithm by $2.3$, so over a wide range of conditions the gas sits within a factor of a few of $E_{21}/k_B$ of its main coolant. That is why atomic clouds, cooled by $\mathrm{C^+}$, are near $100\,\mathrm K$, and molecular clouds, cooled by CO, are near $10$ to $20\,\mathrm K$. Above the critical density the cooling per particle stops growing with $n$, but the Boltzmann factor still pins the temperature in the same way.
 
-\subsection{A Dynamical Cross-Check: The Jeans Dispersion Relation}
+\paragraph{Why it matters for stars.} The temperature fixes the pressure of the gas, $P=nk_BT$ (Eq.~\eqref{pr:eq:ideal_gas}), and the pressure is what resists gravity. A cloud that can radiate away the heat of its own compression stays cold while it shrinks, and its pressure cannot stop the collapse. Efficient cooling is therefore a condition for star formation. Whether gravity or pressure wins is worked out in Chapter~\ref{ch:selfgrav}.
 
-The energy argument above is global and geometry-dependent (it assumed a uniform sphere); it is worth confirming the same physics from a local, dynamical perspective. Consider an infinite, isothermal (sound speed $c_s^2 = k_BT/\mu m_{\rm H}$), self-gravitating fluid at rest with uniform background density $\rho_0$, and perturb it slightly: $\rho = \rho_0 + \rho_1$, velocity $\vec v = \vec v_1$, potential $\Phi = \Phi_0 + \Phi_1$. To linear order in the perturbation, continuity, Euler (with $\delta P = c_s^2\rho_1$), and Poisson's equation read
-\begin{align}
-	\pdv{\rho_1}{t} + \rho_0\nabla\cdot\vec v_1 &= 0, \label{eq:jeans_lin_continuity} \\
-	\rho_0\pdv{\vec v_1}{t} &= -c_s^2\nabla\rho_1 - \rho_0\nabla\Phi_1, \label{eq:jeans_lin_euler} \\
-	\nabla^2\Phi_1 &= 4\pi G\rho_1. \label{eq:jeans_lin_poisson}
-\end{align}
-Seeking plane-wave solutions $\propto \exp[i(\vec k\cdot\vecr - \omega t)]$ (with $\vec v_1 = v_1\hat{\vec k}$ along the wavevector) turns the derivatives into algebraic factors, $\partial_t \to -i\omega$ and $\nabla \to i\vec k$:
-\begin{equation}
-	-i\omega\rho_1 + i\rho_0 k v_1 = 0, \qquad
-	-i\omega\rho_0 v_1 = -ic_s^2k\rho_1 - i\rho_0k\Phi_1, \qquad
-	-k^2\Phi_1 = 4\pi G\rho_1.
-\end{equation}
-The first equation gives $v_1 = \omega\rho_1/(\rho_0 k)$; the third gives $\Phi_1 = -4\pi G\rho_1/k^2$. Dividing the second equation by $-i$ gives $\omega\rho_0 v_1 = c_s^2k\rho_1 + \rho_0k\Phi_1$; substituting both $v_1$ and $\Phi_1$:
-\begin{equation}
-	\rho_0\omega\cdot\frac{\omega\rho_1}{\rho_0 k} = c_s^2 k\rho_1 + \rho_0 k\left(-\frac{4\pi G\rho_1}{k^2}\right) \quad\Longrightarrow\quad \frac{\omega^2}{k}\rho_1 = c_s^2 k\rho_1 - \frac{4\pi G\rho_0}{k}\rho_1.
-\end{equation}
-Dividing through by $\rho_1/k$ yields the \textbf{Jeans dispersion relation}:
-\begin{keyresult}
-	\begin{equation}
-		\omega^2 = c_s^2k^2 - 4\pi G\rho_0.
-		\label{eq:jeans_dispersion_relation}
-	\end{equation}
-\end{keyresult}
-Short-wavelength (large-$k$) perturbations have $\omega^2 > 0$ and oscillate as ordinary sound waves, stabilized by pressure. Long-wavelength perturbations with $k$ below the critical wavenumber $k_J \equiv \sqrt{4\pi G\rho_0}/c_s$ have $\omega^2 < 0$: $\omega$ is purely imaginary, and the perturbation grows exponentially rather than oscillating — gravitational instability. The corresponding critical wavelength,
-\begin{equation}
-	\lambda_J = \frac{2\pi}{k_J} = c_s\sqrt{\frac{\pi}{G\rho_0}},
-	\label{eq:jeans_dispersion_wavelength}
-\end{equation}
-scales with $\rho$ and $T$ in exactly the same way as the energy-method result, Eq.~\eqref{eq:jeans_length}, differing only in the $\mathcal O(1)$ numerical prefactor — as expected, since the two derivations model the cloud's geometry differently (an infinite uniform medium here, versus a finite uniform sphere above) but describe the same underlying competition between pressure and self-gravity.
-
-\section{From Jeans Instability to Free-Fall Collapse}
-\label{sec:freefall}
-
-Once $M > M_J$, thermal pressure is, by construction, no longer sufficient to balance gravity. Discard pressure entirely and ask: how fast does the cloud collapse? In this pressure-free limit, each mass shell at radius $r$ falls solely under the gravity of the mass $M(r)$ interior to it — which, for a shell falling inward without crossing any other shell (homologous collapse), is exactly the classical two-body radial-infall problem of Chapter~6, with $M(r)$ playing the role of the central mass.
-
-\paragraph{Free-fall as a degenerate Kepler orbit.} A particle released from rest at radius $R_0$ and falling under a fixed point mass $M$ traces the zero-angular-momentum limit of a bound Keplerian ellipse: as $L \to 0$ at fixed (negative) energy, the semi-latus rectum $\ell = a(1-e^2) \to 0$, so $e \to 1$ while $a$ remains finite — the ellipse degenerates into a straight line segment of length $2a = R_0$. This is \emph{not} the same $e=1$ limit as the marginally unbound parabolic trajectory of Chapter~6 (there, $e \to 1$ because $E \to 0$ at fixed $L$); here $e \to 1$ because $L \to 0$ at fixed $E < 0$. With this identification, $a = R_0/2$, and Kepler's equation, Eq.~\eqref{eq:kepler_eq}, together with the parametrization $r = a(1-\cos u)$, still applies. The particle starts at rest at apoapsis of the degenerate ellipse ($u=\pi$, $r = 2a = R_0$) and falls to the center ($u=0$, $r=0$). Using $\ell = u - \sin u$ and the mean motion $n = \sqrt{GM/a^3}$ (Kepler's Third Law, Eq.~\eqref{eq:kepler3}), the free-fall time is
-\begin{equation}
-	t_{\rm ff} = \frac{\ell(u=\pi) - \ell(u=0)}{n} = \frac{\pi}{n} = \pi\sqrt{\frac{a^3}{GM}} = \pi\sqrt{\frac{(R_0/2)^3}{GM}} = \frac{\pi}{2\sqrt2}\sqrt{\frac{R_0^3}{GM}}.
-	\label{eq:freefall_time_kepler}
-\end{equation}
-
-\paragraph{Expressing $t_{\rm ff}$ in terms of density.} Writing $M = \frac{4}{3}\pi R_0^3\rho$ (the mass initially enclosed within $R_0$) and substituting into Eq.~\eqref{eq:freefall_time_kepler}, the radius $R_0$ cancels completely:
-\begin{keyresult}
-	\begin{equation}
-		t_{\rm ff} = \sqrt{\frac{3\pi}{32\,G\rho}}.
-		\label{eq:freefall_time_density}
-	\end{equation}
-\end{keyresult}
-The free-fall time depends \emph{only} on the initial density, not on the size of the region considered — every shell of a uniform-density cloud, regardless of its radius, reaches the center at the same instant. This is precisely what justifies treating the collapse as homologous (shells do not cross) in the first place.
-
-\begin{example}[Free-Fall Time of a Giant Molecular Cloud Core]
-	Consider a dense GMC core of pure molecular hydrogen with number density $n_{\rm H_2} = 10^{4}\,\mathrm{cm^{-3}}$, so $\rho = n_{\rm H_2}\,(2m_{\rm H}) \approx 3.3 \times 10^{-17}\,\mathrm{kg/m^3}$. Then
-	\[
-	t_{\rm ff} = \sqrt{\frac{3\pi}{32\,(6.674\times10^{-11})(3.3\times10^{-17})}} \approx 1.4\times10^{13}\,\mathrm{s} \approx 4.5\times10^{5}\,\mathrm{yr}.
-	\]
-	This sub-million-year timescale — set purely by density, via Eq.~\eqref{eq:freefall_time_density} — is the characteristic dynamical timescale of star formation within a dense molecular clump, dramatically shorter than the $\sim 10^{7}$--$10^{8}\,\mathrm{yr}$ lifetime of the diffuse GMC that hosts it.
-\end{example}
-
-\section{Beyond Free-Fall: Fragmentation and the First Hydrostatic Core}
-
-Two effects complicate the idealized homologous collapse of Section~\ref{sec:freefall}, and together they set the stage for the birth of an individual star.
-
-\paragraph{Fragmentation.} As long as the collapsing gas remains optically thin, it radiates away the heat generated by compression efficiently (Section~\ref{sec:ism_heating_cooling}) and collapses very nearly isothermally. Because the Jeans mass falls with density at fixed temperature ($M_J \propto \rho^{-1/2}$, Eq.~\eqref{eq:jeans_mass}), a collapsing isothermal cloud carries an ever-\emph{shrinking} local Jeans mass, so sub-regions that were stable at the cloud's initial density can become independently unstable as the collapse proceeds. The single GMC-scale instability of Section~\ref{sec:virial_theorem} therefore tends to fragment hierarchically into progressively smaller, independently collapsing clumps — the physical origin of stellar multiplicity and of clustered star formation, and (qualitatively) of the stellar initial mass function.
-
-\paragraph{The Opacity Limit and the First Hydrostatic Core.} Fragmentation cannot continue indefinitely: once a clump's central density is high enough that it becomes optically thick to its own cooling radiation, compressional heating can no longer be radiated away, the collapse ceases to be isothermal, and the equation of state stiffens toward an adiabat ($P \propto \rho^\gamma$). At this point the innermost region halts its dynamical (free-fall) collapse and settles into a new, small hydrostatic object in approximate virial balance — Eq.~\eqref{eq:virial_equilibrium} is restored, but now with $K$ supplied by adiabatic compressional heating rather than by the fixed external temperature of Section~\ref{sec:ism_heating_cooling}. This \emph{first hydrostatic core}, of order a Jupiter mass, continues to grow by accreting the still-infalling envelope, and marks the transition from ``interstellar cloud'' to ``protostar.''
-
-The subsequent evolution of this object — its contraction toward the main sequence, and the nuclear ignition that finally halts the contraction permanently — is the domain of stellar structure and evolution, and lies beyond the scope of this observationally-oriented volume. It is, however, the direct dynamical continuation of the virial argument constructed in this chapter: the entire life of a star on the main sequence is itself nothing more than another instance of Eq.~\eqref{eq:virial_equilibrium}, now with thermal pressure sustained by nuclear burning rather than by residual gravitational compression.
-
-\section{Problem Set: The Interstellar Medium and Gravitational Collapse}
-
-This problem applies the Doppler-shift machinery of Section~\ref{sec:pn_expansion} to a real planetary nebula spectrum.
+% ==============================================================================
+\section{Problem Set: The Interstellar Medium}
 
 \subsection{Problem 1: Planetary Nebula Emission and Expansion}
+\label{is:prob:pn}
 
-\textbf{Problem Statement}: Suppose we observe the $\mathrm{H}\alpha$ line from a spherical planetary nebula, and find it has a maximum wavelength of $656.32\,\mathrm{nm}$ and a minimum wavelength of $656.24\,\mathrm{nm}$. Estimate how fast the nebula is expanding. Give your answer in both $\mathrm{km/s}$ and $\mathrm{AU/yr}$.
+\textbf{Problem Statement}: The $\mathrm{H}\alpha$ line from a spherical planetary nebula, observed with the whole nebula in the aperture, spreads from a minimum wavelength of $656.24\,\mathrm{nm}$ to a maximum of $656.32\,\mathrm{nm}$. (a) Find the rest wavelength the observation implies. (b) Estimate how fast the nebula expands, in $\mathrm{km\,s^{-1}}$. (c) Convert the speed to $\mathrm{AU\,yr^{-1}}$. (d) The gas is at about $10^4\,\mathrm K$. Is the thermal width of $\mathrm H\alpha$ small compared with the spread of the line?
 
-\textbf{Solution}: As shown in Figure~\ref{fig:pn_expansion}, the near cap of the expanding shell gives the most blueshifted wavelength, $\lambda_{\min}=656.24\,\mathrm{nm}$, and the far cap gives the most redshifted wavelength, $\lambda_{\max}=656.32\,\mathrm{nm}$. The rest wavelength $\lambda_0$ sits midway between them,
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The near cap gives the shortest wavelength and the far cap the longest, and the profile is flat between them (Section~\ref{sec:pn_expansion}).
+	\item $v_{\rm exp}=(c/2)(\lambda_{\max}-\lambda_{\min})/\lambda_0$, Eq.~\eqref{eq:pn_expansion_velocity}.
+	\item The thermal full width is $2.355\,\lambda_0\sigma_v/c$ with $\sigma_v=\sqrt{k_BT/m_{\rm H}}$, Eqs.~\eqref{eq:maxwell_boltzmann_1d} and~\eqref{eq:thermal_doppler_width}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Rest wavelength}. The caps move at equal and opposite speeds, so $\lambda_0$ is the mean of the edges.
+	\[
+	\boxed{\lambda_0 = \frac{656.32+656.24}{2}\,\mathrm{nm} = 656.28\,\mathrm{nm}.}
+	\]
+	This is the laboratory wavelength of $\mathrm H\alpha$, so the nebula as a whole is not moving toward or away from us.
+	\item \textbf{Expansion speed}.
+	\[
+	\boxed{v_{\rm exp} = \frac{2.998\times10^{5}\,\mathrm{km\,s^{-1}}}{2}\times\frac{656.32-656.24}{656.28} \simeq 18.3\,\mathrm{km\,s^{-1}}.}
+	\]
+	\item \textbf{In astronomical units per year}. With $1\,\mathrm{yr}=3.156\times10^{7}\,\mathrm{s}$ and $1\,\mathrm{AU}=1.496\times10^{8}\,\mathrm{km}$,
+	\[
+	\boxed{v_{\rm exp} = 18.27\,\frac{\mathrm{km}}{\mathrm{s}}\times\frac{3.156\times10^{7}\,\mathrm{s\,yr^{-1}}}{1.496\times10^{8}\,\mathrm{km\,AU^{-1}}} \simeq 3.85\,\mathrm{AU\,yr^{-1}}.}
+	\]
+	This is a typical speed for the shell of a planetary nebula, whose observed values are $10$ to $30\,\mathrm{km\,s^{-1}}$.
+	\item \textbf{Thermal width}. $\sigma_v=\sqrt{1.381\times10^{-23}\times10^4/1.674\times10^{-27}}\,\mathrm{m\,s^{-1}}=9.1\,\mathrm{km\,s^{-1}}$, so
+	\[
+	\boxed{\text{thermal full width}=2.355\times656.28\,\mathrm{nm}\times\frac{9.1}{2.998\times10^5}\simeq0.047\,\mathrm{nm},}
+	\]
+	more than half the spread of $0.08\,\mathrm{nm}$. The thermal width is not small. The edges of the $\mathrm H\alpha$ line are blurred, and the measured edges should be read where the profile has fallen to half its height. Lines of heavier ions, such as $[\mathrm{O\,III}]$ at $500.7\,\mathrm{nm}$, have four times smaller thermal widths and give the expansion speed more cleanly.
+\end{enumerate}
+
+\subsection{Problem 2: Counting Hydrogen with the 21 cm Line}
+\label{is:prob:21cm}
+
+\textbf{Problem Statement}: A radio telescope sees $21\,\mathrm{cm}$ emission from a cloud of HI with no bright source behind it. Radio astronomers express the intensity $I_\nu$ as a brightness temperature $T_B$, the temperature a blackbody would need to give the same $I_\nu$. (a) Show that at this frequency $I_\nu=2\nu^2k_BT_B/c^2$. (b) Assume the cloud is transparent to its own line. Show that the column density of hydrogen is
 \[
-\lambda_0 = \frac{\lambda_{\max}+\lambda_{\min}}{2} = \frac{656.32+656.24}{2}\,\mathrm{nm} = 656.28\,\mathrm{nm},
+N_{\rm H}=\frac{32\pi k_B\nu_0^2}{3hc^3A_{21}}\int T_B\,dv ,
 \]
-which agrees with the known rest wavelength of $\mathrm{H}\alpha$, confirming the nebula as a whole is not moving toward or away from us on average. Using Eq.~\eqref{eq:pn_expansion_velocity},
-\[
-v_{\rm exp} = \frac{c}{2}\,\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_0} = \frac{2.998\times10^{5}\,\mathrm{km/s}}{2}\times\frac{656.32-656.24}{656.28} \approx \boxed{18.3\,\mathrm{km/s}.}
-\]
-Converting to $\mathrm{AU/yr}$ using $1\,\mathrm{yr}=3.156\times10^{7}\,\mathrm{s}$ and $1\,\mathrm{AU}=1.496\times10^{8}\,\mathrm{km}$,
-\[
-v_{\rm exp} = 18.3\,\frac{\mathrm{km}}{\mathrm{s}}\times\frac{3.156\times10^{7}\,\mathrm{s/yr}}{1.496\times10^{8}\,\mathrm{km/AU}} \approx \boxed{3.86\,\mathrm{AU/yr}.}
-\]
-This is a typical expansion speed for a planetary nebula shell, consistent with observed values of order $10$--$30\,\mathrm{km/s}$.
+where $v$ is the line-of-sight velocity across the line. (c) Evaluate the constant in $\mathrm{cm^{-2}}$ per $\mathrm{K\,km\,s^{-1}}$. (d) The line is Gaussian with peak $T_B=50\,\mathrm K$ and full width $10\,\mathrm{km\,s^{-1}}$. Find $N_{\rm H}$ and the visual extinction expected from the dust that comes with it.
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The Planck function at $h\nu\ll k_BT$ (Eq.~\eqref{eq:planck_frequency}).
+	\item Three quarters of the atoms are in the upper level and each sends out photons at the rate $A_{21}$, evenly in all directions, Eqs.~\eqref{is:eq:A21} and~\eqref{is:eq:21cm_populations}.
+	\item The dust per hydrogen atom, $A_V/N_{\rm H}=5.3\times10^{-22}\,\mathrm{mag\,cm^2}$ (Section~\ref{is:sec:dust}).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Brightness temperature}. For $\nu_0=1420\,\mathrm{MHz}$, $h\nu_0/k_B=0.068\,\mathrm K$, far below any $T_B$ of interest. With $x=h\nu/k_BT_B\ll1$, $e^x-1\approx x$ in the Planck function, and
+	\[
+	\boxed{I_\nu=\frac{2h\nu^3}{c^2}\,\frac{1}{e^{h\nu/k_BT_B}-1}\approx\frac{2\nu^2k_BT_B}{c^2}.}
+	\]
+	\item \textbf{Column density}. A column of cross-section $1\,\mathrm{m^2}$ holds $\tfrac34N_{\rm H}$ atoms in the upper level. Together they send out the power $\tfrac34N_{\rm H}A_{21}h\nu_0$, spread evenly over $4\pi$ steradians. Seen face on through a transparent cloud, the intensity summed over the line is therefore
+	\[
+	\int I_\nu\,d\nu=\frac{h\nu_0A_{21}}{4\pi}\,\frac34N_{\rm H}.
+	\]
+	By (a), and with $d\nu=(\nu_0/c)\,dv$ from Eq.~\eqref{eq:doppler_classical},
+	\[
+	\int I_\nu\,d\nu=\frac{2\nu_0^2k_B}{c^2}\,\frac{\nu_0}{c}\int T_B\,dv .
+	\]
+	Setting the two equal and solving,
+	\[
+	\boxed{N_{\rm H}=\frac{32\pi k_B\nu_0^2}{3hc^3A_{21}}\int T_B\,dv.}
+	\]
+	The temperature of the gas has dropped out, because the populations of Eq.~\eqref{is:eq:21cm_populations} do not depend on it. Absorption by the cloud of its own line, left out here, matters only when the cloud is not transparent, and is treated with the transfer equation of Chapter~\ref{ch:radiation}.
+	\item \textbf{The constant}. With $\nu_0=1.4204\times10^9\,\mathrm{Hz}$ and $A_{21}=2.87\times10^{-15}\,\mathrm{s^{-1}}$, in SI units the constant is $1.82\times10^{19}\,\mathrm{m^{-2}}$ per $\mathrm{K\,m\,s^{-1}}$. Multiplying by $10^3$ for $\mathrm{km\,s^{-1}}$ and by $10^{-4}$ for $\mathrm{cm^{-2}}$,
+	\[
+	\boxed{N_{\rm H}=1.82\times10^{18}\,\mathrm{cm^{-2}}\times\frac{\int T_B\,dv}{1\,\mathrm{K\,km\,s^{-1}}}.}
+	\]
+	\item \textbf{The cloud}. The area under a Gaussian is its peak times its full width times $\sqrt{\pi/4\ln2}=1.064$, so $\int T_B\,dv=1.064\times50\times10=532\,\mathrm{K\,km\,s^{-1}}$, and
+	\[
+	\boxed{N_{\rm H}\simeq9.7\times10^{20}\,\mathrm{cm^{-2}},\qquad A_V\simeq9.7\times10^{20}\times5.3\times10^{-22}\simeq0.5\ \text{mag}.}
+	\]
+	A cloud that glows this brightly in the $21\,\mathrm{cm}$ line dims the stars behind it by about half a magnitude. Comparing the two along many lines of sight is how the ratio of dust to gas is measured.
+\end{enumerate}
+
+\subsection{Problem 3: The Two Widths of Lyman Alpha}
+\label{is:prob:lya}
+
+\textbf{Problem Statement}: The Lyman~$\alpha$ line of hydrogen is at $121.567\,\mathrm{nm}$, and its upper level decays at $\Gamma=6.27\times10^8\,\mathrm{s^{-1}}$. The lower level is the ground state, which does not decay. Take interstellar gas at $100\,\mathrm K$. (a) Find the natural full width, in Hz and in nm. (b) Find the Doppler full width in Hz. (c) Which dominates the core of the line, and by how much? (d) How far from the centre, in units of $\Delta\nu_D$, does the Lorentzian wing exceed the Gaussian?
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The natural full width is $\Gamma/2\pi$, Eq.~\eqref{eq:natural_lorentzian_profile}.
+	\item The Doppler full width is $2.355\,\Delta\nu_D$, with $\Delta\nu_D=\nu_0\sqrt{k_BT/m_{\rm H}}/c$, Eq.~\eqref{eq:thermal_doppler_width}.
+	\item The Voigt profile is Gaussian in the core and Lorentzian in the wings (Eq.~\eqref{is:eq:voigt}).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Natural width}. In wavelength, $\Delta\lambda=\lambda_0^2\Delta\nu/c$.
+	\[
+	\boxed{\frac{\Gamma}{2\pi}=\frac{6.27\times10^8}{2\pi}\,\mathrm{Hz}\simeq1.0\times10^8\,\mathrm{Hz},\qquad \Delta\lambda\simeq4.9\times10^{-6}\,\mathrm{nm}.}
+	\]
+	\item \textbf{Doppler width}. $\nu_0=c/\lambda_0=2.466\times10^{15}\,\mathrm{Hz}$ and $\sigma_v=0.908\,\mathrm{km\,s^{-1}}$, so $\Delta\nu_D=\nu_0\sigma_v/c=7.47\times10^9\,\mathrm{Hz}$.
+	\[
+	\boxed{2.355\,\Delta\nu_D\simeq1.76\times10^{10}\,\mathrm{Hz}.}
+	\]
+	\item \textbf{The core}. The ratio of the two widths is
+	\[
+	\boxed{\frac{1.76\times10^{10}}{1.0\times10^{8}}\simeq176,}
+	\]
+	so the core is Gaussian and set by the temperature. Even at $100\,\mathrm K$ the motions of the atoms blur the line far more than its lifetime does.
+	\item \textbf{The wings}. Write $y=(\nu-\nu_0)/\Delta\nu_D$. The Gaussian is $e^{-y^2/2}/(\sqrt{2\pi}\Delta\nu_D)$ and the Lorentzian wing is $(\Gamma/4\pi^2)/(y\Delta\nu_D)^2$. They are equal when
+	\[
+	\frac{e^{-y^2/2}}{\sqrt{2\pi}}=\frac{\Gamma}{4\pi^2\Delta\nu_D}\,\frac{1}{y^2}=\frac{2.12\times10^{-3}}{y^2},
+	\]
+	which a numerical solution puts at
+	\[
+	\boxed{y\simeq4.0.}
+	\]
+	Beyond four Doppler widths the line is Lorentzian. A cloud thick enough to absorb all the light out to there shows broad Lorentzian wings, and their width gives its column of hydrogen without any knowledge of its temperature.
+\end{enumerate}

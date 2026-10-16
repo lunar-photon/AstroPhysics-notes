@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{astroblue}{HTML}{1B4F72}
+\usetikzlibrary{calc,plotmarks}
+% Data from code/ch9/01_random_walk.py (run on the cluster): one walk of 100 unit steps and the
+% end points of 500 independent walks. The dotted circle has radius sqrt(100) = 10 steps.
+\IfFileExists{results/ch9/random_walk_path.dat}{\def\datadir{results/ch9/}}{\def\datadir{../results/ch9/}}
+\begin{document}
+\begin{tikzpicture}[scale=0.13]
+  \draw plot[only marks, mark=*, mark size=4.5pt, mark options={fill=muted!45, draw=none}]
+        file {\datadir random_walk_ends.dat};
+  \draw[accent, dotted, line width=1.0pt] (0,0) circle (10);
+  \draw[astroblue, line width=0.8pt] plot file {\datadir random_walk_path.dat};
+  \fill[accent2] (0,0) circle (0.55);
+  % scale bar of one step and of ten steps, below the cloud
+  \draw[muted, line width=0.8pt] (-10,-28) -- (0,-28);
+  \draw[muted] (-10,-27.4) -- (-10,-28.6) (0,-27.4) -- (0,-28.6);
+  \node[muted, below] at (-5,-28.4) {$10$ steps};
+\end{tikzpicture}
+\end{document}

@@ -1,335 +1,827 @@
 \chapter{Stellar Photometry: Flux, Magnitudes, and Radii}
+\label{ch:photometry}
 
-Chapter~3 used photometric distance indicators (spectroscopic parallax, standard candles) without yet justifying the underlying flux measurements themselves. Photometry is the quantitative measurement of electromagnetic flux received from celestial objects. From the measured radiant flux, astronomers deduce fundamental astrophysical properties of stars, including luminosity ($L$), effective surface temperature ($T_{\rm eff}$), radius ($R_*$), and distance ($d$). In this chapter, we develop the inverse-square law, Pogson's logarithmic magnitude system, blackbody radiation thermodynamics, and the determination of stellar physical dimensions.
+Chapter~\ref{ch:astrometry} found the distances of nearby stars from their parallax and used magnitudes to reach further. Photometry is the measurement of how much light arrives from a star. Together with the distance, the light gives the power of the star. Its colour gives the temperature of the surface. Power and temperature together give the size of a star that no telescope shows as a disc.
 
-\section{Radiant Energy, Flux, and the Inverse-Square Law}
+On its way to us the light spreads out with distance, and dust in space dims it and makes it redder. Each effect is undone by one formula, and astronomers record the result on a logarithmic scale of magnitudes.
 
-\begin{definition}[Luminosity and Flux]
-	The \emph{luminosity} $L$ of a star is the total energy radiated into space per unit time (power in Watts, $\mathrm{W}$) across all wavelengths. The \emph{bolometric radiant flux} $F$ (the radiant flux integrated across all wavelengths) is the total energy received per unit time per unit collecting area perpendicular to the line of sight:
-	\begin{keyresult}
-		\begin{equation}
-			F = \frac{L}{4\pi d^2}\quad \left[\mathrm{W\cdot m^{-2}}\right],
-			\label{eq:inverse_square_flux}
-		\end{equation}
-	\end{keyresult}
-	where $d$ is the distance from the source to the observer.
-\end{definition}
+% ==============================================================================
+\section{Flux and the Inverse-Square Law}
+\label{ph:sec:flux}
 
-Eq.~\eqref{eq:inverse_square_flux} is the geometric \emph{inverse-square law of radiation}, arising from energy conservation as radiant power spreads uniformly over a concentric spherical surface of area $4\pi d^2$ in an isotropic, non-absorbing medium.
+Chapter~\ref{ch:astrometry} gave the distance $d$ of a nearby star from its parallax $p$, with $d\,[\mathrm{pc}]=1/p\,['']$ (Eq.~\eqref{eq:parallax_distance_pc}).
 
-\begin{example}[Solar Constant]
-	The Sun has luminosity $L_\odot = 3.828 \times 10^{26}\,\mathrm{W}$. At the mean Earth-Sun distance ($1\,\mathrm{AU} = 1.4959787 \times 10^{11}\,\mathrm{m}$), the total solar irradiance (the \emph{solar constant}) at the top of Earth's atmosphere is:
+A distance alone says nothing about the star itself. A star can look bright because it is powerful or because it is close. To separate the two we need a rule for how light thins out with distance.
+
+Stand under a street lamp at night with a book, then walk away until you are twice as far. The page is much dimmer. The lamp sends out the same light every second as before. At twice the distance that light is spread over a sphere with four times the area, so the page gets a quarter of it.
+
+A star is such a lamp, and the Earth holds the page. The power of a star is shared out over a sphere centred on it, so the light per square metre falls as one over the square of the distance.
+
+Suppose the lamp sends out $100\,\mathrm W$ of light, equally in all directions. At $2\,\mathrm m$ the sphere has area $4\pi(2\,\mathrm m)^2=50.3\,\mathrm m^2$, and each square metre gets $100/50.3=1.99\,\mathrm{W\,m^{-2}}$. At $4\,\mathrm m$ the area is $201\,\mathrm m^2$, and each square metre gets $0.497\,\mathrm{W\,m^{-2}}$, a quarter as much.
+
+Picture the star inside a set of nested spheres, like the skins of an onion. The same power passes through every skin, and the outer skins are larger.
+
+This is energy conservation, principle P1 (Section~\ref{pr:sec:p1}). Counting what crosses a closed surface in the same way gives the $1/r^2$ of Coulomb's law and of the gravity of a point mass. In Section~\ref{pr:sec:p2} it gives the gravity of a sphere, P2. It also sets how the sound of a loudspeaker fades in open air. Here it gives the flux at any distance from the power of the star, and the power from a measured flux and a known distance.
+
+\paragraph{Luminosity and flux.} The \textbf{luminosity} $L$ of a star is the total power it sends out, over all wavelengths, in watts. The \textbf{flux} $F$ at a point is the power that crosses one square metre facing the star, in $\mathrm{W\,m^{-2}}$. A flux summed over all wavelengths is called \textbf{bolometric}.
+
+\paragraph{Spreading over a sphere.} To find the flux at distance $d$, we draw a sphere of radius $d$ about the star and count the power that crosses it (P1). The star is steady, and nothing between it and the sphere absorbs light.
+\begin{align}
+	L
+	&\eqby{1} \oint F\,dA \nonumber\\
+	&\eqby{2} F(d)\oint dA \nonumber\\
+	&\eqby{3} 4\pi d^2\,F(d).
+\end{align}
+\begin{explain}
+	\item In a steady state the energy that leaves the star each second crosses the sphere in the same second, because none is stored or absorbed on the way (P1).
+	\item The star sends out light equally in all directions, so $F$ is the same at every point of the sphere.
+	\item The area of a sphere of radius $d$.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		F = \frac{L}{4\pi d^2}\quad \left[\mathrm{W\,m^{-2}}\right].
+		\label{eq:inverse_square_flux}
+	\end{equation}
+\end{keyresult}
+The flux depends on the star and its distance only through $L/d^2$. A measured flux and a parallax distance therefore give the luminosity, $L=4\pi d^2F$.
+
+\paragraph{The flux at the surface.} The sphere can be drawn anywhere outside the star, including at its surface, at radius $R$. There the flux is $F_{\rm surf}=L/(4\pi R^2)$. Dividing Eq.~\eqref{eq:inverse_square_flux} by it,
+\begin{equation}
+	\boxed{F(d)=F_{\rm surf}\left(\frac{R}{d}\right)^2.}
+	\label{ph:eq:flux_dilution}
+\end{equation}
+The light thins out by the ratio of the two areas. This form returns in Section~\ref{ph:sec:radii}, where it gives the angular size of a star from its flux.
+
+\begin{example}[The solar constant]
+	The Sun has $L_\odot = 3.828 \times 10^{26}\,\mathrm{W}$. The Earth is at $1\,\mathrm{AU} = 1.495\,978\,707 \times 10^{11}\,\mathrm{m}$ from it, and Eq.~\eqref{eq:inverse_square_flux} gives
 	\[
-	F_\odot = \frac{3.828 \times 10^{26}}{4\pi (1.4959787 \times 10^{11})^2} \approx 1361\,\mathrm{W\cdot m^{-2}}.
+	F_\odot = \frac{3.828 \times 10^{26}\,\mathrm W}{4\pi \left(1.495\,978\,707 \times 10^{11}\,\mathrm m\right)^2} = 1361\,\mathrm{W\,m^{-2}}.
 	\]
+	This is the \textbf{solar constant}, the bolometric flux of the Sun above the Earth's air. Satellites measure it, and the Sun's luminosity is found by running the same formula backwards.
 \end{example}
 
-\section{The Astronomical Magnitude System}
+% ==============================================================================
+\section{The Magnitude Scale}
+\label{ph:sec:magnitudes}
 
-Human vision responds logarithmically to perceived optical brightness (the Weber-Fechner law). In the 2nd century BCE, Hipparchus cataloged stars into six discrete brightness classes ($1^{\rm st}$ magnitude for the brightest down to $6^{\rm th}$ magnitude for the faintest naked-eye stars).
+We can now give the light of a star as a flux in $\mathrm{W\,m^{-2}}$.
+
+Fluxes of stars cover an enormous range. The Sun gives $1361\,\mathrm{W\,m^{-2}}$, and the faintest stars the eye can see give about $10^{-13}$ of that. A flux is also hard to measure in watts. A detector and the air above it change from night to night, so what an astronomer measures well is the ratio of a star's flux to that of a standard star seen through the same instrument.
+
+Our ears face the same problem. They judge loudness roughly by ratios, not by differences. Going from one violin to ten sounds like one step, and going from ten to a hundred sounds like another step of the same size. Sound engineers therefore count in decibels, ten times the logarithm of a ratio of powers. Ten decibels is a factor of 10 in power, and twenty decibels a factor of 100, whatever the level we start from.
+
+The eye also judges brightness roughly by ratios (the Weber--Fechner law). In the 2nd century BCE Hipparchus sorted the stars seen by the naked eye into six classes, from first magnitude for the brightest to sixth for the faintest. In 1856 Norman Pogson noticed that a first-magnitude star gives about 100 times the light of a sixth-magnitude one, and made this exact. A magnitude is a logarithm of a ratio of two fluxes, with five magnitudes set equal to a factor of 100.
+
+Two stars differ by 5 magnitudes when one gives 100 times the flux of the other. One magnitude is then a factor of $100^{1/5}=2.512$, and $2.5$ magnitudes a factor of $10$. Five steps of $2.512$ make $2.512^5=100$.
+
+Picture a ruler whose marks are equally spaced, where each mark means ``multiply by $2.512$''. It runs backwards, with brighter stars at smaller numbers, as in the ranking of Hipparchus.
+
+Decibels, the pH of a solution and the Richter scale of earthquakes are the same device. A magnitude never says how much light a star sends. It says only how the star compares with another, so it is the comparison of two scales, P6 (Section~\ref{pr:sec:p6}), in its plainest form. It gives Pogson's formula, the absolute magnitude, and the distance modulus, which turns a difference of magnitudes into a distance.
 
 \subsection{Apparent Magnitude and Pogson's Formula}
 
-In 1856, Norman Pogson formalized this ancient scale mathematically after noticing that a difference of 5 magnitudes corresponds to a flux ratio of exactly $100:1$. Thus, a single magnitude step corresponds to a flux ratio of:
-\begin{equation}
-	\sqrt[5]{100} = 100^{1/5} = 10^{0.4} \approx 2.511886.
-\end{equation}
-
-\begin{definition}[Pogson's Formula for Apparent Magnitude]
-	The difference in \emph{apparent magnitude} $m_1 - m_2$ between two sources with measured fluxes $F_1$ and $F_2$ is:
-	\begin{keyresult}
-		\begin{equation}
-			m_1 - m_2 = -2.5\log_{10}\left(\frac{F_1}{F_2}\right).
-			\label{eq:pogson_difference}
-		\end{equation}
-	\end{keyresult}
-	Inverting Pogson's relation:
-	\begin{equation}
-		\frac{F_1}{F_2} = 10^{-0.4(m_1 - m_2)}.
-		\label{eq:flux_ratio_from_mag}
-	\end{equation}
-\end{definition}
-
-On an absolute scale, apparent magnitude is defined relative to a standard zero-point flux $F_0$:
-\begin{equation}
-	m = -2.5\log_{10}\left(\frac{F}{F_0}\right) = -2.5\log_{10}F + C_0.
-	\label{eq:apparent_mag_single}
-\end{equation}
-
-\subsection{Absolute Magnitude and Distance Modulus}
-
-Because apparent magnitude $m$ depends on both intrinsic luminosity $L$ and distance $d$, it cannot directly measure a star's true physical power.
-
-\begin{definition}[Absolute Magnitude]
-	The \emph{absolute magnitude} $M$ is defined as the apparent magnitude a star would possess if it were located at a standard fiducial distance of exactly $d_0 = 10\,\mathrm{pc}$.
-\end{definition}
-
-Applying Pogson's formula between a star's actual distance $d$ and the fiducial distance $10\,\mathrm{pc}$:
+\paragraph{Fixing the constant.} A magnitude falls as the flux rises and changes by equal steps for equal ratios of flux. So it is a logarithm of the flux with a negative factor, $m=-k\log_{10}F+\text{constant}$. For two stars the constant cancels,
 \[
-m - M = -2.5\log_{10}\left(\frac{F(d)}{F(10\,\mathrm{pc})}\right) = -2.5\log_{10}\left(\frac{L/(4\pi d^2)}{L/(4\pi (10)^2)}\right) = -2.5\log_{10}\left(\frac{10}{d}\right)^2 = 5\log_{10}\left(\frac{d}{10}\right).
+m_1-m_2=-k\log_{10}\frac{F_1}{F_2}.
 \]
+Pogson's rule sets $m_1-m_2=5$ when star 1 is fainter by a factor of $100$,
+\begin{align}
+	5
+	&\eqby{1} -k\log_{10}\frac{1}{100} \nonumber\\
+	&= 2k ,
+\end{align}
+\begin{explain}
+	\item Pogson's rule with $F_1/F_2=1/100$.
+\end{explain}
+so $k=5/2$. The \textbf{apparent magnitudes} of two stars with fluxes $F_1$ and $F_2$ then differ by
 \begin{keyresult}
 	\begin{equation}
-		\mu \equiv m - M = 5\log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right) = 5\log_{10}d\,[\mathrm{pc}] - 5.
+		m_1 - m_2 = -2.5\log_{10}\frac{F_1}{F_2}.
+		\label{eq:pogson_difference}
+	\end{equation}
+\end{keyresult}
+Turned round, a difference of magnitudes gives a ratio of fluxes,
+\begin{equation}
+	\frac{F_1}{F_2} = 10^{-0.4(m_1 - m_2)},
+	\label{eq:flux_ratio_from_mag}
+\end{equation}
+and one magnitude is a factor of $10^{0.4}=2.512$.
+
+\paragraph{The zero point.} One reference of known flux fixes the whole scale. Let star 2 be a reference that has magnitude zero, with flux $F_{\rm ref}$. Eq.~\eqref{eq:pogson_difference} becomes
+\begin{equation}
+	m = -2.5\log_{10}\frac{F}{F_{\rm ref}} = -2.5\log_{10}F + 2.5\log_{10}F_{\rm ref}.
+	\label{eq:apparent_mag_single}
+\end{equation}
+The last term is a constant, different for each filter. In the visible bands $F_{\rm ref}$ is close to the flux of the star Vega, which has $V=0.03$. For bolometric magnitudes the International Astronomical Union fixed $F_{\rm ref}=2.518\times10^{-8}\,\mathrm{W\,m^{-2}}$ in 2015. The Sun then has the apparent bolometric magnitude
+\[
+m_{\rm bol,\odot}=-2.5\log_{10}\frac{1361}{2.518\times10^{-8}}=-26.83 .
+\]
+
+\subsection{Absolute Magnitude and the Distance Modulus}
+
+An apparent magnitude mixes the star's power with its distance, just as the flux does. To compare stars we put them all at one distance. The \textbf{absolute magnitude} $M$ of a star is the apparent magnitude it would have at a distance of $10\,\mathrm{pc}$.
+
+\paragraph{Absolute magnitude and luminosity.} At one common distance the fluxes of two stars are in the ratio of their luminosities.
+\begin{align}
+	M_1-M_2
+	&\eqby{1} -2.5\log_{10}\frac{F_1(10\,\mathrm{pc})}{F_2(10\,\mathrm{pc})} \nonumber\\
+	&\eqby{2} -2.5\log_{10}\frac{L_1/\big(4\pi(10\,\mathrm{pc})^2\big)}{L_2/\big(4\pi(10\,\mathrm{pc})^2\big)} \nonumber\\
+	&= -2.5\log_{10}\frac{L_1}{L_2}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:pogson_difference} for the two stars placed at $10\,\mathrm{pc}$.
+	\item Eq.~\eqref{eq:inverse_square_flux} for each star.
+\end{explain}
+Taking the Sun as star 2,
+\begin{equation}
+	\boxed{M-M_\odot=-2.5\log_{10}\frac{L}{L_\odot}.}
+	\label{ph:eq:abs_mag_L}
+\end{equation}
+For bolometric magnitudes, a star that gives the zero-point flux $F_{\rm ref}$ at $10\,\mathrm{pc}$ has the luminosity
+\[
+4\pi(10\,\mathrm{pc})^2F_{\rm ref}=3.0128\times10^{28}\,\mathrm W .
+\]
+Using this star as star 2 instead, the Sun has
+\[
+M_{\rm bol,\odot}=-2.5\log_{10}\frac{3.828\times10^{26}}{3.0128\times10^{28}}=+4.74 .
+\]
+
+\paragraph{The distance modulus.} Now compare one star with itself, at its true distance $d$ and at $10\,\mathrm{pc}$.
+\begin{align}
+	m - M
+	&\eqby{1} -2.5\log_{10}\frac{F(d)}{F(10\,\mathrm{pc})} \nonumber\\
+	&\eqby{2} -2.5\log_{10}\frac{L/(4\pi d^2)}{L/\big(4\pi (10\,\mathrm{pc})^2\big)} \nonumber\\
+	&= -2.5\log_{10}\left(\frac{10\,\mathrm{pc}}{d}\right)^2 \nonumber\\
+	&\eqby{3} 5\log_{10}\frac{d}{10\,\mathrm{pc}}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:pogson_difference}, with $m$ the magnitude at $d$ and $M$ the magnitude at $10\,\mathrm{pc}$.
+	\item Eq.~\eqref{eq:inverse_square_flux} at both distances.
+	\item $\log_{10}x^2=2\log_{10}x$ and $\log_{10}(1/x)=-\log_{10}x$.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		m - M = 5\log_{10}\frac{d}{10\,\mathrm{pc}} = 5\log_{10}d\,[\mathrm{pc}] - 5.
 		\label{eq:distance_modulus}
 	\end{equation}
 \end{keyresult}
-The quantity $\mu = m - M$ is known as the \emph{distance modulus}. In terms of trigonometric parallax $p$ (in arcseconds):
+The luminosity has cancelled. Without dust, $m-M$ depends on the distance alone, and every 5 magnitudes is a factor of 10 in distance. The difference $m-M$ is called the \textbf{distance modulus}. With the parallax distance of Eq.~\eqref{eq:parallax_distance_pc}, $\log_{10}d\,[\mathrm{pc}]=-\log_{10}p\,['']$, and
 \begin{equation}
-	m - M = -5\log_{10}p - 5.
+	m - M = -5\log_{10}p\,[''] - 5.
 	\label{eq:distance_modulus_parallax}
 \end{equation}
+A star with $p=0.1''$ is at $10\,\mathrm{pc}$ and has $m=M$.
 
-\subsection{Photometric Passbands, Color Indices, and Interstellar Extinction}
+As a check, the Sun is at $1\,\mathrm{AU}=4.848\times10^{-6}\,\mathrm{pc}$, so Eq.~\eqref{eq:distance_modulus} gives $m-M=-31.57$ for it. Then $m_{\rm bol,\odot}=4.74-31.57=-26.83$, the value found above from the zero point.
 
-Astronomical detectors measure flux through calibrated filters (e.g., the Johnson-Cousins $UBVRI$ system): $U$ ($365\,\mathrm{nm}$), $B$ ($440\,\mathrm{nm}$), $V$ ($550\,\mathrm{nm}$), $R$ ($640\,\mathrm{nm}$), and $I$ ($790\,\mathrm{nm}$).
+\paragraph{Filter and bolometric magnitudes.} A magnitude through a filter counts only part of the light. The difference $m_{\rm bol}-m_V$ is the \textbf{bolometric correction}. It depends on the temperature, because a hot star sends much of its light out in the ultraviolet and a cool star in the infrared, where the $V$ filter does not look. Eqs.~\eqref{eq:pogson_difference}--\eqref{eq:distance_modulus_parallax} hold in any one band and for bolometric magnitudes alike.
 
-\begin{definition}[Color Index]
-	A \emph{color index} is the magnitude difference between two passbands (such as $B - V$). Since flux appears in the denominator of Pogson's logarithmic ratio:
-	\begin{equation}
-		B - V = -2.5\log_{10}\left(\frac{F_B}{F_V}\right) + C_{BV}.
-		\label{eq:color_index_def}
-	\end{equation}
-	Hotter stars emit more blue flux ($F_B > F_V$), yielding smaller or negative color indices ($B - V < 0$), whereas cooler stars yield larger positive color indices ($B - V > 0$). Color index serves as an observational proxy for surface temperature $T_{\rm eff}$.
-\end{definition}
+% ==============================================================================
+\section{Light from a Hot Surface}
+\label{ph:sec:blackbody}
 
-\subsubsection{Interstellar Reddening and Extinction: The Mie Scattering Mechanism}
+We can now find the luminosity of a star from its flux and its distance.
 
-When starlight traverses the interstellar medium, dust grains scatter and absorb photons. While light scattering in physics spans multiple elastic and inelastic mechanisms (detailed in Section~\ref{sec:scattering_classification}), interstellar extinction is governed by \textbf{Mie scattering} off sub-micron dust grains ($a \sim 0.1\,\mu\mathrm{m}$).
+The luminosity does not say whether the star is small and hot or large and cool. For that we need to know how much light a hot surface gives off, and in which colours.
 
-In this regime, the scattering cross-section falls with wavelength ($\sigma_{\rm ext} \propto \lambda^{-1}$). Because blue light has a shorter wavelength than visual light ($\lambda_B \approx 440\,\mathrm{nm} < \lambda_V \approx 550\,\mathrm{nm}$), dust attenuates blue photons more heavily ($A_B > A_V$). This preferential blue loss shifts the observed color index toward redder values:
+Watch the coil of an electric stove as it heats. At first it gives warmth but no glow. Then it glows dull red, then orange. A blacksmith's iron, hotter still, turns yellow and then almost white. Two things change together. The colour moves from red toward blue, and the heat felt on the face grows very fast.
+
+Stars do the same. In Orion, Betelgeuse is orange-red and Rigel is blue-white, because Rigel's surface is hotter. A dense hot body that absorbs all the light falling on it, a \textbf{blackbody}, gives off a spectrum fixed by its temperature alone, and the surface of a star is close to one.
+
+A stove coil at $1000\,\mathrm K$ is brightest at $2.9\,\mu\mathrm m$, in the infrared, so we see only the red tail of its light. The Sun's surface, at $5772\,\mathrm K$, is brightest at $502\,\mathrm{nm}$, in the middle of the visible. Each square metre of the Sun gives off $6.29\times10^7\,\mathrm W$, which is $1110$ times as much as a square metre of the coil, although the Sun is only $5.77$ times hotter. The factor is $5.772^4$.
+
+Picture a hump-shaped curve of brightness against wavelength. As the temperature rises, the hump grows taller at every wavelength and its peak slides toward the blue.
+
+The shape of the hump comes from counting the quantum states of light and filling them at temperature $T$, principle P3. It is derived that way in Section~\ref{pr:sec:p3}. The same curve describes the glow of a lamp filament, the picture in a thermal camera, and the radiation left over from the early universe at $2.7\,\mathrm K$. Here it gives the wavelength of the peak, Wien's law, and the total power of a hot surface, the Stefan--Boltzmann law. The second defines the temperature of a star.
+
+\subsection{The Planck Function}
+
+The \textbf{specific intensity} of light is the power carried along a ray, per unit area, per unit solid angle of direction and per unit frequency. How it is defined in full and how it changes inside matter is the subject of Chapter~\ref{ch:radiation}. For a blackbody at temperature $T$ the specific intensity is the \textbf{Planck function}, derived by counting states in Eq.~\eqref{pr:eq:planck},
 \begin{equation}
-	(B - V)_{\rm obs} = (B - V)_0 + E_{B - V},
-	\label{eq:color_index_observed_split}
-\end{equation}
-where $E_{B - V} \equiv A_B - A_V > 0$ is the \emph{color excess}. To determine the star's true temperature and intrinsic spectral type, astronomers subtract this excess via the \textbf{Color Index Correction}:
-\begin{keyresult}
-	\begin{equation}
-		(B - V)_0 = (B - V)_{\rm obs} - E_{B-V}.
-		\label{eq:color_index_correction}
-	\end{equation}
-\end{keyresult}
-
-The total visual extinction is parameterized by $A_V = R_V E_{B-V}$, where $R_V \approx 3.1$ in the diffuse Milky Way. Removing $A_V$ from the apparent distance modulus yields the true dereddened distance modulus $\mu_0$:
-\begin{keyresult}
-	\begin{equation}
-		\mu_0 \equiv (m_V - M_V)_{\rm obs} - R_V\,E_{B-V} = 5\log_{10}d\,[\mathrm{pc}] - 5.
-		\label{eq:dereddened_distance_modulus}
-	\end{equation}
-\end{keyresult}
-
-\begin{tcolorbox}[notebox, title=DERIVATION: COLOR INDEX CORRECTION AND EXTINCTION FROM MIE SCATTERING]
-	Consider unextinguished starlight with flux $F_{\lambda,0}$ traversing dust with column density $N_d = \int n_d\,ds$. The transmitted flux is $F_\lambda = F_{\lambda,0}e^{-\tau_\lambda}$ with optical depth $\tau_\lambda = N_d \sigma_{\rm ext}(\lambda)$. In Pogson magnitudes, the extinction is
-	\begin{equation}
-		A_\lambda = -2.5\log_{10}\left(\frac{F_\lambda}{F_{\lambda,0}}\right) = \frac{2.5}{\ln 10}\tau_\lambda \approx 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
-	\end{equation}
-	For interstellar grains ($a \sim 0.1\,\mu\mathrm{m} \sim \lambda$), Mie scattering yields $\sigma_{\rm ext}(\lambda) \propto \lambda^{-1}$. Evaluating across the $B$ and $V$ passbands gives
-	\begin{equation}
-		A_B - A_V = 1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B) - \sigma_{\rm ext}(\lambda_V)\right] > 0,
-	\end{equation}
-	since $\lambda_B < \lambda_V \implies \sigma_{\rm ext}(\lambda_B) > \sigma_{\rm ext}(\lambda_V)$. The observed color index is $(B - V)_{\rm obs} = m_B - m_V = (B - V)_0 + (A_B - A_V) = (B - V)_0 + E_{B-V}$. Dereddening isolates the intrinsic color $(B - V)_0 = (B - V)_{\rm obs} - E_{B-V}$, and subtracting $A_V = R_V E(B-V)$ yields the true distance modulus:
-	\begin{equation}
-		5\log_{10}d - 5 = (m_V - M_V)_{\rm obs} - R_V\,E_{B-V}.
-	\end{equation}
-\end{tcolorbox}
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics{fig_ch4_spectral_filters_bands.pdf}
-	\caption{Wavelength dependence of scattering cross-sections across optical passbands ($U, B, V, R, I$), normalized to $V$ ($\lambda_V = 0.55\,\mu\mathrm{m}$). The top demarker highlights the particle-size regime: for sub-micron interstellar dust ($a \approx 0.05\text{--}0.3\,\mu\mathrm{m}$), optical wavelengths coincide with the size parameter $x = 2\pi a/\lambda \sim 1$ (the Mie regime), where the cross-section exhibits a gentle $\sigma \propto \lambda^{-1}$ power law. At much longer infrared wavelengths ($\lambda \gg a$), dust transitions to the Rayleigh regime ($\sigma \propto \lambda^{-4}$), making interstellar clouds transparent in the IR.}
-	\label{fig:scattering_rayleigh_mie_comparison}
-\end{figure}
-
-\section{Thermal Radiation and the Stefan-Boltzmann Law}
-
-To relate radiant emission to stellar physical properties, we model stellar photospheres as thermodynamic blackbodies.
-
-\subsection{Planck's Law of Blackbody Radiation}
-
-A blackbody in thermodynamic equilibrium at temperature $T$ radiates a specific intensity $B_\lambda(T)$ (energy per unit time, area, solid angle, and wavelength):
-\begin{keyresult}
-	\begin{equation}
-		B_\lambda(T) = \frac{2hc^2}{\lambda^5} \frac{1}{\exp\!\left(\dfrac{hc}{\lambda k_B T}\right) - 1}\quad \left[\mathrm{W\cdot m^{-2}\cdot sr^{-1}\cdot m^{-1}}\right],
-		\label{eq:planck_wavelength}
-	\end{equation}
-\end{keyresult}
-where $h = 6.62607 \times 10^{-34}\,\mathrm{J\cdot s}$ is Planck's constant, $c = 2.99792 \times 10^8\,\mathrm{m/s}$ is the speed of light, and $k_B = 1.38065 \times 10^{-23}\,\mathrm{J/K}$ is Boltzmann's constant.
-
-In frequency space:
-\begin{equation}
-	B_\nu(T) = \frac{2h\nu^3}{c^2} \frac{1}{\exp\!\left(\dfrac{h\nu}{k_B T}\right) - 1}\quad \left[\mathrm{W\cdot m^{-2}\cdot sr^{-1}\cdot Hz^{-1}}\right].
+	B_\nu(T) = \frac{2h\nu^3}{c^2}\, \frac{1}{e^{h\nu/k_BT} - 1}\quad \left[\mathrm{W\,m^{-2}\,sr^{-1}\,Hz^{-1}}\right].
 	\label{eq:planck_frequency}
 \end{equation}
+Here $h$ is Planck's constant, $c$ the speed of light and $k_B$ Boltzmann's constant. $B_\nu$ depends on $T$ and $\nu$ only, and it is the same in every direction. The photon energy in units of $k_BT$,
+\[
+x=\frac{h\nu}{k_BT}=\frac{hc}{\lambda k_BT},
+\]
+appears in every formula below.
+
+\paragraph{Per unit wavelength.} Filters are described by wavelength, so we also need the intensity per unit wavelength, $B_\lambda$. The power in a narrow band of the spectrum cannot depend on whether we label the band by wavelength or by frequency, so $B_\lambda\,|d\lambda|=B_\nu\,|d\nu|$.
+\begin{align}
+	B_\lambda
+	&\eqby{1} B_\nu\left|\dv{\nu}{\lambda}\right| \nonumber\\
+	&\eqby{2} B_\nu\,\frac{c}{\lambda^2} \nonumber\\
+	&\eqby{3} \frac{2hc^3}{c^2\lambda^3}\,\frac{c}{\lambda^2}\,\frac{1}{e^{hc/\lambda k_BT}-1}.
+\end{align}
+\begin{explain}
+	\item Equal power in the same band of the spectrum.
+	\item $\nu=c/\lambda$, so $d\nu/d\lambda=-c/\lambda^2$.
+	\item Eq.~\eqref{eq:planck_frequency} with $\nu=c/\lambda$.
+\end{explain}
+Collecting the powers of $c$ and $\lambda$,
+\begin{equation}
+	B_\lambda(T) = \frac{2hc^2}{\lambda^5}\, \frac{1}{e^{hc/\lambda k_BT} - 1}\quad \left[\mathrm{W\,m^{-2}\,sr^{-1}\,m^{-1}}\right].
+	\label{eq:planck_wavelength}
+\end{equation}
+The factor $c/\lambda^2$ stretches the curve differently from $B_\nu$, and this moves the peak, as we see next.
 
 \subsection{Wien's Displacement Law}
 
-To find the wavelength of peak emission, write $B_\lambda \propto \lambda^{-5}(e^x-1)^{-1}$ with $x \equiv hc/(\lambda k_BT)$, and note that since $x \propto 1/\lambda$, the chain rule gives $dx/d\lambda = -x/\lambda$. Differentiating with respect to $\lambda$ (product and chain rule) and setting the result to zero:
-\begin{equation}
-	\dv{B_\lambda}{\lambda} \propto -5\lambda^{-6}(e^x-1)^{-1} + \lambda^{-5}(e^x-1)^{-2}e^x\left(\frac{x}{\lambda}\right) = 0.
-\end{equation}
-Multiplying through by $-\lambda^{6}(e^x-1)$ gives the transcendental condition on $x$:
-\begin{equation}
-	\frac{x e^x}{e^x - 1} = 5, \quad \text{where } x \equiv \frac{hc}{\lambda_{\max} k_B T} \approx 4.965114 \quad \text{(solved numerically).}
-\end{equation}
-This establishes \emph{Wien's Displacement Law}:
+To find where $B_\lambda$ peaks, we write it through $x$. Since $x=hc/(\lambda k_BT)$ falls steadily as $\lambda$ grows, a peak in $\lambda$ is a peak in $x$.
+\begin{align}
+	B_\lambda
+	&\eqby{1} 2hc^2\left(\frac{k_BT}{hc}\right)^5\frac{x^5}{e^x-1} \nonumber\\
+	&= \frac{2k_B^5T^5}{h^4c^3}\,\frac{x^5}{e^x-1}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:planck_wavelength} with $1/\lambda=k_BT\,x/(hc)$.
+\end{explain}
+At fixed $T$ only the factor $x^5/(e^x-1)$ changes with wavelength. Its derivative vanishes at the peak,
+\begin{align}
+	\dv{x}\left(\frac{x^5}{e^x-1}\right)
+	&\eqby{1} \frac{5x^4(e^x-1)-x^5e^x}{(e^x-1)^2}=0, \nonumber\\
+	5(e^x-1)&\eqby{2}xe^x, \nonumber\\
+	x&\eqby{3}5\left(1-e^{-x}\right).
+	\label{ph:eq:wien_condition}
+\end{align}
+\begin{explain}
+	\item The quotient rule.
+	\item The numerator vanishes, $5x^4(e^x-1)=x^5e^x$. Divide by $x^4$.
+	\item Divide by $e^x$.
+\end{explain}
+This has no solution in closed form. Starting from $x=5$ and putting each value back into the right-hand side gives $4.96631$, then $4.96516$, then $4.96512$, and the values settle at $x=4.965114$. The peak wavelength $\lambda_{\max}$ is then
+\begin{align}
+	\lambda_{\max}T
+	&\eqby{1} \frac{hc}{4.965114\,k_B} \nonumber\\
+	&= \frac{(6.626\times10^{-34})(2.998\times10^{8})}{4.965114\times1.381\times10^{-23}}\,\mathrm{m\,K}.
+\end{align}
+\begin{explain}
+	\item The definition of $x$ at the peak.
+\end{explain}
 \begin{keyresult}
 	\begin{equation}
-		\lambda_{\max} T = \frac{hc}{4.965114\,k_B} \approx 2.89777 \times 10^{-3}\,\mathrm{m\cdot K} = 2898\,\mathrm{\mu m\cdot K}.
+		\lambda_{\max} T = 2.898 \times 10^{-3}\,\mathrm{m\,K} = 2898\,\mu\mathrm{m\,K}.
 		\label{eq:wien_law}
 	\end{equation}
 \end{keyresult}
+The wavelength of the peak is inversely proportional to the temperature and depends on nothing else. The Sun, at $5772\,\mathrm K$, peaks at $502\,\mathrm{nm}$.
 
-\subsection{The Stefan-Boltzmann Law and Effective Temperature}
+\paragraph{Per unit frequency the peak lies elsewhere.} In terms of $x$, $B_\nu=(2k_B^3T^3/h^2c^2)\,x^3/(e^x-1)$. The same steps with the power $3$ in place of $5$ give $x=3(1-e^{-x})$, so $x=2.821$. For the Sun this is $\nu_{\max}=2.821\,k_BT/h=339\,\mathrm{THz}$, whose wavelength $c/\nu_{\max}=883\,\mathrm{nm}$ is far from $502\,\mathrm{nm}$. Neither peak is wrong. A curve per unit wavelength and a curve per unit frequency put different widths of spectrum under each point, so ``the colour at which a star is brightest'' depends on which curve is meant. The total power, found next, does not.
 
-Integrating Planck's specific intensity over all wavelengths and across the outward hemisphere ($\int_0^{2\pi}d\phi\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta = \pi$, the projected solid angle of a hemisphere) gives the total emergent surface flux $F_{\rm surface} = \pi\int_0^\infty B_\lambda(T)\,d\lambda$. Substituting $x = hc/(\lambda k_BT)$ (so $\lambda = hc/(xk_BT)$ and $d\lambda = -hc\,dx/(xk_BT)^2$... more directly, in frequency form with $x=h\nu/k_BT$) converts the integral into a pure number times $T^4$:
+\subsection{The Stefan--Boltzmann Law}
+
+The flux leaving a blackbody surface is the power per square metre summed over all outward directions and all frequencies. This is the same counting of energy through a surface as in Section~\ref{ph:sec:flux} (P1), now done at the surface itself.
+
+\paragraph{Summing over directions.} Take a small patch of surface. A ray leaving it at the angle $\psi$ to the outward normal sees the patch foreshortened by $\cos\psi$. Per unit area of the patch, it carries the power $B_\nu\cos\psi\,d\Omega\,d\nu$ into the solid angle $d\Omega=\sin\psi\,d\psi\,d\phi$, with $\phi$ the angle around the normal. Only outward rays count, $0\le\psi\le\pi/2$.
+\begin{align}
+	F_{\rm surf}
+	&\eqby{1} \int_0^\infty d\nu\int_0^{2\pi}d\phi\int_0^{\pi/2}B_\nu\cos\psi\sin\psi\,d\psi \nonumber\\
+	&\eqby{2} \int_0^\infty B_\nu\,d\nu\times2\pi\times\left[\frac{\sin^2\psi}{2}\right]_0^{\pi/2} \nonumber\\
+	&= \pi\int_0^\infty B_\nu\,d\nu .
+	\label{ph:eq:flux_pi_B}
+\end{align}
+\begin{explain}
+	\item The power per unit area, summed over the outward half of all directions and over frequency.
+	\item $B_\nu$ is the same in every direction, so it leaves the angle integrals. The $\phi$ integral is $2\pi$, and $\int\cos\psi\sin\psi\,d\psi=\tfrac12\sin^2\psi$.
+\end{explain}
+The factor is $\pi$, not the $2\pi$ of a half-sphere of directions, because rays that leave at a slant cross the surface at a slant. The same steps at one frequency give $\pi B_\nu$ per unit frequency, and $\pi B_\lambda$ per unit wavelength.
+
+\paragraph{Summing over frequency.} The substitution $\nu=k_BTx/h$ takes all the temperature out of the integral.
+\begin{align}
+	\int_0^\infty B_\nu\,d\nu
+	&\eqby{1} \frac{2h}{c^2}\int_0^\infty\frac{\nu^3\,d\nu}{e^{h\nu/k_BT}-1} \nonumber\\
+	&\eqby{2} \frac{2h}{c^2}\left(\frac{k_BT}{h}\right)^4\int_0^\infty\frac{x^3\,dx}{e^x-1} \nonumber\\
+	&\eqby{3} \frac{2k_B^4T^4}{h^3c^2}\,\frac{\pi^4}{15}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:planck_frequency}.
+	\item $\nu=k_BTx/h$ and $d\nu=(k_BT/h)\,dx$, so $\nu^3d\nu=(k_BT/h)^4x^3dx$. The limits stay $0$ and $\infty$.
+	\item The integral is $\pi^4/15$, Eq.~\eqref{ph:eq:bose_integral} below.
+\end{explain}
+
+\paragraph{The integral.} Multiplying the top and bottom by $e^{-x}$ turns the integrand into a geometric series.
+\begin{align}
+	\int_0^\infty\frac{x^3\,dx}{e^x-1}
+	&\eqby{1} \int_0^\infty\frac{x^3e^{-x}}{1-e^{-x}}\,dx \nonumber\\
+	&\eqby{2} \sum_{n=1}^\infty\int_0^\infty x^3e^{-nx}\,dx \nonumber\\
+	&\eqby{3} \sum_{n=1}^\infty\frac{1}{n^4}\int_0^\infty y^3e^{-y}\,dy \nonumber\\
+	&\eqby{4} 6\sum_{n=1}^\infty\frac{1}{n^4} \nonumber\\
+	&\eqby{5} \frac{6\pi^4}{90}=\frac{\pi^4}{15}.
+	\label{ph:eq:bose_integral}
+\end{align}
+\begin{explain}
+	\item Multiply the top and the bottom by $e^{-x}$.
+	\item $e^{-x}/(1-e^{-x})=\sum_{n\ge1}e^{-nx}$, a geometric series with ratio $e^{-x}<1$ for $x>0$. All terms are positive, so the sum and the integral may be swapped.
+	\item The substitution $y=nx$.
+	\item Three integrations by parts give $\int_0^\infty y^3e^{-y}dy=3!=6$.
+	\item $\sum_{n\ge1}1/n^4=\pi^4/90$, shown next.
+\end{explain}
+
+\paragraph{The sum of $1/n^4$.} On $-\pi\le x\le\pi$ the function $x^2$ has the Fourier series $x^2=\pi^2/3+\sum_{n\ge1}a_n\cos nx$, with $a_n=\frac1\pi\int_{-\pi}^{\pi}x^2\cos nx\,dx=4(-1)^n/n^2$ from two integrations by parts. Parseval's theorem says the mean square of a function is the sum of the squares of its Fourier terms, $\frac1\pi\int_{-\pi}^{\pi}f^2\,dx=2(\pi^2/3)^2+\sum_n a_n^2$ for this series.
+\begin{align}
+	\frac1\pi\int_{-\pi}^{\pi}x^4\,dx
+	&\eqby{1} 2\left(\frac{\pi^2}{3}\right)^2+\sum_{n=1}^\infty\frac{16}{n^4}, \nonumber\\
+	\frac{2\pi^4}{5}
+	&\eqby{2} \frac{2\pi^4}{9}+16\sum_{n=1}^\infty\frac{1}{n^4}, \nonumber\\
+	\sum_{n=1}^\infty\frac{1}{n^4}
+	&= \frac{1}{16}\left(\frac{2\pi^4}{5}-\frac{2\pi^4}{9}\right)=\frac{1}{16}\,\frac{8\pi^4}{45}=\frac{\pi^4}{90}.
+\end{align}
+\begin{explain}
+	\item Parseval's theorem with $f=x^2$ and $a_n^2=16/n^4$.
+	\item $\int_{-\pi}^{\pi}x^4dx=2\pi^5/5$.
+\end{explain}
+
+\paragraph{The law.} Putting the frequency sum into Eq.~\eqref{ph:eq:flux_pi_B},
 \begin{equation}
-	\int_0^\infty B_\nu(T)\,d\nu = \frac{2k_B^4T^4}{h^3c^2}\int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{2k_B^4T^4}{h^3c^2}\cdot\frac{\pi^4}{15},
-\end{equation}
-using the standard result $\int_0^\infty x^3/(e^x-1)\,dx = \pi^4/15$ (a tabulated integral, obtained by expanding $1/(e^x-1)=\sum_{n=1}^\infty e^{-nx}$ and summing the resulting Gamma-function integrals, $\sum_n \Gamma(4)/n^4 = 6\zeta(4) = 6\cdot\pi^4/90 = \pi^4/15$). Multiplying by $\pi$ gives
-\begin{equation}
-	F_{\rm surface} = \sigma_{\rm SB} T^4,
+	F_{\rm surf} =\pi\,\frac{2k_B^4T^4}{h^3c^2}\,\frac{\pi^4}{15}= \sigma_{\rm SB} T^4,
 	\label{eq:surface_flux_sb}
 \end{equation}
-where the \emph{Stefan-Boltzmann constant} collects all the remaining factors:
+where the \textbf{Stefan--Boltzmann constant} collects all the other factors,
 \begin{equation}
-	\sigma_{\rm SB} = \frac{2\pi^5 k_B^4}{15 c^2 h^3} \approx 5.670374 \times 10^{-8}\,\mathrm{W\cdot m^{-2}\cdot K^{-4}}.
+	\boxed{\sigma_{\rm SB} = \frac{2\pi^5 k_B^4}{15 c^2 h^3} = 5.670 \times 10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}.}
 	\label{eq:stefan_boltzmann_constant}
 \end{equation}
+The power per square metre grows as the fourth power of the temperature, so doubling $T$ multiplies it by 16. It depends on nothing about the surface except its temperature, because the light of a blackbody is set by $T$ alone.
 
-\begin{definition}[Effective Temperature]
-	The \emph{effective surface temperature} $T_{\rm eff}$ of a star with total luminosity $L$ and radius $R_*$ is the temperature of an ideal blackbody having the identical surface area and total bolometric power (integrated across all wavelengths):
-	\begin{keyresult}
-		\begin{equation}
-			L = 4\pi R_*^2\,\sigma_{\rm SB} T_{\rm eff}^4.
-			\label{eq:stefan_boltzmann_luminosity}
-		\end{equation}
-	\end{keyresult}
-\end{definition}
+\subsection{Effective Temperature}
 
-\section{Determination of Stellar Physical Radii}
-
-\subsection{Radius from Bolometric Luminosity and Temperature}
-
-Normalizing Eq.~\eqref{eq:stefan_boltzmann_luminosity} relative to solar values ($L_\odot = 3.828 \times 10^{26}\,\mathrm{W}$, $R_\odot = 6.957 \times 10^8\,\mathrm{m}$, $T_{\rm eff,\odot} = 5772\,\mathrm{K}$):
+A real star is not a perfect blackbody. Its spectrum has absorption lines, and its light comes from layers at different temperatures (Section~\ref{rad:sec:grey}). We still give it one temperature, by asking which blackbody of the same size gives off the same power. The \textbf{effective temperature} $T_{\rm eff}$ of a star of luminosity $L$ and radius $R$ is the temperature of a blackbody sphere of radius $R$ that gives off $L$. The sphere has area $4\pi R^2$, and each square metre gives off $\sigma_{\rm SB}T_{\rm eff}^4$ by Eq.~\eqref{eq:surface_flux_sb}, so
 \begin{keyresult}
 	\begin{equation}
-		\frac{R_*}{R_\odot} = \sqrt{\frac{L_*}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2.
+		L = 4\pi R^2\,\sigma_{\rm SB} T_{\rm eff}^4.
+		\label{eq:stefan_boltzmann_luminosity}
+	\end{equation}
+\end{keyresult}
+For the Sun, with $L_\odot=3.828\times10^{26}\,\mathrm W$ and $R_\odot=6.957\times10^8\,\mathrm m$,
+\[
+T_{\rm eff,\odot}=\left(\frac{L_\odot}{4\pi R_\odot^2\,\sigma_{\rm SB}}\right)^{1/4}=5772\,\mathrm K,
+\]
+the value used throughout.
+
+% ==============================================================================
+\section{Colours and the Dimming by Dust}
+\label{ph:sec:colour}
+
+A magnitude through one filter measures one flux, and the Planck function says how the flux of a hot surface is shared among the colours.
+
+A temperature from Wien's law needs the whole spectrum, which takes a long time to measure for a faint star. Also, the light of distant stars passes through dust, which dims it. A dimmed star looks further away than it is, and the distance modulus gives the wrong distance.
+
+The setting Sun shows both problems at once. Its light crosses a long path of air near the horizon. The air removes blue light from the beam more than red, so the Sun looks fainter and redder than at noon. Someone who did not know about the air might think the Sun had cooled. Comparing its brightness through a blue glass and a red glass shows the change, and knowing how the air treats each colour undoes it.
+
+Astronomers measure each star through a blue filter $B$ and a yellow-green filter $V$. The difference of the two magnitudes, the colour, measures the temperature without needing the distance, because distance dims both filters alike. Dust between the stars removes blue light faster than yellow, like the air at sunset, so a dimmed star also looks redder. A colour and a magnitude, together with the spectral type of the star, separate temperature, dust and distance, which one magnitude alone cannot do.
+
+For blackbodies at $5000\,\mathrm K$ and $10\,000\,\mathrm K$, the values of $B-V$ differ by $0.71$ magnitudes (Eq.~\eqref{ph:eq:colour_temperature} below). A dust cloud that dims a star by one magnitude in $V$ makes it $0.32$ magnitudes redder in $B-V$ (Eq.~\eqref{ph:eq:RV} below).
+
+Picture the spectrum seen through two windows, one blue and one yellow. A hotter star tips the spectrum toward the blue window. Dust tips it back toward the yellow window and dims both.
+
+A colour compares two fluxes. Whether dust scatters light strongly is decided by comparing the size of a grain with the wavelength. The optical depth, which measures the dimming, compares the length of the path with the mean distance between grains. All three are comparisons of two scales, P6 (Section~\ref{pr:sec:p6}). The same law of dimming gives the airmass correction for the Earth's air (Section~\ref{co:sec:airmass}), and it returns in the transfer of light through a star (Chapter~\ref{ch:radiation}). Here it gives the colour as a thermometer, the extinction from the optical depth, and the distance modulus corrected for dust.
+
+\subsection{Passbands and the Colour Index}
+
+Astronomical detectors measure flux through standard filters. The Johnson--Cousins set has passbands centred near $U$ ($365\,\mathrm{nm}$), $B$ ($440\,\mathrm{nm}$), $V$ ($550\,\mathrm{nm}$), $R$ ($640\,\mathrm{nm}$) and $I$ ($790\,\mathrm{nm}$), shown as shaded strips in Figure~\ref{fig:scattering_rayleigh_mie_comparison}.
+
+A \textbf{colour index} is the difference of two magnitudes of the same star, such as $B-V$. Applying Eq.~\eqref{eq:apparent_mag_single} in each band,
+\begin{align}
+	B - V
+	&\eqby{1} -2.5\log_{10}\frac{F_B}{F_{B,\rm ref}}+2.5\log_{10}\frac{F_V}{F_{V,\rm ref}} \nonumber\\
+	&\eqby{2} -2.5\log_{10}\frac{F_B}{F_V} + 2.5\log_{10}\frac{F_{B,\rm ref}}{F_{V,\rm ref}}.
+	\label{eq:color_index_def}
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:apparent_mag_single} for the $B$ and $V$ fluxes, each with its own zero point.
+	\item Collecting the logarithms.
+\end{explain}
+The last term is a constant, fixed so that Vega and other stars of type A0\,V have $B-V\approx0$. The distance and the radius of the star cancel from $F_B/F_V$, because by Eq.~\eqref{ph:eq:flux_dilution} each flux is its surface value times the same factor $(R/d)^2$.
+
+\paragraph{Colour as a thermometer.} For a blackbody, $F_B/F_V$ depends on the temperature alone. We treat each filter as a single wavelength, $\lambda_B$ and $\lambda_V$. The flux at the Earth per unit wavelength is then $\pi B_\lambda$ (Eq.~\eqref{ph:eq:flux_pi_B} at one wavelength) times $(R/d)^2$.
+\begin{align}
+	\frac{F_B}{F_V}
+	&\eqby{1} \frac{\pi B_\lambda(\lambda_B,T)\,(R/d)^2}{\pi B_\lambda(\lambda_V,T)\,(R/d)^2} \nonumber\\
+	&\eqby{2} \left(\frac{\lambda_V}{\lambda_B}\right)^5\frac{e^{hc/\lambda_Vk_BT}-1}{e^{hc/\lambda_Bk_BT}-1} \nonumber\\
+	&\relby{3}{\approx} \left(\frac{\lambda_V}{\lambda_B}\right)^5\exp\!\left[-\frac{hc}{k_BT}\left(\frac{1}{\lambda_B}-\frac{1}{\lambda_V}\right)\right].
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ph:eq:flux_dilution} with the surface flux $\pi B_\lambda$ at each wavelength.
+	\item Eq.~\eqref{eq:planck_wavelength}. The factors $\pi$, $2hc^2$ and $(R/d)^2$ cancel.
+	\item Drop the $-1$ in each bracket, since $e^x\gg1$. At $440\,\mathrm{nm}$ and $10^4\,\mathrm K$, $x=3.3$, and the $-1$ changes the ratio by a few per cent. For cooler stars it matters even less.
+\end{explain}
+Putting this into Eq.~\eqref{eq:color_index_def},
+\begin{align}
+	B-V
+	&\eqby{1} \frac{2.5}{\ln10}\,\frac{hc}{k_B}\left(\frac{1}{\lambda_B}-\frac{1}{\lambda_V}\right)\frac1T-12.5\log_{10}\frac{\lambda_V}{\lambda_B}+2.5\log_{10}\frac{F_{B,\rm ref}}{F_{V,\rm ref}} \nonumber\\
+	&\eqby{2} \frac{7100\,\mathrm K}{T}+\text{constant}.
+\end{align}
+\begin{explain}
+	\item $\log_{10}e^{-y}=-y/\ln10$ and $\log_{10}a^5=5\log_{10}a$.
+	\item $hc/k_B=1.4388\times10^{-2}\,\mathrm{m\,K}$, $\lambda_B=440\,\mathrm{nm}$ and $\lambda_V=550\,\mathrm{nm}$. The constant collects the terms without $T$.
+\end{explain}
+\begin{equation}
+	\boxed{B-V\approx\frac{7100\,\mathrm K}{T}+\text{constant}.}
+	\label{ph:eq:colour_temperature}
+\end{equation}
+Hotter stars have smaller $B-V$, and the hottest have negative values, bluer than Vega. Cool stars have large positive values. The colour depends on the temperature, not on the distance or the size of the star. Real filters are broad and real spectra have lines, so in practice $B-V$ is turned into $T_{\rm eff}$ by a relation measured on stars of known temperature. Eq.~\eqref{ph:eq:colour_temperature} explains its shape.
+
+\subsection{Extinction from Optical Depth}
+
+Interstellar dust grains are mostly smaller than a micrometre. Each grain removes light from a beam, either by absorbing it or by scattering it out of the beam. The two together are called \textbf{extinction}. The area of beam that one grain removes is its \textbf{extinction cross-section} $\sigma_{\rm ext}(\lambda)$.
+
+\paragraph{The dimming law.} Follow a beam through dust that has $n_d$ grains per unit volume, with $s$ the distance along the beam. In a thin slab of thickness $ds$, one square metre of beam meets $n_d\,ds$ grains, which together block the fraction $n_d\sigma_{\rm ext}\,ds$ of it. The grains only remove light from the beam and add none (P1 for the energy in the beam), so
+\begin{equation}
+	dF_\lambda=-n_d\,\sigma_{\rm ext}\,F_\lambda\,ds .
+\end{equation}
+Let $F_{\lambda,0}$ be the flux that would arrive with no dust. Dividing by $F_\lambda$ and integrating along the whole path through the dust,
+\begin{align}
+	\ln\frac{F_\lambda}{F_{\lambda,0}}
+	&\eqby{1} -\int n_d\,\sigma_{\rm ext}\,ds \nonumber\\
+	&\eqby{2} -\sigma_{\rm ext}(\lambda)\,N_d .
+\end{align}
+\begin{explain}
+	\item $\int dF_\lambda/F_\lambda=\ln F_\lambda$, from $F_{\lambda,0}$ where the beam enters the dust to $F_\lambda$ where it leaves.
+	\item All grains are taken to be alike, so $\sigma_{\rm ext}$ is the same along the path. The \textbf{column density} $N_d=\int n_d\,ds$ is the number of grains in a tube of cross-section $1\,\mathrm m^2$ along the line of sight.
+\end{explain}
+The \textbf{optical depth} is
+\begin{equation}
+	\tau_\lambda=\int n_d\,\sigma_{\rm ext}\,ds=N_d\,\sigma_{\rm ext}(\lambda),
+	\label{ph:eq:optical_depth}
+\end{equation}
+and the flux falls exponentially with it,
+\begin{equation}
+	\boxed{F_\lambda=F_{\lambda,0}\,e^{-\tau_\lambda}.}
+	\label{ph:eq:flux_tau}
+\end{equation}
+The optical depth counts the grain cross-sections that lie along the line of sight. The mean distance a photon travels between grains is $1/(n_d\sigma_{\rm ext})$, so $\tau_\lambda$ is the length of the path divided by this distance, a comparison of two lengths (P6). Light passes almost freely when $\tau_\lambda\ll1$ and hardly at all when $\tau_\lambda\gg1$.
+
+\paragraph{Extinction in magnitudes.} The \textbf{extinction} $A_\lambda$ is the number of magnitudes by which dust dims a star, $A_\lambda=m_\lambda-m_{\lambda,0}$, where $m_{\lambda,0}$ is the magnitude the star would have with no dust.
+\begin{align}
+	A_\lambda
+	&\eqby{1} -2.5\log_{10}\frac{F_\lambda}{F_{\lambda,0}} \nonumber\\
+	&\eqby{2} -2.5\log_{10}e^{-\tau_\lambda} \nonumber\\
+	&\eqby{3} \frac{2.5}{\ln10}\,\tau_\lambda .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:pogson_difference} between the dimmed flux and the flux with no dust.
+	\item Eq.~\eqref{ph:eq:flux_tau}.
+	\item $\log_{10}e^{-y}=-y/\ln10$.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		A_\lambda = 1.086\,\tau_\lambda = 1.086\,N_d\,\sigma_{\rm ext}(\lambda).
+		\label{ph:eq:extinction_tau}
+	\end{equation}
+\end{keyresult}
+One magnitude of extinction is close to one optical depth. The extinction is proportional to the column of dust, so it adds up along the line of sight. The magnitude without dust is $m_\lambda-A_\lambda$, and Eq.~\eqref{eq:distance_modulus} for it becomes
+\begin{equation}
+	m_\lambda=M_\lambda+5\log_{10}d\,[\mathrm{pc}]-5+A_\lambda .
+	\label{ph:eq:mag_with_dust}
+\end{equation}
+
+\subsection{Reddening and the Colour Excess}
+
+\paragraph{Why dust reddens.} The grains have radii $a$ near $0.1\,\mu\mathrm m$. How they treat light is decided by the ratio of the grain's circumference to the wavelength, $2\pi a/\lambda$ (P6). At $550\,\mathrm{nm}$ this ratio is $1.1$, so visible light is in the Mie regime, between the $\lambda^{-4}$ law of particles much smaller than the wavelength and the flat law of particles much larger (Section~\ref{sec:scattering_classification}). Measured across the visible, the extinction by real dust, with its mix of grain sizes, falls roughly as $1/\lambda$ (Figure~\ref{fig:scattering_rayleigh_mie_comparison}). At $2.2\,\mu\mathrm m$ the ratio is $0.29$, and the extinction is only about a tenth of that in $V$. Dust clouds that are dark in visible light can therefore be seen through in the infrared.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig_ch4_spectral_filters_bands.pdf}
+	\caption{Cross-sections that vary as $\lambda^{-4}$, as $\lambda^{-1}$ and not at all, each divided by its value at $\lambda_V=0.55\,\mu\mathrm m$, against wavelength from $0.3$ to $0.9\,\mu\mathrm m$. The shaded strips mark the $U$, $B$, $V$, $R$ and $I$ passbands, with dotted lines at their central wavelengths.}
+	\label{fig:scattering_rayleigh_mie_comparison}
+\end{figure}
+
+\paragraph{The colour excess.} The measured colour of a star behind dust is
+\begin{align}
+	(B-V)_{\rm obs}
+	&\eqby{1} m_B-m_V \nonumber\\
+	&\eqby{2} (m_{B,0}+A_B)-(m_{V,0}+A_V) \nonumber\\
+	&\eqby{3} (B-V)_0+(A_B-A_V).
+\end{align}
+\begin{explain}
+	\item The definition of the colour index.
+	\item $A_\lambda=m_\lambda-m_{\lambda,0}$ in each band.
+	\item $(B-V)_0=m_{B,0}-m_{V,0}$ is the \textbf{intrinsic colour}, the colour with no dust.
+\end{explain}
+The \textbf{colour excess} is $E(B-V)\equiv A_B-A_V$. By Eq.~\eqref{ph:eq:extinction_tau},
+\[
+E(B-V)=1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)\right]>0,
+\]
+since $\sigma_{\rm ext}$ is larger at the shorter wavelength. So
+\begin{equation}
+	(B - V)_{\rm obs} = (B - V)_0 + E(B-V),
+	\label{eq:color_index_observed_split}
+\end{equation}
+and the intrinsic colour is recovered as
+\begin{equation}
+	\boxed{(B - V)_0 = (B - V)_{\rm obs} - E(B-V).}
+	\label{eq:color_index_correction}
+\end{equation}
+In practice it is used the other way round. The intrinsic colour of a star is known from its spectral type, so its measured colour gives $E(B-V)$.
+
+\paragraph{From reddening to dimming.} The distance needs the dimming $A_V$, but what we measure is the reddening $E(B-V)$. Their ratio is
+\begin{align}
+	\frac{A_V}{E(B-V)}
+	&\eqby{1} \frac{1.086\,N_d\,\sigma_{\rm ext}(\lambda_V)}{1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)\right]} \nonumber\\
+	&= \frac{\sigma_{\rm ext}(\lambda_V)}{\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)} \nonumber\\
+	&\eqby{2} \frac{1}{\lambda_V/\lambda_B-1}=\frac{1}{550/440-1}=4.0 .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ph:eq:extinction_tau} in the $V$ and $B$ bands.
+	\item An extinction cross-section proportional to $1/\lambda$.
+\end{explain}
+The column of dust cancels, so the ratio depends on the kind of grains and not on how many there are. Measured along many lines of sight in the diffuse Milky Way, the ratio is
+\begin{equation}
+	\boxed{A_V=3.1\,E(B-V).}
+	\label{ph:eq:RV}
+\end{equation}
+The ratio $3.1$ is often called $R_V$. It is smaller than the $4.0$ of a pure $1/\lambda$ law, so between $B$ and $V$ the extinction falls a little faster than $1/\lambda$. A law $\lambda^{-\beta}$ with $(550/440)^\beta=1+1/3.1$ fits it, which gives $\beta=1.25$.
+
+\paragraph{The distance corrected for dust.} Eq.~\eqref{ph:eq:mag_with_dust} in the $V$ band gives the distance.
+\begin{align}
+	5\log_{10}d\,[\mathrm{pc}]-5
+	&\eqby{1} m_V-M_V-A_V \nonumber\\
+	&\eqby{2} m_V-M_V-3.1\,E(B-V).
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ph:eq:mag_with_dust} solved for the distance term.
+	\item Eq.~\eqref{ph:eq:RV}.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		(m_V - M_V)_0 \equiv m_V - M_V - 3.1\,E(B-V) = 5\log_{10}d\,[\mathrm{pc}] - 5.
+		\label{eq:dereddened_distance_modulus}
+	\end{equation}
+\end{keyresult}
+The corrected distance modulus $(m_V-M_V)_0$ needs three measurements, $m_V$, $(B-V)_{\rm obs}$ and the spectral type, which gives both $M_V$ and $(B-V)_0$. Leaving out the dust makes a star seem further away by the factor $10^{0.2A_V}$, which is $2.9$ for $A_V=2.3$ magnitudes (Problem~\ref{ph:prob:dust}).
+
+% ==============================================================================
+\section{The Radii of Stars}
+\label{ph:sec:radii}
+
+We now have the luminosity of a star, from its flux and its distance, and its effective temperature, from its colour or its spectrum.
+
+Almost no star shows a disc in a telescope. Even the nearest stars look like points, so their sizes cannot be read off the sky with a ruler.
+
+Two electric room heaters glow the same orange. Their surfaces are then at the same temperature, and each square centimetre gives off the same power. If one heater warms the room twice as much as the other, it must have twice the glowing area. Its size follows from its power and its colour, and nobody has to measure it.
+
+A star is such a heater. Its temperature fixes the power per square metre, $\sigma_{\rm SB}T_{\rm eff}^4$, and its luminosity is the total. The area of the star is the luminosity divided by the power per unit area.
+
+A star as hot as the Sun with 100 times its luminosity has 100 times its area, so 10 times its radius. Aldebaran gives off 439 times the Sun's power, but it is cooler, at $3900\,\mathrm K$. Each square metre of it gives $(3900/5772)^4=0.208$ of what a square metre of the Sun gives. Its area is therefore $439/0.208=2106$ times the Sun's, and its radius is $46$ times the Sun's.
+
+Picture the surface of the star tiled with square metres, each giving off $\sigma_{\rm SB}T_{\rm eff}^4$. Counting the tiles is the same as counting the luminosity.
+
+This is energy conservation (P1) with the power per area that counting states gives (P3). The same relation draws the lines of equal radius on the Hertzsprung--Russell diagram (Section~\ref{st:sec:scaling}). Here it gives the radius from $L$ and $T_{\rm eff}$, the angular size of the star on the sky, and a second route to that angle from the flux alone.
+
+\subsection{Radius from Luminosity and Temperature}
+
+Dividing Eq.~\eqref{eq:stefan_boltzmann_luminosity} for a star by the same equation for the Sun,
+\begin{align}
+	\frac{L}{L_\odot}
+	&\eqby{1} \frac{4\pi R^2\sigma_{\rm SB}T_{\rm eff}^4}{4\pi R_\odot^2\sigma_{\rm SB}T_{\rm eff,\odot}^4} \nonumber\\
+	&= \left(\frac{R}{R_\odot}\right)^2\left(\frac{T_{\rm eff}}{T_{\rm eff,\odot}}\right)^4 .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:stefan_boltzmann_luminosity} for the star and for the Sun.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		\frac{R}{R_\odot} = \sqrt{\frac{L}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2.
 		\label{eq:stellar_radius_solar_units}
 	\end{equation}
 \end{keyresult}
-In terms of absolute bolometric magnitude $M_{\rm bol}$ (the magnitude integrated across all wavelengths):
-\begin{equation}
-	\log_{10}\left(\frac{R_*}{R_\odot}\right) = -0.2(M_{\rm bol,*} - M_{\rm bol,\odot}) - 2\log_{10}\left(\frac{T_{\rm eff}}{T_{\rm eff,\odot}}\right),
+The factors $4\pi$ and $\sigma_{\rm SB}$ cancel, so only ratios to the Sun are needed, with $R_\odot = 6.957 \times 10^8\,\mathrm{m}$ and $T_{\rm eff,\odot} = 5772\,\mathrm{K}$.
+
+\paragraph{With bolometric magnitudes.} Luminosities are often given as absolute bolometric magnitudes. Taking the logarithm,
+\begin{align}
+	\log_{10}\frac{R}{R_\odot}
+	&\eqby{1} \frac12\log_{10}\frac{L}{L_\odot}-2\log_{10}\frac{T_{\rm eff}}{T_{\rm eff,\odot}} \nonumber\\
+	&\eqby{2} -0.2\left(M_{\rm bol} - M_{\rm bol,\odot}\right) - 2\log_{10}\frac{T_{\rm eff}}{T_{\rm eff,\odot}},
 	\label{eq:radius_from_mbol}
-\end{equation}
-where $M_{\rm bol,\odot} = +4.74\,\mathrm{mag}$.
+\end{align}
+\begin{explain}
+	\item The logarithm of Eq.~\eqref{eq:stellar_radius_solar_units}.
+	\item Eq.~\eqref{ph:eq:abs_mag_L} gives $\log_{10}(L/L_\odot)=-0.4(M_{\rm bol}-M_{\rm bol,\odot})$.
+\end{explain}
+with $M_{\rm bol,\odot} = +4.74$ from Section~\ref{ph:sec:magnitudes}.
 
-\subsection{Angular Diameter ($\theta$)}
+\subsection{Angular Diameter}
 
-A spherical star of physical radius $R_*$ located at distance $d$ subtends an angular diameter $\theta$:
+A sphere of radius $R$ at distance $d$ is seen as a disc of \textbf{angular diameter} $\theta$. The lines of sight that just graze its edge touch the sphere, so each meets the radius drawn to the point of contact at a right angle. In the right triangle formed by the observer, the centre of the star and that point, the hypotenuse is $d$ and the side opposite the half-angle $\theta/2$ is $R$. So
 \begin{equation}
-	\tan\left(\frac{\theta}{2}\right) = \frac{R_*}{d} \quad\Longrightarrow\quad \theta \approx \frac{2 R_*}{d}\quad (\text{radians}).
+	\sin\frac{\theta}{2} = \frac{R}{d} \quad\Longrightarrow\quad \theta \approx \frac{2 R}{d}\quad (\text{radians}),
 	\label{eq:angular_diameter_rad}
 \end{equation}
-Converting $\theta$ to arcseconds ($1\,\mathrm{rad} = 206{,}264.8''$):
+where the small-angle form holds because $R\ll d$ for every star. In the units used for stars,
+\begin{align}
+	\theta\,[\mathrm{mas}]
+	&\eqby{1} 2.0626\times10^8\times\frac{2R}{d} \nonumber\\
+	&\eqby{2} 2.0626\times10^8\times\frac{2\times6.957\times10^8\,\mathrm m}{3.0857\times10^{16}\,\mathrm m}\,\frac{R}{R_\odot}\,\frac{1\,\mathrm{pc}}{d}.
+\end{align}
+\begin{explain}
+	\item One radian is $(180/\pi)\times3600\times1000\,\mathrm{mas}=2.0626\times10^8\,\mathrm{mas}$.
+	\item $R$ in units of $R_\odot$ and $d$ in parsecs.
+\end{explain}
 \begin{keyresult}
 	\begin{equation}
-		\theta\,[\mathrm{mas}] = 206{,}264{,}800 \times \frac{2 R_*}{d} = 9.300 \times 10^{-3} \left(\frac{R_*}{R_\odot}\right)\left(\frac{1\,\mathrm{pc}}{d}\right).
+		\theta = 9.30\,\mathrm{mas}\, \left(\frac{R}{R_\odot}\right)\left(\frac{1\,\mathrm{pc}}{d}\right).
 		\label{eq:angular_diameter_mas}
 	\end{equation}
 \end{keyresult}
+The Sun seen from $1\,\mathrm{pc}$ would be $9.3\,\mathrm{mas}$ across.
 
-\begin{example}[Angular Diameter of Betelgeuse]
-	Betelgeuse ($\alpha$ Orionis) is a red supergiant with $R_* \approx 764\,R_\odot$ at a distance $d \approx 168\,\mathrm{pc}$ ($p \approx 5.95\,\mathrm{mas}$). Its expected angular diameter is:
+\begin{example}[The angular diameter of Betelgeuse]
+	Betelgeuse ($\alpha$ Orionis) is a red supergiant with $R \approx 764\,R_\odot$ at a distance $d \approx 168\,\mathrm{pc}$ ($p \approx 5.95\,\mathrm{mas}$). Eq.~\eqref{eq:angular_diameter_mas} gives
 	\[
-	\theta = 9.300 \times 10^{-3} \times \frac{764}{168} \approx 42.3\,\mathrm{mas}.
+	\theta = 9.30\,\mathrm{mas} \times \frac{764}{168} = 42.3\,\mathrm{mas}.
 	\]
-	This matches direct optical interferometric measurements ($42\text{--}44\,\mathrm{mas}$), demonstrating that giant stars can be directly resolved with modern optical/IR interferometers (such as the VLTI).
+	Infrared interferometers measure $42$ to $44\,\mathrm{mas}$. Two telescopes separate angles down to about the wavelength divided by their separation (Eq.~\eqref{eq:interferometer_resolution_condition}). At $2.2\,\mu\mathrm m$, $42.3\,\mathrm{mas}=2.05\times10^{-7}\,\mathrm{rad}$ needs a separation of $2.2\times10^{-6}/2.05\times10^{-7}=11\,\mathrm m$. Most stars are far smaller on the sky than Betelgeuse, and are measured with telescopes hundreds of metres apart (Chapter~\ref{ch:resolution}).
 \end{example}
 
-Resolving an angular diameter of tens of milliarcseconds, as in the Betelgeuse example above, is only possible because of the interferometric and diffraction-limited resolution machinery developed next in Chapter~5.
+\subsection{Angular Diameter from Flux and Temperature}
 
-\section{Problem Set: Stellar Photometry, Color Indices, and Extinction}
+A second route to the same angle needs no distance at all. The bolometric flux at the Earth is
+\begin{align}
+	F
+	&\eqby{1} F_{\rm surf}\left(\frac{R}{d}\right)^2 \nonumber\\
+	&\eqby{2} \sigma_{\rm SB}T_{\rm eff}^4\left(\frac{R}{d}\right)^2 \nonumber\\
+	&\eqby{3} \sigma_{\rm SB}T_{\rm eff}^4\left(\frac{\theta}{2}\right)^2 .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ph:eq:flux_dilution}.
+	\item $F_{\rm surf}=L/(4\pi R^2)=\sigma_{\rm SB}T_{\rm eff}^4$ by Eq.~\eqref{eq:stefan_boltzmann_luminosity}.
+	\item Eq.~\eqref{eq:angular_diameter_rad}.
+\end{explain}
+\begin{equation}
+	\boxed{\theta=2\sqrt{\frac{F}{\sigma_{\rm SB}T_{\rm eff}^4}}.}
+	\label{ph:eq:theta_flux}
+\end{equation}
+The angle depends only on the flux and the temperature, and $R$ and $d$ never enter separately. A star of known flux and colour therefore has a known angular size. Turned round, a measured angular size and a measured flux give $T_{\rm eff}$ without any model of the star. For the Sun, $F=1361\,\mathrm{W\,m^{-2}}$ and $\theta=31.97'$ give $T_{\rm eff}=5772\,\mathrm K$ (Problem~\ref{ph:prob:sun}). For Aldebaran the two routes give the same $20.1\,\mathrm{mas}$ (Problem~\ref{ph:prob:aldebaran}).
 
-\subsection{Problem 1: Distance and Extinction from Observed Color Indices}
+% ==============================================================================
+\section{Problem Set: Photometry, Colours and Extinction}
 
-\textbf{Problem Statement}: An $\mathrm{A0\,V}$ star with intrinsic color index $(B - V)_0 = 0.00\,\mathrm{mag}$ and absolute magnitude $M_V = +0.60\,\mathrm{mag}$ is observed behind an interstellar cloud with apparent magnitudes $m_B = 14.55\,\mathrm{mag}$ and $m_V = 13.80\,\mathrm{mag}$. For standard dust ($R_V = 3.1$), calculate the color excess $E_{B-V}$, visual extinction $A_V$, and true distance $d$.
+\subsection{Problem 1: Distance and Extinction from a Colour}
+\label{ph:prob:dust}
 
-\textbf{Solution}: The observed color index is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = +0.75\,\mathrm{mag}$. The color excess is $E_{B-V} = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = +0.75\,\mathrm{mag}$, which gives visual extinction $A_V = R_V\,E_{B-V} = 3.1 \times 0.75 = 2.325\,\mathrm{mag}$. The true dereddened distance modulus is $\mu_0 = m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875\,\mathrm{mag}$, yielding a true distance of $d = 10^{(\mu_0 + 5)/5} = 10^{3.175} \approx 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}$. Neglecting dust extinction would give an apparent distance of $10^{(13.80 - 0.60 + 5)/5} \approx 4365\,\mathrm{pc}$, overestimating the distance by a factor of nearly $3$.
-
-\subsection{Problem 2: Photometric Parameters and Physical Radius of Aldebaran}
-
-\textbf{Problem Statement}: The star Aldebaran ($\alpha$ Tauri) has a luminosity of $L = 439\,L_\odot$, an effective surface temperature $T_{\rm eff} = 3900\,\mathrm{K}$, and a trigonometric parallax of $\varpi = 47\,\text{mas}$.
+\textbf{Problem Statement}: An A0\,V star has intrinsic colour $(B - V)_0 = 0.00$ and absolute magnitude $M_V = +0.60$. It is seen behind an interstellar cloud with apparent magnitudes $m_B = 14.55$ and $m_V = 13.80$. The dust follows $A_V=3.1\,E(B-V)$.
 \begin{enumerate}[label=(\alph*)]
-	\item What is the distance to Aldebaran in parsecs?
-	\item What is the bolometric flux $F$ received at Earth (in $\mathrm{W\cdot m^{-2}}$)?
-	\item Given the Sun's absolute bolometric magnitude $M_{\rm bol,\odot} = +4.74\,\mathrm{mag}$ and solar constant $F_\odot = 1361\,\mathrm{W\cdot m^{-2}}$, compute the apparent bolometric magnitude $m_{\rm bol}$ and absolute bolometric magnitude $M_{\rm bol}$ of Aldebaran.
-	\item What is the physical radius $R_*$ of Aldebaran in solar radii ($R_\odot$)?
-	\item What is the angular diameter $\Theta$ subtended by Aldebaran in milliarcseconds (mas)?
+	\item What is the colour excess $E(B-V)$?
+	\item What is the visual extinction $A_V$?
+	\item What is the true distance $d$?
+	\item What distance would we find if we ignored the dust?
 \end{enumerate}
 
 \textbf{Essential Ideas}:
 \begin{itemize}
-	\item \textbf{Inverse-Square Law for Flux}: The total bolometric flux received at distance $d$ is:
-	\begin{equation}
-		F = \frac{L}{4\pi d^2}.
-	\end{equation}
-	\item \textbf{Bolometric Magnitudes}: Apparent and absolute bolometric magnitudes follow from Pogson's relation relative to the Sun:
-	\begin{equation}
-		m_{\rm bol} - m_{\rm bol,\odot} = -2.5\log_{10}\left(\frac{F}{F_\odot}\right), \qquad M_{\rm bol} - M_{\rm bol,\odot} = -2.5\log_{10}\left(\frac{L}{L_\odot}\right),
-	\end{equation}
-	and distance modulus $\mu = m_{\rm bol} - M_{\rm bol} = 5\log_{10}d - 5$.
-	\item \textbf{Stefan-Boltzmann Radius}: The stellar radius is determined by total luminosity and surface temperature:
-	\begin{equation}
-		L = 4\pi R_*^2 \sigma_{\rm SB} T_{\rm eff}^4 \implies \frac{R_*}{R_\odot} = \sqrt{\frac{L}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2,
-	\end{equation}
-	where $T_{\rm eff,\odot} = 5772\,\mathrm{K}$ and $R_\odot = 6.957 \times 10^8\,\mathrm{m}$.
-	\item \textbf{Angular Diameter}: The angular diameter subtended at distance $d$ is:
-	\begin{equation}
-		\Theta \approx \frac{2 R_*}{d} \quad [\text{radians}] = 206{,}265{,}000 \times \frac{2 R_*}{d} \quad [\text{mas}].
-	\end{equation}
+	\item Dust adds the same colour excess to every star behind it, $(B-V)_{\rm obs}=(B-V)_0+E(B-V)$, Eq.~\eqref{eq:color_index_observed_split}. The spectral type gives $(B-V)_0$.
+	\item The dimming in $V$ is $A_V=3.1\,E(B-V)$, Eq.~\eqref{ph:eq:RV}.
+	\item The corrected distance modulus is $m_V-M_V-A_V=5\log_{10}d\,[\mathrm{pc}]-5$, Eq.~\eqref{eq:dereddened_distance_modulus}.
 \end{itemize}
 
 \textbf{Detailed Solutions}:
 \begin{enumerate}[label=(\alph*)]
-	\item \textbf{Distance}:
-	From the parallax $\varpi = 47\,\text{mas} = 0.047''$:
+	\item \textbf{Colour excess}. The measured colour is $(B - V)_{\rm obs} = m_B - m_V = 14.55 - 13.80 = 0.75$. So
 	\[
-	\boxed{d = \frac{1}{\varpi} = \frac{1}{0.047''} \simeq 21.28\,\mathrm{pc} = 6.566 \times 10^{17}\,\mathrm{m}}.
+	\boxed{E(B-V) = (B - V)_{\rm obs} - (B - V)_0 = 0.75 - 0.00 = 0.75.}
+	\]
+	\item \textbf{Visual extinction}. By Eq.~\eqref{ph:eq:RV},
+	\[
+	\boxed{A_V = 3.1 \times 0.75 = 2.325\ \text{magnitudes}.}
+	\]
+	The cloud lets through $10^{-0.4\times2.325}=12\%$ of the $V$ light.
+	\item \textbf{True distance}. The corrected distance modulus is
+	\[
+	m_V - M_V - A_V = 13.80 - 0.60 - 2.325 = 10.875 ,
+	\]
+	so
+	\[
+	\boxed{d = 10^{(10.875 + 5)/5}\,\mathrm{pc} = 10^{3.175}\,\mathrm{pc} = 1496\,\mathrm{pc} \approx 1.50\,\mathrm{kpc}.}
+	\]
+	\item \textbf{Distance without the dust correction}. With $A_V$ left out,
+	\[
+	\boxed{d = 10^{(13.80 - 0.60 + 5)/5}\,\mathrm{pc} = 10^{3.64}\,\mathrm{pc} = 4365\,\mathrm{pc}.}
+	\]
+	This is too large by $10^{0.2A_V}=10^{0.465}=2.92$. Dust in the plane of the Milky Way makes uncorrected distances too large in this way, which is why every distance from a magnitude needs a colour as well.
+\end{enumerate}
+
+\subsection{Problem 2: Distance, Magnitudes and Radius of Aldebaran}
+\label{ph:prob:aldebaran}
+
+\textbf{Problem Statement}: Aldebaran ($\alpha$ Tauri) has luminosity $L = 439\,L_\odot$, effective temperature $T_{\rm eff} = 3900\,\mathrm{K}$ and parallax $p = 47\,\mathrm{mas}$.
+\begin{enumerate}[label=(\alph*)]
+	\item What is the distance to Aldebaran in parsecs and in metres?
+	\item What bolometric flux $F$ arrives at the Earth?
+	\item With $M_{\rm bol,\odot} = +4.74$ and $m_{\rm bol,\odot}=-26.83$, find the absolute and apparent bolometric magnitudes of Aldebaran.
+	\item What is its radius in solar radii?
+	\item What is its angular diameter in milliarcseconds?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item Parallax gives the distance, $d\,[\mathrm{pc}]=1/p\,['']$, Eq.~\eqref{eq:parallax_distance_pc}, and the flux follows from $F = L/(4\pi d^2)$, Eq.~\eqref{eq:inverse_square_flux}.
+	\item Absolute magnitudes compare luminosities, $M_{\rm bol}-M_{\rm bol,\odot}=-2.5\log_{10}(L/L_\odot)$, Eq.~\eqref{ph:eq:abs_mag_L}. Apparent magnitudes compare fluxes, $m_{\rm bol}-m_{\rm bol,\odot}=-2.5\log_{10}(F/F_\odot)$, Eq.~\eqref{eq:pogson_difference}. The two are linked by $m-M=5\log_{10}d\,[\mathrm{pc}]-5$, Eq.~\eqref{eq:distance_modulus}.
+	\item The radius follows from $L$ and $T_{\rm eff}$, $R/R_\odot = \sqrt{L/L_\odot}\,(T_{\rm eff,\odot}/T_{\rm eff})^2$, Eq.~\eqref{eq:stellar_radius_solar_units}, and the angle from $\theta = 2R/d$, Eq.~\eqref{eq:angular_diameter_rad}, or from $\theta=2\sqrt{F/\sigma_{\rm SB}T_{\rm eff}^4}$, Eq.~\eqref{ph:eq:theta_flux}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Distance}. With $p = 47\,\mathrm{mas} = 0.047''$,
+	\[
+	\boxed{d = \frac{1}{0.047}\,\mathrm{pc} = 21.28\,\mathrm{pc} = 6.565 \times 10^{17}\,\mathrm{m}.}
 	\]
 
-	\item \textbf{Bolometric Flux at Earth}:
-	With $L = 439\,L_\odot = 439 \times (3.828 \times 10^{26}\,\mathrm{W}) \simeq 1.680 \times 10^{29}\,\mathrm{W}$:
+	\item \textbf{Bolometric flux at the Earth}. With $L = 439 \times 3.828 \times 10^{26}\,\mathrm{W} = 1.680 \times 10^{29}\,\mathrm{W}$,
 	\[
-	\boxed{F = \frac{L}{4\pi d^2} = \frac{1.680 \times 10^{29}\,\mathrm{W}}{4\pi (6.566 \times 10^{17}\,\mathrm{m})^2} \simeq 3.10 \times 10^{-8}\,\mathrm{W\cdot m^{-2}}}.
+	\boxed{F = \frac{1.680 \times 10^{29}\,\mathrm{W}}{4\pi \left(6.565 \times 10^{17}\,\mathrm{m}\right)^2} = 3.10 \times 10^{-8}\,\mathrm{W\,m^{-2}}.}
 	\]
 
-	\item \textbf{Absolute and Apparent Bolometric Magnitudes}:
-	The absolute bolometric magnitude is:
+	\item \textbf{Absolute and apparent bolometric magnitudes}. By Eq.~\eqref{ph:eq:abs_mag_L},
 	\[
-	M_{\rm bol} = M_{\rm bol,\odot} - 2.5\log_{10}\left(\frac{L}{L_\odot}\right) = +4.74 - 2.5\log_{10}(439) = 4.74 - 2.5(2.6425) = \boxed{-1.87\,\mathrm{mag}}.
+	\boxed{M_{\rm bol} = 4.74 - 2.5\log_{10}439 = 4.74 - 2.5\times2.6425 = -1.87.}
 	\]
-	The apparent bolometric magnitude follows from the distance modulus $\mu = 5\log_{10}(21.28) - 5 \simeq 1.64\,\mathrm{mag}$:
+	The distance modulus is $5\log_{10}21.28 - 5 = 1.64$, so
 	\[
-	\boxed{m_{\rm bol} = M_{\rm bol} + 5\log_{10}d - 5 = -1.87 + 1.64 = -0.23\,\mathrm{mag}}.
+	\boxed{m_{\rm bol} = M_{\rm bol} + 1.64 = -1.87 + 1.64 = -0.23.}
 	\]
-	(Equivalently, using flux ratio with $m_{\rm bol,\odot} = -26.74$: $m_{\rm bol} = -26.74 - 2.5\log_{10}(3.10 \times 10^{-8} / 1361) \simeq -0.23\,\mathrm{mag}$).
+	The flux gives the same answer by a second route,
+	\[
+	m_{\rm bol} = -26.83 - 2.5\log_{10}\frac{3.10 \times 10^{-8}}{1361} = -26.83 + 26.61 = -0.23 .
+	\]
+	The Sun's magnitude in this check must be the bolometric one, $-26.83$. Its $V$ magnitude, $-26.74$, would give $-0.13$.
 
-	\item \textbf{Physical Radius}:
-	Using Stefan--Boltzmann scaling with solar effective temperature $T_{\rm eff,\odot} = 5772\,\mathrm{K}$:
+	\item \textbf{Radius}. By Eq.~\eqref{eq:stellar_radius_solar_units},
 	\[
-	\frac{R_*}{R_\odot} = \sqrt{\frac{L}{L_\odot}}\left(\frac{T_{\rm eff,\odot}}{T_{\rm eff}}\right)^2 = \sqrt{439}\left(\frac{5772\,\mathrm{K}}{3900\,\mathrm{K}}\right)^2 = (20.952) \times (1.480)^2 \simeq \boxed{45.9\,R_\odot}.
+	\frac{R}{R_\odot} = \sqrt{439}\left(\frac{5772\,\mathrm{K}}{3900\,\mathrm{K}}\right)^2 = 20.95 \times 2.190 ,\qquad \boxed{R=45.9\,R_\odot.}
 	\]
-	In SI units, $R_* \simeq 45.9 \times (6.957 \times 10^8\,\mathrm{m}) \simeq 3.19 \times 10^{10}\,\mathrm{m} \approx 0.213\,\mathrm{AU}$.
+	In metres, $R = 45.9 \times 6.957 \times 10^8\,\mathrm{m} = 3.19 \times 10^{10}\,\mathrm{m}$, or $0.213\,\mathrm{AU}$. Placed at the Sun, Aldebaran would reach more than half way to the orbit of Mercury.
 
-	\item \textbf{Angular Diameter}:
-	Subtended angular diameter is:
+	\item \textbf{Angular diameter}. By Eq.~\eqref{eq:angular_diameter_rad},
 	\[
-	\Theta = \frac{2 R_*}{d} = \frac{2 \times (3.193 \times 10^{10}\,\mathrm{m})}{6.566 \times 10^{17}\,\mathrm{m}} \simeq 9.726 \times 10^{-8}\,\mathrm{rad}.
+	\theta = \frac{2 \times 3.193 \times 10^{10}\,\mathrm{m}}{6.565 \times 10^{17}\,\mathrm{m}} = 9.726 \times 10^{-8}\,\mathrm{rad},
 	\]
-	Converting to milliarcseconds:
+	and in milliarcseconds
 	\[
-	\boxed{\Theta = (9.726 \times 10^{-8}\,\mathrm{rad}) \times 206{,}264{,}800\,\text{mas/rad} \simeq 20.0\,\mathrm{mas}}.
+	\boxed{\theta = 9.726 \times 10^{-8} \times 2.0626\times10^8\,\mathrm{mas} = 20.1\,\mathrm{mas}.}
 	\]
-	This angular diameter is readily measurable with optical interferometers (e.g., CHARA, VLTI).
+	The flux route of Eq.~\eqref{ph:eq:theta_flux} needs neither $R$ nor $d$,
+	\[
+	\theta=2\sqrt{\frac{3.10\times10^{-8}}{5.670\times10^{-8}\times3900^4}}\,\mathrm{rad}=9.72\times10^{-8}\,\mathrm{rad}=20.1\,\mathrm{mas},
+	\]
+	the same angle. An angle of $20\,\mathrm{mas}$ is easily measured with optical interferometers such as CHARA and the VLTI, so for Aldebaran the radius can be checked directly.
+\end{enumerate}
+
+\subsection{Problem 3: The Sun as a Blackbody}
+\label{ph:prob:sun}
+
+\textbf{Problem Statement}: Above the Earth's air the Sun gives the flux $F_\odot=1361\,\mathrm{W\,m^{-2}}$, and its disc is $31.97'$ across. The Earth is $1\,\mathrm{AU}=1.496\times10^{11}\,\mathrm m$ from the Sun.
+\begin{enumerate}[label=(\alph*)]
+	\item Find the effective temperature of the Sun from these two measurements alone.
+	\item At what wavelength does $B_\lambda$ peak, and at what frequency does $B_\nu$ peak? What wavelength belongs to that frequency?
+	\item Find the radius and the luminosity of the Sun. Check that they satisfy $L=4\pi R^2\sigma_{\rm SB}T_{\rm eff}^4$.
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The flux at the Earth is the surface flux diluted by $(\theta/2)^2$, so $\theta=2\sqrt{F/\sigma_{\rm SB}T_{\rm eff}^4}$, Eq.~\eqref{ph:eq:theta_flux}.
+	\item $B_\lambda$ peaks at $x=hc/(\lambda k_BT)=4.965$ (Eq.~\eqref{eq:wien_law}), and $B_\nu$ at $x=h\nu/k_BT=2.821$.
+	\item $R=d\,\theta/2$ (Eq.~\eqref{eq:angular_diameter_rad}) and $L=4\pi d^2F$ (Eq.~\eqref{eq:inverse_square_flux}).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Effective temperature}. In radians, $\theta=31.97'=9.301\times10^{-3}$. Solving Eq.~\eqref{ph:eq:theta_flux} for the temperature,
+	\begin{align}
+		T_{\rm eff}
+		&\eqby{1} \left(\frac{F_\odot}{\sigma_{\rm SB}}\right)^{1/4}\left(\frac{2}{\theta}\right)^{1/2} \nonumber\\
+		&= \left(\frac{1361}{5.670\times10^{-8}}\right)^{1/4}\left(\frac{2}{9.301\times10^{-3}}\right)^{1/2}\,\mathrm K \nonumber\\
+		&= 393.6\times14.66\,\mathrm K .\nonumber
+	\end{align}
+	\begin{explain}
+		\item Square Eq.~\eqref{ph:eq:theta_flux}, $\theta^2/4=F_\odot/(\sigma_{\rm SB}T_{\rm eff}^4)$, and take the fourth root.
+	\end{explain}
+	\[
+	\boxed{T_{\rm eff,\odot}=5772\,\mathrm K.}
+	\]
+	The distance to the Sun is not needed, only the flux and the angle.
+
+	\item \textbf{The two peaks}. By Eq.~\eqref{eq:wien_law},
+	\[
+	\boxed{\lambda_{\max}=\frac{2.898\times10^{-3}\,\mathrm{m\,K}}{5772\,\mathrm K}=502\,\mathrm{nm}.}
+	\]
+	Per unit frequency,
+	\[
+	\boxed{\nu_{\max}=\frac{2.821\,k_BT}{h}=\frac{2.821\times1.381\times10^{-23}\times5772}{6.626\times10^{-34}}\,\mathrm{Hz}=3.39\times10^{14}\,\mathrm{Hz},}
+	\]
+	whose wavelength is $c/\nu_{\max}=883\,\mathrm{nm}$, in the near infrared. The Sun is ``brightest in the green'' only when its spectrum is counted per unit wavelength.
+
+	\item \textbf{Radius and luminosity}. From the angle and the distance,
+	\[
+	R_\odot=d\,\frac{\theta}{2}=1.496\times10^{11}\,\mathrm m\times4.650\times10^{-3}=6.957\times10^{8}\,\mathrm m ,
+	\]
+	and from the flux and the distance, as in the solar constant example,
+	\[
+	L_\odot=4\pi d^2F_\odot=4\pi\left(1.496\times10^{11}\,\mathrm m\right)^2\times1361\,\mathrm{W\,m^{-2}}=3.828\times10^{26}\,\mathrm W .
+	\]
+	Then
+	\[
+	\boxed{4\pi R_\odot^2\,\sigma_{\rm SB}T_{\rm eff,\odot}^4=4\pi\left(6.957\times10^8\right)^2\times5.670\times10^{-8}\times5772^4\,\mathrm W=3.828\times10^{26}\,\mathrm W=L_\odot .}
+	\]
+	The check must work, since $T_{\rm eff}$ in part (a) was found from the same flux and angle. It shows that Eqs.~\eqref{eq:inverse_square_flux}, \eqref{eq:stefan_boltzmann_luminosity} and \eqref{ph:eq:theta_flux} are one statement seen three ways. Any two of the flux, the angle and the temperature give the third.
 \end{enumerate}

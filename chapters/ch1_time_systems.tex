@@ -1,209 +1,278 @@
 \chapter{Time Systems and the Rotating Earth}
+\label{ch:time}
 
-\section{Introduction: The Duality of Time and Position in Astronomy}
-
-Every observational measurement in astronomy is fundamentally intertwined with the concept of time. When an astronomer points a telescope toward a distant nebula, calculates the ephemeris of a planet, or measures the pulse arrival times from a millisecond pulsar, time acts simultaneously as an independent physical coordinate and as a geometric bridge between reference frames.
-
-In terrestrial physics, time is measured by a clock at rest in a laboratory. In observational astrophysics, however, our primary observatory is a non-inertial platform --- the spinning, orbiting, and precessing Earth. Because the Earth rotates eastward about its axis, the entire celestial sphere appears to revolve westward. Consequently, \textbf{an angle of time is directly equivalent to an angle of celestial position}:
+An astronomer who points a telescope, predicts where a planet will be, or times the pulses of a pulsar needs two numbers that turn out to be one. The Earth turns east at a steady rate, so the whole sky seems to turn west at the same rate. How far the sky has turned is a time, and the time on a clock tied to the sky is an angle on the sky. One turn of $360^\circ$ takes $24$ hours of this clock, so
 \begin{equation}
 	1^{\rm h} \equiv 15^\circ, \qquad 1^{\rm m} \equiv 15' = 0.25^\circ, \qquad 1^{\rm s} \equiv 15'' = 0.004167^\circ.
 	\label{eq:time_angle_conversion}
 \end{equation}
-Before establishing spatial coordinate grids on the sky (the subject of Chapter~2), we must construct the temporal frameworks that govern them. This chapter develops astronomical timekeeping from first principles:
-\begin{enumerate}[leftmargin=1.5em, itemsep=0.3em]
-	\item \textbf{Rotational Clocks:} The fundamental beat between the Earth's daily spin and its annual orbital revolution (solar vs. sidereal days).
-	\item \textbf{Local and Global Topocentric Time:} How terrestrial longitude establishes Local Sidereal Time ($\LST$) and links local horizons to the stars.
-	\item \textbf{Orbital Non-Uniformities:} The physical origins of the Equation of Time ($\EoT$) and the seasonal migration of the Sun.
-	\item \textbf{Gyroscopic Dynamics:} The physical consequences of lunisolar precession and nutation on reference epochs.
-	\item \textbf{Modern Relativistic Time Scales:} The progression from Earth rotation ($\UT1$) to atomic standards ($\TAI, \UTC$) and relativistic coordinate time ($\TT, \TDB$).
-	\item \textbf{Continuous Chronology:} The Julian Date system ($\JD, \MJD$) used in computational ephemerides.
-\end{enumerate}
 
-\section{A Minimal Primer: The Celestial Sphere}
+Our observatory is the Earth, and it does three things at once. It spins once a day, it goes round the Sun once a year, and its axis slowly swings round a cone once in about $26\,000$ years. Each motion gives a clock, and each clock differs from the others by an amount that follows from geometry. The grid of coordinates on the sky (Chapter~\ref{ch:coords}) is built on these clocks.
+
+% ==============================================================================
+\section{The Celestial Sphere}
 \label{sec:celestial_sphere_primer}
 
-This chapter must use a handful of astronomical terms before Chapter~2 develops them rigorously, so we first fix their meaning geometrically, assuming nothing beyond ordinary three-dimensional geometry.
+We can tell the direction of a star at once, but not its distance. So every star can be drawn as a point on a large sphere centred on us, of any radius we like. This is the \textbf{celestial sphere}. A planetarium dome is a good picture of it. The stars painted on the dome look right whatever its size, because only the directions matter.
 
-An observer on Earth cannot judge the distance to a star by eye; every direction in the sky can equally well be represented as a point on an abstract sphere of arbitrary radius centered on the observer --- the \emph{celestial sphere}. Two features of this sphere are fixed purely by Earth's own rotation, independent of where the observer stands:
-\begin{itemize}
-	\item The \emph{celestial poles} (North/South) are the two points where Earth's rotation axis, extended outward to infinity, pierces the celestial sphere.
-	\item The \emph{celestial equator} is the great circle in which the plane of Earth's equator (perpendicular to the rotation axis) intersects the celestial sphere.
-\end{itemize}
-Because the entire celestial sphere appears to rotate rigidly about this axis once per sidereal day (defined in Section~\ref{sec:solar_sidereal_day} below), an observer's local \emph{celestial meridian} --- the great circle running through both celestial poles and the observer's zenith (the point directly overhead) --- sweeps past every point of the celestial equator exactly once per rotation. This single fact is what makes a sidereal clock possible: naming which point on the celestial equator currently sits on the meridian is equivalent to reading a clock face.
+Two features of the sphere are fixed by the Earth's spin alone, wherever the observer stands. The \textbf{celestial poles} are the two points where the Earth's spin axis, extended, meets the sphere. The \textbf{celestial equator} is the great circle where the plane of the Earth's equator meets the sphere.
 
-To label a direction on the celestial sphere unambiguously (and, since stars are so distant that their apparent positions barely shift over a human lifetime, this label stays valid for years), astronomers use two angles directly analogous to terrestrial latitude and longitude:
-\begin{itemize}
-	\item \emph{Declination} $\delta$ plays the role of latitude: angular distance north ($+$) or south ($-$) of the celestial equator.
-	\item \emph{Right ascension} $\alpha$ plays the role of longitude: angular distance measured eastward along the celestial equator from a chosen zero point.
-\end{itemize}
-That zero point is the \emph{vernal equinox} $\hat\gamma$: the fixed direction, among the stars, in which the Sun crosses from the southern to the northern side of the celestial equator each year (Section~\ref{sec:sun_coordinates} explains why the Sun crosses the equator at all, and why $(\alpha,\delta)$ is not quite as fixed as claimed above). Chapter~2 derives this $(\alpha,\delta)$ system in full, together with its relation to an observer's local horizon and its transformation to other coordinate frames; the present chapter needs only this much of it to construct a sidereal clock.
+The sky turns rigidly about the poles once per sidereal day (Section~\ref{sec:solar_sidereal_day}). The observer's \textbf{celestial meridian} is the great circle through both poles and the \textbf{zenith}, the point straight overhead. As the sky turns, every point of the celestial equator crosses the meridian once per turn. So naming the point of the equator that sits on the meridian now is the same as reading a clock. This one fact makes a sidereal clock possible.
 
-\section{Two Natural Clocks: The Solar Day and the Sidereal Day}
+A direction on the sphere is named by two angles, built like latitude and longitude on the Earth. The \textbf{declination} $\delta$ is the angle north ($+$) or south ($-$) of the celestial equator. The \textbf{right ascension} $\alpha$ is the angle measured east along the celestial equator from a chosen zero point. Stars are so far away that both angles hardly change in a lifetime, so a catalogue of $(\alpha,\delta)$ stays useful for years.
+
+The zero point is the \textbf{vernal equinox} $\hat\gamma$. It is the direction, among the stars, in which the Sun crosses the celestial equator from south to north each March. Section~\ref{sec:sun_coordinates} shows why the Sun crosses the equator at all. Section~\ref{ti:sec:precession} shows why $\hat\gamma$, and with it every $(\alpha,\delta)$, is not quite fixed. Chapter~\ref{ch:coords} builds the full $(\alpha,\delta)$ system and its link to the observer's horizon. A sidereal clock needs only what is given here.
+
+% ==============================================================================
+\section{Two Clocks: the Solar Day and the Sidereal Day}
 \label{sec:solar_sidereal_day}
 
-Every classical timekeeping system is anchored to the Earth's rotation. However, because rotation must be measured relative to a chosen reference direction, nature presents two fundamentally distinct clocks.
+We know that the Earth turns once a day. That is enough for daily life, where noon comes round every $24$ hours.
 
-\begin{definition}[Solar Day]
-	The \emph{solar day} is the time interval between two successive meridian transits of the Sun (successive local solar noons). The civil calendar defines the \emph{mean solar day} to be exactly $24^{\rm h} = 1440^{\rm m} = 86{,}400\,\mathrm{s}$.
-\end{definition}
+But ``once'' needs a reference. One turn relative to the Sun and one turn relative to the stars are not the same, because the Sun itself moves against the stars as the Earth goes round its orbit.
 
-\begin{definition}[Sidereal Day]
-	The \emph{sidereal day} is the time interval between two successive meridian transits of the vernal equinox $\hat\gamma$ (or equivalently, a fixed direction toward the distant inertial background of stars). Its physical duration is
-	\begin{equation}
-		T_{\rm sid} \simeq 23^{\rm h}56^{\rm m}04.0905^{\rm s} \approx 86{,}164.0905\,\mathrm{s}.
-		\label{eq:sidereal_day_length}
-	\end{equation}
-\end{definition}
+Look at the hands of a clock. The minute hand starts on top of the hour hand at noon. After $60$ minutes it is back at the top, but the hour hand has moved on to the 1. The minute hand needs a little more than five extra minutes to catch it. It laps the hour hand every $65.45$ minutes, not every $60$.
 
-\subsection{Physical Origin of the Four-Minute Difference}
+The observer's meridian is the minute hand. The direction to the Sun is the hour hand, which creeps east by about a degree a day as the Earth moves along its orbit. One turn relative to the stars is the \textbf{sidereal day}. One turn relative to the Sun, from one noon to the next, is the \textbf{solar day}. The solar day is the time the meridian takes to lap the Sun.
 
-Why is the solar day approximately $3^{\rm m}56^{\rm s}$ longer than the sidereal day?
+The clock in numbers. The minute hand turns at $1/60$ of a turn per minute and the hour hand at $1/720$. The gap between them grows at $1/60-1/720=11/720$ of a turn per minute, so it closes a full turn in $720/11=65.45$ minutes.
+
+The picture is two runners on a circular track, both going the same way. The faster one laps the slower one, and the lapping time is longer than her own lap time.
+
+The same lapping gives the synodic month. The Moon goes round the Earth in $27.32$ days against the stars but takes $29.53$ days from one full Moon to the next, because the Sun has moved on meanwhile. It also gives the time between two closest approaches of two planets, and in sound it is the beat between two tones close in pitch. Here the ratio of the two periods, a year to a day, is about $366$. It is far from one, so the solar and sidereal days differ by only one part in $366$ (P6). Next we find the two days and the exact size of their difference.
+
+\paragraph{The two days.} The \textbf{solar day} is the time between two transits of the Sun across the meridian, from one local noon to the next. Its average over the year, the \textbf{mean solar day}, is defined to be exactly
+\[
+24^{\rm h} = 1440^{\rm m} = 86\,400\,\mathrm{s}.
+\]
+The \textbf{sidereal day} is the time between two transits of the vernal equinox $\hat\gamma$. In mean solar time it lasts
+\begin{equation}
+	T_{\rm sid} \simeq 23^{\rm h}56^{\rm m}04.0905^{\rm s} = 86\,164.0905\,\mathrm{s},
+	\label{eq:sidereal_day_length}
+\end{equation}
+which we derive below.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics{fig_ch1_orbit_sidereal.pdf}
-	\caption{Geometric relationship between the sidereal day and the solar day. Because the Earth revolves around the Sun in the same direction that it spins (prograde rotation), one true $360^\circ$ rotation relative to the stars leaves the observer short of facing the Sun by the orbital angle $\Delta\theta_{\rm orb}$.}
+	\includegraphics[width=0.62\linewidth]{fig_ch1_orbit_sidereal.pdf}
+	\caption{The Earth on two successive days, seen from above the north pole. Day 1 is at local noon. The red arrows show the direction of the observer's meridian. On day 2 the dashed arrow points the same way in space as on day 1, and the solid arrow points at the Sun. The angle $\theta$ moved along the orbit in one day is drawn much larger than its true value of about $1^\circ$.}
 	\label{fig:orbit-sidereal}
 \end{figure}
 
-As shown in Figure~\ref{fig:orbit-sidereal}, the Earth revolves along its orbit in the same counter-clockwise direction (viewed from the North Celestial Pole) as its axial spin. During the time required for one full $360^\circ$ rotation relative to the stars (one sidereal day), the Earth advances along its orbit by:
+\paragraph{A first estimate.} The Earth goes round its orbit in the same sense as it spins, both anticlockwise seen from above the north pole (Figure~\ref{fig:orbit-sidereal}). In one day it moves along its orbit by
+\[
+\frac{360^\circ}{365.2422\ \text{days}} = 0.985647^\circ\ \text{per day}.
+\]
+After one turn relative to the stars, the meridian points the same way in space as the day before (dashed arrow). The Sun now lies $0.9856^\circ$ further east, so the Earth must turn this extra angle before the meridian reaches it again (solid arrow). At $360^\circ$ per $1440^{\rm m}$ of solar time, that is $4^{\rm m}$ per degree, and the extra angle takes
+\[
+0.985647^\circ\times4^{\rm m}/^\circ = 3.94259^{\rm m} = 3^{\rm m}56.555^{\rm s}.
+\]
+This estimate is slightly off, because the extra angle is turned at the Earth's spin rate and not at the Sun's rate of $360^\circ$ per solar day. The lapping calculation gets it right.
+
+\paragraph{Lapping, as a rotation.} Put the $z$-axis along the Earth's spin axis, and let
 \begin{equation}
-	\Delta\theta_{\rm orb} = \frac{360^\circ}{365.2422\ \text{days}} \approx 0.985647^\circ/\text{day} \approx 1^\circ/\text{day}.
+	R_z(\varphi)=\begin{pmatrix}\cos\varphi&-\sin\varphi&0\\ \sin\varphi&\cos\varphi&0\\ 0&0&1\end{pmatrix}
+	\label{ti:eq:Rz}
 \end{equation}
-To bring the Sun back onto the observer's local celestial meridian, the Earth must rotate through an additional angle equal to $\Delta\theta_{\rm orb}$.
-
-Because the Earth completes a full $360^\circ$ rotation in $24^{\rm h} = 1440^{\rm m}$, the rotational conversion rate is:
+turn a vector by the angle $\varphi$ anticlockwise about it, seen from the north. Let $\omega_\oplus=2\pi/T_{\rm sid}$ be the Earth's spin rate against the equinox, and let $n=2\pi/T_{\rm yr}$ be the mean rate at which the Sun's direction turns east, where $T_{\rm yr}$ is the year measured against the equinox. This $n$ is the mean motion of the Earth's orbit, the same $n$ as in Eq.~\eqref{eq:kepler3}. The meridian direction turns as $R_z(\omega_\oplus t)$ and the mean Sun's direction as $R_z(nt)$. To see the meridian from the Sun, we turn everything back by $nt$,
+\begin{align}
+	R_z(-nt)\,R_z(\omega_\oplus t)
+	&\eqby{1} \begin{pmatrix}\cos nt&\sin nt&0\\ -\sin nt&\cos nt&0\\ 0&0&1\end{pmatrix}
+	\begin{pmatrix}\cos\omega_\oplus t&-\sin\omega_\oplus t&0\\ \sin\omega_\oplus t&\cos\omega_\oplus t&0\\ 0&0&1\end{pmatrix} \nonumber\\
+	&\eqby{2} \begin{pmatrix}\cos(\omega_\oplus-n)t&-\sin(\omega_\oplus-n)t&0\\ \sin(\omega_\oplus-n)t&\cos(\omega_\oplus-n)t&0\\ 0&0&1\end{pmatrix} \nonumber\\
+	&= R_z\big((\omega_\oplus-n)t\big).
+	\label{ti:eq:Rz_product}
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ti:eq:Rz} with $\varphi=-nt$ and $\varphi=\omega_\oplus t$.
+	\item Matrix product, then $\cos x\cos y+\sin x\sin y=\cos(x-y)$ and $\sin x\cos y-\cos x\sin y=\sin(x-y)$.
+\end{explain}
+Seen from the Sun, the meridian turns at $\omega_\oplus-n$, and so
 \begin{equation}
-	\frac{1440^{\rm m}}{360^\circ} = 4^{\rm m}/\text{degree}.
-\end{equation}
-The additional time required is therefore:
-\begin{equation}
-	\Delta t = 0.985647^\circ \times 4^{\rm m}/^\circ = 3.942588^{\rm m} \approx 3^{\rm m}56.55^{\rm s}.
-\end{equation}
-
-\subsection{Frequency Beat Derivation}
-
-We can formulate this relationship with mathematical elegance in the frequency domain. Let $\omega_{\rm sidereal} = 2\pi/T_{\rm sid}$ be the Earth's inertial spin angular velocity, and let $\Omega_{\rm orb} = 2\pi/T_{\rm orb}$ be the mean orbital angular velocity of the Earth around the Sun ($T_{\rm orb} = 1\ \text{tropical year} = 365.2422\ \text{solar days}$).
-
-The apparent rotation frequency of the Sun in the observer's co-rotating frame is the beat frequency:
-\begin{equation}
-	\omega_{\rm solar} = \omega_{\rm sidereal} - \Omega_{\rm orb}.
+	\omega_\oplus-n=\frac{2\pi}{T_{\rm sol}},
 	\label{eq:frequency_beat}
 \end{equation}
-Dividing by $2\pi$:
+where $T_{\rm sol}$ is the mean solar day. This is the clock-hand rule. The rates subtract because the two motions go the same way.
+
+\paragraph{Days per year.} Writing each rate as $2\pi$ over its period,
 \begin{equation}
-	\frac{1}{T_{\rm solar}} = \frac{1}{T_{\rm sidereal}} - \frac{1}{T_{\rm orb}}.
+	\frac{1}{T_{\rm sol}} = \frac{1}{T_{\rm sid}} - \frac{1}{T_{\rm yr}}.
 	\label{eq:period_beat_formula}
 \end{equation}
-Multiplying through by $T_{\rm orb}$ (the number of days in one year):
+We multiply by $T_{\rm yr}$. Then $T_{\rm yr}/T_{\rm sol}$ is the number of solar days in a year, $365.2422$, and $T_{\rm yr}/T_{\rm sid}$ the number of sidereal days,
 \begin{keyresult}
 	\begin{equation}
-		N_{\rm sidereal} = N_{\rm solar} + 1 = 365.2422 + 1 = 366.2422\ \text{sidereal days/year}.
+		\frac{T_{\rm yr}}{T_{\rm sid}} = \frac{T_{\rm yr}}{T_{\rm sol}} + 1 = 365.2422 + 1 = 366.2422\ \text{sidereal days per year}.
 		\label{eq:sidereal_solar_relation}
 	\end{equation}
 \end{keyresult}
-Over one complete orbital revolution, the Earth performs exactly \textbf{one more rotation relative to the universe than it does relative to the Sun}.
+In one year the Earth turns once more against the stars than against the Sun. The orbit itself supplies the extra turn.
 
-\paragraph{Observational Consequence:}
-Because sidereal time gains $\approx 3^{\rm m}56^{\rm s}$ every solar day ($2^{\rm h}$ per month, $24^{\rm h}$ per year), a star that culminates at midnight on October 1 will culminate at 10:00 PM on November 1, and at midday (invisible in daylight) on April 1. This steady drift governs the seasonal visibility of constellations.
+\paragraph{The length of the sidereal day.} Dividing the two counts,
+\begin{align}
+	T_{\rm sid}
+	&\eqby{1} T_{\rm sol}\,\frac{365.2422}{366.2422} \nonumber\\
+	&= 86\,400\,\mathrm{s}\times0.99726957 = 86\,164.0905\,\mathrm{s},
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:sidereal_solar_relation}, the same year counted in the two kinds of day.
+\end{explain}
+which is Eq.~\eqref{eq:sidereal_day_length}. The difference of the two days is
+\[
+\boxed{T_{\rm sol}-T_{\rm sid}=\frac{T_{\rm sol}}{366.2422}=235.909\,\mathrm{s}=3^{\rm m}55.909^{\rm s}.}
+\]
+It depends only on how many days there are in a year, not on the size or shape of the orbit. The first estimate, $3^{\rm m}56.555^{\rm s}$, is larger by the factor $366.2422/365.2422=1.0027379$. That number is not wrong. It is the amount by which a sidereal clock gains on a solar clock in one solar day, counted in sidereal seconds, and it returns in Eq.~\eqref{eq:gmst_instant}.
 
-\section{The Three Astronomical Years: Tropical, Sidereal, and Anomalistic}
+The year in Eq.~\eqref{eq:period_beat_formula} is the one measured against the equinox, so $T_{\rm sid}$ is the turn against the equinox. The equinox drifts slowly west (Section~\ref{ti:sec:precession}). Measured against the distant stars instead, with the sidereal year of $365.256363$ days in place of $365.2422$, the turn takes about $0.009\,\mathrm{s}$ longer. The difference matters only for the most precise work.
 
-Just as there are two natural days, the Earth's complex orbital motion gives rise to three distinct definitions of a ``year'':
+\paragraph{Why the night sky changes with the seasons.} A sidereal clock gains about $3^{\rm m}56^{\rm s}$ on a solar clock each day. That adds up to about $2^{\rm h}$ a month and a full $24^{\rm h}$ in a year. A star that crosses the meridian at midnight on 1 October crosses it at 22:00 on 1 November, and at noon on 1 April, when it is lost in daylight. This is why each season has its own constellations.
+
+% ==============================================================================
+\section{Three Years: Tropical, Sidereal and Anomalistic}
+\label{ti:sec:years}
+
+The lapping rule of Eq.~\eqref{eq:period_beat_formula} turned the two references for a day into two kinds of day.
+
+A year has the same problem. We count it as one trip of the Sun round the sky, but we must say where the trip starts and ends. The equinox, the stars and the point of closest approach to the Sun all give different answers, because two of them move.
+
+Think of a lap of a running track where the finish line is moved a little each lap. If the line is moved back toward the runner, she crosses it before a full lap and her lap time is short. If it is moved forward, she must run past her last lap to reach it, and her lap time is long.
+
+The Sun's yearly trip has one fixed reference, the distant stars, and two moving ones. The equinox moves west, toward the oncoming Sun, by $50.29''$ a year (Section~\ref{ti:sec:precession}). The perihelion, the point of the orbit closest to the Sun, moves east, ahead of the Sun, by about $11.6''$ a year, pulled by the other planets. So the year to the equinox is shorter than the year to the stars, and the year to perihelion is longer.
+
+In numbers, the Sun covers $360^\circ=1\,296\,000''$ in one sidereal year of $365.256$ days. Shortening the trip by $50.29''$ saves
+\[
+\frac{50.29''}{1\,296\,000''}\times365.256\ \text{d} = 0.014174\ \text{d} = 20.41\ \text{min}.
+\]
+
+The lapping rule is at work again. A reference that moves changes the rate at which the moving body reaches it, by adding or subtracting the reference's own rate. The three years are listed in Table~\ref{tab:astronomical_years}.
 
 \begin{table}[htbp]
 	\centering
-	\begin{tabular}{@{}l p{6.8cm} l l@{}}
+	\begin{tabular}{@{}l p{5.6cm} l l@{}}
 		\toprule
-		\textbf{Year Type} & \textbf{Physical Definition} & \textbf{Duration (Days)} & \textbf{Difference from Tropical} \\
+		\textbf{Year} & \textbf{Measured from} & \textbf{Length (days)} & \textbf{Minus tropical} \\
 		\midrule
-		\textbf{Tropical Year} & Equinox to equinox (cycle of the seasons) & $365.242190\ \text{d}$ & Baseline ($0^{\rm s}$) \\
-		\textbf{Sidereal Year} & Orbit relative to distant fixed stars & $365.256363\ \text{d}$ & $+20^{\rm m}24.5^{\rm s}$ \\
-		\textbf{Anomalistic Year} & Perihelion to perihelion transit & $365.259636\ \text{d}$ & $+25^{\rm m}07.5^{\rm s}$ \\
+		Tropical & equinox to equinox, the cycle of the seasons & $365.242190$ & $0$ \\
+		Sidereal & a fixed direction among the stars back to itself & $365.256363$ & $+20^{\rm m}24.5^{\rm s}$ \\
+		Anomalistic & perihelion to perihelion & $365.259636$ & $+25^{\rm m}07.3^{\rm s}$ \\
 		\bottomrule
 	\end{tabular}
-	\caption{Comparison of the three primary astronomical years.}
+	\caption{The three astronomical years.}
 	\label{tab:astronomical_years}
 \end{table}
 
-\begin{enumerate}
-	\item \textbf{The Tropical Year ($365.242190\ \text{d}$):} The interval between successive passages of the Sun through the vernal equinox $\hat\gamma$. Because precession shifts the equinox westward by $50.29''/\text{yr}$ along the ecliptic, the Sun meets the equinox slightly before completing a full $360^\circ$ orbital circuit. The tropical year governs the calendar and the terrestrial cycle of seasons.
-	\item \textbf{The Sidereal Year ($365.256363\ \text{d}$):} The true geometric period of one complete $360^\circ$ revolution of the Earth around the Sun relative to inertial space. It is longer than the tropical year by:
-	\begin{equation}
-		\Delta T_{\rm prec} \approx \frac{50.29''}{360^\circ \times 3600''/^\circ} \times 365.256\ \text{d} \approx 20.4\ \text{minutes}.
-	\end{equation}
-	\item \textbf{The Anomalistic Year ($365.259636\ \text{d}$):} The time between consecutive perihelion passages. Gravitational perturbations from other planets (principally Jupiter and Venus) cause the Earth's orbital major axis itself to precess prograde (eastward) by $\approx 11.6''/\text{year}$, so the Earth must travel slightly \emph{past} its previous sidereal position to catch up with the receding perihelion direction:
-	\begin{equation}
-		\Delta T_{\rm apsidal} \approx \frac{11.6''}{360^\circ \times 3600''/^\circ} \times 365.256\ \text{d} \approx 4.7\ \text{minutes},
-	\end{equation}
-	making the anomalistic year longer than the sidereal year by this amount.
-\end{enumerate}
+\paragraph{The tropical year.} The \textbf{tropical year} runs from one passage of the Sun through the equinox $\hat\gamma$ to the next. It sets the seasons and the calendar. Let the Sun move at the mean rate $360^\circ$ per sidereal year against the stars, while the equinox moves toward it at $50.29''$ per year. The Sun reaches the equinox when it has gained a full turn on it,
+\begin{align}
+	\text{tropical year}
+	&\eqby{1} \frac{360^\circ}{360^\circ/\text{sidereal year}+50.29''/\text{year}} \nonumber\\
+	&\eqby{2} \text{sidereal year}\times\Big(1-\frac{50.29''}{1\,296\,000''}\Big) \nonumber\\
+	&= 365.256363\ \text{d}-0.014174\ \text{d}=365.242189\ \text{d}.
+\end{align}
+\begin{explain}
+	\item The rates add, since the Sun and the equinox move toward each other (the lapping rule, Eq.~\eqref{eq:frequency_beat}, with the sign of $n$ reversed).
+	\item $1/(1+x)\simeq1-x$ for $x=50.29''/1\,296\,000''=3.9\times10^{-5}$.
+\end{explain}
+This agrees with the measured value in Table~\ref{tab:astronomical_years} to $10^{-6}$ days. The difference from the sidereal year is $20.41$ minutes, which is $20^{\rm m}24.5^{\rm s}$.
 
-\paragraph{The Gregorian Calendar Reform.}
-The Julian calendar assumed a year length of exactly $365.25\ \text{days}$, exceeding the tropical year ($365.2422\ \text{d}$) by $\approx 11.2\ \text{minutes/year}$ ($\approx 1\ \text{day}$ every 128 years). By 1582, the equinox had drifted from March 21 to March 11. Pope Gregory XIII introduced the modern rule: years divisible by 4 are leap years, \emph{except} century years not divisible by 400 (e.g., 1600 and 2000 were leap years, but 1700, 1800, 1900, 2100 are common years). This sets the average Gregorian calendar year to $365 + 97/400 = 365.2425\ \text{days}$, matching the tropical year to within 1 day in 3300 years.
+\paragraph{The sidereal year.} The \textbf{sidereal year} is one full turn of the Earth round the Sun against the distant stars, $365.256363$ days. It is the true orbital period of Eq.~\eqref{eq:kepler3}.
 
+\paragraph{The anomalistic year.} The \textbf{anomalistic year} runs from one perihelion passage to the next. The perihelion moves ahead of the Earth at about $11.6''$ per year, so the rates now subtract, and the same steps give
+\[
+\text{anomalistic year}-\text{sidereal year}\simeq\frac{11.6''}{1\,296\,000''}\times365.256\ \text{d}=0.00327\ \text{d}=4.71\ \text{min}.
+\]
+The table gives $365.259636-365.256363=0.003273$ days, or $4.71$ minutes. The two years differ by the time the Earth needs to catch up with its own perihelion.
+
+\paragraph{The Gregorian calendar.} The Julian calendar took the year to be exactly $365.25$ days, with a leap year every fourth year. That is longer than the tropical year by $0.0078$ days, or $11.2$ minutes, each year, which adds up to one day in $128$ years. By 1582 the March equinox had drifted from 21 March, its date in the year 325, to 11 March. Pope Gregory XIII dropped ten days from the calendar and changed the rule. A year divisible by $4$ is a leap year, except a century year not divisible by $400$. So 1600 and 2000 were leap years, while 1700, 1800, 1900 and 2100 are not. Of every $400$ years, $97$ are leap years, and the mean year is
+\[
+365+\frac{97}{400}=365.2425\ \text{days}.
+\]
+This exceeds the tropical year by $0.00031$ days a year, one day in about $3200$ years.
+
+% ==============================================================================
 \section{Longitude and Local Solar Time}
+\label{ti:sec:longitude}
 
-Because the Earth is a rigid body rotating with uniform angular velocity $\omega_\oplus = 15^\circ/\text{hour}$, all meridians sweep past the Sun simultaneously at the rate:
-\begin{equation}
-	\omega_\oplus = \frac{360^\circ}{24^{\rm h}} = 15^\circ/\text{hour} = 1^\circ/4^{\rm m} = 1'/4^{\rm s}.
-\end{equation}
-Two observers at longitudes $\lambda_1$ and $\lambda_2$ (measured East-positive from the Greenwich Prime Meridian) experience local solar noon at different Universal Times, offset by:
-\begin{equation}
-	\Delta t = \frac{\lambda_1 - \lambda_2}{\omega_\oplus}.
-\end{equation}
-The observer further east sees the Sun culminate earlier.
+The mean solar day of Section~\ref{sec:solar_sidereal_day} gives the length of a day. It does not say when noon is.
 
-\paragraph{Civil Standard Time vs. Local Apparent Solar Time.}
-Civil life cannot operate on continuous local solar time across adjacent cities. Instead, standard time zones are referenced to the local solar time of a designated reference meridian ($\lambda_{\rm ref}$).
+Noon comes when the Sun crosses the local meridian, and the Sun reaches different meridians at different moments. A town to the east has its noon first.
+
+Two friends talk on the phone, one in Kolkata and one in Mumbai. The friend in Kolkata sees the Sun set about an hour earlier. Their clocks show the same time, because India keeps one time across the country, but the Sun does not.
+
+The Earth turns east relative to the Sun at the rate $\omega_\oplus-n$ of Eq.~\eqref{eq:frequency_beat}, $360^\circ$ per mean solar day,
+\[
+\omega_\oplus-n=\frac{360^\circ}{24^{\rm h}}=15^\circ\ \text{per hour}=1^\circ\ \text{per}\ 4^{\rm m}=1'\ \text{per}\ 4^{\rm s}.
+\]
+So each degree of longitude moves the time of noon by four minutes. Kolkata ($88.4^\circ$E) and Mumbai ($72.9^\circ$E) are $15.5^\circ$ apart, which is $62$ minutes between their noons. Their sunsets differ by between about 55 and 70 minutes over the year, because the two cities are also at different latitudes.
+
+Picture the line of noon sweeping west across the globe like the shadow of a slowly turning gate, one degree every four minutes. Time zones are the same rule with the meridian of each zone fixed by law. It gives the time of local noon from the longitude.
+
+\paragraph{Two meridians.} Let longitude $\lambda$ be measured east from the Greenwich meridian. The Sun crosses the meridian at $\lambda_1$ earlier than the one at $\lambda_2$ by
+\begin{equation}
+	\Delta t=\frac{\lambda_1-\lambda_2}{15^\circ\ \text{per hour}}.
+	\label{ti:eq:longitude_time}
+\end{equation}
+The observer further east sees the Sun cross first.
+
+\paragraph{Civil time.} Daily life cannot run on a clock that differs from town to town. A country instead keeps the \textbf{standard time} of one chosen meridian, at longitude $\lambda_{\rm ref}$. An observer at longitude $\lambda_{\rm obs}$ is east of it if $\lambda_{\rm obs}>\lambda_{\rm ref}$, and then has local noon before the standard clock shows 12:00. By Eq.~\eqref{ti:eq:longitude_time},
 \begin{keyresult}
 	\begin{equation}
-		\text{Local Solar Time} = \text{Civil Standard Time} - \frac{\lambda_{\rm ref} - \lambda_{\rm obs}}{\omega_\oplus}\quad (\text{if observer is west of ref. meridian}).
+		\text{local mean solar time} = \text{standard time} + \frac{\lambda_{\rm obs} - \lambda_{\rm ref}}{15^\circ\ \text{per hour}},
 		\label{eq:civil_to_solar_time}
 	\end{equation}
 \end{keyresult}
+for an observer on either side of the reference meridian. This is \emph{mean} solar time, the time of a Sun that crosses each meridian at the same moment every day. The real Sun crosses up to $16$ minutes earlier or later (Section~\ref{ti:sec:eot}).
 
-\begin{example}[Local Solar Time at IISER Thiruvananthapuram]
-	IISER TVM is located at longitude $\lambda_{\rm TVM} = 77.1382^\circ\text{E}$, west of the Indian Standard Time (IST) standard meridian $\lambda_{\rm IST} = 82.5^\circ\text{E}$.
-	The longitude offset is:
+\begin{example}[Local mean solar time at IISER Thiruvananthapuram]
+	IISER TVM is at longitude $77.1382^\circ$E. Indian Standard Time is the mean time of the meridian at $82.5^\circ$E, which passes near Prayagraj. Then
 	\[
-	\Delta\lambda = 82.5^\circ - 77.1382^\circ = 5.3618^\circ.
+	\frac{\lambda_{\rm obs}-\lambda_{\rm ref}}{15^\circ\ \text{per hour}}=\frac{77.1382^\circ-82.5^\circ}{15^\circ\ \text{per hour}}=-5.3618^\circ\times4^{\rm m}/^\circ=-21.4472^{\rm m}=-21^{\rm m}26.83^{\rm s}.
 	\]
-	Converting to time:
-	\[
-	\Delta t = 5.3618^\circ \times 4\ \text{min}/^\circ = 21.4472\ \text{min} = 21^{\rm m}26.83^{\rm s}.
-	\]
-	When the civil clock reads exactly 12:00:00 IST, the local apparent solar time at IISER TVM is:
-	\[
-	\text{LST}_\odot = 12{:}00{:}00 - 0{:}21{:}27 = 11{:}38{:}33\ \text{AM}.
-	\]
-	Local solar noon at IISER TVM occurs at 12:21:27 IST.
+	When the clock reads 12:00:00 IST, the local mean solar time at IISER TVM is $11{:}38{:}33$. Local mean noon comes at 12:21:27 IST.
 \end{example}
 
-\section{Local Sidereal Time (LST) and Greenwich Sidereal Time (GST)}
+% ==============================================================================
+\section{Sidereal Time and the Hour Angle}
+\label{ti:sec:sidereal_time}
 
-While solar time tracks the day-night cycle, telescopes must track stars across the sky. Astronomers therefore define a sidereal clock tied to the celestial sphere.
+Solar time follows the Sun, and it is what the observer's day runs on.
 
-\begin{definition}[Local Sidereal Time]
-	The \emph{Local Sidereal Time} ($\LST$) is defined as the right ascension currently crossing the observer's local celestial meridian:
-	\begin{equation}
-		\LST \equiv \alpha_{\rm Meridian}.
-		\label{eq:lst_def}
-	\end{equation}
-\end{definition}
+A telescope follows stars, not the Sun. A star rises about four minutes earlier each solar day (Section~\ref{sec:solar_sidereal_day}), so a solar clock cannot say directly where a star is.
 
-Because right ascension ($\alpha$) is measured eastward along the celestial equator from the vernal equinox $\hat\gamma$, and terrestrial longitude ($\lambda$) is measured eastward from Greenwich, $\LST$ is related to Greenwich Sidereal Time ($\GST$) by:
+Sit on a merry-go-round that faces a ring of shops. Whichever shop is straight ahead tells you how far the ride has turned. Read the shop name and you know the time on the ride's own clock.
+
+The sky is the ring of shops, and right ascension is written along its equator. The right ascension that sits on the meridian now is the reading of the sky's clock. This is sidereal time.
+
+In numbers, the star Sirius has right ascension $6^{\rm h}45^{\rm m}$. When the sidereal clock reads $6^{\rm h}45^{\rm m}$, Sirius is on the meridian. Two sidereal hours later it is $30^\circ$ west of the meridian.
+
+Picture the meridian as a fixed pointer and the sky turning past it with the numbers $0^{\rm h}$ to $24^{\rm h}$ painted along the equator. The same idea, a clock read off the position of a rotating body, is how a sundial works and how pulsar timing works. It gives the sidereal time at any longitude and the angle of any star from the meridian.
+
+\paragraph{Local sidereal time.} The \textbf{local sidereal time} is the right ascension on the observer's meridian,
+\begin{equation}
+	\LST \equiv \alpha_{\rm Meridian}.
+	\label{eq:lst_def}
+\end{equation}
+The \textbf{Greenwich sidereal time} $\GST$ is the same at the Greenwich meridian.
+
+\paragraph{From Greenwich to any longitude.} Use the sky's frame, with $x$ toward $\hat\gamma$ and $z$ toward the north celestial pole. The point of the celestial equator on the Greenwich meridian has right ascension $\GST$, so it lies along $R_z(\GST)\,\hat x$. The observer's meridian is a further $\lambda$ east, so its point of the equator is
+\begin{align}
+	R_z(\GST)\,R_z(\lambda)\,\hat x
+	&\eqby{1} R_z(\GST+\lambda)\,\hat x \nonumber\\
+	&\eqby{2} \begin{pmatrix}\cos(\GST+\lambda)\\ \sin(\GST+\lambda)\\ 0\end{pmatrix}.
+\end{align}
+\begin{explain}
+	\item Two turns about the same axis add, as in Eq.~\eqref{ti:eq:Rz_product}.
+	\item The first column of Eq.~\eqref{ti:eq:Rz}.
+\end{explain}
+A point of the equator at angle $\alpha$ from $\hat x$ has right ascension $\alpha$, so
 \begin{keyresult}
 	\begin{equation}
 		\LST = \GST + \lambda,
 		\label{eq:lst_gst_relation}
 	\end{equation}
 \end{keyresult}
-where longitude $\lambda$ is converted to time units ($15^\circ = 1^{\rm h}$).
+with $\lambda$ turned into time by Eq.~\eqref{eq:time_angle_conversion}. Only the longitude enters. Observers on the same meridian, at any latitude, share one sidereal time.
 
-\subsection{The Hour Angle ($H$)}
-
-By definition (Eq.~\eqref{eq:lst_def}), $\LST$ is the right ascension currently on the meridian; a cataloged object's own right ascension $\alpha$ tells us where \emph{it} sits on the celestial equator's coordinate grid (Section~\ref{sec:celestial_sphere_primer}). Since both are angles along the same celestial equator, their difference is exactly the angle the sky has rotated since that object was last on the meridian. This defines the \emph{Hour Angle} $H$ of a celestial object with cataloged right ascension $\alpha$, measuring the time elapsed since the object crossed the local meridian:
+\paragraph{The hour angle.} A star has its own right ascension $\alpha$, and the meridian has right ascension $\LST$. Both are angles along the celestial equator, so their difference is how far the sky has turned since the star was on the meridian. This is the \textbf{hour angle},
 \begin{keyresult}
 	\begin{equation}
 		H \equiv \LST - \alpha.
@@ -211,298 +280,547 @@ By definition (Eq.~\eqref{eq:lst_def}), $\LST$ is the right ascension currently 
 	\end{equation}
 \end{keyresult}
 \begin{itemize}
-	\item $H = 0^{\rm h}$: The object is on the meridian (culmination / transit).
-	\item $H > 0$: The object has passed the meridian and is moving toward the western horizon.
-	\item $H < 0$: The object is in the eastern sky, approaching the meridian.
+	\item $H = 0^{\rm h}$. The object is on the meridian, at its highest point (culmination, or transit).
+	\item $H > 0$. The object has crossed the meridian and is moving toward the western horizon.
+	\item $H < 0$. The object is in the eastern sky and has not yet reached the meridian.
 \end{itemize}
+For Sirius in the example above, $\LST=8^{\rm h}45^{\rm m}$ gives $H=+2^{\rm h}$. The hour angle grows at one sidereal hour per sidereal hour, for every star alike.
 
-\section{The Sun's Coordinates and Ecliptic Motion Across the Seasons}
+\paragraph{Solar time as an hour angle.} The same definition works for the Sun. Its hour angle is $H_\odot=\LST-\alpha_\odot$, and it is zero at local noon. The time on a sundial, the \textbf{apparent solar time}, is this hour angle shifted so that noon reads 12:00,
+\begin{equation}
+	\mathrm{AST}=H_\odot+12^{\rm h}.
+	\label{ti:eq:ast}
+\end{equation}
+At Greenwich apparent noon $H_\odot=0$ at the Greenwich meridian, so $\GST=\alpha_\odot$ at that moment.
+
+% ==============================================================================
+\section{The Sun's Coordinates through the Year}
 \label{sec:sun_coordinates}
 
-An observer fixed on the orbiting Earth sees the Sun's direction, projected onto the celestial sphere of Section~\ref{sec:celestial_sphere_primer}, slowly trace out a great circle over the course of a year, simply because the Earth's orbital position changes; this apparent annual path of the Sun against the background stars is called the \emph{ecliptic}. If Earth's rotation axis were exactly perpendicular to its orbital plane, the ecliptic would coincide with the celestial equator and the Sun's declination would stay fixed at $\delta_\odot = 0^\circ$ all year. Instead, the rotation axis is tilted by the \emph{obliquity of the ecliptic} ($\epsilon \approx 23.44^\circ$) relative to the orbital plane, so the ecliptic and the celestial equator are two great circles inclined to one another by $\epsilon$, crossing at exactly two points (the equinoxes). Because the Earth orbits the Sun in this tilted plane, the Sun's apparent equatorial coordinates $(\alpha_\odot, \delta_\odot)$ change continuously throughout the year as it moves along the ecliptic.
+A star keeps its $(\alpha,\delta)$ for years, and the sidereal clock tells when it crosses the meridian.
+
+The Sun does not keep its coordinates. It moves about a degree a day against the stars, and it also climbs north and sinks south over the year, which is why noon is higher in summer.
+
+Drive round a circular track whose surface is tilted, high on one side and low on the other. Seen from the middle, the car rises above a level line for half the lap and falls below it for the other half. At the two points where the track crosses the level line, the car is level.
+
+The track is the \textbf{ecliptic}, the Sun's yearly path among the stars. It is the plane of the Earth's orbit seen from the Earth. The level line is the celestial equator. The Earth's spin axis is tilted from the normal to its orbit by the \textbf{obliquity of the ecliptic}, $\epsilon\simeq23.44^\circ$, so the ecliptic and the equator are two great circles tilted by $\epsilon$. They cross at two points, the equinoxes. The Sun's declination follows from one rotation by $\epsilon$.
+
+In numbers, the Sun's angle along the ecliptic from $\hat\gamma$, its \textbf{ecliptic longitude} $\lambda_\odot$, is $90^\circ$ at the June solstice. There it is as far north as it gets, at $\delta_\odot=+23.44^\circ$. Halfway, at $\lambda_\odot=45^\circ$ in early May, it is at $16.3^\circ$, as computed below.
+
+Picture two hoops of the same size sharing a centre, one tilted by $23.44^\circ$ against the other, with a bead running round the tilted one. The same rotation, applied to any star, turns ecliptic coordinates into equatorial ones (Eq.~\eqref{eq:ecliptic_rotation_matrix}). It gives $(\alpha_\odot,\delta_\odot)$ for any $\lambda_\odot$.
 
 \begin{figure}[htbp]
 	\centering
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{VERNAL_EQUINOX.png}
-		\caption{The Sun crosses the celestial equator at the equinoxes ($\delta_\odot = 0^\circ$) and reaches extrema at the solstices ($\delta_\odot = \pm 23.44^\circ$).}
+		\caption{The Earth at the two equinoxes and the two solstices on its orbit (top), and the tilt of its axis between the ecliptic and the celestial equator (bottom).}
 		\label{fig:vernal_equinox_fig}
 	\end{minipage}
 	\hfill
 	\begin{minipage}[t]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{equinox_solstice_sm.png}
-		\caption{Apparent path of the Sun along the ecliptic and the four cardinal seasonal milestones.}
+		\caption{The ecliptic and the celestial equator on the celestial sphere, with the equinoxes (A, C), the solstices (B, D) and the constellations along the ecliptic.}
 		\label{fig:equinox_solstice_fig}
 	\end{minipage}
 \end{figure}
 
-The Sun's equatorial coordinates and the corresponding Greenwich Sidereal Time at Greenwich solar noon ($\alpha_{\rm GM}$) at the cardinal seasonal milestones are:
+\paragraph{One rotation about the line of equinoxes.} Use the ecliptic frame, with $x$ toward $\hat\gamma$ and $z$ toward the north pole of the ecliptic. The Sun lies in the ecliptic plane, along $(\cos\lambda_\odot,\sin\lambda_\odot,0)$. The equatorial frame shares the $x$-axis, since $\hat\gamma$ lies on both circles, and it is tilted about that axis by $\epsilon$. In equatorial coordinates the north pole of the ecliptic is at $(0,-\sin\epsilon,\cos\epsilon)$, toward $\alpha=18^{\rm h}$. The rotation that carries the ecliptic pole $(0,0,1)$ there is a turn by $\epsilon$ about $x$, so the Sun's equatorial unit vector is
 \begin{align}
-	\text{March (Vernal) Equinox (approx. Mar 21):}\quad &\alpha_\odot = 0^{\rm h}, &&\delta_\odot = 0^\circ, &&\alpha_{\rm GM} = 0^{\rm h}, \\
-	\text{June (Summer) Solstice (approx. Jun 21):}\quad &\alpha_\odot = 6^{\rm h}, &&\delta_\odot \simeq +23.44^\circ, &&\alpha_{\rm GM} = 6^{\rm h}, \\
-	\text{September (Autumnal) Equinox (approx. Sep 23):}\quad &\alpha_\odot = 12^{\rm h}, &&\delta_\odot = 0^\circ, &&\alpha_{\rm GM} = 12^{\rm h}, \\
-	\text{December (Winter) Solstice (approx. Dec 21):}\quad &\alpha_\odot = 18^{\rm h}, &&\delta_\odot \simeq -23.44^\circ, &&\alpha_{\rm GM} = 18^{\rm h}.
+	\begin{pmatrix}\cos\delta_\odot\cos\alpha_\odot\\ \cos\delta_\odot\sin\alpha_\odot\\ \sin\delta_\odot\end{pmatrix}
+	&\eqby{1} \begin{pmatrix}1&0&0\\ 0&\cos\epsilon&-\sin\epsilon\\ 0&\sin\epsilon&\cos\epsilon\end{pmatrix}
+	\begin{pmatrix}\cos\lambda_\odot\\ \sin\lambda_\odot\\ 0\end{pmatrix} \nonumber\\
+	&= \begin{pmatrix}\cos\lambda_\odot\\ \cos\epsilon\,\sin\lambda_\odot\\ \sin\epsilon\,\sin\lambda_\odot\end{pmatrix}.
+	\label{ti:eq:sun_vector}
 \end{align}
-At Greenwich local solar noon, the Sun is on the Greenwich meridian, so $\GST = \alpha_\odot$.
+\begin{explain}
+	\item The left side is a unit vector at $(\alpha_\odot,\delta_\odot)$, written as in Eq.~\eqref{eq:unit_vector_eq}. The matrix turns by $\epsilon$ about the $x$-axis, and it sends $(0,0,1)$ to $(0,-\sin\epsilon,\cos\epsilon)$, the ecliptic pole.
+\end{explain}
+The third row, and the ratio of the second row to the first, give
+\begin{equation}
+	\boxed{\sin\delta_\odot=\sin\epsilon\,\sin\lambda_\odot,\qquad \tan\alpha_\odot=\cos\epsilon\,\tan\lambda_\odot.}
+	\label{ti:eq:sun_radec}
+\end{equation}
+The declination swings between $-\epsilon$ and $+\epsilon$ and depends only on the tilt and the season. The right ascension keeps step with $\lambda_\odot$ at the four points where $\tan\lambda_\odot$ is $0$ or infinite, and runs ahead of it or behind it in between. This mismatch is half of the equation of time (Section~\ref{ti:sec:eot}).
 
-\section{The Equation of Time and the Solar Analemma}
+In early May, $\lambda_\odot=45^\circ$, and $\sin\delta_\odot=0.3978\times0.7071=0.2813$, so $\delta_\odot=16.3^\circ$.
 
-A sundial measures \emph{Apparent Solar Time} ($\mathrm{AST}$), which tracks the hour angle of the physical Sun. However, apparent solar days are not of equal length throughout the year. Civil timekeeping is therefore based on \emph{Mean Solar Time} ($\mathrm{MST}$), which tracks a fictitious ``mean Sun'' that moves at a constant speed along the celestial equator.
+\paragraph{The four seasonal points.} Setting $\lambda_\odot=0^\circ,90^\circ,180^\circ,270^\circ$ in Eq.~\eqref{ti:eq:sun_radec} gives Table~\ref{ti:tab:seasons}. The last column uses $\GST=\alpha_\odot$ at Greenwich apparent noon, from Section~\ref{ti:sec:sidereal_time}.
 
-\begin{definition}[Equation of Time]
-	The \emph{Equation of Time} ($\EoT$) is defined as:
-	\begin{keyresult}
-		\begin{equation}
-			\EoT \equiv \mathrm{AST} - \mathrm{MST} = \alpha_{\rm mean\,\odot} - \alpha_{\rm apparent\,\odot}.
-			\label{eq:eot_def}
-		\end{equation}
-	\end{keyresult}
-\end{definition}
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l l c c c c@{}}
+		\toprule
+		\textbf{Point} & \textbf{Date (about)} & $\lambda_\odot$ & $\alpha_\odot$ & $\delta_\odot$ & \textbf{GST at Greenwich noon} \\
+		\midrule
+		March (vernal) equinox & 20 March & $0^\circ$ & $0^{\rm h}$ & $0^\circ$ & $0^{\rm h}$ \\
+		June solstice & 21 June & $90^\circ$ & $6^{\rm h}$ & $+23.44^\circ$ & $6^{\rm h}$ \\
+		September equinox & 23 September & $180^\circ$ & $12^{\rm h}$ & $0^\circ$ & $12^{\rm h}$ \\
+		December solstice & 21 December & $270^\circ$ & $18^{\rm h}$ & $-23.44^\circ$ & $18^{\rm h}$ \\
+		\bottomrule
+	\end{tabular}
+	\caption{The Sun's coordinates at the equinoxes and solstices, and the Greenwich sidereal time at Greenwich apparent noon.}
+	\label{ti:tab:seasons}
+\end{table}
 
-The Equation of Time is the superposition of two independent physical phenomena:
+% ==============================================================================
+\section{The Equation of Time and the Analemma}
+\label{ti:sec:eot}
 
-\begin{enumerate}
-	\item \textbf{Orbital Eccentricity Component ($e = 0.0167$):} In accordance with Kepler's Second Law, the Earth moves faster at perihelion (early January) and slower at aphelion (early July). The true Sun's apparent angular rate along the ecliptic varies as $\dot\lambda_\odot \propto 1/r^2$. This contributes an annual sinusoidal oscillation with an amplitude of $\approx 7.7\ \text{minutes}$:
+A clock keeps mean solar time, in which every day is exactly $24$ hours (Section~\ref{sec:solar_sidereal_day}).
+
+A sundial does not agree with it. In mid-February the shadow of a sundial reaches noon about $14$ minutes after the clock does, and in early November about $16$ minutes before. The days measured by the real Sun are not all equal.
+
+Two runners go round a track. One runs at a steady pace. The other runs faster on one side of the track and slower on the other, but finishes each lap together with the first. The gap between them grows and shrinks over the lap and never adds up.
+
+The steady runner is the \textbf{mean Sun}, an imagined Sun that moves along the celestial equator at a uniform rate. The other is the real Sun. It moves along the ecliptic at a varying speed, because the Earth's orbit is an ellipse, and its motion along the tilted ecliptic counts unevenly in right ascension. The \textbf{equation of time} is the gap between the two, read as a time.
+
+In numbers, the eccentricity of the Earth's orbit is $e=0.0167$. Kepler's second law makes the Sun run ahead of the mean Sun by up to $2e=0.0334$ radians, which is $1.91^\circ$. At four minutes per degree, that is $7.66$ minutes.
+
+Picture a figure eight drawn by the Sun in the sky. Photograph the Sun at the same clock time every few days for a year. It moves up and down with its declination and left and right with the equation of time. The first of the two effects is angular momentum conservation (P1) through Kepler's second law, and the second is the rotation of Eq.~\eqref{ti:eq:sun_vector}. Together they give the gap between sundial and clock on any day of the year.
+
+\paragraph{Definition.} Apparent solar time is the Sun's hour angle, Eq.~\eqref{ti:eq:ast}. \textbf{Mean solar time} $\mathrm{MST}$ is the hour angle of the mean Sun, shifted in the same way. The mean Sun's right ascension $\alpha_{\rm mean}$ grows uniformly, and it equals the \textbf{mean longitude} $\bar\lambda_\odot$, the ecliptic longitude the Sun would have if it moved at the uniform rate $n$. The difference of the two times is
+\begin{keyresult}
 	\begin{equation}
-		\Delta t_e \approx -2e\sin M \approx -7.66\sin M\quad [\text{minutes}],
+		\EoT \equiv \mathrm{AST} - \mathrm{MST} = \alpha_{\rm mean} - \alpha_\odot.
+		\label{eq:eot_def}
 	\end{equation}
-	where $M$ is the Earth's mean anomaly measured from perihelion.
-	\item \textbf{Obliquity Component ($\epsilon = 23.44^\circ$):} Even if the Sun moved at a uniform angular speed along the ecliptic, projecting that motion onto the celestial equator introduces geometric non-uniformity:
-	\begin{equation}
-		\tan\alpha_\odot = \cos\epsilon\tan\lambda_\odot.
-	\end{equation}
-	Right ascension advances fastest at the solstices (where the ecliptic is parallel to the equator) and slowest at the equinoxes (where the ecliptic is inclined by $23.44^\circ$). This contributes a semi-annual harmonic with an amplitude of $\approx 9.9\ \text{minutes}$:
-	\begin{equation}
-		\Delta t_\epsilon \approx \frac{\tan^2(\epsilon/2)}{2}\sin(2\lambda_\odot) \approx 9.86\sin(2\lambda_\odot)\quad [\text{minutes}].
-	\end{equation}
-\end{enumerate}
+\end{keyresult}
+The last step follows from Eq.~\eqref{eq:hour_angle_def}, since the two hour angles are $\LST-\alpha_\odot$ and $\LST-\alpha_{\rm mean}$, read at the same $\LST$.
+
+\paragraph{Splitting into two parts.} We add and subtract the Sun's true ecliptic longitude $\lambda_\odot$,
+\begin{align}
+	\EoT
+	&\eqby{1} \bar\lambda_\odot-\alpha_\odot \nonumber\\
+	&= \underbrace{\big(\bar\lambda_\odot-\lambda_\odot\big)}_{\text{uneven speed}}
+	+\underbrace{\big(\lambda_\odot-\alpha_\odot\big)}_{\text{tilt}} .
+	\label{ti:eq:eot_split}
+\end{align}
+\begin{explain}
+	\item $\alpha_{\rm mean}=\bar\lambda_\odot$, from the definition of the mean Sun.
+\end{explain}
+The first part would vanish on a circular orbit. The second would vanish if the axis were not tilted.
+
+\paragraph{Uneven speed, from Kepler's second law.} The Sun's yearly path is the Earth's orbit seen from the other end, so it has the same eccentricity $e$, true anomaly $v$ and mean anomaly $\ell$ as the Earth's orbit (Chapter~\ref{ch:twobody}). Both $\lambda_\odot$ and $\bar\lambda_\odot$ are measured from $\hat\gamma$, and they differ from $v$ and $\ell$ by the same fixed angle, the longitude of perihelion. So $\bar\lambda_\odot-\lambda_\odot=\ell-v$. To find $v-\ell$ we write the rate of the true anomaly with angular momentum conservation (P1),
+\begin{align}
+	\dv{v}{t}
+	&\eqby{1} \frac{L}{\mu r^2} \nonumber\\
+	&\eqby{2} \frac{\sqrt{GMa(1-e^2)}\,(1+e\cos v)^2}{a^2(1-e^2)^2} \nonumber\\
+	&\eqby{3} n\,\frac{(1+e\cos v)^2}{(1-e^2)^{3/2}} \nonumber\\
+	&\relby{4}{\simeq} n\,(1+2e\cos v).
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:phidot}. The true anomaly differs from the polar angle $\phi$ by a constant, so they share a rate.
+	\item The orbit $r=a(1-e^2)/(1+e\cos v)$ from Eq.~\eqref{eq:conic}, whose semi-latus rectum $L^2/(GM\mu^2)$ equals $a(1-e^2)$, so $L/\mu=\sqrt{GMa(1-e^2)}$.
+	\item Kepler's third law, $GM=n^2a^3$, Eq.~\eqref{eq:kepler3}.
+	\item Keep only the first order in $e$, since $e^2=2.8\times10^{-4}$.
+\end{explain}
+The mean anomaly is $\ell=n(t-t_0)$, with $t_0$ the time of perihelion, where $v=\ell=0$. Separating the variables and integrating from perihelion,
+\begin{align}
+	\ell
+	&\eqby{1} \int_0^v\frac{dv'}{1+2e\cos v'} \nonumber\\
+	&\relby{2}{\simeq} \int_0^v(1-2e\cos v')\,dv' \nonumber\\
+	&= v-2e\sin v .
+	\label{ti:eq:equation_of_centre}
+\end{align}
+\begin{explain}
+	\item $n\,dt=dv/(1+2e\cos v)$ from the last line of the previous chain.
+	\item $1/(1+x)\simeq1-x$ for small $x$, again to first order in $e$.
+\end{explain}
+So $v-\ell\simeq2e\sin v\simeq2e\sin\ell$, where replacing $v$ by $\ell$ in the small term changes it only at order $e^2$. The Sun runs ahead of the mean Sun from perihelion to aphelion and behind it in the other half year.
+
+\paragraph{Tilt, from the rotation.} Eq.~\eqref{ti:eq:sun_radec} gives $\tan\alpha_\odot=\cos\epsilon\tan\lambda_\odot$. To find $\lambda_\odot-\alpha_\odot$ we take its tangent,
+\begin{align}
+	\tan(\lambda_\odot-\alpha_\odot)
+	&\eqby{1} \frac{\tan\lambda_\odot-\tan\alpha_\odot}{1+\tan\lambda_\odot\tan\alpha_\odot} \nonumber\\
+	&\eqby{2} \frac{(1-\cos\epsilon)\tan\lambda_\odot}{1+\cos\epsilon\tan^2\lambda_\odot} \nonumber\\
+	&\eqby{3} \frac{(1-\cos\epsilon)\sin\lambda_\odot\cos\lambda_\odot}{\cos^2\lambda_\odot+\cos\epsilon\sin^2\lambda_\odot} \nonumber\\
+	&\eqby{4} \frac{(1-\cos\epsilon)\sin2\lambda_\odot}{(1+\cos\epsilon)+(1-\cos\epsilon)\cos2\lambda_\odot} \nonumber\\
+	&\eqby{5} \frac{\tan^2(\epsilon/2)\,\sin2\lambda_\odot}{1+\tan^2(\epsilon/2)\cos2\lambda_\odot}.
+\end{align}
+\begin{explain}
+	\item The tangent of a difference.
+	\item $\tan\alpha_\odot=\cos\epsilon\tan\lambda_\odot$.
+	\item Multiply the top and the bottom by $\cos^2\lambda_\odot$.
+	\item Multiply the top and the bottom by $2$, and use $2\sin\lambda\cos\lambda=\sin2\lambda$, $2\cos^2\lambda=1+\cos2\lambda$ and $2\sin^2\lambda=1-\cos2\lambda$.
+	\item Divide the top and the bottom by $1+\cos\epsilon$, and use $(1-\cos\epsilon)/(1+\cos\epsilon)=\tan^2(\epsilon/2)$.
+\end{explain}
+For $\epsilon=23.44^\circ$, $\tan^2(\epsilon/2)=0.0430$ is small, and expanding the arctangent to first order gives
+\[
+\lambda_\odot-\alpha_\odot\simeq\tan^2(\epsilon/2)\,\sin2\lambda_\odot .
+\]
+The next term, $-\tfrac12\tan^4(\epsilon/2)\sin4\lambda_\odot$, is at most $0.21$ minutes. The tilt term vanishes at the equinoxes and at the solstices. Near an equinox the ecliptic crosses the equator at an angle, so only the fraction $\cos\epsilon$ of the Sun's motion counts in right ascension, and $\alpha_\odot$ falls behind. Near a solstice the ecliptic runs parallel to the equator but closer to the pole, where an hour of right ascension is a shorter arc, so $\alpha_\odot$ catches up.
+
+\paragraph{The equation of time.} With both parts in Eq.~\eqref{ti:eq:eot_split}, and each radian turned into $4\times57.296=229.2$ minutes,
+\begin{align}
+	\EoT
+	&\eqby{1} -(v-\ell)+(\lambda_\odot-\alpha_\odot) \nonumber\\
+	&\relby{2}{\simeq} -2e\sin\ell+\tan^2(\epsilon/2)\,\sin2\lambda_\odot \nonumber\\
+	&\eqby{3} -7.66^{\rm m}\sin\ell+9.86^{\rm m}\sin2\lambda_\odot .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ti:eq:eot_split} with $\bar\lambda_\odot-\lambda_\odot=\ell-v$.
+	\item The two results above, each to first order.
+	\item $2e=0.0334$ and $\tan^2(\epsilon/2)=0.0430$ radians, times $229.2$ minutes per radian.
+\end{explain}
+\begin{equation}
+	\boxed{\EoT\simeq-7.66^{\rm m}\sin\ell+9.86^{\rm m}\sin2\lambda_\odot.}
+	\label{ti:eq:eot_result}
+\end{equation}
+The first term has a period of one year and is set by $e$ alone. The second has a period of half a year and is set by $\epsilon$ alone. Neither depends on where the observer is.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics{fig_ch1_eot_decomposition.pdf}
-	\caption{The Equation of Time decomposed into its two constituent physical components: orbital eccentricity ($e$, annual period) and obliquity ($\epsilon$, semi-annual period).}
+	\includegraphics[width=0.85\linewidth]{fig_ch1_eot_decomposition.pdf}
+	\caption{The equation of time over one year (solid), with the eccentricity term $-7.66^{\rm m}\sin\ell$ (dashed) and the obliquity term $9.86^{\rm m}\sin2\lambda_\odot$ (dotted). The solid curve is computed from Eq.~\eqref{eq:eot_def} without expanding in $e$ or $\epsilon$.}
 	\label{fig:eot_decomposition}
 \end{figure}
 
-The total Equation of Time ranges between $-14.2\ \text{minutes}$ (in mid-February) and $+16.4\ \text{minutes}$ (in early November). Plotting the Sun's declination $\delta_\odot$ against the Equation of Time produces the famous figure-8 pattern known as the \emph{solar analemma}.
+Figure~\ref{fig:eot_decomposition} compares Eq.~\eqref{ti:eq:eot_result} with the exact gap. The two terms add up to within $0.3$ minutes of it. The perihelion is in early January, so $\sin\ell$ peaks in early April, while $\sin2\lambda_\odot$ peaks in early May and early November. The two terms add in November and in February. The equation of time ranges from $-14.2$ minutes in mid-February to $+16.4$ minutes in early November, with smaller turning points of $+3.7$ minutes in mid-May and $-6.5$ minutes in late July.
 
-\section{Mean and Apparent Sidereal Time: The Equation of the Equinoxes}
+\begin{example}[Apparent noon at IISER TVM]
+	Local mean noon at IISER TVM is at 12:21:27 IST (Section~\ref{ti:sec:longitude}). The Sun crosses the meridian when $\mathrm{AST}=12^{\rm h}$, that is when $\mathrm{MST}=12^{\rm h}-\EoT$. On 3 November, with $\EoT=+16.4^{\rm m}=+16^{\rm m}24^{\rm s}$, the Sun crosses at 12:05:03 IST. On 11 February, with $\EoT=-14.2^{\rm m}$, it crosses at 12:35:39 IST.
+\end{example}
 
-Because the Earth is an oblate spheroid with an equatorial bulge, the gravitational forces exerted by the Moon and the Sun create torques that cause the Earth's rotation axis to precess and nutate in inertial space.
+\paragraph{The analemma.} Plot the Sun's declination $\delta_\odot$ (Eq.~\eqref{ti:eq:sun_radec}) against the equation of time for each day of the year. The curve is a figure eight, the \textbf{analemma}. Its height is $2\epsilon=46.9^\circ$. Its two loops are unequal because the eccentricity term adds to the obliquity term in one half of the year and works against it in the other.
 
-\begin{definition}[Mean versus True Equinox]
-	\begin{itemize}
-		\item The \emph{mean equinox} is the equinox position affected by smooth secular precession only.
-		\item The \emph{true (apparent) equinox} is the instantaneous position of the equinox, including both secular precession and short-period nutation oscillations.
-	\end{itemize}
-\end{definition}
+% ==============================================================================
+\section{Precession of the Equinoxes and Reference Epochs}
+\label{ti:sec:precession}
 
-Sidereal time referenced to the mean equinox is \emph{Greenwich Mean Sidereal Time} ($\GMST$); sidereal time referenced to the true equinox is \emph{Greenwich Apparent Sidereal Time} ($\GAST$). They differ by the \emph{equation of the equinoxes}:
+So far the Earth's axis has pointed at a fixed place among the stars, and the equinox $\hat\gamma$ has been a fixed zero point.
+
+Over centuries this fails. Hipparchus, comparing his star positions with ones made 150 years earlier, found that the equinox had moved west among the stars. The pole star today, Polaris, was not near the pole in his time.
+
+Spin a top and tilt it. Gravity pulls its centre down and tries to tip it over. It does not fall. Its axis sweeps slowly round a cone instead, sideways to the pull.
+
+The Earth is a spinning top with a bulge at its equator. The Sun and the Moon pull on the bulge and try to turn the equator into the plane of the ecliptic. The axis responds by sweeping round a cone about the pole of the ecliptic. A torque at right angles to the spin turns the axis sideways, which is angular momentum conservation (P1).
+
+A bicycle wheel makes a good gyroscope. Take a wheel of mass $2\,\mathrm{kg}$ and radius $0.3\,\mathrm m$, spinning $10$ times a second, with its axle held horizontal at one end $0.2\,\mathrm m$ from the wheel. Its angular momentum is $2\times0.3^2\times2\pi\times10=11.3\,\mathrm{kg\,m^2\,s^{-1}}$, and the weight gives a torque of $2\times9.81\times0.2=3.92\,\mathrm{N\,m}$. The axle swings round at $3.92/11.3=0.35$ radians per second, once in $18$ seconds.
+
+Picture the Earth's axis drawing a circle of radius $23.44^\circ$ on the sky, once in about $26\,000$ years. The same rule makes a spinning top and a gyrocompass precess, and makes the orbit of a satellite around the bulging Earth turn its plane. It gives the rate of the drift of the equinox from the size of the Earth's bulge, and the way it changes every catalogue position.
+
+\paragraph{The gyroscope rule.} Let $\hat p$ be the unit vector along the spin axis and $\hat k$ the north pole of the ecliptic, at angle $\epsilon$ from $\hat p$. Suppose the angular momentum $\vec L$ turns steadily about $\hat k$ at rate $\omega_{\rm prec}$, with $\epsilon$ fixed. In the ecliptic frame, with $z$ along $\hat k$, $\vec L(t)=R_z(-\omega_{\rm prec}t)\,\vec L(0)$, where the minus sign anticipates that the turn goes clockwise seen from the north (we find this below). Differentiating at $t=0$,
+\begin{align}
+	\dv{\vec L}{t}
+	&\eqby{1} -\omega_{\rm prec}\begin{pmatrix}0&-1&0\\ 1&0&0\\ 0&0&0\end{pmatrix}\vec L \nonumber\\
+	&\eqby{2} -\omega_{\rm prec}\,\hat k\times\vec L .
+\end{align}
+\begin{explain}
+	\item The derivative of Eq.~\eqref{ti:eq:Rz} at $\varphi=0$ is the matrix shown, and $\varphi=-\omega_{\rm prec}t$.
+	\item The matrix times $(L_x,L_y,L_z)$ is $(-L_y,L_x,0)=\hat k\times\vec L$.
+\end{explain}
+The size of $\hat k\times\vec L$ is $L\sin\epsilon$, so
+\begin{equation}
+	\omega_{\rm prec} = \frac{|\dot{\vec L}|}{L\sin\epsilon}.
+	\label{eq:gyroscopic_precession_rate}
+\end{equation}
+The rate change $\dot{\vec L}$ is the torque, $\sum\vec x\times\vec F$ over the Earth's mass (Eq.~\eqref{eq:perturbed_L_rate}). The torque must be perpendicular to $\vec L$ for $L$ and $\epsilon$ to stay fixed.
+
+\paragraph{The pull on the bulge.} Let a body of mass $M$, the Sun or the Moon, be at distance $a$ from the Earth's centre in the direction $\hat s$. A mass element $dm$ of the Earth at $\vec x$ from the centre, with $|\vec x|\ll a$, feels the force $dm\,GM(a\hat s-\vec x)/|a\hat s-\vec x|^3$. To first order in $|\vec x|/a$,
+\begin{align}
+	\frac{a\hat s-\vec x}{|a\hat s-\vec x|^3}
+	&\eqby{1} \frac{a\hat s-\vec x}{a^3}\Big(1-\frac{2\hat s\cdot\vec x}{a}+\frac{x^2}{a^2}\Big)^{-3/2} \nonumber\\
+	&\relby{2}{\simeq} \frac{a\hat s-\vec x}{a^3}\Big(1+\frac{3\hat s\cdot\vec x}{a}\Big) \nonumber\\
+	&\relby{3}{\simeq} \frac{1}{a^2}\Big[\hat s+\frac{3(\hat s\cdot\vec x)\hat s-\vec x}{a}\Big].
+\end{align}
+\begin{explain}
+	\item $|a\hat s-\vec x|^2=a^2-2a\,\hat s\cdot\vec x+x^2$.
+	\item $(1+y)^{-3/2}\simeq1-\tfrac32y$, dropping $x^2/a^2$.
+	\item Multiply out and drop the term of order $x^2/a^3$.
+\end{explain}
+The torque about the Earth's centre is
+\begin{align}
+	\dot{\vec L}
+	&\eqby{1} \frac{GM}{a^2}\Big(\int\vec x\,dm\Big)\times\hat s
+	+\frac{GM}{a^3}\int\big[3(\hat s\cdot\vec x)\,\vec x\times\hat s-\vec x\times\vec x\big]dm \nonumber\\
+	&\eqby{2} \frac{3GM}{a^3}\Big(\int\vec x\,\vec x^{\mathsf T}dm\;\hat s\Big)\times\hat s .
+\end{align}
+\begin{explain}
+	\item $\vec x\times$ the last line of the previous chain, times $GM\,dm$, summed over the Earth.
+	\item $\int\vec x\,dm=0$ about the centre of mass, $\vec x\times\vec x=0$, and $(\hat s\cdot\vec x)\,\vec x=\vec x\,\vec x^{\mathsf T}\hat s$.
+\end{explain}
+The matrix $\int\vec x\,\vec x^{\mathsf T}dm$ holds the Earth's shape. In axes fixed in the Earth, with $z$ along $\hat p$, it is diagonal, and by symmetry about the axis $\int x^2dm=\int y^2dm$. The moments of inertia about the polar axis and about an equatorial axis are $C=\int(x^2+y^2)\,dm=2\int x^2dm$ and $A=\int(y^2+z^2)\,dm=\int x^2dm+\int z^2dm$, so
+\begin{align}
+	\int\vec x\,\vec x^{\mathsf T}dm
+	&= \begin{pmatrix}\int x^2dm&0&0\\ 0&\int x^2dm&0\\ 0&0&\int z^2dm\end{pmatrix} \nonumber\\
+	&\eqby{1} \Big(\int x^2dm\Big)\,\Id-(C-A)\,\hat p\,\hat p^{\mathsf T}.
+\end{align}
+\begin{explain}
+	\item $\int z^2dm-\int x^2dm=A-C$, and $\hat p\,\hat p^{\mathsf T}$ is the matrix with a single $1$ in the $zz$ place.
+\end{explain}
+The term with $\Id$ gives $\hat s\times\hat s=0$. The flattening $C-A$ alone produces the torque,
+\begin{equation}
+	\dot{\vec L}=\frac{3GM}{a^3}\,(C-A)\,(\hat p\cdot\hat s)\,\big(\hat s\times\hat p\big).
+	\label{ti:eq:torque_bulge}
+\end{equation}
+A round Earth, $C=A$, feels no torque. Nor does an Earth with the Sun in its equatorial plane, $\hat p\cdot\hat s=0$.
+
+\paragraph{Averaged over the orbit.} The Sun goes round the ecliptic in a year. That is long compared with a day and short compared with the precession period, so the axis hardly moves in a year and we may average Eq.~\eqref{ti:eq:torque_bulge} over $\hat s$ with $\hat p$ held fixed (P6). In the ecliptic frame, $\hat s=(\cos\theta,\sin\theta,0)$ for a circular orbit, and
+\begin{align}
+	\avg{(\hat p\cdot\hat s)\,\hat s\times\hat p}
+	&\eqby{1} \big(\avg{\hat s\,\hat s^{\mathsf T}}\hat p\big)\times\hat p \nonumber\\
+	&\eqby{2} \Bigg[\begin{pmatrix}\tfrac12&0&0\\ 0&\tfrac12&0\\ 0&0&0\end{pmatrix}\hat p\Bigg]\times\hat p \nonumber\\
+	&\eqby{3} \tfrac12\big(\hat p-\cos\epsilon\,\hat k\big)\times\hat p \nonumber\\
+	&\eqby{4} -\tfrac12\cos\epsilon\;\hat k\times\hat p .
+\end{align}
+\begin{explain}
+	\item $(\hat p\cdot\hat s)\,\hat s=\hat s\,\hat s^{\mathsf T}\hat p$, and $\hat p$ is constant during the average.
+	\item $\avg{\cos^2\theta}=\avg{\sin^2\theta}=\tfrac12$ and $\avg{\cos\theta\sin\theta}=0$ over one turn, and $\hat s$ has no $z$ part.
+	\item The matrix removes the $z$ part of $\hat p$, which is $(\hat p\cdot\hat k)\hat k=\cos\epsilon\,\hat k$, and halves the rest.
+	\item $\hat p\times\hat p=0$.
+\end{explain}
+With $\vec L=C\omega_\oplus\hat p$, which holds to the accuracy of $\omega_{\rm prec}/\omega_\oplus\sim10^{-7}$ (P6),
+\begin{align}
+	\dot{\vec L}
+	&\eqby{1} -\frac32\,\frac{GM}{a^3}\,(C-A)\cos\epsilon\;\hat k\times\hat p \nonumber\\
+	&\eqby{2} -\Big[\frac32\,\frac{GM}{a^3}\,\frac{C-A}{C}\,\frac{\cos\epsilon}{\omega_\oplus}\Big]\,\hat k\times\vec L .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{ti:eq:torque_bulge}, averaged with the result above.
+	\item $\hat p=\vec L/(C\omega_\oplus)$.
+\end{explain}
+This has the form $-\omega_{\rm prec}\,\hat k\times\vec L$ of the gyroscope rule. The bracket is positive, so the axis turns clockwise seen from the north ecliptic pole, against the Earth's spin and orbit. The equinox, where the moving equator meets the ecliptic, therefore moves west. For the Sun, $GM_\odot/a^3=n^2$ by Kepler's third law, Eq.~\eqref{eq:kepler3}, so
+\begin{equation}
+	\boxed{\omega_{\rm prec,\odot}=\frac32\,\frac{n^2}{\omega_\oplus}\,\frac{C-A}{C}\,\cos\epsilon.}
+	\label{ti:eq:prec_sun}
+\end{equation}
+The rate grows with the flattening and falls with the spin. A faster top precesses more slowly.
+
+\paragraph{Numbers for the Sun and the Moon.} Satellite orbits give the Earth's flattening as $(C-A)/(M_\oplus R_\oplus^2)=1.0826\times10^{-3}$, and the density profile from seismology gives $C=0.3307\,M_\oplus R_\oplus^2$, so $(C-A)/C=0.003274$. With $n/\omega_\oplus=T_{\rm sid}/T_{\rm yr}=1/366.2422$ from Eq.~\eqref{eq:sidereal_solar_relation},
+\[
+\omega_{\rm prec,\odot}=\frac32\times\frac{360^\circ}{\text{year}}\times\frac{1}{366.2422}\times0.003274\times0.9175=15.9''\ \text{per year}.
+\]
+The Moon gives the same expression with $GM_\odot/a^3$ replaced by $GM_{\rm Moon}/a_{\rm Moon}^3$. That is larger by $(M_{\rm Moon}/M_\odot)(1\,\mathrm{AU}/a_{\rm Moon})^3=2.18$, with $a_{\rm Moon}=384\,400\,\mathrm{km}$, so the Moon gives $34.7''$ per year. The Moon's orbit is tilted by $5^\circ$ to the ecliptic, which changes this by about one percent. The total, about $50.6''$ per year, is within one percent of the measured value,
+\begin{equation}
+	\boxed{\omega_{\rm prec} \simeq 50.29''\ \text{per year} = 1^\circ\ \text{in}\ 71.6\ \text{years},}
+	\label{eq:precession_rate}
+\end{equation}
+one turn in $1\,296\,000''/50.29''=25\,770$ years. The measured rate also includes a slow turn of the ecliptic itself, caused by the planets, of about $0.1''$ per year.
+
+\paragraph{Epochs.} The grid of $(\alpha,\delta)$ is tied to the moving equinox $\hat\gamma$, so a catalogue position must state the moment, or \textbf{epoch}, whose equator and equinox it uses (Section~\ref{sec:coordinate_epochs}). The current standard is \textbf{J2000.0}, 2000 January 1, 12:00:00 TT.
+
+\paragraph{Precessing a catalogue position.} In the frame of the moving equinox, every star turns about the ecliptic pole at $\omega_{\rm prec}$ per year, anticlockwise seen from the north, so its ecliptic longitude grows by $50.29''$ per year. In equatorial coordinates the ecliptic pole is $\hat k=(0,-\sin\epsilon,\cos\epsilon)$ (Eq.~\eqref{ti:eq:sun_vector}). The star's unit vector $\hat r$ then changes as
+\begin{align}
+	\dv{\hat r}{t}
+	&\eqby{1} \omega_{\rm prec}\,\hat k\times\hat r \nonumber\\
+	&\eqby{2} \omega_{\rm prec}\begin{pmatrix}0&-\cos\epsilon&-\sin\epsilon\\ \cos\epsilon&0&0\\ \sin\epsilon&0&0\end{pmatrix}
+	\begin{pmatrix}\cos\delta\cos\alpha\\ \cos\delta\sin\alpha\\ \sin\delta\end{pmatrix}.
+\end{align}
+\begin{explain}
+	\item A turn about $\hat k$ at rate $\omega_{\rm prec}$, as in the gyroscope rule but anticlockwise.
+	\item $\hat k\times\hat r$ written as a matrix acting on $\hat r$, with $\hat k=(0,-\sin\epsilon,\cos\epsilon)$.
+\end{explain}
+The left side is $\dot{\hat r}=\dot\alpha\,\partial_\alpha\hat r+\dot\delta\,\partial_\delta\hat r$. Its third row is $\cos\delta\,\dot\delta=\omega_{\rm prec}\sin\epsilon\cos\delta\cos\alpha$. Its second row is
+\[
+\cos\delta\cos\alpha\,\dot\alpha-\sin\delta\sin\alpha\,\dot\delta=\omega_{\rm prec}\cos\epsilon\cos\delta\cos\alpha .
+\]
+Putting $\dot\delta$ from the third row into the second and dividing by $\cos\delta\cos\alpha$,
+\begin{keyresult}
+	\begin{align}
+		\alpha(t) &\simeq \alpha_0 + \big(\omega_{\rm prec}\cos\epsilon + \omega_{\rm prec}\sin\epsilon\,\sin\alpha_0\tan\delta_0\big)\,\Delta t, \label{eq:precess_alpha} \\
+		\delta(t) &\simeq \delta_0 + \big(\omega_{\rm prec}\sin\epsilon\,\cos\alpha_0\big)\,\Delta t, \label{eq:precess_delta}
+	\end{align}
+\end{keyresult}
+for a star at $(\alpha_0,\delta_0)$ at J2000.0 and $\Delta t$ years later, as long as the change stays small. With $\omega_{\rm prec}=50.29''$ per year, $\omega_{\rm prec}\cos\epsilon=46.14''$ and $\omega_{\rm prec}\sin\epsilon=20.00''$ per year. The tabulated values, $46.12''=3.075^{\rm s}$ and $20.04''=1.336^{\rm s}$ per year, differ in the last digits because of the slow turn of the ecliptic. The first term moves every star equally in $\alpha$. The second depends on where the star is, and it grows near the celestial poles, where $\tan\delta_0$ is large.
+
+\begin{example}[Sirius from J2000.0 to late 2026]
+	Sirius is at $\alpha_0=6^{\rm h}45^{\rm m}09^{\rm s}$, $\delta_0=-16^\circ43'$. Its right ascension grows at $3.075^{\rm s}+1.336^{\rm s}\sin101.29^\circ\tan(-16.72^\circ)=2.68^{\rm s}$ per year, and its declination changes at $20.04''\cos101.29^\circ=-3.92''$ per year. Over $26.8$ years, $\alpha$ grows by $72^{\rm s}$ and $\delta$ falls by $105''$. The star's own motion across the sky, its proper motion, is a separate correction (Chapter~\ref{ch:astrometry}).
+\end{example}
+
+% ==============================================================================
+\section{Nutation: Mean and Apparent Sidereal Time}
+\label{ti:sec:nutation}
+
+The averaged torque of Section~\ref{ti:sec:precession} turns the axis smoothly. The real torque does not stay at its average. It changes as the Sun and the Moon move north and south of the equator, and the Moon's orbit itself turns, once in $18.6$ years. The axis wobbles about its smooth cone with small periodic terms, called \textbf{nutation}.
+
+The largest term follows the $18.6$-year turn of the Moon's orbit. It moves the equinox back and forth along the ecliptic by up to $17.2''$. This shift is the \textbf{nutation in longitude} $\Delta\psi$.
+
+\paragraph{Mean and true equinox.} The \textbf{mean equinox} moves with the smooth precession alone. The \textbf{true equinox} also includes nutation. Sidereal time measured from the mean equinox is \textbf{Greenwich mean sidereal time} ($\GMST$). Measured from the true equinox it is \textbf{Greenwich apparent sidereal time} ($\GAST$).
+
+\paragraph{The equation of the equinoxes.} Sidereal time is the hour angle of the equinox. A shift $\Delta\psi$ of the equinox along the ecliptic is a small turn about the ecliptic pole, which is what Eq.~\eqref{eq:precess_alpha} describes with $\omega_{\rm prec}\Delta t$ replaced by $\Delta\psi$. For a point on the equator, $\delta=0$, so only the first term survives, and the shift along the equator is $\Delta\psi\cos\epsilon$. So
 \begin{keyresult}
 	\begin{equation}
-		\GAST - \GMST = \Delta\psi\cos\epsilon \equiv \text{eqeq},
+		\GAST - \GMST = \Delta\psi\cos\epsilon,
 		\label{eq:equation_of_equinoxes}
 	\end{equation}
 \end{keyresult}
-where $\Delta\psi$ is the nutation in longitude (dominated by the $18.6$-year regression of lunar nodes) and $\epsilon$ is the true obliquity. Because $|\text{eqeq}| \le 1.2\ \text{seconds}$, $\GMST$ suffices for casual observations, while $\GAST$ is essential for sub-arcsecond astrometry.
+the \textbf{equation of the equinoxes}. Here $\epsilon$ is the true obliquity. For the largest term, $17.2''\times0.917=15.8''$, or $1.05^{\rm s}$. With the smaller terms the difference stays below $1.2^{\rm s}$. $\GMST$ is enough for pointing a telescope. $\GAST$ is needed for positions better than an arcsecond.
 
-\subsection{Algorithmic Computation of GMST}
+% ==============================================================================
+\section{Modern Time Scales: UT1, TAI, UTC, TT and TDB}
+\label{ti:sec:timescales}
 
-According to IAU conventions, $\GMST$ at $0^{\rm h}$ UT1 is computed from the Julian centuries $T$ elapsed since standard epoch J2000.0 ($T = (\JD - 2451545.0)/36525$):
-\begin{equation}
-	\GMST(0^{\rm h}\UT1) = 6^{\rm h}41^{\rm m}50.54841^{\rm s} + 8640184.812866^{\rm s}\,T + 0.093104^{\rm s}\,T^2 - 6.2 \times 10^{-6\,\rm s}\,T^3.
-	\label{eq:gmst_iau_formula}
-\end{equation}
-At any instant of universal time $t_{\rm UT}$ (in hours):
-\begin{equation}
-	\GMST(t_{\rm UT}) = \GMST(0^{\rm h}\UT1) + 1.00273790935 \times t_{\rm UT}.
-	\label{eq:gmst_instant}
-\end{equation}
+Every clock so far has been the turning Earth.
 
-\section{Precession of the Equinoxes and Reference Epochs}
+The turning Earth is not a perfect clock. The day grows longer as the tides slow the Earth, and it changes by milliseconds with the winds and with the motion of the Earth's liquid core.
 
-\begin{definition}[Lunisolar Precession]
-	\emph{Lunisolar precession} is the slow, steady conical rotation of the Earth's spin axis around the normal to the ecliptic plane, with period $P_{\rm prec} \approx 25{,}772\ \text{years}$ (the Platonic Year). The spin axis traces out a cone of half-angle equal to the obliquity ($\epsilon \approx 23.44^\circ$).
-\end{definition}
+A flywheel with a little friction in its bearing loses speed slowly. A clock that counts its turns falls behind a quartz watch, by more each day.
 
-\paragraph{Physical Origin: A Gyroscope, Not an Orbit.} Because Earth is an oblate spheroid (an equatorial bulge left over from its own rotation), the Sun's and Moon's gravity pull slightly harder on the near side of the bulge than the far side, producing a net torque $\vec\tau$ that tries to twist the tilted equatorial bulge into alignment with the ecliptic plane. Earth, however, is already spinning with a large angular momentum $\vec L = I_\oplus\vec\omega_\oplus$ directed along its rotation axis. For a rapidly spinning body, an applied torque does not tip the spin axis toward itself; instead, exactly as for a toy gyroscope or spinning top, it obeys $\vec\tau = d\vec L/dt$, which for a torque perpendicular to $\vec L$ rotates the axis \emph{sideways}, sweeping it around a cone rather than toppling it, at the steady precession rate
-\begin{equation}
-	\Omega_{\rm prec} = \frac{\tau}{L\sin\epsilon}.
-	\label{eq:gyroscopic_precession_rate}
-\end{equation}
-Evaluating $\tau$ explicitly requires the detailed torque produced by the Sun and Moon on Earth's measured oblateness (the $J_2$ quadrupole moment) averaged over both orbits --- a lengthy calculation in celestial mechanics that we do not reproduce here --- but Eq.~\eqref{eq:gyroscopic_precession_rate} already explains, from ordinary rigid-body mechanics alone, why the effect exists at all and why it is a slow conical sweep rather than any kind of orbital motion. The measured result of that full calculation is the precession period $P_{\rm prec} \approx 25{,}772\ \mathrm{years}$ quoted above, from which the vernal equinox drifts westward along the ecliptic at the rate:
-\begin{equation}
-	\dot\lambda_{\rm prec} \simeq 50.29''/\text{year} \approx 1^\circ/71.6\ \text{years}.
-	\label{eq:precession_rate}
-\end{equation}
-Because the equatorial grid $(\alpha, \delta)$ is pinned to the moving equinox $\hat\gamma$, cataloged positions must always specify a standard epoch. The current international standard is epoch \textbf{J2000.0} (January 1, 2000, 12:00:00 TT).
+The tides raised by the Moon are dragged ahead of the Moon by the Earth's spin, and the Moon pulls back on them. Angular momentum (P1) flows from the Earth's spin into the Moon's orbit, and the Moon moves away by about $3.8\,\mathrm{cm}$ a year. Records of ancient eclipses show that the day has grown longer by about $1.7\,\mathrm{ms}$ per century on average. Atomic clocks keep a steady time, and the time kept by the Earth is corrected against them.
 
-To precess coordinates $(\alpha_0, \delta_0)$ from J2000.0 to an epoch $t$ with $\Delta t = t - 2000.0$ years:
-\begin{keyresult}
-	\begin{align}
-		\alpha(t) &\approx \alpha_0 + (m + n\sin\alpha_0\tan\delta_0)\,\Delta t, \label{eq:precess_alpha} \\
-		\delta(t) &\approx \delta_0 + (n\cos\alpha_0)\,\Delta t, \label{eq:precess_delta}
-	\end{align}
-\end{keyresult}
-where the J2000.0 precession constants are $m = 3.075\ \text{s/yr} = 46.12''/\text{yr}$ and $n = 1.336\ \text{s/yr} = 20.04''/\text{yr}$.
+In numbers, if each day lasts $1\,\mathrm{ms}$ longer than $86\,400$ atomic seconds, the Earth's clock falls behind by $0.37\,\mathrm s$ in a year. A leap second every two or three years keeps civil time with the Earth.
 
-\section{Modern Astronomical Time Scales: UT1, TAI, UTC, TT, and TDB}
-
-Modern astrophysics requires a hierarchy of specialized time scales:
+Picture two clocks side by side, one steady and one slowly losing, and a person who now and then holds the steady one back by a second so that the two still agree on when the Sun is overhead. The same split between a clock defined by a motion and a clock defined by an atom is behind every one of the time scales below. Each one fixes a different trade-off between following the Earth and keeping a uniform rate.
 
 \begin{enumerate}
-	\item \textbf{UT1 (Universal Time 1):} Measures the true rotation angle of the Earth about its axis, determined via VLBI observations of extragalactic quasars. Due to atmospheric winds, tidal friction, and core-mantle coupling, UT1 is non-uniform.
-	\item \textbf{TAI (International Atomic Time):} A uniform atomic time scale generated by a weighted ensemble of hundreds of caesium-133 primary atomic clocks worldwide, defining the SI second ($9{,}192{,}631{,}770$ periods of the ground-state hyperfine transition).
-	\item \textbf{UTC (Coordinated Universal Time):} The civil time standard. UTC runs at the SI rate of TAI, but integer \emph{leap seconds} are inserted at the end of June or December to maintain $|\UTC - \UT1| < 0.9\ \text{seconds}$:
-	\begin{equation}
-		\TAI - \UTC = \Delta\mathrm{AT} \quad (\text{currently } 37\ \text{seconds}).
-	\end{equation}
-	\item \textbf{TT (Terrestrial Time):} The theoretical coordinate time scale for clocks on the rotating geoid, free from Earth rotation irregularities:
-	\begin{equation}
-		\TT = \TAI + 32.184\ \text{s} \quad\Longrightarrow\quad \TT - \UTC = \Delta\mathrm{AT} + 32.184\ \text{s} \approx 69.184\ \text{s}.
-	\end{equation}
-	\item \textbf{TDB (Barycentric Dynamical Time):} The relativistic coordinate time scale evaluated at the Solar System Barycenter (SSB). It accounts for general relativistic gravitational redshift and orbital time dilation:
-	\begin{equation}
-		\TDB \approx \TT + 0.001657\sin(E + 0.01671\sin E)\ \text{s},
-	\end{equation}
-	where $E$ is the Earth's orbital eccentric anomaly. TDB is essential for pulsar timing arrays and interplanetary navigation.
+	\item \textbf{UT1 (Universal Time).} The angle through which the Earth has actually turned, read as a time. It is measured with radio telescopes (VLBI) that time the arrival of signals from distant quasars. Because of tidal friction, winds and the core, UT1 does not run at a uniform rate.
+	\item \textbf{TAI (International Atomic Time).} A uniform time kept by a weighted average of several hundred atomic clocks around the world. Its second is the SI second, $9\,192\,631\,770$ periods of the radiation from the ground-state hyperfine transition of caesium-133.
+	\item \textbf{UTC (Coordinated Universal Time).} Civil time. UTC runs at the rate of TAI, but whole \textbf{leap seconds} are added at the end of June or December to keep $|\UTC - \UT1| < 0.9\,\mathrm s$. Since 2017,
+	\[
+	\TAI - \UTC = 37\,\mathrm{s}.
+	\]
+	In 2022 the General Conference on Weights and Measures decided to stop adding leap seconds by 2035.
+	\item \textbf{TT (Terrestrial Time).} The uniform time of a clock on the geoid, the surface of mean sea level, free of the Earth's irregular spin. It is defined to run with TAI,
+	\[
+	\TT = \TAI + 32.184\,\mathrm{s}, \qquad \TT - \UTC = 37\,\mathrm{s}+32.184\,\mathrm{s} = 69.184\,\mathrm{s}.
+	\]
+	The $32.184\,\mathrm s$ keeps TT continuous with the older Ephemeris Time.
+	\item \textbf{TDB (Barycentric Dynamical Time).} The time coordinate for the motion of bodies in the Solar System, referred to its centre of mass, the barycentre. It is used for planetary ephemerides, spacecraft navigation and pulsar timing. It differs from TT because a clock on the Earth moves and sits in the Sun's gravity.
 \end{enumerate}
 
-\section{Julian Date (JD) and Modified Julian Date (MJD)}
-
-To track time continuously across millennia without calendar discontinuities, astronomers use the Julian Date system.
-
-\begin{definition}[Julian Date]
-	The \emph{Julian Date} ($\JD$) is the continuous count of days elapsed since Greenwich mean noon (12:00:00 UT) on January 1, 4713 BCE.
-\end{definition}
-
-\begin{definition}[Modified Julian Date]
-	The \emph{Modified Julian Date} ($\MJD$) shifts the origin to Greenwich midnight and subtracts a large constant:
-	\begin{keyresult}
-		\begin{equation}
-			\MJD \equiv \JD - 2{,}400{,}000.5.
-			\label{eq:mjd_def}
-		\end{equation}
-	\end{keyresult}
-	$\MJD = 0.0$ corresponds to midnight on November 17, 1858.
-\end{definition}
-
-\paragraph{Standard Astronomical Epochs:}
-\begin{itemize}
-	\item \textbf{Epoch J2000.0:} $\JD = 2{,}451{,}545.0$ (2000 Jan 1, 12:00:00 TT).
-	\item \textbf{Epoch B1950.0:} $\JD = 2{,}433{,}282.423$.
-\end{itemize}
-
-\paragraph{Calendar Conversion Algorithm (Meeus 1998):}
-For year $Y$, month $M$ ($1 \le M \le 12$), and decimal day $D$ (with UT fraction):
-If $M = 1$ or $2$, set $Y \leftarrow Y - 1$ and $M \leftarrow M + 12$.
-The Julian Date is computed via:
+\paragraph{TT against TDB.} A clock on the Earth ticks proper time. In a weak field, its rate against the barycentric time $t$ is
+\[
+\dv{\tau}{t}=1-\frac1{c^2}\Big(\frac{v^2}{2}+\frac{GM_\odot}{r}\Big),
+\]
+with $v$ the Earth's orbital speed and $r$ its distance from the Sun. The Earth's own gravity and spin add a constant, which the definition of TT absorbs. The orbital terms are not constant, because the orbit is an ellipse. With the vis-viva relation $v^2=GM_\odot(2/r-1/a)$, which follows from Eq.~\eqref{eq:visviva_E} with $E=\tfrac12\mu v^2-GM\mu/r$,
+\[
+\frac{v^2}{2}+\frac{GM_\odot}{r}=\frac{2GM_\odot}{r}-\frac{GM_\odot}{2a}.
+\]
+The time average of $1/r$ over an orbit is $1/a$, by the same substitution used below. The average rate is a constant, which the definitions of the time scales take up. The part that changes over the year adds up to
+\begin{align}
+	\TDB-\TT
+	&\eqby{1} \frac{2GM_\odot}{c^2}\int\Big(\frac1r-\frac1a\Big)dt \nonumber\\
+	&\eqby{2} \frac{2GM_\odot}{c^2}\int\Big(\frac{1}{a(1-e\cos u)}-\frac1a\Big)\frac{(1-e\cos u)}{n}\,du \nonumber\\
+	&= \frac{2GM_\odot}{c^2\,na}\int e\cos u\,du \nonumber\\
+	&\eqby{3} \frac{2e\sqrt{GM_\odot a}}{c^2}\,\sin u .
+\end{align}
+\begin{explain}
+	\item The rate above, with its mean removed, integrated over time. The clock on the Earth runs slow when $1/r$ is above its mean, so TT falls behind TDB there.
+	\item $r=a(1-e\cos u)$, Eq.~\eqref{eq:r_of_u}, and $dt=(1-e\cos u)\,du/n$ from Eq.~\eqref{eq:udot}. Here $u$ is the eccentric anomaly of the Earth's orbit. The same steps show that $\int dt/r$ over one orbit is $2\pi/(na)$, so $1/r$ averages to $1/a$.
+	\item $GM_\odot/(na)=na^2=\sqrt{GM_\odot a}$ by Eq.~\eqref{eq:kepler3}, and the constant of integration is part of the definition.
+\end{explain}
+With $e=0.0167$, $GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$ and $a=1.496\times10^{11}\,\mathrm m$,
 \begin{equation}
-	A = \lfloor Y/100\rfloor, \qquad B = 2 - A + \lfloor A/4\rfloor,
+	\boxed{\TDB\simeq\TT+0.001657\,\mathrm s\;\sin u,\qquad u\simeq\ell+e\sin\ell .}
+	\label{ti:eq:tdb}
 \end{equation}
+The second relation is Kepler's equation, Eq.~\eqref{eq:kepler_eq}, to first order in $e$, with $\ell$ the Earth's mean anomaly. The difference is $1.7\,\mathrm{ms}$ at most and depends only on the eccentricity and the size of the orbit. The Moon and the planets add terms of a few microseconds. A pulsar timed to a microsecond needs all of them.
+
+% ==============================================================================
+\section{Julian Date and Modified Julian Date}
+\label{ti:sec:jd}
+
+A calendar date is hard to subtract. Months have different lengths, leap years come and go, and the calendar itself was changed in 1582. Astronomers count days instead, with one number that never resets.
+
+\paragraph{Julian Date.} The \textbf{Julian Date} ($\JD$) is the number of days since Greenwich mean noon on 1 January 4713~BC, in the Julian calendar. The day starts at noon, so that a night of observing has a single date.
+
+\paragraph{Modified Julian Date.} The \textbf{Modified Julian Date} ($\MJD$) moves the start of the day to midnight and removes the large leading digits,
 \begin{keyresult}
 	\begin{equation}
-		\JD = \lfloor 365.25(Y + 4716)\rfloor + \lfloor 30.6001(M + 1)\rfloor + D + B - 1524.5.
+		\MJD \equiv \JD - 2\,400\,000.5.
+		\label{eq:mjd_def}
+	\end{equation}
+\end{keyresult}
+$\MJD = 0.0$ is midnight at the start of 17 November 1858.
+
+\paragraph{Standard epochs.}
+\begin{itemize}
+	\item \textbf{J2000.0}, $\JD = 2\,451\,545.0$, 2000 January 1, 12:00:00 TT.
+	\item \textbf{B1950.0}, $\JD = 2\,433\,282.423$.
+\end{itemize}
+
+\paragraph{From a calendar date.} For year $Y$, month $M$ ($1\le M\le12$) and day $D$, with the time of day as a fraction of $D$, the following rule (Meeus 1998) gives the Julian Date for a date in the Gregorian calendar. If $M$ is 1 or 2, replace $Y$ by $Y-1$ and $M$ by $M+12$. Then
+\begin{keyresult}
+	\begin{equation}
+		\JD = \lfloor 365.25(Y + 4716)\rfloor + \lfloor 30.6001(M + 1)\rfloor + D + 2-\lfloor Y/100\rfloor+\lfloor Y/400\rfloor - 1524.5.
 		\label{eq:jd_formula_meeus}
 	\end{equation}
 \end{keyresult}
+Each piece has a job. Moving January and February to the end of the previous year puts the leap day at the very end of the year, so it never shifts the months that follow it. The first term counts the days in whole years, one in four of them a leap year. From March, the month lengths run $31,30,31,30,31$ and then repeat, $153$ days in five months, or $30.6$ a month, so the second term counts the days in the whole months before $M$. The terms $2-\lfloor Y/100\rfloor+\lfloor Y/400\rfloor$ remove the leap days that the Gregorian rule drops in century years. The constant $1524.5$ sets the zero at noon in 4713~BC.
 
-With a continuous, unambiguous time coordinate now established, Chapter~2 turns to the companion problem of \emph{position}: fixing a coordinate grid on the celestial sphere itself. That grid is not static --- its very definition (the equatorial plane and the vernal equinox $\hat\gamma$) is tied to the precessing Earth axis derived above, which is why every catalogued equatorial coordinate must carry an epoch (Section~\ref{sec:coordinate_epochs}).
+For J2000.0, $Y=1999$, $M=13$ and $D=1.5$. Then $\lfloor365.25\times6715\rfloor=2\,452\,653$, $\lfloor30.6001\times14\rfloor=428$, and $2-19+4=-13$, so
+\[
+\JD=2\,452\,653+428+1.5-13-1524.5=2\,451\,545.0,
+\]
+as listed above.
 
+\subsection{Sidereal Time on Any Date}
+\label{ti:sec:gmst}
+
+To point a telescope at a given moment we need $\LST$, and by Eq.~\eqref{eq:lst_gst_relation} that needs $\GMST$. The IAU formula gives $\GMST$ at $0^{\rm h}$ UT1 from the number of Julian centuries since J2000.0, $T = (\JD - 2\,451\,545.0)/36\,525$,
+\begin{equation}
+	\GMST(0^{\rm h}\UT1) = 6^{\rm h}41^{\rm m}50.54841^{\rm s} + 8\,640\,184.812866^{\rm s}\,T + 0.093104^{\rm s}\,T^2 - 6.2 \times 10^{-6\,\rm s}\,T^3.
+	\label{eq:gmst_iau_formula}
+\end{equation}
+The linear term is the daily gain of the sidereal clock. A Julian century has $36\,525$ days, and $8\,640\,184.81^{\rm s}/36\,525=236.555^{\rm s}$ per day, which is the $3^{\rm m}56.555^{\rm s}$ found in Section~\ref{sec:solar_sidereal_day}. At a time $t_{\rm UT}$ later in the same day, the sidereal clock has run faster by the ratio of the two days,
+\begin{equation}
+	\GMST(t_{\rm UT}) = \GMST(0^{\rm h}\UT1) + 1.00273790935 \times t_{\rm UT},
+	\label{eq:gmst_instant}
+\end{equation}
+where $1.00273790935=T_{\rm sol}/T_{\rm sid}=366.2422/365.2422$ by Eq.~\eqref{eq:sidereal_solar_relation}.
+
+\begin{example}[What is on the meridian at IISER TVM?]
+	Take 2026 October 16 at 19:00 IST, which is 13:30 UT. Eq.~\eqref{eq:jd_formula_meeus} with $Y=2026$, $M=10$, $D=16.0$ gives $\lfloor365.25\times6742\rfloor=2\,462\,515$, $\lfloor30.6001\times11\rfloor=336$ and $2-20+5=-13$, so $\JD=2\,461\,329.5$ at $0^{\rm h}$ UT. Then $T=0.267885$, and Eq.~\eqref{eq:gmst_iau_formula}, reduced modulo $24^{\rm h}$, gives $\GMST(0^{\rm h})=1^{\rm h}38^{\rm m}06.6^{\rm s}$. Adding $1.0027379\times13.5^{\rm h}=13^{\rm h}32^{\rm m}13.1^{\rm s}$ gives $\GMST=15^{\rm h}10^{\rm m}19.6^{\rm s}$. The longitude $77.1382^\circ$E is $5^{\rm h}08^{\rm m}33.2^{\rm s}$, so by Eq.~\eqref{eq:lst_gst_relation} $\LST=20^{\rm h}18^{\rm m}52.8^{\rm s}$. The bright star Deneb, at $\alpha=20^{\rm h}41^{\rm m}$, has $H=-22^{\rm m}$ and will cross the meridian about $22$ minutes later.
+\end{example}
+
+% ==============================================================================
 \section{Problem Set: Time Systems and Solar Motion}
 
 \subsection{Problem 1: Local Solar Time and Noon Zenith Angle at IISER TVM}
+\label{ti:prob:tvm}
 
-\textbf{Problem Statement}: IISER TVM is at a coordinate $8.6833^\circ\text{N}$, $77.1382^\circ\text{E}$. The Indian Standard Time (IST) is defined at Prayagraj ($82.5^\circ\text{E}$).
+\textbf{Problem Statement}: IISER TVM is at latitude $8.6833^\circ$N and longitude $77.1382^\circ$E. Indian Standard Time (IST) is the mean solar time of the meridian at $82.5^\circ$E, near Prayagraj.
 \begin{enumerate}[label=(\alph*)]
-	\item What is the local solar time at IISER TVM when it is 12:00 noon IST?
-	\item What is the zenith angle of the Sun on summer solstice noon at IISER TVM?
+	\item What is the local mean solar time at IISER TVM when it is 12:00 noon IST?
+	\item What is the zenith angle of the Sun at noon on the June solstice at IISER TVM?
+	\item At what IST does the Sun cross the meridian at IISER TVM on 3 November, when the equation of time is $+16.4$ minutes?
 \end{enumerate}
 
 \textbf{Essential Ideas}:
 \begin{itemize}
-    \item \textbf{Time \& Longitude}: The Earth rotates through $360^\circ$ in one solar day, corresponding to $\omega_\oplus=15^\circ/\mathrm{hr}$, or $4$ minutes of time per degree of longitude, so the local solar-time difference between two locations is set by their longitude offset:
-    \begin{equation}
-    	\Delta t = \frac{\lambda_{\rm IST}-\lambda_{\rm TVM}}{\omega_\oplus}.
-    \end{equation}
-    Solar time uses the Sun as the reference, whereas sidereal time uses the distant stars as the reference; consequently, GMT (solar time at Greenwich) and GST (sidereal time at Greenwich) are generally different and drift relative to each other. Because a sidereal day is approximately $23^{\rm h}56^{\rm m}4^{\rm s}$, sidereal time advances by about $3^{\rm m}56^{\rm s}$ relative to solar time each solar day, and their numerical values coincide only at particular instants. As the Earth rotates, the right ascension crossing a given local meridian changes, so the Local Sidereal Time changes continuously and is given by:
-    \begin{equation}
-    	\mathrm{LST} = \alpha_{\rm Meridian} = \mathrm{GST} + \lambda.
-    \end{equation}
-    
-    \begin{figure}[htbp]    	
-    	\centering
-    	\includegraphics{fig_ch1_prob_sidereal_solar.pdf}
-    	\caption{Distinction between the sidereal day ($360^\circ$ spatial rotation) and the solar day (which requires an additional $\approx 1^\circ \approx 4\,\text{min}$ of spin to bring the Sun back onto the local meridian).}
-    	\label{fig:ch1_prob_sidereal_solar}
-    \end{figure}
-
-    \item \textbf{Zenith Angle at Noon}: The zenith angle $z$ at local solar noon represents the angular distance from the local zenith vector to the Sun, governed by the absolute difference between the observer's latitude $\phi_0$ and solar declination $\delta_\odot$ ($+23.44^\circ$ on summer solstice).
-    \begin{figure}[htbp]
-    	\centering
-    	\includegraphics{fig_ch1_prob_subsolar_zenith.pdf}
-    	\caption{Geometry of the subsolar point and the noon zenith angle $z = |\phi_u - \phi_s|$ on the meridian.}
-    	\label{fig:ch1_prob_subsolar_zenith}
-    \end{figure}
-
-    \item \textbf{Right Ascension and Declination of the Sun}: Distant stars maintain constant equatorial coordinates $(\alpha, \delta)$, whereas the Sun's coordinates $(\alpha_\odot, \delta_\odot)$ vary continuously throughout the year due to Earth's orbital motion:
-    \begin{align}
-    	\text{Star:}\qquad
-    	&\alpha,\delta \approx \text{constant},\\[4pt]
-    	\text{Sun:}\qquad
-    	&\alpha_\odot,\delta_\odot
-    	= \text{functions of date}.
-    \end{align}
-    At the cardinal points of the ecliptic orbit:
-    \begin{align*}
-    	\text{March (vernal) equinox:}\qquad
-    	&\alpha_\odot = 0^{\rm h}, &
-    	&\delta_\odot = 0^\circ, &
-    	&\alpha_{\rm GM} = 0^{\rm h},\\[4pt]
-    	\text{June (summer) solstice:}\qquad
-    	&\alpha_\odot = 6^{\rm h}, &
-    	&\delta_\odot \simeq +23.44^\circ, &
-    	&\alpha_{\rm GM} = 6^{\rm h},\\[4pt]
-    	\text{September (autumnal) equinox:}\qquad
-    	&\alpha_\odot = 12^{\rm h}, &
-    	&\delta_\odot = 0^\circ, &
-    	&\alpha_{\rm GM} = 12^{\rm h},\\[4pt]
-    	\text{December (winter) solstice:}\qquad
-    	&\alpha_\odot = 18^{\rm h}, &
-    	&\delta_\odot \simeq -23.44^\circ, &
-    	&\alpha_{\rm GM} = 18^{\rm h}.
-    \end{align*}
-    \begin{equation}
-    	\boxed{\alpha_{\rm GM}=\alpha_\odot \quad\text{when the Sun crosses the Greenwich meridian.}}
-    \end{equation}
+	\item The Earth turns $15^\circ$ per hour relative to the mean Sun, so local mean time differs from standard time by four minutes per degree of longitude, Eq.~\eqref{eq:civil_to_solar_time}. Solar time follows the Sun, and sidereal time follows the stars. A sidereal clock gains about four minutes a day on a solar one (Figure~\ref{fig:ch1_prob_sidereal_solar}).
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.55\linewidth]{fig_ch1_prob_sidereal_solar.pdf}
+		\caption{The Earth on two successive days, as in Figure~\ref{fig:orbit-sidereal}, with the angle moved along the orbit in one day ($\approx1^\circ$) and the extra spin needed to face the Sun again ($\approx4^{\rm m}$).}
+		\label{fig:ch1_prob_sidereal_solar}
+	\end{figure}
+	\item At noon the Sun is on the meridian, and its declination $\delta_\odot$ is the latitude of the point on the Earth where it is overhead. The Sun's rays are parallel, so the noon zenith angle is the angle at the Earth's centre between the observer and that point (Figure~\ref{fig:ch1_prob_subsolar_zenith}). On the June solstice $\delta_\odot=+\epsilon=+23.44^\circ$ (Table~\ref{ti:tab:seasons}).
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.6\linewidth]{fig_ch1_prob_subsolar_zenith.pdf}
+		\caption{A cut through the Earth along the observer's meridian at local noon. The observer is at latitude $\phi_0$ and the subsolar point at latitude $\delta_\odot$. Parallel rays from the Sun reach both, and $z$ is the angle at the observer between the zenith and the Sun.}
+		\label{fig:ch1_prob_subsolar_zenith}
+	\end{figure}
+	\item The Sun crosses the meridian when apparent solar time is $12^{\rm h}$, which is when mean solar time is $12^{\rm h}-\EoT$, Eq.~\eqref{eq:eot_def}.
 \end{itemize}
 
 \textbf{Detailed Solutions}:
 \begin{enumerate}[label=(\alph*)]
-    \item \textbf{Local Solar Time at IISER TVM}:
-    The longitude difference between the Indian Standard Time reference meridian (Prayagraj, $\lambda_{\rm IST} = 82.5^\circ\text{E}$) and IISER TVM ($\lambda_{\rm TVM} = 77.1382^\circ\text{E}$) is:
-    \[
-    \Delta\lambda = \lambda_{\rm IST} - \lambda_{\rm TVM} = 82.5^\circ - 77.1382^\circ = 5.3618^\circ.
-    \]
-    Since Earth rotates at $15^\circ/\mathrm{hour}$ ($4\,\text{minutes per degree}$), the time offset is:
-    \[
-    \Delta t = 5.3618^\circ \times 4\,\text{min/deg} = 21.4472\,\text{minutes} = 21\,\text{min } 26.83\,\text{s} \approx 21\,\text{m } 27\,\text{s}.
-    \]
-    Because IISER TVM lies to the west of Prayagraj, local solar noon occurs later, so its local solar time lags IST:
-    \[
-    \boxed{\text{Local Solar Time} = 12\text{:}00\text{:}00 - 0\text{:}21\text{:}27 = 11\text{:}38\text{:}33\text{ AM}}.
-    \]
+	\item \textbf{Local mean solar time}. IISER TVM is west of the IST meridian by
+	\[
+	\lambda_{\rm ref} - \lambda_{\rm obs} = 82.5^\circ - 77.1382^\circ = 5.3618^\circ .
+	\]
+	At four minutes per degree this is
+	\[
+	5.3618^\circ \times 4^{\rm m}/^\circ = 21.4472^{\rm m} = 21^{\rm m}26.83^{\rm s} \approx 21^{\rm m}27^{\rm s}.
+	\]
+	IISER TVM is west of the reference meridian, so its noon comes later and its local time lags IST,
+	\[
+	\boxed{\text{local mean solar time} = 12{:}00{:}00 - 0{:}21{:}27 = 11{:}38{:}33.}
+	\]
 
-    \item \textbf{Zenith Angle of the Sun at Solstice Noon}:
-    At local solar noon on the summer (June) solstice, the Sun reaches its maximum northern declination:
-    \[
-    \delta_\odot = +23.44^\circ.
-    \]
-    For an observer at latitude $\phi_0 = 8.6833^\circ\text{N}$, the Sun culminates north of the local zenith. The zenith angle is the absolute angular separation:
-    \[
-    z = |\phi_0 - \delta_\odot| = |8.6833^\circ - 23.44^\circ| = 14.7567^\circ \approx \boxed{14.76^\circ}.
-    \]
-    Equivalently, the maximum altitude of the Sun above the northern horizon is $h = 90^\circ - z = 75.24^\circ$.
+	\item \textbf{Zenith angle at solstice noon}. The radii to the observer and to the subsolar point make angles $\phi_0$ and $\delta_\odot$ with the equator. The zenith at the observer lies along its radius, and the ray to the Sun is parallel to the radius through the subsolar point. So the angle between them at the observer equals the angle between the two radii at the centre, $|\phi_0-\delta_\odot|$. (The same result follows from the full rotation between horizon and equator, Eq.~\eqref{eq:zenith_angle_noon}.) With $\phi_0 = 8.6833^\circ$ and $\delta_\odot = 23.44^\circ$,
+	\[
+	z = |\phi_0 - \delta_\odot| = |8.6833^\circ - 23.44^\circ| = 14.7567^\circ, \qquad \boxed{z\approx 14.76^\circ.}
+	\]
+	The Sun is north of the zenith, since $\delta_\odot>\phi_0$. Its altitude above the northern horizon is $90^\circ - z = 75.24^\circ$.
+
+	\item \textbf{Apparent noon on 3 November}. Mean noon at IISER TVM is at 12:21:27 IST, from part (a). The Sun crosses the meridian when mean solar time is $12^{\rm h}-16.4^{\rm m}$, that is $16^{\rm m}24^{\rm s}$ before mean noon,
+	\[
+	\boxed{12{:}21{:}27-0{:}16{:}24=12{:}05{:}03\ \text{IST}.}
+	\]
+	A sundial at IISER TVM in early November reads noon only five minutes after the IST clock does, against twenty-one minutes on average. Anyone setting up a telescope or a sundial from a civil clock must allow for both the longitude and the equation of time.
 \end{enumerate}

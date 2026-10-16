@@ -1,502 +1,716 @@
 \chapter{Signal, Noise, and Detection in CCD Photometry}
+\label{ch:ccd}
 
-	A CCD (charged coupled device) detector does not deliver an exact astronomical flux; rather, it accumulates discrete photoelectrons in a two-dimensional grid of pixels over a finite exposure time, and that measured count unavoidably carries statistical uncertainty. Everything that governs observational success in optical and infrared astronomy --- whether a faint object is reliably detected, how precisely its apparent magnitude can be measured, and whether an observer should integrate continuously in a single long exposure or co-add multiple short exposures --- follows from tracking that uncertainty rigorously from its underlying physical origin to the final signal-to-noise ratio ($\mathrm{SNR}$). In this chapter, we develop a complete first-principles treatment of CCD noise statistics without empirical fudge factors, deriving the Poisson nature of photon counting, formulating the master CCD signal-to-noise equation, and analyzing the three distinct observational regimes that dictate optimal observing strategy.
+Chapter~\ref{ch:photometry} measured the light of a star as a flux and wrote it as a magnitude. Chapter~\ref{ch:resolution} focused that light into an image on a detector. Most optical and infrared images today are taken with a CCD (charge-coupled device). It is a thin slab of silicon divided into a grid of pixels. Light frees electrons in the silicon, each pixel holds its electrons during the exposure, and at the end the electrons in every pixel are counted.
 
-	\section{Fundamental Notation and Bookkeeping Conventions}
+A count of electrons is a whole number, and it changes from one exposure to the next even when the star does not. How much it changes decides whether a faint star is seen at all, how well its magnitude is known, and whether one long exposure is better than several short ones. All three answers come from one equation for the signal-to-noise ratio, built from the statistics of counting.
 
-	To avoid the widespread confusion arising from reusing the letter $N$ for both total photon counts and noise amplitudes, we adopt the strict convention that every noise term is denoted by $\sigma$ (a standard deviation), while electron rates are denoted by $R$ with descriptive subscripts. The total integration time $t$ is partitioned into $N_{\rm exp}$ discrete exposures of duration $t_{\rm exp}$.
+% ==============================================================================
+\section{Counting Photoelectrons}
+\label{cc:sec:counting}
 
-	\begin{table}[htbp]
-		\centering
-		\begin{tabular}{@{}l p{9.8cm} l@{}}
-			\toprule
-			\textbf{Symbol} & \textbf{Physical Meaning} & \textbf{Units} \\
-			\midrule
-			$R_{\rm src}$ & Photoelectron rate from the astronomical source integrated over the aperture & $\mathrm{e^-\,s^{-1}}$ \\
-			$R_{\rm sky}$ & Sky-background photoelectron rate per pixel & $\mathrm{e^-\,s^{-1}\,pix^{-1}}$ \\
-			$R_{\rm dark}$ & Thermal dark-current generation rate per pixel & $\mathrm{e^-\,s^{-1}\,pix^{-1}}$ \\
-			$n_{\rm pix}$ & Number of detector pixels contained within the photometric aperture ($\propto \theta_{\rm see}^2$) & $\mathrm{pixels}$ \\
-			$t_{\rm exp}$ & Exposure duration of an individual frame & $\mathrm{s}$ \\
-			$N_{\rm exp}$ & Total number of individual exposures co-added & --- \\
-			$t$ & Total integration time ($t = N_{\rm exp}t_{\rm exp}$) & $\mathrm{s}$ \\
-			$S$ & Total source signal collected over the integration ($S = R_{\rm src}t$) & $\mathrm{e^-}$ \\
-			$\sigma_{\rm RON}$ & Readout noise standard deviation per pixel per single read & $\mathrm{e^-}$ \\
-			$\sigma_x$ & Standard deviation (noise contribution) associated with physical process $x$ & $\mathrm{e^-}$ \\
-			$\mathrm{SNR}$ & Signal-to-noise ratio ($S/\sigma_{\rm tot}$) & --- \\
-			$m, \delta m$ & Apparent magnitude and its associated photometric uncertainty & $\mathrm{mag}$ \\
-			\bottomrule
-		\end{tabular}
-		\caption{Mathematical symbols, physical definitions, and units used throughout the CCD noise analysis.}
-		\label{tab:ccd_notation}
-	\end{table}
+Chapter~\ref{ch:photometry} gave the light of a star as a flux $F$ in $\mathrm{W\,m^{-2}}$, and Chapter~\ref{ch:resolution} gave the size of its image on the detector.
 
-	\paragraph{Post-Quantum-Efficiency (post-QE) Convention.}
-	When an incident photon strikes the silicon lattice of a CCD, it produces an electron-hole pair with probability $\eta(\lambda)$, known as the detector's \emph{quantum efficiency} (typically $\eta \sim 0.50\text{--}0.85$ in modern back-illuminated astronomical CCDs). Because $\eta$ uniformly scales all photon-driven rates, we absorb $\eta$ directly into the definitions of $R_{\rm src}$ and $R_{\rm sky}$. Counting directly in \emph{detected photoelectrons} ($\mathrm{e^-}$) simplifies the bookkeeping and ensures that every rate ($R_{\rm src}, R_{\rm sky}, R_{\rm dark}$) is defined consistently on a post-conversion basis.
-	\begin{tcolorbox}[breakable]
-		\begin{align}
-			\text{number of photons detected}&=\text{number of electrons produced}\\
-			&=\text{number of photons that hit the detector}\times\text{quantum efficiency}
-		\end{align}
-	\end{tcolorbox}
+A CCD does not report watts. It reports a number of electrons in each pixel, and part of that number did not come from the star at all.
 
-	\section{Setting Up the Photometric Measurement}
+Picture a grid of buckets on a lawn, with a garden sprinkler running over one spot during a light drizzle. After ten minutes the buckets near the sprinkler hold most of its water. Every bucket also holds the same depth of drizzle, and a little water that has condensed on its inside. To read a bucket we pour it into a measuring jug and read the scale, which adds a small error of its own. To find what the sprinkler gave, we add up the buckets around it and take away what the drizzle and the condensation would have put there.
 
-	Over a total integration time $t$, the astronomical target deposits a total detected signal
+The pixels are the buckets. The star is the sprinkler, the faint glow of the night sky is the drizzle, electrons freed by heat in the silicon are the condensation, and the electronics that measure each pixel's charge are the jug. The signal is the number of electrons that the star alone put into the pixels around its image.
+
+In numbers, a star that frees $50$ electrons per second in its image gives $50\times60=3000$ electrons in a one-minute exposure. If its image covers $20$ pixels and the sky frees $2$ electrons per second in each pixel, the sky adds $2\times20\times60=2400$ electrons under the star.
+
+Picture the image as a small hill of electrons standing on a wide, flat plain of sky electrons. The signal is the volume of the hill above the plain.
+
+A Geiger counter measures a radioactive sample in the same way, on top of the counts from cosmic rays and the walls of the room. So does a rain gauge in a garden that is also watered. Here we name the rates and times in which the noise of a count is written.
+
+\paragraph{Photons become electrons.} A photon that enters a pixel frees one electron with a probability $\eta(\lambda)$, the \textbf{quantum efficiency} of the detector. For modern astronomical CCDs $\eta$ is about $0.5$ to $0.85$. So
+\begin{equation*}
+	\text{number of electrons} = \eta\times\text{number of photons that reach the pixel},
+\end{equation*}
+and $1000$ photons give about $800$ electrons when $\eta=0.8$. The factor $\eta$ multiplies every rate that comes from light, so we fold it into those rates and count only electrons from here on. Every rate below is a rate of detected electrons.
+
+\paragraph{The rates.} The light of the star is spread over several pixels by the image blur. We therefore take $R_{\rm src}$ to be the rate at which the star frees electrons in all the pixels of the measuring aperture together. The sky is the same in every pixel, so $R_{\rm sky}$ is a rate per pixel. Heat frees \textbf{dark electrons} at the rate $R_{\rm dark}$ in every pixel, light or no light, and they look exactly like electrons freed by photons. The aperture contains $n_{\rm pix}$ pixels. Detector manuals often quote the dark rate per hour, and dividing by $3600$ turns it into a rate per second. All the symbols are collected in Table~\ref{tab:ccd_notation}.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l p{9.8cm} l@{}}
+		\toprule
+		\textbf{Symbol} & \textbf{Meaning} & \textbf{Units} \\
+		\midrule
+		$R_{\rm src}$ & Rate of electrons from the star, summed over the aperture & $\mathrm{e^-\,s^{-1}}$ \\
+		$R_{\rm sky}$ & Rate of electrons from the sky, per pixel & $\mathrm{e^-\,s^{-1}\,pix^{-1}}$ \\
+		$R_{\rm dark}$ & Rate of dark electrons freed by heat, per pixel & $\mathrm{e^-\,s^{-1}\,pix^{-1}}$ \\
+		$n_{\rm pix}$ & Number of pixels in the aperture, proportional to $\theta_{\rm seeing}^2$ & pixels \\
+		$t_{\rm exp}$ & Length of one exposure & $\mathrm{s}$ \\
+		$N_{\rm exp}$ & Number of exposures added together & --- \\
+		$t$ & Total time, $t = N_{\rm exp}t_{\rm exp}$ & $\mathrm{s}$ \\
+		$S$ & Signal, the electrons from the star in the total time, $S = R_{\rm src}t$ & $\mathrm{e^-}$ \\
+		$\bar n$ & Mean of a count of electrons & $\mathrm{e^-}$ \\
+		$\sigma_{\rm RON}$ & Readout noise of one pixel in one reading (standard deviation) & $\mathrm{e^-}$ \\
+		$\sigma_x$ & Standard deviation added by the process $x$ & $\mathrm{e^-}$ \\
+		$\SNR$ & Signal-to-noise ratio, $S/\sigma_{\rm tot}$ & --- \\
+		$m,\ \delta m$ & Apparent magnitude and its error & $\mathrm{mag}$ \\
+		\bottomrule
+	\end{tabular}
+	\caption{Symbols, meanings and units for the CCD noise budget.}
+	\label{tab:ccd_notation}
+\end{table}
+
+\paragraph{The signal.} Over a total time $t$ the star gives
+\begin{equation}
+	S = R_{\rm src}\,t
+	\label{eq:ccd_signal_total}
+\end{equation}
+electrons. In practice $t$ is often split into $N_{\rm exp}$ exposures of length $t_{\rm exp}$ each, which are added afterwards,
+\begin{equation}
+	t = N_{\rm exp}\,t_{\rm exp}, \qquad S = R_{\rm src}\,N_{\rm exp}\,t_{\rm exp}.
+	\label{eq:ccd_signal_partition}
+\end{equation}
+The difference between $t$ and $N_{\rm exp}$ matters. Electrons pile up in proportion to the total time only. The electronics add their error once at every reading, so that part grows with the number of exposures.
+
+% ==============================================================================
+\section{Shot Noise and the Poisson Distribution}
+\label{cc:sec:poisson}
+
+We can now write the signal as a mean number of electrons, $S=R_{\rm src}t$.
+
+A real exposure does not give the mean. It gives one count, and a second exposure of the same steady star gives a different count. To say how far a count can stray from its mean we need the probability of every possible count.
+
+Stand by a quiet road at night and count the cars that pass in each minute. The traffic is steady, about ten cars a minute on average. Yet one minute brings seven and the next thirteen. Nothing about the road changed. The cars simply come one at a time, each at its own moment, without arranging themselves to arrive evenly.
+
+Photons from a steady star arrive in the same way, one at a time and independently. So the number of electrons in a fixed exposure scatters about its mean. The scatter is called \textbf{shot noise}. It comes from counting, not from any fault of the detector, and its size is the square root of the mean count.
+
+In numbers, a mean of $10$ cars a minute gives a scatter of about $\sqrt{10}\approx3.2$, so most minutes bring between $7$ and $13$ cars. A mean of $100$ gives a scatter of $10$, which is $10$ per cent of the mean. A mean of $10\,000$ gives $100$, only $1$ per cent. The scatter grows with the mean, but more slowly, so it becomes a smaller fraction of it.
+
+Picture a histogram of many repeated counts. It is a hump centred on the mean count, with a width equal to its square root. For a larger mean the hump moves right and gets wider, but it gets narrower compared with its distance from zero.
+
+The same counting statistics give the shot noise of an electric current, first studied by Schottky in vacuum tubes, and the scatter in the clicks of a Geiger counter. The total count is a sum of many independent small pieces, and its variance grows in proportion to the number of pieces. This is the mathematics of the random walk, principle P5 (Section~\ref{pr:sec:p5}), where the square of the distance grows in proportion to the number of steps. Here it gives the Poisson distribution of a count, its mean and variance, and the Gaussian shape it takes when the count is large.
+
+\paragraph{Three assumptions.} The derivation rests on two physical facts about the arrivals and one mild mathematical condition.
+\begin{itemize}
+	\item \textbf{Independence.} One arrival says nothing about when the next one comes. There is no memory and no bunching.
+	\item \textbf{Constant rate.} The source does not change its brightness during the exposure, so the chance of an arrival is the same in every interval of the same length.
+	\item \textbf{Smoothness.} The probability $f(\Delta t)$ of an arrival in an interval of length $\Delta t$ is a smooth function near $\Delta t=0$, so it has a Taylor series there.
+\end{itemize}
+
+\paragraph{One short interval.} An interval of zero length holds nothing, so $f(0)=0$. For a short interval,
+\begin{align}
+	f(\Delta t)
+	&\eqby{1} f(0) + f'(0)\,\Delta t + O(\Delta t^2) \nonumber\\
+	&\eqby{2} f'(0)\,\Delta t + O(\Delta t^2).
+\end{align}
+\begin{explain}
+	\item Taylor series about $\Delta t=0$, allowed by the smoothness condition.
+	\item $f(0)=0$.
+\end{explain}
+So for any short interval the chance of an arrival is proportional to its length. This is true of any probability that starts from zero, not just of light. Two arrivals in the same interval need two independent rare events at once, so their probability is of order $\Delta t^2$.
+
+\paragraph{Many short intervals.} Divide the exposure $t$ into $N$ equal intervals of length $\Delta t=t/N$. In each one, an arrival happens with probability
+\begin{equation*}
+	p = f'(0)\,\frac tN \equiv \frac{\bar n}{N}, \qquad \bar n\equiv f'(0)\,t ,
+\end{equation*}
+and two or more arrivals happen with a probability of order $1/N^2$, which we drop as $N\to\infty$. Each interval then holds either no arrival or one. The intervals are independent, so the probability of a particular pattern with arrivals in $n$ chosen intervals is $p^n(1-p)^{N-n}$, and there are $\binom Nn$ ways to choose the $n$ intervals. The count $n$ therefore follows the binomial distribution. Letting $N\to\infty$ with $\bar n$ fixed,
+\begin{align}
+	P(n)
+	&\eqby{1} \lim_{N\to\infty}\frac{N!}{n!\,(N-n)!}\left(\frac{\bar n}{N}\right)^{n}\left(1-\frac{\bar n}{N}\right)^{N-n} \nonumber\\
+	&\eqby{2} \frac{\bar n^{\,n}}{n!}\,\lim_{N\to\infty}\left[\frac{N!}{(N-n)!\,N^n}\right]\left(1-\frac{\bar n}{N}\right)^{N}\left(1-\frac{\bar n}{N}\right)^{-n} \nonumber\\
+	&\eqby{3} \frac{\bar n^{\,n}}{n!}\cdot 1\cdot e^{-\bar n}\cdot 1 .
+\end{align}
+\begin{explain}
+	\item The binomial distribution with $p=\bar n/N$.
+	\item Regroup, taking out the factors that do not depend on $N$.
+	\item $N!/[(N-n)!\,N^n]=\prod_{j=0}^{n-1}(1-j/N)$ is a product of a fixed number $n$ of factors that each tend to $1$. The logarithm of the middle factor is $N\ln(1-\bar n/N)=N(-\bar n/N-\bar n^2/2N^2-\dots)\to-\bar n$. The last factor has a fixed power $n$ and tends to $1$.
+\end{explain}
+This is the \textbf{Poisson distribution},
+\begin{equation}
+	\boxed{P(n) = \frac{\bar n^{\,n}\,e^{-\bar n}}{n!}.}
+	\label{eq:poisson_dist}
+\end{equation}
+It depends on the rate and the time only through $\bar n$. Its probabilities add up to one (Problem~\ref{cc:prob:poisson}).
+
+\paragraph{Mean.} The mean count is
+\begin{align}
+	\avg{n}
+	&\eqby{1} \sum_{n=0}^{\infty} n\,\frac{\bar n^{\,n}e^{-\bar n}}{n!} \nonumber\\
+	&\eqby{2} e^{-\bar n}\sum_{n=1}^{\infty}\frac{\bar n^{\,n}}{(n-1)!} \nonumber\\
+	&\eqby{3} \bar n\,e^{-\bar n}\sum_{j=0}^{\infty}\frac{\bar n^{\,j}}{j!} \nonumber\\
+	&\eqby{4} \bar n .
+	\label{eq:poisson_mean}
+\end{align}
+\begin{explain}
+	\item The definition of the mean, with Eq.~\eqref{eq:poisson_dist}.
+	\item The $n=0$ term is zero, and $n/n!=1/(n-1)!$.
+	\item Put $j=n-1$ and take one factor $\bar n$ out of the sum.
+	\item The sum is the series of $e^{\bar n}$.
+\end{explain}
+So $\bar n$ is the mean count, and $f'(0)=\bar n/t$ is the mean number of arrivals per second. For the star it is $R_{\rm src}$, and for the sky and the dark current it is $n_{\rm pix}R_{\rm sky}$ and $n_{\rm pix}R_{\rm dark}$.
+
+\paragraph{Variance.} The variance is $\sigma^2\equiv\avg{(n-\avg n)^2}$. The factor $n(n-1)$ cancels cleanly against $n!$, so we first find the average of $n(n-1)$,
+\begin{align}
+	\avg{n(n-1)}
+	&\eqby{1} e^{-\bar n}\sum_{n=2}^{\infty}\frac{\bar n^{\,n}}{(n-2)!} \nonumber\\
+	&\eqby{2} \bar n^2\,e^{-\bar n}\sum_{j=0}^{\infty}\frac{\bar n^{\,j}}{j!} = \bar n^2 .
+\end{align}
+\begin{explain}
+	\item The terms $n=0$ and $n=1$ are zero, and $n(n-1)/n!=1/(n-2)!$.
+	\item Put $j=n-2$, take $\bar n^2$ out, and sum the series of $e^{\bar n}$.
+\end{explain}
+Then
+\begin{align}
+	\sigma^2
+	&\eqby{1} \avg{n^2}-\avg{n}^2 \nonumber\\
+	&\eqby{2} \avg{n(n-1)}+\avg{n}-\avg{n}^2 \nonumber\\
+	&\eqby{3} \bar n^2+\bar n-\bar n^2 = \bar n .
+	\label{eq:poisson_var}
+\end{align}
+\begin{explain}
+	\item Expand the square. $\avg n$ is a constant, so $\avg{2n\avg n}=2\avg n^2$.
+	\item $n^2=n(n-1)+n$.
+	\item The two averages just found, Eq.~\eqref{eq:poisson_mean} and the one above.
+\end{explain}
+The shot noise, the standard deviation of the count, is therefore
+\begin{equation}
+	\boxed{\sigma=\sqrt{\bar n}.}
+	\label{eq:shot_noise_sigma}
+\end{equation}
+The noise grows as the square root of the mean, so the fractional noise $\sigma/\bar n=1/\sqrt{\bar n}$ falls as the count grows. A computer algebra check of the three sums gives $1$, $\bar n$ and $\bar n$ exactly. Figure~\ref{fig:poisson_distributions} shows the distribution for three means.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\textwidth]{figs/fig0_poisson.png}
+	\caption{The Poisson distribution for mean counts of $5$, $20$ and $80$ (labelled $\mu$ in the plot). A dotted line marks each mean, and a double arrow spans one standard deviation on each side of it.}
+	\label{fig:poisson_distributions}
+\end{figure}
+
+\paragraph{Why the variance grows as the count.} The same variance follows from a second route, which shows where the square root comes from. We need one general fact first. Let a quantity $X=\sum_iX_i$ be a sum of independent parts, and write $\delta X_i=X_i-\avg{X_i}$ for the deviation of each part from its mean. Then
+\begin{align}
+	\sigma_X^2
+	&\eqby{1} \Big\langle\Big(\sum_i\delta X_i\Big)^2\Big\rangle \nonumber\\
+	&\eqby{2} \sum_i\sum_j\avg{\delta X_i\,\delta X_j} \nonumber\\
+	&\eqby{3} \sum_i\avg{\delta X_i^2}+\sum_{i\neq j}\avg{\delta X_i}\avg{\delta X_j} \nonumber\\
+	&\eqby{4} \sum_i\sigma_i^2 .
+	\label{cc:eq:var_add}
+\end{align}
+\begin{explain}
+	\item $X-\avg X=\sum_i\delta X_i$, because the mean of a sum is the sum of the means.
+	\item Expand the square of the sum into a double sum.
+	\item Split off the terms with $i=j$. For $i\neq j$ the parts are independent, so the average of the product is the product of the averages.
+	\item $\avg{\delta X_i}=0$ by its definition, and $\avg{\delta X_i^2}=\sigma_i^2$.
+\end{explain}
+The variances of independent parts add, whatever the distribution of each part. Standard deviations therefore add \textbf{in quadrature}, $\sigma_X=\sqrt{\sum_i\sigma_i^2}$. The cross terms die for the same reason as in the random walk, where they gave $R_{\rm rms}=\sqrt N\,s$ (Eq.~\eqref{pr:eq:sqrtN}).
+
+Now let $X_i$ be the number of arrivals in the $i$-th short interval. It is $1$ with probability $p$ and $0$ otherwise, so $\avg{X_i}=p$ and $\avg{X_i^2}=p$, which gives $\sigma_i^2=p-p^2$. The count is $n=\sum_iX_i$, and
+\begin{align}
+	\sigma^2
+	&\eqby{1} \sum_{i=1}^{N}p\,(1-p) \nonumber\\
+	&\eqby{2} \bar n\left(1-\frac{\bar n}{N}\right) \nonumber\\
+	&\to \bar n \quad (N\to\infty).
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{cc:eq:var_add}, with the same variance $p(1-p)$ for every interval.
+	\item $Np=\bar n$.
+\end{explain}
+This agrees with Eq.~\eqref{eq:poisson_var}. Each interval adds the same small variance, so the variance grows in proportion to the number of intervals, and so in proportion to the mean count. The noise grows only as its square root.
+
+\paragraph{Large counts look Gaussian.} For a large mean the Poisson hump becomes the Gaussian bell curve. To see this we write $n=\bar n+x$ and use Stirling's formula, $\ln n!\approx n\ln n-n+\tfrac12\ln(2\pi n)$, for large $n$.
+\begin{align}
+	\ln P(n)
+	&\eqby{1} n\ln\bar n-\bar n-n\ln n+n-\tfrac12\ln(2\pi n) \nonumber\\
+	&\eqby{2} -(\bar n+x)\ln\!\left(1+\frac{x}{\bar n}\right)+x-\tfrac12\ln(2\pi n) \nonumber\\
+	&\eqby{3} -(\bar n+x)\left(\frac{x}{\bar n}-\frac{x^2}{2\bar n^2}+\dots\right)+x-\tfrac12\ln(2\pi\bar n)+\dots \nonumber\\
+	&\eqby{4} -\frac{x^2}{2\bar n}-\tfrac12\ln(2\pi\bar n)+O\!\left(\frac{x^3}{\bar n^2},\frac{x}{\bar n}\right).
+\end{align}
+\begin{explain}
+	\item The logarithm of Eq.~\eqref{eq:poisson_dist}, with Stirling's formula for $\ln n!$.
+	\item $n\ln\bar n-n\ln n=-n\ln(n/\bar n)$ with $n=\bar n+x$, and $-\bar n+n=x$.
+	\item Taylor series $\ln(1+y)=y-y^2/2+\dots$, and $\ln(2\pi n)=\ln(2\pi\bar n)+\ln(1+x/\bar n)$.
+	\item Multiply out. The terms in $x$ cancel, and $x^2/2\bar n-x^2/\bar n=-x^2/2\bar n$.
+\end{explain}
+Dropping the small terms,
+\begin{equation}
+	\boxed{P(n)\approx\frac{1}{\sqrt{2\pi\bar n}}\exp\!\left[-\frac{(n-\bar n)^2}{2\bar n}\right].}
+	\label{cc:eq:gauss_limit}
+\end{equation}
+This is a Gaussian with mean $\bar n$ and variance $\bar n$, as it must be. The dropped term $x^3/\bar n^2$ is $1/\sqrt{\bar n}$ at one standard deviation, $x=\sqrt{\bar n}$. So the Gaussian is good when $\bar n\gg1$ and within a few standard deviations of the mean. The Poisson distribution is defined only at whole numbers and the Gaussian is smooth, but when $\sqrt{\bar n}\gg1$ the steps of one electron are tiny compared with the width, and the difference cannot be seen (Figure~\ref{cc:fig:poisson_gauss} in Problem~\ref{cc:prob:poisson}). A computer algebra expansion of $\ln P(n)$ to second order in $x$ gives the same leading terms.
+
+% ==============================================================================
+\section{The Noise Budget and the Signal-to-Noise Equation}
+\label{cc:sec:budget}
+
+We now know that a count with mean $\bar n$ has a standard deviation $\sqrt{\bar n}$.
+
+The number we read from a CCD is not one clean count. It is the star's electrons on top of sky and dark electrons, measured by electronics that add an error of their own. We need the noise of the star's share alone, after the rest has been taken away.
+
+Weigh yourself on a bathroom scale while holding a cat, then weigh yourself alone, and subtract. Each reading of the scale wanders by about $0.2\,\mathrm{kg}$. Your own weight cancels in the difference, but the wandering of the second reading does not. The cat's weight carries both.
+
+In an image, the star's electrons sit on top of the sky and dark electrons. We subtract the mean sky and dark level, but their scatter stays in the result, and the readout adds more. The idea is that the variances of independent sources of noise add.
+
+In numbers, the cat's weight has an error of $\sqrt{0.2^2+0.2^2}=0.28\,\mathrm{kg}$, not $0.4\,\mathrm{kg}$. Two errors that are independent partly cancel as often as they add.
+
+Picture each source of noise as a side of a box, all at right angles to each other. The total noise is the long diagonal of the box, as in Pythagoras' theorem.
+
+Every laboratory error budget adds independent errors in this way, and so does an engineer adding noise powers in a circuit. It is the same rule that made the random walk grow as $\sqrt N$ (P5, Eq.~\eqref{pr:eq:sqrtN}), and it was proved for any independent parts in Eq.~\eqref{cc:eq:var_add}. Applied to the four sources of electrons in an aperture, it gives the signal-to-noise equation of a CCD, which every exposure time calculator evaluates.
+
+\paragraph{Signal-to-noise ratio.} Let $\sigma_{\rm tot}$ be the standard deviation of the measured signal $S$, after the mean sky and dark levels have been subtracted. The measurement is reported as $S\pm\sigma_{\rm tot}$, and its \textbf{signal-to-noise ratio} is
+\begin{equation}
+	\SNR \equiv \frac{S}{\sigma_{\rm tot}}.
+	\label{eq:snr_def}
+\end{equation}
+Its inverse $1/\SNR=\sigma_{\rm tot}/S$ is the fractional error of the flux. Our goal is $\sigma_{\rm tot}$ in terms of the rates and times of Table~\ref{tab:ccd_notation}.
+
+\paragraph{Shot noise of the star.} The electrons from the star in time $t$ have the mean $S=R_{\rm src}t$ (Eq.~\eqref{eq:ccd_signal_total}). The rate $R_{\rm src}$ is already summed over the aperture, so no factor $n_{\rm pix}$ appears. Eq.~\eqref{eq:shot_noise_sigma} gives
+\begin{equation}
+	\sigma_{\rm src} = \sqrt{S} = \sqrt{R_{\rm src}\,t}.
+	\label{eq:sigma_src}
+\end{equation}
+
+\paragraph{Shot noise of the sky.} The sky gives $R_{\rm sky}$ per pixel, so the aperture collects a mean of $n_{\rm pix}R_{\rm sky}t$ sky electrons. We assume that the mean sky level is measured over a large empty area nearby, so that its own error is small. Subtracting it removes the mean, but the Poisson scatter of the sky electrons inside the aperture remains,
+\begin{equation}
+	\sigma_{\rm sky} = \sqrt{n_{\rm pix}\,R_{\rm sky}\,t}.
+	\label{eq:sigma_sky}
+\end{equation}
+The aperture must hold the blurred image, so its area grows as the square of the seeing, $n_{\rm pix}\propto\theta_{\rm seeing}^2$ (Eq.~\eqref{eq:seeing_resolution}). Good seeing means fewer pixels and less sky noise.
+
+\paragraph{Shot noise of the dark current.} Heat in the silicon frees electrons at random moments, independently and at a steady rate, just as photons arrive. So the dark electrons are also Poisson counts, with mean $n_{\rm pix}R_{\rm dark}t$ in the aperture,
+\begin{equation}
+	\sigma_{\rm dark} = \sqrt{n_{\rm pix}\,R_{\rm dark}\,t}.
+	\label{eq:sigma_dark}
+\end{equation}
+Cooling the detector lowers $R_{\rm dark}$, which is why astronomical CCDs are kept cold.
+
+\paragraph{Readout noise.} The readout noise is not a count of anything. Dark current adds extra charge to a pixel before it is measured. Readout noise is an error in the measurement itself, after the charge is fixed. The charge of each pixel is turned into a voltage by an output transistor and then into a number by an analogue-to-digital converter. Both have their own electrical noise, the thermal (Johnson--Nyquist) noise of any resistor and a slowly wandering ``$1/f$'' noise. Each reading of a pixel therefore gets a random error with a Gaussian distribution and a standard deviation $\sigma_{\rm RON}$, whatever charge the pixel holds and however long the exposure was. Every reading is independent, and the aperture is read $n_{\rm pix}$ times in each of $N_{\rm exp}$ exposures, so
+\begin{align}
+	\sigma_{\rm read}^2
+	&\eqby{1} \sum_{\text{readings}}\sigma_{\rm RON}^2 \nonumber\\
+	&= n_{\rm pix}\,N_{\rm exp}\,\sigma_{\rm RON}^2 . \nonumber
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{cc:eq:var_add}, with the same variance for every reading.
+\end{explain}
+\begin{equation}
+	\boxed{\sigma_{\rm read} = \sqrt{n_{\rm pix}\,N_{\rm exp}}\;\sigma_{\rm RON}.}
+	\label{eq:sigma_read}
+\end{equation}
+The readout variance grows with $N_{\rm exp}$, not with $t$. Splitting a total time into $N_{\rm exp}$ exposures pays the readout variance $N_{\rm exp}$ times.
+
+\paragraph{Adding the four.} The star, the sky, the heat in the silicon and the readout electronics are independent of each other, so Eq.~\eqref{cc:eq:var_add} adds their variances,
+\begin{align}
+	\sigma_{\rm tot}^2
+	&\eqby{1} \sigma_{\rm src}^2 + \sigma_{\rm sky}^2 + \sigma_{\rm dark}^2 + \sigma_{\rm read}^2 \label{eq:variance_addition}\\
+	&\eqby{2} R_{\rm src}\,t + n_{\rm pix}R_{\rm sky}\,t + n_{\rm pix}R_{\rm dark}\,t + n_{\rm pix}N_{\rm exp}\,\sigma_{\rm RON}^2 . \nonumber
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{cc:eq:var_add} for four independent parts.
+	\item Eqs.~\eqref{eq:sigma_src}--\eqref{eq:sigma_read}.
+\end{explain}
+Putting this and $S=R_{\rm src}t$ into Eq.~\eqref{eq:snr_def} gives the \textbf{CCD signal-to-noise equation},
+\begin{keyresult}
 	\begin{equation}
-		S =\text{number of electron produced}=\text{rate of electron production}\times\text{exposure time}= R_{\rm src}\,t.
-		\label{eq:ccd_signal_total}
+		\SNR = \frac{R_{\rm src}\,t}{\sqrt{R_{\rm src}\,t \;+\; n_{\rm pix}R_{\rm sky}\,t \;+\; n_{\rm pix}R_{\rm dark}\,t \;+\; n_{\rm pix}N_{\rm exp}\,\sigma_{\rm RON}^2}},
+		\qquad t=N_{\rm exp}t_{\rm exp}.
+		\label{eq:master_ccd_snr}
 	\end{equation}
-	In practical astronomical observations, the total time $t$ is divided into $N_{\rm exp}$ separate exposures of duration $t_{\rm exp}$ each:
-	\begin{equation}
-		t = N_{\rm exp}\,t_{\rm exp}, \qquad S = R_{\rm src}\,N_{\rm exp}\,t_{\rm exp}.
-		\label{eq:ccd_signal_partition}
-	\end{equation}
-	This distinction between the total accumulated time $t$ and its subdivision into $N_{\rm exp}$ sub-exposures is crucial: while Poisson photon accumulation depends only on total time $t$, readout noise is incurred afresh on every single readout and scales directly with $N_{\rm exp}$.
+\end{keyresult}
+The signal and the first three variances grow in proportion to $t$. The last variance grows with $N_{\rm exp}$. So the signal-to-noise ratio depends on how the time is split as well as on the total time. Figure~\ref{fig:noise_budget} shows the share of each variance in three typical observations.
 
-	\section{Photometric Precision, Magnitude Uncertainty, and Detection Significance}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figs/fig1_budget.png}
+	\caption{Share of each term in the total variance $\sigma_{\rm tot}^2$, in per cent, for three observations. A bright source in one $60\,\mathrm s$ exposure, a sky-limited source in four $300\,\mathrm s$ exposures, and a faint source in forty $30\,\mathrm s$ exposures.}
+	\label{fig:noise_budget}
+\end{figure}
 
-	The noise $\sigma_{\rm tot}$ represents the $1\sigma$ standard deviation of the measured source signal $S$, so that the measurement is reported as $S \pm \sigma_{\rm tot}$. The signal-to-noise ratio is defined as
-	\begin{keyresult}
-		\begin{equation}
-			\mathrm{SNR} \equiv \frac{S}{\sigma_{\rm tot}}.
-			\label{eq:snr_def}
-		\end{equation}
-	\end{keyresult}
-	The reciprocal $1/\mathrm{SNR} = \sigma_{\rm tot}/S$ represents the fractional uncertainty of the flux measurement. Table~\ref{tab:snr_benchmarks} summarizes the observational meaning of typical $\mathrm{SNR}$ values.
+\paragraph{Dark current and read noise from two dark frames.} The detector's own two terms can be measured with the shutter closed. Such a \textbf{dark frame} has no star and no sky. Its variance over an area of $n_{\rm pix}$ pixels, for an exposure of length $t$, is the last two terms of Eq.~\eqref{eq:variance_addition} with $N_{\rm exp}=1$,
+\begin{equation*}
+	\sigma^2(t) = n_{\rm pix}R_{\rm dark}\,t + n_{\rm pix}\sigma_{\rm RON}^2 .
+\end{equation*}
+This is a straight line in $t$. Its slope is the dark variance per unit time and its intercept is the read variance. Two unknowns need two measurements, and two dark frames of lengths $t_1$ and $t_2$ with variances $\sigma_1^2$ and $\sigma_2^2$ give
+\begin{equation*}
+	\begin{pmatrix} t_1 & 1\\ t_2 & 1\end{pmatrix}
+	\begin{pmatrix} n_{\rm pix}R_{\rm dark}\\ n_{\rm pix}\sigma_{\rm RON}^2\end{pmatrix}
+	=\begin{pmatrix}\sigma_1^2\\ \sigma_2^2\end{pmatrix}.
+\end{equation*}
+The determinant of the matrix is $t_1-t_2$. Two frames of the same length give the same equation twice and cannot separate the two terms. For $t_1\neq t_2$,
+\begin{align}
+	\begin{pmatrix} n_{\rm pix}R_{\rm dark}\\ n_{\rm pix}\sigma_{\rm RON}^2\end{pmatrix}
+	&\eqby{1} \frac{1}{t_1-t_2}\begin{pmatrix} 1 & -1\\ -t_2 & t_1\end{pmatrix}\begin{pmatrix}\sigma_1^2\\ \sigma_2^2\end{pmatrix} \nonumber\\
+	&= \frac{1}{t_2-t_1}\begin{pmatrix}\sigma_2^2-\sigma_1^2\\ t_2\sigma_1^2-t_1\sigma_2^2\end{pmatrix}.
+	\label{cc:eq:dark_solution}
+\end{align}
+\begin{explain}
+	\item The inverse of a $2\times2$ matrix, $\begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1}=\dfrac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$.
+\end{explain}
+The dark variance per unit time is the rise in variance divided by the rise in time, the slope of the line in Figure~\ref{cc:fig:dark_frames}. The read variance is where the line meets $t=0$. A third frame of another length tests whether the points really lie on a straight line. Problem~\ref{cc:prob:dark} puts in numbers.
 
-	\begin{table}[htbp]
-		\centering
-		\begin{tabular}{@{}l l p{8.5cm}@{}}
-			\toprule
-			\textbf{SNR} & \textbf{Fractional Error $1/\mathrm{SNR}$} & \textbf{Observational Regime and Practical Meaning} \\
-			\midrule
-			2--3 & 33--50\% & Object barely detected; high risk of false alarm in blind searches. \\
-			5 & 20\% & Robust detection threshold ($5\sigma$ standard); true physical source. \\
-			10 & 10\% & Standard photometric measurement ($\sim 0.1\,\mathrm{mag}$ precision). \\
-			100 & 1\% & Precision astrophysics (exoplanet transits, stellar variability, $\sim 0.01\,\mathrm{mag}$). \\
-			\bottomrule
-		\end{tabular}
-		\caption{Astronomical signal-to-noise ratio benchmarks and their observational interpretation.}
-		\label{tab:snr_benchmarks}
-	\end{table}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figs/fig_ch7_dark_frames.pdf}
+	\caption{Variance of a dark frame against exposure time. The filled points are frames of $1$ and $3$ minutes with variances $a$ and $2.6a$. The straight line through them meets the vertical axis at $0.2a$ (open circle).}
+	\label{cc:fig:dark_frames}
+\end{figure}
 
-	\subsection{Error Propagation from Electron Counts to Magnitudes}
+\paragraph{Defects that are not noise.} Some flaws of a CCD frame are not random scatter and must be found and removed before Eq.~\eqref{eq:variance_addition} means anything.
+\begin{itemize}
+	\item \textbf{Hot and cold pixels.} Single pixels with a far higher dark rate (hot) or a far lower quantum efficiency (cold). They are found in calibration frames and flagged or filled in from their neighbours.
+	\item \textbf{Saturation and bleeding.} A pixel holds only a limited charge, its \textbf{full well} (Section~\ref{sec:regime1}). Near it the response stops being linear, and beyond it extra charge spills into neighbouring pixels along a column, leaving a bright \emph{bleed trail}.
+	\item \textbf{Cosmic rays.} Fast charged particles leave a sharp spike of charge in one frame only. Comparing several exposures (Section~\ref{sec:regime2}) or the shape of the spike, which is sharper than any star, removes them.
+	\item \textbf{Airglow and city lights.} Light emitted by the upper atmosphere and light scattered from towns raise $R_{\rm sky}$ itself, and with it $\sigma_{\rm sky}$ in Eq.~\eqref{eq:sigma_sky}, above the level of a dark site on a moonless night.
+\end{itemize}
+\textbf{Dithering}, moving the telescope by a few arcseconds between exposures, deals with several of these at once. A given point of the sky then falls on a different pixel in each exposure. A bad pixel or a bleed trail stays fixed on the detector and a cosmic ray appears in one frame only, so when the frames are lined up on the sky and combined they can be rejected.
 
-	Astronomical brightness is reported on Pogson's logarithmic magnitude scale, $m = -2.5\log_{10}(S) + C_0$, where $C_0$ is a photometric zero-point constant independent of $S$. If the true signal $S$ is perturbed by the $1\sigma$ uncertainty $\sigma_{\rm tot}$, the corresponding magnitude shift is
-	\begin{equation}
-		\delta m = 2.5\log_{10}\!\left(\frac{S + \sigma_{\rm tot}}{S}\right) = 2.5\log_{10}\!\left(1 + \frac{\sigma_{\rm tot}}{S}\right) = 2.5\log_{10}\!\left(1 + \frac{1}{\mathrm{SNR}}\right).
-		\label{eq:exact_mag_error}
-	\end{equation}
-	For high signal-to-noise ratios ($\mathrm{SNR} \gg 1$), we use the Taylor expansion $\ln(1+x) \approx x$ with $\log_{10}(1+x) = \frac{\ln(1+x)}{\ln 10} \approx \frac{x}{\ln 10}$:
-	\begin{keyresult}
-		\begin{equation}
-			\delta m \approx \frac{2.5}{\ln 10}\cdot\frac{\sigma_{\rm tot}}{S} = \frac{1.0857}{\mathrm{SNR}}.
-			\label{eq:linear_mag_error}
-		\end{equation}
-	\end{keyresult}
+% ==============================================================================
+\section{Three Regimes of the Signal-to-Noise Equation}
+\label{cc:sec:regimes}
 
-	\begin{tcolorbox}[notebox, title=CHECKED NUMERICALLY]
-		The exact logarithmic expression (Eq.~\eqref{eq:exact_mag_error}) and the first-order linear approximation (Eq.~\eqref{eq:linear_mag_error}) show exceptional agreement for $\mathrm{SNR} \ge 10$, where the relative difference is less than $5\%$. However, for low signal-to-noise ratios ($\mathrm{SNR} \le 3$), the linear approximation underestimates the true asymmetric uncertainty, requiring the exact logarithmic formulation shown in Figure~\ref{fig:dmag_comparison}.
-	\end{tcolorbox}
+Eq.~\eqref{eq:master_ccd_snr} gives the signal-to-noise ratio of any exposure.
 
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.72\textwidth]{figs/fig3_dmag.png}
-		\caption{Exact photometric magnitude error $\delta m$ compared against the first-order approximation $\delta m \approx 1.0857/\mathrm{SNR}$ as a function of $\mathrm{SNR}$. The curves converge above $\mathrm{SNR}\sim 10$ and diverge significantly below $\mathrm{SNR}\sim 5$.}
-		\label{fig:dmag_comparison}
-	\end{figure}
+As it stands it is hard to plan with. Should we take one long exposure or many short ones? Does good seeing matter? Does a larger telescope help a faint star more than a bright one? The answer depends on which of the four terms under the square root is largest.
 
-	\subsection{Detection Significance and the False-Alarm Probability}
-	\label{sec:detection_significance}
+Think of a taxi fare. There is a fixed charge for each ride and a charge for each minute. On one long ride the minutes dominate and the fixed charge hardly matters. Split the same trip into many short rides and the fixed charges pile up. Whether splitting matters depends on which part of the fare is larger.
 
-	At the low-SNR threshold ($\mathrm{SNR} = 2\text{--}5$), the central question is whether an observed signal corresponds to a genuine astrophysical source or merely an extreme statistical fluctuation of the background.
+In the signal-to-noise equation the star, the sky and the dark current charge their variance per second, and the readout charges its variance per exposure. When one term is much larger than the others, the equation simplifies and tells us directly what to do. Which term wins is decided by comparing two numbers, principle P6 (Section~\ref{pr:sec:p6}).
 
-	\paragraph{Gaussian Noise Assumption via the Central Limit Theorem.}
-	Because the total detected electron count is the sum of many independent Poisson-distributed quantum events and amplifier readouts across multiple pixels, the Central Limit Theorem guarantees that the distribution of total noise $\sigma_{\rm tot}$ is exceedingly well approximated by a Gaussian (normal) distribution $\mathcal{N}(0, \sigma_{\rm tot}^2)$. This justifies expressing detection thresholds in units of standard deviations ($k\sigma$).
+In numbers, take a taxi that charges $50$ rupees per ride and $10$ rupees per minute. One $20$-minute ride costs $250$ rupees, while ten rides of $2$ minutes cost $700$. For a CCD with $\sigma_{\rm RON}=5\,\mathrm{e^-}$, an aperture of $20$ pixels and a sky of $2\,\mathrm{e^-\,s^{-1}}$ per pixel, each reading adds a variance of $20\times25=500\,\mathrm{e^{-2}}$ and the sky adds $40\,\mathrm{e^{-2}}$ per second. A $300\,\mathrm s$ exposure collects a sky variance of $12\,000\,\mathrm{e^{-2}}$, so its one reading hardly matters. A $10\,\mathrm s$ exposure collects only $400\,\mathrm{e^{-2}}$ of sky variance, less than the readout.
 
-	In the null hypothesis (where no astronomical source is present, $S=0$), the probability that pure background noise fluctuates upward by at least $k\sigma_{\rm tot}$ is given by the complementary standard normal cumulative distribution function (Gaussian upper tail):
-	\begin{keyresult}
-		\begin{equation}
-			P(k) = \int_{k}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-x^2/2}\,dx = 1 - \Phi(k).
-			\label{eq:false_alarm_single}
-		\end{equation}
-	\end{keyresult}
+Picture the four variances as bars, three that grow with time and one that grows with the number of exposures. The tallest bar sets how the signal-to-noise ratio responds to any change.
 
-	\begin{tcolorbox}[notebox, title=NUMERICAL EVALUATION OF FALSE-ALARM PROBABILITIES]
-		Evaluating the Gaussian tail integral numerically:
-		\begin{itemize}
-			\item $k = 2\sigma$: $P(2) = 2.28 \times 10^{-2}$ ($\sim 1 \text{ in } 44$)
-			\item $k = 3\sigma$: $P(3) = 1.35 \times 10^{-3}$ ($\sim 1 \text{ in } 741$)
-			\item $k = 5\sigma$: $P(5) = 2.87 \times 10^{-7}$ ($\sim 1 \text{ in } 3.48 \text{ million}$)
-			\item $k = 10\sigma$: $P(10) = 7.62 \times 10^{-24}$ ($\sim \text{physically impossible by pure chance}$)
-		\end{itemize}
-		The steep exponential decline of false-alarm probability with increasing significance is plotted in Figure~\ref{fig:gaussian_tail_prob}.
-	\end{tcolorbox}
+Ratios of this kind choose the regime everywhere in physics, from the Reynolds number of a flow to the optical depth $\tau$ of a dust cloud (Chapter~\ref{ch:photometry}). Here they give the shortest useful exposure and the three limits of the equation, each with its own way of observing.
 
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.72\textwidth]{figs/fig_gaussian_tail.png}
-		\caption{Single-trial false-alarm probability $P(k)$ that zero-mean Gaussian background noise generates an apparent excess exceeding $k\sigma$, plotted on a logarithmic scale.}
-		\label{fig:gaussian_tail_prob}
-	\end{figure}
+\paragraph{How long one exposure should be.} For a faint star, $R_{\rm src}$ is small next to the sky and dark rates. Then the variance in Eq.~\eqref{eq:variance_addition} is
+\begin{align}
+	\sigma_{\rm tot}^2
+	&\relby{1}{\approx} n_{\rm pix}(R_{\rm sky}+R_{\rm dark})\,t + n_{\rm pix}N_{\rm exp}\,\sigma_{\rm RON}^2 \nonumber\\
+	&\eqby{2} n_{\rm pix}N_{\rm exp}\left[(R_{\rm sky}+R_{\rm dark})\,t_{\rm exp} + \sigma_{\rm RON}^2\right] \nonumber\\
+	&= n_{\rm pix}(R_{\rm sky}+R_{\rm dark})\,t\left[1+\frac{\sigma_{\rm RON}^2}{(R_{\rm sky}+R_{\rm dark})\,t_{\rm exp}}\right].
+\end{align}
+\begin{explain}
+	\item Drop the star's own shot noise, $R_{\rm src}t$.
+	\item $t=N_{\rm exp}t_{\rm exp}$.
+\end{explain}
+The last factor compares the read variance of one pixel with the sky and dark variance that the pixel collects in one exposure. Splitting the time costs little when that ratio is small,
+\begin{equation}
+	\boxed{t_{\rm exp}\gg\frac{\sigma_{\rm RON}^2}{R_{\rm sky}+R_{\rm dark}}.}
+	\label{cc:eq:texp_min}
+\end{equation}
+For the numbers above the right side is $25/2=12.5\,\mathrm s$. Exposures of $300\,\mathrm s$ lower the signal-to-noise ratio by a factor $(1+12.5/300)^{-1/2}=0.98$, only $2$ per cent. The bound depends only on the detector and the sky, not on the star.
 
-	\subsection{The Look-Elsewhere Effect and Multi-Pixel Detection Thresholds}
+\subsection{Regime 1: Bright Source, Limited by Its Own Shot Noise}
+\label{sec:regime1}
 
-	The single-trial probability $P(k)$ applies when evaluating a pre-specified location (e.g., measuring the flux of a known target star). However, in wide-field blind searches (transient detection, asteroid searches, survey discovery), one tests $n_{\rm trial}$ independent resolution elements simultaneously.
+For a bright star the first term under the root is much larger than the others, $R_{\rm src}t\gg n_{\rm pix}(R_{\rm sky}+R_{\rm dark})t+n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$. Then
+\begin{align}
+	\SNR
+	&\relby{1}{\approx} \frac{R_{\rm src}\,t}{\sqrt{R_{\rm src}\,t}} \nonumber\\
+	&= \sqrt{R_{\rm src}\,t}, \nonumber
+\end{align}
+\begin{explain}
+	\item Keep only the star's own term in Eq.~\eqref{eq:master_ccd_snr}.
+\end{explain}
+\begin{equation}
+	\boxed{\SNR \approx \sqrt{R_{\rm src}\,t}\propto\sqrt t.}
+	\label{eq:regime_bright}
+\end{equation}
+The signal-to-noise ratio is the square root of the number of electrons from the star. It does not depend on the sky, the detector or the way the time is split. Reaching a given ratio takes $t=\SNR^2/R_{\rm src}$, so ten times the precision costs a hundred times the time.
 
-	\begin{tcolorbox}[flagbox, title=THE CATCH: FALSE ALARMS SCALE WITH SEARCH VOLUME]
-		If an image contains $n_{\rm trial}$ independent apertures or resolution elements, the probability that \emph{at least one} pure-noise fluctuation exceeds $k\sigma$ is bounded by the union bound:
-		\begin{equation}
-			P_{\rm any}(k) \approx n_{\rm trial}\,P(k).
-			\label{eq:union_bound}
-		\end{equation}
-		For a modern $4000 \times 4000$ CCD detector ($n_{\rm trial} \approx 1.6 \times 10^7$ pixels):
-		\begin{itemize}
-			\item At $k=3\sigma$: Expected noise false positives $= (1.6 \times 10^7) \times (1.35 \times 10^{-3}) \approx 2.2 \times 10^4$ spurious detections! The survey is hopelessly swamped by artifacts.
-			\item At $k=5\sigma$: Expected noise false positives $= (1.6 \times 10^7) \times (2.87 \times 10^{-7}) \approx 4.6$ false detections across the entire mosaic.
-			\item At $k \ge 5.5\sigma$: Expected noise false positives $< 0.3$, guaranteeing that any candidate is almost certainly real.
-		\end{itemize}
-		This explains why large-scale astronomical surveys universally enforce a $5\sigma$ threshold for discovery claims.
-	\end{tcolorbox}
+Here the difficulty is not to collect enough light but to avoid too much. A pixel saturates at its full well, typically about $10^5$ electrons, and its response stops being linear before that. A bright star is therefore observed with shorter exposures, which cost little here, or with the telescope slightly out of focus, which spreads the light over more pixels.
 
-	\section{Physical Origins of Noise in CCD Measurements}
+\subsection{Regime 2: Faint Source on a Bright Sky}
+\label{sec:regime2}
 
-	The total uncertainty $\sigma_{\rm tot}$ is not a monolithic quantity. It is the quadrature sum of four physically distinct processes: photon shot noise from the source, shot noise from the sky background, shot noise from thermal dark current, and readout noise from on-chip amplifiers.
+For a faint star seen through a broad optical filter, the sky term is the largest, $n_{\rm pix}R_{\rm sky}t\gg R_{\rm src}t,\ n_{\rm pix}R_{\rm dark}t,\ n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$. Then
+\begin{align}
+	\SNR
+	&\relby{1}{\approx} \frac{R_{\rm src}\,t}{\sqrt{n_{\rm pix}R_{\rm sky}\,t}} \nonumber\\
+	&= \frac{R_{\rm src}}{\sqrt{n_{\rm pix}R_{\rm sky}}}\,\sqrt t , \nonumber
+\end{align}
+\begin{explain}
+	\item Keep only the sky term under the root in Eq.~\eqref{eq:master_ccd_snr}.
+\end{explain}
+\begin{equation}
+	\boxed{\SNR \approx \frac{R_{\rm src}\sqrt t}{\sqrt{n_{\rm pix}R_{\rm sky}}}\propto\frac{\sqrt t}{\sqrt{n_{\rm pix}}}.}
+	\label{eq:regime_sky}
+\end{equation}
+The ratio still grows as $\sqrt t$, but now in proportion to $R_{\rm src}$, not its square root. A star four times fainter has a quarter of the signal-to-noise ratio and needs sixteen times the time.
 
-	\subsection{First-Principles Derivation of Photon Shot Noise}
+\paragraph{Seeing.} Solving Eq.~\eqref{eq:regime_sky} for the time needed to reach a given ratio,
+\begin{align}
+	t
+	&\eqby{1} \SNR^2\,\frac{n_{\rm pix}R_{\rm sky}}{R_{\rm src}^2} \nonumber\\
+	&\relby{2}{\propto} \theta_{\rm seeing}^2 .
+\end{align}
+\begin{explain}
+	\item Square Eq.~\eqref{eq:regime_sky} and solve for $t$.
+	\item The aperture must hold the seeing disc, so $n_{\rm pix}\propto\theta_{\rm seeing}^2$, with the star and the sky fixed.
+\end{explain}
+Seeing of $0.6''$ instead of $1.2''$ needs a quarter of the time for the same result, or doubles the signal-to-noise ratio in the same time. On a bright sky, good seeing is worth as much as a larger telescope.
 
-	Even if an astronomical source emits at a perfectly steady mean luminosity, the number of photoelectrons collected in consecutive equal intervals fluctuates. This fundamental variance arises because electromagnetic radiation is quantized: photons arrive as discrete, independent packets.  Note that shot noise isn't an added "interference" or an electronic glitch like static on a radio. It is the fundamental statistical variation built into counting discrete packets of photons.
+\paragraph{Splitting is free.} Here the signal-to-noise ratio depends on $t$ and not on $N_{\rm exp}$, as long as each exposure satisfies Eq.~\eqref{cc:eq:texp_min}. Splitting $3000\,\mathrm s$ into ten exposures of $300\,\mathrm s$ costs almost nothing. It allows cosmic rays to be rejected and the pointing to be dithered, and it keeps bright stars in the field below saturation.
 
-	\paragraph{Derivation from the Binomial Distribution.}
-	The derivation rests on exactly two physical inputs about the photon
-	arrival process, plus one purely mathematical regularity condition:
-	\begin{itemize}
-		\item \textbf{Independence.} The arrival of one photon carries no information about when the
-		next one arrives --- there is no memory, correlation, or bunching between arrivals.
-		\item \textbf{Constant rate (stationarity).} The mean arrival rate $\lambda$ is not a function of time, $\lambda \neq \lambda(t)$ --- equivalently, the source's brightness is not changing over the exposure.
-		\item \textbf{Smoothness.} The probability of detecting a photon in a window of width $\Delta t$,
-		written $f(\Delta t)$, is a smooth function of $\Delta t$ near $\Delta t = 0$, so that it admits a
-		Taylor expansion there. This is a mathematical regularity condition, not a physical postulate.
-	\end{itemize}
-	The first two are the physical content of ``constant-rate process''; everything that follows is a
-	mathematical consequence of them together with smoothness.
-	
-	Since $f(0)=0$ (a zero-width window contains nothing), Taylor-expanding about $\Delta t = 0$ gives
-	\begin{equation}
-		f(\Delta t) = f'(0)\,\Delta t + O(\Delta t^2).
-	\end{equation}
-	Define $\lambda \equiv f'(0)$. As $\Delta t \to 0$, the $O(\Delta t^2)$ term vanishes faster than
-	the linear term, so to leading order
-	\begin{equation}
-		f(\Delta t) \approx \lambda\,\Delta t.
-	\end{equation}
-	This is why the probability is proportional to $\Delta t$ alone: it is the generic leading-order
-	behavior of \emph{any} probability that starts at zero, not a special property of light. The same
-	expansion is why the probability of detecting \emph{two or more} photons in the same window is
-	itself $O(\Delta t^2)$ --- two arrivals in one window requires two independent rare events to
-	coincide, a product of two small probabilities --- and so it also vanishes in the limit, leaving
-	only the ``0 or 1 photon'' outcomes per window.
-	
-	Now divide the exposure time $t$ into $N$ subintervals of duration $\Delta t = t/N$. In each
-	subinterval, the probability of detecting exactly one photon is
-	\begin{equation}
-		p = \lambda\,\Delta t = \lambda\cdot\frac{t}{N} = \frac{\mu}{N}, \qquad \mu \equiv \lambda t,
-	\end{equation}
-	where $\mu$ is the expected total count over the whole exposure, and the probability of detecting
-	more than one photon in a subinterval is $O(\Delta t^2) = O(1/N^2) \to 0$ as $N\to\infty$. Because
-	the subintervals are independent (by the Independence assumption above), the total count $n$ over
-	all $N$ subintervals follows a Binomial distribution,
-	\begin{equation}
-		P(n) = \binom{N}{n}p^{\,n}(1-p)^{N-n}= \frac{N!}{n!(N-n)!}\left(\frac{\mu}{N}\right)^n \left(1 - \frac{\mu}{N}\right)^{N-n}.
-	\end{equation}
-	Taking the continuous limit $N \to \infty$ with $\mu$ held fixed, using $\frac{N!}{(N-n)!N^n} \to 1$ and $(1 - \mu/N)^N \to e^{-\mu}$, we recover the \emph{Poisson distribution}:
-	\begin{keyresult}
-		\begin{equation}
-			P(n;\mu) = \frac{\mu^n e^{-\mu}}{n!}.
-			\label{eq:poisson_dist}
-		\end{equation}
-	\end{keyresult}
-	Taking $\lambda\to\infty$ makes it Gaussian distribution. The fundamental difference between the two is that Poisson distribution govers random but uncertain events for discrete variables such as counting whereas Gaussian is obeyed by continuous variables. With the caveat that the discrete steps (values n takes) just become so microscopically small relative to the total value that they become completely unnoticeable (histogram resembles gaussian distribution).
-	
-	\paragraph{Derivation of Mean and Variance.}
-	The expectation value of $n$ is:
-	\begin{equation}
-		\langle n \rangle = \sum_{n=0}^{\infty} n\,\frac{\mu^n e^{-\mu}}{n!} = \mu e^{-\mu}\sum_{n=1}^{\infty} \frac{\mu^{n-1}}{(n-1)!} = \mu e^{-\mu} e^{\mu} = \mu.
-		\label{eq:poisson_mean}
-	\end{equation}
-	Evaluating the second factorial moment $\langle n(n-1)\rangle$:
-	\begin{equation}
-		\langle n(n-1) \rangle = \sum_{n=0}^{\infty} n(n-1)\,\frac{\mu^n e^{-\mu}}{n!} = \mu^2 e^{-\mu}\sum_{n=2}^{\infty}\frac{\mu^{n-2}}{(n-2)!} = \mu^2 e^{-\mu} e^{\mu} = \mu^2.
-	\end{equation}
-	Since $\langle n^2 \rangle = \langle n(n-1)\rangle + \langle n\rangle = \mu^2 + \mu$, the variance is:
-	\begin{equation}
-		\mathrm{Var}(n) = \langle n^2 \rangle - \langle n\rangle^2 = (\mu^2 + \mu) - \mu^2 = \mu.
-		\label{eq:poisson_var}
-	\end{equation}
-	The standard deviation (shot noise) is therefore:
-	\begin{keyresult}
-		\begin{equation}
-			\sigma = \sqrt{\mathrm{Var}(n)} = \sqrt{\mu}.
-			\label{eq:shot_noise_sigma}
-		\end{equation}
-	\end{keyresult}
+\subsection{Regime 3: Faint Source Limited by Readout Noise}
 
-	\begin{tcolorbox}[notebox, title=CHECKED NUMERICALLY]
-		For $\mu=10$, summing Eq.~\eqref{eq:poisson_dist} directly (truncated at $n=200$) gives $\sum_n P(n)=1.0000$, $\langle n\rangle = 10.000$, and $\mathrm{Var}(n)=10.000$ --- confirming the analytical results.
-	\end{tcolorbox}
+When the background is very low, as through a narrow filter, in a spectrograph that spreads the light thinly, or in very short exposures, the readout term is the largest, $n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2\gg(R_{\rm src}+n_{\rm pix}R_{\rm sky}+n_{\rm pix}R_{\rm dark})\,t$. Then
+\begin{align}
+	\SNR
+	&\relby{1}{\approx} \frac{R_{\rm src}\,t}{\sqrt{n_{\rm pix}N_{\rm exp}}\,\sigma_{\rm RON}} , \nonumber
+\end{align}
+\begin{explain}
+	\item Keep only the readout term under the root in Eq.~\eqref{eq:master_ccd_snr}.
+\end{explain}
+\begin{equation}
+	\boxed{\SNR \approx \frac{R_{\rm src}\,t}{\sqrt{n_{\rm pix}N_{\rm exp}}\,\sigma_{\rm RON}}\propto\frac{t}{\sqrt{n_{\rm pix}N_{\rm exp}}}.}
+	\label{eq:regime_read}
+\end{equation}
+The noise no longer depends on the light at all, so the ratio grows in proportion to the signal. At a fixed number of exposures it grows as $t$, faster than in the other two regimes. At a fixed total time it falls as $1/\sqrt{N_{\rm exp}}$. A star twice as far away gives a quarter of the electrons and a quarter of the signal-to-noise ratio (Problem~\ref{cc:prob:distance}).
 
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.82\textwidth]{figs/fig0_poisson.png}
-		\caption{The Poisson probability distribution $P(n;\mu)$ for mean counts $\mu = 10, 50, 250$. While the absolute standard deviation $\sigma = \sqrt{\mu}$ grows with brightness, the relative fractional noise $\sigma/\mu = 1/\sqrt{\mu}$ contracts, leading directly to the $\mathrm{SNR} \propto \sqrt{\mu}$ scaling of photon-limited measurements.}
-		\label{fig:poisson_distributions}
-	\end{figure}
+\paragraph{Binning.} The charges of a block of $2\times2$ pixels can be added on the chip before they are read. The block is then read once, so the number of readings in the aperture falls by $4$. The read variance $n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$ falls by $4$, while the shot-noise terms stay the same, because the electrons are the same. In this regime the signal-to-noise ratio rises by $\sqrt4=2$. Binning coarsens the pixel scale, so it stops being useful once about two binned pixels span the seeing disc, the sampling limit of Section~\ref{sec:sampling}.
 
-	\subsection{The Three Counting Shot-Noise Contributions}
-	Suppose a star's true brightness is perfectly constant — not flickering, not variable, nothing physically changing. You might expect that a "perfect" detector would then measure exactly the same number of photons every time you repeat the exposure. It won't. Even with flawless equipment, the count will fluctuate from one exposure to the next, because photons don't arrive in a smooth, continuous stream — they arrive one at a time, at random, independent moments (this is exactly the Poisson-process assumption we've been building up). Counting a random point process over a fixed time window inevitably gives a different total each time you count. That irreducible fluctuation, $\sigma=\sqrt{\mu}$, is shot noise.
-	Applying Eq.~\eqref{eq:shot_noise_sigma} to each independent physical source of photoelectrons:
+\paragraph{Long exposures.} At a fixed total time, fewer and longer exposures give fewer readings. The useful length is limited mainly by cosmic rays, which pile up in a long exposure. For CCDs on the ground the usual limit is about $30$ to $45$ minutes.
 
-\begin{enumerate}
-	\item \textbf{Object Shot Noise:} Unlike the sky or dark current, the source's light is not
-	spread uniformly across the aperture --- it follows the point-spread function, so different
-	pixels receive different amounts of starlight. Because of this, $R_{\rm src}$ is defined
-	directly as the \emph{total} rate collected over the whole aperture (i.e., already summed, or
-	integrated, over all $n_{\rm pix}$ pixels the source's light falls on), rather than as a
-	per-pixel rate. $S = R_{\rm src}t$ is therefore already the full signal, with no extra factor
-	of $n_{\rm pix}$ needed:
-	\begin{equation}
-		\sigma_{\rm src} = \sqrt{S} = \sqrt{R_{\rm src}\,t}.
-		\label{eq:sigma_src}
-	\end{equation}
-	
-	\item \textbf{Sky Background Shot Noise:} The sky background, by contrast, is uniform across
-	the focal plane --- every pixel collects sky photons at the same rate, so it is naturally
-	defined as a per-pixel rate $R_{\rm sky}$. Over an aperture of $n_{\rm pix}$ pixels during
-	exposure $t$, the accumulated sky electrons are then $n_{\rm pix}R_{\rm sky}t$. Although the
-	mean sky level is subtracted during data reduction, its Poisson fluctuation remains:
-	\begin{equation}
-		\sigma_{\rm sky} = \sqrt{n_{\rm pix}\,R_{\rm sky}\,t}.
-		\label{eq:sigma_sky}
-	\end{equation}
-	Because the required photometric aperture area scales with seeing disk size
-	($n_{\rm pix} \propto \theta_{\rm see}^2$), superior seeing directly reduces sky noise. 
-	
-	\item \textbf{Dark Current Shot Noise:} Just like photons arriving at a sensor, thermal energy in the silicon randomly knocks electrons loose over time creating electron-hole pairs, at the same rate $R_{\rm dark}$ in every pixel --- again a uniform, per-pixel quantity. These are called dark electrons, and they are completely indistinguishable from real photoelectrons. These accumulate over $n_{\rm pix}$ pixels and duration $t$:
-	\begin{equation}
-		\sigma_{\rm dark} = \sqrt{n_{\rm pix}\,R_{\rm dark}\,t}.
-		\label{eq:sigma_dark}
-	\end{equation}
+Figure~\ref{fig:nexp_comparison} shows both cases at a fixed total time.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figs/fig2_nexp.png}
+	\caption{Signal-to-noise ratio against the number of exposures $N_{\rm exp}$, at a fixed total time $t=1200\,\mathrm s$, for a sky-dominated case and a read-noise-dominated case.}
+	\label{fig:nexp_comparison}
+\end{figure}
+
+\paragraph{The regimes side by side.} The term that dominates the variance decides how the ratio scales and how to observe. Table~\ref{tab:regime_summary} lists the three cases.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l l l p{5.6cm}@{}}
+		\toprule
+		\textbf{Regime} & \textbf{Largest variance} & \textbf{Scaling} & \textbf{How to observe} \\
+		\midrule
+		Bright source & $\sigma_{\rm src}^2 = R_{\rm src}t$ & $\SNR \propto \sqrt{t}$ & Keep below the full well. Use short exposures or defocus. \\
+		\addlinespace[0.4em]
+		Bright sky & $\sigma_{\rm sky}^2 = n_{\rm pix}R_{\rm sky}t$ & $\SNR \propto \dfrac{\sqrt{t}}{\sqrt{n_{\rm pix}}}$ & Use the smallest aperture good seeing allows. Split freely into exposures that satisfy Eq.~\eqref{cc:eq:texp_min}. \\
+		\addlinespace[0.4em]
+		Readout & $\sigma_{\rm read}^2 = n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$ & $\SNR \propto \dfrac{t}{\sqrt{n_{\rm pix}N_{\rm exp}}}$ & Bin on the chip up to the sampling limit. Use the longest exposures cosmic rays allow. \\
+		\bottomrule
+	\end{tabular}
+	\caption{The three regimes of the signal-to-noise equation, with the largest variance, the scaling of $\SNR$, and the way of observing in each.}
+	\label{tab:regime_summary}
+\end{table}
+
+% ==============================================================================
+\section{From Signal-to-Noise to Magnitudes and Detections}
+\label{cc:sec:detection}
+
+The signal-to-noise equation tells us how well the electrons of a star are counted.
+
+Astronomers want two other things. They want the error of a magnitude, the unit in which brightness is reported. And for a faint smudge in an image they want to know whether it is a star at all, or just the noise happening to be high in one place.
+
+Toss a coin ten times and get eight heads. It is odd, but a fair coin does it once in about $18$ tries. Toss it a hundred times and get eighty heads, and the coin is surely bent. A fair coin does that about once in two billion tries. The fraction of heads is the same. What changed is how far the result lies from the mean, measured in standard deviations.
+
+A smudge in an image is a count of electrons above the mean sky. If the excess is a few times the noise, chance can produce it. If it is many times the noise, chance almost never does. The idea is that significance is the excess in units of the standard deviation, and the Gaussian shape of the noise turns it into a probability.
+
+In numbers, ten tosses have a mean of $5$ heads and a standard deviation of $\sqrt{10\times\tfrac14}=1.58$, so eight heads is $1.9$ standard deviations high, with a probability of $5.5$ per cent. A hundred tosses have a mean of $50$ and a standard deviation of $5$, so eighty heads is $6$ standard deviations high, with a probability of $5.6\times10^{-10}$.
+
+Picture the bell curve of the noise. A detection threshold is a line drawn far out on its right side, and the false alarms are the thin sliver of the curve beyond the line.
+
+The same reasoning sets the confidence of a medical test, the ``five sigma'' that particle physicists demand before announcing a new particle, and quality control in a factory. Here it gives the error of a magnitude and the threshold for believing a detection.
+
+\subsection{The Error of a Magnitude}
+
+A magnitude is $m=-2.5\log_{10}F+\text{constant}$ (Eq.~\eqref{eq:apparent_mag_single}). With the same telescope, filter and exposure, the signal $S$ is proportional to the flux $F$, so $m=-2.5\log_{10}S+\text{constant}$. A signal that is high by one standard deviation makes the star look brighter by
+\begin{align}
+	\delta m
+	&\equiv m(S)-m(S+\sigma_{\rm tot}) \nonumber\\
+	&\eqby{1} 2.5\log_{10}\frac{S+\sigma_{\rm tot}}{S} \nonumber\\
+	&\eqby{2} 2.5\log_{10}\!\left(1+\frac{1}{\SNR}\right).
+	\label{eq:exact_mag_error}
+\end{align}
+\begin{explain}
+	\item The constant cancels, and $-\log_{10}a+\log_{10}b=\log_{10}(b/a)$.
+	\item Eq.~\eqref{eq:snr_def}.
+\end{explain}
+For a large signal-to-noise ratio the logarithm is nearly linear,
+\begin{align}
+	\delta m
+	&\eqby{1} \frac{2.5}{\ln10}\,\ln\!\left(1+\frac{1}{\SNR}\right) \nonumber\\
+	&\relby{2}{\approx} \frac{2.5}{\ln10}\cdot\frac{1}{\SNR},
+\end{align}
+\begin{explain}
+	\item $\log_{10}y=\ln y/\ln10$.
+	\item $\ln(1+y)\approx y$ for $y\ll1$.
+\end{explain}
+\begin{equation}
+	\boxed{\delta m\approx\frac{1.0857}{\SNR}.}
+	\label{eq:linear_mag_error}
+\end{equation}
+The factor $2.5/\ln10=1.0857$ is the one that turned an optical depth into magnitudes of extinction in Chapter~\ref{ch:photometry} (Eq.~\eqref{ph:eq:extinction_tau}). Both times a natural logarithm is turned into magnitudes. A signal-to-noise ratio of $10$ gives an error of about $0.1$ magnitude, and $100$ gives $0.01$.
+
+The error is not symmetric. A signal low by one standard deviation makes the star look fainter by $-2.5\log_{10}(1-1/\SNR)$, which is larger. At $\SNR=3$ the two shifts are $0.31$ and $0.44$ magnitude, and Eq.~\eqref{eq:linear_mag_error} gives $0.36$, between them. At $\SNR=10$ they are $0.103$ and $0.114$, and the linear value $0.109$ differs from each by about $5$ per cent. Figure~\ref{fig:dmag_comparison} compares the brighter-side shift with the linear form. Below $\SNR\approx5$ the linear form is a poor guide, and both sides should be given. Table~\ref{tab:snr_benchmarks} lists what typical signal-to-noise ratios mean in practice.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.72\textwidth]{figs/fig3_dmag.png}
+	\caption{Magnitude error $\delta m$ against $\SNR$. The solid curve is $2.5\log_{10}(1+1/\SNR)$ and the dashed curve is $1.0857/\SNR$.}
+	\label{fig:dmag_comparison}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l l p{8.5cm}@{}}
+		\toprule
+		$\SNR$ & $1/\SNR$ & \textbf{Meaning} \\
+		\midrule
+		2--3 & 33--50\% & Barely detected. In a search over a whole image, often a false alarm. \\
+		5 & 20\% & The usual threshold for claiming a detection ($5\sigma$). \\
+		10 & 10\% & A routine measurement, about $0.1\,\mathrm{mag}$. \\
+		100 & 1\% & Precise photometry, about $0.01\,\mathrm{mag}$, as needed for planetary transits and variable stars. \\
+		\bottomrule
+	\end{tabular}
+	\caption{Typical signal-to-noise ratios, the fractional error of each, and what each means for an observation.}
+	\label{tab:snr_benchmarks}
+\end{table}
+
+\subsection{Detection and the False-Alarm Probability}
+\label{sec:detection_significance}
+
+At a signal-to-noise ratio of $2$ to $5$ the question is whether there is a source at all.
+
+\paragraph{The noise is Gaussian.} A large Poisson count has the Gaussian shape of Eq.~\eqref{cc:eq:gauss_limit}, and the readout noise is Gaussian from the start. The total noise is a sum of these independent parts. A sum of independent Gaussian quantities is again Gaussian, and by the central limit theorem a sum of many independent parts of any kind is close to Gaussian. So the measured excess, when no source is present, scatters about zero with a Gaussian distribution of standard deviation $\sigma_{\rm tot}$. Measuring the excess in units of $\sigma_{\rm tot}$, as $k\sigma_{\rm tot}$, turns every case into the same standard Gaussian.
+
+\paragraph{Probability of a false alarm.} With no source present, the probability that the noise alone rises by at least $k\sigma_{\rm tot}$ is the area of the standard Gaussian beyond $k$,
+\begin{equation}
+	\boxed{P_{\rm tail}(k) = \int_{k}^{\infty} \frac{1}{\sqrt{2\pi}}\,e^{-x^2/2}\,dx.}
+	\label{eq:false_alarm_single}
+\end{equation}
+The integral has no closed form, but for large $k$ it is easy to estimate.
+\begin{align}
+	\int_k^\infty e^{-x^2/2}\,dx
+	&\eqby{1} \int_k^\infty \frac1x\;d\!\left(-e^{-x^2/2}\right) \nonumber\\
+	&\eqby{2} \frac{e^{-k^2/2}}{k}-\int_k^\infty\frac{e^{-x^2/2}}{x^2}\,dx \nonumber\\
+	&\relby{3}{\approx} \frac{e^{-k^2/2}}{k}.
+\end{align}
+\begin{explain}
+	\item $x\,e^{-x^2/2}\,dx=d\big(-e^{-x^2/2}\big)$.
+	\item Integration by parts. The boundary term at infinity is zero.
+	\item The remaining integral is smaller than the first term by a factor of order $1/k^2$.
+\end{explain}
+\begin{equation}
+	P_{\rm tail}(k)\approx\frac{e^{-k^2/2}}{k\sqrt{2\pi}} \qquad (k\gg1).
+	\label{cc:eq:tail_approx}
+\end{equation}
+At $k=5$ this gives $2.97\times10^{-7}$, against the exact $2.87\times10^{-7}$. The factor $e^{-k^2/2}$ is why the probability falls so steeply. Going from $5\sigma$ to $6\sigma$ multiplies it by about $e^{-5.5}\times5/6$, or $1/294$, against the exact $1/290$. Table~\ref{cc:tab:false_alarm} gives exact values, and Figure~\ref{fig:gaussian_tail_prob} plots them.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}c c c@{}}
+		\toprule
+		$k$ & $P_{\rm tail}(k)$ & about one in \\
+		\midrule
+		$2$ & $2.28\times10^{-2}$ & $44$ \\
+		$3$ & $1.35\times10^{-3}$ & $741$ \\
+		$5$ & $2.87\times10^{-7}$ & $3.49\times10^{6}$ \\
+		$10$ & $7.62\times10^{-24}$ & $1.3\times10^{23}$ \\
+		\bottomrule
+	\end{tabular}
+	\caption{Probability that Gaussian noise alone exceeds $k$ standard deviations in a single trial.}
+	\label{cc:tab:false_alarm}
+\end{table}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.72\textwidth]{figs/fig_gaussian_tail.png}
+	\caption{Single-trial probability $P_{\rm tail}(k)$ that Gaussian noise with zero mean exceeds $k\sigma$, on a logarithmic scale, with the values at $k=2$, $3$, $5$ and $10$ marked.}
+	\label{fig:gaussian_tail_prob}
+\end{figure}
+
+\subsection{Searching a Whole Image}
+
+The probability $P_{\rm tail}(k)$ applies to one place chosen in advance, such as the position of a known star. A search for new objects, such as supernovae or asteroids, tests every place in the image at once. Let the image hold $n_{\rm trial}$ independent places, each of which could hold a source. The probability that at least one of them shows a false excess of $k\sigma$ is
+\begin{align}
+	P_{\rm any}(k)
+	&\eqby{1} 1-\big[1-P_{\rm tail}(k)\big]^{n_{\rm trial}} \nonumber\\
+	&\relby{2}{\approx} n_{\rm trial}\,P_{\rm tail}(k).
+	\label{eq:union_bound}
+\end{align}
+\begin{explain}
+	\item The places are independent, so the probability that none of them exceeds $k\sigma$ is the product of $n_{\rm trial}$ equal factors.
+	\item $(1-y)^{n}\approx1-ny$ when $ny\ll1$.
+\end{explain}
+The product $n_{\rm trial}P_{\rm tail}(k)$ is also exactly the mean number of false alarms in the image, whether or not it is small. When it is small it is the chance of even one.
+
+Take a $4000\times4000$ CCD and count every pixel as a place, $n_{\rm trial}=1.6\times10^7$. Neighbouring pixels share the light of one star, so the true number of independent places is smaller, and this count gives an upper estimate.
+\begin{itemize}
+	\item At $k=3$ the mean number of false alarms is $1.6\times10^7\times1.35\times10^{-3}\approx2.2\times10^4$. The real objects would be lost among them.
+	\item At $k=5$ it is $1.6\times10^7\times2.87\times10^{-7}\approx4.6$ in the whole image.
+	\item At $k=5.5$ it is about $0.3$.
+\end{itemize}
+One false alarm per image is expected at $k=5.3$. This is why large surveys require $5\sigma$ or more before they claim a new object.
+
+% ==============================================================================
+\section{Noise Budgets Beyond the CCD}
+\label{cc:sec:pulsar}
+
+The variance sum of Eq.~\eqref{eq:variance_addition} used nothing particular to a CCD. Any measurement made of independent parts has a budget of the same kind, and the part that dominates decides what to improve. Timing the radio pulses of a pulsar is a second example. The measured quantity is the arrival time of a pulse instead of a number of electrons, and its total error is again a sum of independent variances.
+\begin{itemize}
+	\item \textbf{Radiometer noise.} The noise of the receiver and its electronics, like the read and dark noise of a CCD.
+	\item \textbf{Sky noise.} Radio emission from everything else in the beam, the radio form of $\sigma_{\rm sky}$.
+	\item \textbf{Source noise.} Changes in the pulsar itself, with no CCD counterpart. Single pulses differ in shape (\emph{pulse jitter}), and the spin of the neutron star wanders slightly (\emph{spin noise}).
+	\item \textbf{Dispersion noise.} Free electrons in the ionised gas between the stars (Chapter~\ref{ch:ism}) delay a pulse by an amount that depends on the radio frequency. The column of electrons along the line of sight changes as the pulsar and the gas move, so the delay changes too. A CCD image has nothing like it, because the atmosphere and the dust only dim and scatter its light (Section~\ref{sec:windows}).
+	\item \textbf{Radio-frequency interference.} Man-made radio signals from television, mobile phones, radar and power lines, which must be found and cut out, much as cosmic-ray hits are removed from a CCD frame.
+\end{itemize}
+As for a CCD, the term that dominates a given observation decides how it should be planned and reduced.
+
+% ==============================================================================
+\section{Problem Set: Poisson Statistics and CCD Signal-to-Noise}
+
+\subsection{Problem 1: Normalisation, Moments, and the Gaussian Limit of the Poisson Distribution}
+\label{cc:prob:poisson}
+
+\textbf{Problem Statement}: A count $n$ has the Poisson distribution $P(n)=\bar n^{\,n}e^{-\bar n}/n!$ for $n=0,1,2,\dots$
+\begin{enumerate}[label=(\alph*)]
+	\item Prove that it is normalised, $\sum_{n=0}^\infty P(n)=1$.
+	\item Prove that its mean and its variance are both equal to $\bar n$.
+	\item Plot the distribution for $\bar n=0.1$, $1$, $10$, $100$ and $1000$, and show that it approaches a Gaussian when $\bar n$ is large.
 \end{enumerate}
 
-	\begin{tcolorbox}[flagbox, title=UNITS CAUTION: DARK CURRENT CONVERSIONS]
-		Manufacturers and detector manuals frequently quote dark current in units of $\mathrm{e^-\,pixel^{-1}\,hr^{-1}}$. When inserting $R_{\rm dark}$ into Eq.~\eqref{eq:sigma_dark} with exposure time $t$ in seconds, $R_{\rm dark}$ must be converted to $\mathrm{e^-\,s^{-1}\,pix^{-1}}$:
-		\[
-		R_{\rm dark}\,[\mathrm{e^-\,s^{-1}\,pix^{-1}}] = \frac{R_{\rm dark}\,[\mathrm{e^-\,hr^{-1}\,pix^{-1}}]}{3600\,\mathrm{s/hr}}.
-		\]
-		Throughout these notes, all rates ($R_{\rm src}, R_{\rm sky}, R_{\rm dark}$) are strictly in $\mathrm{e^-\,s^{-1}}$.
-	\end{tcolorbox}
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The exponential series, $\sum_{n=0}^\infty \bar n^{\,n}/n!=e^{\bar n}$, does every sum.
+	\item The mean and variance are derived in Eqs.~\eqref{eq:poisson_mean} and~\eqref{eq:poisson_var}. A second route differentiates the exponential series with respect to $\bar n$.
+	\item For $\bar n\gg1$, Stirling's formula turns $P(n)$ into a Gaussian of mean $\bar n$ and variance $\bar n$, Eq.~\eqref{cc:eq:gauss_limit}.
+\end{itemize}
 
-	\subsection{Readout Noise: The Additive Amplifier Penalty}
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Normalisation}.
+	\begin{align*}
+		\sum_{n=0}^\infty P(n)
+		&\eqby{1} e^{-\bar n}\sum_{n=0}^\infty\frac{\bar n^{\,n}}{n!} \\
+		&\eqby{2} e^{-\bar n}\,e^{\bar n}
+	\end{align*}
+	\begin{explain}
+		\item $e^{-\bar n}$ does not depend on $n$.
+		\item The exponential series.
+	\end{explain}
+	\[
+	\boxed{\sum_{n=0}^\infty P(n) = 1.}
+	\]
 
-	Unlike the three counting processes above, readout noise is \emph{not} a shot noise: it is not the
-	statistical fluctuation of some quantity of charge carriers generated in the pixel which obeys poisson distribution. Dark current noise already introduced one thermal effect --- lattice vibrations thermally exciting electrons into the conduction band, where they add to the charge sitting in the pixel well and are counted along with the signal. Readout noise is thermal in a different sense and at a different stage: even once the charge in the well is fixed and no more carriers are being generated, that charge still has to be converted to a voltage and read out, and the electronics performing that conversion --- the output field-effect transistor (FET) and the analog-to-digital converter (ADC) --- have their own thermal (Johnson--Nyquist) and flicker ($1/f$) noise, which perturbs the voltage reading itself. So where dark current adds spurious \emph{charge} to the well before conversion, read noise adds spurious \emph{uncertainty to the conversion process}, after the charge is already fixed.
-	
-	Because it enters during conversion rather than during charge accumulation, readout noise is a
-	constant Gaussian uncertainty $\sigma_{\rm RON}$ (in electrons RMS) added to each pixel every time
-	it is read out, independent of exposure time or of how much charge that pixel actually holds. For
-	$n_{\rm pix}$ pixels read out in each of $N_{\rm exp}$ independent exposures:
-	\begin{keyresult}
-		\begin{equation}
-			\sigma_{\rm read} = \sqrt{n_{\rm pix}\,N_{\rm exp}}\;\sigma_{\rm RON}.
-			\label{eq:sigma_read}
-		\end{equation}
-	\end{keyresult}
-	Note the fundamental structural difference: $\sigma_{\rm read}^2 \propto N_{\rm exp}$ rather than $\propto t$. Splitting an exposure of duration $t$ into $N_{\rm exp}$ shorter exposures incurs the read noise penalty $N_{\rm exp}$ times in variance. Furthermore, this process obeys a Gaussian distribution rather than a Poisson distribution, distinguishing it from the previously discussed counting processes that are fundamentally governed by discrete physical arrivals.
+	\item \textbf{Mean and variance}. The direct sums are Eqs.~\eqref{eq:poisson_mean} and~\eqref{eq:poisson_var}. As a second route, write $\bar n\,\dv{}{\bar n}$ for the operator that multiplies the $n$-th term of the series by $n$, since $\bar n\,\dv{}{\bar n}\bar n^{\,n}=n\,\bar n^{\,n}$. Applying it once and twice to the exponential series,
+	\begin{align*}
+		\sum_{n=0}^\infty n\,\frac{\bar n^{\,n}}{n!}
+		&\eqby{1} \bar n\,\dv{}{\bar n}\,e^{\bar n} = \bar n\,e^{\bar n}, \\
+		\sum_{n=0}^\infty n^2\,\frac{\bar n^{\,n}}{n!}
+		&\eqby{2} \bar n\,\dv{}{\bar n}\left(\bar n\,e^{\bar n}\right) = \bar n\,(1+\bar n)\,e^{\bar n}.
+	\end{align*}
+	\begin{explain}
+		\item Differentiate the series term by term and multiply by $\bar n$.
+		\item Do it again to the first line.
+	\end{explain}
+	Multiplying by $e^{-\bar n}$ gives $\avg n=\bar n$ and $\avg{n^2}=\bar n+\bar n^2$. Then
+	\[
+	\boxed{\avg n=\bar n,\qquad \sigma^2=\avg{n^2}-\avg n^2=\bar n.}
+	\]
 
-	\subsection{Practical Detector Artefacts Beyond the Statistical Noise Budget}
-
-	Not every imperfection in a CCD frame is captured by the four variance terms above; several practical artefacts must be identified and removed \emph{before} the statistical noise budget of Eq.~\eqref{eq:variance_addition} is even meaningful.
-	\begin{itemize}
-		\item \textbf{Hot and cold pixels:} Individual pixels with anomalously high dark current (hot) or anomalously low quantum efficiency (cold), identified from calibration frames and flagged or interpolated over.
-		\item \textbf{Saturation and pixel bleed:} Once a pixel's accumulated charge exceeds the detector's full-well capacity (Section~\ref{sec:regime1}), the response becomes non-linear and excess charge can leak into neighbouring pixels along the readout register (\emph{bleed trails}).
-		\item \textbf{Cosmic rays:} High-energy particles depositing a sharp, single-frame spike of charge unrelated to any astronomical source; rejected by comparing multiple sub-exposures (Section~\ref{sec:regime2}) or by spatial-profile discrimination.
-		\item \textbf{Airglow and city lights:} Time- and location-dependent contributions to $R_{\rm sky}$ itself --- upper-atmosphere airglow line emission and anthropogenic light pollution --- that inflate the sky background term $\sigma_{\rm sky}$ of Eq.~\eqref{eq:sigma_sky} beyond the natural (dark-site, moonless) night-sky level.
-	\end{itemize}
-	\textbf{Dithering} --- deliberately offsetting the telescope pointing by a few arcseconds between sub-exposures --- is the standard operational defence against several of these at once: it places any given sky pixel on a different physical detector pixel in each sub-exposure, so that hot/cold pixels, bleed trails, and cosmic-ray hits (which are fixed to the detector or occur in only one frame) can be statistically rejected during image co-addition, rather than contaminating the final stacked image.
-
-	\section{The Master Signal-to-Noise Ratio Equation}
-
-	\begin{tcolorbox}[notebox, title=FIRST-PRINCIPLES DERIVATION: WHY VARIANCES ADD FOR INDEPENDENT NOISE SOURCES]
-		Let $X$ and $Y$ be two random variables representing independent physical noise processes with expected values $\mu_X = \mathbb{E}[X]$, $\mu_Y = \mathbb{E}[Y]$ and variances $\sigma_X^2 = \mathrm{Var}(X)$, $\sigma_Y^2 = \mathrm{Var}(Y)$.
-
-		The variance of their sum $Z = X + Y$ is defined by:
-		\begin{equation}
-			\mathrm{Var}(X + Y) = \mathbb{E}\left[\big((X + Y) - \mathbb{E}[X + Y]\big)^2\right] = \mathbb{E}\left[\big((X - \mu_X) + (Y - \mu_Y)\big)^2\right].
-		\end{equation}
-		Expanding the algebraic square inside the expectation:
-		\begin{equation}
-			\big((X - \mu_X) + (Y - \mu_Y)\big)^2 = (X - \mu_X)^2 + (Y - \mu_Y)^2 + 2(X - \mu_X)(Y - \mu_Y).
-		\end{equation}
-		Applying the linearity of the mathematical expectation operator $\mathbb{E}[\,\cdot\,]$:
-		\begin{align}
-			\mathrm{Var}(X + Y) &= \mathbb{E}\left[(X - \mu_X)^2\right] + \mathbb{E}\left[(Y - \mu_Y)^2\right] + 2\,\mathbb{E}\left[(X - \mu_X)(Y - \mu_Y)\right] \notag \\
-			&= \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\,\mathrm{Cov}(X, Y).
-		\end{align}
-		Because the physical mechanisms generating astronomical source photons, sky background photons, thermal dark current, and amplifier readout noise are statistically \emph{independent}, their joint probability density factorizes: $p(x, y) = p_X(x)\,p_Y(y)$. The covariance therefore vanishes identically:
-		\begin{equation}
-			\mathrm{Cov}(X, Y) = \mathbb{E}[(X - \mu_X)]\,\mathbb{E}[(Y - \mu_Y)] = 0 \cdot 0 = 0.
-		\end{equation}
-		By mathematical induction, for $N$ mutually independent noise contributions $X_1, X_2, \dots, X_N$:
-		\begin{equation}
-			\mathrm{Var}\left(\sum_{i=1}^N X_i\right) = \sum_{i=1}^N \mathrm{Var}(X_i) \quad\Longrightarrow\quad \sigma_{\rm tot}^2 = \sum_{i=1}^N \sigma_i^2 \quad\Longleftrightarrow\quad \sigma_{\rm tot} = \sqrt{\sum_{i=1}^N \sigma_i^2}.
-		\end{equation}
-		This rigorous result proves why independent noise contributions must be added in quadrature, establishing the fundamental basis of the CCD noise budget. This is true regardless of which probability distribution $X$ and $Y$ obeys.
-	\end{tcolorbox}
-
-	Because the four noise sources arise from statistically independent physical mechanisms, their variances add in quadrature:
-	\begin{equation}
-		\sigma_{\rm tot}^2 = \sigma_{\rm src}^2 + \sigma_{\rm sky}^2 + \sigma_{\rm dark}^2 + \sigma_{\rm read}^2.
-		\label{eq:variance_addition}
-	\end{equation}
-	Substituting the derived expressions into Eq.~\eqref{eq:snr_def} yields the \textbf{Master CCD Signal-to-Noise Equation}:
-
-	\begin{tcolorbox}[enhanced, colback=white, colframe=ink, boxrule=0.9pt, arc=0pt, left=14pt, right=14pt, top=10pt, bottom=10pt]
-		\begin{equation}
-			\mathrm{SNR} = \frac{R_{\rm src}\,t}{\sqrt{R_{\rm src}\,t \;+\; n_{\rm pix}R_{\rm sky}\,t \;+\; n_{\rm pix}R_{\rm dark}\,t \;+\; n_{\rm pix}N_{\rm exp}\,\sigma_{\rm RON}^2}}
-			\label{eq:master_ccd_snr}
-		\end{equation}
-	\end{tcolorbox}
-	where $t = N_{\rm exp}t_{\rm exp}$. This single equation governs all exposure time calculators (ETCs) in observational astronomy.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{figs/fig1_budget.png}
-		\caption{Relative variance budget ($\sigma_i^2/\sigma_{\rm tot}^2 \times 100\%$) across three characteristic observational scenarios. Identifying which variance component dominates dictates the optimal observational strategy.}
-		\label{fig:noise_budget}
-	\end{figure}
-
-	\section{The Three Observational Regimes and Exposure Planning Strategies}
-
-	Depending on target flux, background brightness, and detector characteristics, the master equation simplifies into three distinct physical regimes.
-
-	\subsection{Regime 1: Bright Source (Photon Shot-Noise Limited)}
-	\label{sec:regime1}
-	When observing a bright star, the source count rate dominates over sky, dark current, and read noise ($R_{\rm src}t \gg n_{\rm pix}(R_{\rm sky} + R_{\rm dark})t + n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$):
-	\begin{keyresult}
-		\begin{equation}
-			\mathrm{SNR} \approx \frac{R_{\rm src}t}{\sqrt{R_{\rm src}t}} = \sqrt{R_{\rm src}t} \propto \sqrt{t}.
-			\label{eq:regime_bright}
-		\end{equation}
-	\end{keyresult}
-	\paragraph{Observational Strategy.} The limitation in this regime is never achieving adequate $\mathrm{SNR}$, but avoiding detector saturation (full-well capacity, typically $\sim 10^5\,\mathrm{e^-/pixel}$) and non-linear response. Observers should shorten $t_{\rm exp}$ or defocus the telescope (spread light over more pixels) to prevent saturation while accumulating the desired total photon count.
-
-	\subsection{Regime 2: Sky-Background Limited}
-	\label{sec:regime2}
-	For faint targets observed in broadband optical filters, the night sky background is much brighter than the source ($n_{\rm pix}R_{\rm sky}t \gg R_{\rm src}t, n_{\rm pix}R_{\rm dark}t, n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$):
-	\begin{keyresult}
-		\begin{equation}
-			\mathrm{SNR} \approx \frac{R_{\rm src}t}{\sqrt{n_{\rm pix}R_{\rm sky}t}} = \frac{R_{\rm src}\sqrt{t}}{\sqrt{n_{\rm pix}R_{\rm sky}}} \propto \frac{\sqrt{t}}{\sqrt{n_{\rm pix}}}.
-			\label{eq:regime_sky}
-		\end{equation}
-	\end{keyresult}
-	\paragraph{Observational Strategies.}
-	\begin{itemize}
-		\item \textbf{Seeing is paramount:} Because $n_{\rm pix} \propto \theta_{\rm see}^2$, the signal-to-noise ratio scales as $\mathrm{SNR} \propto 1/\theta_{\rm see}$. Improving seeing from $1.2''$ to $0.6''$ doubles the $\mathrm{SNR}$ (equivalent to a factor of 4 reduction in required telescope integration time).
-		\item \textbf{Sub-exposure splitting is free:} In this regime, $\mathrm{SNR}$ depends strictly on total integration time $t$, not on the number of frames $N_{\rm exp}$. Splitting a $3000\,\mathrm{s}$ integration into ten $300\,\mathrm{s}$ frames incurs negligible read-noise penalty while enabling robust cosmic-ray rejection, dithering to remove bad pixels, and dynamic range preservation.
-	\end{itemize}
-
-	\subsection{Regime 3: Readout-Noise Limited}
-	When observing faint objects under low background levels (narrow-band filters, high-resolution spectroscopy, or very short exposures), the readout noise dominates ($n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2 \gg (R_{\rm src} + n_{\rm pix}R_{\rm sky} + n_{\rm pix}R_{\rm dark})t$):
-	\begin{keyresult}
-		\begin{equation}
-			\mathrm{SNR} \approx \frac{R_{\rm src}t}{\sqrt{n_{\rm pix}N_{\rm exp}}\,\sigma_{\rm RON}} \propto \frac{1}{\sqrt{n_{\rm pix}}}\cdot\frac{1}{\sqrt{N_{\rm exp}}}.
-			\label{eq:regime_read}
-		\end{equation}
-	\end{keyresult}
-	\paragraph{Observational Strategies.}
-	\begin{itemize}
-		\item \textbf{On-Chip Pixel Binning:} Binning pixels on-chip (e.g., $2\times 2$) combines charges in the shift registers before readout, reducing the effective $n_{\rm pix}$ by a factor of 4 and boosting $\mathrm{SNR}$ by $\sqrt{4} = 2$ without increasing read noise. Binning should be applied up to the Nyquist limit ($\sim 2\text{--}3$ binned pixels across the seeing FWHM or resolution element).
-		\item \textbf{Maximize Individual Exposure Duration:} Because $\mathrm{SNR} \propto 1/\sqrt{N_{\rm exp}}$ at fixed total time $t$, one should make $t_{\rm exp}$ as long as possible (minimizing $N_{\rm exp}$). The maximum safe exposure length is typically limited by cosmic-ray hit density ($\sim 30\text{--}45\,\mathrm{min}$ for ground-based CCDs).
-	\end{itemize}
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{figs/fig2_nexp.png}
-		\caption{Signal-to-noise ratio as a function of the number of sub-exposures $N_{\rm exp}$ at fixed total exposure time $t = 1200\,\mathrm{s}$. In the sky-limited regime, the curve is virtually flat, making exposure splitting cost-free. In the read-noise-limited regime, each additional readout adds an unrecoverable noise penalty, degrading $\mathrm{SNR}$.}
-		\label{fig:nexp_comparison}
-	\end{figure}
-
-	\section{Summary and Observational Decision Matrix}
-
-	All photometric noise trade-offs are governed by which term in the variance sum $\sigma_{\rm tot}^2$ dominates. Table~\ref{tab:regime_summary} provides an operational decision matrix for planning astronomical exposures.
-
-	\begin{table}[htbp]
-		\centering
-		\begin{tabular}{@{}l l l p{6.2cm}@{}}
-			\toprule
-			\textbf{Regime} & \textbf{Dominant Variance} & \textbf{SNR Scaling} & \textbf{Operational Strategy} \\
-			\midrule
-			Bright Source & $\sigma_{\rm src}^2 = R_{\rm src}t$ & $\mathrm{SNR} \propto \sqrt{t}$ & Monitor full-well capacity; prevent saturation and non-linearity. \\
-			\addlinespace[0.4em]
-			Sky-Limited & $\sigma_{\rm sky}^2 = n_{\rm pix}R_{\rm sky}t$ & $\mathrm{SNR} \propto \dfrac{\sqrt{t}}{\sqrt{n_{\rm pix}}}$ & Minimize aperture (exploit good seeing); freely split into $N_{\rm exp}$ sub-exposures for CR rejection. \\
-			\addlinespace[0.4em]
-			Read-Noise Limited & $\sigma_{\rm read}^2 = n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$ & $\mathrm{SNR} \propto \dfrac{1}{\sqrt{n_{\rm pix}N_{\rm exp}}}$ & Bin pixels on-chip (up to Nyquist sampling); maximize $t_{\rm exp}$ (minimize $N_{\rm exp}$) within CR limits. \\
-			\bottomrule
-		\end{tabular}
-		\caption{Comparative overview of the three observational regimes, dominant noise terms, signal-to-noise scalings, and observing strategies.}
-		\label{tab:regime_summary}
-	\end{table}
-
-	\FloatBarrier
-
-	\section{A Second Case Study: Noise Budgets Beyond the Optical CCD}
-
-	The variance-in-quadrature framework developed above is not specific to CCDs; it applies to any measurement built from multiple independent noise processes. As a second, structurally analogous case study, consider timing the arrival of radio pulses from a pulsar: the signal is the pulse arrival time itself (rather than a photon count), and the total timing uncertainty is again a quadrature sum of independent contributions.
-	\begin{itemize}
-		\item \textbf{Radiometer noise:} Instrumental noise intrinsic to the telescope receiver and electronics, analogous to the read/dark noise floor of a CCD.
-		\item \textbf{Sky noise:} Radio emission from all other sources in the beam, the direct radio analogue of $\sigma_{\rm sky}$.
-		\item \textbf{Source noise:} Intrinsic variability of the pulsar itself, with no CCD analogue: \emph{pulse jitter} (shot-to-shot variation in individual pulse shape) and \emph{spin noise} (intrinsic rotational irregularity of the neutron star).
-		\item \textbf{Dispersion noise:} A frequency-dependent group delay imposed on the pulse as it propagates through the free electrons of the ionized interstellar medium (Chapter~8) --- a propagation-path noise term with no counterpart in CCD imaging, where the atmosphere and ISM merely attenuate and scatter (Section~\ref{sec:windows}) rather than delay the signal itself.
-		\item \textbf{Radio-frequency interference (RFI):} Human-made radio emission (television, mobile networks, radar, power infrastructure) that must be flagged and excised, the radio equivalent of a CCD's cosmic-ray hits.
-	\end{itemize}
-	As with the CCD budget of Eq.~\eqref{eq:variance_addition}, identifying which of these terms dominates a given observation --- and only that term --- determines the optimal observing and data-reduction strategy.
-
-	\section{Problem Set: Poisson Statistics and CCD Signal-to-Noise}
-
-	This closing problem set applies the Poisson-statistics and noise-budget machinery developed above to four representative calculations: normalizing and characterizing the Poisson distribution itself, scaling the signal-to-noise ratio with exposure time and image co-addition in the bright-source regime, scaling the signal-to-noise ratio with source distance in the read-noise-limited regime, and separating a dark frame's noise budget into its time-dependent (dark-current) and time-independent (readout) components.
-
-	\subsection{Problem 1: Normalization, Moments, and the Gaussian Limit of the Poisson Distribution}
-
-	\textbf{Problem Statement}: The Poisson distribution is given by $P[X=k]=\dfrac{\lambda^k e^{-\lambda}}{k!}$.
-	\begin{enumerate}[label=(\alph*)]
-		\item Prove that this expression is normalized, $\sum_{k=0}^\infty P[X=k]=1$.
-		\item Prove that the mean and variance of this distribution both equal $\lambda$.
-		\item Plot the distribution for $\lambda=0.1,1,10,100,1000$. Convince yourself that the distribution approaches a Gaussian as $\lambda$ grows.
-	\end{enumerate}
-
-	\textbf{Solution}:
-	\begin{enumerate}[label=(\alph*)]
-		\item \textbf{Normalization}: Using the series expansion $e^\lambda = \sum_{k=0}^\infty \frac{\lambda^k}{k!}$,
-		\[
-		\sum_{k=0}^\infty P[X=k] = e^{-\lambda}\sum_{k=0}^\infty\frac{\lambda^k}{k!} = e^{-\lambda}\cdot e^{\lambda} = \boxed{1.}
-		\]
-
-		\item \textbf{Mean and variance}: The mean $\mu = \langle X\rangle$ is:
-		\[
-		\mu = \langle X\rangle = \sum_{k=0}^\infty k\,\frac{\lambda^k e^{-\lambda}}{k!} = \lambda e^{-\lambda}\sum_{k=1}^\infty\frac{\lambda^{k-1}}{(k-1)!} = \lambda e^{-\lambda}e^{\lambda} = \boxed{\lambda.}
-		\]
-		The second factorial moment is:
-		\[
-		\langle X(X-1)\rangle = \sum_{k=0}^\infty k(k-1)\,\frac{\lambda^k e^{-\lambda}}{k!} = \lambda^2 e^{-\lambda}\sum_{k=2}^\infty\frac{\lambda^{k-2}}{(k-2)!} = \lambda^2 e^{-\lambda}e^{\lambda} = \lambda^2.
-		\]
-		Since $\langle X^2\rangle = \langle X(X-1)\rangle + \langle X\rangle = \lambda^2 + \lambda$, the variance $\sigma^2 = \mathrm{Var}(X)$ is:
-		\[
-		\boxed{\sigma^2 = \mathrm{Var}(X) = \langle X^2\rangle - \langle X\rangle^2 = (\lambda^2+\lambda)-\lambda^2 = \lambda.}
-		\]
-		Thus, $\mu = \sigma^2 = \lambda$.
-
-		\item \textbf{Plot and Gaussian limit}: The distribution can be evaluated and plotted directly from its definition:
-		\begin{lstlisting}[language=Python]
+	\item \textbf{Plot and the Gaussian limit}. The distribution can be drawn directly from its definition.
+	\begin{lstlisting}[language=Python]
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import poisson, norm
@@ -517,79 +731,141 @@ axes[0].set_ylabel("$P[X=k]$")
 axes[-1].legend()
 plt.tight_layout()
 plt.show()
-		\end{lstlisting}
-		As $\lambda$ grows ($\lambda \gg 1$), the Central Limit Theorem dictates that the discrete Poisson distribution converges to a Gaussian distribution $\mathcal{N}(\mu, \sigma^2) = \mathcal{N}(\lambda, \lambda)$:
-		\[
-		P[X=k] \approx \frac{1}{\sqrt{2\pi\lambda}} \exp\left(-\frac{(k-\lambda)^2}{2\lambda}\right).
-		\]
-		For $\lambda=0.1$, the distribution is a sharp spike concentrated at $k=0,1$. By $\lambda=10$, it becomes bell-shaped and symmetric, and for $\lambda \ge 100$, it is visually indistinguishable from the Gaussian distribution $\mathcal{N}(\lambda, \lambda)$.
-	\end{enumerate}
+	\end{lstlisting}
+	(In the code, \texttt{lam} is $\bar n$ and \texttt{k} is $n$.) Figure~\ref{cc:fig:poisson_gauss} shows the five distributions with the Gaussian of the same mean and variance, Eq.~\eqref{cc:eq:gauss_limit}.
 
-	\subsection{Problem 2: Signal-to-Noise Scaling with Exposure Time and Image Co-Addition}
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{figs/fig_ch7_poisson_gauss.pdf}
+		\caption{Poisson probabilities $P(n)$ for $\bar n=0.1$, $1$, $10$, $100$ and $1000$ (bars, or dots at every second and every sixth $n$ in the last two panels), with the Gaussian of mean $\bar n$ and variance $\bar n$ (dashed) for $\bar n\ge1$.}
+		\label{cc:fig:poisson_gauss}
+	\end{figure}
 
-	\textbf{Problem Statement}: Two images $I_1$ and $I_2$ of the same bright astronomical object are taken with the same instrumental setup, dominated by source shot noise. $I_1$ has an exposure time of $1\,\mathrm{min}$ and $\mathrm{SNR}=100$.
-	\begin{enumerate}[label=(\alph*)]
-		\item What is the $\mathrm{SNR}$ of $I_2$ if its exposure time is $5\,\mathrm{min}$?
-		\item If the two images are added pixel-wise, what is the $\mathrm{SNR}$ of the resulting image?
-	\end{enumerate}
-
-	\textbf{Solution}:
-	\begin{enumerate}[label=(\alph*)]
-		\item \textbf{Exposure time scaling}: In the source-shot-noise limited regime (Regime 1), the only parameter changing between $I_1$ and $I_2$ is the exposure time $t$. The signal-to-noise ratio scales with time as $\mathrm{SNR} = \sqrt{R_{\rm src}t} \propto \sqrt{t}$. Therefore:
-		\[
-		\boxed{\mathrm{SNR}_2 = \mathrm{SNR}_1\sqrt{\frac{t_2}{t_1}} = 100\sqrt{\frac{5}{1}} = 100\sqrt{5} \simeq 223.6.}
-		\]
-
-		\item \textbf{Pixel-wise co-addition}: Adding the two images combines their collected signal counts, so the total signal is $S_{1+2} = S_1 + S_2 = R_{\rm src}(t_1 + t_2)$. Because photon arrival follows independent Poisson processes, their noise variances add: $\sigma_{1+2}^2 = \sigma_1^2 + \sigma_2^2 = S_1 + S_2$. The variance of the resulting Poisson distribution gives $\sigma_{1+2} = \sqrt{S_1 + S_2}$, so the signal-to-noise ratio is:
-		\[
-		\mathrm{SNR}_{1+2} = \frac{S_1 + S_2}{\sqrt{S_1 + S_2}} = \sqrt{S_1 + S_2} = \sqrt{R_{\rm src}(t_1 + t_2)} = \mathrm{SNR}_1\sqrt{1 + \frac{t_2}{t_1}} = 100\sqrt{6}
-		\]
-		\[
-		\boxed{\mathrm{SNR}_{1+2} \simeq 244.9.}
-		\]
-		Co-adding independent exposures in the photon-limited regime is therefore completely equivalent to a single uninterrupted exposure of the same total duration $t_1 + t_2$.
-	\end{enumerate}
-
-	\subsection{Problem 3: Signal-to-Noise Scaling with Source Distance in the Instrumental-Noise Limit}
-
-	\textbf{Problem Statement}: The image of a faint star has $\mathrm{SNR}=5$, with the noise dominated by instrumental (readout) noise. What will the $\mathrm{SNR}$ be if the star were twice as distant?
-
-	\textbf{Solution}:
-	In the readout-noise-limited regime (Regime 3), the instrumental parameters ($t$, $n_{\rm pix}$, $N_{\rm exp}$, $\sigma_{\rm RON}$) are fixed, and the only parameter changing is the number of photons arriving from the star (the incident flux $F$):
+	For $\bar n=0.1$ the count is $0$ with probability $e^{-0.1}=0.905$ and $1$ with probability $0.1\,e^{-0.1}=0.090$, and larger counts almost never happen. No bell curve fits this. For $\bar n=1$ the counts $0$ and $1$ are equally likely, and the Gaussian puts probability at negative $n$, which cannot occur. For $\bar n=10$ the shape is close to a bell but lopsided, with a longer tail to the right. For $\bar n=100$ and $1000$ the points lie on the Gaussian. The peak height checks this, since Eq.~\eqref{cc:eq:gauss_limit} gives $1/\sqrt{2\pi\bar n}=0.012616$ at $\bar n=1000$, against the Poisson value $0.012615$. The lopsidedness comes from the dropped term of order $(n-\bar n)^3/\bar n^2$, which is $1/\sqrt{\bar n}$ at one standard deviation, so
 	\[
-	\mathrm{SNR} \approx \frac{\text{number of photons arriving}}{\text{readout noise}}
+	\boxed{P(n)\to\frac{1}{\sqrt{2\pi\bar n}}\exp\!\left[-\frac{(n-\bar n)^2}{2\bar n}\right]\quad\text{for }\bar n\gg1.}
 	\]
-	In terms of symbols:
+	This is why the noise of large counts may be treated as Gaussian, as in Section~\ref{sec:detection_significance}.
+\end{enumerate}
+
+\subsection{Problem 2: Signal-to-Noise with Exposure Time and Adding Images}
+\label{cc:prob:coadd}
+
+\textbf{Problem Statement}: Two images $I_1$ and $I_2$ of the same bright object are taken with the same instrument. Both are dominated by the shot noise of the source. $I_1$ has an exposure time of $1\,\mathrm{min}$ and $\SNR=100$.
+\begin{enumerate}[label=(\alph*)]
+	\item What is the $\SNR$ of $I_2$ if its exposure time is $5\,\mathrm{min}$?
+	\item If the two images are added pixel by pixel, what is the $\SNR$ of the sum?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item With the source's own shot noise dominant, $\SNR=\sqrt{R_{\rm src}t}\propto\sqrt t$, Eq.~\eqref{eq:regime_bright}.
+	\item Variances of independent images add, Eq.~\eqref{cc:eq:var_add}, and the variance of a Poisson count equals its mean, Eq.~\eqref{eq:poisson_var}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Longer exposure}. Only the time differs between the two images.
+	\begin{align*}
+		\SNR_2
+		&\eqby{1} \sqrt{R_{\rm src}t_2} \\
+		&\eqby{2} \SNR_1\sqrt{\frac{t_2}{t_1}} = 100\sqrt5
+	\end{align*}
+	\begin{explain}
+		\item Eq.~\eqref{eq:regime_bright}.
+		\item Divide by $\SNR_1=\sqrt{R_{\rm src}t_1}$.
+	\end{explain}
 	\[
-	\mathrm{SNR} = \frac{R_{\rm src}t}{\sigma_{\rm read}} \propto R_{\rm src} \propto F \propto \frac{1}{d^2}.
-	\]
-	Since the flux obeys the inverse-square law ($F \propto 1/d^2$), doubling the distance ($d \to 2d$) reduces the arriving photon count rate and hence the $\mathrm{SNR}$ by a factor of $2^2 = 4$:
-	\[
-	\boxed{\mathrm{SNR}_{2d} = \frac{\mathrm{SNR}}{4} = \frac{5}{4} = 1.25.}
+	\boxed{\SNR_2 = 223.6.}
 	\]
 
-	\subsection{Problem 4: Separating Dark-Current and Readout-Noise Contributions from Two Dark Frames}
-
-	\textbf{Problem Statement}: Two dark images are taken with the same telescope and CCD. The first has exposure time $1\,\mathrm{min}$ and noise variance $a$; the second has exposure time $3\,\mathrm{min}$ and noise variance $2.6a$. Find the noise variance per unit time of the dark current and the noise variance of the readout noise.
-
-	\textbf{Solution}: In a dark frame (where source and sky signals are zero), the total noise variance as a function of exposure time $t$ is:
+	\item \textbf{Sum of the two images}. The signals add, $S_{1+2}=S_1+S_2=R_{\rm src}(t_1+t_2)$. The two images are independent, so their variances add, and each variance equals the signal.
+	\begin{align*}
+		\SNR_{1+2}
+		&\eqby{1} \frac{S_1+S_2}{\sqrt{\sigma_1^2+\sigma_2^2}} \\
+		&\eqby{2} \frac{S_1+S_2}{\sqrt{S_1+S_2}} = \sqrt{R_{\rm src}(t_1+t_2)} \\
+		&\eqby{3} \SNR_1\sqrt{1+\frac{t_2}{t_1}} = 100\sqrt6
+	\end{align*}
+	\begin{explain}
+		\item Eq.~\eqref{eq:snr_def}, with the variance of the sum from Eq.~\eqref{cc:eq:var_add}.
+		\item $\sigma_i^2=S_i$ for a Poisson count, Eq.~\eqref{eq:poisson_var}.
+		\item Divide by $\SNR_1=\sqrt{R_{\rm src}t_1}$.
+	\end{explain}
 	\[
-	\sigma_{\rm tot}^2(t) = D t + \sigma_{\rm read}^2 = n_{\rm pix} R_{\rm dark} t + n_{\rm pix} \sigma_{\rm RON}^2,
+	\boxed{\SNR_{1+2} = 244.9.}
 	\]
-	where $D \equiv n_{\rm pix} R_{\rm dark}$ is the dark-current noise variance per unit time and $\sigma_{\rm read}^2 \equiv n_{\rm pix} \sigma_{\rm RON}^2$ is the total readout-noise variance.
+	As a check by counting electrons, $\SNR_1=100$ means $S_1=100^2=10^4$ electrons, so $S_2=5\times10^4$ and the sum has $6\times10^4$ electrons, with $\sqrt{6\times10^4}=244.9$. Adding the images gives the same result as one exposure of $6\,\mathrm{min}$. That stops being exactly true when readout noise matters, because the sum has been read twice and the single exposure only once.
+\end{enumerate}
 
-	Factoring $n_{\rm pix}$, the two dark exposures yield a system of two equations:
-	\[
-	D(1) + \sigma_{\rm read}^2 = a, \qquad D(3) + \sigma_{\rm read}^2 = 2.6a.
-	\]
-	Subtracting the first equation from the second eliminates $\sigma_{\rm read}^2$:
-	\[
-	2D = 1.6a \implies \boxed{D = 0.8a\ \text{per minute}.}
-	\]
-	Back-substituting into the first equation gives:
-	\[
-	\boxed{\sigma_{\rm read}^2 = a - 0.8a = 0.2a.}
-	\]
-	Physically, dark current shot noise accumulates linearly at $0.8a$ per minute, while the readout noise contributes a fixed floor of $0.2a$ per frame regardless of exposure time.
+\subsection{Problem 3: A Faint Star Twice as Far Away}
+\label{cc:prob:distance}
 
-	Both case studies in this chapter treated the astronomical source and its intervening medium as a fixed, known background against which noise is quantified. Chapter~8 turns this around: it examines that intervening medium --- the interstellar medium --- as a physical system in its own right, developing the dynamics that ultimately determine where, and when, a source such as a pulsar is created in the first place.
+\textbf{Problem Statement}: The image of a faint star has $\SNR=5$, and its noise is dominated by instrumental noise.
+\begin{enumerate}[label=(\alph*)]
+	\item What would the $\SNR$ be if the star were twice as far away, with everything else unchanged?
+	\item What would it be if the noise had instead been dominated by the star's own shot noise?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item Instrumental noise, the dark and readout terms, does not depend on the star, so $\SNR\propto R_{\rm src}$, Eq.~\eqref{eq:regime_read}.
+	\item With the star's own shot noise dominant, $\SNR\propto\sqrt{R_{\rm src}}$, Eq.~\eqref{eq:regime_bright}.
+	\item The flux, and so $R_{\rm src}$, falls as $1/d^2$, Eq.~\eqref{eq:inverse_square_flux}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Instrumental noise}. The variance $n_{\rm pix}R_{\rm dark}t+n_{\rm pix}N_{\rm exp}\sigma_{\rm RON}^2$ contains no light from the star, so it is the same at either distance. Only the signal changes.
+	\begin{align*}
+		\frac{\SNR(2d)}{\SNR(d)}
+		&\eqby{1} \frac{R_{\rm src}(2d)}{R_{\rm src}(d)} \\
+		&\eqby{2} \left(\frac{d}{2d}\right)^2 = \frac14
+	\end{align*}
+	\begin{explain}
+		\item $\SNR=R_{\rm src}t/\sigma_{\rm tot}$ with $t$ and $\sigma_{\rm tot}$ unchanged.
+		\item $R_{\rm src}\propto F\propto1/d^2$.
+	\end{explain}
+	\[
+	\boxed{\SNR(2d)=\frac54=1.25.}
+	\]
+	The star is no longer detected. An excess of $1.25\sigma$ is produced by noise alone about once in ten trials.
+
+	\item \textbf{Shot-noise limit}. Now $\SNR=\sqrt{R_{\rm src}t}\propto\sqrt{R_{\rm src}}\propto1/d$, so
+	\[
+	\boxed{\SNR(2d)=\frac52=2.5.}
+	\]
+	A star limited by its own light loses less when it is moved away, because its noise falls with its signal. The same light loss costs a faint star on a bright sky or on a noisy detector twice as much.
+\end{enumerate}
+
+\subsection{Problem 4: Dark Current and Readout Noise from Two Dark Frames}
+\label{cc:prob:dark}
+
+\textbf{Problem Statement}: Two dark frames are taken with the same telescope and CCD. The first has an exposure time of $1\,\mathrm{min}$ and a noise variance $a$. The second has an exposure time of $3\,\mathrm{min}$ and a noise variance $2.6a$.
+\begin{enumerate}[label=(\alph*)]
+	\item Find the noise variance of the dark current per unit time.
+	\item Find the noise variance of the readout noise.
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item A dark frame has no star and no sky. Its variance is $\sigma^2(t)=n_{\rm pix}R_{\rm dark}t+n_{\rm pix}\sigma_{\rm RON}^2$, a straight line in $t$. For a single pixel, $n_{\rm pix}=1$.
+	\item Two frames of different lengths give two equations for the two unknowns, solved in Eq.~\eqref{cc:eq:dark_solution}.
+\end{itemize}
+
+\textbf{Detailed Solutions}: The two frames give
+\[
+\begin{pmatrix} 1\,\mathrm{min} & 1\\ 3\,\mathrm{min} & 1\end{pmatrix}
+\begin{pmatrix} n_{\rm pix}R_{\rm dark}\\ n_{\rm pix}\sigma_{\rm RON}^2\end{pmatrix}
+=\begin{pmatrix} a\\ 2.6a\end{pmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Dark variance per unit time}. By Eq.~\eqref{cc:eq:dark_solution},
+	\[
+	\boxed{n_{\rm pix}R_{\rm dark}=\frac{\sigma_2^2-\sigma_1^2}{t_2-t_1}=\frac{2.6a-a}{3\,\mathrm{min}-1\,\mathrm{min}}=0.8a\ \text{per minute}.}
+	\]
+	\item \textbf{Read variance}. By Eq.~\eqref{cc:eq:dark_solution},
+	\[
+	\boxed{n_{\rm pix}\sigma_{\rm RON}^2=\frac{t_2\sigma_1^2-t_1\sigma_2^2}{t_2-t_1}=\frac{3a-2.6a}{2}=0.2a.}
+	\]
+	As a check, the first frame gives $0.8a\times1+0.2a=a$. In the $1$-minute frame the dark current gives $80$ per cent of the variance, and in the $3$-minute frame $92$ per cent. The read variance is the same $0.2a$ in every frame, whatever its length. A $5$-minute frame should show $0.8a\times5+0.2a=4.2a$, and taking one is how the straight line of Figure~\ref{cc:fig:dark_frames} would be tested.
+\end{enumerate}

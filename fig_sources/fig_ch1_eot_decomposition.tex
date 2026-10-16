@@ -2,101 +2,54 @@
 \usepackage{amsmath,amssymb,mathtools,physics,bm,nicefrac,wasysym}
 \usepackage{xcolor}
 
-\definecolor{colone}{RGB}{180,60,60}
-\definecolor{coltwo}{RGB}{60,110,180}
-\definecolor{colthree}{RGB}{60,140,80}
-
 \definecolor{accent}{HTML}{A13D2C}
 \definecolor{accent2}{HTML}{2B5F6B}
 \definecolor{muted}{HTML}{5A564F}
-\definecolor{panel}{HTML}{F8F6F0}
-\definecolor{linecol}{HTML}{D8D2C4}
-\definecolor{ink}{HTML}{1E1C1A}
 \definecolor{astroblue}{HTML}{1B4F72}
-\definecolor{astrodark}{HTML}{17202A}
-\definecolor{sunyellow}{HTML}{E8A33D}
 
-\usetikzlibrary{calc,arrows.meta,positioning,decorations.pathreplacing,decorations.markings,angles,quotes,shapes.geometric}
-\usepackage{tikz-3dplot}
-
-\newcommand{\vecr}{\vec r}
-\newcommand{\vecL}{\vec L}
-\newcommand{\vecA}{\vec A}
-\newcommand{\vecf}{\vec f}
-\newcommand{\vecF}{\vec F}
-\newcommand{\vecp}{\vec p}
-\newcommand{\avg}[1]{\left\langle #1\right\rangle}
-\newcommand{\vecx}{\vec x}
-\newcommand{\hatn}{\hat n}
-\newcommand{\rhat}{\hat r}
-\newcommand{\phihat}{\hat\phi}
-\newcommand{\thetahat}{\hat\theta}
-\newcommand{\note}[1]{\textcolor{blue!60!black}{\textit{[#1]}}}
-
-% Astronomical acronyms
-\newcommand{\LST}{\mathrm{LST}}
-\newcommand{\GST}{\mathrm{GST}}
-\newcommand{\GMST}{\mathrm{GMST}}
-\newcommand{\GAST}{\mathrm{GAST}}
-\newcommand{\LMST}{\mathrm{LMST}}
-\newcommand{\LAST}{\mathrm{LAST}}
-\newcommand{\UT}{\mathrm{UT}}
-\newcommand{\UTC}{\mathrm{UTC}}
-\newcommand{\TAI}{\mathrm{TAI}}
-\newcommand{\TT}{\mathrm{TT}}
-\newcommand{\TDB}{\mathrm{TDB}}
-\newcommand{\JD}{\mathrm{JD}}
-\newcommand{\MJD}{\mathrm{MJD}}
 \newcommand{\EoT}{\mathrm{EoT}}
-\newcommand{\SNR}{\mathrm{SNR}}
-\newcommand{\RON}{\mathrm{RON}}
 
-% Helper commands for specific diagrams
-\newcommand{\midlinelabel}[3]{
-    \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
-\newcommand{\midlinelabell}[3]{
-    \node[fill = white, inner sep = 0.2pt, outer sep=3pt] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
-\newcommand{\midlinelabelll}[3]{
-    \node[fill = white, inner sep = 0.2pt, outer sep=3pt,scale=0.6] (midlabel) at ($ (#1)!.5!(#2) $) {#3};
-    \draw[stealth-] (#1) --  (midlabel);
-    \draw[-stealth] (midlabel) -- (#2);
-}
-
-
+% Curves are computed, not sketched (STYLE_GUIDE rule 33).
+% d = days after 2000 Jan 1, 0h UT (the shape repeats each year to within a day).
+% Sun: mean longitude Lm, mean anomaly g, ecliptic longitude lam (Astronomical Almanac low-precision formulae).
+% Exact EoT  = 4 min/deg * (Lm - alpha), alpha from tan(alpha) = cos(eps) tan(lam).
+% Eccentricity term = -4*(180/pi)*2e sin g = -7.655 sin g   (e = 0.0167)
+% Obliquity term    = +4*(180/pi)*tan^2(eps/2) sin 2 lam = 9.863 sin 2 lam   (eps = 23.44 deg)
+% Checked in Wolfram: exact curve has minimum -14.25 min at d = 42 and maximum +16.42 min at d = 307;
+% the sum of the two terms stays within 0.3 min of it.
+\pgfmathdeclarefunction{Lm}{1}{\pgfmathparse{280.460+0.9856474*(#1-0.5)}}
+\pgfmathdeclarefunction{gan}{1}{\pgfmathparse{357.528+0.9856003*(#1-0.5)}}
+\pgfmathdeclarefunction{lam}{1}{\pgfmathparse{Lm(#1)+1.915*sin(gan(#1))+0.020*sin(2*gan(#1))}}
+\pgfmathdeclarefunction{eotexact}{1}{%
+  \pgfmathparse{Lm(#1)-atan2(cos(23.44)*sin(lam(#1)),cos(lam(#1)))}%
+  \pgfmathparse{4*(\pgfmathresult-360*round(\pgfmathresult/360))}}
+\pgfmathdeclarefunction{eotecc}{1}{\pgfmathparse{-7.655*sin(gan(#1))}}
+\pgfmathdeclarefunction{eotobl}{1}{\pgfmathparse{9.863*sin(2*lam(#1))}}
 
 \begin{document}
-\begin{tikzpicture}[scale=1.1, font=\sffamily]
-		\draw[->, thick] (0,0) -- (12.5,0) node[right] {Month};
-		\draw[->, thick] (0,-3.5) -- (0,4.0) node[above] {$\EoT$ (minutes)};
-		\draw[dashed, gray!40] (0,0) grid[xstep=1, ystep=1] (12,3.5);
-		\draw[dashed, gray!40] (0,0) grid[xstep=1, ystep=1] (12,-3.5);
-		
-		% Ticks
-		\foreach \x/\m in {1/Jan, 2/Feb, 3/Mar, 4/Apr, 5/May, 6/Jun, 7/Jul, 8/Aug, 9/Sep, 10/Oct, 11/Nov, 12/Dec} {
-			\draw (\x, 0.1) -- (\x, -0.1) node[below=3pt, font=\footnotesize] {\m};
-		}
-		\foreach \y in {-15, -10, -5, 5, 10, 15} {
-			\draw (0.1, \y*0.2) -- (-0.1, \y*0.2) node[left=3pt, font=\footnotesize] {\y};
-		}
-		
-		% Component curves
-		\draw[blue!70!black, thick, dashed, domain=0:12, samples=100] 
-			plot (\x, {-7.66*sin(360*(\x-0.1)/12)*0.2});
-		\node[blue!70!black, font=\footnotesize, right] at (1.5, -1.8) {Eccentricity ($e$)};
-		
-		\draw[red!70!black, thick, dotted, domain=0:12, samples=100] 
-			plot (\x, {9.86*sin(720*(\x-2.7)/12)*0.2});
-		\node[red!70!black, font=\footnotesize, right] at (7.2, 2.2) {Obliquity ($\epsilon$)};
-		
-		% Total curve
-		\draw[black, ultra thick, domain=0:12, samples=200] 
-			plot (\x, {(-7.66*sin(360*(\x-0.1)/12) + 9.86*sin(720*(\x-2.7)/12))*0.2});
-		\node[black, font=\bfseries\footnotesize, right] at (9.8, 3.2) {Total $\EoT$};
-	\end{tikzpicture}
+\begin{tikzpicture}[x=1cm, y=0.2cm, font=\sffamily]
+	% x = 12 d / 365.25 (cm), y = minutes
+	\foreach \m in {0,...,12} {\draw[gray!30] (\m,-17.5) -- (\m,17.5);}
+	\foreach \y in {-15,-10,-5,5,10,15} {\draw[gray!30] (0,\y) -- (12,\y);}
+	\draw[->, thick] (0,0) -- (12.4,0);
+	\draw[->, thick] (0,-17.5) -- (0,19) node[above] {$\EoT$ (minutes)};
+	\foreach \m [count=\i from 0] in {Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec} {
+		\node[font=\footnotesize] at (\i+0.5,-19) {\m};
+	}
+	\foreach \y in {-15,-10,-5,0,5,10,15} {
+		\draw (0.08,\y) -- (-0.08,\y) node[left, font=\footnotesize] {$\y$};
+	}
+	\draw[astroblue, thick, dashed, domain=0:365.25, samples=150, variable=\d]
+		plot ({12*\d/365.25}, {eotecc(\d)});
+	\draw[accent, thick, dotted, domain=0:365.25, samples=150, variable=\d]
+		plot ({12*\d/365.25}, {eotobl(\d)});
+	\draw[black, very thick, domain=0:365.25, samples=250, variable=\d]
+		plot ({12*\d/365.25}, {eotexact(\d)});
+	% legend, outside the curves
+	\begin{scope}[shift={(12.7,8)}]
+		\draw[black, very thick] (0,6) -- (0.7,6) node[right, black, font=\footnotesize] {total};
+		\draw[astroblue, thick, dashed] (0,3) -- (0.7,3) node[right, black, font=\footnotesize] {eccentricity};
+		\draw[accent, thick, dotted] (0,0) -- (0.7,0) node[right, black, font=\footnotesize] {obliquity};
+	\end{scope}
+\end{tikzpicture}
 \end{document}

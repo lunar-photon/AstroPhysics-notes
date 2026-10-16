@@ -1,0 +1,39 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\begin{document}
+% HR diagram: lines of constant radius, log L/Lsun = 2 log R/Rsun + 4 log(T/5772); temperature increases to the left.
+% x coordinate = -log10 T so that hot is on the left.
+\begin{tikzpicture}[x=5.2cm,y=0.55cm, >={Stealth[length=2.4mm]}]
+  \def\xa{-4.6}\def\xb{-3.4}
+  \draw[linecol] (\xa,-4) grid[xstep=0.2,ystep=2] (\xb,6);
+  \draw[->, muted] (\xa,-4) -- (-3.37,-4) node[right] {$T_{\rm eff}$};
+  \draw[->, muted] (\xa,-4) -- (\xa,6.6) node[above] {$\log_{10}(L/L_\odot)$};
+  \foreach \lt/\T in {3.477/3000,3.699/5000,4.0/10000,4.301/20000} \node[below, muted] at (-\lt,-4) {\small \T};
+  \foreach \y in {-4,-2,0,2,4,6} \node[left, muted] at (\xa,\y) {\small \y};
+  \begin{scope}
+    \clip (\xa,-4) rectangle (\xb,6);
+    \foreach \R/\lab in {0.01/0.01,0.1/0.1,1/1,10/10,100/100,1000/1000} {
+      \draw[muted!60, dashed] plot[domain=3.4:4.6, samples=2] ({-\x}, {2*log10(\R) + 4*(\x - 3.7613)});
+    }
+  \end{scope}
+  \foreach \R/\lT in {0.01/4.200,0.1/4.079,1/3.845,10/3.633,100/3.556} {
+    \pgfmathsetmacro{\yy}{2*log10(\R) + 4*(\lT - 3.7613)}
+    \node[muted, font=\scriptsize, fill=white, inner sep=1pt] at (-\lT,\yy) {$\R\,R_\odot$};
+  }
+  \foreach \lT/\lL/\name/\pos in {3.761/0/Sun/right, 3.997/1.405/Sirius A/right, 4.401/-1.252/Sirius B/right, 3.483/-2.810/Proxima Cen/left, 3.556/5.0/Betelgeuse/left, 3.632/2.230/Arcturus/left, 4.083/5.079/Rigel/right} {
+    \fill[accent] (-\lT,\lL) circle[radius=2.2pt];
+    \node[accent, \pos, font=\small] at (-\lT,\lL) {\name};
+  }
+\end{tikzpicture}
+\end{document}

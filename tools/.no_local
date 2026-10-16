@@ -1,0 +1,1 @@
+Python never runs on the laptop (owner rule, 2026-10-15). tools/run.sh refuses local fallback while this file exists.

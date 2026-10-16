@@ -144,14 +144,14 @@
 			% Velocity-direction arrows, drawn tangent to the curve at its
 			% own endpoints (true local tangent, not the infinite-limit
 			% direction)
-			\draw[->, astroblue, thick] (Pin) -- ($(Pin)+({1.3*cos(\tangin)},{1.3*sin(\tangin)})$) node[right] {$\vec u_{\rm in}$};
-			\draw[->, accent, thick] (Pout) -- ($(Pout)+({1.3*cos(\tangout)},{1.3*sin(\tangout)})$) node[above left] {$\vec u_{\rm out}$};
+			\draw[->, astroblue, thick] (Pin) -- ($(Pin)+({1.3*cos(\tangin)},{1.3*sin(\tangin)})$) node[right] {$\vec w_{\rm in}$};
+			\draw[->, accent, thick] (Pout) -- ($(Pout)+({1.3*cos(\tangout)},{1.3*sin(\tangout)})$) node[above left] {$\vec w_{\rm out}$};
 
 			% delta and f_infty, both marked at Ctr, the asymptotes' actual
 			% crossing point
 			\draw pic["\small $\delta$", draw=colone, angle radius=11mm, angle eccentricity=1.2]
 				{angle=Uin--Ctr--Uout};
-			\draw pic["\small $f_\infty$", draw=muted, angle radius=6mm]
+			\draw pic["\small $v_{\rm asy}$", draw=muted, angle radius=6mm]
 				{angle=Pref--Ctr--Uout};
 
 			\node[muted, below right=1pt] at ({\lsr/(1+\ecc)},0) {periapsis};
@@ -173,7 +173,7 @@
 			\coordinate (Bout) at ($(A)+({\uu*cos(\tangout)},{\uu*sin(\tangout)})$);
 
 			\draw[->, ink, thick] (O) -- (A) node[pos=0.5, below=2pt] {$\vec V_p$};
-			\draw[->, accent, thick] (A) -- (Bout) node[pos=0.5, left=2pt] {$\vec u_{\rm out}$};
+			\draw[->, accent, thick] (A) -- (Bout) node[pos=0.5, left=2pt] {$\vec w_{\rm out}$};
 			\draw[->, accent, very thick] (O) -- (Bout) node[pos=0.5, sloped, above] {$\vec v_{\rm out}$};
 		\end{scope}
 
@@ -184,7 +184,7 @@
 			\coordinate (Bin) at ($(A)+({\uu*cos(\tangin)},{\uu*sin(\tangin)})$);
 
 			\draw[->, ink, thick] (O) -- (A) node[pos=0.5, below=2pt] {$\vec V_p$};
-			\draw[->, astroblue, thick] (A) -- (Bin) node[pos=0.5, left=2pt] {$\vec u_{\rm in}$};
+			\draw[->, astroblue, thick] (A) -- (Bin) node[pos=0.5, left=2pt] {$\vec w_{\rm in}$};
 			\draw[->, astroblue, very thick] (O) -- (Bin) node[pos=0.5, sloped, above] {$\vec v_{\rm in}$};
 		\end{scope}
 	\end{tikzpicture}

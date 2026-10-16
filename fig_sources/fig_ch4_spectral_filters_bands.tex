@@ -71,69 +71,50 @@
 
 
 \begin{document}
+% x = 20(lambda/um - 0.3) cm, y = 1.3 (sigma/sigma_V) cm
 \begin{tikzpicture}[
-		scale=1.0,
 		declare function={
 			wl(\x) = 0.30 + \x/20.0;
 			rayleigh(\x) = 1.3 * ((0.55 / wl(\x))^4);
-			mie(\x) = 1.3 * (0.55 / wl(\x));
-			geom(\x) = 1.3 * 1.0;
+			dust(\x) = 1.3 * (0.55 / wl(\x));
 		}
 	]
-		% Regime demarker background band
-		\fill[astroblue!5] (1.0,0) rectangle (11.8,5.4);
-
-		% Background passband shading
-		\fill[astroblue!9] (0.7,0) rectangle (1.9,5.0); % U band region
-		\fill[astroblue!15] (2.2,0) rectangle (3.4,5.0); % B band region
-		\fill[sunyellow!18] (4.4,0) rectangle (5.6,5.0); % V band region
-		\fill[accent!12] (6.0,0) rectangle (7.6,5.0); % R band region
-		\fill[accent!18] (8.8,0) rectangle (10.8,5.0); % I band region
-
-		% Grid lines
-		\foreach \yval/\ylabel in {1.3/1.0, 2.6/2.0, 3.9/3.0, 5.2/4.0} {
-			\draw[dashed, gray!30, thin] (0,\yval) -- (12.2,\yval);
-			\node[gray!70, font=\scriptsize, anchor=east] at (-0.15,\yval) {$\ylabel$};
+		% Passband strips
+		\fill[astroblue!9]  (0.7,0) rectangle (1.9,5.2);  % U
+		\fill[astroblue!15] (2.2,0) rectangle (3.4,5.2);  % B
+		\fill[sunyellow!18] (4.4,0) rectangle (5.6,5.2);  % V
+		\fill[accent!12]    (6.0,0) rectangle (7.6,5.2);  % R
+		\fill[accent!18]    (8.8,0) rectangle (10.8,5.2); % I
+		\foreach \band/\xpos in {U/1.30, B/2.80, V/5.00, R/6.80, I/9.80} {
+			\draw[dotted, thick, ink!35] (\xpos,0) -- (\xpos,5.2);
+			\node[ink, font=\small, above] at (\xpos,5.2) {$\band$};
 		}
+
+		% Grid and y ticks
+		\foreach \yval/\ylabel in {1.3/1, 2.6/2, 3.9/3, 5.2/4} {
+			\draw[dashed, gray!30, thin] (0,\yval) -- (12,\yval);
+			\node[ink!80, font=\scriptsize, anchor=east] at (-0.1,\yval) {$\ylabel$};
+		}
+		\node[ink!80, font=\scriptsize, anchor=east] at (-0.1,0) {$0$};
 
 		% Axes
-		\draw[->, thick, ink] (0,0) -- (12.7,0) node[below right=2pt, font=\small] {Wavelength $\lambda$ [$\mu\mathrm{m}$]};
-		\draw[->, thick, ink] (0,0) -- (0,6.0) node[above, font=\small] {Relative Cross-Section $\sigma(\lambda)\,/\,\sigma_V$};
-
-		% X-axis ticks
-		\foreach \l/\xpos in {0.3/0, 0.4/2.0, 0.5/4.0, 0.6/6.0, 0.7/8.0, 0.8/10.0, 0.9/12.0} {
-			\draw[thick, ink] (\xpos,0) -- (\xpos,-0.12);
-			\node[ink!80, font=\scriptsize, below] at (\xpos,-0.12) {$\l$};
+		\draw[->, thick, ink] (0,0) -- (12.3,0);
+		\draw[->, thick, ink] (0,0) -- (0,5.9);
+		\foreach \l/\xpos in {0.3/0, 0.4/2, 0.5/4, 0.6/6, 0.7/8, 0.8/10, 0.9/12} {
+			\draw[thick, ink] (\xpos,0) -- (\xpos,-0.1);
+			\node[ink!80, font=\scriptsize, below] at (\xpos,-0.1) {$\l$};
 		}
-		\node[ink!80, font=\scriptsize, anchor=east] at (-0.15,0) {$0.0$};
-
-		% Passband center lines & labels
-		\foreach \wl/\band/\xpos in {0.365/U/1.30, 0.440/B/2.80, 0.550/V/5.00, 0.640/R/6.80, 0.790/I/9.80} {
-			\draw[dotted, thick, ink!35] (\xpos,0) -- (\xpos,5.0);
-			\node[ink, font=\small\bfseries, above] at (\xpos,5.0) {$\band$};
-			\node[ink!60, font=\tiny, below=14pt] at (\xpos,0) {$\wl$};
-		}
-
-		% Regime demarkers (top bar)
-		\draw[<->, thick, astroblue] (1.0, 5.75) -- (11.8, 5.75);
-		\node[astroblue, font=\footnotesize\bfseries, above=1pt] at (6.4, 5.75) {Mie Scattering Regime: $a_{\rm dust} \sim \lambda \quad (a \approx 0.05\text{--}0.3\,\mu\mathrm{m})$};
-		\draw[->, thick, gray!70] (0.8, 5.75) -- (0.0, 5.75);
-		\node[gray!70, font=\tiny, above=1pt] at (0.4, 5.75) {Far-UV ($a \gg \lambda$)};
-		\draw[->, thick, gray!70] (12.0, 5.75) -- (12.6, 5.75);
-		\node[gray!70, font=\tiny, above=1pt] at (12.3, 5.75) {IR ($a \ll \lambda$)};
+		\node[font=\small, below] at (6,-0.55) {wavelength $\lambda$ ($\mu$m)};
+		\node[font=\small, rotate=90, above] at (-0.55,2.6) {$\sigma(\lambda)/\sigma(\lambda_V)$};
 
 		% Curves
-		\draw[very thick, accent, domain=1.92:12.2, samples=120] plot (\x, {rayleigh(\x)});
-		\draw[very thick, astroblue, domain=0.4:12.2, samples=100] plot (\x, {mie(\x)});
-		\draw[thick, muted, dash pattern=on 4pt off 3pt, domain=0:12.2] plot (\x, {geom(\x)});
+		\draw[very thick, accent, domain=1.69:12, samples=120] plot (\x, {rayleigh(\x)});
+		\draw[very thick, astroblue, domain=0:12, samples=100] plot (\x, {dust(\x)});
+		\draw[thick, muted, dash pattern=on 4pt off 3pt] (0,1.3) -- (12,1.3);
 
-		% Curve labels
-		\node[accent, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (3.6,4.3) {Rayleigh: $\sigma \propto \lambda^{-4}$};
-		\node[astroblue, font=\footnotesize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (7.8,2.3) {Mie (ISM Dust): $\sigma \propto \lambda^{-1}$};
-		\node[muted, font=\scriptsize\bfseries, fill=white, inner sep=2pt, rounded corners=1pt] at (8.5,1.0) {Geometric: $\sigma \propto \lambda^0$};
-
-		% Differential extinction indicator (A_B - A_V)
-		\draw[<->, thick, astroblue] (2.8,1.625) -- (5.0,1.30);
-		\node[astroblue, font=\scriptsize\bfseries, below=2pt] at (3.9,1.4) {$\Delta\sigma \propto (A_B - A_V)$};
+		% Curve labels at the right ends
+		\node[accent, font=\footnotesize, anchor=west] at (12.35,0.36) {$\sigma\propto\lambda^{-4}$};
+		\node[astroblue, font=\footnotesize, anchor=west] at (12.35,{dust(12)}) {$\sigma\propto\lambda^{-1}$};
+		\node[muted, font=\footnotesize, anchor=west] at (12.35,1.3) {$\sigma$ constant};
 	\end{tikzpicture}
 \end{document}

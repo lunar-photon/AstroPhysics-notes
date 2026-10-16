@@ -83,20 +83,20 @@
 
 		\coordinate (NCPp) at (0,0);
 		\coordinate (Zp) at (0,3);
-		\coordinate (Sp) at ({5*cos(40)},{5*sin(40)});
+		\coordinate (Sp) at ({-5*cos(40)},{5*sin(40)});
 
 		\draw[very thick, accent] (NCPp) -- (Zp) -- (Sp) -- cycle;
 
-		\fill (NCPp) circle(2.6pt) node[above left=1pt, font=\normalsize] {NCP};
-		\fill (Zp) circle(2.6pt) node[left=2pt, font=\normalsize] {Zenith ($Z$)};
-		\fill (Sp) circle(2.6pt) node[above right=1pt, font=\normalsize] {Star ($S$)};
+		\fill (NCPp) circle(2.6pt) node[below right=1pt, font=\normalsize] {NCP};
+		\fill (Zp) circle(2.6pt) node[right=2pt, font=\normalsize] {Zenith ($Z$)};
+		\fill (Sp) circle(2.6pt) node[above left=1pt, font=\normalsize] {Star ($S$)};
 
-		\node[accent, font=\normalsize] at (-0.4,1.34) {$90^\circ-\phi_0$};
-		\node[accent, font=\normalsize] at (2.24,1.37) {$90^\circ-\delta$};
-		\node[accent, font=\normalsize] at (2.13,3.5) {$z=90^\circ-h$};
+		\node[accent, font=\normalsize] at (0.75,1.34) {$90^\circ-\phi_0$};
+		\node[accent, font=\normalsize] at (-2.3,1.37) {$90^\circ-\delta$};
+		\node[accent, font=\normalsize] at (-2.0,3.55) {$z=90^\circ-h$};
 
-		\node[font=\normalsize] at (0.28,0.45) {$H$};
-		\node[font=\normalsize] at (0.42,2.68) {$A$};
-		\node[font=\normalsize] at (3.37,3.05) {$q$};
+		\node[font=\normalsize] at (-0.3,0.5) {$H$};
+		\node[font=\normalsize] at (-0.75,2.62) {$360^\circ\!-\!A$};
+		\node[font=\normalsize] at (-3.3,3.0) {$q$};
 	\end{tikzpicture}
 \end{document}

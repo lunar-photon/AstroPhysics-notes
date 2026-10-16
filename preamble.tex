@@ -28,6 +28,8 @@
 \usepackage{physics}
 \usepackage{bm}
 \usepackage{nicefrac}
+\usepackage{dsfont}
+\newcommand{\Id}{\mathds{1}}   % identity matrix
 
 % ---------- Fonts, Typography & Formatting ----------
 \usepackage{booktabs}
@@ -103,6 +105,23 @@
   {\begin{result}\begin{tcolorbox}[keybox]}
   {\end{tcolorbox}\end{result}}
 
+% ---------- Labelled equality chains (STYLE_GUIDE rule 11) ----------
+% In a chain write  &\eqby{1} ...  and right after the chain explain each label in
+% \begin{explain} \item ... \end{explain}  (items numbered (1), (2), ... automatically).
+\newcommand{\eqby}[1]{\overset{\mathclap{\text{\scriptsize\color{accent2}(#1)}}}{=}}
+\newcommand{\relby}[2]{\overset{\mathclap{\text{\scriptsize\color{accent2}(#1)}}}{#2}}
+\newlist{explain}{enumerate}{1}
+\setlist[explain]{label={\color{accent2}\small(\arabic*)},leftmargin=2.2em,
+  itemsep=1pt,topsep=3pt,parsep=0pt}
+
+% ---------- Working definitions (STYLE_GUIDE rule 31) ----------
+% \unpack{...} is a short green bracket after a hard term, used ONLY inside workdef boxes.
+\newcommand{\unpack}[1]{{\color{colthree!80!black}\,[\,#1\,]}}
+\newcounter{wdef}[chapter]
+\renewcommand{\thewdef}{\thechapter.\arabic{wdef}}
+\newtcolorbox{workdef}[1][]{notebox,
+  title={Working definition \refstepcounter{wdef}\thewdef\ifx\relax#1\relax\else\ (#1)\fi}}
+
 % ---------- Custom Astronomical & Vector Macros ----------
 \newcommand{\vecr}{\vec r}
 \newcommand{\vecL}{\vec L}
@@ -112,7 +131,7 @@
 \newcommand{\vecp}{\vec p}
 \newcommand{\avg}[1]{\left\langle #1\right\rangle}
 \newcommand{\vecx}{\vec x}
-\newcommand{\hatn}{\hat \leo}
+\newcommand{\hatn}{\hat n}   % unit vector to the ascending node
 \newcommand{\rhat}{\hat r}
 \newcommand{\phihat}{\hat\phi}
 \newcommand{\thetahat}{\hat\theta}

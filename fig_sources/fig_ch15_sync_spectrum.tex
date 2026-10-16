@@ -1,0 +1,44 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta}
+\IfFileExists{results/ch15/sync_population.dat}{\def\datadir{results/ch15/}}{\def\datadir{../results/ch15/}}
+\begin{document}
+% From code/ch15/01_synchrotron.py (cluster). Upper: one-electron spectrum F(x), x = nu/nu_c. Lower: electrons with
+% n(gamma) ∝ gamma^{-2.5} for gamma_min <= gamma <= 1000 gamma_min; axis nu / nu_c(gamma_min); dashed slope -0.75.
+\begin{tikzpicture}[x=0.95cm,y=0.95cm, >={Stealth[length=2.4mm]}]
+  % lower panel: population, x from -3 to 7.5, y from -6 to 0.5
+  \begin{scope}
+    \clip (-3,-6) rectangle (7.6,0.6);
+    \draw[linecol] (-3,-6) grid[xstep=1,ystep=1] (7.5,0.5);
+    \draw[accent, line width=1.2pt] plot file {\datadir sync_population.dat};
+    \draw[dashed, muted] (0,0) -- (6.5,-4.875);
+  \end{scope}
+  \draw[->, muted] (-3,-6) -- (7.8,-6) node[right] {$\nu/\nu_c(\gamma_{\min})$};
+  \draw[->, muted] (-3,-6) -- (-3,0.9) node[above] {$j_\nu$ (relative)};
+  \foreach \x in {-2,0,2,4,6} \node[below, muted] at (\x,-6) {\small $10^{\x}$};
+  \foreach \y in {-6,-4,-2,0} \node[left, muted] at (-3,\y) {\small $10^{\y}$};
+  \draw[muted] (0,-6) -- (0,-5.8); \draw[muted] (6,-6) -- (6,-5.8);
+  \node[muted, above right] at (2.6,-1.8) {\small slope $-(p-1)/2$};
+  % upper panel: single electron, shifted up by 9 units; x from -3 to 1, y from -4 to 0
+  \begin{scope}[yshift=7.6cm, xshift=2.85cm, x=1.9cm]
+    \begin{scope}
+      \clip (-3,-4) rectangle (1.1,0.6);
+      \draw[linecol] (-3,-4) grid[xstep=1,ystep=1] (1,0.5);
+      \draw[astroblue, line width=1.2pt] plot file {\datadir sync_single.dat};
+    \end{scope}
+    \draw[->, muted] (-3,-4) -- (1.4,-4) node[right] {$\nu/\nu_c$};
+    \draw[->, muted] (-3,-4) -- (-3,0.9) node[above] {$F$};
+    \foreach \x in {-3,-2,-1,0,1} \node[below, muted] at (\x,-4) {\small $10^{\x}$};
+    \foreach \y in {-4,-2,0} \node[left, muted] at (-3,\y) {\small $10^{\y}$};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

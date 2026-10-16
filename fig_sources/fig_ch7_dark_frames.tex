@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{linecol}{HTML}{D8D2C4}
+\usetikzlibrary{arrows.meta}
+% Variance of a dark frame against exposure time, v(t) = 0.2a + 0.8a t (t in minutes),
+% through the two frames of Problem 4: (1 min, a) and (3 min, 2.6a). Vertical unit = a.
+\begin{document}
+\begin{tikzpicture}[x=2.2cm, y=1.6cm, >={Stealth[length=2.4mm]}]
+  \draw[->, muted] (0,0) -- (4.3,0);
+  \node[muted] at (2.15,-0.42) {\small exposure time (min)};
+  \draw[->, muted] (0,0) -- (0,3.6) node[above] {\small variance};
+  \foreach \t in {1,2,3,4} \draw[muted] (\t,0) -- (\t,-0.06) node[below] {\small $\t$};
+  \node[muted, below left] at (0,0) {\small $0$};
+  % guides
+  \draw[linecol, dashed] (1,0) -- (1,1) -- (0,1);
+  \draw[linecol, dashed] (3,0) -- (3,2.6) -- (0,2.6);
+  \draw[muted] (0,1) -- (-0.05,1) node[left] {\small $a$};
+  \draw[muted] (0,2.6) -- (-0.05,2.6) node[left] {\small $2.6a$};
+  \draw[muted] (0,0.2) -- (-0.05,0.2) node[left] {\small $0.2a$};
+  % straight line through the two frames
+  \draw[accent2, line width=1.1pt] (0,0.2) -- (4,3.4);
+  \fill[accent] (1,1) circle[radius=2.6pt];
+  \fill[accent] (3,2.6) circle[radius=2.6pt];
+  \draw[accent2, fill=white, line width=1pt] (0,0.2) circle[radius=2.2pt];
+  \node[accent2, right] at (2.2,1.55) {\small slope $0.8a$ per minute};
+\end{tikzpicture}
+\end{document}

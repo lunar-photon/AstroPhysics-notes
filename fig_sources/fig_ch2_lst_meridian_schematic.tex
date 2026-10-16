@@ -124,7 +124,7 @@
 
 			% H arc, directly on the sphere (equator), from the meridian to the star
 			\draw[->, muted, line width=1.6pt] plot[domain=\LSTdeg:\alphaDeg, samples=30] ({\R*cos(\x)},{\R*sin(\x)},0);
-			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.4}) {$H$};
+			\node[muted] at ({\R*cos(0.5*(\LSTdeg+\alphaDeg))},{\R*sin(0.5*(\LSTdeg+\alphaDeg))},{0.4}) {$-H$};
 
 			% delta arc (star's declination)
 			\draw[->, accent!80!black, line width=1.3pt] plot[domain=0:\deltaDeg, samples=30]

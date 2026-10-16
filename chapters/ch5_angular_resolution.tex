@@ -1,997 +1,1138 @@
 \chapter{Angular Resolution: Baselines, Diffraction, and Pixel Sampling}
+\label{ch:resolution}
+\chaptermark{Angular Resolution}
 
-\section{Windows on the Universe: Why We Observe the Way We Do}
+Chapter~\ref{ch:photometry} measured how much light a star sends us, and Chapter~\ref{ch:astrometry} measured where the star is. Both took for granted that a telescope shows each star as a point. It does not. Every telescope spreads a star into a small patch, and two stars closer together than that patch merge into one.
+
+The size of the patch is set by a few lengths compared with one another. The wavelength compared with the size of the mirror, or with the distance between two radio dishes, sets the finest angle the waves can carry. The focal length turns that angle into a distance on the detector, and the size of a pixel decides whether the detector keeps it. From the ground, the size of the patches of still air above the telescope can set a coarser limit than all of these. Each comparison is a ratio of two scales, principle P6 of Chapter~\ref{ch:principles}. Before any of this, the light has to reach the telescope.
+
+% ==============================================================================
+\section{Windows on the Universe}
 \label{sec:windows}
 
-Chapters~1--4 treated the detection of a photon and the reduction of its flux, position, and motion as given. Before asking \emph{how sharply} we can see the sky, it is worth asking a more basic question: \emph{how do we see it at all?} Electromagnetic radiation from a cosmic source must first survive an $\sim 100\,\mathrm{km}$ trip through the Earth's atmosphere before it ever reaches a mirror, dish, or detector. Whether astronomers build an optical telescope on a mountaintop, a radio dish array spread across a continent, or an X-ray observatory in orbit is not a matter of taste --- it is dictated entirely by which photons the atmosphere actually lets through.
+Chapter~\ref{ch:photometry} measures the flux of a star in a band of wavelengths, and takes for granted that the light arrives.
 
+Most of it does not. Above the telescope there are about $10^4\,\mathrm{kg}$ of air over every square metre, and at most wavelengths that is enough to absorb every photon.
+
+Ordinary window glass shows the trick. It lets visible light through, so the room is bright, but it stops most of the ultraviolet that causes sunburn. Glass is not simply clear or dark. Light of each colour either finds something in the glass that can take its energy, or passes straight through.
+
+The air is a window of the same kind, with only a few panes open. The idea is that a photon gets through when its energy matches no transition of the molecules in the air, and a radio wave gets through when its frequency is above the plasma frequency of the ionosphere.
+
+A photon of wavelength $\lambda$ has the energy $hc/\lambda=1239.84\,\mathrm{eV\,nm}/\lambda$. Visible light, from $400$ to $700\,\mathrm{nm}$, carries $3.10$ to $1.77\,\mathrm{eV}$. Ozone absorbs below $300\,\mathrm{nm}$, which is above $4.13\,\mathrm{eV}$, by lifting an electron to a higher level. Water vapour absorbs in bands near $2.7$ and $6.3\,\mu\mathrm m$, at $0.46$ and $0.20\,\mathrm{eV}$, and carbon dioxide near $4.3$ and $15\,\mu\mathrm m$, at $0.29$ and $0.083\,\mathrm{eV}$, by making the molecules vibrate. Visible photons fall in the gap between the two kinds of transition.
+
+The picture is a plot of the fraction of light that crosses the air against wavelength. It is zero almost everywhere, with one open stretch around the visible, a few narrow gaps in the infrared, and a wide opening in the radio.
+
+Every material gets its colour in this way, from the photon energies its electrons and molecules can take up. The comparison is principle P6 (Section~\ref{pr:sec:p6}), a photon energy set against a transition energy, or a wave frequency set against the plasma frequency. It gives the bands that reach the ground, and the plasma frequency, which also decides how X-rays can be focused (Section~\ref{sec:optics}).
+
+\paragraph{Band by band.}
 \begin{itemize}
-	\item \textbf{Gamma rays and X-rays} ionize and are absorbed high in the atmosphere (this is, in fact, what protects the biosphere from them). No ground-based telescope can see this light directly; it must be observed from orbit (e.g.\ Chandra, NuSTAR).
-	\item \textbf{Ultraviolet light} below $\sim 300\,\mathrm{nm}$ is absorbed by ozone ($\mathrm{O}_3$) in the stratosphere through electronic transitions. This is the same absorption that shields us from UV at ground level, and it makes ground-based UV astronomy essentially impossible below the ozone cutoff.
-	\item \textbf{Visible light} ($\sim 350$--$800\,\mathrm{nm}$) falls in a fortunate spectral gap: it is too low in energy to drive the electronic transitions of $\mathrm{O}_2$ and $\mathrm{O}_3$ that absorb the UV, and too low in frequency to excite the vibrational--rotational transitions of $\mathrm{H}_2\mathrm{O}$, $\mathrm{CO}_2$, and $\mathrm{CH}_4$ that absorb the infrared. Rayleigh scattering off air molecules ($\propto \lambda^{-4}$) still preferentially scatters the blue end of this window (hence the daytime sky glow), but it does not extinguish the beam --- this is precisely why the \emph{optical window} exists, and why our eyes (and our telescopes) are tuned to it.
-	\item \textbf{Infrared light} is chopped into narrow ``windows'' ($J, H, K, L, M$ bands, etc.) squeezed between strong telluric water-vapour and $\mathrm{CO}_2$ absorption bands. This is why infrared observatories sit at high, dry sites (Mauna Kea, Atacama) or fly above most of the water vapour, on aircraft, balloons, or in space (SOFIA, JWST).
-	\item \textbf{Radio waves} pass through comparatively freely from $\sim 10\,\mathrm{MHz}$ up to hundreds of GHz --- the \textbf{radio window}. Below $\sim 10\,\mathrm{MHz}$, the ionosphere reflects radio waves back into space (the same effect that lets AM radio signals bounce around the globe), so the very longest wavelengths are again inaccessible from the ground. At the millimetre/submillimetre end, water vapour absorption dominates once more, which is why facilities such as ALMA are built at $5000\,\mathrm{m}$ altitude in the Atacama desert, above most of the water column.
+	\item \textbf{Gamma rays and X-rays} ionise the atoms of the air and are absorbed high up. This is what protects life on the ground from them. They can be observed only from orbit (Chandra, NuSTAR).
+	\item \textbf{Ultraviolet light} below about $300\,\mathrm{nm}$ is absorbed by ozone ($\mathrm O_3$) in the stratosphere, and below about $200\,\mathrm{nm}$ also by $\mathrm O_2$. Both absorb by electronic transitions. So ultraviolet astronomy below the ozone cutoff is done from space.
+	\item \textbf{Visible light} ($350$--$800\,\mathrm{nm}$) has too little energy for the electronic transitions of $\mathrm O_2$ and $\mathrm O_3$, and too much for the vibration bands of $\mathrm H_2\mathrm O$, $\mathrm{CO}_2$ and $\mathrm{CH}_4$. Only a few weak bands remain, such as the oxygen A band at $760\,\mathrm{nm}$. Rayleigh scattering by the air molecules, whose cross-section goes as $\lambda^{-4}$ (Figure~\ref{fig:scattering_rayleigh_mie_comparison}), removes some of the blue and makes the day sky glow, but it does not close the window. This gap is the \textbf{optical window}, and our eyes are tuned to it.
+	\item \textbf{Infrared light} passes only through narrow gaps (the $J$, $H$, $K$, $L$ and $M$ bands) between the strong bands of water vapour and carbon dioxide. So infrared observatories sit at high, dry sites (Mauna Kea, the Atacama), or go above most of the water vapour on aircraft (SOFIA, which flew until 2022), on balloons, or in space (JWST).
+	\item \textbf{Radio waves} pass from about $10\,\mathrm{MHz}$ up to a few hundred GHz. This is the \textbf{radio window}. Below about $10\,\mathrm{MHz}$ the ionosphere reflects the waves back into space, Eq.~\eqref{re:eq:plasma_frequency}. The same reflection lets short-wave radio signals travel round the globe. At the millimetre and submillimetre end, water vapour absorbs again. This is why ALMA is built at $5000\,\mathrm m$ in the Atacama desert, above most of the water.
 \end{itemize}
 
-This chapter concerns itself with the two atmospheric windows that dominate everyday astronomy: the \textbf{optical window} and the \textbf{radio window}. Crucially, these two windows favour two very different strategies for achieving high angular resolution. Radio astronomers can freely combine antennas separated by continental (or even intercontinental) distances, because the atmosphere barely perturbs radio wavefronts over such scales; optical astronomers, by contrast, are largely restricted to a single, monolithic (or segmented) aperture, whose resolution is set by wave diffraction and, from the ground, further degraded by atmospheric turbulence even though the light itself is not absorbed. Both strategies, and the detectors that ultimately record the result, are the subject of this chapter.
+\paragraph{The plasma frequency.} The ionosphere is a thin gas of free electrons, $n_e$ of them per cubic metre. We want the refractive index $n$ it has for a wave of frequency $\nu$, and so whether the wave can enter it. The electric field of the wave, $E\cos(2\pi\nu t)$, shakes each electron. Newton's law for the electron, of mass $m_e$ and charge $-e$, is $m_e\ddot x=-eE\cos(2\pi\nu t)$. Its steady solution is $x=x_0\cos(2\pi\nu t)$, so $\ddot x=-(2\pi\nu)^2x$, and
+\begin{align}
+	-m_e(2\pi\nu)^2x &= -eE\cos(2\pi\nu t)
+	\quad\Longrightarrow\quad
+	x \eqby{1} \frac{eE\cos(2\pi\nu t)}{m_e(2\pi\nu)^2}, \nonumber\\
+	n^2
+	&\eqby{2} 1+\frac{n_e(-e)x}{\varepsilon_0E\cos(2\pi\nu t)}
+	\eqby{3} 1-\frac{n_ee^2}{\varepsilon_0m_e(2\pi\nu)^2}
+	\eqby{4} 1-\frac{\nu_p^2}{\nu^2}.
+	\label{re:eq:plasma_index}
+\end{align}
+\begin{explain}
+	\item Divide by $-m_e(2\pi\nu)^2$. The electron moves in step with the field and opposite to the force on a positive charge.
+	\item For a non-magnetic medium $n^2$ is the relative permittivity, $1+P/(\varepsilon_0E)$, where the polarisation $P$ is the dipole moment per volume, $n_e$ times $(-e)x$.
+	\item The value of $x$ from the first line.
+	\item The definition of the \textbf{plasma frequency} $\nu_p$ below.
+\end{explain}
+\begin{equation}
+	\boxed{\nu_p=\frac{1}{2\pi}\sqrt{\frac{n_ee^2}{\varepsilon_0m_e}}=8.98\,\mathrm{Hz}\times\sqrt{n_e\,[\mathrm m^{-3}]}\,.}
+	\label{re:eq:plasma_frequency}
+\end{equation}
+Above $\nu_p$, $n^2$ is positive and the wave travels on. Below $\nu_p$, $n^2$ is negative, $n$ is imaginary, and the wave dies away within a short distance and is reflected. At its densest the ionosphere has $n_e\approx10^{12}\,\mathrm m^{-3}$, which gives $\nu_p\approx9\,\mathrm{MHz}$. That is the lower edge of the radio window. The result uses only the electron density, so any plasma reflects waves below its own $\nu_p$, whatever it is made of.
 
-\section{The Chain of Sharpness: What Sets a Telescope's Angular Resolution}
+Two windows matter most for everyday astronomy, the optical and the radio. They favour two different ways of getting a sharp image. Radio astronomers can combine dishes that stand a continent apart, because the air barely disturbs radio wavefronts over such distances. Optical astronomers are mostly held to a single mirror, whole or made of segments. Its sharpness is set by diffraction, and from the ground it is spoiled further by turbulence in the air, even though the light itself is not absorbed.
 
-Once light has survived its journey through the atmosphere, a chain of four physical and geometric effects determines how much fine spatial detail we can actually recover from it. Each link in this chain is the subject of one section of this chapter:
-\begin{enumerate}[leftmargin=2em]
-	\item \textbf{Interferometric baseline geometry} (Section~\ref{sec:baselines}): if a single mirror is replaced by an array of separated antennas, the effective aperture becomes the physical straight-line chord separation between them --- an idea that works spectacularly well in the radio window.
-	\item \textbf{Telescope optics and focal scaling} (Section~\ref{sec:optics}): for a conventional single-aperture telescope, we first need the purely geometric mapping that converts an angle on the sky into a physical displacement in the focal plane, since that displacement is what a detector actually measures.
-	\item \textbf{Diffraction wave optics} (Section~\ref{sec:diffraction}): no matter how perfectly a mirror or lens is figured, the finite size of the aperture imposes a fundamental wave-optical blur (Fraunhofer diffraction) through single slits, $N$-slit gratings, and circular/annular apertures (the Airy disk, chromatic resolving power, and resolution criteria) --- this sets the ultimate resolution any telescope can achieve.
-	\item \textbf{Detector pixelization and sampling} (Section~\ref{sec:sampling}): the diffraction blur is only useful if the detector samples it finely enough; this trade-off is governed by the Nyquist--Shannon sampling theorem.
-\end{enumerate}
-For ground-based optical telescopes, one further complication reappears at the end of the chapter (Section~\ref{sec:seeing}): the atmosphere may be \emph{transparent} in the optical window, but it is not \emph{still} --- turbulent pockets of air with fluctuating refractive index blur the image well beyond the diffraction limit, which is precisely what Adaptive Optics ($\mathrm{AO}$) is built to correct.
-
-\section{Interferometric Baselines: Chord Distance Between Ground Stations}
+% ==============================================================================
+\section{Interferometric Baselines}
 \label{sec:baselines}
 
-The radio window identified above is where the idea of synthesizing a huge aperture out of small, widely separated pieces works best, since the atmosphere leaves radio wavefronts largely undisturbed over kilometre-to-continent scales. In Very Long Baseline Interferometry (VLBI) and connected-element radio interferometers (such as the GMRT or ALMA), the physical separation between two antennas defines the interferometer \emph{baseline}.
+The radio window lets waves from about $10\,\mathrm{MHz}$ to a few hundred GHz reach the ground, and Chapter~\ref{ch:coords} gives any place on a sphere a unit vector.
 
-\subsection{Central Angle on a Spherical Earth}
+A single radio dish is a poor camera. At the $21\,\mathrm{cm}$ line of hydrogen a $25\,\mathrm m$ dish blurs every source over about half a degree, the size of the full Moon.
 
-Let two observatories be located at geodetic coordinates $(\phi_1, \lambda_1)$ and $(\phi_2, \lambda_2)$ on a spherical Earth of mean radius $R_E \approx 6371.0\,\mathrm{km}$. In the Earth-centered Cartesian coordinate frame:
+Close your eyes and listen to a friend calling from one side. You know the direction at once. The sound reaches the nearer ear first, by up to $0.2\,\mathrm m/(343\,\mathrm{m\,s^{-1}})=0.58\,\mathrm{ms}$ for ears $0.2\,\mathrm m$ apart, and the brain turns that delay into an angle. A wider head would hear a smaller change of angle as the same change of delay.
+
+Two radio dishes far apart are two ears. A wave from a source off to one side reaches one dish first. The idea is that the finest angle two receivers can tell apart is the wavelength divided by their separation, and it does not depend on the size of each receiver.
+
+Two dishes $1\,\mathrm{km}$ apart, observing at $21\,\mathrm{cm}$, resolve $0.21/1000=2.1\times10^{-4}\,\mathrm{rad}=43''$. One $25\,\mathrm m$ dish alone gives about $1.22\times0.21/25\,\mathrm{rad}=35'$, fifty times coarser.
+
+The picture is two dishes on the ground and a flat wavefront coming in at a slant. It touches one dish, and travels on a little further before it touches the other.
+
+Our ears do it, and so does every array of antennas, from radar to the receivers of mobile phones. The delay is a path difference compared with a wavelength, P6 once more. It gives the length of the straight line between two places on the Earth, and the sharpness that line buys. In Very Long Baseline Interferometry (VLBI), and in connected arrays such as the GMRT or ALMA, this straight line between two antennas is the \textbf{baseline}.
+
+\subsection{The Baseline Between Two Stations}
+
+\paragraph{The station vectors.} Let two stations sit at latitudes $\phi_1,\phi_2$ and longitudes $\Lambda_1,\Lambda_2$ on a sphere of radius $R_E=6371.0\,\mathrm{km}$, the mean radius of the Earth. The longitude gets a capital letter because $\lambda$ is the wavelength here. In the frame with its $z$ axis through the North Pole and its $x$ axis through longitude $0^\circ$, each station has the unit vector of Eq.~\eqref{eq:unit_vector_eq}, with latitude in place of declination and longitude in place of right ascension,
 \begin{equation}
-	\hat{\mathbf r}_i = \begin{pmatrix} \cos\phi_i\cos\lambda_i \\ \cos\phi_i\sin\lambda_i \\ \sin\phi_i \end{pmatrix}, \qquad i \in \{1, 2\}.
+	\hat{\mathbf r}_i = \begin{pmatrix} \cos\phi_i\cos\Lambda_i \\ \cos\phi_i\sin\Lambda_i \\ \sin\phi_i \end{pmatrix}, \qquad i \in \{1, 2\}.
 	\label{eq:earth_station_vector}
 \end{equation}
 
 \begin{figure}[htbp]
 	\centering
-	\begin{minipage}[c]{0.38\textwidth}
-		\begin{equation}
-		\hat{\mathbf{r}}_{\rm geodetic} = 
-		\begin{pmatrix}
-		\cos\phi\cos\lambda\\
-		\cos\phi\sin\lambda\\
-		\sin\phi
-		\end{pmatrix}
-		\end{equation}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[c]{0.58\textwidth}
-		\centering
-		\includegraphics{fig_ch5_earth_geodetic_vector.pdf}
-	\end{minipage}
-	\caption{Geodetic coordinate definition on a spherical Earth with latitude $\phi$ and longitude $\lambda$.}
+	\includegraphics{fig_ch5_earth_geodetic_vector.pdf}
+	\caption{A point $P$ on a sphere with centre $O$, its unit vector, its foot $P'$ in the equatorial plane, its latitude $\phi$, and its longitude (marked $\lambda$) measured from the $x$ axis.}
 	\label{fig:earth_geodetic_vector}
 \end{figure}
 
-The angular separation $\gamma$ subtended by the two stations at the Earth's center is determined by their dot product:
-\begin{align}
-	\cos\gamma &= \begin{pmatrix} \cos\phi_1\cos\lambda_1 & \cos\phi_1\sin\lambda_1 & \sin\phi_1 \end{pmatrix} \begin{pmatrix} \cos\phi_2\cos\lambda_2 \\ \cos\phi_2\sin\lambda_2 \\ \sin\phi_2 \end{pmatrix} \notag\\
-	&= \sin\phi_1\sin\phi_2 + \cos\phi_1\cos\phi_2\cos(\lambda_2-\lambda_1).
+\paragraph{The central angle.} The angle $\gamma$ between the two station vectors, at the centre of the Earth, is the angle between two unit vectors. Chapter~\ref{ch:coords} found it as their dot product, Eq.~\eqref{eq:spherical_law_cos}. With $\delta\to\phi$ and $\alpha\to\Lambda$,
+\begin{equation}
+	\cos\gamma = \hat{\mathbf r}_1\cdot\hat{\mathbf r}_2 = \sin\phi_1\sin\phi_2 + \cos\phi_1\cos\phi_2\cos(\Lambda_2-\Lambda_1).
 	\label{eq:earth_central_angle}
+\end{equation}
+For stations a few degrees apart, $\cos\gamma$ is close to $1$ and loses digits. The haversine form, Eq.~\eqref{eq:haversine_formula}, keeps them,
+\begin{equation}
+	\sin^2\frac{\gamma}{2} = \sin^2\frac{\phi_2-\phi_1}{2}+\cos\phi_1\cos\phi_2\sin^2\frac{\Lambda_2-\Lambda_1}{2}.
+	\label{re:eq:station_haversine}
+\end{equation}
+
+\paragraph{The chord.} The baseline $B$ is the straight line through the Earth from one station to the other, the length of $R_E\hat{\mathbf r}_1-R_E\hat{\mathbf r}_2$,
+\begin{align}
+	B^2
+	&= R_E^2\,(\hat{\mathbf r}_1-\hat{\mathbf r}_2)\cdot(\hat{\mathbf r}_1-\hat{\mathbf r}_2)
+	\eqby{1} R_E^2\,(1+1-2\,\hat{\mathbf r}_1\cdot\hat{\mathbf r}_2) \nonumber\\
+	&\eqby{2} 2R_E^2(1-\cos\gamma)
+	\eqby{3} 4R_E^2\sin^2\frac{\gamma}{2}.
 \end{align}
-
-\subsection{Straight-Line Chord Baseline Geometry}
-
-The straight-line (shortest distance in 3D) between two stations is given by measuring the \emph{chord distance} $C$ passing through the Earth's interior:
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}[c]{0.42\textwidth}
-        \includegraphics[width=\linewidth]{obs_vlbi_ggos_web_v2-1024x949.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{0.54\textwidth}
-    \centering
-    \includegraphics{fig_ch5_vlbi_chord_geometry.pdf}
-    \end{minipage}
-    \caption{Global VLBI network (left) and the chord baseline geometry $C = 2R_E\sin(\gamma/2)$ through the Earth's interior (right).}
-    \label{fig:vlbi_chord_geometry}
-\end{figure}
-
-The straight-line chord distance is therefore:
-\begin{keyresult}
-	\begin{equation}
-		C = 2R_E\sin\left(\frac{\gamma}{2}\right) = R_E\sqrt{2(1-\cos\gamma)}.
-		\label{eq:chord_baseline_formula}
-	\end{equation}
-\end{keyresult}
-
-\subsection{Derivation of the Baseline Interferometer Angular Resolution Limit}
-
-To understand how an interferometer synthesizes high angular resolution from two antennas separated by a physical baseline $B$, consider two distinct astronomical point sources on the sky, \textbf{Source 1} and \textbf{Source 2}, observed simultaneously at observing wavelength $\lambda$.
+\begin{explain}
+	\item Multiply out. Each unit vector has $\hat{\mathbf r}_i\cdot\hat{\mathbf r}_i=1$.
+	\item Eq.~\eqref{eq:earth_central_angle}.
+	\item $1-\cos\gamma=2\sin^2(\gamma/2)$.
+\end{explain}
+\begin{equation}
+	\boxed{B = 2R_E\sin\left(\frac{\gamma}{2}\right) = R_E\sqrt{2(1-\cos\gamma)}.}
+	\label{eq:chord_baseline_formula}
+\end{equation}
+The same result follows from the isosceles triangle of Figure~\ref{fig:vlbi_chord_geometry}. The line from the centre to the midpoint $M$ of the chord cuts it at a right angle, so each half is $R_E\sin(\gamma/2)$. Together with Eq.~\eqref{re:eq:station_haversine}, $\sin(\gamma/2)$ comes straight from the coordinates, and no inverse cosine is needed.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics{fig_ch5_interferometer_two_sources.pdf}
-\caption{Geometric optical path delays for two distinct sources observed by a two-element interferometer of baseline $B$. Wavefronts from Antenna 2 ($A_2$) strike the rays entering Antenna 1 ($A_1$) at right angles ($90^\circ$), defining the respective geometric lags $\Delta L_1 = B\sin\theta_1$ and $\Delta L_2 = B\sin\theta_2$.}
-\label{fig:interferometer_two_sources}
+	\centering
+	\begin{minipage}[c]{0.42\textwidth}
+		\includegraphics[width=\linewidth]{obs_vlbi_ggos_web_v2-1024x949.png}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{0.54\textwidth}
+		\centering
+		\includegraphics{fig_ch5_vlbi_chord_geometry.pdf}
+	\end{minipage}
+	\caption{Left, the global VLBI network. Right, two stations $P_1$ and $P_2$ on a sphere of radius $R_E$ and centre $O$, the central angle $\gamma$, and the chord between them, cut in half at $M$.}
+	\label{fig:vlbi_chord_geometry}
 \end{figure}
 
-Let the directions to the two sources make angles $\theta_1$ and $\theta_2$ with respect to the baseline normal:
-\begin{enumerate}
-	\item \textbf{Geometric Path Lag for Source 1:} A plane wavefront from Source 1 arrives at Antenna 2 before Antenna 1. The extra path distance that the light must travel to reach Antenna 1 is:
-	\begin{equation}
-		\Delta L_1 = B\sin\theta_1.
-		\label{eq:path_lag_source_1}
-	\end{equation}
-	\item \textbf{Geometric Path Lag for Source 2:} Similarly, a plane wavefront from Source 2 arrives at angle $\theta_2$, resulting in a geometric path lag to Antenna 1 of:
-	\begin{equation}
-		\Delta L_2 = B\sin\theta_2.
-		\label{eq:path_lag_source_2}
-	\end{equation}
-	\item \textbf{Differential Path Difference Between the Two Sources:} The net difference in path delay between the signals arriving from the two sources across the baseline is:
-	\begin{equation}
-		\Delta(\Delta L) = \Delta L_2 - \Delta L_1 = B\left(\sin\theta_2 - \sin\theta_1\right).
-		\label{eq:diff_path_difference}
-	\end{equation}
-	For closely spaced sources on the sky, let $\theta = \theta_2 - \theta_1$ denote their mutual angular separation. Using the small-angle approximation ($\sin\theta_2 - \sin\theta_1 \approx \theta_2 - \theta_1 = \theta$ for angles near the normal):
-	\begin{equation}
-		\Delta(\Delta L) = B\left(\sin\theta_2 - \sin\theta_1\right) \approx B\theta.
-		\label{eq:diff_path_approx}
-	\end{equation}
-	\item \textbf{Interferometric Resolution Criterion:} In a radio/optical interferometer, incoming wavefronts are correlated to produce sinusoidal interference fringe patterns. For the interferometer to cleanly resolve (distinguish) Source 1 from Source 2, the fringe pattern of Source 2 must shift relative to that of Source 1 by at least \textbf{one full interference fringe cycle} (corresponding to a full phase shift of $\Delta\phi = 2\pi$), which requires an extra path difference of exactly one full wavelength $\lambda$:
-	\begin{equation}
-		B\left(\sin\theta_2 - \sin\theta_1\right) = B\theta = \lambda.
-		\label{eq:interferometer_resolution_condition}
-	\end{equation}
-\end{enumerate}
+\subsection{Two Sources Seen by Two Antennas}
 
-Solving Eq.~\eqref{eq:interferometer_resolution_condition} for the limiting angular resolution $\theta_{\rm res}$:
+We now want the finest angle a pair of antennas a distance $B$ apart can tell apart, at wavelength $\lambda$. First we find what the pair measures for any sky, then put in two point sources.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{fig_ch5_interferometer_two_sources.pdf}
+	\caption{Two antennas $A_1$ and $A_2$ a baseline $B$ apart, and two distant sources at angles $\theta_1$ and $\theta_2$ from the normal to the baseline. For each source the dashed line is the wavefront through $A_2$, and the thick segment is the extra path $\Delta L_1$ or $\Delta L_2$ to $A_1$.}
+	\label{fig:interferometer_two_sources}
+\end{figure}
+
+\paragraph{One source.} A source at angle $\theta$ from the normal to the baseline sends a flat wavefront. It reaches $A_2$ first. To reach $A_1$ it must travel further by the side of the right-angled triangle in Figure~\ref{fig:interferometer_two_sources}. For the two sources of the figure,
+\begin{align}
+	\Delta L_1 &= B\sin\theta_1, \label{eq:path_lag_source_1}\\
+	\Delta L_2 &= B\sin\theta_2. \label{eq:path_lag_source_2}
+\end{align}
+Each antenna turns the wave into a voltage. For one source of frequency $\nu=c/\lambda$, take $v_2(t)=\cos(2\pi\nu t)$ at $A_2$. At $A_1$ the same wave arrives later by $\Delta L/c$, so $v_1(t)=\cos(2\pi\nu t-2\pi\Delta L/\lambda)$. The \textbf{correlator} multiplies the two voltages and averages over many periods,
+\begin{align}
+	\avg{v_1v_2}
+	&\eqby{1} \frac12\avg{\cos\!\left(4\pi\nu t-\frac{2\pi\Delta L}{\lambda}\right)}+\frac12\cos\frac{2\pi\Delta L}{\lambda}
+	\eqby{2} \frac12\cos\frac{2\pi B\sin\theta}{\lambda}.
+	\label{re:eq:correlator_one}
+\end{align}
+\begin{explain}
+	\item The product rule $\cos x\cos y=\tfrac12\cos(x+y)+\tfrac12\cos(x-y)$.
+	\item The first term swings at twice the wave frequency and averages to zero. Then $\Delta L=B\sin\theta$.
+\end{explain}
+As the Earth turns, $\theta$ changes, $B\sin\theta$ runs through many wavelengths, and the output swings between $+\tfrac12$ and $-\tfrac12$. These swings are the \textbf{fringes}.
+
+\paragraph{Many sources.} Different sources send waves with unrelated phases. In the product of the summed voltages, every cross term between two sources averages to zero, so the outputs of the sources simply add, each weighted by its power. For a sky of brightness $I_{\rm sky}(\theta)$ along the baseline, near the normal where $\sin\theta\approx\theta$,
+\begin{equation}
+	\avg{v_1v_2} \propto \int I_{\rm sky}(\theta)\cos\!\left(2\pi\,\frac{B}{\lambda}\,\theta\right)d\theta .
+	\label{re:eq:correlator_sky}
+\end{equation}
+One pair of antennas measures one Fourier component of the sky, the one with $B/\lambda$ cycles per radian. Real correlators also form the product with one voltage shifted by a quarter period, which gives the sine component at the same $B/\lambda$.
+
+\paragraph{Two equal sources.} Put two sources of equal power at $\theta_1$ and $\theta_2$. By Eq.~\eqref{re:eq:correlator_one} the output is
+\begin{align}
+	\cos\frac{2\pi\Delta L_1}{\lambda}+\cos\frac{2\pi\Delta L_2}{\lambda}
+	&\eqby{1} 2\cos\!\left(\frac{\pi(\Delta L_1+\Delta L_2)}{\lambda}\right)\cos\!\left(\frac{\pi(\Delta L_2-\Delta L_1)}{\lambda}\right).
+	\label{re:eq:two_source_fringe}
+\end{align}
+\begin{explain}
+	\item $\cos x+\cos y=2\cos\frac{x+y}{2}\cos\frac{y-x}{2}$.
+\end{explain}
+The first factor is the fringe of a single source at the mean position. The second factor changes slowly and sets the size of the fringe. It depends on the difference of the two path lags,
+\begin{align}
+	\Delta L_2-\Delta L_1
+	&= B\left(\sin\theta_2-\sin\theta_1\right)
+	\eqby{1} 2B\cos\frac{\theta_1+\theta_2}{2}\,\sin\frac{\theta_2-\theta_1}{2}.
+	\label{eq:diff_path_difference}
+\end{align}
+\begin{explain}
+	\item $\sin y-\sin x=2\cos\frac{x+y}{2}\sin\frac{y-x}{2}$.
+\end{explain}
+Two close sources have a small separation $\Delta\theta=\theta_2-\theta_1$, so $\sin(\Delta\theta/2)\approx\Delta\theta/2$. Near the normal the cosine is close to $1$ as well,
+\begin{equation}
+	\Delta L_2-\Delta L_1 \approx B\cos\!\left(\frac{\theta_1+\theta_2}{2}\right)\Delta\theta \approx B\,\Delta\theta.
+	\label{eq:diff_path_approx}
+\end{equation}
+Away from the normal the baseline counts only through $B\cos\theta$, its length as seen from the source.
+
+\paragraph{When the pair is resolved.} By Eqs.~\eqref{re:eq:two_source_fringe} and~\eqref{eq:diff_path_approx}, the fringe of the pair has the size $|\cos(\pi B\Delta\theta/\lambda)|$ times that of a single source of the same total power. For $\Delta\theta\ll\lambda/B$ it is $1$, and the pair cannot be told from a single source. At $B\Delta\theta=\lambda/2$ the two fringe patterns are half a cycle apart and cancel. So the pair shows itself once its extra path $B\Delta\theta$ is a fair part of a wavelength. The angle $\lambda/B$ is the period of the fringe pattern on the sky, the finest ripple one baseline records. It is quoted as the resolution,
+\begin{equation}
+	B\,\Delta\theta \approx \lambda .
+	\label{eq:interferometer_resolution_condition}
+\end{equation}
+At exactly $B\Delta\theta=\lambda$ the patterns are a whole cycle apart and agree again. A real array removes this ambiguity with many baselines of different lengths and directions, and the turning Earth changes each projected baseline through the night. With $1\,\mathrm{rad}=648\,000''/\pi=206\,265''$,
 \begin{keyresult}
 	\begin{equation}
-		\theta_{\rm res} = \frac{\lambda}{B}\quad [\text{radians}] = \frac{\lambda}{B} \times \frac{180 \times 3600}{\pi}'' = 206{,}265\left(\frac{\lambda}{B}\right)\quad [\text{arcseconds}].
+		\Delta\theta \approx \frac{\lambda}{B}\ \text{rad} = 206\,265\,\frac{\lambda}{B}\ \text{arcsec}.
 		\label{eq:interferometric_resolution_formula}
 	\end{equation}
 \end{keyresult}
-This fundamental equation demonstrates that interferometric resolution depends solely on the ratio of the observing wavelength $\lambda$ to the baseline separation $B$, allowing distributed arrays to synthesize effective apertures thousands of kilometers wide.
+Only the ratio of the wavelength to the baseline enters. The size of each dish does not. It sets how much power is collected, and the width $\lambda/D_{\rm dish}$ of the patch of sky each dish sees, inside which the fine detail $\lambda/B$ is measured. For the GMRT and the Ooty Radio Telescope, $B=901\,\mathrm{km}$ and at $1\,\mathrm{GHz}$ the resolution is $68.6\,\mathrm{mas}$ (Problem~\ref{re:prob:gmrt}).
 
-\subsection{Worked Example: Interferometric Resolution for the GMRT to Ooty Baseline}
-
-The baseline length $B = C$ determines the synthesized angular resolution as derived above:
-\begin{equation}
-	\theta \simeq \frac{\lambda}{B}.
-	\label{eq:interferometric_res_approx}
-\end{equation}
-
-\begin{example}[Interferometry Between GMRT and Ooty Radio Telescope]
-	The coordinates $(\phi,\lambda)$ of the Giant Metrewave Radio Telescope (GMRT, Khodad) and Ooty Radio Telescope (ORT) are:
-	\[
-	\begin{aligned}
-		\text{GMRT}:&\quad (19.09^\circ\text{N},\,74.05^\circ\text{E}),\\
-		\text{Ooty}:&\quad (11.38^\circ\text{N},\,76.66^\circ\text{E}).
-	\end{aligned}
-	\]
-	\begin{enumerate}
-		\item \textbf{Baseline Distance:} Using Eq.~\eqref{eq:earth_central_angle}:
-		\[
-		\cos\gamma = \sin(19.09^\circ)\sin(11.38^\circ) + \cos(19.09^\circ)\cos(11.38^\circ)\cos(76.66^\circ - 74.05^\circ) \approx 0.9899.
-		\]
-		The corresponding straight-line chord distance with $R_E = 6371\,\text{km}$ is:
-		\[
-		C = 2R_E\sin\left(\frac{\gamma}{2}\right) \implies \boxed{C \simeq 904.5\,\mathrm{km}}.
-		\]
-		\item \textbf{Angular Resolution at $1000\,\mathrm{MHz}$:}
-		At observing frequency $f = 1000\,\mathrm{MHz} = 10^9\,\mathrm{Hz}$, the observing wavelength is:
-		\[
-		\lambda = \frac{c}{f} = \frac{3 \times 10^8\,\mathrm{m/s}}{10^9\,\mathrm{Hz}} = 0.30\,\mathrm{m}.
-		\]
-		Taking the baseline as $B \simeq 904.5\,\mathrm{km} = 9.045 \times 10^5\,\mathrm{m}$:
-		\[
-		\theta \simeq \frac{\lambda}{B} = \frac{0.30}{9.045 \times 10^5} \simeq 3.32 \times 10^{-7}\,\mathrm{rad}.
-		\]
-		Converting to milliarcseconds ($1\,\text{rad} = \frac{180}{\pi} \times 3.6 \times 10^6\,\text{mas} \approx 2.06265 \times 10^8\,\text{mas}$):
-		\[
-		\boxed{\theta \simeq 3.32 \times 10^{-7}\left(\frac{180}{\pi}\right)(3.6 \times 10^6) \simeq 68.4\,\mathrm{mas}}.
-		\]
-	\end{enumerate}
-\end{example}
-
-\section{Telescope Optics: Cassegrain Geometry, Focal Length, and Scale Relations}
+% ==============================================================================
+\section{Telescope Optics}
 \label{sec:optics}
 
-Away from the radio window, spreading antennas across a continent is not an option: at optical wavelengths the atmosphere itself sets a coherence scale of only tens of centimetres (Section~\ref{sec:seeing}), so a single figured mirror (or a phased, co-mounted segmented one, such as an ELT) is the only practical way to collect light. Before we can even talk about the diffraction limit of such a mirror, we need the purely geometric machinery that turns an angle on the sky into a position on a detector --- this is the job of the telescope's optical train, worked out below for the common Cassegrain design, after first surveying why reflectors are preferred and how the focused beam is actually routed to a detector.
+A radio dish records its own wave, so dishes can stand far apart and be combined later (Section~\ref{sec:baselines}).
+
+Visible light cannot be recorded wave by wave, and above any telescope the air keeps the wavefront flat only over tens of centimetres (Section~\ref{sec:seeing}). So an optical telescope collects light with one large mirror, whole or made of segments, and brings it to a point.
+
+A magnifying glass held in sunshine makes a small bright image of the Sun on a sheet of paper. Move the glass away from the paper and the image gets sharp at one distance, the focal length. The image is a disc. Its size is the angle the Sun covers, times the focal length.
+
+A telescope does the same for every star. The idea is that each direction on the sky goes to one point in the focal plane, at a distance from the axis equal to the focal length times the angle.
+
+The Sun covers $0.533^\circ=9.30\times10^{-3}\,\mathrm{rad}$. A lens of focal length $1\,\mathrm m$ makes an image $9.3\,\mathrm{mm}$ across.
+
+The picture is two bundles of parallel rays from two stars, entering at a small angle to each other and meeting at two points in the focal plane.
+
+The same mapping works in a camera lens and in the eye, whose retina is its focal plane. Only geometry enters, so no principle is used. It gives the reasons for mirrors, the ways a beam is led to a detector, how each band of the spectrum is focused, the size of the secondary mirror, and the angle on the sky covered by one pixel.
 
 \subsection{Reflectors versus Refractors}
 
-A telescope's primary collecting element is either a lens (\emph{refractor}) or a mirror (\emph{reflector}). Nearly all modern research telescopes are reflectors, for reasons that are all consequences of the primary being a first-surface mirror rather than a bulk transmissive optic:
+The main collecting element of a telescope is either a lens (a \emph{refractor}) or a mirror (a \emph{reflector}). Nearly all research telescopes are reflectors. Every reason comes from the light bouncing off the front surface of the mirror instead of passing through glass.
 \begin{itemize}
-	\item Light never passes through the mirror substrate, so there is no chromatic aberration and negligible bulk absorption (a lens disperses different wavelengths to different foci, and thick glass absorbs UV and parts of the IR).
-	\item Only one surface must be figured to optical precision (a lens requires two), and a mirror can be made far lighter than an equal-aperture lens.
-	\item A mirror can be mechanically supported across its entire back surface, whereas a lens can only be held at its edge --- a much less rigid, more gravity-sag-prone support for large apertures.
-	\item Because the back surface carries no optical function, it can be fitted with actuators that actively deform the mirror to cancel gravitational sag or (partially) atmospheric distortion (\emph{active optics}, a slower, whole-mirror-shape cousin of the adaptive optics of Section~\ref{sec:seeing}).
+	\item The light never enters the mirror, so there is no chromatic aberration and almost no absorption. A lens sends different wavelengths to different foci, and thick glass absorbs the ultraviolet and parts of the infrared.
+	\item Only one surface must be polished to the right shape, against two for a lens, and a mirror can be made much lighter than a lens of the same size.
+	\item A mirror can be supported across its whole back. A lens can be held only at its edge, which sags under gravity for large sizes.
+	\item The back has no optical job, so it can carry actuators that bend the mirror to cancel its sag. This is \emph{active optics}, a slow correction of the whole shape, related to the fast adaptive optics of Section~\ref{sec:seeing}.
 \end{itemize}
-The unavoidable price of a reflector is that the secondary mirror or the detector itself must be mounted \emph{in front of} the primary, in the converging beam, physically obstructing part of the aperture (Section~\ref{sec:spiders_domes}).
+The price of a reflector is that the secondary mirror, or the detector itself, must hang \emph{in front of} the primary, in the incoming beam, and block part of it (Section~\ref{sec:spiders_domes}).
 
 \subsection{Focus Configurations: Prime, Newtonian, Cassegrain, and Coud\'e}
 
-The same primary mirror can route its light to a detector in several standard ways, distinguished by what (if anything) intercepts the beam before the primary focus:
+One primary mirror can send its light to a detector in several standard ways. They differ in what stops the beam before the primary focus.
 \begin{itemize}
-	\item \textbf{Prime focus:} The detector sits directly at the primary's own focal plane, with no secondary mirror at all. This is optically the simplest configuration and wastes no light on a second reflection, but the detector package itself obstructs the incoming beam and is awkward to service on a large telescope.
-	\item \textbf{Newtonian:} A flat secondary mirror, inclined at $45^\circ$ just before the primary focus, folds the beam out through the side of the telescope tube --- convenient for smaller, amateur-scale reflectors.
-	\item \textbf{Cassegrain:} A convex secondary reflects the converging beam back through a central hole in the primary (derived in detail below), keeping the instrument compactly mounted behind the primary mirror.
-	\item \textbf{Coud\'e:} A train of additional folding mirrors (often routed along the telescope's mounting axes) carries the beam to a fixed focus in a separate, environmentally stable room, decoupled from the telescope's own motion. This sacrifices some light to extra reflections but allows very large, heavy, temperature-sensitive instruments (notably high-resolution echelle spectrographs) that could never be mounted directly on the moving telescope structure.
+	\item \textbf{Prime focus.} The detector sits at the primary's own focus, with no second mirror. It is the simplest layout and loses no light to a second reflection, but the detector blocks the beam and is hard to reach on a large telescope.
+	\item \textbf{Newtonian.} A flat mirror at $45^\circ$, just before the primary focus, turns the beam out through the side of the tube. It suits small telescopes.
+	\item \textbf{Cassegrain.} A secondary mirror sends the converging beam back through a hole in the primary, so the instrument sits compactly behind the primary.
+	\item \textbf{Coud\'e.} A chain of extra flat mirrors, often along the axes of the mount, carries the beam to a fixed focus in a separate, stable room. Some light is lost at each reflection, but very large and heavy instruments, notably high-resolution echelle spectrographs, can then stand still while the telescope moves.
 \end{itemize}
-Whichever focus is used, the telescope mount itself must continuously drive the optical axis to counteract the diurnal motion derived in Chapters~1--2 (i.e.\ to track at the sidereal rate in Hour Angle, Eq.~\eqref{eq:hour_angle_formula}), whether by an equatorial mount aligned with the polar axis or by a computer-driven altitude-azimuth mount.
+Whatever the focus, the mount must turn the telescope to follow the daily motion of the sky. It tracks at the sidereal rate in hour angle, Eq.~\eqref{eq:hour_angle_formula}, either about one axis parallel to the Earth's (an equatorial mount) or about two axes under computer control (an altitude--azimuth mount).
 
 \subsection{Obstruction Effects and Observatory Domes}
 \label{sec:spiders_domes}
 
-The secondary mirror (or prime-focus detector) must be held in place by a support structure --- the \emph{spider} --- spanning the tube in front of the primary. Because the spider vanes are themselves a set of thin opaque strips inserted into the pupil, they modify the aperture transmission function $t(x,y)$ of Eq.~\eqref{eq:aperture_field_def} exactly as the slit boundaries did in Section~\ref{sec:diffraction}: by the same Fraunhofer machinery, thin linear obstructions produce their own linear diffraction pattern, oriented perpendicular to each vane, superposed on the stellar Airy pattern. These are the familiar four-pointed (or six-pointed) \emph{diffraction spikes} seen radiating from bright stars in reflector images; irregularities in the mirror's own figure can produce weaker spikes by the same mechanism. Finally, telescopes are typically enclosed in a rotating \emph{dome}, which protects the optics and instruments from wind, precipitation, and temperature swings (air currents inside an open tube degrade the effective seeing of Section~\ref{sec:seeing}), and blocks stray light from the surrounding site.
+The secondary mirror, or a prime-focus detector, is held by a frame of thin vanes across the tube, the \emph{spider}. The vanes are thin opaque strips inside the opening, so they change the aperture mask $t(\xi,\eta)$ of Eq.~\eqref{eq:aperture_field_def}. Each strip adds its own diffraction pattern, a streak at right angles to the vane, on top of the star's Airy pattern (Section~\ref{sec:diffraction} works this out). These are the four- or six-pointed \emph{diffraction spikes} on bright stars in reflector images. The straight edges of a segmented mirror, like the hexagons of JWST, add more spikes in the same way.
+
+Telescopes stand inside a turning \emph{dome}. It keeps off wind, rain and changes of temperature, and it blocks stray light from the site. Moving air of different temperatures inside an open tube would spoil the image in the same way as the seeing of Section~\ref{sec:seeing}.
 
 \subsection{Telescope Technologies Across the Electromagnetic Spectrum}
 
-Section~\ref{sec:windows} identified which photons reach which vantage point; here we survey how each band is actually focused into an image, since ordinary front-surface mirrors --- perfectly adequate through the optical and much of the UV/IR --- eventually fail entirely as photon energy increases.
+The atmosphere decides from where each band can be observed. How each band is focused into an image is a separate question, because ordinary mirrors stop working as the photon energy rises.
 
-\paragraph{UV and IR.} Ultraviolet and infrared telescopes are optically identical in principle to optical reflectors (mirrors focusing light obey the same geometry regardless of wavelength), differing mainly in their reflective coatings, which must be optimized for reflectivity at the wavelength of interest. As established in Section~\ref{sec:windows}, they must additionally be flown in space (UV: AstroSat-UVIT; IR: JWST) or at high, dry sites, since the atmosphere itself is the limiting factor rather than the optics.
+\paragraph{Ultraviolet and infrared.} Ultraviolet and infrared telescopes use the same geometry as optical reflectors. Only the reflecting coating changes, chosen to reflect well at the wavelength wanted. They must still go to space (AstroSat-UVIT in the ultraviolet, JWST in the infrared) or to high, dry sites, because the air is the limit, not the optics.
 
-\paragraph{X-rays.} At X-ray energies, ordinary mirrors fail even in principle: photon energies now exceed the atomic binding energies of the mirror material, so the refractive index for X-rays is very slightly \emph{less} than unity, $n = 1-\delta$ with $\delta \sim 10^{-5}$--$10^{-6}$ (equivalently, the X-ray phase velocity in the medium slightly exceeds $c$). Ordinary near-normal-incidence reflectivity is essentially zero. However, exactly as light undergoes total internal reflection when travelling from a dense to a rare medium beyond a critical angle, X-rays undergo \emph{total external reflection} off a denser medium when the grazing angle is sufficiently shallow.
+\paragraph{X-rays and grazing incidence.} At X-ray energies a mirror at near-normal incidence reflects almost nothing. The photon frequency is far above the plasma frequency of the electrons in the mirror metal, so by Eq.~\eqref{re:eq:plasma_index} the metal has a refractive index slightly below one,
+\begin{equation}
+	n=\sqrt{1-\frac{\nu_p^2}{\nu^2}}\approx1-\frac{\nu_p^2}{2\nu^2},
+\end{equation}
+where every electron is treated as free, which holds roughly when the photon energy is well above the binding energies of most of the electrons. The X-rays travel faster in the metal than in vacuum. Light going from glass into air is totally reflected beyond a critical angle, and X-rays going from vacuum into the metal are totally reflected in the same way, provided they skim the surface.
 
-\begin{example}[Critical Grazing Angle for X-ray Reflection]
-	Let $\alpha$ be the grazing angle, measured from the mirror surface (so the angle of incidence from the normal is $90^\circ - \alpha$). Applying Snell's law at the vacuum--mirror interface ($n_1 = 1 \to n_2 = 1-\delta$), total reflection sets in once the refracted ray would require $\sin\theta_{\rm refr} > 1$, i.e.\ once
+Let the X-ray meet the mirror at the grazing angle $\alpha$, measured from the surface, so its angle from the normal is $90^\circ-\alpha$. Snell's law gives the angle $i$ from the normal inside the metal,
+\begin{align}
+	1\cdot\sin(90^\circ-\alpha) &= n\sin i
+	\quad\Longrightarrow\quad
+	\sin i \eqby{1} \frac{\cos\alpha}{n}.
+\end{align}
+\begin{explain}
+	\item $\sin(90^\circ-\alpha)=\cos\alpha$.
+\end{explain}
+No ray enters the metal when this would need $\sin i>1$, that is when $\cos\alpha>n$. The critical grazing angle $\alpha_c$ has $\cos\alpha_c=n$. For small angles,
+\begin{align}
+	1-\frac{\alpha_c^2}{2} &\eqby{1} 1-\frac{\nu_p^2}{2\nu^2}
+	\quad\Longrightarrow\quad
+	\boxed{\alpha_c=\frac{\nu_p}{\nu}.}
+	\label{re:eq:grazing_angle}
+\end{align}
+\begin{explain}
+	\item $\cos\alpha\approx1-\alpha^2/2$ on the left, and $n$ from above on the right.
+\end{explain}
+The critical angle is the ratio of the two frequencies, P6 again. The ionosphere reflects radio waves below its $\nu_p$ at any angle. A metal reflects X-rays far above its $\nu_p$ only at grazing angles below $\nu_p/\nu$.
+
+\begin{example}[Grazing angle for iridium]
+	The Chandra mirrors are coated with iridium, which has a density of $22.56\,\mathrm{g\,cm^{-3}}$, an atomic mass of $192.22$ and $77$ electrons per atom. So
 	\[
-	\sin(90^\circ - \alpha) = \cos\alpha \ge 1 - \delta.
+	n_e=\frac{22\,560\,\mathrm{kg\,m^{-3}}}{192.22\times1.661\times10^{-27}\,\mathrm{kg}}\times77=5.44\times10^{30}\,\mathrm m^{-3}.
 	\]
-	For the shallow grazing angles relevant here ($\alpha \ll 1$), expand $\cos\alpha \approx 1 - \alpha^2/2$:
+	By Eq.~\eqref{re:eq:plasma_frequency}, $\nu_p=2.09\times10^{16}\,\mathrm{Hz}$, a photon energy $h\nu_p=86.6\,\mathrm{eV}$. A $10\,\mathrm{keV}$ X-ray has $\nu=2.42\times10^{18}\,\mathrm{Hz}$, so
 	\[
-	1 - \frac{\alpha_c^2}{2} = 1 - \delta \quad\Longrightarrow\quad \boxed{\alpha_c \approx \sqrt{2\delta}}.
+	\alpha_c=\frac{86.6\,\mathrm{eV}}{10\,000\,\mathrm{eV}}=8.7\times10^{-3}\,\mathrm{rad}=0.50^\circ .
 	\]
-	Below this critical grazing angle $\alpha_c$, X-rays reflect almost perfectly. This is the physical basis of the \emph{Wolter Type-I} grazing-incidence mirror assemblies (nested, shallow-angle paraboloid--hyperboloid shells) used by Chandra and XMM-Newton to focus soft X-rays.
+	Harder X-rays need even shallower angles, since $\alpha_c\propto1/\nu$.
 \end{example}
+X-ray telescopes are therefore built of long, nearly cylindrical shells that the X-rays skim. The \emph{Wolter type I} design reflects each X-ray twice, off a paraboloid and then a hyperboloid, which keeps images sharp away from the axis. Many shells are nested inside one another to collect more area, as in Chandra and XMM-Newton.
 
-\paragraph{Gamma rays.} At still higher (hard X-ray/gamma-ray) energies, reflectivity is too low at any angle of incidence, and focusing mirrors of any kind become impractical. Imaging instead relies on \emph{coded aperture masks}: a pattern of opaque and transparent elements placed in front of a position-sensitive detector casts a known shadow pattern that depends on source direction, and the sky image is recovered computationally by deconvolving the recorded shadow against the known mask pattern (used by AstroSat-CZTI and Swift-BAT).
+\paragraph{Gamma rays.} At still higher energies, in hard X-rays and gamma rays, reflection is too weak at any angle, and no mirror can focus. Imaging uses a \emph{coded mask} instead. A plate with a known pattern of opaque and open cells stands in front of a detector that records where each photon lands. Each source casts a shifted copy of the pattern's shadow, and the sky image is found by computing which set of shifted shadows adds up to the recorded one. AstroSat-CZTI and Swift-BAT work this way.
 
-\paragraph{Radio.} At the opposite end of the spectrum, a radio telescope is simply a metallic reflecting dish (solid or open mesh, since the mesh spacing need only be small compared to the (centimetre-to-metre scale) observing wavelength) with a receiver at the prime focus --- structurally the simplest telescope of all. This simplicity is precisely what makes the baseline interferometry of Section~\ref{sec:baselines} practical in a way that has no simple optical analogue: because radio periods ($\sim$ns--$\mu$s) are slow enough to digitize directly, each dish's signal can be independently timestamped against a precision atomic clock (Chapter~1's $\TAI$-referenced standards) and correlated computationally long after the fact --- exactly how VLBI synthesizes continental baselines without ever physically combining light in real time. Optical interferometry, by contrast, oscillates far too fast ($\sim 10^{14}\,\mathrm{Hz}$) to digitize directly, and so must combine the beams optically, in real time, using physical beam combiners.
+\paragraph{Radio.} At the other end of the spectrum, a radio telescope is a metal dish with a receiver at its prime focus. The surface may be a mesh, as long as its holes are small compared with the wavelength of centimetres to metres. This simplicity makes the baselines of Section~\ref{sec:baselines} possible. A radio wave oscillates slowly enough (periods of nanoseconds to microseconds) to be digitised directly. Each dish records its signal against an atomic clock (Chapter~\ref{ch:time}), and the recordings are multiplied in a computer afterwards, Eq.~\eqref{re:eq:correlator_one}. Visible light oscillates at about $5\times10^{14}\,\mathrm{Hz}$, far too fast to digitise, so an optical interferometer must bring the beams together with mirrors while the light arrives.
 
 \subsection{Cassegrain Reflector Telescope Geometry}
 
-In a Cassegrain reflector telescope, incoming parallel light rays from infinity hit the concave primary mirror of diameter $D$ and focal length $F$. Before reaching the primary focus, a convex secondary mirror of diameter $b$ intercepts the converging cone at a distance $d$ from the primary, reflecting and focusing the beam through a central hole in the primary mirror onto a detector placed at distance $a$ behind the primary.
+In a Cassegrain telescope (Figure~\ref{fig:cassegrain_geometry}), parallel light from a star falls on a concave primary mirror of diameter $D$ and focal length $F$. Before the light reaches the primary focus, a secondary mirror at distance $d_2$ in front of the primary catches the converging cone. It sends the light back through a hole in the primary to a detector a distance $a$ behind the primary. We want the smallest diameter $b$ of the secondary, the place $a$ of the detector, and the focal length of the whole system.
 
 \begin{figure}[htbp]
-\centering
-\resizebox{0.95\textwidth}{!}{
-\includegraphics{fig_ch5_cassegrain_geometry.pdf}
-}
-\caption{Cassegrain reflector telescope: similar-triangle geometry used to compute secondary mirror size $b$ and CCD focal distance $a$.}
-\label{fig:cassegrain_geometry}
+	\centering
+	\resizebox{0.95\textwidth}{!}{%
+		\includegraphics{fig_ch5_cassegrain_geometry.pdf}%
+	}
+	\caption{A Cassegrain telescope with a $30\,\mathrm{cm}$ primary of focal length $2.0\,\mathrm m$, a flat secondary of diameter $b$ at $0.75\,\mathrm m$ from the primary and $1.25\,\mathrm m$ from the primary focus, and the CCD a distance $a$ behind the primary.}
+	\label{fig:cassegrain_geometry}
 \end{figure}
 
-\begin{example}[Calculating Dimensions $a$ and $b$ for a Cassegrain Telescope]
-	Let the primary mirror have diameter $D = 30\,\mathrm{cm}$ and focal length $F = 2.0\,\mathrm{m}$. The secondary mirror is located at $0.75\,\mathrm{m}$ from the primary.
-	\begin{enumerate}
-		\item Since the secondary mirror is $0.75\,\mathrm{m}$ from the primary, it lies:
-		\[
-		F - 0.75\,\mathrm{m} = 1.25\,\mathrm{m}
-		\]
-		from the primary focus.
-		\item Using similar triangles:
-		\[
-		\frac{b}{D} = \frac{1.25}{2.0} \implies b = 30\left(\frac{1.25}{2.0}\right) = 18.75\,\mathrm{cm}.
-		\]
-		\item The folded path from the secondary to the focus is $1.25\,\mathrm{m}$. Since the primary--secondary separation is $0.75\,\mathrm{m}$:
-		\[
-		a = 1.25 - 0.75 = 0.50\,\mathrm{m}.
-		\]
-	\end{enumerate}
-\end{example}
+\paragraph{Size of the secondary.} The rays from the edge of the primary converge on the primary focus. The cone has diameter $D$ at the primary, a distance $F$ from the focus, and its diameter falls in proportion to the distance from the focus. The secondary is $F-d_2$ from the focus, so by similar triangles
+\begin{equation}
+	\frac{b}{D}=\frac{F-d_2}{F}
+	\qquad\Longrightarrow\qquad
+	\boxed{b=D\left(1-\frac{d_2}{F}\right).}
+	\label{re:eq:secondary_size}
+\end{equation}
+A smaller secondary catches some of the on-axis light only. Placing the secondary closer to the focus makes it smaller, and so it blocks less of the primary.
+
+\paragraph{Place of the focus.} The cone aims at the primary focus, a distance $F-d_2$ behind the secondary. A flat secondary forms the image the same distance in front of itself, $F-d_2$ from it. Back from the secondary towards the primary that is $d_2$ to the primary, and the rest lies behind it,
+\begin{equation}
+	a=(F-d_2)-d_2=F-2d_2 \qquad\text{(flat secondary)}.
+	\label{re:eq:cass_flat}
+\end{equation}
+A convex secondary, as in a true Cassegrain, sends the image further back, a distance larger than $F-d_2$ from the secondary.
+
+\paragraph{The effective focal length.} After the secondary the cone converges from the diameter $b$ over the distance from the secondary to the final focus. Its ratio of length to width is what a single mirror of some focal length $F_{\rm eff}$ and diameter $D$ would give,
+\begin{align}
+	\frac{F_{\rm eff}}{D}
+	&= \frac{\text{secondary to final focus}}{b}
+	\eqby{1} \frac{\text{secondary to final focus}}{D\,(F-d_2)/F}, \nonumber\\
+	F_{\rm eff}
+	&= F\times\frac{\text{secondary to final focus}}{\text{secondary to primary focus}}.
+	\label{re:eq:f_eff}
+\end{align}
+\begin{explain}
+	\item $b$ from Eq.~\eqref{re:eq:secondary_size}.
+\end{explain}
+A flat secondary leaves the focal length unchanged, $F_{\rm eff}=F$. A convex one multiplies it by its magnification, which is how a short tube holds a long focal length. The numbers for the telescope of the figure are in Problem~\ref{re:prob:cassegrain}.
 
 \subsection{Optical Ray Diagram and Angular Resolution on the Focal Plane}
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics{fig_ch5_telescope_ray_diagram.pdf}
-    \caption{Ray diagram illustrating angular resolution of two point sources, highlighting the central chief rays while marginal rays are faded for visual clarity.}
-    \label{fig:telescope_ray_diagram}
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch5_telescope_ray_diagram.pdf}
+	\caption{Two point sources $A$ and $B$ at the angle $\theta$, a lens of focal length $F$, and their two images a height $y$ apart in the focal plane. The chief rays through the centre of the lens are dark, and the edge rays are faded.}
+	\label{fig:telescope_ray_diagram}
 \end{figure}
 
-\subsection{Plate Scale and Pixel Scale Formulations}
+\subsection{Plate Scale and Pixel Scale}
 
-Every camera design boils down to one practical question: how many arcseconds of sky does a millimetre of detector real estate --- or, ultimately, a single pixel --- correspond to? The \textbf{plate scale} answers the first version of this question and the \textbf{pixel scale} answers the second; we will need both later in this chapter to decide whether a given detector is fine enough to keep up with the diffraction limit (Section~\ref{sec:sampling}). Both quantities are just restatements of the ray geometry already sketched in Fig.~\ref{fig:telescope_ray_diagram}, where a source at angle $\theta$ from the optical axis forms its image at focal-plane height $y$.
+A detector measures distances in the focal plane, and the astronomer wants angles on the sky. The \textbf{plate scale} turns a distance into an angle, and the \textbf{pixel scale} is the angle covered by one pixel. Both come from Figure~\ref{fig:telescope_ray_diagram}, where a source at the angle $\theta$ from the axis forms its image a height $y$ from the axis.
 
-\paragraph{Exact Geometric Relation:} For a chief ray passing through the centre of an ideal thin lens (or the vertex of a mirror) of focal length $F$, elementary ray tracing gives the \emph{exact} relation between sky angle and focal-plane position:
+\paragraph{The exact relation.} The chief ray passes through the centre of the lens, or the vertex of the mirror, without bending. It meets the focal plane, a distance $F$ away, at the height
 \begin{equation}
 	y = F\tan\theta \quad\Longrightarrow\quad \theta = \arctan\left(\frac{y}{F}\right).
 	\label{eq:exact_angle_position_relation}
 \end{equation}
+With a secondary mirror, $F$ is the effective focal length of Eq.~\eqref{re:eq:f_eff}.
 
-\paragraph{Plate Scale ($P$):} Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel, and is defined as the local derivative of Eq.~\eqref{eq:exact_angle_position_relation}:
-\begin{equation}
-	P \equiv \dv{\theta}{s} = \dv{\theta}{y} = \frac{1}{F}\cdot\frac{1}{1+(y/F)^2} = \frac{\cos^2\theta}{F}.
+\paragraph{The plate scale.} The plate scale is the angle per unit length in the focal plane, the derivative of Eq.~\eqref{eq:exact_angle_position_relation},
+\begin{align}
+	\dv{\theta}{y}
+	&\eqby{1} \frac{1}{F}\,\frac{1}{1+(y/F)^2}
+	\eqby{2} \frac{1}{F}\,\frac{1}{1+\tan^2\theta}
+	\eqby{3} \frac{\cos^2\theta}{F}.
 	\label{eq:plate_scale_exact}
-\end{equation}
-This exact form shows that the plate scale is, strictly, \emph{not} uniform across the field: since $\cos^2\theta$ decreases away from the optical axis, a millimetre near the edge of a wide field covers slightly fewer arcseconds than a millimetre near the centre. In practice, however, imaging fields of view rarely exceed a few degrees, so $\theta \ll 1\,\mathrm{rad}$ and $\cos^2\theta \to 1$ to extremely high precision (even at $\theta = 1^\circ$, $\cos^2\theta = 0.9994$). In this small-angle (paraxial) limit, Eq.~\eqref{eq:plate_scale_exact} reduces to $1/F$, and $\theta$ itself becomes directly proportional to $y$ (Eq.~\eqref{eq:exact_angle_position_relation} linearizes to $\theta \approx y/F$), so the plate scale can equally well be read off as the simple ratio of the two rather than a derivative. This is the working form used throughout the rest of this chapter:
-\begin{keyresult}
-	\begin{equation}
-		P = \dv{\theta}{s} = \frac{\theta}{y},
-		\label{eq:plate_scale_def}
-	\end{equation}
-\end{keyresult}
-where $\theta$ is measured in arcsec ($=\frac{1}{3600}^\circ$). This is why a telescope's plate scale is normally quoted as a single number (arcsec/mm) rather than a function of position on the detector: outside of dedicated wide-field survey cameras, the $\cos^2\theta$ correction is negligible.
-
-\paragraph{Pixel Scale ($\theta_{\rm pix}$):} The pixel scale is the angular extent corresponding to a single physical pixel --- it is what tells us, in practice, how many arcseconds of sky get dumped into one pixel's worth of charge --- and can be defined as:
+\end{align}
+\begin{explain}
+	\item $\dv{}{x}\arctan x=1/(1+x^2)$, with $x=y/F$.
+	\item $y/F=\tan\theta$.
+	\item $1+\tan^2\theta=1/\cos^2\theta$.
+\end{explain}
+So the plate scale is not quite the same everywhere. Away from the axis a millimetre covers slightly fewer seconds of arc. Fields of view rarely exceed a few degrees, and even at $\theta=1^\circ$, $\cos^2\theta=0.99970$. In this small-angle limit $\theta\approx y/F$, and the plate scale is a single number,
 \begin{equation}
-	\theta_{\rm pix} = \frac{y_{\rm pix}}{F} = \frac{p}{F}.
+	\boxed{\dv{\theta}{y} = \frac{\theta}{y} = \frac{1}{F},}
+	\label{eq:plate_scale_def}
+\end{equation}
+quoted in seconds of arc per millimetre, $206\,265/F\,[\mathrm{mm}]$. Only wide-field survey cameras need the $\cos^2\theta$ correction.
+
+\paragraph{The pixel scale.} A pixel of width $y_{\rm pix}$ covers the angle
+\begin{equation}
+	\theta_{\rm pix} = \frac{y_{\rm pix}}{F},
 	\label{eq:pixel_scale_def}
 \end{equation}
-From geometry:
-\begin{align}
-    \tan\theta \approx \theta = \frac{y}{F} \implies \frac{1}{F} = \frac{\theta}{y},
-\end{align}
-which relates the two scales.
-
+which is Eq.~\eqref{eq:plate_scale_def} read at one pixel,
 \begin{keyresult}
-	For a focal length $F$, a pixel of physical size $p$ subtends the angle:
 	\begin{equation}
-		\theta_{\rm pix} \simeq \frac{y}{F}\bigg\lvert_{y=p}.
+		\theta_{\rm pix} = \frac{y}{F}\bigg\lvert_{y=y_{\rm pix}}\ \text{rad},
 		\label{eq:pixel_scale_lvert}
 	\end{equation}
-	With $p$ in metres (or $\mu\mathrm{m}$) and $F$ in metres:
+	or, in seconds of arc per pixel,
 	\begin{equation}
-		\text{Pixel Scale} = \frac{y}{F}\bigg\lvert_{y=p} \times \frac{180 \times 3600}{\pi}'' = \frac{206{,}265 \times p\,[\mathrm{mm}]}{F\,[\mathrm{mm}]}\quad [\text{arcsec/pixel}].
+		\theta_{\rm pix} = \frac{206\,265\times y_{\rm pix}\,[\mathrm{mm}]}{F\,[\mathrm{mm}]}\ \text{arcsec per pixel}.
 		\label{eq:pixel_scale_boxed_result}
 	\end{equation}
 \end{keyresult}
+For pixels $20\,\mu\mathrm m$ wide at $F=2\,\mathrm m$, $\theta_{\rm pix}=10^{-5}\,\mathrm{rad}=2.06''$. A longer focal length spreads the sky over more pixels.
 
-\begin{example}[Pixel Scale for a CCD with $20\,\mu\mathrm{m}$ Pixels]
-	With pixel size $p = 20\,\mu\mathrm{m} = 20 \times 10^{-6}\,\mathrm{m}$ and telescope focal length $F = 2\,\mathrm{m}$:
-	\[
-	\theta_{\rm pix} = \frac{y}{F}\bigg\lvert_{y=p} = \frac{20 \times 10^{-6}\,\mathrm{m}}{2\,\mathrm{m}} = 1.0 \times 10^{-5}\,\mathrm{rad}.
-	\]
-	Using $1\,\mathrm{rad} = \frac{180 \times 3600}{\pi}'' = 206265''$:
-	\[
-	\boxed{\theta_{\rm pix} = \frac{y}{F}\bigg\lvert_{y=p} \simeq 2.06''/\mathrm{pixel}}.
-	\]
-\end{example}
-
-\section{Diffraction Wave Optics: Superposition, Apertures, and Resolution Limits}
+% ==============================================================================
+\section{Diffraction}
 \label{sec:diffraction}
 
-The two-antenna argument of Section~\ref{sec:baselines} introduced the central concept of wave interference: two point-like collectors separated by a baseline $B$ produce an interference fringe pattern, and distinguishing two astronomical sources requires shifting that fringe by one full cycle ($\theta_{\rm res} \sim \lambda/B$). A single telescope aperture is the continuous extension of this exact principle: rather than two discrete antennas, an entire two-dimensional continuum of points across the primary mirror interferes with itself. This self-interference of waves is the domain of \textbf{Fraunhofer diffraction}, and it sets the fundamental, wave-optical resolution limit of any telescope.
+A telescope maps each direction to a point of the focal plane, Eq.~\eqref{eq:exact_angle_position_relation}, and two antennas a distance $B$ apart resolve about $\lambda/B$, Eq.~\eqref{eq:interferometric_resolution_formula}.
 
-\paragraph{The Physical Picture:}
-Light from a distant star arrives at the top of the telescope as a uniform plane wave. If light were purely a stream of geometric rays, a perfect parabolic mirror would focus this light into an infinitely small mathematical point. However, light is an electromagnetic wave. When a planar wavefront is clipped by a finite aperture of diameter $D$, it inevitably bends and spreads into an angular pattern. Even with perfectly figured optics in space (such as the Hubble Space Telescope or JWST), wave diffraction smears a stellar point source into an extended \textbf{Point Spread Function} (PSF). 
+Ray optics says a perfect mirror brings a star to a point. Every real telescope, even a perfect one in space such as Hubble or JWST, shows a star as a small disc with faint rings, the \textbf{point spread function} (PSF).
 
-In this section, we build this wave-optical diffraction pattern step by step: first establishing the linear superposition principle, analyzing the baseline 1D single slit and the $N$-slit spectroscopic grating, rigorously deriving the 2D circular Airy disk and the origin of its famous $1.22$ geometric factor, and finally comparing the standard resolution criteria for astronomical observations.
+Stand beside an open door and you hear people talking in the next room, though you cannot see them. Sound bends round the edge of the door and light does not. The door is about $1\,\mathrm m$ wide. Sound at $343\,\mathrm{Hz}$ has a wavelength of $1\,\mathrm m$, the size of the door, so it spreads into every direction. Light has a wavelength two million times smaller, so it spreads by only two millionths of a radian.
 
-\subsection{Physical Principle: Diffraction as Linear Superposition of Wavelets}
+The edge of a telescope mirror is the door frame. The idea is that a wave passing an opening of size $D$ spreads into an angle of about $\lambda/D$.
 
-Diffraction is a direct consequence of the \textbf{linear Superposition Principle} governing wave propagation. Under the \textbf{Huygens--Fresnel principle}, every unobstructed point in an illuminated aperture acts as a coherent source of an outgoing spherical secondary wavelet. The total electric field observed at any downstream focal-plane position is simply the coherent linear sum (surface integral) of all these secondary wavelets, each weighted by the optical path length it has travelled.
+For the sound, $\lambda/D=1$. For light of $500\,\mathrm{nm}$ through a $30\,\mathrm{cm}$ mirror, $\lambda/D=1.7\times10^{-6}\,\mathrm{rad}$, and the exact result for a round mirror, $1.22\lambda/D$, is $0.42''$.
 
-In telescope optics, the field across the pupil plane is structured in three steps:
-\begin{enumerate}
-	\item \textbf{Incident Starlight Wave:} Light from an unresolved distant star arrives as a uniform, planar wavefront of amplitude $E_{\rm inc}(x,y) = E_0 = \text{const}$.
-	\item \textbf{Pupil Transmission Mask $t(x,y)$:} The physical opening (mirror boundary, rectangular slit, grating grooves, or secondary obstruction) defines a spatial transmission mask: $t=1$ where light enters unobstructed, and $t=0$ where blocked by baffles or spiders.
-	\item \textbf{Exit Pupil Field $A(x,y)$:} The field immediately behind the aperture is the product:
-	\begin{equation}
-		A(x,y) = E_{\rm inc}(x,y) \cdot t(x,y) = \begin{cases}
-			E_0, & \text{inside open aperture}, \\
-			0, & \text{outside (blocked)}.
-		\end{cases}
-		\label{eq:aperture_field_def}
-	\end{equation}
-\end{enumerate}
+The picture is a flat wave meeting a wall with a hole in it. Each point of the hole sends out a small circular wave, and far behind the wall these waves add up into a pattern of bright and dark bands.
+
+The same addition of waves explains the bands from a single slit in the laboratory, the colours from a grating, X-ray diffraction by crystals, the beam of a radio dish, and the pair of antennas of Section~\ref{sec:baselines}. A photon of momentum $h/\lambda$ squeezed through the opening gets a sideways momentum of about $h/D$, by the uncertainty principle, and so the same angle $\lambda/D$. Comparing $\lambda$ with $D$ is P6. It gives the field far behind any opening as one integral, then the single slit, the grating of a spectrograph, the round mirror with its factor $1.22$, and the rules for when two stars are resolved.
+
+\subsection{Diffraction as a Sum of Wavelets}
+
+By the \textbf{Huygens--Fresnel principle}, every open point of an opening acts as the source of a small spherical wave, a \emph{wavelet}. The waves obey a linear equation, so the field at any point behind the opening is the sum of all the wavelets that reach it, each with the phase of the path it travelled.
+
+\paragraph{The field in the opening.} Let the opening lie in the plane $z=0$, with coordinates $(\xi,\eta)$. Light from an unresolved star arrives along the $z$ axis as a flat wave of uniform amplitude $E_0$. The opening is described by its \textbf{transmission} $t(\xi,\eta)$, equal to $1$ where light passes and $0$ where the mirror edge, a baffle or a spider vane blocks it. Just behind the opening the field is
+\begin{equation}
+	E_0\,t(\xi,\eta) = \begin{cases}
+		E_0, & \text{inside the opening}, \\
+		0, & \text{where it is blocked}.
+	\end{cases}
+	\label{eq:aperture_field_def}
+\end{equation}
 
 \begin{figure}[htbp]
-\centering
-\includegraphics{fig_ch5_huygens_superposition_principle.pdf}
-\caption{The physical foundation of diffraction: an incident star plane wave is clipped by the aperture mask $t(x,y)$. Every point in the open pupil emits a secondary Huygens wavelet with geometric path lag $\Delta L = y\sin\theta$, superposing constructively or destructively in the far field.}
-\label{fig:huygens_superposition_principle}
+	\centering
+	\includegraphics{fig_ch5_huygens_superposition_principle.pdf}
+	\caption{A flat wave meeting an opening between two opaque baffles, the wavelets sent out by points of the opening, the rays leaving at the angle $\theta$, and the tilted wavefront. The thick segment marks the extra path of the lowest wavelet.}
+	\label{fig:huygens_superposition_principle}
 \end{figure}
 
-Consider an observation direction in spherical-polar angles about the optical axis $\hat z$:
+\paragraph{The path to a far point.} Look in the direction of the unit vector
 \begin{equation}
-	\hat{\mathbf k} = (\sin\theta\cos\phi,\ \sin\theta\sin\phi,\ \cos\theta),
+	\hat{\mathbf k} = \begin{pmatrix} \sin\theta\cos\chi \\ \sin\theta\sin\chi \\ \cos\theta \end{pmatrix}
+	\equiv \begin{pmatrix} \theta_x \\ \theta_y \\ \cos\theta \end{pmatrix},
 	\label{eq:khat_spherical}
 \end{equation}
-where $\theta$ is the off-axis angular displacement and $\phi$ is the azimuth. Relative to the origin $(0,0,0)$, a wavelet emitted from aperture position $(x,y,0)$ travels an extra path distance $\Delta L = \mathbf r \cdot \hat{\mathbf k} = x\sin\theta\cos\phi + y\sin\theta\sin\phi$.
+where $\theta$ is the angle from the axis and $\chi$ the angle around it. Its first two components, $\theta_x$ and $\theta_y$, are the angles on the sky along the $\xi$ and $\eta$ directions, for the small angles of astronomy. A point at distance $s$ in this direction is $s\hat{\mathbf k}$. The wavelet from the point $\vecr=(\xi,\eta,0)$ of the opening, with $|\vecr|=r$, travels to it the distance
+\begin{align}
+	|s\hat{\mathbf k}-\vecr|
+	&= \sqrt{s^2-2s\,\vecr\cdot\hat{\mathbf k}+r^2}
+	\eqby{1} s\left(1-\frac{\vecr\cdot\hat{\mathbf k}}{s}+\frac{r^2}{2s^2}-\frac{(\vecr\cdot\hat{\mathbf k})^2}{2s^2}+\dots\right) \nonumber\\
+	&\eqby{2} s-(\xi\theta_x+\eta\theta_y)+\frac{r^2-(\vecr\cdot\hat{\mathbf k})^2}{2s}+\dots
+	\label{re:eq:far_path}
+\end{align}
+\begin{explain}
+	\item $\sqrt{1+\epsilon}=1+\epsilon/2-\epsilon^2/8+\dots$ with $\epsilon=-2\vecr\cdot\hat{\mathbf k}/s+r^2/s^2$, kept to second order in $r/s$.
+	\item $\vecr\cdot\hat{\mathbf k}=\xi\theta_x+\eta\theta_y$, since $\vecr$ has no $z$ component.
+\end{explain}
+The first term is the same for every wavelet. The second is the path difference that makes the pattern. The last term, at most $(D/2)^2/(2s)$ for an opening of diameter $D$, changes the phase by at most $\pi D^2/(4\lambda s)$. It can be dropped when
+\begin{equation}
+	s\gg\frac{D^2}{\lambda},
+	\label{re:eq:fraunhofer_condition}
+\end{equation}
+a comparison of two lengths (P6). This is the \textbf{Fraunhofer} or far-field limit. For a $30\,\mathrm{cm}$ mirror at $500\,\mathrm{nm}$, $D^2/\lambda=180\,\mathrm{km}$. A telescope brings the far field to its focal plane. A perfect focusing mirror delays each wavelet by just the amount that removes the last term, so the pattern at the focus is the pattern at infinity, with the angle $\theta$ mapped to the height $F\theta$.
 
-In astronomical imaging, all angles of interest are extremely small ($\theta \ll 1\,\mathrm{rad}$, typically arcseconds). Defining the Cartesian angular components on the sky:
-\[
-\theta_x \equiv \theta\cos\phi, \qquad \theta_y \equiv \theta\sin\phi,
-\]
-the small-angle path delay simplifies to $\Delta L \approx x\theta_x + y\theta_y$, corresponding to a phase shift $\Delta\Phi = k\Delta L = \frac{2\pi}{\lambda}(x\theta_x + y\theta_y)$. 
-
-Summing all wavelets across the aperture yields the fundamental \textbf{Fraunhofer Fourier integral}:
+\paragraph{The integral.} A wavelet with extra path $-(\xi\theta_x+\eta\theta_y)$ has the phase factor $\exp[-ik(\xi\theta_x+\eta\theta_y)]$, with $k=2\pi/\lambda$. Summing over the opening, and dropping the factor $e^{iks}/s$ and the constant of the Huygens--Fresnel integral, which are the same for every wavelet,
 \begin{keyresult}
 	\begin{equation}
-		E(\vec{k}) = \iint_{\mathbb{R}^2} A(\vec{r})\, e^{-i \vec{k} \cdot \vec{r}} \, d^2r, \qquad I(\vec{\theta}) = |E(\vec{\theta})|^2,
+		E(\theta_x,\theta_y) = E_0\iint t(\xi,\eta)\,e^{-ik(\xi\theta_x+\eta\theta_y)}\,d\xi\,d\eta, \qquad I(\theta_x,\theta_y) = |E(\theta_x,\theta_y)|^2 .
 		\label{eq:fourier_optics_integral}
 	\end{equation}
-	where $\vec{k} = \left(\frac{2\pi}{\lambda}\theta_x, \, \frac{2\pi}{\lambda}\theta_y\right)$ is the angular spatial frequency vector on the sky.
 \end{keyresult}
-In physical terms, the complex electric field amplitude at the telescope focal plane is simply the two-dimensional spatial Fourier transform of the entrance pupil transmission mask.
+The field at the focus is the two-dimensional Fourier transform of the opening, with $\xi/\lambda$ and $\eta/\lambda$ as the frequencies. A wide opening gives a narrow pattern, and a narrow one a wide pattern. Everything below is this one integral for different shapes of $t$.
 
-\subsection{Single-Slit Diffraction: The 1D Cancellation Baseline}
+\subsection{Single-Slit Diffraction}
 
-To build intuition before treating the two-dimensional circular mirror, consider first a one-dimensional rectangular slit of width $a$ illuminated normally by monochromatic light of wavelength $\lambda$.
+The simplest opening is a slit of width $a$ along $\eta$ and much longer along $\xi$. The long side makes the pattern narrow along $\theta_x$, so we look only in the plane across the slit, $\theta_x=0$ and $\theta_y=\sin\theta$, and take the field per unit length of slit.
 
-\paragraph{Geometric Zone-Pairing Mechanism:}
-Why does a diffraction pattern have dark fringes? Subdivide the slit into two equal halves: the upper half $[0, a/2]$ and the lower half $[-a/2, 0]$. For every point $x$ in the lower half, there exists an identical corresponding point $x + a/2$ in the upper half. The geometric path difference between these paired rays at diffraction angle $\theta$ is $\Delta L = (a/2)\sin\theta$.
-
-Complete destructive cancellation occurs across the entire slit simultaneously when this path difference equals half a wavelength ($\lambda/2$):
+\paragraph{Pairing the two halves.} The dark bands can be found without any integral. Split the slit into a lower half, $-a/2<\eta<0$, and an upper half, $0<\eta<a/2$. Each point $\eta$ of the lower half has a partner $\eta+a/2$ in the upper half. At the angle $\theta$ the wavelets of the two partners differ in path by $(a/2)\sin\theta$. When that is half a wavelength, every pair cancels at once,
 \begin{equation}
-	\frac{a}{2}\sin\theta = \frac{\lambda}{2} \implies a\sin\theta = \lambda \implies \theta_{\rm min} \approx \frac{\lambda}{a}.
+	\frac{a}{2}\sin\theta = \frac{\lambda}{2} \quad\Longrightarrow\quad a\sin\theta = \lambda \quad\Longrightarrow\quad \theta \approx \frac{\lambda}{a}.
 	\label{eq:single_slit_minimum}
 \end{equation}
-Notice that for a 1D slit of uniform height, the geometric factor multiplying $\lambda/a$ is exactly $\mathbf{1.00}$.
+For a slit the number in front of $\lambda/a$ is exactly $1$.
 
-\paragraph{Analytical Fourier Integration:}
-Integrating the continuous wavelet field across the slit from $x = -a/2$ to $+a/2$:
+\paragraph{The full pattern.} Eq.~\eqref{eq:fourier_optics_integral} with $t=1$ for $|\eta|<a/2$ gives
+\begin{align}
+	E(\theta)
+	&= E_0\int_{-a/2}^{a/2} e^{-ik\eta\sin\theta}\,d\eta
+	\eqby{1} E_0\,\frac{e^{-ik(a/2)\sin\theta}-e^{ik(a/2)\sin\theta}}{-ik\sin\theta} \nonumber\\
+	&\eqby{2} E_0\,\frac{2\sin\!\left(k(a/2)\sin\theta\right)}{k\sin\theta}
+	\eqby{3} E_0\,a\,\frac{\sin\beta_a}{\beta_a},
+	\qquad \beta_a\equiv\frac{\pi a\sin\theta}{\lambda}.
+	\label{re:eq:slit_field}
+\end{align}
+\begin{explain}
+	\item The integral of an exponential, between the two edges.
+	\item $e^{-ix}-e^{ix}=-2i\sin x$.
+	\item $k(a/2)\sin\theta=\pi a\sin\theta/\lambda=\beta_a$, so $k\sin\theta=2\beta_a/a$.
+\end{explain}
+The intensity, with $I_0=E_0^2a^2$ in the straight-through direction, is
 \begin{equation}
-	E(\theta) = \int_{-a/2}^{a/2} \frac{E_0}{a} e^{-i k x \sin\theta} \, dx = E_0 \left[ \frac{e^{-i k (a/2)\sin\theta} - e^{i k (a/2)\sin\theta}}{-i k a \sin\theta} \right] = E_0 \frac{\sin\beta}{\beta},
+	\boxed{I(\theta) = I_0 \left(\frac{\sin\beta_a}{\beta_a}\right)^2 = I_0 \left[ \frac{\sin\left(\pi a\sin\theta/\lambda\right)}{\pi a\sin\theta/\lambda} \right]^2.}
+	\label{eq:single_slit_intensity}
 \end{equation}
-where $\beta \equiv \frac{\pi a\sin\theta}{\lambda} \approx \frac{\pi a\theta}{\lambda}$. The observable intensity is:
-\begin{keyresult}
-	\begin{equation}
-		I(\theta) = I_0 \operatorname{sinc}^2(\beta) = I_0 \left[ \frac{\sin\left(\frac{\pi a\sin\theta}{\lambda}\right)}{\frac{\pi a\sin\theta}{\lambda}} \right]^2.
-		\label{eq:single_slit_intensity}
-	\end{equation}
-\end{keyresult}
-The first null occurs where $\beta = \pi$, giving $\sin\theta_1 = \lambda/a \implies \theta_1 \approx \lambda/a$. The central diffraction maximum contains $90.3\%$ of the total transmitted energy.
+The first zero is at $\beta_a=\pi$, so $\sin\theta=\lambda/a$, as the pairing found. The integral $\int_{-\infty}^{\infty}(\sin\beta/\beta)^2d\beta=\pi$ measures the whole pattern. The part between the first zeros, $(1/\pi)\int_{-\pi}^{\pi}(\sin\beta/\beta)^2d\beta$, is $0.903$, so the central band carries $90.3\%$ of the light.
 
 \subsection{$N$-Slit Diffraction Grating: Dispersion and Resolving Power}
 
-An astronomical diffraction grating consists of $N$ identical parallel slits of width $a$, spaced at center-to-center pitch $d$, spanning a total physical illuminated width $W \approx N d$.
+A diffraction grating is $N$ equal parallel slits of width $a$, with centres a distance $d$ apart, over a total width $W=Nd$. It spreads light into its colours, and it is the heart of most astronomical spectrographs.
 
 \begin{figure}[htbp]
-\centering
-\resizebox{0.95\textwidth}{!}{
-\includegraphics{fig_ch5_n_slit_geometry.pdf}
-}
-\caption{Optical path delays across an $N$-slit diffraction grating. Rays diffracted at angle $\theta$ incur progressive lags $\Delta L_n = n d\sin\theta$ and focus onto the detector plane forming sharp spectral lines.}
-\label{fig:n_slit_geometry}
+	\centering
+	\resizebox{0.95\textwidth}{!}{%
+		\includegraphics{fig_ch5_n_slit_geometry.pdf}%
+	}
+	\caption{A flat wave meeting an $N$-slit grating, the rays leaving at the angle $\theta$ with path lags $d\sin\theta$, $2d\sin\theta$ and $3d\sin\theta$, and a lens of focal length $f$ bringing them to a point $P(\theta)$ in its focal plane.}
+	\label{fig:n_slit_geometry}
 \end{figure}
 
-\subsubsection{Derivation of the Grating Intensity Profile}
-Each slit produces a diffracted field modulated by the single-slit envelope $\frac{\sin\beta}{\beta}$. Adjacent slits introduce a mutual path delay $\Delta L = d\sin\theta$, corresponding to a phase delay $\delta = \frac{2\pi d}{\lambda}\sin\theta = 2\gamma$, where $\gamma \equiv \frac{\pi d}{\lambda}\sin\theta$.
-
-Summing the coherent fields across all $N$ slits:
+\paragraph{Summing the slits.} The slit numbered $n=0,\dots,N-1$ has its centre at $\eta=nd$. Changing the variable to $\eta'=\eta-nd$ turns its integral into that of a slit at the centre, Eq.~\eqref{re:eq:slit_field}, times the phase factor $e^{-iknd\sin\theta}$. Write $\beta_d\equiv\pi d\sin\theta/\lambda$, so that this factor is $e^{-2in\beta_d}$. Then
 \begin{align}
-	E(\theta) &= \left[E_0 \frac{\sin\beta}{\beta}\right] \sum_{n=0}^{N-1} e^{-i n \delta} = \left[E_0 \frac{\sin\beta}{\beta}\right] \left(\frac{1 - e^{-i N\delta}}{1 - e^{-i\delta}}\right) \notag\\
-	&= E_0 \left(\frac{\sin\beta}{\beta}\right) \left[\frac{\sin(N\gamma)}{\sin\gamma}\right] e^{-i(N-1)\gamma},
+	E(\theta)
+	&\eqby{1} E_0a\,\frac{\sin\beta_a}{\beta_a}\sum_{n=0}^{N-1} e^{-2in\beta_d}
+	\eqby{2} E_0a\,\frac{\sin\beta_a}{\beta_a}\,\frac{1-e^{-2iN\beta_d}}{1-e^{-2i\beta_d}} \nonumber\\
+	&\eqby{3} E_0a\,\frac{\sin\beta_a}{\beta_a}\,\frac{e^{-iN\beta_d}\left(e^{iN\beta_d}-e^{-iN\beta_d}\right)}{e^{-i\beta_d}\left(e^{i\beta_d}-e^{-i\beta_d}\right)}
+	\eqby{4} E_0a\,\frac{\sin\beta_a}{\beta_a}\,\frac{\sin N\beta_d}{\sin\beta_d}\,e^{-i(N-1)\beta_d}.
 	\label{eq:n_slit_field_sum}
 \end{align}
-Taking the absolute square $I(\theta) = |E(\theta)|^2$ yields the total intensity distribution:
-\begin{keyresult}
-	\begin{equation}
-		I(\theta) = I_0 \underbrace{\left(\frac{\sin\beta}{\beta}\right)^2}_{\text{Single-slit envelope}} \times \underbrace{\left(\frac{\sin N\gamma}{\sin\gamma}\right)^2}_{\text{$N$-beam interference factor}}.
-		\label{eq:grating_intensity_formula}
-	\end{equation}
-\end{keyresult}
+\begin{explain}
+	\item Each slit gives Eq.~\eqref{re:eq:slit_field} times its phase factor $e^{-iknd\sin\theta}=e^{-2in\beta_d}$.
+	\item The geometric sum $\sum_{n=0}^{N-1}q^n=(1-q^N)/(1-q)$ with $q=e^{-2i\beta_d}$.
+	\item Take $e^{-iN\beta_d}$ out of the top and $e^{-i\beta_d}$ out of the bottom.
+	\item $e^{ix}-e^{-ix}=2i\sin x$ in both, and $e^{-iN\beta_d}/e^{-i\beta_d}=e^{-i(N-1)\beta_d}$.
+\end{explain}
+The phase factor drops out of $|E|^2$, and with $I_0=E_0^2a^2$ again,
+\begin{equation}
+	\boxed{I(\theta) = I_0 \underbrace{\left(\frac{\sin\beta_a}{\beta_a}\right)^2}_{\text{one slit}} \underbrace{\left(\frac{\sin N\beta_d}{\sin\beta_d}\right)^2}_{N\text{ slits}}.}
+	\label{eq:grating_intensity_formula}
+\end{equation}
+The width of each slit sets a broad envelope, and their spacing sets sharp peaks inside it.
 
-\subsubsection{Key Properties: Maxima, Minima, and Resolving Power}
-\begin{enumerate}
-	\item \textbf{Principal Maxima (The Grating Equation):} 
-	When $\gamma = m\pi$ ($m \in \mathbb{Z}$), all $N$ beams interfere in phase. The quotient $\frac{\sin(N\gamma)}{\sin\gamma} \to N$, concentrating the energy into extremely narrow, intense peaks with $I_{\rm peak} = N^2 I_0$. For incident angle $\theta_i$ and diffracted angle $\theta_m$, this yields the \textbf{Grating Equation}:
-	\begin{equation}
-		d\left(\sin\theta_m + \sin\theta_i\right) = m\lambda \qquad (m \in \mathbb{Z}).
-		\label{eq:grating_equation}
-	\end{equation}
-	\item \textbf{Destructive Minima and Spectral Line Width:} 
-	The principal peak drops to zero when the numerator vanishes, $N\gamma = N m\pi + \pi$. The resulting angular half-width between the peak and its first minimum is:
-	\begin{equation}
-		\Delta\theta_{\rm grating} = \frac{\lambda}{N d\cos\theta_m} = \frac{\lambda}{W_{\rm eff}},
-		\label{eq:grating_angular_width}
-	\end{equation}
-	where $W_{\rm eff} = W\cos\theta_m$ is the projected width of the illuminated grating.
-	\item \textbf{Chromatic Resolving Power ($\mathcal{R} \equiv \lambda/\Delta\lambda$):} 
-	According to the Rayleigh criterion, two nearby spectral lines at $\lambda$ and $\lambda + \Delta\lambda$ are barely resolved when the peak of one falls on the first zero of the other:
-	\begin{equation}
-		m(\lambda + \Delta\lambda) = m\lambda + \frac{\lambda}{N} \implies m\Delta\lambda = \frac{\lambda}{N}.
-	\end{equation}
-\end{enumerate}
+\paragraph{The principal maxima.} When $\beta_d=m\pi$ for a whole number $m$, all $N$ slits are in phase. The ratio $\sin N\beta_d/\sin\beta_d$ is then $0/0$, and its limit is $\pm N$ (the derivatives of top and bottom give $N\cos Nm\pi/\cos m\pi$). So the peak intensity is $N^2$ times that of one slit. The condition $\beta_d=m\pi$ reads $d\sin\theta=m\lambda$. If the light arrives at the angle $\theta_i$ to the normal, the incoming path to slit $n$ also differs, by $nd\sin\theta_i$. Counting $\theta_i$ on the opposite side of the normal from $\theta_m$, as is usual for reflection gratings, this lag adds to the lag on the way out, and the peaks of order $m$ are at
+\begin{equation}
+	d\left(\sin\theta_m + \sin\theta_i\right) = m\lambda \qquad (m \in \mathbb{Z}).
+	\label{eq:grating_equation}
+\end{equation}
+This is the \textbf{grating equation}. For $m\ne0$ the angle depends on $\lambda$, so each colour goes its own way.
+
+\paragraph{The width of a peak.} Next to a peak, $\sin N\beta_d$ first vanishes when $N\beta_d$ has moved from $Nm\pi$ to $Nm\pi+\pi$, a step $\Delta\beta_d=\pi/N$. Since $\beta_d=\pi d\sin\theta/\lambda$, a small step in $\theta$ gives $\Delta\beta_d=(\pi d\cos\theta_m/\lambda)\Delta\theta$, and
+\begin{equation}
+	\Delta\theta = \frac{\lambda}{Nd\cos\theta_m} = \frac{\lambda}{W\cos\theta_m}.
+	\label{eq:grating_angular_width}
+\end{equation}
+Here $W\cos\theta_m$ is the width of the grating seen from the direction $\theta_m$. The peak is as narrow as the diffraction pattern of a single slit as wide as the whole grating.
+
+\paragraph{Resolving power.} Two lines at $\lambda$ and $\lambda+\Delta\lambda$ are just resolved, by the Rayleigh rule of Section~\ref{re:sec:criteria}, when the peak of one falls on the first zero of the other. In terms of $d\sin\theta$, the peak of $\lambda+\Delta\lambda$ is at $m(\lambda+\Delta\lambda)$, and the first zero beside the peak of $\lambda$ is at $m\lambda+\lambda/N$. Setting them equal,
+\begin{equation}
+	m(\lambda + \Delta\lambda) = m\lambda + \frac{\lambda}{N} \quad\Longrightarrow\quad m\Delta\lambda = \frac{\lambda}{N}.
+\end{equation}
+With Eq.~\eqref{eq:grating_equation} for $m$, the \textbf{resolving power} is
 \begin{keyresult}
 	\begin{equation}
 		\mathcal{R} \equiv \frac{\lambda}{\Delta\lambda} = m N = \frac{W\left(\sin\theta_m + \sin\theta_i\right)}{\lambda}.
 		\label{eq:grating_resolving_power}
 	\end{equation}
 \end{keyresult}
-In astronomical spectroscopy, Eq.~\eqref{eq:grating_resolving_power} conveys a vital physical insight: \textbf{the resolving power of a spectrograph is simply the total optical path delay between the extreme edges of the grating, measured in wavelengths}. This is why high-resolution spectrographs (such as HARPS or ESPRESSO, reaching $\mathcal{R} > 100{,}000$ for exoplanet radial velocity searches) require very large physical gratings ($W \sim 20\text{--}80\,\mathrm{cm}$) operated in high diffraction orders ($m \gg 1$).
+The last form is the difference in path between light from the two ends of the grating, counted in wavelengths. So a high-resolution spectrograph needs a large grating used at a steep angle in a high order. HARPS and ESPRESSO, which reach $\mathcal R>100\,000$ to measure the wobble of stars with planets, use echelle gratings tens of centimetres long.
 
-\subsection{Circular Apertures and the Airy Disk: Derivation of the $1.22$ Factor}
+\begin{example}[Resolving the sodium D lines]
+	The two sodium D lines lie at $589.59$ and $588.99\,\mathrm{nm}$, so $\Delta\lambda=0.60\,\mathrm{nm}$ about the mean $589.29\,\mathrm{nm}$. They need
+	\[
+	\mathcal R = \frac{589.29\,\mathrm{nm}}{0.60\,\mathrm{nm}} = 982 .
+	\]
+	In order $m=2$, Eq.~\eqref{eq:grating_resolving_power} asks for $N\ge982/2=491.1$, so at least $492$ lit grooves. On a grating with $600$ grooves per millimetre that is a beam only $W=492/600\,\mathrm{mm}=0.82\,\mathrm{mm}$ wide.
+\end{example}
 
-Astronomical telescopes do not use narrow rectangular slits; their primary collecting elements are circular mirrors or lenses of diameter $D$ (radius $R = D/2$). 
+\subsection{Circular Apertures and the Airy Disk}
 
-\paragraph{Physical Intuition: Why $1.22$ Instead of $1.00$?}
-For a rectangular slit of width $a$, every slice across the slit has the exact same height and area. Pairing opposite halves $[-a/2, 0]$ and $[0, a/2]$ provides a 1-to-1 cancellation of equal-amplitude wavelets, achieving complete destructive interference at $\theta = \lambda/a$.
+Telescope mirrors are round, of diameter $D$. We want the pattern of Eq.~\eqref{eq:fourier_optics_integral} for a disc, and the angle of its first dark ring.
 
-In a circular aperture of diameter $D$, however, the chord length varies continuously from zero at the rim ($y = \pm D/2$) to a maximum of $D$ across the center ($y = 0$). Slices near the central equator contain much more collecting area and emit significantly higher wavelet amplitude than slices near the edges. When the path delay between opposite edges reaches $\lambda$, the weaker wavelets from the narrow edges cannot completely cancel the stronger wavelets from the wide center. To achieve complete phase cancellation across the entire two-dimensional circular surface, the angle must open up further by approximately $22\%$ ($\theta_1 \approx 1.22\lambda/D$).
+\paragraph{Why more than one.} In a slit every strip parallel to the edges has the same length, so the two halves cancel each other one to one at $\theta=\lambda/a$. In a disc the strips are short near the rim and long, up to $D$, across the middle. The middle sends more light than the edges. When the path difference between the two edges is $\lambda$, the weak wavelets of the narrow edges cannot cancel the strong ones of the wide middle. The angle must open by about $22\%$ more before the whole disc cancels.
 
-\subsubsection{Step-by-Step Derivation of the Airy Profile}
-We now derive this result from first principles using linear wave superposition.
-
-\paragraph{Step 1: 2D Surface Integral in Polar Coordinates.}
-Let a circular pupil of radius $R = D/2$ be illuminated by a uniform plane wave of amplitude $E_0$. Choose polar coordinates $(r', \phi')$ in the pupil plane ($r' \in [0, D/2]$, $\phi' \in [0, 2\pi]$).
-
-Consider the diffracted wave propagating toward an off-axis angle $\theta$. By circular symmetry, the pattern depends only on $\theta$ and is azimuthally symmetric. Choosing the observation direction along $\phi = 0$, a wavelet originating from position $(r', \phi')$ travels an extra path distance $\Delta L = r'\sin\theta\cos\phi' \approx r'\theta\cos\phi'$, giving phase lag $\Delta\Phi = k r'\theta\cos\phi'$ with wavenumber $k = 2\pi/\lambda$.
-
-The total diffracted field amplitude is the coherent sum of all secondary wavelets over the circular area:
+\paragraph{Polar coordinates.} Take polar coordinates in the opening, $\xi=r\cos\psi$ and $\eta=r\sin\psi$, and on the sky, $\theta_x=\theta\cos\chi$ and $\theta_y=\theta\sin\chi$ for small $\theta$. The phase needs $\xi\theta_x+\eta\theta_y$. Turn the axes of the opening by $\chi$, with the $2\times2$ upper-left block of $\mathbf R_z(\chi)$, Eq.~\eqref{eq:z_axis_rotation_matrix},
+\begin{align}
+	\begin{pmatrix}\xi'\\ \eta'\end{pmatrix}
+	&= \begin{pmatrix}\cos\chi&\sin\chi\\ -\sin\chi&\cos\chi\end{pmatrix}\begin{pmatrix}r\cos\psi\\ r\sin\psi\end{pmatrix}
+	\eqby{1} \begin{pmatrix}r\cos(\psi-\chi)\\ r\sin(\psi-\chi)\end{pmatrix}, \nonumber\\
+	\xi\theta_x+\eta\theta_y
+	&= \theta\,(\xi\cos\chi+\eta\sin\chi)
+	\eqby{2} \theta\,\xi'
+	\eqby{3} \theta\,r\cos(\psi-\chi).
+	\label{re:eq:polar_phase}
+\end{align}
+\begin{explain}
+	\item The angle-difference identities.
+	\item The top row of the matrix product.
+	\item The first line.
+\end{explain}
+The disc looks the same in the turned axes, so the integral over $\psi$ from $0$ to $2\pi$ gives the same for every $\chi$. The pattern depends on $\theta$ alone, and we may set $\chi=0$,
 \begin{equation}
-	E(\theta) = \int_0^{D/2} r'\,dr' \int_0^{2\pi} e^{-i k r' \theta \cos\phi'}\,d\phi'.
+	E(\theta) = E_0\int_0^{D/2}\!\!\int_0^{2\pi} e^{-ikr\theta\cos\psi}\,d\psi\;r\,dr .
+	\label{re:eq:disc_integral}
 \end{equation}
 
-\paragraph{Step 2: Azimuthal Integration via the Bessel Function $J_0$.}
-Recall the integral representation of the zero-order Bessel function of the first kind:
+\paragraph{The angle integral and $J_0$.} The integral over $\psi$ defines the Bessel function of order zero,
 \begin{equation}
-	J_0(z) = \frac{1}{2\pi}\int_0^{2\pi} e^{-i z \cos\phi'}\,d\phi'.
+	J_0(z) \equiv \frac{1}{2\pi}\int_0^{2\pi} e^{-i z \cos\psi}\,d\psi .
+	\label{re:eq:J0_def}
 \end{equation}
-Substituting this into the field integral resolves the angular integral immediately:
-\begin{equation}
-	E(\theta) = 2\pi \int_0^{D/2} r' J_0(k r' \theta)\,dr'.
-\end{equation}
+Its power series follows by expanding the exponential,
+\begin{align}
+	J_0(z)
+	&\eqby{1} \sum_{n=0}^{\infty}\frac{(-iz)^n}{n!}\,\frac{1}{2\pi}\int_0^{2\pi}\cos^n\psi\,d\psi
+	\eqby{2} \sum_{j=0}^{\infty}\frac{(-iz)^{2j}}{(2j)!}\,\frac{(2j)!}{4^j(j!)^2} \nonumber\\
+	&\eqby{3} \sum_{j=0}^{\infty}\frac{(-1)^j}{(j!)^2}\left(\frac z2\right)^{2j}
+	= 1-\frac{z^2}{4}+\frac{z^4}{64}-\dots
+	\label{re:eq:J0_series}
+\end{align}
+\begin{explain}
+	\item The series of $e^x$, integrated term by term.
+	\item Odd powers of $\cos\psi$ average to zero. For $n=2j$, the average of $\cos^{2j}\psi$ is $(2j)!/(4^j(j!)^2)$, the middle binomial coefficient over $4^j$, from $\cos\psi=(e^{i\psi}+e^{-i\psi})/2$.
+	\item $(-i)^{2j}=(-1)^j$ and $4^j=2^{2j}$.
+\end{explain}
+So $E(\theta)=2\pi E_0\int_0^{D/2}J_0(kr\theta)\,r\,dr$.
 
-\paragraph{Step 3: Radial Integration and the $J_1$ Identity.}
-To evaluate the radial integral, introduce the dimensionless variable $x \equiv k r' \theta$, so that $r' = \frac{x}{k\theta}$ and $dr' = \frac{dx}{k\theta}$. The upper integration limit at $r' = D/2$ is:
+\paragraph{The radial integral and $J_1$.} The Bessel function of order one is
 \begin{equation}
-	v \equiv k\left(\frac{D}{2}\right)\theta = \left(\frac{2\pi}{\lambda}\right)\left(\frac{D}{2}\right)\theta = \frac{\pi D \theta}{\lambda}.
+	J_1(z) \equiv \sum_{j=0}^{\infty}\frac{(-1)^j}{j!\,(j+1)!}\left(\frac z2\right)^{2j+1} = \frac z2-\frac{z^3}{16}+\dots
+	\label{re:eq:J1_series}
 \end{equation}
-The field integral transforms to:
+Differentiating the series term by term gives the identity we need,
+\begin{align}
+	\dv{}{z}\big[zJ_1(z)\big]
+	&= \dv{}{z}\sum_{j=0}^{\infty}\frac{(-1)^j\,z^{2j+2}}{2^{2j+1}\,j!\,(j+1)!}
+	\eqby{1} \sum_{j=0}^{\infty}\frac{(-1)^j\,(2j+2)\,z^{2j+1}}{2^{2j+1}\,j!\,(j+1)!} \nonumber\\
+	&\eqby{2} z\sum_{j=0}^{\infty}\frac{(-1)^j}{(j!)^2}\left(\frac z2\right)^{2j}
+	\eqby{3} zJ_0(z).
+	\label{re:eq:bessel_identity}
+\end{align}
+\begin{explain}
+	\item The power rule on each term.
+	\item $(2j+2)/(j+1)!=2/j!$, and $2/2^{2j+1}=1/2^{2j}$.
+	\item Eq.~\eqref{re:eq:J0_series}.
+\end{explain}
+In the same way, differentiating Eq.~\eqref{re:eq:J0_series} gives $J_0'=-J_1$. Since $zJ_1(z)$ is zero at $z=0$, Eq.~\eqref{re:eq:bessel_identity} integrates to $\int_0^{u}zJ_0(z)\,dz=u\,J_1(u)$. Now change the variable in the radial integral to $z=kr\theta$. The edge $r=D/2$ becomes
 \begin{equation}
-	E(\theta) = 2\pi \int_0^v \left(\frac{x}{k\theta}\right) J_0(x) \left(\frac{dx}{k\theta}\right) = \frac{2\pi}{(k\theta)^2} \int_0^v x J_0(x)\,dx.
+	\beta_D \equiv k\,\frac{D}{2}\,\theta = \frac{\pi D \theta}{\lambda},
+	\label{re:eq:beta_D}
 \end{equation}
-Using the standard Bessel recurrence and integration identity:
-\begin{equation}
-	\int_0^u x J_0(x)\,dx = u J_1(u),
-\end{equation}
-where $J_1$ is the first-order Bessel function of the first kind, we obtain:
-\begin{equation}
-	E(\theta) = \frac{2\pi}{(k\theta)^2} \cdot v J_1(v) = 2\pi\left(\frac{v}{k\theta}\right)^2 \frac{J_1(v)}{v} = \left[\pi\left(\frac{D}{2}\right)^2\right] \left[ \frac{2 J_1(v)}{v} \right].
-\end{equation}
-Here, $A_{\rm pup} = \pi(D/2)^2 = \frac{\pi D^2}{4}$ is the physical collecting area of the telescope aperture. In the on-axis limit ($\theta \to 0 \implies v \to 0$), the limit $\lim_{v\to 0}\frac{2J_1(v)}{v} = 1$, giving the on-axis amplitude $E(0) = E_0 A_{\rm pup}$.
+the same kind of variable as $\beta_a$ for the slit, with the radius in place of the half-width. Then
+\begin{align}
+	E(\theta)
+	&\eqby{1} \frac{2\pi E_0}{(k\theta)^2}\int_0^{\beta_D} zJ_0(z)\,dz
+	\eqby{2} \frac{2\pi E_0}{(k\theta)^2}\,\beta_DJ_1(\beta_D)
+	\eqby{3} 2\pi E_0\left(\frac{D}{2}\right)^2\frac{J_1(\beta_D)}{\beta_D} \nonumber\\
+	&= E_0\,\underbrace{\frac{\pi D^2}{4}}_{\text{area of the mirror}}\,\frac{2J_1(\beta_D)}{\beta_D}.
+	\label{re:eq:airy_field}
+\end{align}
+\begin{explain}
+	\item $r=z/(k\theta)$ and $dr=dz/(k\theta)$.
+	\item $\int_0^{u}zJ_0\,dz=uJ_1(u)$, from Eq.~\eqref{re:eq:bessel_identity}.
+	\item $k\theta=2\beta_D/D$ from Eq.~\eqref{re:eq:beta_D}.
+\end{explain}
+For $\theta\to0$, $J_1(\beta_D)\approx\beta_D/2$ by Eq.~\eqref{re:eq:J1_series}, so $2J_1(\beta_D)/\beta_D\to1$. Straight ahead every wavelet is in phase, and the field is $E_0$ times the area.
 
-\paragraph{Step 4: The Airy Intensity Profile.}
-Squaring the normalized field amplitude yields the celebrated \textbf{Airy disk intensity profile}:
-\begin{keyresult}
-	\begin{equation}
-		I(\theta) = I_0 \left[ \frac{2 J_1(v)}{v} \right]^2, \qquad \text{with} \quad v = \frac{\pi D \sin\theta}{\lambda} \approx \frac{\pi D \theta}{\lambda}.
-		\label{eq:airy_disk_intensity}
-	\end{equation}
-\end{keyresult}
+\paragraph{The Airy pattern.} Squaring, with $I_0=E_0^2(\pi D^2/4)^2$, gives the \textbf{Airy pattern},
+\begin{equation}
+	\boxed{I(\theta) = I_0 \left[ \frac{2 J_1(\beta_D)}{\beta_D} \right]^2, \qquad \beta_D = \frac{\pi D \sin\theta}{\lambda} \approx \frac{\pi D \theta}{\lambda}.}
+	\label{eq:airy_disk_intensity}
+\end{equation}
+Half the peak intensity is reached at $\beta_D=1.616$, so the full width at half maximum (FWHM) is $2\times1.616/\pi=1.03\,\lambda/D$.
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\linewidth]{Diffraction.pdf}
-    \caption{Ray optics focusing through a circular entrance pupil and the resulting rotated Airy diffraction profile in the focal plane.}
-    \label{fig:diffraction_pdf_diagram}
+	\centering
+	\includegraphics[width=0.9\linewidth]{Diffraction.pdf}
+	\caption{Light from source $A$ focused by a lens of focal length $F$. Beside the focal plane, the Airy profile of source $A$ (red) and that of a second source at the angle $\theta_{\rm res}=1.22\lambda/D$ (blue), whose image lies a height $y$ away.}
+	\label{fig:diffraction_pdf_diagram}
 \end{figure}
 
-\paragraph{Step 5: Origin of the $1.22$ Factor (The First Dark Ring).}
-The first dark ring (first destructive minimum / zero of the Airy pattern) occurs where the intensity drops to zero, which requires:
+\paragraph{The first dark ring and the factor $1.22$.} The intensity first vanishes where $J_1(\beta_D)=0$ for $\beta_D>0$. The first positive zero of $J_1$ is $\beta_D=3.8317$. So the angular radius of the first dark ring is
 \begin{equation}
-	J_1(v_1) = 0 \qquad (v_1 > 0).
-\end{equation}
-The first positive root of the Bessel function $J_1$ is a standard transcendental value:
-\begin{equation}
-	v_1 \approx 3.83170597\dots
-\end{equation}
-Equating this root to the definition of $v = \frac{\pi D \theta_1}{\lambda}$ yields the angular radius of the first dark ring:
-\begin{equation}
-	\frac{\pi D \theta_1}{\lambda} = 3.831706 \implies \theta_1 = \frac{3.831706}{\pi} \frac{\lambda}{D} \approx 1.21966989\dots \frac{\lambda}{D} \approx 1.22 \frac{\lambda}{D}.
+	\frac{\pi D \theta}{\lambda} = 3.8317 \quad\Longrightarrow\quad \theta = \frac{3.8317}{\pi}\, \frac{\lambda}{D} = 1.2197\, \frac{\lambda}{D}.
 	\label{eq:airy_first_null}
 \end{equation}
-This is the rigorous mathematical origin of the factor $\mathbf{1.22}$ in telescope optics! 
-
-In the small-angle regime, this sets the classic \textbf{Rayleigh Resolution Criterion}:
+This is where the factor $1.22$ comes from. A second star placed on this ring is the \textbf{Rayleigh limit} $\theta_R$ of a round telescope,
 \begin{keyresult}
 	\begin{equation}
-		\theta_{\rm Rayleigh} \approx 1.22 \frac{\lambda}{D}\quad [\text{rad}] = 206{,}265 \times 1.22\frac{\lambda}{D}\quad [\text{arcsec}].
+		\theta_R = 1.22 \frac{\lambda}{D}\ \text{rad} = 206\,265 \times 1.22\frac{\lambda}{D}\ \text{arcsec}.
 		\label{eq:rayleigh_criterion_result}
 	\end{equation}
 \end{keyresult}
+Only the ratio $\lambda/D$ enters. The focal length, the design of the telescope and the brightness of the star do not.
 
-\subsubsection{Encircled Energy and Annular Obstruction Effects}
-\begin{itemize}
-	\item \textbf{Encircled Energy Budget:} The central Airy disk (interior to the first null at $\theta_1 = 1.22\lambda/D$) encloses $\mathbf{83.8\%}$ of the total light energy. The first bright diffraction ring (peak at $v \approx 5.14$, with relative intensity $I/I_0 \approx 1.75\%$) encloses $7.2\%$, the second ring encloses $2.8\%$, and the remainder decays into outer rings.
-	\item \textbf{Cassegrain Annular Obscuration:} In reflecting telescopes with a central secondary mirror of linear obscuration ratio $\epsilon = d_{\rm sec}/D$ (typically $\epsilon \sim 0.2\text{--}0.4$), Babinet's principle gives the annular diffracted field:
-	\begin{equation}
-		E_{\rm ann}(v) \propto \left[ \frac{2J_1(v)}{v} - \epsilon^2 \frac{2J_1(\epsilon v)}{\epsilon v} \right].
-	\end{equation}
-	The central obscuration slightly narrows the core diameter ($\theta_1 \approx 1.15\lambda/D$), but systematically transfers $6\text{--}8\%$ of the core energy into the bright outer diffraction rings. This reduces dynamic range and image contrast, a critical consideration for direct coronagraphic imaging of faint exoplanets around bright host stars.
-\end{itemize}
+\paragraph{How the light is shared among the rings.} The fraction of the light inside the angle $\theta_0$ is the integral of $I(\theta)\,2\pi\theta\,d\theta$ from $0$ to $\theta_0$, over the same integral to infinity. With $\theta=\lambda\beta_D/(\pi D)$, both carry the same constant, and only $\int(2J_1/\beta_D)^2\beta_D\,d\beta_D=4\int J_1^2/\beta_D\,d\beta_D$ remains. An identity does this integral,
+\begin{align}
+	\dv{}{\beta}\left[J_0^2+J_1^2\right]
+	&= 2J_0J_0'+2J_1J_1'
+	\eqby{1} -2J_0J_1+2J_1\left(J_0-\frac{J_1}{\beta}\right)
+	= -\frac{2J_1^2}{\beta},
+\end{align}
+\begin{explain}
+	\item $J_0'=-J_1$, and $J_1'=J_0-J_1/\beta$ from expanding Eq.~\eqref{re:eq:bessel_identity}, $J_1+\beta J_1'=\beta J_0$.
+\end{explain}
+so $\int_0^{\beta_0}J_1^2/\beta\,d\beta=\tfrac12[1-J_0^2(\beta_0)-J_1^2(\beta_0)]$, using $J_0(0)=1$ and $J_1(0)=0$. Both functions die away at large $\beta$, so the whole pattern gives $\tfrac12$, and the fraction inside $\beta_0$ is
+\begin{equation}
+	\boxed{\text{fraction inside }\beta_0 = 1-J_0^2(\beta_0)-J_1^2(\beta_0).}
+	\label{re:eq:encircled_energy}
+\end{equation}
+At the dark rings $J_1=0$, so only $J_0^2$ is lost. At the first, $J_0(3.8317)=-0.4028$, and the central disc holds $1-0.1622=83.8\%$ of the light. The second dark ring, at $\beta_D=7.0156$, encloses $91.0\%$, so the first bright ring holds $7.2\%$. The second ring holds $2.8\%$ and the rest goes into fainter rings. The first bright ring peaks at $\beta_D=5.136$ with only $1.75\%$ of the central intensity.
+
+The total over the whole pattern is a check on the normalisation. It is
+\begin{equation}
+	\int_0^\infty I\,2\pi\theta\,d\theta = I_0\,2\pi\left(\frac{\lambda}{\pi D}\right)^2\times4\times\frac12 = I_0\,\frac{\lambda^2}{\pi D^2/4}=E_0^2\,\frac{\pi D^2}{4}\,\lambda^2 .
+\end{equation}
+Parseval's theorem applied to Eq.~\eqref{eq:fourier_optics_integral} gives the same, $E_0^2\lambda^2$ times the open area, for any shape of opening. The light leaving the focus equals the light entering the mirror (P1). It also says the PSF covers an effective solid angle $\lambda^2/(\pi D^2/4)$, the wavelength squared over the collecting area, a rule radio engineers use for the beam of any antenna.
+
+\paragraph{A central obstruction.} A Cassegrain secondary of diameter $b$ blocks the middle of the mirror. The open ring is the full disc minus a small disc. The integral of Eq.~\eqref{eq:fourier_optics_integral} over the ring is the integral over the big disc minus that over the small one, each given by Eq.~\eqref{re:eq:airy_field},
+\begin{equation}
+	E(\theta) = E_0\left[\frac{\pi D^2}{4}\,\frac{2J_1(\beta_D)}{\beta_D}-\frac{\pi b^2}{4}\,\frac{2J_1(\beta_b)}{\beta_b}\right],
+	\qquad \beta_b=\frac{b}{D}\,\beta_D .
+	\label{re:eq:annulus}
+\end{equation}
+The obstruction makes the central disc a little smaller but sends more light into the rings. For $b/D=0.2$ the first dark ring moves in to $1.17\lambda/D$ and the central disc holds $76.4\%$ of the light that passes, against $83.8\%$ without it. For $b/D=0.33$ these become $1.10\lambda/D$ and $65.4\%$. Brighter rings lower the contrast near a bright star, which matters when imaging faint planets beside it.
+
+\paragraph{Spider vanes and spikes.} A spider vane is a thin opaque strip of width $a$ across the opening. In the same way, the field is that of the open mirror minus that of the strip. A strip passes what a slit of the same shape would pass, so its pattern is the slit pattern, Eq.~\eqref{eq:single_slit_intensity}. Across the vane it spreads over about $\lambda/a$, wide because the vane is thin, and along the vane it is as narrow as $\lambda$ over its length. The result is a thin streak of light through the star, at right angles to the vane. Two vanes along one line give the same streak, so a cross of four vanes gives four spikes, and three vanes $120^\circ$ apart give six.
 
 \subsection{Resolution Criteria for Point-Source Imaging}
+\label{re:sec:criteria}
 
-When observing two incoherent, equal-brightness point sources (e.g., a visual binary star system) separated by angular distance $\Delta\theta$, their intensities add linearly:
+Two stars, such as the two of a binary, send light with unrelated phases. Their intensities add, not their fields. For two equal stars a separation $\Delta\theta$ apart, with the profile $I(\theta)$ of one star,
 \begin{equation}
 	I_{\rm tot}(\theta) = I\left(\theta + \frac{\Delta\theta}{2}\right) + I\left(\theta - \frac{\Delta\theta}{2}\right).
+	\label{re:eq:two_star_sum}
 \end{equation}
 
 \begin{figure}[htbp]
-\centering
-\resizebox{\textwidth}{!}{
-\includegraphics{fig_ch5_rayleigh_sparrow_comparison.pdf}
-}
-\caption{Comparison of two-source resolution criteria: Rayleigh criterion ($19\%$ dip for slits, $26.5\%$ for Airy disk), Sparrow criterion (flat inflection plateau $\frac{d^2 I}{d\theta^2}=0$), and an unresolved profile.}
-\label{fig:rayleigh_sparrow_comparison}
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\includegraphics{fig_ch5_rayleigh_sparrow_comparison.pdf}%
+	}
+	\caption{The sum of two equal slit patterns at the separations $\lambda/a$ (Rayleigh, with a $19\%$ dip), $0.83\lambda/a$ (Sparrow, with a flat top) and $0.5\lambda/a$ (a single peak). Dashed curves show the two patterns and solid curves their sum.}
+	\label{fig:rayleigh_sparrow_comparison}
 \end{figure}
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics{fig_ch5_rayleigh_diffraction_sinc.pdf}
-    \caption{Diffraction patterns of two barely resolved point sources under the Rayleigh criterion, where the central maximum of one source coincides with the first minimum ($\theta_1 = 1.22\lambda/D$) of the second.}
-    \label{fig:rayleigh_diffraction_sinc}
+	\centering
+	\includegraphics{fig_ch5_rayleigh_diffraction_sinc.pdf}
+	\caption{Two diffraction patterns whose central maxima are $1.22\lambda/D$ apart, so that each maximum lies on the first minimum of the other.}
+	\label{fig:rayleigh_diffraction_sinc}
 \end{figure}
 
-Two criteria are commonly used to characterize resolution in astronomical systems:
-\begin{enumerate}
-	\item \textbf{Rayleigh Criterion ($\theta_{\rm Rayleigh}$):} 
-	The central maximum of Source 1 coincides with the first diffraction minimum of Source 2 ($\Delta\theta = \theta_1$). 
-	\begin{itemize}
-		\item For a \textbf{1D slit} ($I \propto \operatorname{sinc}^2\beta$): $\Delta\theta = \lambda/a$, yielding a midpoint intensity dip of \textbf{$19\%$} ($I_{\rm mid} = 0.811 I_{\rm peak}$).
-		\item For a \textbf{2D circular Airy disk} ($I \propto [2J_1(v)/v]^2$): $\Delta\theta = 1.22\lambda/D$, producing a deeper midpoint dip of \textbf{$26.5\%$} ($I_{\rm mid} \approx 0.735 I_{\rm peak}$).
-	\end{itemize}
-	Historically, the Rayleigh criterion represented the empirical threshold where the human eye looking through an eyepiece could reliably detect a brightness dip between two equal stellar images.
-	\item \textbf{Sparrow Criterion ($\theta_{\rm Sparrow}$):} 
-	The physical separation at which the central dip completely disappears, creating a flat plateau with zero second derivative at the midpoint:
-	\begin{equation}
-		\left.\frac{d^2 I_{\rm tot}}{d\theta^2}\right|_{\theta=0} = 0.
-	\end{equation}
-	This yields:
-	\begin{itemize}
-		\item For a \textbf{1D slit}: $\theta_{\rm Sparrow} \approx 0.83 \frac{\lambda}{a}$.
-		\item For a \textbf{2D circular pupil}: $\theta_{\rm Sparrow} \approx 0.94 \frac{\lambda}{D}$.
-	\end{itemize}
-\end{enumerate}
-In modern digital astrophysics, the Rayleigh limit is not a rigid barrier: with high Signal-to-Noise Ratio ($\mathrm{SNR}$) observations and accurate Point Spread Function ($\mathrm{PSF}$) modeling, astronomical deconvolution algorithms can cleanly separate overlapping sources down to the Sparrow limit and beyond.
+\paragraph{The Rayleigh criterion.} Rayleigh called two stars resolved when the peak of one falls on the first dark ring of the other, $\Delta\theta=\theta_R$. At the place of each star the sum is then $I_0+0=I_0$. Midway, each pattern is at its half-separation point, and the sum is $2I(\Delta\theta/2)$.
+\begin{itemize}
+	\item For a slit, $\Delta\theta=\lambda/a$ and each pattern is at $\beta_a=\pi/2$. The middle is at $2(\sin(\pi/2)/(\pi/2))^2=8/\pi^2=0.811$ of the peak, a dip of $19\%$.
+	\item For a round mirror, $\Delta\theta=1.22\lambda/D$ and each pattern is at $\beta_D=3.8317/2=1.916$. The middle is at $2\,[2J_1(1.916)/1.916]^2=0.735$ of the peak, a dip of $26.5\%$.
+\end{itemize}
+Rayleigh's choice is convenient because the dark ring is easy to compute. A dip of this size is easy to see by eye at the eyepiece.
 
-\begin{example}[Resolving the Solar Sodium D-lines with a Grating Spectrograph]
-	The Fraunhofer Sodium D-doublet consists of two absorption lines at $\lambda_1 = 589.59\,\mathrm{nm}$ and $\lambda_2 = 588.99\,\mathrm{nm}$ ($\Delta\lambda = 0.60\,\mathrm{nm}$, mean wavelength $\bar{\lambda} = 589.3\,\mathrm{nm}$).
-	\begin{enumerate}
-		\item \textbf{Required Resolving Power:}
-		\[
-		\mathcal{R} = \frac{\bar{\lambda}}{\Delta\lambda} = \frac{589.3\,\mathrm{nm}}{0.60\,\mathrm{nm}} \approx 982.
-		\]
-		\item \textbf{Required Grating Grooves in Order $m=2$:}
-		\[
-		N = \frac{\mathcal{R}}{m} = \frac{982}{2} = 491 \text{ illuminated grooves}.
-		\]
-		For a grating ruled at $600\,\text{grooves/mm}$, the required illuminated beam diameter is:
-		\[
-		W = N d = \frac{491}{600}\,\mathrm{mm} \approx 0.82\,\mathrm{mm}.
-		\]
-	\end{enumerate}
-\end{example}
+\paragraph{The Sparrow criterion.} Two stars stop showing a dip at all when the sum has a flat top in the middle, with zero second derivative there. By Eq.~\eqref{re:eq:two_star_sum},
+\begin{align}
+	\left.\dv[2]{I_{\rm tot}}{\theta}\right|_{\theta=0}
+	&= I''\!\left(\frac{\Delta\theta}{2}\right)+I''\!\left(-\frac{\Delta\theta}{2}\right)
+	\eqby{1} 2\,I''\!\left(\frac{\Delta\theta}{2}\right) = 0 .
+\end{align}
+\begin{explain}
+	\item The profile is even, so its second derivative is even too.
+\end{explain}
+So the \textbf{Sparrow limit} is twice the angle at which the profile of one star has its inflection point. The slit profile bends over at $\beta_a=1.3031$, and the Airy profile at $\beta_D=1.4878$. This gives
+\begin{itemize}
+	\item for a slit, $\Delta\theta = 2\times1.3031/\pi\ \lambda/a = 0.83\,\lambda/a$,
+	\item for a round mirror, $\Delta\theta = 2\times1.4878/\pi\ \lambda/D = 0.95\,\lambda/D$.
+\end{itemize}
+Neither limit is a hard wall. With a high signal-to-noise ratio and a well-measured PSF, two overlapping stars can be separated by fitting, down to the Sparrow limit and below.
 
-\begin{example}[Diffraction Resolution of a $30\,\mathrm{cm}$ Telescope at $\lambda = 500\,\mathrm{nm}$]
-	For an optical telescope with aperture diameter $D = 0.30\,\mathrm{m}$ observing in the $V$-band ($\lambda = 500\,\mathrm{nm} = 500 \times 10^{-9}\,\mathrm{m}$):
+\begin{example}[Diffraction limit of a $30\,\mathrm{cm}$ telescope at $500\,\mathrm{nm}$]
+	For $D=0.30\,\mathrm m$ and $\lambda=500\,\mathrm{nm}$, Eq.~\eqref{eq:rayleigh_criterion_result} gives
 	\[
-	\theta_{\rm diff} = 1.22\frac{\lambda}{D} = 1.22 \times \frac{500 \times 10^{-9}\,\mathrm{m}}{0.30\,\mathrm{m}} \approx 2.033 \times 10^{-6}\,\mathrm{rad}.
-	\]
-	Converting to arcseconds ($1\,\mathrm{rad} = 206{,}265''$):
-	\[
-	\boxed{\theta_{\rm diff} \simeq 2.033 \times 10^{-6} \times 206{,}265'' = 0.42''}.
+	\theta_R = 1.2197\times\frac{500\times10^{-9}}{0.30}\,\mathrm{rad} = 2.033\times10^{-6}\,\mathrm{rad} = 0.42'' .
 	\]
 \end{example}
 
-\section{Comparing Pixel Scale to the Diffraction Limit: Nyquist Sampling}
+% ==============================================================================
+\section[Pixel Scale and Nyquist Sampling]{Comparing Pixel Scale to the Diffraction Limit: Nyquist Sampling}
 \label{sec:sampling}
 
-We now have both halves of the picture needed to judge whether a telescope--camera combination is actually delivering the resolution it is capable of. Section~\ref{sec:optics} gave us the \textbf{pixel scale} $\theta_{\rm pix} = p/F$: how many arcseconds of sky a single physical pixel records. Section~\ref{sec:diffraction} gave us the \textbf{diffraction limit} $\theta_{\rm res}$ (e.g.\ $1.22\lambda/D$ for a circular aperture): the smallest true angular feature the optics can physically resolve. If the pixels are too coarse compared to this blur, fine spatial information is thrown away before it is even recorded, no matter how good the optics are; this is exactly the kind of question the Nyquist--Shannon sampling theorem was built to answer.
+A telescope of diameter $D$ blurs a star into an Airy pattern of radius $\theta_R=1.22\lambda/D$, Eq.~\eqref{eq:rayleigh_criterion_result}, and each pixel covers the angle $\theta_{\rm pix}$, Eq.~\eqref{eq:pixel_scale_def}.
+
+A detector keeps one number per pixel. If the pixels are too coarse, fine detail is lost. Worse, detail that is not there can appear.
+
+In old films the wheels of a moving wagon sometimes seem to turn slowly backwards. The camera takes $24$ frames a second. If a spoke moves almost one spoke gap between frames, the eye joins each spoke to the one just behind it, and the wheel seems to creep the wrong way.
+
+The pixels of a detector are the frames, and the star image is the wheel. The idea is that a pattern is recorded faithfully only if there are at least two samples in each period of its finest ripple.
+
+A wheel with $12$ spokes turning $1.9$ times a second has spokes passing at $12\times1.9=22.8$ a second. At $24$ frames a second this is read as $22.8-24=-1.2$ a second, a slow backward turn.
+
+The picture is a smooth curve with dots at equal steps along it, and a fast wiggle that passes through the very same dots as a slow one.
+
+Compact discs sample sound $44\,100$ times a second because people hear up to about $20\,000\,\mathrm{Hz}$. A digital oscilloscope obeys the same rule. Here the pixel is compared with the finest period in the image, P6 once more. It gives the finest ripple a telescope image can contain, the sampling theorem, and the largest pixel that keeps the image whole.
+
+\subsection{The Finest Detail in the Image}
+
+We want the finest ripple in the image of a telescope. Describe the image by its spatial frequencies $\vec u=(u_x,u_y)$, in cycles per radian, through the Fourier transform $\tilde I(\vec u)=\int I(\vec\theta)\,e^{-2\pi i\vec u\cdot\vec\theta}\,d^2\theta$, with $\vec\theta=(\theta_x,\theta_y)$. Eq.~\eqref{eq:fourier_optics_integral} gives $I=EE^*$ as a double integral over two points $\vecr$ and $\vecr'$ of the opening. Then
+\begin{align}
+	\tilde I(\vec u)
+	&\eqby{1} E_0^2\iint t(\vecr)\,t(\vecr')\left[\int e^{-2\pi i\vec\theta\cdot\left[(\vecr-\vecr')/\lambda+\vec u\right]}\,d^2\theta\right]d^2r\,d^2r' \nonumber\\
+	&\eqby{2} E_0^2\iint t(\vecr)\,t(\vecr')\,\lambda^2\,\delta^2\!\left(\vecr-\vecr'+\lambda\vec u\right)d^2r\,d^2r'
+	\eqby{3} E_0^2\lambda^2\int t(\vecr)\,t(\vecr+\lambda\vec u)\,d^2r .
+	\label{re:eq:band_limit}
+\end{align}
+\begin{explain}
+	\item $E$ and $E^*$ from Eq.~\eqref{eq:fourier_optics_integral}, with $k(\xi\theta_x+\eta\theta_y)=2\pi\vecr\cdot\vec\theta/\lambda$, and the order of integration swapped.
+	\item $\int e^{-2\pi i\vec\theta\cdot\vec q}\,d^2\theta=\delta^2(\vec q)$, and $\delta^2(\vec x/\lambda)=\lambda^2\delta^2(\vec x)$ in two dimensions.
+	\item The delta function sets $\vecr'=\vecr+\lambda\vec u$.
+\end{explain}
+Since $t$ is $1$ or $0$, the last integral is the area where the opening overlaps a copy of itself shifted by $\lambda\vec u$. Two discs of diameter $D$ stop overlapping once their centres are $D$ apart. So the image of any scene through a round mirror contains no ripple finer than
+\begin{equation}
+	\boxed{u_{\max}=\frac{D}{\lambda}\ \text{cycles per radian}.}
+	\label{re:eq:u_max}
+\end{equation}
+Each pair of points in the mirror a distance $\lambda u$ apart acts as the pair of antennas of Eq.~\eqref{re:eq:correlator_sky}, with baseline $\lambda u$. A mirror measures every baseline inside it at once, up to its diameter $D$. An interferometer measures only the few its antennas give, but out to the full $B$.
 
 \subsection{The Nyquist Sampling Criterion}
 
-This is a special case of a completely general result in signal processing, the \emph{Nyquist--Shannon sampling theorem}: a signal that contains no spatial variation finer than some highest frequency $f_{\max}$ can be perfectly reconstructed from discrete samples only if those samples are taken at intervals no coarser than $1/(2f_{\max})$ (samples any sparser cause distinct high-frequency features to become indistinguishable from one another --- \emph{aliasing}). Here, the diffraction blur $\theta_{\rm res}$ is the smallest angular feature the optical image can contain, i.e.\ the finest structure varies on an angular scale $\sim\theta_{\rm res}$, corresponding to a highest angular spatial frequency $f_{\max}\sim 1/\theta_{\rm res}$. The detector pixel grid is precisely a discrete sampling of the (continuous) focal-plane image, with sampling interval equal to the pixel scale. Applying the theorem directly:
+Take one row of pixels along $\theta$, a distance $\theta_{\rm pix}$ apart. The recorded image is the true one times a row of spikes at the pixel centres, $I(\theta)\sum_j\delta(\theta-j\theta_{\rm pix})$. The row of spikes repeats every $\theta_{\rm pix}$, so it is a Fourier series,
+\begin{equation}
+	\sum_{j=-\infty}^{\infty}\delta(\theta-j\theta_{\rm pix})=\frac{1}{\theta_{\rm pix}}\sum_{j'=-\infty}^{\infty}e^{2\pi ij'\theta/\theta_{\rm pix}},
+	\label{re:eq:comb}
+\end{equation}
+where each coefficient is $(1/\theta_{\rm pix})\int_{-\theta_{\rm pix}/2}^{\theta_{\rm pix}/2}\delta(\theta)\,e^{-2\pi ij'\theta/\theta_{\rm pix}}d\theta=1/\theta_{\rm pix}$. The transform of the recorded image is
+\begin{align}
+	\int I(\theta)\sum_j\delta(\theta-j\theta_{\rm pix})\,e^{-2\pi iu\theta}\,d\theta
+	&\eqby{1} \frac{1}{\theta_{\rm pix}}\sum_{j'}\int I(\theta)\,e^{-2\pi i(u-j'/\theta_{\rm pix})\theta}\,d\theta
+	\eqby{2} \frac{1}{\theta_{\rm pix}}\sum_{j'}\tilde I\!\left(u-\frac{j'}{\theta_{\rm pix}}\right).
+	\label{re:eq:sampled_spectrum}
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{re:eq:comb}, and the two exponentials combined.
+	\item The definition of $\tilde I$, shifted by $j'/\theta_{\rm pix}$.
+\end{explain}
+Sampling makes copies of the true spectrum, spaced $1/\theta_{\rm pix}$ apart. Each copy runs from $-u_{\max}$ to $+u_{\max}$. They do not overlap if $1/\theta_{\rm pix}\ge2u_{\max}$. Then the copy with $j'=0$ is the true spectrum, untouched, between $\pm1/(2\theta_{\rm pix})$, and the image can be rebuilt exactly. Keeping only that copy and transforming back gives
+\begin{equation}
+	I(\theta)=\sum_j I(j\theta_{\rm pix})\,\frac{\sin\left(\pi(\theta-j\theta_{\rm pix})/\theta_{\rm pix}\right)}{\pi(\theta-j\theta_{\rm pix})/\theta_{\rm pix}},
+	\label{re:eq:sinc_interpolation}
+\end{equation}
+since a flat band of width $1/\theta_{\rm pix}$ transforms into the slit pattern of Eq.~\eqref{re:eq:slit_field}. If the copies overlap, a ripple at a frequency $u$ just above $1/(2\theta_{\rm pix})$ is recorded as one at $u-1/\theta_{\rm pix}$. At every pixel, $\cos(2\pi uj\theta_{\rm pix})=\cos(2\pi(u-1/\theta_{\rm pix})j\theta_{\rm pix})$, because the two phases differ by $2\pi j$, a whole number of turns. This false ripple is \textbf{aliasing}, the backward wagon wheel. Real pixels collect light over their whole width rather than at a point. That multiplies the spectrum by a slit pattern, which lowers the fine ripples a little but does not change the condition.
+
+With $u_{\max}=D/\lambda$ from Eq.~\eqref{re:eq:u_max}, the \textbf{Nyquist--Shannon} condition $\theta_{\rm pix}\le1/(2u_{\max})$ becomes
 \begin{keyresult}
 	\begin{equation}
-		\text{Pixel Scale} \le \frac{1}{2f_{\max}} \sim \frac{\theta_{\rm res}}{2}.
+		\theta_{\rm pix} \le \frac{\lambda}{2D} = \frac{\theta_R}{2.44}.
 		\label{eq:nyquist_sampling_criterion}
 	\end{equation}
 \end{keyresult}
-That is, there must be at least \textbf{two detector pixels across the resolution element} ($\mathrm{FWHM} \approx \theta_{\rm res}$).
+The FWHM of the Airy pattern is $1.03\lambda/D$, so this asks for about \textbf{two pixels across the FWHM}. The common rule of two pixels across $\theta_R$ itself is a little too coarse. A row along the other axis of the detector obeys the same condition.
 
 \subsection{Configuration Critique: Comparison of Pixel Scale and Diffraction Limit}
 
-In the telescope configuration analyzed above:
-\begin{itemize}
-	\item The pixel scale is:
-	\[
-	\text{Pixel Scale} = \frac{y}{F}\bigg\lvert_{y=p} = 2.06''/\mathrm{pixel}.
-	\]
-	\item The diffraction-limited resolution is:
-	\[
-	\theta_{\rm res} = 1.22\frac{\lambda}{D} = 0.42''.
-	\]
-\end{itemize}
-The Nyquist sampling criterion requires:
+The $30\,\mathrm{cm}$ telescope of Figure~\ref{fig:cassegrain_geometry}, with a flat secondary, $F=2\,\mathrm m$ and $20\,\mu\mathrm m$ pixels, has
 \[
-\text{Pixel Scale} \le \frac{\theta_{\rm res}}{2} = \frac{0.42''}{2} = 0.21'',
+\theta_{\rm pix}=2.06''\ \text{per pixel},\qquad \theta_R=0.42''\ \text{at}\ 500\,\mathrm{nm}.
 \]
-which is \textbf{not respected}. 
+Their ratio is
+\begin{equation}
+	\boxed{\frac{\theta_{\rm pix}}{\theta_R} = \frac{2.06''}{0.42''} = 4.9 .}
+	\label{eq:pixel_diffraction_ratio}
+\end{equation}
+One pixel spans almost five Airy radii. Eq.~\eqref{eq:nyquist_sampling_criterion} asks for $\theta_{\rm pix}\le\lambda/(2D)=0.17''$, twelve times finer than the pixels give. The same comparison in the focal plane reads more simply. The first dark ring has the radius $1.22\lambda F/D=4.1\,\mu\mathrm m$, and Nyquist sampling would need pixels of $\lambda F/(2D)=1.7\,\mu\mathrm m$. The whole Airy disc falls inside one $20\,\mu\mathrm m$ pixel. The image is badly \emph{undersampled}. Its fine detail is aliased, and the position of a star cannot be measured to a fraction of the diffraction blur.
 
-Evaluating the ratio of the two quantities:
-\begin{keyresult}
-	\begin{equation}
-		\frac{\text{Pixel Scale}}{\theta_{\rm res}} = \frac{2.06}{0.42} \simeq 4.9.
-		\label{eq:pixel_diffraction_ratio}
-	\end{equation}
-\end{keyresult}
-Thus, \textbf{one pixel covers almost five diffraction-limited resolution elements}, which represents a severely \emph{undersampled} configuration. High spatial frequencies are permanently lost to digital aliasing, and point sources cannot be astrometrically centroided to sub-diffraction accuracy.
+Keeping these pixels, Nyquist sampling at $500\,\mathrm{nm}$ would need an effective focal length of $20\,\mu\mathrm m/(\lambda/2D)=24\,\mathrm m$, which a convex secondary of magnification $12$ could give, Eq.~\eqref{re:eq:f_eff}. From the ground, the seeing of Section~\ref{sec:seeing}, about $1''$, is the real blur. Two pixels across $1''$ need $\theta_{\rm pix}\le0.5''$, so $F_{\rm eff}\ge8.3\,\mathrm m$. Even then this telescope at $F=2\,\mathrm m$ undersamples by a factor of four.
 
 \begin{table}[htbp]
 	\centering
 	\small
-	\begin{tabular}{lp{5.5cm}p{6.0cm}}
+	\begin{tabular}{lp{4.6cm}p{6.6cm}}
 		\toprule
-		\textbf{Sampling Regime} & \textbf{Condition} & \textbf{Observational Consequences} \\
+		\textbf{Sampling regime} & \textbf{Condition} & \textbf{Consequences} \\
 		\midrule
-		\textbf{Critically Sampled} & $\text{Pixel Scale} \approx \theta_{\rm res}/2$ & Preserves all spatial frequencies without wasting detector area. \\
-		\textbf{Undersampled} & $\text{Pixel Scale} > \theta_{\rm res}/2$ & Causes aliasing, jagged stellar profiles, and astrometric centroid degradation. \\
-		\textbf{Oversampled} & $\text{Pixel Scale} \ll \theta_{\rm res}/2$ & Spreads light over excessive pixels, increasing total readout noise penalty $\sqrt{n_{\rm pix}}\sigma_{\rm RON}$. \\
+		\textbf{Critically sampled} & $\theta_{\rm pix} \approx \lambda/(2D)$ & Keeps every spatial frequency without wasting detector area. \\
+		\textbf{Undersampled} & $\theta_{\rm pix} > \lambda/(2D)$ & Aliasing, blocky star images, and poorer star positions. \\
+		\textbf{Oversampled} & $\theta_{\rm pix} \ll \lambda/(2D)$ & Spreads the light over many pixels, each adding read noise, $\sqrt{n_{\rm pix}}\,\sigma_{\rm RON}$ in total (Eq.~\eqref{eq:sigma_read}). \\
 		\bottomrule
 	\end{tabular}
-	\caption{Comparison of digital detector sampling regimes in astronomical imaging.}
+	\caption{The three sampling regimes of a detector, for a diffraction-limited image.}
 	\label{tab:sampling_regimes}
 \end{table}
 
+% ==============================================================================
 \section{Atmospheric Seeing, PSF Profiles, and Adaptive Optics}
 \label{sec:seeing}
 
-We opened this chapter (Section~\ref{sec:windows}) by noting that the optical window is \emph{transparent} --- visible light is not absorbed on its way down. Transparency, however, is not the same as stillness. The same atmosphere that lets the light through is also turbulently mixing pockets of air at slightly different temperatures (and hence slightly different refractive indices) along the line of sight. A telescope's diffraction limit $\theta_{\rm res} = 1.22\lambda/D$ from Section~\ref{sec:diffraction} is only achieved if the incoming wavefront is genuinely flat when it reaches the aperture; from the ground, it rarely is.
+The optical window lets visible light through the air (Section~\ref{sec:windows}), and a telescope resolves $1.22\lambda/D$ when the wavefront reaching it is flat, Eq.~\eqref{eq:rayleigh_criterion_result}.
 
-\subsection{Atmospheric Seeing and the Fried Parameter ($r_0$)}
+From the ground the wavefront is not flat. Transparent air is not still air. On an ordinary night an $8\,\mathrm m$ telescope shows stars no sharper than a $10\,\mathrm{cm}$ one.
 
-For ground-based optical telescopes, turbulent temperature and density variations in the Earth's atmosphere continuously perturb the local refractive index along the line of sight, so a wavefront that left a star perfectly flat arrives at the ground with small, randomly-varying extra path delays across its width. The \textbf{Fried coherence parameter} $r_0$ is defined as the transverse separation over which the root-mean-square phase difference across the wavefront reaches of order $1\,\mathrm{radian}$ (typically $r_0 \sim 10\text{--}20\,\mathrm{cm}$ in the $V$-band at premier mountain observatories): patches of the wavefront closer together than $r_0$ are still mutually coherent and interfere constructively as in an undisturbed Airy pattern, while patches separated by more than $r_0$ have essentially independent, uncorrelated phases. The full theory of how $r_0$ follows from the statistics of atmospheric (Kolmogorov) turbulence is beyond our present scope, but the qualitative consequence is immediate: an aperture larger than $r_0$ is effectively not one coherent aperture of diameter $D$ but a patchwork of $\sim(D/r_0)^2$ independently-phased sub-apertures of size $r_0$ each. For any telescope with aperture diameter $D > r_0$, the delivered angular resolution is therefore limited not by $D$ (as Eq.~\eqref{eq:rayleigh_criterion_result} would suggest) but by the effective aperture $r_0$, via the same diffraction relation with $D\to r_0$:
+Look at a coin at the bottom of a swimming pool while the surface ripples. The coin wobbles and blurs. Each ripple acts as a weak lens and bends the light a little, and the ripples keep moving. Over a hot road in summer the far cars shimmer for the same reason.
+
+The air above a telescope is a pool of warm and cool pockets, each with a slightly different refractive index. The idea is that the sharpness is set by the size $r_0$ of the patch of air over which the wavefront stays flat to about a radian, and not by the size of the mirror.
+
+At $500\,\mathrm{nm}$ with $r_0=10\,\mathrm{cm}$ the blur is about $0.98\lambda/r_0=1.0''$. An $8\,\mathrm m$ mirror could reach $1.22\lambda/D=0.016''$, sixty times sharper, if the air were still.
+
+The picture is a wrinkled wavefront falling on a large mirror. Over any patch of size $r_0$ it is nearly flat, but neighbouring patches are tilted different ways.
+
+Stars twinkle for the same reason, and so does the heat haze over a road. The ratio $D/r_0$ decides the regime, P6 again. For $D<r_0$ a telescope is limited by diffraction, and for $D>r_0$ by the air. It gives the seeing angle and how it changes with wavelength, the profile of a star seen through the air, and the way adaptive optics removes the blur.
+
+\subsection{Atmospheric Seeing and the Fried Parameter}
+
+Turbulence mixes air of slightly different temperatures and so of different refractive index. A wavefront that left the star flat reaches the ground with small random extra paths across it. The \textbf{Fried parameter} $r_0$ is the distance across the wavefront over which the phase difference grows to about one radian. Typical values are $10$ to $20\,\mathrm{cm}$ in the $V$ band at the best mountain sites. Patches closer than $r_0$ still add in phase as in an undisturbed Airy pattern. Patches farther apart have unrelated phases. So a mirror larger than $r_0$ acts like about $(D/r_0)^2$ separate small mirrors of size $r_0$, and the blur is that of diffraction by $r_0$, not by $D$.
+
+\paragraph{How $r_0$ changes with wavelength.} Kolmogorov's theory of turbulence, which we quote, gives the mean square difference in extra path between two points a distance $r$ apart as $C\,r^{5/3}$. The constant $C$ measures the strength of the turbulence, and it hardly depends on wavelength, because the refractive index of air changes little across the optical and infrared. The phase is $k=2\pi/\lambda$ times the path. Fried wrote the mean square phase difference as $6.88\,(r/r_0)^{5/3}$, with the number chosen so that $r_0$ is the diameter of a telescope whose diffraction blur matches the seeing. Then
+\begin{align}
+	6.88\left(\frac{r}{r_0}\right)^{5/3}
+	&\eqby{1} \left(\frac{2\pi}{\lambda}\right)^2C\,r^{5/3}
+	\quad\Longrightarrow\quad
+	r_0 \eqby{2} \left(\frac{6.88\,\lambda^2}{4\pi^2C}\right)^{3/5}\propto\lambda^{6/5}.
+	\label{re:eq:r0_scaling}
+\end{align}
+\begin{explain}
+	\item The mean square of $k$ times the path difference.
+	\item Cancel $r^{5/3}$ and raise both sides to the power $-3/5$.
+\end{explain}
+For a mirror larger than $r_0$, the full width at half maximum of the long-exposure star image is, from the same theory,
 \begin{keyresult}
 	\begin{equation}
-		\theta_{\rm seeing} \approx 0.98\frac{\lambda}{r_0} \sim 0.5''\text{--}1.5''.
+		\theta_{\rm see} \approx 0.98\frac{\lambda}{r_0} \approx 0.5''\text{--}1.5''.
 		\label{eq:seeing_resolution}
 	\end{equation}
 \end{keyresult}
-Because $r_0 \propto \lambda^{6/5}$, seeing improves at infrared wavelengths ($\theta_{\rm seeing} \propto \lambda^{-1/5}$).
+It is a width at half maximum, to be compared with the FWHM $1.03\lambda/D$ of the Airy pattern, not with its first dark ring. With $r_0\propto\lambda^{6/5}$, $\theta_{\rm see}\propto\lambda^{-1/5}$, so the seeing improves slowly toward the infrared. If $r_0=10\,\mathrm{cm}$ at $500\,\mathrm{nm}$, then at $2.2\,\mu\mathrm m$ (the $K$ band) $r_0=10\times4.4^{6/5}\,\mathrm{cm}=59\,\mathrm{cm}$ and $\theta_{\rm see}=0.75''$, against $1.0''$ at $500\,\mathrm{nm}$.
 
 \subsection{Point Spread Function (PSF) Profiles: The Moffat Function}
 
-Turbulent atmospheric scattering smears the theoretical Airy disk into a broader Point Spread Function (PSF). Astronomers parameterize this profile using the \textbf{Moffat function}:
+Seeing turns the Airy pattern into a wider round blob with broad wings. Astronomers fit it with the \textbf{Moffat function},
 \begin{equation}
-	I(r) = I_0 \left[1 + \left(\frac{r}{\alpha}\right)^2\right]^{-\beta}, \qquad \mathrm{FWHM} = 2\alpha\sqrt{2^{1/\beta}-1},
+	I(\theta) = I_0 \left[1 + \left(\frac{\theta}{\theta_{\rm M}}\right)^2\right]^{-\beta_{\rm M}},
 	\label{eq:moffat_function}
 \end{equation}
-where $\beta \approx 2.5\text{--}4.5$ captures the extended scattering wings produced by Kolmogorov turbulence.
+with a core width $\theta_{\rm M}$ and a power $\beta_{\rm M}$. Fits to real stars give $\beta_{\rm M}$ between about $2.5$ and $4.5$. Far from the core the profile falls as the power law $\theta^{-2\beta_{\rm M}}$, much more slowly than a Gaussian. The width at half maximum follows from setting $I=I_0/2$,
+at the half width $\theta_{1/2}$,
+\begin{align}
+	\left(\frac{\theta_{1/2}}{\theta_{\rm M}}\right)^2 &\eqby{1} 2^{1/\beta_{\rm M}}-1, \nonumber\\
+	\mathrm{FWHM}=2\theta_{1/2} &\eqby{2} 2\theta_{\rm M}\sqrt{2^{1/\beta_{\rm M}}-1}.
+	\label{re:eq:moffat_fwhm}
+\end{align}
+\begin{explain}
+	\item $[1+(\theta_{1/2}/\theta_{\rm M})^2]^{-\beta_{\rm M}}=\tfrac12$ from Eq.~\eqref{eq:moffat_function}, raised to the power $-1/\beta_{\rm M}$, then $1$ subtracted.
+	\item The square root, and the full width is twice the half width.
+\end{explain}
+As $\beta_{\rm M}\to\infty$ with $\theta_{\rm M}^2/\beta_{\rm M}$ fixed, $(1+\theta^2/\theta_{\rm M}^2)^{-\beta_{\rm M}}\to\exp(-\beta_{\rm M}\theta^2/\theta_{\rm M}^2)$, a Gaussian. A finite $\beta_{\rm M}$ keeps the wings.
 
 \subsection{Adaptive Optics (AO)}
 
-Adaptive Optics systems restore diffraction-limited performance to ground-based telescopes in real time:
+Adaptive optics removes the blur of the air as it happens.
 \begin{enumerate}
-	\item A \textbf{Wavefront Sensor} (e.g., Shack--Hartmann lenslet array) measures instantaneous phase distortions $\Delta\phi(\mathbf r, t)$ at kHz frequencies using a bright Natural Guide Star (NGS) or Sodium Laser Guide Star (LGS, $\lambda = 589\,\mathrm{nm}$ resonant excitation at $\sim 90\,\mathrm{km}$ altitude).
-	\item A real-time computer calculates the required phase conjugation.
-	\item A \textbf{Deformable Mirror} (with hundreds to thousands of piezoelectric actuators) physically adjusts its surface profile to cancel out the atmospheric optical path difference.
+	\item A \textbf{wavefront sensor}, such as a Shack--Hartmann array of small lenses, measures the tilt of the wavefront over each patch, using a bright natural guide star or a laser guide star. The laser excites sodium atoms in a layer at about $90\,\mathrm{km}$ height, at $589\,\mathrm{nm}$, one of the D lines resolved above.
+	\item A fast computer works out the shape that cancels the measured errors.
+	\item A \textbf{deformable mirror}, with hundreds to thousands of actuators, takes that shape and removes the extra paths.
 \end{enumerate}
-This restores the sharp $\theta \approx \lambda/D$ diffraction core on 8--30 meter class telescopes, providing space-quality resolution from the ground.
+The numbers follow from $r_0$. An $8\,\mathrm m$ mirror with $r_0=10\,\mathrm{cm}$ has $(8/0.1)^2=6400$ patches, which is why so many actuators are needed, and fewer in the infrared, where $r_0$ is larger. The wind blows the pattern past at about $10\,\mathrm{m\,s^{-1}}$, so it changes in about $0.31\,r_0/(10\,\mathrm{m\,s^{-1}})=3\,\mathrm{ms}$, and the loop must run at about a kilohertz. With the correction on, $8$ to $30\,\mathrm m$ telescopes recover a core of width close to $\lambda/D$ from the ground.
 
-
+% ==============================================================================
 \section{Problem Set: Interferometric Baselines, Optics, and Resolution}
 
 \subsection{Problem 1: GMRT to Ooty Radio Interferometer Baseline and Resolution}
-\textbf{Problem Statement}: Find latitude and longitude of GMRT and
-Ooty Radio Telescope from Google Maps. (a) What is the straight-line
-distance between them? (b) If we do very-long-baseline interferometry
-between these telescopes at $1000\text{ MHz}$, what is the best
-resolution we can get?
+\label{re:prob:gmrt}
 
-\textbf{Essential Ideas}: The straight line (shortest distance in 3D) between them can be given by measuring the chord distance between them:
+\textbf{Problem Statement}: Find the latitude and longitude of the Giant Metrewave Radio Telescope (GMRT) and of the Ooty Radio Telescope from a map.
+\begin{enumerate}[label=(\alph*)]
+	\item What is the straight-line distance between them?
+	\item If we do very-long-baseline interferometry between these telescopes at $1000\,\mathrm{MHz}$, what is the best resolution we can get?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item Each station is a unit vector, Eq.~\eqref{eq:earth_station_vector}. The central angle $\gamma$ follows from Eq.~\eqref{eq:earth_central_angle}, or better from its haversine form, Eq.~\eqref{re:eq:station_haversine}.
+	\item The shortest distance in three dimensions is the chord through the Earth, $B=2R_E\sin(\gamma/2)$, Eq.~\eqref{eq:chord_baseline_formula}.
+	\item The baseline sets the resolution, Eq.~\eqref{eq:interferometric_resolution_formula},
+	\begin{equation}
+		\theta \simeq \frac{\lambda}{B}.
+		\label{eq:interferometric_res_approx}
+	\end{equation}
+\end{itemize}
 
 \begin{figure}[H]
-    \centering
-    \begin{minipage}[c]{0.40\textwidth}
-        \includegraphics[width=\linewidth]{obs_vlbi_ggos_web_v2-1024x949.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{0.55\textwidth}
-    \centering
-    \usetikzlibrary{angles, quotes, calc, decorations.pathreplacing}
-    \includegraphics{fig_ch5_prob_chord_distance.pdf}
-\end{minipage}
+	\centering
+	\begin{minipage}[c]{0.40\textwidth}
+		\includegraphics[width=\linewidth]{obs_vlbi_ggos_web_v2-1024x949.png}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{0.55\textwidth}
+		\centering
+		\includegraphics{fig_ch5_prob_chord_distance.pdf}
+	\end{minipage}
+	\caption{Left, the global VLBI network. Right, the chord between two stations $P_1$ and $P_2$ on a sphere of radius $R_E$, with the central angle $\gamma$ and the midpoint $M$.}
+	\label{re:fig:prob_chord}
 \end{figure}
 
-The baseline length $B$ determines the
-angular resolution approximately as
-\[
-\theta\simeq\frac{\lambda}{B}.
-\]
-
 \textbf{Detailed Solutions}:
-\begin{itemize}
-
-    \item[(a)] \textbf{Baseline Distance:}
-
-    The coordinates $(\phi,\lambda)$ are approximately
-    \begin{figure}[H]
-    	\centering
-    	\begin{minipage}[c]{0.35\textwidth}
-    		\[
-    		\begin{aligned}
-    			\text{GMRT}:&\quad
-    			(19.09^\circ\text{N},\,74.05^\circ\text{E}),\\
-    			\text{Ooty}:&\quad
-    			(11.38^\circ\text{N},\,76.66^\circ\text{E}).
-    		\end{aligned}
-    		\]
-    	\end{minipage}
-    	\begin{minipage}[c]{0.55\textwidth}
-    		\includegraphics{fig_ch5_prob_sphere_arc.pdf}
-    	\end{minipage}
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Baseline distance}. The coordinates $(\phi,\Lambda)$ are about
+	\[
+	\text{GMRT}\ (19.09^\circ\mathrm N,\ 74.05^\circ\mathrm E),\qquad \text{Ooty}\ (11.38^\circ\mathrm N,\ 76.66^\circ\mathrm E).
+	\]
+	\begin{figure}[H]
+		\centering
+		\includegraphics{fig_ch5_prob_sphere_arc.pdf}
+		\caption{A point $P$ on a sphere, its unit vector, its foot $P'$ in the equatorial plane, its latitude $\phi$ and its longitude (marked $\lambda$).}
+		\label{re:fig:prob_sphere_arc}
 	\end{figure}
+	The differences are $\phi_1-\phi_2=7.71^\circ$ and $\Lambda_2-\Lambda_1=2.61^\circ$. With $\cos\phi_1\cos\phi_2=0.94501\times0.98034=0.92643$, Eq.~\eqref{re:eq:station_haversine} gives
+	\begin{align}
+		\sin^2\frac{\gamma}{2}
+		&= \sin^2(3.855^\circ)+0.92643\,\sin^2(1.305^\circ) \nonumber\\
+		&= 0.0045201+0.92643\times0.00051868 = 0.0050006, \nonumber
+	\end{align}
+	so $\sin(\gamma/2)=0.070715$ and $\gamma=8.110^\circ$. By Eq.~\eqref{eq:chord_baseline_formula} with $R_E=6371\,\mathrm{km}$,
+	\[
+	\boxed{B = 2\times6371\,\mathrm{km}\times0.070715 = 901.1\,\mathrm{km}.}
+	\]
+	The cosine form, Eq.~\eqref{eq:earth_central_angle}, gives $\cos\gamma=0.9899988$. Rounded to $0.9899$ it would give $B=905.5\,\mathrm{km}$, $4\,\mathrm{km}$ too long. A cosine near $1$ loses the digits that matter, which is why the haversine form is used.
 
-    We can calculate the angle between these two coordinates by following the same method as before with $\delta=\phi$ and $\alpha=\lambda$:
-    \begin{align}
-            \cos\gamma&=\begin{pmatrix}
-\cos\phi_1\cos\lambda_1&
-\cos\phi_1\sin\lambda_1&
-\sin\phi_1
-\end{pmatrix}\begin{pmatrix}
-\cos\phi_2\cos\lambda_2\\
-\cos\phi_2\sin\lambda_2\\
-\sin\phi_2
-\end{pmatrix}\notag\\
-&=
-    \sin\phi_1\sin\phi_2+
-    \cos\phi_1\cos\phi_2\cos(\lambda_2-\lambda_1).
-    \end{align}
-
-    The corresponding straight-line distance is
-    \[
-    C=2R_E\sin\left(\frac{\gamma}{2}\right),
-    \qquad R_E=6371\text{ km}.
-    \]
-    This gives approximately
-    \[
-    \boxed{C\simeq904.5\text{ km}}.
-    \]
-
-    \item[(b)] \textbf{Angular Resolution:}
-
-    At
-    \[
-    f=1000\text{ MHz}=10^9\text{ Hz},
-    \]
-    the observing wavelength is
-    \[
-    \lambda=\frac{c}{f}
-    =\frac{3\times10^8}{10^9}
-    =0.30\text{ m}.
-    \]
-
-    Taking the baseline as $B\simeq904.5\text{ km}
-    =9.045\times10^5\text{ m}$,
-    \[
-    \theta\simeq\frac{\lambda}{B}
-    =\frac{0.30}{9.045\times10^5}
-    \simeq3.32\times10^{-7}\text{ rad}.
-    \]
-
-    Converting to milliarcseconds,
-    \[
-    \theta
-    \simeq3.32\times10^{-7}
-    \left(\frac{180}{\pi}\right)
-    (3.6\times10^6)
-    \simeq68.4\text{ mas}.
-    \]
-\end{itemize}
+	\item \textbf{Angular resolution}. At $\nu=1000\,\mathrm{MHz}=10^9\,\mathrm{Hz}$ the wavelength is
+	\[
+	\lambda=\frac{c}{\nu}=\frac{2.998\times10^8\,\mathrm{m\,s^{-1}}}{10^9\,\mathrm{Hz}}=0.2998\,\mathrm m .
+	\]
+	With $B=9.011\times10^5\,\mathrm m$, Eq.~\eqref{eq:interferometric_res_approx} gives
+	\[
+	\theta\simeq\frac{0.2998}{9.011\times10^5}=3.327\times10^{-7}\,\mathrm{rad}.
+	\]
+	With $1\,\mathrm{rad}=2.06265\times10^8\,\mathrm{mas}$,
+	\[
+	\boxed{\theta \simeq 68.6\,\mathrm{mas}.}
+	\]
+	A single dish would need to be $900\,\mathrm{km}$ wide to do as well. The pair records only the sky's ripples at this one baseline, Eq.~\eqref{re:eq:correlator_sky}, so a real image needs many such pairs.
+\end{enumerate}
 
 \subsection{Problem 2: Cassegrain Reflector Optics, Pixel Scale, and Sampling}
-\textbf{Problem Statement}: The focal length of the primary mirror is $2\text{ m}$. (1) What are the lengths shown as ``b'' and ``a''? (2) We put a CCD at the focal plane with pixel size $20\ \mu\text{m}$. What is the pixel scale? (3) What is the resolution of this telescope at $500\text{ nm}$ wavelength? (4) Compare diffraction-limited resolution and pixel scale. Is this a good configuration?
+\label{re:prob:cassegrain}
+
+\textbf{Problem Statement}: A Cassegrain telescope has a primary mirror of diameter $30\,\mathrm{cm}$ and focal length $2\,\mathrm m$, and a flat secondary $0.75\,\mathrm m$ in front of the primary (Figure~\ref{re:fig:prob_cassegrain}).
+\begin{enumerate}[label=(\alph*)]
+	\item What are the lengths shown as $b$ and $a$?
+	\item We put a CCD with pixels $20\,\mu\mathrm m$ wide at the focal plane. What is the pixel scale?
+	\item What is the resolution of this telescope at $500\,\mathrm{nm}$?
+	\item Compare the diffraction-limited resolution with the pixel scale. Is this a good configuration?
+\end{enumerate}
 
 \begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\includegraphics{fig_ch5_prob_cassegrain_optics.pdf}
-}
-\caption{Cassegrain reflector telescope}
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\includegraphics{fig_ch5_prob_cassegrain_optics.pdf}%
+	}
+	\caption{The Cassegrain telescope of the problem, with the secondary of diameter $b$ at $0.75\,\mathrm m$ from the primary and $1.25\,\mathrm m$ from the primary focus, and the unknown distance $a$ from the primary to the CCD.}
+	\label{re:fig:prob_cassegrain}
 \end{figure}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item Similar triangles in the converging cone give the size of the secondary, $b=D(1-d_2/F)$, Eq.~\eqref{re:eq:secondary_size}. A flat secondary puts the focus at $a=F-2d_2$ behind the primary, Eq.~\eqref{re:eq:cass_flat}, and leaves the focal length unchanged.
+	\item A pixel of width $y_{\rm pix}$ covers $\theta_{\rm pix}=y_{\rm pix}/F$, Eq.~\eqref{eq:pixel_scale_lvert}.
+	\item A round mirror resolves $\theta_R=1.22\lambda/D$, Eq.~\eqref{eq:rayleigh_criterion_result}, and Nyquist sampling needs $\theta_{\rm pix}\le\lambda/(2D)$, Eq.~\eqref{eq:nyquist_sampling_criterion}.
+\end{itemize}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics{fig_ch5_prob_chief_rays.pdf}
-    \caption{Ray diagram illustrating angular resolution of two point sources, highlighting the central chief rays while marginal rays are faded for visual clarity.}
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch5_prob_chief_rays.pdf}
+	\caption{Two point sources $A$ and $B$ at the angle $\theta$, a lens of focal length $F$, and their images a height $y$ apart. The chief rays are dark, and the edge rays faded.}
+	\label{re:fig:prob_chief_rays}
 \end{figure}
-Plate scale relates the angular field of view of a frame, $d\theta$, (typically measured in arcseconds), to the size of the detector, $ds$, either in terms of a physical dimension (typically millimetres) or per pixel and is defined as $P=\dv{\theta}{s}=\frac{\theta}{y}$, where $\theta$ is measured in arcsec $(=\frac{1}{3600}^{\circ})$.
-
-The pixel scale is the angular extent corresponding to a single physical pixel, and can be defined as $\theta_{\rm pix}=\frac{y_{\rm pix}}{F}=\frac{p}{F}.$ From geometry, we have:
-\begin{align}
-    \tan\theta\approx\theta= \frac{y}{F}\implies\frac{1}{F}=\frac{\theta}{y}.
-\end{align}
-which relates the two scales.
 
 \textbf{Detailed Solutions}:
-\begin{itemize}
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{The lengths $b$ and $a$}. With $D=30\,\mathrm{cm}$, $F=2.0\,\mathrm m$ and $d_2=0.75\,\mathrm m$, the secondary is $F-d_2=1.25\,\mathrm m$ from the primary focus. By Eq.~\eqref{re:eq:secondary_size},
+	\[
+	b=30\,\mathrm{cm}\times\frac{1.25}{2.0}=18.75\,\mathrm{cm}.
+	\]
+	The flat secondary forms the image $1.25\,\mathrm m$ in front of itself. The primary is $0.75\,\mathrm m$ away, so by Eq.~\eqref{re:eq:cass_flat}
+	\[
+	a=1.25\,\mathrm m-0.75\,\mathrm m=0.50\,\mathrm m .
+	\]
+	\[
+	\boxed{b=18.75\,\mathrm{cm},\qquad a=0.50\,\mathrm m .}
+	\]
+	The secondary blocks $(b/D)^2=(0.625)^2=39\%$ of the mirror's area. A convex secondary closer to the primary focus would block less and lengthen the focal length.
 
-    \item[(1)] \textbf{Lengths $a$ and $b$:}
+	\item \textbf{Pixel scale}. The flat secondary leaves $F=2\,\mathrm m$. With $y_{\rm pix}=20\times10^{-6}\,\mathrm m$, Eq.~\eqref{eq:pixel_scale_lvert} gives
+	\[
+	\theta_{\rm pix}=\frac{20\times10^{-6}\,\mathrm m}{2\,\mathrm m}=1.0\times10^{-5}\,\mathrm{rad}.
+	\]
+	With $1\,\mathrm{rad}=206\,265''$,
+	\[
+	\boxed{\theta_{\rm pix}=2.06''\ \text{per pixel}.}
+	\]
 
-    The primary mirror has diameter
-    \[
-    D=30\text{ cm}
-    \]
-    and focal length
-    \[
-    F=2.0\text{ m}.
-    \]
-    Since the secondary mirror is $0.75\text{ m}$ from the primary,
-    it lies
-    \[
-    F-0.75=1.25\text{ m}
-    \]
-    from the primary focus.
+	\item \textbf{Diffraction-limited resolution}.
+	\begin{figure}[H]
+		\centering
+		\includegraphics{fig_ch5_prob_diffraction_sinc.pdf}
+		\caption{Two diffraction patterns whose central maxima are $1.22\lambda/D$ apart.}
+		\label{re:fig:prob_diffraction_sinc}
+	\end{figure}
+	With $\lambda=500\times10^{-9}\,\mathrm m$ and $D=0.30\,\mathrm m$, Eq.~\eqref{eq:rayleigh_criterion_result} gives
+	\[
+	\theta_R=1.22\times\frac{500\times10^{-9}}{0.30}\,\mathrm{rad}=2.03\times10^{-6}\,\mathrm{rad},
+	\qquad
+	\boxed{\theta_R=2.03\times10^{-6}\times206\,265''=0.42''.}
+	\]
 
-    Using similar triangles,
-    \[
-    \frac{b}{D}
-    =\frac{1.25}{2.0},
-    \]
-    so
-    \[
-    b=30\left(\frac{1.25}{2.0}\right)
-    =18.75\text{ cm}.
-    \]
-
-    The folded path from the secondary to the focus is $1.25\text{ m}$.
-    Since the primary--secondary separation is $0.75\text{ m}$,
-    \[
-    a=1.25-0.75=0.50\text{ m}.
-    \]
-    
-    \item[(2)] \textbf{Pixel Scale:}
-
-    For a focal length $F$, a pixel of physical size $p$ subtends
-    the angle
-    \[
-    \theta_{\rm pix}\simeq\frac{y}{F}\bigg\lvert_{y=p}.
-    \]
-    With
-    \[
-    p=20\,\mu\text{m}=20\times10^{-6}\text{ m},
-    \qquad F=2\text{ m},
-    \]
-    we get
-    \[
-    \theta_{\rm pix}
-    =\frac{20\times10^{-6}}{2}
-    =1.0\times10^{-5}\text{ rad}.
-    \]
-    Using $1\text{ rad}=\frac{180\times 3600}{\pi }''=206265''$,
-    \[
-    \boxed{
-    \theta_{\rm pix}\simeq2.06''/\text{pixel}.
-    }
-    \]
-
-    \item[(3)] \textbf{Diffraction-Limited Resolution:}
-\begin{figure}[H]
-    \centering
-    \includegraphics{fig_ch5_prob_diffraction_sinc.pdf}
-\end{figure}
-    The angular resolution of a circular aperture is approximately
-    \[
-    \theta_{\rm diff}
-    =1.22\frac{\lambda}{D} \text{ rad.}
-    \]
-    For
-    \[
-    \lambda=500\text{ nm}=500\times10^{-9}\text{ m},
-    \qquad D=0.30\text{ m},
-    \]
-    \[
-    \theta_{\rm diff}
-    =1.22\frac{500\times10^{-9}}{0.30}\times \frac{180\times 3600}{\pi }''
-    \simeq2.03\times10^{-6}\times 206265''=0.42''.
-    \]
-
-    \item[(4)] \textbf{Comparison:}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\linewidth]{Diffraction.pdf}
-    \end{figure}
-    The pixel scale is
-    \[
-    \text{Pixel Scale}=\frac{y}{F}\bigg\lvert_{y=p}=2.06''/\text{pixel},
-    \]
-    whereas the diffraction-limited resolution is
-    \[
-    \theta_{\rm res}=1.22\frac{\lambda}{D}=0.42''.
-    \]
-    Nyquist sampling criterion requires
-    $$\text{Pixel Scale} \le \frac{\theta_{\rm res}}{2}$$
-    which is not respected. Their ratio is
-    \[
-    \frac{\text{Pixel Scale}}{\theta_{\rm res}}=\frac{2.06}{0.42}\simeq4.9.
-    \]
-
-    Thus one pixel covers almost five diffraction-limited resolution
-    elements which is bad. 
-\end{itemize}
+	\item \textbf{Comparison}.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{Diffraction.pdf}
+		\caption{The focal-plane Airy profiles of two sources $\theta_{\rm res}=1.22\lambda/D$ apart, formed by a lens of focal length $F$.}
+		\label{re:fig:prob_diffraction_diagram}
+	\end{figure}
+	The ratio of the pixel scale to the resolution is
+	\[
+	\frac{\theta_{\rm pix}}{\theta_R}=\frac{2.06''}{0.42''}=4.9 .
+	\]
+	Nyquist sampling needs $\theta_{\rm pix}\le\lambda/(2D)$, Eq.~\eqref{eq:nyquist_sampling_criterion},
+	\[
+	\frac{\lambda}{2D}=\frac{500\times10^{-9}}{0.60}\,\mathrm{rad}=8.3\times10^{-7}\,\mathrm{rad}=0.17''.
+	\]
+	\[
+	\boxed{\theta_{\rm pix}=2.06''\ \text{is}\ 12\ \text{times larger than the}\ 0.17''\ \text{needed}.}
+	\]
+	It is not a good configuration. One pixel covers almost five Airy radii, so the image is badly undersampled, its fine detail is aliased, and star positions are poor. Even the $1''$ seeing on the ground would need $\theta_{\rm pix}\le0.5''$, four times finer. A convex secondary that lengthens the focal length to about $8\,\mathrm m$ would match the pixels to the seeing, and $24\,\mathrm m$ to the diffraction limit (Section~\ref{sec:sampling}).
+\end{enumerate}

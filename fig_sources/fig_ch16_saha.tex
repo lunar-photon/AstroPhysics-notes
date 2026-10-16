@@ -1,0 +1,26 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{arrows.meta}
+\IfFileExists{results/ch16/a_of_t_lcdm.dat}{\def\datadir{results/ch16/}}{\def\datadir{../results/ch16/}}
+\begin{document}
+% Ionised fraction of hydrogen from the Saha equation (code/ch16/02_recombination.py, cluster).
+\begin{tikzpicture}[x=0.0085cm,y=4cm, >={Stealth[length=2.4mm]}]
+  \begin{scope}[shift={(-600,0)}]
+    \draw[linecol] (600,0) grid[xstep=200,ystep=0.25] (2000,1);
+    \draw[astroblue, line width=1.3pt] plot file {\datadir saha_x_of_z.dat};
+    \draw[->, muted] (600,0) -- (2060,0) node[right] {$z$};
+    \draw[->, muted] (600,0) -- (600,1.12) node[above] {$x$};
+    \foreach \z in {600,1000,1400,1800} \node[below, muted] at (\z,0) {\small \z};
+    \foreach \y in {0,0.5,1} \node[left, muted] at (600,\y) {\small \y};
+    \draw[accent, dashed] (600,0.5) -- (1370,0.5) -- (1370,0);
+    \draw[muted, dotted, line width=1pt] (1090,0) -- (1090,1);
+  \end{scope}
+\end{tikzpicture}
+\end{document}

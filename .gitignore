@@ -24,3 +24,6 @@
 Thumbs.db
 *~
 *.swp
+build/
+logs/
+tools/.limit_watchdog.pid

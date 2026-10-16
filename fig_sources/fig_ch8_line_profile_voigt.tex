@@ -70,6 +70,8 @@
 
 
 
+\IfFileExists{results/ch8/voigt.dat}{\def\datadir{results/ch8/}}{\def\datadir{../results/ch8/}}
+\definecolor{colthree}{RGB}{60,140,80}
 \begin{document}
 \begin{tikzpicture}[
 		scale=1.15,
@@ -87,6 +89,8 @@
 
 		\draw[very thick, accent, domain=-4.5:4.5, samples=200] plot (\x, {lorentzian(\x)});
 		\draw[very thick, astroblue, dashed, domain=-4.5:4.5, samples=200] plot (\x, {gaussian(\x)});
+		\draw[very thick, colthree, dotted] plot file {\datadir voigt.dat};
+		\node[colthree, font=\small\bfseries, align=center] at (-3.55,0.42) {Voigt};
 
 		\node[astroblue, font=\small\bfseries, align=center] at (-2.55,1.15) {Gaussian\\\footnotesize(Doppler)};
 		\node[accent, font=\small\bfseries, align=center] at (3.15,0.95) {Lorentzian\\\footnotesize(natural / pressure)};

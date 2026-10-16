@@ -91,7 +91,7 @@
     % Open Aperture Bracket
     \draw[decorate, decoration={brace, amplitude=6pt, mirror}, thick, incidentCol]
         (-0.25, \apertureBot) -- (-0.25, \apertureTop) 
-        node[midway, left=8pt, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] {Open Pupil ($t=1$)\\$A(x,y) = E_0$};
+        node[midway, left=8pt, fill=white, inner sep=2pt, font=\bfseries\scriptsize, align=center] {Open Pupil ($t=1$)\\$A(\xi,\eta) = E_0$};
 
     % 3. Huygens Point Sources & Secondary Wavelets
     \foreach \y [count=\idx] in {1.4, 0.7, 0, -0.7, -1.4} {
@@ -118,7 +118,7 @@
         node[below right=2pt and 0pt, font=\bfseries\scriptsize, waveletCol] {Diffracted Wavefront};
     
     \draw[line width=3.0pt, waveletCol] (H5) -- (Wbot);
-    \node[waveletCol, font=\bfseries\scriptsize, below=3pt, fill=white, inner sep=1pt] at ($(H5)!0.45!(Wbot)$) {$\Delta L = y\sin\theta$};
+    \node[waveletCol, font=\bfseries\scriptsize, below=3pt, fill=white, inner sep=1pt] at ($(H5)!0.45!(Wbot)$) {$\Delta L = \eta\sin\theta$};
 
     \pgfmathsetmacro{\sq}{0.18}
     \draw[thick, waveletCol] 

@@ -1,294 +1,708 @@
 \chapter{Astrometry: Distances, Motions, and the Space Velocity Vector}
+\label{ch:astrometry}
+\chaptermark{Astrometry: Distances and Motions}
 
-The coordinate systems of Chapter~2 fix a star's \emph{direction} on the sky but say nothing about its distance or its motion through space. Astrometry is the branch of astrophysics dedicated to precise measurements of the positions, distances, and kinematics of celestial bodies. By combining angular coordinates $(\alpha, \delta)$, trigonometric parallax ($p$), proper motions $(\mu_\alpha^*, \mu_\delta)$, and spectroscopic radial velocities ($v_r$), astronomers reconstruct the full six-dimensional phase-space distribution of stars in the Galaxy: position $\vecr = (x, y, z)$ and space velocity $\vec v = (v_x, v_y, v_z)$. In this chapter, we develop the foundations of astrometric measurements, distance determination, and 3D velocity reconstruction.
+Chapter~\ref{ch:coords} gives each star a direction on the sky, the two angles $(\alpha,\delta)$. To place the star in space we also need its distance, and to follow it in time we need its velocity. That makes six numbers, three for the position $\vecr$ and three for the velocity $\vec v$.
 
+Each of the six comes from its own measurement. The direction gives two. The \textbf{parallax}, the small yearly shift of the star as the Earth goes round the Sun, gives the distance. The \textbf{proper motion}, the slow drift of the star across the sky, gives two components of the velocity. The Doppler shift of the star's spectral lines gives the third, the speed along the line of sight. Six measurements for six unknowns, so the count closes, as the twelve constants of the two-body problem did in Chapter~\ref{ch:twobody}. Astrometry is the measurement of these small angles on the sky. With the six numbers we can map where the stars of the Galaxy are and where they are going.
+
+% ==============================================================================
 \section{Trigonometric Parallax and the Parsec}
+\label{as:sec:parallax}
 
-As the Earth orbits the Sun, a nearby star appears to trace a tiny elliptical path on the sky relative to distant background objects, for exactly the same reason that a nearby lamppost appears to shift against a distant skyline as you walk sideways past it. This apparent angular shift is the \emph{annual trigonometric parallax}, shown geometrically in Figure~\ref{fig:parallax_geometry}.
+Chapter~\ref{ch:coords} gives each star a direction, the unit vector $\hat{\mathbf r}_{\rm eq}$ of Eq.~\eqref{eq:unit_vector_eq}.
+
+A direction alone does not say how far away the star is. A faint star close by and a bright star far away can sit at the same point of the sky.
+
+Hold a thumb up at arm's length and look at it with the left eye, then with the right. The thumb jumps against the far wall, and the wall does not move. The eyes are about $6.5\,\mathrm{cm}$ apart and the thumb is about $65\,\mathrm{cm}$ away, so the jump is $0.065/0.65=0.1$ radian, about $6^\circ$. Bring the thumb closer and the jump grows. The jump and the gap between the eyes together give the distance to the thumb.
+
+The Earth's orbit gives the astronomer two eyes. In January and in July the Earth is on opposite sides of the Sun, $2\,\mathrm{AU}$ apart. A nearby star then jumps against the far background stars, which hardly move at all. The idea is that a distance is a baseline divided by an angle.
+
+The angles are far smaller than for the thumb. One second of arc is $1/206\,265$ of a radian, so a star at $206\,265\,\mathrm{AU}$ shifts by $1''$ when the observer moves sideways by $1\,\mathrm{AU}$. Sirius, one of the nearest stars, shifts by only $0.38''$.
+
+The picture is a very long and thin triangle. Its short side is the radius of the Earth's orbit, and the star sits at its far corner (Figure~\ref{fig:parallax_geometry}).
+
+A surveyor finds the distance to a far peak from the two ends of a measured line in the same way, and our two eyes judge depth by it. The angle is so small that its tangent can be replaced by the angle itself. That is P6, since the ratio $1\,\mathrm{AU}/d$ is far below one. The triangle gives the parallax, the parsec, and a rule for turning a noisy parallax into a distance.
 
 \begin{figure}[htbp]
 	\centering
 	\resizebox{\textwidth}{!}{%
 		\includegraphics{fig_ch3_parallax_geometry.pdf}%
 	}
-	\caption{Parallax geometry: Sun-Earth-star triangle (left) and its Earth-centered close-up (right), with baseline $1\,\mathrm{AU}$, distance $d$, and parallax angle $p$.}
+	\caption{Left, the Sun, the Earth in January and in July, a nearby star at distance $d$, and the star's two apparent positions on the far sky. Right, the same star seen from an Earth held fixed. The baseline is $1\,\mathrm{AU}$ and the angle at the star is the parallax $p$. The angles are drawn far larger than real ones.}
 	\label{fig:parallax_geometry}
 \end{figure}
 
-\begin{definition}[Trigonometric Parallax and Parsec]
-	Consider the right triangle formed by the Sun, the Earth, and a star at distance $d$, at the instant Earth's orbital position gives the maximum angular offset (when the Earth--Sun line is perpendicular to the line of sight, i.e.\ the Sun itself would appear $90^\circ$ from the star as seen from Earth). This triangle has a right angle at the Sun, an adjacent side of length $1\,\mathrm{AU}$ (the Earth--Sun distance), a hypotenuse $d$ (the Sun--star distance), and an angle $p$ at the star between the hypotenuse and the line to the Sun. Elementary trigonometry on this right triangle gives
+\paragraph{The triangle.} Take the moment when the line from the Sun to the Earth is at right angles to the line from the Sun to the star. The triangle Sun--Earth--star then has its right angle at the Sun (Figure~\ref{fig:parallax_geometry}, left). The side from the Sun to the Earth is $1\,\mathrm{AU}=1.495\,978\,707\times10^{11}\,\mathrm m$, the side from the Sun to the star is the distance $d$, and the angle at the star is the \textbf{parallax} $p$. So $\tan p=1\,\mathrm{AU}/d$, and
+\begin{align}
+	d
+	&= \frac{1\,\mathrm{AU}}{\tan p}
+	\eqby{1} 1\,\mathrm{AU}\left(\frac1p-\frac p3-\dots\right)
+	\eqby{2} \frac{1\,\mathrm{AU}}{p}\left(1-\frac{p^2}{3}-\dots\right).
+\end{align}
+\begin{explain}
+	\item The series $\cot p=1/p-p/3-p^3/45-\dots$, with $p$ in radians.
+	\item Taking $1/p$ out of the bracket.
+\end{explain}
+For $p=1''$ the correction $p^2/3$ is $7.8\times10^{-12}$, and every star has $p<1''$. So, with $p$ in radians,
+\begin{equation}
+	p = \frac{1\,\mathrm{AU}}{d}.
+	\label{eq:parallax_def}
+\end{equation}
+The same $p$ is the largest shift of the star from the place where it would appear if seen from the Sun. Over a year the star traces a small ellipse whose semi-major axis is $p$, Eq.~\eqref{as:eq:parallax_ellipse}.
+
+\paragraph{The parsec.} The \textbf{parsec} is the distance at which $1\,\mathrm{AU}$ subtends one second of arc. Since $1''=\pi/648\,000$ radian, Eq.~\eqref{eq:parallax_def} gives
+\begin{align}
+	1\,\mathrm{pc}
+	&= \frac{1\,\mathrm{AU}}{\pi/648\,000}
+	= 206\,264.806\,\mathrm{AU} \nonumber\\
+	&\eqby{1} 3.085\,677\,58\times10^{16}\,\mathrm m
+	\eqby{2} 3.261\,56\,\mathrm{ly}.
+\end{align}
+\begin{explain}
+	\item $1\,\mathrm{AU}=1.495\,978\,707\times10^{11}\,\mathrm m$.
+	\item $1\,\mathrm{ly}=9.460\,730\,47\times10^{15}\,\mathrm m$, the distance light travels in a Julian year of $365.25$ days.
+\end{explain}
+The IAU has defined the parsec in exactly this way, as $648\,000/\pi$ astronomical units, since 2015. For a parallax $p''$ measured in seconds of arc, the angle in radians is $p''\pi/648\,000$, and Eq.~\eqref{eq:parallax_def} becomes
+\begin{align}
+	d
+	&\eqby{1} \frac{1\,\mathrm{AU}}{p''\,\pi/648\,000}
+	\eqby{2} \frac{1}{p''}\,\frac{1\,\mathrm{AU}}{\pi/648\,000}
+	\eqby{3} \frac{1}{p''}\ \mathrm{pc}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:parallax_def} with the angle converted to radians.
+	\item Taking the number $1/p''$ out.
+	\item The definition of the parsec above.
+\end{explain}
+\begin{keyresult}
 	\begin{equation}
-		\sin p = \frac{1\,\mathrm{AU}}{d} \quad\Longrightarrow\quad p \approx \frac{1\,\mathrm{AU}}{d}\quad (\text{for } p \ll 1\,\text{rad}),
-		\label{eq:parallax_def}
+		d\,[\mathrm{pc}] = \frac{1}{p\,[\mathrm{arcsec}]}.
+		\label{eq:parallax_distance_pc}
 	\end{equation}
-	where $p$ (or $\varpi$), the \emph{parallax angle}, is by construction the semi-major axis of the star's apparent parallactic ellipse on the sky over the year, and $1\,\mathrm{AU} = 1.495978707\times10^{11}\,\mathrm{m}$ is the Earth--Sun distance.
-	A \emph{parsec} ($\mathrm{pc}$) is defined as the distance at which an astronomical unit subtends an angle of exactly one arcsecond ($1''$):
-	\begin{keyresult}
-		\begin{equation}
-			d\,[\mathrm{pc}] = \frac{1}{p\,[\mathrm{arcsec}]}.
-			\label{eq:parallax_distance_pc}
-		\end{equation}
-	\end{keyresult}
-	In metric units:
-	\begin{equation}
-		1\,\mathrm{pc} = \frac{1\,\mathrm{AU}}{\tan(1'')} = \frac{1.4959787 \times 10^{11}\,\mathrm{m}}{\pi / (180 \times 3600)} \approx 3.08567758 \times 10^{16}\,\mathrm{m} \approx 3.26156\,\mathrm{ly}.
-	\end{equation}
-\end{definition}
+\end{keyresult}
+A star with half the parallax is twice as far away. The rule uses nothing about the star itself, only the size of the Earth's orbit.
 
 \begin{example}[Distance to Sirius]
-	Sirius has a measured parallax $p = 379.21\,\mathrm{mas} = 0.37921''$ (from the \emph{Hipparcos}/\emph{Gaia} catalogs). Its distance is:
+	The \emph{Hipparcos} catalogue gives Sirius a parallax of $p = 379.21\,\mathrm{mas} = 0.37921''$. By Eq.~\eqref{eq:parallax_distance_pc},
 	\[
-	d = \frac{1}{0.37921} \approx 2.637\,\mathrm{pc} \approx 8.60\,\mathrm{ly}.
+	d = \frac{1}{0.37921}\,\mathrm{pc} = 2.637\,\mathrm{pc} = 8.601\,\mathrm{ly}.
 	\]
 \end{example}
 
 \begin{example}[Parallax as Measured from Mars]
-	Suppose the same parallax measurement toward Sirius were instead carried out by an observer orbiting the Sun with Mars, using Mars's own orbit as the baseline in place of Earth's. Since $p \approx (\text{baseline})/d$ from Eq.~\eqref{eq:parallax_def}, and $d$ is a fixed property of the star, the parallax angle scales linearly with the baseline used:
+	From Mars, the baseline would be the radius of the orbit of Mars, $1.524\,\mathrm{AU}$. The distance $d$ belongs to the star and does not change. By Eq.~\eqref{eq:parallax_def} the parallax is proportional to the baseline,
 	\[
-	\frac{p_{\rm Mars}}{p_{\rm Earth}} = \frac{a_{\rm Mars}}{a_{\rm Earth}} = \frac{1.524\,\mathrm{AU}}{1\,\mathrm{AU}} = 1.524.
+	\frac{p_{\rm Mars}}{p_{\rm Earth}} = \frac{1.524\,\mathrm{AU}/d}{1\,\mathrm{AU}/d} = 1.524,
+	\qquad
+	p_{\rm Mars} = 1.524 \times 0.37921'' = 0.578''.
 	\]
-	so a Mars-based parallax for Sirius would be
-	\[
-	p_{\rm Mars} = 1.524 \times 0.37921'' \approx 0.578''.
-	\]
-	A wider orbital baseline produces a proportionally larger, easier-to-measure parallax angle for the same star. The cost is time: Mars's sidereal period is $1.88\,\mathrm{yr}$, so the full parallactic ellipse would take that much longer to trace out than the $1\,\mathrm{yr}$ needed from Earth.
+	A longer baseline gives a larger angle, which is easier to measure. The price is time. Mars goes round the Sun in $1.88$ years, so the star takes $1.88$ years to trace its full ellipse, against one year from the Earth.
 \end{example}
 
-\paragraph{Parallax Inversion and the Lutz-Kelker Bias.}
-When converting a measured parallax $p_{\rm obs}$ into distance, non-linear error propagation means $\langle 1/p \rangle \neq 1/\langle p \rangle$. For fractional parallax errors $\sigma_p/p \gtrsim 0.15$, symmetrical Gaussian errors on $p$ produce strongly asymmetric, biased distance estimates (the \emph{Lutz-Kelker bias}), requiring Bayesian distance priors (e.g., exponentially decreasing space density models in \emph{Gaia} data releases).
+\paragraph{From a measured parallax to a distance.} A parallax is measured with an error, and the goal is to see what that error does to $d=1/p$. Write the measured value as $p_{\rm obs}=p+\varepsilon$, where $p$ is the true parallax and the error $\varepsilon$ has mean $\avg{\varepsilon}=0$ and spread $\avg{\varepsilon^2}=\sigma_p^2$. On average the inverse is
+\begin{align}
+	\avg{\frac{1}{p_{\rm obs}}}
+	&= \avg{\frac{1}{p}\,\frac{1}{1+\varepsilon/p}}
+	\eqby{1} \frac1p\avg{1-\frac{\varepsilon}{p}+\frac{\varepsilon^2}{p^2}-\dots} \nonumber\\
+	&\eqby{2} \frac1p\left(1+\frac{\sigma_p^2}{p^2}+\dots\right).
+	\label{as:eq:inverse_bias}
+\end{align}
+\begin{explain}
+	\item The geometric series $1/(1+x)=1-x+x^2-\dots$, valid while $|\varepsilon|<p$.
+	\item $\avg{\varepsilon}=0$ and $\avg{\varepsilon^2}=\sigma_p^2$.
+\end{explain}
+Even with errors that scatter evenly up and down, $1/p_{\rm obs}$ overestimates the distance on average, by the fraction $\sigma_p^2/p^2$. At $\sigma_p/p=0.15$ that is $2\%$. The series needs $\sigma_p/p$ small (P6). At $\sigma_p/p=0.5$, $2.3\%$ of the measured parallaxes come out negative, and $1/p_{\rm obs}$ means nothing for them.
 
+A second bias comes from where the stars are. A shell of radius $d$ and thickness $\mathrm dd$ has volume $4\pi d^2\,\mathrm dd$, so in a region of even density there are more stars far away than near. Among all the stars measured at one $p_{\rm obs}$, more have a smaller true parallax and were scattered up than have a larger one and were scattered down. In terms of the parallax, the number of stars is
+\begin{align}
+	\mathrm dN
+	&\propto d^2\,\mathrm dd
+	\eqby{1} \frac{1}{p^2}\,\frac{\mathrm dp}{p^2}
+	= \frac{\mathrm dp}{p^4}.
+\end{align}
+\begin{explain}
+	\item $d=1/p$, so $|\mathrm dd|=\mathrm dp/p^2$.
+\end{explain}
+By Bayes' rule, the chance of a true parallax $p$ given the measured one is this count times the chance of the error, $p^{-4}\exp[-(p_{\rm obs}-p)^2/2\sigma_p^2]$. Its peak is where the derivative of its logarithm vanishes,
+\begin{align}
+	0
+	&\eqby{1} -\frac4p+\frac{p_{\rm obs}-p}{\sigma_p^2}
+	\quad\Longrightarrow\quad
+	p^2-p_{\rm obs}\,p+4\sigma_p^2 \eqby{2} 0 \nonumber\\
+	\Longrightarrow\quad
+	p_{\rm peak} &\eqby{3} \frac{p_{\rm obs}}{2}\left(1+\sqrt{1-\frac{16\sigma_p^2}{p_{\rm obs}^2}}\right).
+	\label{as:eq:lk_peak}
+\end{align}
+\begin{explain}
+	\item The derivative of $-4\ln p-(p_{\rm obs}-p)^2/2\sigma_p^2$ with respect to $p$.
+	\item Multiplied by $-p\,\sigma_p^2$.
+	\item The larger root of the quadratic. The smaller root is a minimum, since the chance grows without limit as $p\to0$.
+\end{explain}
+At $\sigma_p/p_{\rm obs}=0.15$ the bracket is $1.8$, so $p_{\rm peak}=0.9\,p_{\rm obs}$ and the most likely distance is $11\%$ beyond $1/p_{\rm obs}$. For $\sigma_p/p_{\rm obs}>1/4$ the square root is imaginary and there is no peak at all. The measurement alone then cannot fix the distance, and the answer depends on what is assumed about where the stars are. This is the \textbf{Lutz--Kelker bias}. The \emph{Gaia} catalogues handle it by assuming a density of stars that falls off exponentially with distance, which keeps the chance finite as $p\to0$.
+
+% ==============================================================================
 \section{Three-Dimensional Cartesian Position Vector}
+\label{as:sec:position}
 
-From the distance $d$ and equatorial coordinates $(\alpha, \delta)$, the heliocentric Cartesian position vector is:
-\begin{keyresult}
-	\begin{equation}
-		\vecr = \begin{pmatrix} x \\ y \\ z \end{pmatrix} = d\,\hat{\mathbf r}_{\rm eq} = \begin{pmatrix} d\cos\delta\cos\alpha \\ d\cos\delta\sin\alpha \\ d\sin\delta \end{pmatrix}.
-		\label{eq:cartesian_pos_3d}
-	\end{equation}
-\end{keyresult}
+The parallax gives the distance $d$, and Chapter~\ref{ch:coords} gives the direction $\hat{\mathbf r}_{\rm eq}$. Together they place the star in space.
 
+To describe how the star moves we need more. We need three directions at the star itself, because a motion is seen as a part along the line of sight and a part across the sky.
+
+On the Earth every town has its own up, north and east. They differ from town to town, but in each town they are at right angles to each other. A pilot reports a speed as so much north and so much east, at the place where the plane is.
+
+A point on the sky has the same three directions. Up is outward along the line of sight, north is the way of increasing declination, and east is the way of increasing right ascension. The idea is that the three local directions, written in equatorial components, are the rows of a rotation matrix.
+
+At $\alpha=0$, $\delta=0$ the three directions are the $x$, $y$ and $z$ axes themselves, and the matrix is the identity.
+
+The picture is three arrows at right angles planted at the star, one pointing away from us.
+
+In mechanics these are the unit vectors of spherical polar coordinates, with north along minus the polar unit vector. Chapter~\ref{ch:coords} built local axes in the same way for the observer's horizon, Eq.~\eqref{eq:basis_e}. Only geometry enters, so no principle is used. The local axes give the position vector, the matrix between local and equatorial components, and the yearly parallax ellipse.
+
+\paragraph{The position.} The star is at distance $d$ along $\hat{\mathbf r}_{\rm eq}$, Eq.~\eqref{eq:unit_vector_eq}, so its position relative to the Sun is
+\begin{equation}
+	\boxed{\vecr = \begin{pmatrix} x \\ y \\ z \end{pmatrix} = d\,\hat{\mathbf r}_{\rm eq} = \begin{pmatrix} d\cos\delta\cos\alpha \\ d\cos\delta\sin\alpha \\ d\sin\delta \end{pmatrix}.}
+	\label{eq:cartesian_pos_3d}
+\end{equation}
+For Sirius, at $\alpha=101.287^\circ$, $\delta=-16.716^\circ$ and $d=2.637\,\mathrm{pc}$, this is
+\[
+	\vecr=(-0.494,\ 2.477,\ -0.758)^T\,\mathrm{pc}.
+\]
+
+\paragraph{The local directions.} The direction of increasing $\delta$ at the star is the rate of change of $\hat{\mathbf r}$ with $\delta$, and the same for $\alpha$. Differentiating Eq.~\eqref{eq:unit_vector_eq},
+\begin{align}
+	\pdv{\hat{\mathbf r}}{\delta} &= \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix},
+	&
+	\pdv{\hat{\mathbf r}}{\alpha} &= \begin{pmatrix} -\cos\delta\sin\alpha \\ \cos\delta\cos\alpha \\ 0 \end{pmatrix} = \cos\delta\begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}.
+	\label{as:eq:partials}
+\end{align}
+The first has length $\sqrt{\sin^2\delta+\cos^2\delta}=1$. The second has length $\cos\delta$, because a circle of constant declination has radius $\cos\delta$ on the unit sphere and shrinks to a point at the poles. Dividing it by $\cos\delta$ gives a unit vector. So the three directions at the star are
+\begin{equation}
+	\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
+	\hat{\boldsymbol{\alpha}} = \frac{1}{\cos\delta}\pdv{\hat{\mathbf r}}{\alpha} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
+	\hat{\boldsymbol{\delta}} = \pdv{\hat{\mathbf r}}{\delta} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}.
+	\label{eq:equatorial_basis_vectors}
+\end{equation}
+They are at right angles to each other at every point,
+\begin{align}
+	\hat{\mathbf r}\cdot\hat{\boldsymbol\alpha} &= -\cos\delta\cos\alpha\sin\alpha+\cos\delta\sin\alpha\cos\alpha = 0, \nonumber\\
+	\hat{\mathbf r}\cdot\hat{\boldsymbol\delta} &= -\sin\delta\cos\delta\,(\cos^2\alpha+\sin^2\alpha)+\sin\delta\cos\delta = 0, \nonumber\\
+	\hat{\boldsymbol\alpha}\cdot\hat{\boldsymbol\delta} &= \sin\delta\sin\alpha\cos\alpha-\sin\delta\sin\alpha\cos\alpha = 0,
+\end{align}
+and $\hat{\mathbf r}\times\hat{\boldsymbol\alpha}=\hat{\boldsymbol\delta}$, so in the order $(\hat{\mathbf r},\hat{\boldsymbol\alpha},\hat{\boldsymbol\delta})$ they are right-handed, like $(x,y,z)$.
+
+\paragraph{The matrix of the local axes.} By the rule of rows, Eq.~\eqref{co:eq:rows_rule}, the matrix whose rows are the three local directions turns equatorial components into local ones. We call it $\mathbf Q$,
+\begin{equation}
+	\mathbf Q(\alpha,\delta) = \begin{pmatrix} \cos\delta\cos\alpha & \cos\delta\sin\alpha & \sin\delta \\ -\sin\alpha & \cos\alpha & 0 \\ -\sin\delta\cos\alpha & -\sin\delta\sin\alpha & \cos\delta \end{pmatrix}.
+	\label{as:eq:Q}
+\end{equation}
+Its rows are orthonormal and right-handed, so $\mathbf Q$ is a rotation and $\mathbf Q^{-1}=\mathbf Q^{T}$ by Eq.~\eqref{co:eq:orthogonal}. The star itself has local components $\mathbf Q\,\hat{\mathbf r}_{\rm eq}=(1,0,0)^T$, straight up.
+
+The same matrix comes out of two turns, as a second check. A pan by $\alpha$ about the pole, $\mathbf R_z(\alpha)$ of Eq.~\eqref{eq:z_axis_rotation_matrix}, brings the star to $(\cos\delta,0,\sin\delta)^T$ by Eq.~\eqref{co:eq:rz_shift}. A tilt by $\delta$ about the new $y$ axis then brings it to the first axis. By the rule of rows the tilt has the rows $(\cos\delta,0,\sin\delta)$, $(0,1,0)$ and $(-\sin\delta,0,\cos\delta)$, so
+\begin{align}
+	\begin{pmatrix} \cos\delta & 0 & \sin\delta \\ 0 & 1 & 0 \\ -\sin\delta & 0 & \cos\delta \end{pmatrix}
+	\mathbf R_z(\alpha)
+	&\eqby{1} \begin{pmatrix} \cos\delta & 0 & \sin\delta \\ 0 & 1 & 0 \\ -\sin\delta & 0 & \cos\delta \end{pmatrix}
+	\begin{pmatrix} \cos\alpha & \sin\alpha & 0 \\ -\sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \nonumber\\
+	&\eqby{2} \begin{pmatrix} \cos\delta\cos\alpha & \cos\delta\sin\alpha & \sin\delta \\ -\sin\alpha & \cos\alpha & 0 \\ -\sin\delta\cos\alpha & -\sin\delta\sin\alpha & \cos\delta \end{pmatrix}
+	= \mathbf Q(\alpha,\delta).
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:z_axis_rotation_matrix} with $\theta=\alpha$.
+	\item Each row of the tilt times each column of $\mathbf R_z(\alpha)$.
+\end{explain}
+
+\paragraph{The yearly parallax ellipse.} The goal is the path a nearby star traces on the sky over a year, as seen from the moving Earth. We work in ecliptic coordinates $(\lambda,\beta)$, Eq.~\eqref{eq:ecliptic_rotation_matrix}, and take the Earth's orbit as a circle of radius $1\,\mathrm{AU}$. With the Sun at ecliptic longitude $\lambda_\odot$, the Earth is on the opposite side, at $\vecr_\oplus=-1\,\mathrm{AU}\,(\cos\lambda_\odot,\sin\lambda_\odot,0)^T$ from the Sun. The star is at $d\,\hat{\mathbf r}$ from the Sun, so from the Earth it is at $d\,\hat{\mathbf r}-\vecr_\oplus$. Its apparent direction is
+\begin{align}
+	\hat{\mathbf r}'
+	&= \frac{d\,\hat{\mathbf r}-\vecr_\oplus}{|d\,\hat{\mathbf r}-\vecr_\oplus|}
+	\eqby{1} \hat{\mathbf r}-\frac{\vecr_\oplus-(\hat{\mathbf r}\cdot\vecr_\oplus)\,\hat{\mathbf r}}{d}.
+\end{align}
+\begin{explain}
+	\item The first-order expansion of Eq.~\eqref{co:eq:aberration_vector}, with $-\vecr_\oplus/d$ in place of $\vec v/c$. It holds since $1\,\mathrm{AU}/d\ll1$ (P6).
+\end{explain}
+The star moves away from the Earth's position, by the part of $\vecr_\oplus/d$ across the line of sight. The local directions in the ecliptic frame are Eq.~\eqref{eq:equatorial_basis_vectors} with $\alpha\to\lambda$ and $\delta\to\beta$, so $\hat{\boldsymbol\lambda}=(-\sin\lambda,\cos\lambda,0)^T$ and $\hat{\boldsymbol\beta}=(-\sin\beta\cos\lambda,-\sin\beta\sin\lambda,\cos\beta)^T$. Both are perpendicular to $\hat{\mathbf r}$, so the shifts along them are $-\vecr_\oplus\cdot\hat{\boldsymbol\lambda}/d$ and $-\vecr_\oplus\cdot\hat{\boldsymbol\beta}/d$. With $p=1\,\mathrm{AU}/d$ from Eq.~\eqref{eq:parallax_def},
+\begin{align}
+	\cos\beta\,\Delta\lambda &\eqby{1} p\,(-\cos\lambda_\odot\sin\lambda+\sin\lambda_\odot\cos\lambda) \eqby{2} p\sin(\lambda_\odot-\lambda), \nonumber\\
+	\Delta\beta &\eqby{1} -p\sin\beta\,(\cos\lambda_\odot\cos\lambda+\sin\lambda_\odot\sin\lambda) \eqby{2} -p\sin\beta\cos(\lambda_\odot-\lambda).
+\end{align}
+\begin{explain}
+	\item The dot products of $(\cos\lambda_\odot,\sin\lambda_\odot,0)$ with $\hat{\boldsymbol\lambda}$ and with $\hat{\boldsymbol\beta}$.
+	\item The angle-difference identities.
+\end{explain}
+A step $\Delta\lambda$ in longitude is an arc $\cos\beta\,\Delta\lambda$ on the sky, for the same reason as the $\cos\delta$ in Eq.~\eqref{as:eq:partials}. As $\lambda_\odot$ runs through the year,
+\begin{equation}
+	\boxed{\left(\frac{\cos\beta\,\Delta\lambda}{p}\right)^2+\left(\frac{\Delta\beta}{p\sin\beta}\right)^2=1 .}
+	\label{as:eq:parallax_ellipse}
+\end{equation}
+Every star traces an ellipse with semi-axes $p$ along the ecliptic and $p\sin\beta$ across it. Near the ecliptic pole it is a circle of radius $p$. On the ecliptic it closes to a line of half-length $p$. The semi-major axis is $p$ for every star, which is why $p$ is the number a catalogue lists. The aberration ellipse of Chapter~\ref{ch:coords} has the same shape and a quarter of a year's offset, but it is $20.5''$ for every star, so the two are told apart by size and by timing.
+
+% ==============================================================================
 \section{Proper Motion and Transverse Velocity}
+\label{as:sec:proper_motion}
 
-Stars possess intrinsic space velocities relative to the Sun. The component of stellar motion perpendicular to the line of sight projects onto the celestial sphere as an angular displacement over time, known as \emph{proper motion} $\boldsymbol{\mu}$.
+The parallax and the direction give the star's position $\vecr=d\,\hat{\mathbf r}$, Eq.~\eqref{eq:cartesian_pos_3d}.
 
-\begin{definition}[Proper Motion Components]
-	Proper motion is resolved into two orthogonal components on the sky:
-	\begin{itemize}
-		\item $\mu_\delta = \dfrac{d\delta}{dt}$: Rate of change of declination ($\mathrm{mas/yr}$ or $\mathrm{arcsec/yr}$).
-		\item $\mu_\alpha^* \equiv \mu_\alpha\cos\delta = \dfrac{d\alpha}{dt}\cos\delta$: True angular rate of change along the parallel of declination ($\mathrm{mas/yr}$).
-	\end{itemize}
-	The total proper motion magnitude is:
-	\begin{equation}
-		\mu = \sqrt{(\mu_\alpha\cos\delta)^2 + \mu_\delta^2} = \sqrt{(\mu_\alpha^*)^2 + \mu_\delta^2}.
-		\label{eq:total_proper_motion}
-	\end{equation}
-\end{definition}
+Stars move, so $\vecr$ changes. A catalogue position slowly goes out of date, as the change of epoch in Section~\ref{sec:coordinate_epochs} already showed. We need to read a velocity from the change.
 
-\paragraph{Derivation of the $4.74047$ Kinematic Conversion Constant.}
-The physical transverse velocity $v_t$ (in $\mathrm{km/s}$) across a distance $d$ (in $\mathrm{pc}$) with proper motion $\mu$ (in $\mathrm{arcsec/yr}$) is:
-\[
-v_t = d\,\mu = \left(d\,[\mathrm{pc}] \times 3.085678 \times 10^{13}\,\mathrm{km/pc}\right) \times \left(\mu\,[\mathrm{arcsec/yr}] \times \frac{1\,\mathrm{rad}}{206264.806''}\right) \times \left(\frac{1\,\mathrm{yr}}{3.15576 \times 10^7\,\mathrm{s}}\right).
-\]
-Evaluating the numerical coefficient:
-\[
-k \equiv \frac{3.085678 \times 10^{13}}{206264.806 \times 3.15576 \times 10^7} \approx 4.7404705\,\mathrm{km\cdot s^{-1}\cdot yr\cdot arcsec^{-1}\cdot pc^{-1}}.
-\]
+Stand by a straight road and watch two cars, both at $30\,\mathrm{m/s}$. The one $300\,\mathrm m$ away crosses your view at $0.1$ radian, about $6^\circ$, per second. The one $3\,\mathrm{km}$ away crosses at only $0.6^\circ$ per second. The angle swept per second is the sideways speed divided by the distance.
+
+A star moving across the line of sight drifts across the sky in the same way. The drift is its \textbf{proper motion}. The idea is that the sideways speed is the proper motion times the distance.
+
+A star $1\,\mathrm{pc}$ away moving sideways at $4.74\,\mathrm{km/s}$ covers $1\,\mathrm{AU}$ a year, so by the definition of the parsec it drifts by $1''$ a year.
+
+The picture is the velocity arrow of the star split into a part along the line of sight and a part across it. Only the part across shows as a drift on the sky.
+
+Angular speed equals sideways speed over distance in every branch of mechanics. Here it is the parallax again, with the baseline of $1\,\mathrm{AU}$ replaced by the distance the star itself moves in a year. It gives the two components of the proper motion, why one of them carries $\cos\delta$, and the constant $4.74$.
+
+\paragraph{How the direction changes.} As the star moves, its $\alpha$ and $\delta$ change with time, and so does $\hat{\mathbf r}(\alpha,\delta)$. By the chain rule,
+\begin{align}
+	\dv{\hat{\mathbf r}}{t}
+	&= \pdv{\hat{\mathbf r}}{\alpha}\,\dv{\alpha}{t}+\pdv{\hat{\mathbf r}}{\delta}\,\dv{\delta}{t}
+	\eqby{1} \underbrace{\cos\delta\,\dv{\alpha}{t}}_{\mu_\alpha^*}\,\hat{\boldsymbol\alpha}+\underbrace{\dv{\delta}{t}}_{\mu_\delta}\,\hat{\boldsymbol\delta}.
+	\label{as:eq:rhat_dot}
+\end{align}
+\begin{explain}
+	\item The partial derivatives \eqref{as:eq:partials}, written with the unit vectors \eqref{eq:equatorial_basis_vectors}.
+\end{explain}
+The two components are the \textbf{proper motion in right ascension} $\mu_\alpha^*=\cos\delta\,\dot\alpha$ and the \textbf{proper motion in declination} $\mu_\delta=\dot\delta$. Both are true angles on the sky per unit time, usually given in $\mathrm{mas/yr}$. The rate $\dot\alpha$ itself is not, because a step in $\alpha$ is an arc of only $\cos\delta$ times its size, as at Eq.~\eqref{as:eq:partials}. The two directions are at right angles, so the total proper motion is
+\begin{equation}
+	\mu = \left|\dv{\hat{\mathbf r}}{t}\right| = \sqrt{(\mu_\alpha^*)^2 + \mu_\delta^2} = \sqrt{(\cos\delta\,\dot\alpha)^2 + \mu_\delta^2}.
+	\label{eq:total_proper_motion}
+\end{equation}
+
+\paragraph{The velocity of the star.} The goal is the star's velocity $\vec v=\dot\vecr$ in terms of what is measured. Differentiating $\vecr=d\,\hat{\mathbf r}$,
+\begin{align}
+	\vec v
+	&\eqby{1} \dot d\,\hat{\mathbf r}+d\,\dv{\hat{\mathbf r}}{t}
+	\eqby{2} \underbrace{\dot d}_{v_r}\,\hat{\mathbf r}+\underbrace{d\,\mu_\alpha^*}_{v_\alpha}\,\hat{\boldsymbol\alpha}+\underbrace{d\,\mu_\delta}_{v_\delta}\,\hat{\boldsymbol\delta}.
+	\label{as:eq:velocity_local}
+\end{align}
+\begin{explain}
+	\item The product rule on $\vecr=d\,\hat{\mathbf r}$.
+	\item Eq.~\eqref{as:eq:rhat_dot}.
+\end{explain}
+The \textbf{radial velocity} $v_r=\dot d$ is the rate at which the distance grows. It does not change the direction, so astrometry cannot see it, and it is measured from the Doppler shift (Section~\ref{as:sec:doppler}). The other two components lie across the line of sight. Their size is the \textbf{transverse velocity}
+\begin{equation}
+	v_t = \sqrt{v_\alpha^2+v_\delta^2} = d\,\mu,
+	\label{as:eq:vt_dmu}
+\end{equation}
+with $\mu$ in radians per unit time.
+
+\paragraph{The constant 4.74.} Catalogues give $\mu$ in seconds of arc per year and $d$ through $p$ in seconds of arc, and we want $v_t$ in $\mathrm{km/s}$.
+\begin{align}
+	v_t
+	&\eqby{1} \frac{1\,\mathrm{AU}}{p}\,\mu
+	\eqby{2} \frac{\mu\,[''/\mathrm{yr}]}{p\,['']}\ \frac{1\,\mathrm{AU}}{1\,\mathrm{yr}}
+	\eqby{3} \frac{\mu\,[''/\mathrm{yr}]}{p\,['']}\ \frac{1.495\,978\,707\times10^{8}\,\mathrm{km}}{3.155\,76\times10^{7}\,\mathrm s} \nonumber\\
+	&= 4.740\,47\,\frac{\mu\,[''/\mathrm{yr}]}{p\,['']}\ \mathrm{km/s}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{as:eq:vt_dmu} with $d=1\,\mathrm{AU}/p$ from Eq.~\eqref{eq:parallax_def}.
+	\item $\mu/p$ is a ratio of two angles, the same in any angular unit, so $\mu$ in $''/\mathrm{yr}$ and $p$ in $''$ can be used directly.
+	\item $1\,\mathrm{AU}$ in km, and the Julian year of $365.25$ days in seconds.
+\end{explain}
+With $1/p''=d$ in parsecs from Eq.~\eqref{eq:parallax_distance_pc},
 \begin{keyresult}
 	\begin{equation}
-		v_t\,[\mathrm{km/s}] = 4.74047 \times \mu\,[\mathrm{arcsec/yr}] \times d\,[\mathrm{pc}] = 4.74047 \times \frac{\mu\,[\mathrm{arcsec/yr}]}{p\,[\mathrm{arcsec}]}.
+		v_t\,[\mathrm{km/s}] = 4.74047\, \mu\,[\mathrm{arcsec/yr}]\, d\,[\mathrm{pc}] = 4.74047\, \frac{\mu\,[\mathrm{arcsec/yr}]}{p\,[\mathrm{arcsec}]}.
 		\label{eq:vt_master}
 	\end{equation}
 \end{keyresult}
+The number $4.74047$ is just $1\,\mathrm{AU}$ per year in $\mathrm{km/s}$. The transverse velocity depends only on the ratio of the two angles, the yearly drift over the yearly wobble. The same holds for each component, $v_\alpha=4.74047\,\mu_\alpha^*/p$ and $v_\delta=4.74047\,\mu_\delta/p$.
 
 \begin{example}[Transverse Velocity of Sirius]
-	Sirius has proper motion $\mu_\alpha^* = -546.01\,\mathrm{mas/yr} = -0.54601''/\mathrm{yr}$ and $\mu_\delta = -1223.07\,\mathrm{mas/yr} = -1.22307''/\mathrm{yr}$, giving total proper motion:
+	Sirius has $\mu_\alpha^* = -546.01\,\mathrm{mas/yr}$ and $\mu_\delta = -1223.07\,\mathrm{mas/yr}$. By Eq.~\eqref{eq:total_proper_motion},
 	\[
-	\mu = \sqrt{(-0.54601)^2 + (-1.22307)^2} \approx 1.3396''/\mathrm{yr}.
+	\mu = \sqrt{0.54601^2 + 1.22307^2}\ ''/\mathrm{yr} = 1.3394''/\mathrm{yr}.
 	\]
-	With $d = 2.637\,\mathrm{pc}$, its transverse velocity is:
+	With $d = 2.637\,\mathrm{pc}$, Eq.~\eqref{eq:vt_master} gives
 	\[
-	v_t = 4.74047 \times 1.3396 \times 2.637 \approx 16.75\,\mathrm{km/s}.
+	v_t = 4.74047 \times 1.3394 \times 2.637\,\mathrm{km/s} = 16.74\,\mathrm{km/s}.
 	\]
+	The components are $v_\alpha=-6.83\,\mathrm{km/s}$ and $v_\delta=-15.29\,\mathrm{km/s}$, so Sirius drifts mainly south.
 \end{example}
 
+% ==============================================================================
 \section{Radial Velocity and the Doppler Effect}
+\label{as:sec:doppler}
 
-The component of stellar velocity along the line of sight, $v_r$, is measured spectroscopically via the Doppler shift of absorption or emission lines.
+Proper motion and parallax give the two components of the velocity across the line of sight, Eq.~\eqref{as:eq:velocity_local}.
 
-\begin{definition}[Doppler Shift and Radial Velocity]
-	Consider a source emitting successive wave crests spaced by one period $T_0 = \lambda_0/c$ in its own rest frame, receding directly away from the observer at speed $v_r \ll c$. Between the emission of one crest and the next, the source recedes an extra distance $v_r T_0$, so the second crest must travel that much farther to reach the observer, arriving a time $v_r T_0/c$ later than it would from a stationary source. The observed period is therefore stretched to $T_{\rm obs} = T_0 + v_rT_0/c = T_0(1+v_r/c)$, and since $\lambda = cT$, the relative wavelength shift $z$ is:
-	\begin{keyresult}
-		\begin{equation}
-			z \equiv \frac{\Delta\lambda}{\lambda_0} = \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0} = \frac{T_{\rm obs}-T_0}{T_0} = \frac{v_r}{c},
-			\label{eq:doppler_classical}
-		\end{equation}
-	\end{keyresult}
-	valid for non-relativistic velocities ($v_r \ll c$), where $v_r > 0$ denotes recession (redshift) and $v_r < 0$ denotes approach (blueshift).
-\end{definition}
+The third component, $v_r=\dot d$, changes the distance but not the direction. A star moving straight toward us shows no drift on the sky at all, and its parallax changes far too slowly to measure.
 
-For relativistic velocities (cosmological redshift, relativistic jets), the exact special-relativistic Doppler relation must be used:
+Picture a friend who walks away from you at $1\,\mathrm{m/s}$ and throws you a ball every second, each at $10\,\mathrm{m/s}$. Each ball starts $1\,\mathrm m$ further away than the one before, so it needs an extra $0.1\,\mathrm s$ to arrive. The balls reach you every $1.1$ seconds, not every second. Walking toward you, the friend would send them every $0.9$ seconds.
+
+A star sends wave crests instead of balls. If it moves away, each crest starts a little further off, and the crests arrive further apart. The light is shifted to longer wavelengths. The idea is that the fractional stretch of the wavelength is $v_r/c$.
+
+Sirius approaches at $5.5\,\mathrm{km/s}$. Its $\mathrm H\alpha$ line, at $656.46\,\mathrm{nm}$ in the laboratory, arrives shortened by $656.46\times5.5/299\,792\,\mathrm{nm}=0.012\,\mathrm{nm}$.
+
+The picture is a row of wave crests bunched up in front of a moving source and spread out behind it.
+
+The same stretch lowers the pitch of a passing siren and lets a radar gun time a car. It gives the radial-velocity curves of spectroscopic binaries in Chapter~\ref{ch:twobody} and the line widths and Galactic rotation of the gas in Chapter~\ref{ch:ism}. For stars $v_r/c\sim10^{-5}$, so the first-order formula is enough (P6). We derive that formula, the exact one, and the correction for the Earth's own motion.
+
+\paragraph{The stretched period.} Take a source that emits crests one period $T_0=\lambda_0/c$ apart in its own frame, and moves straight away from the observer at $v_r\ll c$.
+\begin{align}
+	T_{\rm obs}
+	&\eqby{1} T_0+\frac{v_rT_0}{c}
+	= T_0\left(1+\frac{v_r}{c}\right), \nonumber\\
+	z \equiv \frac{\lambda_{\rm obs}-\lambda_0}{\lambda_0}
+	&\eqby{2} \frac{T_{\rm obs}-T_0}{T_0}
+	\eqby{3} \frac{v_r}{c}.
+\end{align}
+\begin{explain}
+	\item Between two crests the source moves a further $v_rT_0$ away, so the second crest travels that far more and arrives $v_rT_0/c$ later.
+	\item $\lambda=cT$ for both wavelengths.
+	\item The first line.
+\end{explain}
+\begin{keyresult}
+	\begin{equation}
+		z = \frac{\lambda_{\rm obs}-\lambda_0}{\lambda_0} = \frac{v_r}{c}\qquad (v_r\ll c).
+		\label{eq:doppler_classical}
+	\end{equation}
+\end{keyresult}
+A positive $v_r$ is a recession and a shift to the red. A negative $v_r$ is an approach and a shift to the blue. The shift fixes $v_r$ alone, and the motion across the line of sight leaves it unchanged at this order.
+
+\paragraph{The exact formula.} For speeds near $c$, such as relativistic jets, the clock of the moving source runs slow. In the observer's frame its period is $T_0/\sqrt{1-v^2/c^2}$, where $v$ is its full speed. For motion straight along the line of sight, $v=v_r$, and
+\begin{align}
+	1+z
+	&= \frac{T_{\rm obs}}{T_0}
+	\eqby{1} \frac{1+v_r/c}{\sqrt{1-v_r^2/c^2}}
+	\eqby{2} \frac{1+v_r/c}{\sqrt{(1+v_r/c)(1-v_r/c)}}
+	= \sqrt{\frac{1+v_r/c}{1-v_r/c}}.
+	\label{as:eq:doppler_exact_steps}
+\end{align}
+\begin{explain}
+	\item The stretch of the first line of the classical chain, applied to the dilated period.
+	\item $1-v_r^2/c^2=(1+v_r/c)(1-v_r/c)$.
+\end{explain}
+Squaring and solving for $v_r/c$,
 \begin{equation}
 	1 + z = \sqrt{\frac{1 + v_r/c}{1 - v_r/c}} \quad\Longrightarrow\quad \frac{v_r}{c} = \frac{(1+z)^2 - 1}{(1+z)^2 + 1}.
 	\label{eq:doppler_relativistic}
 \end{equation}
+For small $v_r/c$ the root is $1+v_r/c+\tfrac12(v_r/c)^2+\dots$, so Eq.~\eqref{eq:doppler_classical} is its first term. For Sirius the second term is $1.7\times10^{-10}$, far below what a spectrograph can measure. A source moving across the line of sight also shows a shift, $z=1/\sqrt{1-v^2/c^2}-1\approx v^2/2c^2$, from the slow clock alone. The redshift of distant galaxies is a different effect. It comes from the expansion of space, and Eq.~\eqref{eq:doppler_relativistic} does not apply to it.
 
+\paragraph{The Earth's own motion.} A spectrograph on the Earth moves with it, at about $29.78\,\mathrm{km/s}$ round the Sun. That is $2\pi\times4.74\,\mathrm{km/s}$, since the Earth covers $2\pi\,\mathrm{AU}$ a year. The shift measures how fast the distance from the observer to the star grows. With the star at $\vecr_*$ and the Earth at $\vecr_\oplus$,
+\begin{align}
+	\dv{t}|\vecr_*-\vecr_\oplus|
+	&\eqby{1} \frac{(\vecr_*-\vecr_\oplus)\cdot(\vec v_*-\vec v_\oplus)}{|\vecr_*-\vecr_\oplus|}
+	\eqby{2} (\vec v_*-\vec v_\oplus)\cdot\hat{\mathbf r}
+	= v_r-\vec v_\oplus\cdot\hat{\mathbf r}.
+\end{align}
+\begin{explain}
+	\item $\dv*{|\vec a|}{t}=\vec a\cdot\dot{\vec a}/|\vec a|$.
+	\item The star is so far away that $(\vecr_*-\vecr_\oplus)/|\vecr_*-\vecr_\oplus|$ is $\hat{\mathbf r}$ to first order in $1\,\mathrm{AU}/d$.
+\end{explain}
+So the velocity relative to the Sun is the measured one plus $\vec v_\oplus\cdot\hat{\mathbf r}$. With the Earth's velocity of Chapter~\ref{ch:coords}, this term swings once a year between $\pm29.78\cos\beta\,\mathrm{km/s}$, where $\beta$ is the star's ecliptic latitude. It is larger than many stellar radial velocities, so every catalogue value has it removed. The Earth's spin adds up to $0.47\,\mathrm{km/s}$ at the equator, which is removed in the same way.
+
+% ==============================================================================
 \section{The Full 3D Space Velocity Vector}
+\label{as:sec:space_velocity}
 
-Combining proper motion components and radial velocity, the space velocity vector in the spherical equatorial basis $\{\hat{\mathbf r}, \hat{\boldsymbol{\alpha}}, \hat{\boldsymbol{\delta}}\}$ is:
-\begin{equation}
-	\vec v = v_r\,\hat{\mathbf r} + v_\alpha\,\hat{\boldsymbol{\alpha}} + v_\delta\,\hat{\boldsymbol{\delta}},
-\end{equation}
-where $v_\alpha = 4.74047\,\mu_\alpha^*\,d$ and $v_\delta = 4.74047\,\mu_\delta\,d$.
+Eq.~\eqref{as:eq:velocity_local} gives the star's velocity as three components $(v_r,v_\alpha,v_\delta)$ along its local axes.
 
-The directions $\hat{\boldsymbol\alpha}$ and $\hat{\boldsymbol\delta}$ needed here are simply the local compass directions ``increasing $\alpha$'' and ``increasing $\delta$'' tangent to the celestial sphere at the star's position --- precisely the (normalized) partial derivatives of the position unit vector $\hat{\mathbf r}$ (Eq.~\eqref{eq:unit_vector_eq}) with respect to each spherical coordinate, a standard construction for a local tangent basis on a sphere:
-\begin{equation}
-	\hat{\boldsymbol\delta} = \pdv{\hat{\mathbf r}}{\delta} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}, \qquad
-	\hat{\boldsymbol\alpha} = \frac{1}{\cos\delta}\pdv{\hat{\mathbf r}}{\alpha} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix},
-\end{equation}
-where the $1/\cos\delta$ in $\hat{\boldsymbol\alpha}$ restores unit length ($\partial\hat{\mathbf r}/\partial\alpha$ alone has magnitude $\cos\delta$, since displacements in $\alpha$ shrink physically toward the poles). One can check directly that $\hat{\mathbf r}$, $\hat{\boldsymbol\alpha}$, $\hat{\boldsymbol\delta}$ are mutually orthogonal unit vectors at every point, so together they form the orthonormal equatorial coordinate basis:
-\begin{equation}
-	\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
-	\hat{\boldsymbol{\alpha}} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
-	\hat{\boldsymbol{\delta}} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}.
-	\label{eq:equatorial_basis_vectors}
-\end{equation}
+Those axes differ from star to star. To compare two stars, or to add the Sun's own motion, we need all velocities in one fixed frame.
 
-Transforming to the equatorial Cartesian velocity frame $\vec v = (v_x, v_y, v_z)^T$:
-\begin{keyresult}
-	\begin{equation}
-		\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} \cos\delta\cos\alpha & -\sin\alpha & -\sin\delta\cos\alpha \\ \cos\delta\sin\alpha & \cos\alpha & -\sin\delta\sin\alpha \\ \sin\delta & 0 & \cos\delta \end{pmatrix} \begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}.
-		\label{eq:cartesian_velocity_transform}
-	\end{equation}
-\end{keyresult}
-The total speed through space relative to the Sun is:
+A ship's log gives the current as so much ahead and so much to starboard. To draw it on a chart the navigator turns those two numbers through the ship's heading into north and east. The current itself has not changed, only the axes it is written on.
+
+A star's velocity is written on its own local axes, and the fixed frame is the equatorial one. The idea is that the local components turn into equatorial ones with the transpose of $\mathbf Q$, Eq.~\eqref{as:eq:Q}.
+
+At $\alpha=\delta=0$ the local axes are the equatorial ones, $\mathbf Q$ is the identity, and $(v_x,v_y,v_z)=(v_r,v_\alpha,v_\delta)$.
+
+The picture is the same arrow drawn twice, once on the star's local axes and once on the fixed axes.
+
+It is the change of basis of Chapter~\ref{ch:coords}, applied to a velocity. It gives the velocity in fixed components and the total speed.
+
+\paragraph{Turning to the equatorial frame.} Stacking the three local directions of Eq.~\eqref{eq:equatorial_basis_vectors} as columns,
+\begin{align}
+	\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}
+	&\eqby{1} v_r\,\hat{\mathbf r}+v_\alpha\,\hat{\boldsymbol\alpha}+v_\delta\,\hat{\boldsymbol\delta}
+	\eqby{2} \begin{pmatrix} | & | & | \\ \hat{\mathbf r} & \hat{\boldsymbol\alpha} & \hat{\boldsymbol\delta} \\ | & | & | \end{pmatrix}\begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}
+	\eqby{3} \mathbf Q^{T}(\alpha,\delta)\begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{as:eq:velocity_local}, with each unit vector in equatorial components.
+	\item A matrix times a column is the sum of its columns weighted by the entries.
+	\item The rows of $\mathbf Q$, Eq.~\eqref{as:eq:Q}, are $\hat{\mathbf r}$, $\hat{\boldsymbol\alpha}$ and $\hat{\boldsymbol\delta}$, so its columns are those of $\mathbf Q^T$.
+\end{explain}
+\begin{equation}
+	\boxed{\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} \cos\delta\cos\alpha & -\sin\alpha & -\sin\delta\cos\alpha \\ \cos\delta\sin\alpha & \cos\alpha & -\sin\delta\sin\alpha \\ \sin\delta & 0 & \cos\delta \end{pmatrix} \begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}.}
+	\label{eq:cartesian_velocity_transform}
+\end{equation}
+Going back costs only a transpose, $(v_r,v_\alpha,v_\delta)^T=\mathbf Q\,(v_x,v_y,v_z)^T$, by Eq.~\eqref{co:eq:orthogonal}.
+
+\paragraph{The speed.} A rotation keeps lengths, so the speed is the same in both sets of components,
+\begin{align}
+	v_x^2+v_y^2+v_z^2
+	&= \begin{pmatrix} v_r & v_\alpha & v_\delta \end{pmatrix}\mathbf Q\,\mathbf Q^{T}\begin{pmatrix} v_r \\ v_\alpha \\ v_\delta \end{pmatrix}
+	\eqby{1} v_r^2+v_\alpha^2+v_\delta^2
+	\eqby{2} v_r^2+v_t^2.
+\end{align}
+\begin{explain}
+	\item $\mathbf Q\mathbf Q^T=\Id$, Eq.~\eqref{co:eq:orthogonal}.
+	\item Eq.~\eqref{as:eq:vt_dmu}.
+\end{explain}
 \begin{equation}
 	v_{\rm total} = \sqrt{v_r^2 + v_t^2} = \sqrt{v_x^2 + v_y^2 + v_z^2}.
 	\label{eq:v_total_speed}
 \end{equation}
 
-\section{Galactic Space Velocity Components $(U, V, W)$}
+\begin{example}[Space Velocity of Sirius]
+	Sirius is at $\alpha=101.287^\circ$, $\delta=-16.716^\circ$, with $v_r=-5.50\,\mathrm{km/s}$ and, from the previous example, $v_\alpha=-6.83\,\mathrm{km/s}$, $v_\delta=-15.29\,\mathrm{km/s}$. Eq.~\eqref{eq:cartesian_velocity_transform} gives
+	\[
+	\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}
+	= \begin{pmatrix} -0.18746 & -0.98066 & -0.05630 \\ 0.93922 & -0.19573 & 0.28207 \\ -0.28763 & 0 & 0.95774 \end{pmatrix}
+	\begin{pmatrix} -5.50 \\ -6.83 \\ -15.29 \end{pmatrix}\mathrm{km/s}
+	= \begin{pmatrix} 8.59 \\ -8.14 \\ -13.06 \end{pmatrix}\mathrm{km/s}.
+	\]
+	The speed is $\sqrt{8.59^2+8.14^2+13.06^2}=17.62\,\mathrm{km/s}$, the same as $\sqrt{5.50^2+16.74^2}$ from Eq.~\eqref{eq:v_total_speed}.
+\end{example}
 
-In Galactic dynamics, stellar velocities are expressed in a right-handed Cartesian frame centered on the Sun:
+% ==============================================================================
+\section{Galactic Space Velocity Components \texorpdfstring{$(U, V, W)$}{(U, V, W)}}
+\label{as:sec:uvw}
+
+Eq.~\eqref{eq:cartesian_velocity_transform} gives every star's velocity in one fixed frame, the equatorial one.
+
+That frame is set by the Earth's spin axis, which means nothing to the Galaxy. Stars orbit the Galactic centre in the Galactic disk, so their motions are simplest on Galactic axes. The velocities are also measured relative to the Sun, which itself moves.
+
+A wind gauge on a moving train reads the wind relative to the train. To get the wind over the ground we first turn the reading to compass directions and then add the train's own velocity.
+
+The Sun is the train. We turn $(v_x,v_y,v_z)$ to Galactic axes with the matrix of Chapter~\ref{ch:coords}, and then add the Sun's own motion relative to its neighbours. The idea is that a velocity turns with the same matrix as a position, and that velocities relative to moving frames add.
+
+For Sirius the result is $12.96\,\mathrm{km/s}$ toward the Galactic centre, $1.89\,\mathrm{km/s}$ against the Galactic rotation and $11.79\,\mathrm{km/s}$ toward the south Galactic pole. Relative to the Sun's neighbours it moves at $24.1$, $10.3$ and $-4.5\,\mathrm{km/s}$ along the same three axes.
+
+The picture is the disk of the Galaxy seen from above, with the Sun on its circle and an arrow for the star's motion drawn from the Sun.
+
+The same two steps, turn the axes and then add the frame's velocity, take any measured velocity to a frame that moves. The rotation is a change of basis (Chapter~\ref{ch:coords}), and the addition is Galilean, since every speed here is far below $c$. They give the velocity components $(U,V,W)$ and their values relative to the local standard of rest.
+
+\paragraph{The axes.} Galactic velocities are given in a right-handed Cartesian frame centred on the Sun,
 \begin{itemize}
-	\item $U$: Velocity directed toward the Galactic Center ($l = 0^\circ, b = 0^\circ$).
-	\item $V$: Velocity directed along the direction of Galactic rotation ($l = 90^\circ, b = 0^\circ$).
-	\item $W$: Velocity directed toward the North Galactic Pole ($b = +90^\circ$).
+	\item $U$ toward the Galactic centre ($l = 0^\circ$, $b = 0^\circ$),
+	\item $V$ along the direction of Galactic rotation ($l = 90^\circ$, $b = 0^\circ$),
+	\item $W$ toward the north Galactic pole ($b = +90^\circ$).
 \end{itemize}
+Some authors take $U$ positive toward the anticentre, which makes the frame left-handed. We do not.
 
-Because $(U,V,W)$ and $(v_x,v_y,v_z)$ are both Cartesian components of the \emph{same} physical velocity vector, expressed in two frames sharing a common origin (the Sun), they are related by a pure rotation --- the same rigid-rotation argument used in Chapter~2 to transform coordinates between celestial frames, applied here to a velocity rather than a position. The Galactic velocity vector $(U, V, W)^T$ is obtained from the equatorial Cartesian velocity $(v_x, v_y, v_z)^T$ via the transformation matrix $\mathbf T_{\rm Gal}$, whose numerical entries are fixed once and for all by the IAU-adopted direction of the Galactic pole (Chapter~2, Eq.~\eqref{eq:gal_b}):
+\paragraph{Why a velocity turns like a position.} Chapter~\ref{ch:coords} turned positions with a fixed matrix, $\hat{\mathbf r}_{\rm gal}=\mathbf T\,\hat{\mathbf r}_{\rm eq}$ with $\mathbf T$ the product of three turns, Eq.~\eqref{co:eq:gal_product}. Multiplying by $d$ gives the same for the full position $\vecr$. The Galactic pole and centre are fixed by convention at their J2000.0 values, so $\mathbf T$ does not change with time, and
+\begin{align}
+	\begin{pmatrix} U \\ V \\ W \end{pmatrix}
+	&= \dv{t}\,\vecr_{\rm gal}
+	\eqby{1} \dv{t}\big(\mathbf T\,\vecr_{\rm eq}\big)
+	\eqby{2} \mathbf T\,\dv{\vecr_{\rm eq}}{t}
+	= \mathbf T\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{co:eq:gal_product}, multiplied by $d$.
+	\item $\mathbf T$ is constant.
+\end{explain}
+The two frames share their origin at the Sun, so no extra velocity enters here.
+
+\paragraph{The rotation.} The three turns of Eq.~\eqref{co:eq:gal_product}, multiplied out as in Eq.~\eqref{co:eq:T_gal}, give
+\begin{align}
+	\begin{pmatrix} U \\ V \\ W \end{pmatrix}
+	&= \mathbf R_z(90^\circ-l_{\rm CP})\,\mathbf R_x(90^\circ-\delta_{\rm GP})\,\mathbf R_z(\alpha_{\rm GP}+90^\circ)\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} \nonumber\\
+	&\eqby{1} \begin{pmatrix} -0.054876 & -0.873437 & -0.483835 \\ +0.494109 & -0.444830 & +0.746982 \\ -0.867666 & -0.198076 & +0.455984 \end{pmatrix}\begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}.
+	\label{eq:uvw_transform}
+\end{align}
+\begin{explain}
+	\item The IAU values of $\alpha_{\rm GP}$, $\delta_{\rm GP}$ and $l_{\rm CP}$, as in Eq.~\eqref{co:eq:T_gal}.
+\end{explain}
+By the rule of rows, the rows of $\mathbf T$ are the directions of $U$, $V$ and $W$ in equatorial components. Putting in Eq.~\eqref{eq:cartesian_velocity_transform} for the equatorial components and Eq.~\eqref{eq:vt_master} for $v_\alpha$ and $v_\delta$ takes us from the measured numbers to $(U,V,W)$ in one line,
 \begin{keyresult}
 	\begin{equation}
-		\begin{pmatrix} U \\ V \\ W \end{pmatrix} = \mathbf T_{\rm Gal} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix} = \begin{pmatrix} -0.054876 & -0.873437 & -0.483835 \\ +0.494109 & -0.444830 & +0.746982 \\ -0.867666 & -0.198076 & +0.455984 \end{pmatrix} \begin{pmatrix} v_x \\ v_y \\ v_z \end{pmatrix}.
-		\label{eq:uvw_transform}
+		\begin{pmatrix} U \\ V \\ W \end{pmatrix} = \mathbf T\,\mathbf Q^{T}(\alpha,\delta)\begin{pmatrix} v_r \\ 4.74047\,\mu_\alpha^*/p \\ 4.74047\,\mu_\delta/p \end{pmatrix},
+		\label{as:eq:uvw_full}
 	\end{equation}
 \end{keyresult}
+in $\mathrm{km/s}$ for $v_r$ in $\mathrm{km/s}$, $\mu$ in $''/\mathrm{yr}$ and $p$ in $''$. All six measured numbers $(\alpha,\delta,p,\mu_\alpha^*,\mu_\delta,v_r)$ enter, and nothing else. For Sirius, $\mathbf T$ times the column $(8.59,-8.14,-13.06)\,\mathrm{km/s}$ of the last example gives $(U,V,W)=(12.96,\ -1.89,\ -11.79)\,\mathrm{km/s}$.
 
-\paragraph{Correction to the Local Standard of Rest (LSR).}
-The Local Standard of Rest is a reference frame moving on a circular orbit around the Galactic Center at the Sun's Galactocentric radius ($R_0 \approx 8.2\,\mathrm{kpc}$) with circular speed $v_0 \approx 220\text{--}240\,\mathrm{km/s}$. The Sun's peculiar motion with respect to the LSR (Schönrich et al. 2010) is:
+\paragraph{The local standard of rest.} The \textbf{local standard of rest} (LSR) is a frame that moves on a circular orbit round the Galactic centre at the Sun's distance from it, $R_0\approx8.2\,\mathrm{kpc}$, with circular speed $v_0\approx220$--$240\,\mathrm{km/s}$. The Sun moves relative to it. The measured value (Sch\"onrich et al.\ 2010) is
 \begin{equation}
-	(U_\odot, V_\odot, W_\odot) = (11.10^{+0.69}_{-0.75},\, 12.24^{+0.47}_{-0.47},\, 7.25^{+0.37}_{-0.36})\,\mathrm{km/s}.
+	(U_\odot, V_\odot, W_\odot) = (11.10^{+0.69}_{-0.75},\ 12.24^{+0.47}_{-0.47},\ 7.25^{+0.37}_{-0.36})\,\mathrm{km/s}.
 \end{equation}
-The stellar velocity relative to the LSR is:
+The velocity of the star relative to the LSR is its velocity relative to the Sun plus that of the Sun relative to the LSR. Both are written on the same Galactic axes, so the components add,
 \begin{equation}
-	(U_{\rm LSR}, V_{\rm LSR}, W_{\rm LSR}) = (U + U_\odot, V + V_\odot, W + W_\odot).
+	(U_{\rm LSR}, V_{\rm LSR}, W_{\rm LSR}) = (U + U_\odot,\ V + V_\odot,\ W + W_\odot).
 \end{equation}
+For Sirius this is $(24.06,\ 10.35,\ -4.54)\,\mathrm{km/s}$. Relative to the LSR, the velocity of a disk star is the small departure of its Galactic orbit from a circle.
 
+% ==============================================================================
 \section{The Cosmic Distance Ladder}
+\label{as:sec:ladder}
 
-Trigonometric parallax provides the foundational, geometric rung of the cosmic distance ladder without astrophysical assumptions. Beyond the reach of direct parallax ($d \gtrsim \text{few kpc}$ from ground, $\sim 10\text{--}20\,\mathrm{kpc}$ from \emph{Gaia}), successive secondary and tertiary distance indicators are calibrated:
+Parallax gives a distance from geometry alone, Eq.~\eqref{eq:parallax_distance_pc}.
+
+Its angle shrinks as $1/d$, while the error of the measurement does not. Beyond some distance the parallax is lost in the error.
+
+To find how far away a lighthouse is at night, we cannot pace the distance. But if we have measured how bright such a lamp is from close by, its faintness tells us how far it is.
+
+Astronomers do the same with stars whose true brightness can be known from some other property. The nearby ones are calibrated by parallax, and they then give distances far beyond its reach. The idea is that each kind of distance calibrates the next, like the rungs of a ladder.
+
+A distance is good to $10\%$ when $\sigma_p/p=0.1$. Since $d=1/p$, the fractional errors of $d$ and $p$ are equal, and with $p=1/d$ in seconds of arc and parsecs,
+\begin{align}
+	\frac{\sigma_d}{d}
+	&\eqby{1} \frac{\sigma_p}{p}
+	\eqby{2} \sigma_p\,d
+	\quad\Longrightarrow\quad
+	d_{10\%} = \frac{0.1}{\sigma_p}.
+\end{align}
+\begin{explain}
+	\item $|\mathrm dd/d|=|\mathrm dp/p|$ for $d=1/p$.
+	\item Eq.~\eqref{eq:parallax_distance_pc}.
+\end{explain}
+\emph{Hipparcos} measured $\sigma_p\approx1\,\mathrm{mas}$ for bright stars, which gives $10\%$ distances to $100\,\mathrm{pc}$. \emph{Gaia} reaches $\sigma_p\approx0.02\,\mathrm{mas}$ for bright stars, which gives $5\,\mathrm{kpc}$, still well short of the far side of the Galaxy.
+
+The picture is a ladder whose bottom rung stands on the Earth's orbit and whose top reaches the distant galaxies.
+
+The ratio $\sigma_p/p$ decides whether a parallax distance can be trusted, and that is P6. The ladder lists the rungs that take over beyond it.
 
 \begin{enumerate}
-	\item \textbf{Spectroscopic Parallax:} Inferring absolute magnitude $M_V$ from spectral type and luminosity class on the H-R diagram, determining distance from $m - M = 5\log_{10}d - 5$.
-	\item \textbf{Main-Sequence Fitting:} Matching the color-magnitude diagram of star clusters to the zero-age main sequence (ZAMS).
-	\item \textbf{Standard Candles (Cepheids and RR Lyrae):} Leavitt's Period-Luminosity relation for Classical Cepheid variables ($M_V \approx -2.81\log_{10}P - 1.43$) bridges distances out to $\sim 30\,\mathrm{Mpc}$ (Hubble Space Telescope key project).
-	\item \textbf{Type Ia Supernovae:} White dwarf thermonuclear detonations standardized via the Phillips light-curve width-luminosity relation ($M_B \approx -19.3$), extending distances to cosmological scales ($z \sim 1\text{--}2$).
-	\item \textbf{The Hubble-Lemaître Law:} On cosmological scales, galaxy recession velocities follow the expansion of spacetime:
+	\item \textbf{Spectroscopic parallax.} The absolute magnitude $M_V$ follows from the spectral type and luminosity class on the H--R diagram. The distance then follows from the distance modulus $m - M = 5\log_{10}d\,[\mathrm{pc}] - 5$, Eq.~\eqref{eq:distance_modulus}.
+	\item \textbf{Main-sequence fitting.} The colour--magnitude diagram of a star cluster is shifted in magnitude until its main sequence lies on the zero-age main sequence (ZAMS) of nearby stars. The shift is the distance modulus.
+	\item \textbf{Standard candles, Cepheids and RR Lyrae.} Leavitt's period--luminosity relation for classical Cepheid variables, $M_V \approx -2.81\log_{10}(P/1\,\mathrm{day}) - 1.43$ with $P$ the pulsation period, carries distances out to about $30\,\mathrm{Mpc}$ (the Hubble Space Telescope key project).
+	\item \textbf{Type Ia supernovae.} These are thermonuclear explosions of white dwarfs. The Phillips relation between the width of the light curve and the peak luminosity makes them standard, with $M_B \approx -19.3$, and they reach cosmological distances ($z \sim 1$--$2$).
+	\item \textbf{The Hubble--Lema\^itre law.} On cosmological scales, galaxies recede at a speed proportional to their distance, because space expands,
 	\begin{equation}
-		v_r = H_0\,d, \qquad H_0 \approx 70\,\mathrm{km\cdot s^{-1}\cdot Mpc^{-1}}.
+		v_r = H_0\,d, \qquad H_0 \approx 70\,\mathrm{km\,s^{-1}\,Mpc^{-1}}.
 		\label{eq:hubble_law}
 	\end{equation}
 \end{enumerate}
 
-Every rung of this distance ladder is calibrated photometrically -- through an apparent brightness, a color, or a light-curve shape -- which is precisely the subject developed next in Chapter~4.
+Every rung beyond parallax rests on an apparent brightness, a colour or the shape of a light curve. These are the quantities of photometry, Chapter~\ref{ch:photometry}.
 
-\section{Problem Set: Stellar Astrometry, Kinematics, and Space Velocities}
+% ==============================================================================
+\section[Problem Set: Astrometry and Kinematics]{Problem Set: Stellar Astrometry, Kinematics, and Space Velocities}
 
-\subsection{Problem 1: 3D Position, Space Velocity, and Doppler Shift of Sirius}
+\subsection{Problem 1: Position, Space Velocity and Doppler Shift of Regulus}
+\label{as:prob:space_velocity}
 
-\textbf{Problem Statement}: For Sirius, the measured astrometric and kinematic parameters are: parallax $\varpi = 41.13\,\text{mas}$, radial velocity $v_r = 4.39\,\text{km/s}$, proper motion in right ascension $\mu_\alpha = -248.73\,\text{mas/yr}$, and proper motion in declination $\mu_\delta = -5.59\,\text{mas/yr}$.
+\textbf{Problem Statement}: Regulus ($\alpha$ Leonis), the brightest star in Leo, lies at $\alpha = 152.093^\circ$, $\delta = +11.967^\circ$. Its measured parallax is $p = 41.13\,\mathrm{mas}$, its radial velocity $v_r = 4.39\,\mathrm{km/s}$, and its proper motions are $\mu_\alpha^* = -248.73\,\mathrm{mas/yr}$ and $\mu_\delta = +5.59\,\mathrm{mas/yr}$.
 \begin{enumerate}[label=(\alph*)]
-	\item What is the distance $d$ to Sirius in parsecs?
-	\item Determine the 3D Cartesian position vector $\vec r$ in equatorial coordinates.
-	\item Calculate the total space velocity vector $\vec v$ and total speed $|\vec v|$ relative to the Sun.
-	\item What is the apparent (observed) wavelength of the $\mathrm{H}\alpha$ spectral line ($\lambda_0 = 656.46\,\text{nm}$)?
+	\item What is its distance $d$ in parsecs?
+	\item Find its position vector $\vecr$ in equatorial components.
+	\item Find its velocity $\vec v$ relative to the Sun, in equatorial components, and its speed $|\vec v|$.
+	\item At what wavelength is its $\mathrm{H}\alpha$ line observed ($\lambda_0 = 656.46\,\mathrm{nm}$ in vacuum)?
+	\item Find its Galactic velocity $(U,V,W)$ and its velocity relative to the local standard of rest.
 \end{enumerate}
 
 \textbf{Essential Ideas}:
 \begin{itemize}
-	\item \textbf{Trigonometric Distance}: Parallax determines distance directly via $d = 1/\varpi$, where $\varpi$ is in arcseconds and $d$ is in parsecs ($1\,\mathrm{pc} = 1\,\mathrm{AU}/1'' \approx 3.0857 \times 10^{16}\,\mathrm{m}$).
-	\item \textbf{Transverse Velocity}: Proper motion $\mu$ (in $\text{arcsec/yr}$) converts to transverse velocity $v_t$ (in $\text{km/s}$) via the constant $k = 1\,\mathrm{AU}/(1\,\text{Julian yr}) \approx 4.74047\,\mathrm{km\cdot s^{-1}}$:
-	\begin{equation}
-		v_\alpha = 4.74047\,\mu_\alpha d, \qquad v_\delta = 4.74047\,\mu_\delta d.
-	\end{equation}
-	\item \textbf{Coordinate Unit Vectors}: The orthonormal equatorial basis vectors are:
-	\begin{equation}
-		\hat{\mathbf r} = \begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}, \qquad
-		\hat{\boldsymbol\alpha} = \begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}, \qquad
-		\hat{\boldsymbol\delta} = \begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix}.
-	\end{equation}
-	The total space velocity is $\vec v = v_r\hat{\mathbf r} + v_\alpha\hat{\boldsymbol\alpha} + v_\delta\hat{\boldsymbol\delta}$.
-	\item \textbf{Doppler Shift}: For non-relativistic radial velocities ($v_r \ll c$), the first-order Doppler shift is:
-	\begin{equation}
-		\frac{\Delta\lambda}{\lambda_0} \simeq \frac{v_r}{c}.
-	\end{equation}
+	\item Parallax gives the distance, $d\,[\mathrm{pc}] = 1/p\,['']$, Eq.~\eqref{eq:parallax_distance_pc}.
+	\item Proper motion gives the velocity across the line of sight, $v_\alpha = 4.74047\,\mu_\alpha^*d$ and $v_\delta = 4.74047\,\mu_\delta d$ in $\mathrm{km/s}$, Eq.~\eqref{eq:vt_master}. The number $4.74047$ is $1\,\mathrm{AU}$ per Julian year in $\mathrm{km/s}$.
+	\item The local components turn into equatorial ones with $\mathbf Q^T(\alpha,\delta)$, Eq.~\eqref{eq:cartesian_velocity_transform}, and into Galactic ones with $\mathbf T$ after that, Eq.~\eqref{eq:uvw_transform}.
+	\item For $v_r\ll c$ the Doppler shift is $(\lambda_{\rm obs}-\lambda_0)/\lambda_0 = v_r/c$, Eq.~\eqref{eq:doppler_classical}.
 \end{itemize}
 
 \textbf{Detailed Solutions}:
 \begin{enumerate}[label=(\alph*)]
-	\item \textbf{Distance}:
-	Convert the parallax from milliarcseconds to arcseconds:
+	\item \textbf{Distance}. With $p = 41.13\,\mathrm{mas} = 0.04113''$,
 	\[
-	\varpi = 41.13\,\text{mas} = 0.04113''.
-	\]
-	The distance is:
-	\[
-	\boxed{d = \frac{1}{\varpi} = \frac{1}{0.04113''} \simeq 24.31\,\mathrm{pc}}.
+	\boxed{d = \frac{1}{0.04113}\,\mathrm{pc} = 24.31\,\mathrm{pc}.}
 	\]
 
-	\item \textbf{Cartesian Position Vector}:
-	For Sirius, the equatorial coordinates are $\alpha \approx 101.287^\circ$ and $\delta \approx -16.716^\circ$. The Cartesian position vector is:
+	\item \textbf{Position vector}. With $\cos\delta=0.97827$, $\sin\delta=0.20735$, $\cos\alpha=-0.88371$ and $\sin\alpha=0.46804$, Eq.~\eqref{eq:cartesian_pos_3d} gives
 	\[
-	\vec r = d\begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}
-	= 24.31\,\mathrm{pc} \begin{pmatrix} \cos(-16.716^\circ)\cos(101.287^\circ) \\ \cos(-16.716^\circ)\sin(101.287^\circ) \\ \sin(-16.716^\circ) \end{pmatrix}
-	\simeq \begin{pmatrix} -4.56 \\ 22.84 \\ -6.99 \end{pmatrix}\mathrm{pc}.
+	\boxed{\vecr = 24.31\,\mathrm{pc} \begin{pmatrix} 0.97827\times(-0.88371) \\ 0.97827\times0.46804 \\ 0.20735 \end{pmatrix}
+	= \begin{pmatrix} -21.02 \\ 11.13 \\ 5.04 \end{pmatrix}\mathrm{pc}.}
 	\]
 
-	\item \textbf{Total Velocity Vector and Speed}:
-	Convert the proper motion components to linear velocities:
+	\item \textbf{Velocity and speed}. The proper motions give the local components
 	\begin{align*}
-		v_\alpha &= 4.74047 \times (-0.24873''/\text{yr}) \times 24.31\,\mathrm{pc} \simeq -28.67\,\mathrm{km/s}, \\
-		v_\delta &= 4.74047 \times (-0.00559''/\text{yr}) \times 24.31\,\mathrm{pc} \simeq -0.64\,\mathrm{km/s}.
+		v_\alpha &= 4.74047 \times (-0.24873) \times 24.31\,\mathrm{km/s} = -28.67\,\mathrm{km/s}, \\
+		v_\delta &= 4.74047 \times 0.00559 \times 24.31\,\mathrm{km/s} = +0.64\,\mathrm{km/s}.
 	\end{align*}
-	Assembling the full 3D space velocity vector:
+	Eq.~\eqref{eq:cartesian_velocity_transform} turns them into equatorial components,
 	\begin{align*}
-		\vec v &= v_r\hat{\mathbf r} + v_\alpha\hat{\boldsymbol\alpha} + v_\delta\hat{\boldsymbol\delta} \\
-		&= (4.39)\begin{pmatrix} \cos\delta\cos\alpha \\ \cos\delta\sin\alpha \\ \sin\delta \end{pmatrix}
-		+ (-28.67)\begin{pmatrix} -\sin\alpha \\ \cos\alpha \\ 0 \end{pmatrix}
-		+ (-0.64)\begin{pmatrix} -\sin\delta\cos\alpha \\ -\sin\delta\sin\alpha \\ \cos\delta \end{pmatrix} \\
-		&\simeq \begin{pmatrix} 27.33 \\ 9.55 \\ -1.88 \end{pmatrix}\mathrm{km/s}.
+		\vec v
+		&= \begin{pmatrix} -0.86450 & -0.46804 & 0.18324 \\ 0.45787 & -0.88371 & -0.09705 \\ 0.20735 & 0 & 0.97827 \end{pmatrix}
+		\begin{pmatrix} 4.39 \\ -28.67 \\ 0.64 \end{pmatrix}\mathrm{km/s}
+		= \begin{pmatrix} 9.74 \\ 27.28 \\ 1.54 \end{pmatrix}\mathrm{km/s}.
 	\end{align*}
-	The total space speed relative to the Sun is:
+	By Eq.~\eqref{eq:v_total_speed} the speed can be found from either set of components,
 	\[
-	\boxed{|\vec v| = \sqrt{v_r^2 + v_\alpha^2 + v_\delta^2} = \sqrt{(4.39)^2 + (-28.67)^2 + (-0.64)^2} \simeq 29.01\,\mathrm{km/s}}.
+	\boxed{|\vec v| = \sqrt{4.39^2 + 28.67^2 + 0.64^2}\,\mathrm{km/s} = 29.01\,\mathrm{km/s}.}
 	\]
 
-	\item \textbf{Apparent Wavelength of $\mathrm{H}\alpha$}:
-	With radial velocity $v_r = +4.39\,\mathrm{km/s}$ (recession) and speed of light $c \approx 299{,}792.458\,\mathrm{km/s}$:
+	\item \textbf{Observed wavelength of $\mathrm{H}\alpha$}. The star recedes at $v_r = 4.39\,\mathrm{km/s}$, so by Eq.~\eqref{eq:doppler_classical}
 	\[
-	\Delta\lambda = \lambda_0\frac{v_r}{c} = 656.46\,\mathrm{nm} \times \frac{4.39}{299792.458} \simeq 0.0096\,\mathrm{nm}.
+	\lambda_{\rm obs}-\lambda_0 = \lambda_0\frac{v_r}{c} = 656.46\,\mathrm{nm} \times \frac{4.39}{299\,792.458} = 0.0096\,\mathrm{nm},
 	\]
-	The observed wavelength is redshifted to:
 	\[
-	\boxed{\lambda_{\rm obs} = \lambda_0 + \Delta\lambda = 656.46 + 0.0096 = 656.4696\,\mathrm{nm} \approx 656.470\,\mathrm{nm}}.
+	\boxed{\lambda_{\rm obs} = 656.4696\,\mathrm{nm}.}
 	\]
+	The shift is one part in $68\,000$ of the wavelength.
+
+	\item \textbf{Galactic velocity}. Eq.~\eqref{eq:uvw_transform} acting on the column of part (c) gives
+	\[
+	\boxed{(U,V,W) = (-25.11,\ -6.17,\ -13.15)\,\mathrm{km/s},}
+	\]
+	with the same length, $29.01\,\mathrm{km/s}$, as a rotation must keep. Adding the Sun's motion relative to the LSR,
+	\[
+	\boxed{(U_{\rm LSR},V_{\rm LSR},W_{\rm LSR}) = (-14.01,\ 6.07,\ -5.90)\,\mathrm{km/s}.}
+	\]
+	Most of the speed relative to the Sun is the $U$ component, directed away from the Galactic centre. Relative to the LSR, Regulus moves outward from the centre at $14\,\mathrm{km/s}$, a little ahead of circular rotation, and slowly toward the south side of the disk.
+\end{enumerate}
+
+\subsection{Problem 2: Closest Approach of a Fast Nearby Star}
+\label{as:prob:closest_approach}
+
+\textbf{Problem Statement}: A nearby red dwarf has parallax $p = 0.547''$, total proper motion $\mu = 10.39''/\mathrm{yr}$ and radial velocity $v_r = -110\,\mathrm{km/s}$. These are close to the values for Barnard's star. Treat its motion relative to the Sun as a straight line.
+\begin{enumerate}[label=(\alph*)]
+	\item Find its distance and its transverse velocity.
+	\item Find its speed and the angle between its velocity and the line of sight.
+	\item How close will it come to the Sun, and when?
+	\item What will its proper motion be at closest approach?
+\end{enumerate}
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item With no force acting, momentum is conserved (P1) and the star moves on a straight line, $\vecr(t)=\vecr_0+\vec v\,t$.
+	\item The velocity splits into $v_r$ along the line of sight and $v_t = 4.74047\,\mu/p$ across it, Eq.~\eqref{eq:vt_master}, and $|\vec v|^2=v_r^2+v_t^2$, Eq.~\eqref{eq:v_total_speed}.
+	\item The closest approach is where $|\vecr(t)|^2$ has its minimum.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Distance and transverse velocity}. By Eqs.~\eqref{eq:parallax_distance_pc} and \eqref{eq:vt_master},
+	\[
+	\boxed{d = \frac{1}{0.547}\,\mathrm{pc} = 1.828\,\mathrm{pc},\qquad v_t = 4.74047\times\frac{10.39}{0.547}\,\mathrm{km/s} = 90.0\,\mathrm{km/s}.}
+	\]
+
+	\item \textbf{Speed and direction}. By Eq.~\eqref{eq:v_total_speed},
+	\[
+	|\vec v| = \sqrt{110^2+90.0^2}\,\mathrm{km/s} = 142.2\,\mathrm{km/s}.
+	\]
+	The angle $\psi$ between $\vec v$ and $\hat{\mathbf r}$ has $\cos\psi = v_r/|\vec v| = -0.774$,
+	\[
+	\boxed{|\vec v| = 142.2\,\mathrm{km/s},\qquad \psi = 140.7^\circ.}
+	\]
+	The star is coming toward us, at $39.3^\circ$ from the line that joins it to the Sun.
+
+	\item \textbf{Closest approach}. Write $\vecr_0 = d\,\hat{\mathbf r}$ now. The squared distance and its minimum are
+	\begin{align*}
+		|\vecr(t)|^2
+		&\eqby{1} d^2+2d\,(\hat{\mathbf r}\cdot\vec v)\,t+|\vec v|^2t^2
+		\eqby{2} d^2+2d\,v_r\,t+|\vec v|^2t^2, \\
+		t_{\min}
+		&\eqby{3} -\frac{d\,v_r}{|\vec v|^2}, \qquad
+		d_{\min}^2 \eqby{4} d^2-\frac{d^2v_r^2}{|\vec v|^2} = d^2\,\frac{v_t^2}{|\vec v|^2}.
+	\end{align*}
+	\begin{explain}
+		\item $|\vecr_0+\vec v\,t|^2$ multiplied out.
+		\item $\hat{\mathbf r}\cdot\vec v = v_r$, Eq.~\eqref{as:eq:velocity_local}.
+		\item The derivative with respect to $t$ set to zero.
+		\item $t_{\min}$ put back, then $|\vec v|^2-v_r^2=v_t^2$.
+	\end{explain}
+	So $d_{\min} = d\,v_t/|\vec v| = 1.828\times90.0/142.2\,\mathrm{pc}$. With $d = 1.828\times3.0857\times10^{13}\,\mathrm{km} = 5.64\times10^{13}\,\mathrm{km}$, $t_{\min} = 5.64\times10^{13}\times110/142.2^2\,\mathrm s = 3.07\times10^{11}\,\mathrm s$,
+	\[
+	\boxed{d_{\min} = 1.16\,\mathrm{pc},\qquad t_{\min} = 9.7\times10^{3}\ \text{years from now}.}
+	\]
+
+	\item \textbf{Proper motion at closest approach}. There the whole velocity is across the line of sight, so $v_t = |\vec v|$ and, by Eq.~\eqref{eq:vt_master},
+	\[
+	\boxed{\mu = \frac{|\vec v|}{4.74047\,d_{\min}} = \frac{142.2}{4.74047\times1.158}\,''/\mathrm{yr} = 25.9''/\mathrm{yr}.}
+	\]
+	A second route uses the angular momentum about the Sun. With no force it is conserved (P1), and per unit mass it is $|\vecr\times\vec v| = d\,v_t = \mu\,d^2$ by Eq.~\eqref{as:eq:vt_dmu}. So $\mu\,d^2$ is the same now and at closest approach, and $\mu = 10.39\times(1.828/1.158)^2\,''/\mathrm{yr} = 25.9''/\mathrm{yr}$ again. The same law gives the present rate of growth. Differentiating $\mu\,d^2=\text{const}$ gives $\dot\mu = -2\mu\,\dot d/d = -2\mu\,v_r/d$, which is $0.0013''/\mathrm{yr}$ per year. The velocity is constant, yet the proper motion grows, because the distance shrinks. This growth is the \textbf{secular acceleration}, and for Barnard's star it shifts the position by about half a second of arc in thirty years.
 \end{enumerate}

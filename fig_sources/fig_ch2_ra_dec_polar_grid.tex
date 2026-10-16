@@ -79,7 +79,7 @@
 				\draw[astroblue!40] (0,0) -- ({90+15*\h}:5.7);
 			}
 			\foreach \h in {0,2,...,22} {
-				\node[font=\scriptsize] at ({90+15*\h}:6.25) {$\h^{\rm h}$};
+				\node[font=\scriptsize] at ({90-15*\h}:6.25) {$\h^{\rm h}$};
 			}
 			\foreach \dec/\rr in {80/1,70/2,60/3,50/4,40/5} {
 				\node[astroblue!85, font=\scriptsize, fill=white, inner sep=1pt] at ({100}:\rr) {$+\dec^\circ$};
@@ -88,10 +88,10 @@
 			\fill (0,0) circle(2.2pt) node[above right=1pt, font=\small] {NCP};
 			\node[orange!80!black, font=\scriptsize] at (0.55,-0.35) {Polaris};
 
-			\node[astroblue!90, font=\scriptsize, align=left] at (-4.6,4.9) {Radial lines:\\constant $\alpha$\\(hour circles)};
-			\draw[->, astroblue!80, thin] (-3.3,4.5) to[bend right=35] ({90+15*3}:3.4);
+			\node[astroblue!90, font=\scriptsize, align=left] at (-5.4,-5.5) {Radial lines:\\constant $\alpha$\\(hour circles)};
+			\draw[->, astroblue!80, thin] (-4.3,-4.9) to[bend left=35] ({225}:3.4);
 
-			\node[astroblue!90, font=\scriptsize, align=left] at (4.9,-4.5) {Concentric circles:\\constant $\delta$};
-			\draw[->, astroblue!80, thin] (3.7,-4.1) to[bend left=35] ({-40}:3.1);
+			\node[astroblue!90, font=\scriptsize, align=left] at (5.4,-5.5) {Concentric circles:\\constant $\delta$};
+			\draw[->, astroblue!80, thin] (4.6,-5.0) to[bend right=35] ({-45}:3.0);
 		\end{tikzpicture}
 \end{document}

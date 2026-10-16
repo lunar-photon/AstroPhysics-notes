@@ -1,0 +1,29 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+% Apparent transverse speed beta sin(theta) / (1 - beta cos(theta)) against the angle theta to the line of sight, for beta = 0.9, 0.98, 0.995.
+\begin{tikzpicture}[x=0.13cm,y=0.6cm, >={Stealth[length=2.4mm]}]
+  \draw[linecol] (0,0) grid[xstep=10,ystep=2] (90,10);
+  \draw[->, muted] (0,0) -- (94,0) node[right] {$\theta\ (\mathrm{deg})$};
+  \draw[->, muted] (0,0) -- (0,10.8) node[above] {$\beta_{\rm app}$};
+  \foreach \x in {0,30,60,90} \node[below, muted] at (\x,0) {\small \x};
+  \foreach \y in {0,2,4,6,8,10} \node[left, muted] at (0,\y) {\small \y};
+  \draw[dashed, muted] (0,1) -- (90,1);
+  \draw[colthree, line width=1.1pt, domain=0:90, samples=300] plot (\x, {0.9*sin(\x)/(1-0.9*cos(\x))});
+  \draw[accent, line width=1.1pt, domain=0:90, samples=300] plot (\x, {0.98*sin(\x)/(1-0.98*cos(\x))});
+  \draw[astroblue, line width=1.1pt, domain=0:90, samples=400] plot (\x, {0.995*sin(\x)/(1-0.995*cos(\x))});
+  \node[astroblue, right] at (11,9.6) {\small $\beta=0.995$};
+  \node[accent, right] at (19,5.4) {\small $\beta=0.98$};
+  \node[colthree, right] at (40,2.5) {\small $\beta=0.9$};
+\end{tikzpicture}
+\end{document}
