@@ -11,6 +11,7 @@
 \definecolor{colthree}{RGB}{60,140,80}
 \usetikzlibrary{calc,arrows.meta,plotmarks}
 \IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
 % Isothermal sphere: log10(rho/rho_c) against log10 xi (cluster data), with the singular solution 2/xi^2 dashed.
 \begin{tikzpicture}[x=1.6cm,y=0.55cm, >={Stealth[length=2.4mm]}]

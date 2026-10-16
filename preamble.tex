@@ -3,8 +3,10 @@
 % ==============================================================================
 
 % ---------- Geometry & Page Setup ----------
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\usepackage[a4paper,margin=2.6cm,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newpxtext}
 \usepackage{graphicx}
 \graphicspath{{figs/}}
 \usepackage{float}
@@ -25,7 +27,10 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{newpxmath}
+\usepackage{microtype}
 \usepackage{physics}
+\newcommand{\bmmax}{0}\newcommand{\hmmax}{0}  % newpxmath uses many math alphabets
 \usepackage{bm}
 \usepackage{nicefrac}
 \usepackage{dsfont}
@@ -59,7 +64,7 @@
 \definecolor{coltwo}{RGB}{60,110,180}
 \definecolor{colthree}{RGB}{60,140,80}
 
-\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent}{HTML}{1F4E79}   % headings, labels, links (house colour)
 \definecolor{accent2}{HTML}{2B5F6B}
 \definecolor{muted}{HTML}{5A564F}
 \definecolor{panel}{HTML}{F8F6F0}
@@ -69,11 +74,30 @@
 \definecolor{astrodark}{HTML}{17202A}
 \definecolor{sunyellow}{HTML}{E8A33D}
 
+% ---------- Captions, headings and running heads (house style of the notes template) ----------
+\usepackage{caption}
+\captionsetup{font=small,labelfont={bf,color=accent},margin=1em}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\sffamily\huge\bfseries\color{accent}}
+  {\large\chaptertitlename\ \thechapter}{8pt}{\Huge}
+\titleformat{\section}{\normalfont\sffamily\Large\bfseries\color{accent}}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalfont\sffamily\large\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}{\normalfont\sffamily\normalsize\bfseries}{\thesubsubsection}{0.8em}{}
+\setcounter{tocdepth}{1}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[RE]{\small\sffamily\nouppercase{\leftmark}}
+\fancyhead[LO]{\small\sffamily\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+
 % ---------- Hyperlinks ----------
-\usepackage[colorlinks=true, 
-            linkcolor=blue!80!black, 
-            citecolor=accent2, 
-            urlcolor=blue!80!black,
+\usepackage[colorlinks=true,
+            linkcolor=accent,
+            citecolor=accent,
+            urlcolor=accent,
             bookmarksdepth=3]{hyperref}
 
 % ---------- TikZ & Diagramming ----------
@@ -84,10 +108,17 @@
 % ---------- Theorem & Definition Environments ----------
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{result}{Result}[chapter]
-\newtheorem{example}{Example}[chapter]
 
 % ---------- tcolorbox Styling ----------
 \usepackage[most]{tcolorbox}
+% Worked example: a calm grey box with a numbered title, as in the notes template
+\newcounter{wex}[chapter]
+\renewcommand{\thewex}{\thechapter.\arabic{wex}}
+\newtcolorbox{example}[1][]{enhanced,breakable,sharp corners=south,arc=2mm,
+  boxrule=0.4pt,left=2.5mm,right=2.5mm,top=1.5mm,bottom=1.5mm,
+  fonttitle=\bfseries\sffamily\small,coltitle=black!80,colbacktitle=black!5,
+  titlerule=0.3pt,before skip=10pt,after skip=10pt,colback=white,colframe=black!28,
+  step=wex,title={Worked example~\thewex\ifx\relax#1\relax\else: #1\fi}}
 \tcbset{
   basestyle/.style={
     enhanced, breakable, colback=panel, colframe=linecol,

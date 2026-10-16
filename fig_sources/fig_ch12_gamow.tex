@@ -11,6 +11,7 @@
 \definecolor{colthree}{RGB}{60,140,80}
 \usetikzlibrary{calc,arrows.meta,plotmarks}
 \IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
 % Gamow peak for p + p at the Sun's centre: kT = 1.353 keV, E_G = 493 keV. Each curve is scaled to a maximum of 1:
 %  Maxwell tail exp(-E/kT), tunnelling exp(-sqrt(E_G/E)) scaled to 1 at E = 20 keV, and their product.

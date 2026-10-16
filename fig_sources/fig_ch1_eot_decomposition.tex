@@ -26,6 +26,7 @@
 \pgfmathdeclarefunction{eotecc}{1}{\pgfmathparse{-7.655*sin(gan(#1))}}
 \pgfmathdeclarefunction{eotobl}{1}{\pgfmathparse{9.863*sin(2*lam(#1))}}
 
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
 \begin{tikzpicture}[x=1cm, y=0.2cm, font=\sffamily]
 	% x = 12 d / 365.25 (cm), y = minutes

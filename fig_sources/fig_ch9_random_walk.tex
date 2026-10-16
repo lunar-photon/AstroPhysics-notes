@@ -9,6 +9,7 @@
 % Data from code/ch9/01_random_walk.py (run on the cluster): one walk of 100 unit steps and the
 % end points of 500 independent walks. The dotted circle has radius sqrt(100) = 10 steps.
 \IfFileExists{results/ch9/random_walk_path.dat}{\def\datadir{results/ch9/}}{\def\datadir{../results/ch9/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
 \begin{tikzpicture}[scale=0.13]
   \draw plot[only marks, mark=*, mark size=4.5pt, mark options={fill=muted!45, draw=none}]

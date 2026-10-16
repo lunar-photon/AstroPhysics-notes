@@ -11,6 +11,7 @@
 \definecolor{colthree}{RGB}{60,140,80}
 \usetikzlibrary{calc,arrows.meta}
 \IfFileExists{results/ch15/sync_population.dat}{\def\datadir{results/ch15/}}{\def\datadir{../results/ch15/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
 % From code/ch15/01_synchrotron.py (cluster). Upper: one-electron spectrum F(x), x = nu/nu_c. Lower: electrons with
 % n(gamma) ∝ gamma^{-2.5} for gamma_min <= gamma <= 1000 gamma_min; axis nu / nu_c(gamma_min); dashed slope -0.75.
