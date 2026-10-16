@@ -8,33 +8,45 @@
 \definecolor{linecol}{HTML}{D8D2C4}
 \definecolor{astroblue}{HTML}{1B4F72}
 \definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\usepackage{graphicx}
 \definecolor{colthree}{RGB}{60,140,80}
 \usetikzlibrary{calc,arrows.meta,plotmarks}
 \IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
 \usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
-% HR diagram: lines of constant radius, log L/Lsun = 2 log R/Rsun + 4 log(T/5772); temperature increases to the left.
-% x coordinate = -log10 T so that hot is on the left.
-\begin{tikzpicture}[x=5.2cm,y=0.55cm, >={Stealth[length=2.4mm]}]
+% HR diagram: Hipparcos stars (image from code/ch12/02_hr_diagram.py) under lines of constant radius,
+% log L/Lsun = 2 log R/Rsun + 4 log(T/5772). x coordinate = -log10 T so that hot is on the left.
+% The image spans exactly x = -4.6..-3.4 (9 cm) and y = -4..6 (7 cm).
+\begin{tikzpicture}[x=7.5cm,y=0.7cm, >={Stealth[length=2.4mm]}, font=\small]
   \def\xa{-4.6}\def\xb{-3.4}
-  \draw[linecol] (\xa,-4) grid[xstep=0.2,ystep=2] (\xb,6);
-  \draw[->, muted] (\xa,-4) -- (-3.37,-4) node[right] {$T_{\rm eff}$};
+  \draw[linecol!70] (\xa,-4) grid[xstep=0.2,ystep=2] (\xb,6);
+  \node[anchor=south west, inner sep=0] at (\xa,-4)
+    {\includegraphics[width=9cm,height=7cm]{\datadir hr_stars.png}};
+  \draw[->, muted] (\xa,-4) -- (-3.37,-4) node[right] {$T_{\rm eff}$ (K)};
   \draw[->, muted] (\xa,-4) -- (\xa,6.6) node[above] {$\log_{10}(L/L_\odot)$};
-  \foreach \lt/\T in {3.477/3000,3.699/5000,4.0/10000,4.301/20000} \node[below, muted] at (-\lt,-4) {\small \T};
-  \foreach \y in {-4,-2,0,2,4,6} \node[left, muted] at (\xa,\y) {\small \y};
+  \foreach \lt/\T in {3.477/3000,3.699/5000,4.0/10\,000,4.301/20\,000} \node[below, muted] at (-\lt,-4) {\T};
+  \foreach \y in {-4,-2,0,2,4,6} \node[left, muted] at (\xa,\y) {\y};
   \begin{scope}
     \clip (\xa,-4) rectangle (\xb,6);
-    \foreach \R/\lab in {0.01/0.01,0.1/0.1,1/1,10/10,100/100,1000/1000} {
-      \draw[muted!60, dashed] plot[domain=3.4:4.6, samples=2] ({-\x}, {2*log10(\R) + 4*(\x - 3.7613)});
+    \foreach \R in {0.01,0.1,1,10,100,1000} {
+      \draw[muted!70, dashed] plot[domain=3.4:4.6, samples=2] ({-\x}, {2*log10(\R) + 4*(\x - 3.7613)});
     }
   \end{scope}
-  \foreach \R/\lT in {0.01/4.200,0.1/4.079,1/3.845,10/3.633,100/3.556} {
+  \foreach \R/\lT in {0.01/4.560,0.1/4.300,1/4.300,10/4.230,100/3.95,1000/3.64} {
     \pgfmathsetmacro{\yy}{2*log10(\R) + 4*(\lT - 3.7613)}
-    \node[muted, font=\scriptsize, fill=white, inner sep=1pt] at (-\lT,\yy) {$\R\,R_\odot$};
+    \node[muted, font=\scriptsize, fill=white, fill opacity=0.8, text opacity=1, inner sep=1pt] at (-\lT,\yy) {$\R\,R_\odot$};
   }
-  \foreach \lT/\lL/\name/\pos in {3.761/0/Sun/right, 3.997/1.405/Sirius A/right, 4.401/-1.252/Sirius B/right, 3.483/-2.810/Proxima Cen/left, 3.556/5.0/Betelgeuse/left, 3.632/2.230/Arcturus/left, 4.083/5.079/Rigel/right} {
-    \fill[accent] (-\lT,\lL) circle[radius=2.2pt];
-    \node[accent, \pos, font=\small] at (-\lT,\lL) {\name};
+  % regions
+  \node[ink, rotate=-27, font=\small\itshape] at (-3.86,-0.45) {main sequence};
+  \node[ink, font=\small\itshape] at (-3.60,1.15) {giants};
+  \node[ink, font=\small\itshape] at (-3.90,5.65) {supergiants};
+  \node[ink, font=\small\itshape] at (-4.17,-3.55) {white dwarfs};
+  % named stars
+  \foreach \lT/\lL/\name/\pos in {3.761/0/Sun/right, 3.997/1.405/Sirius A/above left, 4.401/-1.252/Sirius B/below, 3.483/-2.810/Proxima Cen/left, 3.556/5.0/Betelgeuse/below, 3.632/2.230/Arcturus/above, 4.083/5.079/Rigel/left} {
+    \node[ink, \pos, font=\scriptsize\bfseries, fill=white, fill opacity=0.75, text opacity=1, inner sep=1pt, outer sep=3pt] at (-\lT,\lL) {\name};
   }
+  \foreach \lT/\lL in {3.761/0, 3.997/1.405, 4.401/-1.252, 3.483/-2.810, 3.556/5.0, 3.632/2.230, 4.083/5.079}
+    \draw[ink, fill=white, line width=0.6pt] (-\lT,\lL) circle[radius=2.2pt];
 \end{tikzpicture}
 \end{document}

@@ -2,6 +2,7 @@
 \label{ch:structure}
 
 \input{results/ch12/lane_emden.tex}
+\input{results/ch12/hr.tex}
 
 A star is a ball of gas in hydrostatic equilibrium (Section~\ref{sg:sec:hse}), heated inside by nuclear burning and losing energy from its surface as light (Chapter~\ref{ch:radiation}). Its whole structure, the density, pressure, temperature and luminosity at every depth, follows from four equations. Each equation is one of the principles at work. Three properties of the gas, its pressure, its opacity and its rate of burning, close the four equations, and each of those is again one of the principles.
 
@@ -424,7 +425,7 @@ The picture is the HR diagram of Figure~\ref{st:fig:hr}, where stars of the same
 \begin{figure}[htbp]
 	\centering
 	\includegraphics{fig_ch12_hr.pdf}
-	\caption{Luminosity against effective temperature, with temperature increasing to the left. Dashed lines join points of equal radius, labelled in solar radii. Dots mark seven well-known stars.}
+	\caption{Luminosity against effective temperature, with temperature increasing to the left, for $\TwelveHRN$ Hipparcos stars with parallaxes better than $10\%$ (all within $\TwelveHRMaxPc\,\mathrm{pc}$) and $\TwelveHRNwd$ Gaia white dwarfs within $100\,\mathrm{pc}$, coloured by temperature. Dashed lines join points of equal radius, labelled in solar radii. Circles mark seven well-known stars.}
 	\label{st:fig:hr}
 \end{figure}
 
@@ -468,6 +469,8 @@ Hydrogen burns fast enough to stop the contraction only above a few million kelv
 \log L=2\log R+4\log T_{\rm eff}+\text{constant},
 \]
 so in a diagram of $\log L$ against $\log T_{\rm eff}$, stars of equal radius lie on straight lines (Figure~\ref{st:fig:hr}). Stars burning hydrogen in their cores form the main sequence, running from cool dim dwarfs like Proxima Centauri to hot bright stars like Sirius A, ordered by mass through Eq.~\eqref{st:eq:mass_luminosity}. Giants and supergiants like Arcturus and Betelgeuse lie above it at large radius, and white dwarfs like Sirius B below it at about a hundredth of the Sun's radius.
+
+Each point in the figure is a real star. Its distance comes from its parallax (Section~\ref{as:sec:parallax}), and its brightness and distance give its luminosity. Its colour gives its temperature, and a small correction adds the light that falls outside the visual band. For the white dwarfs the catalogue gives the temperature, the surface gravity $g$ and the mass, so the radius is $R=\sqrt{GM/g}$ and the luminosity follows from Stefan–Boltzmann. The stars do not fill the diagram. Most sit on the main sequence, because a star spends about nine tenths of its life burning hydrogen in its core. The giant branch is thinner, since the giant stage is short. Hot bright stars are rare among the points, because massive stars are few and short-lived, and few lie within $\TwelveHRMaxPc\,\mathrm{pc}$. The dimmest red dwarfs, such as Proxima Centauri, were too faint for Hipparcos to measure well, so the main sequence stops above it in the figure.
 
 A star leaves the main sequence when its core runs out of hydrogen. The core, now helium, has no burning to support it. It loses energy and, by Section~\ref{sg:sec:negheat}, contracts and heats. Hydrogen burns on in a shell around it, the shell's output rises as the core shrinks and heats, and the extra luminosity swells the envelope to a hundred times its former radius. The star moves to the upper right of the diagram and becomes a red giant. When the core reaches about $10^8\,\mathrm K$, helium ignites.
 
