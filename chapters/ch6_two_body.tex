@@ -58,6 +58,13 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\end{align}
 	Equation \eqref{eq:comEOM} integrates at once to $\vec X(t) = \vec V_{\rm CM}\,t+\vec X_0$. The six constants $\vec V_{\rm CM},\vec X_0$ fix an inertial frame in which the centre of mass is at rest at the origin. All the dynamics is in the \emph{relative} coordinate $\vecr$, governed by \eqref{eq:relEOM}. It is a one-body central-force problem with the reduced mass $\mu$.
 
+	\paragraph{Back to the two bodies.} Once $\vec X(t)$ and $\vecr(t)$ are known, the inverse matrix above gives each body's path. Its rows read $\vecx_1=\vec X+(m_2/M)\,\vecr$ and $\vecx_2=\vec X-(m_1/M)\,\vecr$, and $m_1/M=1-m_2/M$, so
+	\begin{equation}
+		\boxed{\vecx_1(t)=\vec X(t)+\frac{m_2}{M}\,\vecr(t),\qquad \vecx_2(t)=\vec X(t)-\left(1-\frac{m_2}{M}\right)\vecr(t).}
+		\label{tb:eq:body_paths}
+	\end{equation}
+	Only the relative orbit has to be solved. Each body follows the centre of mass and adds a copy of the relative orbit, shrunk by a mass fraction. Body 1 takes the share $m_2/M$ of $\vecr$, and body 2 takes the rest, $1-m_2/M$, pointing the other way. The two shares add up to the whole, since $\vecx_1-\vecx_2=\vecr$. The heavier body takes the smaller share. For the Earth and the Moon $M/m_{\rm Moon}=82.3$, so the Earth's centre moves on a copy of the Moon's orbit $82.3$ times smaller, of radius $384\,400/82.3\approx4700\,\mathrm{km}$. That is the monthly wobble of the Earth.
+
 	\subsection{Conserved quantities}
 
 	\paragraph{Angular momentum.} Define $\vecL=\vecr\times\vecp=\mu\,\vecr\times\dot{\vecr}$, with $\vecp=\mu\dot{\vecr}$. Then
@@ -419,7 +426,7 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 			\bottomrule
 		\end{tabular}
 	\end{center}
-	The sign of $E$ in each row is shown in Section~\ref{tb:sec:EL_ae}. Bound, closed elliptical orbits ($E<0$) are \textbf{Kepler's first law}. In the centre-of-mass frame, $\vec X=0$, the inverse transformation of Section~\ref{sec:com_separation} gives the two bodies' positions,
+	The sign of $E$ in each row is shown in Section~\ref{tb:sec:EL_ae}. Bound, closed elliptical orbits ($E<0$) are \textbf{Kepler's first law}. In the centre-of-mass frame, $\vec X=0$, Eq.~\eqref{tb:eq:body_paths} gives the two bodies' positions,
 	\[
 	\vecx_1=\frac{m_2}{M}\vecr,\qquad \vecx_2=-\frac{m_1}{M}\vecr.
 	\]
