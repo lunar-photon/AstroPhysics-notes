@@ -14,34 +14,36 @@ Computes
   - comoving Cartesian coordinates with the observer at the origin,
     x = D cos(dec) cos(ra), y = D cos(dec) sin(ra), z = D sin(dec),
     so +x points to RA 0, +y to RA 90 deg and +z to the north celestial pole,
-  - an orthographic view (equal scale everywhere) from one fixed direction, near galaxies darker,
-  - where Earth falls on the picture, how the three axes and a 100 Mpc bar project.
-  Run with the argument "trial" to write a contact sheet of previews (elevation 10, 25, 40 deg and
-  azimuth every 30 deg) instead of the final picture. The chosen view is ELEV, AZIM below.
+  - a mild perspective view from one fixed direction, near galaxies darker, with the survey volume
+    drawn as a wireframe in the same projection (cone edges, far face grid, 100 and 200 Mpc arcs,
+    floor at dec = 0, drop lines),
+  - where Earth, the ends of the distance arcs and the tick marks fall on the picture.
 
 Writes
-  results/ch14/sdss3d.png      the galaxies only, transparent, 13 cm x 9 cm
-  results/ch14/sdss3d_pos.tex  TikZ data in cm, for fig_sources/fig_ch14_sdss3d.tex
-  results/ch14/sdss3d.tex      LaTeX macros \FourteenThreeN, \FourteenThreeDepth,
-                               \FourteenThreeSample, \FourteenThreeBar
+  results/ch14/sdss3d.png      the galaxies and the wireframe, transparent, 13 cm x 9 cm
+  results/ch14/sdss3d_pos.tex  TikZ coordinates in cm, for fig_sources/fig_ch14_sdss3d.tex
+  results/ch14/sdss3d.tex      LaTeX macros \FourteenThreeN, \FourteenThreeDepth
 """
 import os
-import sys
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import proj3d
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 out = os.path.join("results", "ch14")
 os.makedirs(out, exist_ok=True)
 
 C, H0, OM = 299792.458, 67.4, 0.315
 OL = 1.0 - OM
-BAR, ARROW = 100.0, 60.0                       # scale bar and axis arrow length (Mpc)
-ELEV, AZIM = 25.0, 30.0                        # chosen view direction in degrees (best of the trial sheet)
+ELEV, AZIM = 22.0, 25.0                        # view direction in degrees
+FOCAL, ZOOM = 0.5, 1.25                        # mild perspective, picture zoom
 W_CM, H_CM = 13.0, 9.0
-PT, AL0, AL1 = 0.5, 0.07, 0.6                  # point size, alpha far and near
+PT, AL0, AL1 = 0.4, 0.07, 0.6                  # point size, alpha far and near
+RA_LO, RA_HI, DEC_LO, DEC_HI = 130.0, 240.0, 0.0, 60.0
+RA_TICKS, DEC_TICKS, TICK = (130, 170, 210, 240), (0, 30, 60), 3.5   # tick marks, TICK in degrees
+GREY = (0.35, 0.33, 0.30)
 
 
 def E(z):
@@ -61,10 +63,51 @@ X, Y, Z = d * np.cos(b) * np.cos(a), d * np.cos(b) * np.sin(a), d * np.sin(b)
 XYZ = np.c_[X, Y, Z]
 
 
+def sph(ra_, dec_, r):
+    a_, b_ = np.radians(ra_), np.radians(dec_)
+    return np.array([r * np.cos(b_) * np.cos(a_), r * np.cos(b_) * np.sin(a_), r * np.sin(b_)])
+
+
+def line(ax, p, lw=0.4, alpha=0.7, ls="-"):
+    p = np.array(p)
+    ax.plot(p[:, 0], p[:, 1], p[:, 2], color=GREY + (alpha,), lw=lw, ls=ls, solid_capstyle="butt")
+
+
+def ra_arc(r, dec_):                       # points along RA at fixed dec and distance
+    return [sph(u, dec_, r) for u in np.linspace(RA_LO, RA_HI, 60)]
+
+
+def dec_arc(r, ra_):                       # points along dec at fixed RA and distance
+    return [sph(ra_, u, r) for u in np.linspace(DEC_LO, DEC_HI, 30)]
+
+
+def wireframe(ax):
+    O = np.zeros(3)
+    ax.add_collection3d(Poly3DCollection([[O] + ra_arc(DMAX, 0.0)], facecolor=GREY + (0.07,), edgecolor="none"))   # floor
+    for r in (100.0, 200.0):               # distance arcs on the floor and the two side faces
+        line(ax, ra_arc(r, 0.0), alpha=0.6)
+        line(ax, dec_arc(r, RA_LO), alpha=0.6)
+        line(ax, dec_arc(r, RA_HI), alpha=0.6)
+    for ra_ in (RA_LO, RA_HI):             # edges of the cone and of the floor
+        for dec_ in (DEC_LO, DEC_HI):
+            line(ax, [O, sph(ra_, dec_, DMAX)], lw=0.6, alpha=0.9)
+    for dec_ in (0, 15, 30, 45, 60):       # far face, a curved grid on the sphere D = DMAX
+        line(ax, ra_arc(DMAX, dec_), lw=0.5 if dec_ in (0, 60) else 0.35, alpha=0.9 if dec_ in (0, 60) else 0.6)
+    for ra_ in (130, 150, 170, 190, 210, 230, 240):
+        line(ax, dec_arc(DMAX, ra_), lw=0.5 if ra_ in (130, 240) else 0.35, alpha=0.9 if ra_ in (130, 240) else 0.6)
+    for ra_ in (RA_LO, RA_HI):             # drop lines from the far top corners to the floor
+        top = sph(ra_, DEC_HI, DMAX)
+        line(ax, [top, np.array([top[0], top[1], 0.0])], lw=0.35, alpha=0.6, ls=(0, (3, 3)))
+    for r_ in RA_TICKS:                    # ticks on the top edge of the far face, pointing out of it (the bottom edge lies inside the cloud)
+        line(ax, [sph(r_, DEC_HI, DMAX), sph(r_, DEC_HI + TICK, DMAX)], lw=0.7, alpha=0.95)
+    for u in DEC_TICKS:                    # and up the RA = 240 edge of the far face, pointing out of it
+        line(ax, [sph(RA_HI, u, DMAX), sph(RA_HI + TICK, u, DMAX)], lw=0.7, alpha=0.95)
+
+
 def render(el, az, path, w_cm, h_cm, dpi, transparent=True):
     fig = plt.figure(figsize=(w_cm / 2.54, h_cm / 2.54))
     ax = fig.add_axes([0, 0, 1, 1], projection="3d")
-    ax.set_proj_type("ortho")
+    ax.set_proj_type("persp", focal_length=FOCAL)
     e, s = np.radians(el), np.radians(az)
     toward = np.array([np.cos(e) * np.cos(s), np.cos(e) * np.sin(s), np.sin(e)])   # points at the viewer
     t = XYZ @ toward
@@ -72,22 +115,15 @@ def render(el, az, path, w_cm, h_cm, dpi, transparent=True):
     col = np.tile([0.118, 0.110, 0.102, 1.0], (ra.size, 1))
     col[:, 3] = AL0 + (AL1 - AL0) * t ** 1.5
     ax.scatter(X, Y, Z, s=PT, c=col, linewidths=0, depthshade=False, rasterized=True)
+    wireframe(ax)
     lim = np.array([[-DMAX, 10.0], [-0.9 * DMAX, 0.9 * DMAX], [0.0, 0.9 * DMAX]])
     ax.set_xlim(*lim[0]); ax.set_ylim(*lim[1]); ax.set_zlim(*lim[2])
-    ax.set_box_aspect(np.ptp(lim, axis=1), zoom=1.75)
+    ax.set_box_aspect(np.ptp(lim, axis=1), zoom=ZOOM)
     ax.view_init(elev=el, azim=az)
     ax.set_axis_off()
     fig.savefig(path, dpi=dpi, transparent=transparent, facecolor=None if transparent else "white")
     return fig, ax
 
-
-if len(sys.argv) > 1 and sys.argv[1] == "trial":
-    for el in (10, 25, 40):
-        for az in range(-90, 91, 30):
-            f, _ = render(el, az, os.path.join(out, f"try3d_e{el}_a{az}.png"), 6.5, 4.5, 110, False)
-            plt.close(f)
-    print("trial previews written")
-    sys.exit(0)
 
 fig, ax = render(ELEV, AZIM, os.path.join(out, "sdss3d.png"), W_CM, H_CM, 600)
 fig.canvas.draw()
@@ -101,35 +137,28 @@ def pos(p):
     return np.array([px / w * W_CM, py / h * H_CM])
 
 
-az = np.radians(AZIM)
-horiz = np.array([-np.sin(az), np.cos(az), 0.0])   # runs along the picture's horizontal
-earth = pos(np.zeros(3))
-vec = {k: pos(v) - earth for k, v in {"RA0": [ARROW, 0, 0], "RA90": [0, ARROW, 0], "North": [0, 0, ARROW]}.items()}
-barcm = np.linalg.norm(pos(BAR * horiz) - earth)
+anch = {"Earth": pos(np.zeros(3))}
+for r in (100, 200, 285):
+    anch[f"L{r}"] = pos(sph(RA_LO, 0.0, float(r)))                     # arcs, right end of the floor edge
+for r_ in RA_TICKS:
+    anch[f"B{r_}"] = pos(sph(r_, DEC_HI, DMAX))                        # RA ticks, on the top edge of the far face
+    anch[f"A{r_}"] = pos(sph(r_, DEC_HI + TICK, DMAX))                 # and their outer ends
+for u in DEC_TICKS:
+    anch[f"D{u}"] = pos(sph(RA_HI + TICK, u, DMAX))                    # outer ends of the declination ticks
 with open(os.path.join(out, "sdss3d_pos.tex"), "w") as fh:
-    fh.write(f"\\coordinate (pEarth) at ({earth[0]:.3f},{earth[1]:.3f});\n")
-    for k, v in vec.items():
-        n = {"RA0": "A", "RA90": "B", "North": "C"}[k]
-        fh.write(f"\\def\\fourteenthree{n}x{{{v[0]:.3f}}}\\def\\fourteenthree{n}y{{{v[1]:.3f}}}\n")
-    fh.write(f"\\def\\fourteenthreeBar{{{barcm:.3f}}}\n")
+    for k, v in anch.items():
+        fh.write(f"\\coordinate (p{k}) at ({v[0]:.3f},{v[1]:.3f});\n")
     fh.write(f"\\def\\fourteenthreeW{{{W_CM}}}\\def\\fourteenthreeH{{{H_CM}}}\n")
 with open(os.path.join(out, "sdss3d.tex"), "w") as fh:
     fh.write(f"\\newcommand{{\\FourteenThreeN}}{{{ra.size:,}}}\n".replace(",", "\\,"))
     fh.write(f"\\newcommand{{\\FourteenThreeDepth}}{{{DMAX:.0f}}}\n")
-    fh.write("\\newcommand{\\FourteenThreeSample}{every galaxy of the block}\n")
-    fh.write(f"\\newcommand{{\\FourteenThreeBar}}{{{BAR:.0f}}}\n")
 
-print(f"N = {ra.size}, depth = {DMAX:.1f} Mpc, bar = {barcm:.3f} cm, earth = {earth}")
-print({k: v.round(2).tolist() for k, v in vec.items()})
+print(f"N = {ra.size}, depth = {DMAX:.1f} Mpc")
+print({k: v.round(2).tolist() for k, v in anch.items()})
 # self-check
-assert 100000 < ra.size < 115000
+assert ra.size == 106405
 assert 260 < DMAX < 300 and d.max() <= DMAX + 1e-6
-assert ra.min() > 130 and ra.max() < 240 and dec.min() > 0 and dec.max() < 60
+assert ra.min() > RA_LO and ra.max() < RA_HI and dec.min() > DEC_LO and dec.max() < DEC_HI
 assert np.allclose(np.linalg.norm(XYZ, axis=1), d)
-assert 0 < earth[0] < W_CM and 0 < earth[1] < H_CM
-# orthographic: the bar along the horizontal and the vertical arrow share one scale
-assert abs(pos(BAR * horiz)[1] - earth[1]) < 1e-3
-s_bar = barcm / BAR
-s_z = np.linalg.norm(vec["North"]) / (ARROW * np.cos(np.radians(ELEV)))
-assert abs(s_bar / s_z - 1) < 0.02
-print("self-check ok")
+assert all(0 < v[0] < W_CM and 0 < v[1] < H_CM for v in anch.values())
+assert np.allclose(np.linalg.norm(sph(RA_HI, DEC_HI, DMAX)), DMAX)

@@ -114,6 +114,12 @@
       \ellip{\px}{\py}{\rx}{\ry}{\ang}{ink!75}
     }
     \ellip{0}{0}{0.14}{0.1}{20}{ink}
+    % a small group falling into the cluster on its outskirts (marked by the red square of box 3)
+    \fill[panel, opacity=0.6] (-1.25,0.9) circle[radius=0.3];
+    \draw[astroblue, line width=0.6pt, rotate around={25:(-1.32,0.97)}] (-1.32,0.97) ellipse[x radius=0.11, y radius=0.05];
+    \fill[ink!80, rotate around={-20:(-1.12,0.98)}] (-1.12,0.98) ellipse[x radius=0.05, y radius=0.035];
+    \fill[ink!80] (-1.30,0.78) ellipse[x radius=0.04, y radius=0.03];
+    \fill[ink!80] (-1.10,0.80) ellipse[x radius=0.035, y radius=0.025];
     \foreach \k in {1,...,12} {                    % a few spirals in the outskirts
       \pgfmathsetmacro{\r}{1.0+0.7*abs(sin(\k*67))}
       \pgfmathsetmacro{\qx}{\r*cos(\k*151)}
@@ -157,12 +163,22 @@
     \node[ink, font=\footnotesize, anchor=west, inner sep=2pt, fill=panel] at (-1.16,-1.67) {200\,Mpc};
   \end{scope}
   % zoom lines and markers (the marker sits where the previous box would be)
-  \foreach \px/\py/\cx/\cy in {\cxa/\cya/\cxb/\cyb, \cxb/\cyb/\cxc/\cyc} {
-    \draw[muted, line width=0.4pt] (\px+\hb,\py+\hb) -- (\cx-\hb,\cy+\ys+0.28) (\px+\hb,\py-\hb) -- (\cx-\hb,\cy+\ys-0.28);
-    \draw[accent, line width=0.8pt] (\cx-\hb,\cy+\ys-0.28) rectangle (\cx-\hb+0.56,\cy+\ys+0.28);
-  }
-  \draw[muted, line width=0.4pt] (\cxc-\hb,\cyc-\hb) -- (\cxd-0.28,\cyd+\hb) (\cxc+\hb,\cyc-\hb) -- (\cxd+0.28,\cyd+\hb);
-  \draw[accent, line width=0.8pt] (\cxd-0.28,\cyd+\hb-0.56) rectangle (\cxd+0.28,\cyd+\hb);
+  % Each marker is centred on the object the previous box zooms into (not to scale; sized to enclose it):
+  % box 2 the Milky Way, box 3 a small group falling into the cluster's outskirts, box 4 the top cluster node.
+  \def\mh{0.34}% half side of a marker
+  % 1 -> 2: the Milky Way at (-0.85,-0.1) in box 2
+  \coordinate (mB) at (\cxb-0.85,\cyb+\ys-0.1);
+  \draw[muted, line width=0.4pt] (\cxa+\hb,\cya+\hb) -- ($(mB)+(-\mh,\mh)$) (\cxa+\hb,\cya-\hb) -- ($(mB)+(-\mh,-\mh)$);
+  \draw[accent, line width=0.8pt] ($(mB)+(-\mh,-\mh)$) rectangle ($(mB)+(\mh,\mh)$);
+  % 2 -> 3: a group on the cluster's outskirts at (-1.25,0.9) in box 3
+  \coordinate (mC) at (\cxc-1.25,\cyc+\ys+0.9);
+  \draw[muted, line width=0.4pt] (\cxb+\hb,\cyb+\hb) -- ($(mC)+(-\mh,\mh)$) (\cxb+\hb,\cyb-\hb) -- ($(mC)+(-\mh,-\mh)$);
+  \draw[accent, line width=0.8pt] ($(mC)+(-\mh,-\mh)$) rectangle ($(mC)+(\mh,\mh)$);
+  % 3 -> 4: the top cluster node at (0,1.45) in box 4
+  \coordinate (mD) at (\cxd,\cyd+\ys+1.45);
+  \draw[muted, line width=0.4pt] (\cxc-\hb,\cyc-\hb) -- ($(mD)+(-\mh,\mh)$) (\cxc+\hb,\cyc-\hb) -- ($(mD)+(\mh,\mh)$);
+  \draw[accent, line width=0.8pt] ($(mD)+(-\mh,-\mh)$) rectangle ($(mD)+(\mh,\mh)$);
+  % 4 -> 5: on a wall near the right side of box 5 (unchanged)
   \draw[muted, line width=0.4pt] (\cxd-\hb,\cyd+\hb) -- (\cxe+\hb,\cye+\ys+0.28) (\cxd-\hb,\cyd-\hb) -- (\cxe+\hb,\cye+\ys-0.28);
   \draw[accent, line width=0.8pt] (\cxe+\hb-0.56,\cye+\ys-0.28) rectangle (\cxe+\hb,\cye+\ys+0.28);
   % legend in the empty corner

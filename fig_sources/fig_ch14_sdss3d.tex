@@ -13,24 +13,31 @@
 \IfFileExists{results/ch14/sdss3d.png}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
 \usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
-% SDSS galaxies in 3D. The image comes from code/ch14/04_sdss_3d.py (orthographic view, so a length has one scale
-% everywhere). The same script writes where Earth, the axis arrows and the 100 Mpc bar fall, in cm on the image.
+% SDSS galaxies in 3D. The image comes from code/ch14/04_sdss_3d.py (mild perspective view with the survey volume as a
+% wireframe). The same script writes where Earth, the arc ends and the tick marks fall, in cm on the image.
 \begin{tikzpicture}[font=\footnotesize]
   \input{\datadir sdss3d_pos.tex}
   \node[anchor=south west, inner sep=0] at (0,0)
     {\includegraphics[width=\fourteenthreeW cm,height=\fourteenthreeH cm]{\datadir sdss3d.png}};
-  % Earth: a dot at the apex of the volume and a short leader to a label in clear space below the picture
+  % Earth at the apex of the cone, with a leader to a label in clear space below the picture
   \fill[accent] (pEarth) circle[radius=2.2pt];
-  \draw[accent, line width=0.5pt] (pEarth) -- ++(0,-0.55);
-  \node[accent, anchor=north, inner sep=2pt] at ($(pEarth)+(0,-0.55)$) {Earth};
-  % key for the axes, drawn in a corner with the projected directions of the three axes
-  \begin{scope}[shift={(1.6,-1.5)}]
-    \draw[ink, -{Stealth[length=4pt]}, line width=0.7pt] (0,0) -- ({0.7*\fourteenthreeAx},{0.7*\fourteenthreeAy}) node[below left, inner sep=2pt] {RA $0^\circ$};
-    \draw[ink, -{Stealth[length=4pt]}, line width=0.7pt] (0,0) -- ({0.7*\fourteenthreeBx},{0.7*\fourteenthreeBy}) node[right, inner sep=2pt] {RA $90^\circ$};
-    \draw[ink, -{Stealth[length=4pt]}, line width=0.7pt] (0,0) -- ({0.7*\fourteenthreeCx},{0.7*\fourteenthreeCy}) node[above, inner sep=2pt] {north};
-  \end{scope}
-  % scale bar
-  \draw[ink, line width=0.8pt] (8.6,-1.2) -- ++(\fourteenthreeBar cm,0) (8.6,-1.1) -- ++(0,-0.2) ($(8.6,-1.2)+(\fourteenthreeBar cm,0.1)$) -- ++(0,-0.2);
-  \node[ink, anchor=north, inner sep=2pt] at ($(8.6,-1.3)+(0.5*\fourteenthreeBar,0)$) {$100\,\mathrm{Mpc}$};
+  \draw[accent, line width=0.5pt] (pEarth) -- ++(0,-0.6);
+  \node[accent, anchor=north, inner sep=2pt] at ($(pEarth)+(0,-0.6)$) {Earth};
+  % distance arcs, labelled under the floor edge
+  \node[muted, anchor=north, inner sep=2pt] at ($(pL100)+(0.1,-0.12)$) {100\,Mpc};
+  \node[muted, anchor=north, inner sep=2pt] at ($(pL200)+(0.1,-0.12)$) {200\,Mpc};
+  \node[muted, anchor=west, inner sep=2pt] at ($(pL285)+(0.1,0)$) {285\,Mpc};
+  % right ascension, ticks on the top edge of the far face (its bottom edge lies inside the cloud)
+  \node[ink, anchor=south west, inner sep=2pt] at ($(pA130)+(0.04,0.04)$) {$130^\circ$};
+  \foreach \k in {170,210} {
+    \node[ink, anchor=south, inner sep=2pt] at ($(pA\k)+(0,0.02)$) {$\k^\circ$};
+  }
+  \node[ink, anchor=south west, inner sep=2pt] at ($(pA240)+(0.02,0.02)$) {$240^\circ$};
+  \node[ink, anchor=south, inner sep=2pt] at ($(pA170)!0.5!(pA210)+(0,0.55)$) {right ascension};
+  % declination, ticks up the RA = 240 edge of the far face
+  \foreach \u in {0,30,60} {
+    \node[ink, anchor=east, inner sep=2pt] at ($(pD\u)+(-0.02,0)$) {$\u^\circ$};
+  }
+  \node[ink, anchor=south, rotate=60, inner sep=2pt] at ($(pD0)!0.5!(pD30)+(-0.95,0.0)$) {declination};
 \end{tikzpicture}
 \end{document}

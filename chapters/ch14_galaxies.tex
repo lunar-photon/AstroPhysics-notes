@@ -297,19 +297,11 @@ Near the centre, $\arctan x\approx x-x^3/3$ gives $v_{\rm halo}^2\approx\tfrac43
 \section{Stars as a Gas That Rarely Collides}
 \label{ga:sec:relaxation}
 
-The atoms of a gas collide often, and that is what gives them a Maxwell distribution of speeds (P3) and lets a gas be treated as a fluid. The disk of Section~\ref{ga:sec:galaxy} was already treated as a gas of stars.
+The atoms of a gas collide often, and that is what gives them a Maxwell distribution of speeds (P3) and lets a gas be treated as a fluid. The disk of Section~\ref{ga:sec:galaxy} was already treated as a gas of stars, but stars almost never touch. Near the Sun they are about a parsec apart and a hundred million times smaller than that, so a star could cross the Galaxy many times over without hitting another one. If stars never collide, it is not clear that a gas of stars ever forgets how it started, or settles into any kind of equilibrium at all.
 
-Stars almost never touch. Near the Sun they are about a parsec apart and a hundred million times smaller than that. A star could cross the Galaxy many times over without hitting another one. If stars never collide, it is not clear that a gas of stars ever forgets how it started, or settles into any kind of equilibrium at all.
+Think of a ship crossing the ocean with its rudder tied. Each wave pushes it a little to one side or the other, in no fixed pattern, and one wave does nothing worth noticing. But the pushes do not cancel exactly, so after many waves the sideways drift has built up, growing as the square root of the number of waves, and in the end the ship is heading somewhere else altogether. A star crossing a galaxy is the ship. Every star it passes tugs it a little, from far away, in a random direction. The tugs add as a random walk in velocity (P5), so the sum of their squares grows steadily, and when that sum reaches the square of the star's own speed the star has forgotten its original orbit. The time this takes is the \textbf{relaxation time}, and comparing it with the age of the system decides what kind of system it is (P6).
 
-Think of a ship crossing the ocean with its rudder tied. Each wave pushes it a little to one side or the other, in no fixed pattern. One wave does nothing worth noticing. But the pushes do not cancel exactly. After many waves the sideways drift has built up, and it grows as the square root of the number of waves. Wait long enough and the ship is heading somewhere else altogether.
-
-A star crossing a galaxy is the ship. Every star it passes tugs it a little, from far away, in a random direction. The tugs add as a random walk in velocity (P5), so the sum of their squares grows steadily. When that sum reaches the square of the star's own speed, the star has forgotten its original orbit. The time this takes is the \textbf{relaxation time}, and comparing it with the age of the system decides what kind of system it is (P6).
-
-The ship in numbers. If each wave pushes it sideways by $1\,\mathrm{cm\,s^{-1}}$ and it sails at $5\,\mathrm{m\,s^{-1}}$, the drift equals the forward speed after $(500)^2=250\,000$ waves. A galaxy of $10^{11}$ stars needs $5\times10^8$ crossings to relax (below), each taking some $5\times10^7$ years. That is $2\times10^{16}$ years, a million times its age. A globular cluster of $10^5$ stars needs only about a thousand crossings of under a million years each, so it relaxes many times over in its life.
-
-The picture is Figure~\ref{ga:fig:encounter}. A star passes a field star on a nearly straight line and gets a small sideways kick toward it. The pulls before and after closest approach have the same sideways part and opposite forward parts.
-
-The same walk in velocity is Brownian motion, and with charges in place of masses it is the way electrons scatter off ions in a plasma (Chapter~\ref{ch:fastparticles}). Here it combines Gauss's law for one kick (P2), the random walk for many (P5) and a comparison of two times (P6). It gives the kick of one passing star, the relaxation time, and what relaxes and what does not.
+In numbers, a ship pushed sideways by $1\,\mathrm{cm\,s^{-1}}$ by each wave and sailing at $5\,\mathrm{m\,s^{-1}}$ drifts as fast as it sails after $(500)^2=250\,000$ waves. A galaxy of $10^{11}$ stars needs $5\times10^8$ crossings to relax (below), each taking some $5\times10^7$ years, which comes to $2\times10^{16}$ years, a million times its age. A globular cluster of $10^5$ stars needs only about a thousand crossings of under a million years each, so it relaxes many times over in its life. One encounter is pictured in Figure~\ref{ga:fig:encounter}. A star passes a field star on a nearly straight line and gets a small sideways kick toward it, because the pulls before and after closest approach have the same sideways part and opposite forward parts. The same walk in velocity is Brownian motion, and with charges in place of masses it is the way electrons scatter off ions in a plasma (Chapter~\ref{ch:fastparticles}). Here it combines Gauss's law for one kick (P2), the random walk for many (P5) and a comparison of two times (P6), and it gives the kick of one passing star, the relaxation time, and what relaxes and what does not.
 
 \begin{figure}[htbp]
 	\centering
@@ -367,11 +359,21 @@ The kick is the pull at closest approach, $Gm_\star/b^2$, times about twice the 
 	\item The area element on the side is $b\,d\phi\,dx$, and only the part of $\vec g$ across the side counts.
 	\item Every line on the cylinder parallel to the axis is the same as every other, by symmetry about the axis.
 \end{explain}
-So $\int g_r\,dx=-2Gm_\star/b$ along the path, and with $dx=v\,dt$ the kick toward the axis is $2Gm_\star/(bv)$, Eq.~\eqref{ga:eq:kick} again. No integral had to be done. The kick depends on the mass of the field star and on $b$, exactly as the field of a line of charge depends on its charge and the distance.
+So $\int g_r\,dx=-2Gm_\star/b$ along the path, and with $dx=v\,dt$ the kick toward the axis is $2Gm_\star/(bv)$, Eq.~\eqref{ga:eq:kick} again. No integral had to be done. The kick depends on the mass of the field star and on $b$, exactly as the field of a line of charge depends on its charge and the distance. The straight path holds while $\Delta v\ll v$, which is $b\gg2Gm_\star/v^2$. For a star of one solar mass passed at $200\,\mathrm{km\,s^{-1}}$ that is $0.044\,\mathrm{AU}$. Almost every encounter in a galaxy is far wider than this.
 
-The straight path holds while $\Delta v\ll v$, which is $b\gg2Gm_\star/v^2$. For a star of one solar mass passed at $200\,\mathrm{km\,s^{-1}}$ that is $0.044\,\mathrm{AU}$. Almost every encounter in a galaxy is far wider than this.
+\paragraph{Many passing stars.} Take a system of $N$ stars of mass $m_\star$ within a radius $R$, through which a star crosses at a typical speed $v$ in the \textbf{crossing time} $t_{\rm cross}=R/v$. In one crossing it goes right through the system and passes each of the other $N$ stars once, at some impact parameter. To count how many it passes at each impact parameter, look at the system along the star's path (Figure~\ref{ga:fig:encounter_count}). Seen this way the system is a disk of radius $R$, with its $N$ stars spread over the area $\pi R^2$, and the path is a single point in the middle. The impact parameter of each passage is just the distance $b$ of that field star from the point. So the stars passed at impact parameters between $b$ and $b+db$ are the stars in a thin ring of radius $b$ and width $db$, and their number is the number per unit area times the area of the ring,
+\[
+\frac{N}{\pi R^2}\times2\pi b\,db=\frac{2Nb\,db}{R^2}.
+\]
+Taking the stars as spread evenly over the disk is rough, but it is enough for an estimate.
 
-\paragraph{Many passing stars.} Take a system of $N$ stars of mass $m_\star$ within a radius $R$, through which a star crosses at a typical speed $v$ in the \textbf{crossing time} $t_{\rm cross}=R/v$. In one crossing it passes through the system's disk on the sky, of area $\pi R^2$ holding $N$ stars. The number of field stars it passes with impact parameters between $b$ and $b+db$ is $(N/\pi R^2)\,2\pi b\,db=2Nb\,db/R^2$. Each kick points across the path in a random direction, so the kicks add as the steps of a random walk. Their squares add, and the cross terms average to zero, as in Eq.~\eqref{pr:eq:sqrtN} (P5). In one crossing,
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch14_encounter_count.pdf}
+	\caption{A star system of radius $R$ crossed by a star on a straight path (left), and the same system seen along the path (right), where the path is a point at the centre. The shaded ring of radius $b$ and width $db$ holds the field stars passed at impact parameters between $b$ and $b+db$.}
+	\label{ga:fig:encounter_count}
+\end{figure}
+Each passage gives a kick of Eq.~\eqref{ga:eq:kick}, pointing across the path toward the field star that gave it. The field stars lie all around the path, at every angle in the ring, so the kicks point in random directions across it. They add like the steps of a random walk (P5). The kicks themselves mostly cancel, so their vector sum stays small. But the sum of their squares grows with every passage, because in $\big|\sum\Delta\vec v_i\big|^2=\sum|\Delta\vec v_i|^2+\sum_{i\ne j}\Delta\vec v_i\cdot\Delta\vec v_j$ the cross terms are as often negative as positive and average to zero, as in Eq.~\eqref{pr:eq:sqrtN}. This sum of squares measures how far the star's velocity has wandered from where it started. In one crossing,
 \begin{align}
 	\sum|\Delta\vec v|^2
 	&\eqby{1} \int_{b_{\min}}^{R}\left(\frac{2Gm_\star}{bv}\right)^2\frac{2Nb\,db}{R^2} \nonumber\\
@@ -383,7 +385,7 @@ The straight path holds while $\Delta v\ll v$, which is $b\gg2Gm_\star/v^2$. For
 	\item The square of Eq.~\eqref{ga:eq:kick}, times the number of passages at each $b$. No star lies further away than about $R$. Below $b_{\min}=2Gm_\star/v^2$ a single kick is as large as $v$ and the straight path fails.
 	\item Collect the constants.
 \end{explain}
-The integral is a logarithm, so each factor of ten in $b$ adds the same amount. The many distant passages together matter more than the rare close ones, and close encounters, the only ones that a contact collision picture would count, add less than one factor of ten out of many.
+The integral is a logarithm, so every factor of ten in $b$ adds the same amount. A far passage gives a smaller kick, but there are more stars at large $b$, and the two effects cancel in each factor of ten. Since $R/b_{\min}$ is a very large number, there are many factors of ten between them. The close passages, near $b_{\min}$, fill only the first few. So the wandering of a star's velocity comes mostly from the many distant, gentle passages, not from the rare close ones. This logarithm is called the \textbf{Coulomb logarithm}, because the same sum appears for electrons passing ions in a plasma (Chapter~\ref{ch:fastparticles}).
 
 \paragraph{The relaxation time.} To put Eq.~\eqref{ga:eq:kicks_sum} in terms of $N$ alone, we use the virial theorem (Eq.~\eqref{sg:eq:virial_dynamic} with $\ddot I=0$, $2K=|U|$) in order of magnitude, $v^2\approx GNm_\star/R$. Then $Gm_\star/R=v^2/N$ and $b_{\min}=2R/N$, and the relative size of the summed kicks in one crossing is
 \begin{align}
@@ -395,7 +397,7 @@ The integral is a logarithm, so each factor of ten in $b$ adds the same amount. 
 	\item Eq.~\eqref{ga:eq:kicks_sum} with $Gm_\star/(Rv)=v/N$ and $R/b_{\min}=N/2$.
 	\item For large $N$, $\ln(N/2)$ and $\ln N$ differ by less than the cut-offs at $R$ and $b_{\min}$ are known.
 \end{explain}
-The star's speed has been changed by an amount comparable to itself after $N/(8\ln N)$ crossings,
+Each crossing adds the same share $8\ln N/N$ of $v^2$ to the sum of squares. The star has forgotten its starting velocity once the sum reaches $v^2$ itself, that is once the random kicks have changed its velocity by as much as the velocity. With $n$ crossings this happens when $n\times8\ln N/N=1$, so after $n=N/(8\ln N)$ crossings. That time is the \textbf{relaxation time},
 \begin{equation}
 	\boxed{t_{\rm relax}=\frac{N}{8\ln N}\,t_{\rm cross},\qquad t_{\rm cross}=\frac Rv .}
 	\label{ga:eq:trelax}
@@ -718,7 +720,7 @@ The same comparison of two times sorted star systems by their relaxation time (S
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig_ch14_hierarchy.pdf}
-	\caption{A zoom ladder of structure, drawn schematically, with a scale bar in each box. Box 1 shows a two-armed spiral galaxy, the Milky Way, with the Large and Small Magellanic Clouds in teal and a few dwarf galaxies. Box 2 shows a group, the Local Group, with the Milky Way, Andromeda and Triangulum among small dwarfs. Box 3 shows a cluster, the Virgo cluster, as a dense round crowd of mostly smooth oval galaxies that thickens toward the centre, inside a faint glow of hot gas. Box 4 shows a supercluster, Laniakea, as clusters joined by filaments. Box 5 shows the cosmic web as walls and filaments of galaxies that meet at nodes around empty voids. The boxes run along the top row and back along the bottom row. Each red square marks the box before it, and the grey lines run from the corners of that box. The brackets group the boxes of bound structures and of unbound ones.}
+	\caption{A zoom ladder of structure, drawn schematically, with a scale bar in each box. Box 1 shows a two-armed spiral galaxy, the Milky Way, with the Large and Small Magellanic Clouds in teal and a few dwarf galaxies. Box 2 shows a group, the Local Group, with the Milky Way, Andromeda and Triangulum among small dwarfs. Box 3 shows a cluster, the Virgo cluster, as a dense round crowd of mostly smooth oval galaxies that thickens toward the centre, inside a faint glow of hot gas, with a small group falling in at its edge. Box 4 shows a supercluster, Laniakea, as clusters joined by filaments. Box 5 shows the cosmic web as walls and filaments of galaxies that meet at nodes around empty voids. The boxes run along the top row and back along the bottom row. Each red square sits on the object that the box before it shows, enlarged, and the grey lines run from the corners of that box. The squares are not to scale. The brackets group the boxes of bound structures and of unbound ones.}
 	\label{ga:fig:hierarchy}
 \end{figure}
 
@@ -778,7 +780,16 @@ Table~\ref{ga:tab:hierarchy} gives the numbers for the structures above.
 \end{table}
 The Milky Way has crossed itself hundreds of times, and Virgo and Coma about ten times. For them the steady-state assumption behind Eq.~\eqref{ga:eq:Mvir} holds. The Local Group sits near one. This agrees with the timing argument, which has Andromeda and the Milky Way falling together for the first time and meeting in about $6$ billion years. A virial mass would be unreliable for such a pair, and that is why its mass was found from the orbit. Superclusters lie above one. They have not settled, and the pull of their own mass is too weak to stop their expansion, so they are not bound. The same holds for the filaments and walls, which are longer still. They are clumps of the cosmic web that are still being drawn together (Section~\ref{un:sec:growth}).
 
-\paragraph{The web in real data.} Figure~\ref{ga:fig:sdss} maps real galaxies and shows the voids and the filaments.
+\paragraph{The survey in three dimensions.} Figure~\ref{ga:fig:sdss3d} shows every galaxy of the survey in one block of the northern sky, \FourteenThreeN{} of them out to $\FourteenThreeDepth\,\mathrm{Mpc}$. Earth is at the apex of the cone, and the floor of the cone is the plane of the celestial equator. Seen this way, the walls are sheets and the filaments are threads, and the voids are bubbles between them. Near Earth the galaxies are many and far away they are few. Only the brighter galaxies have a measured spectrum far away, so a distant region is fainter and not emptier (see the thin slice below). The wedge of the next figure is a thin slice along this floor, taken further out, where the walls, filaments and voids are easiest to see.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch14_sdss3d.pdf}
+	\caption{\FourteenThreeN{} galaxies of the Sloan Digital Sky Survey (data release 17) with right ascension $130^\circ$ to $240^\circ$ and declination $0^\circ$ to $60^\circ$, out to $\FourteenThreeDepth\,\mathrm{Mpc}$, placed by their redshifts and seen in perspective. Every galaxy of the block is drawn, and nearer galaxies are darker. The grey lines outline the surveyed volume, a cone with its apex at Earth. The curved far face is a grid of $20^\circ$ in right ascension and $15^\circ$ in declination. The shaded floor is the plane of declination $0^\circ$, and the arcs on it and on the two side faces are $100$ and $200\,\mathrm{Mpc}$ from Earth. Tick marks give right ascension along the top edge of the far face and declination up its left edge.}
+	\label{ga:fig:sdss3d}
+\end{figure}
+
+\paragraph{The web in the thin slice.} Figure~\ref{ga:fig:sdss} lays flat a thin slice of the sky along the floor of the cone of Figure~\ref{ga:fig:sdss3d}, taken out to $\FourteenSdssDepth\,\mathrm{Mpc}$, and shows the voids and the filaments.
 
 \begin{figure}[htbp]
 	\centering
@@ -790,15 +801,6 @@ The Milky Way has crossed itself hundreds of times, and Virgo and Coma about ten
 \paragraph{What the map shows.} Each dot is one galaxy. The slice holds the galaxies within $2.5^\circ$ of the celestial equator and between right ascensions $\FourteenSdssRAlo^\circ$ and $\FourteenSdssRAhi^\circ$, out to $\FourteenSdssDepth\,\mathrm{Mpc}$. The survey has no spectra of this strip below $130^\circ$ and covers it only in part above $236^\circ$, so the map keeps the full strip between the two limits. We sit at the apex and look outward. The galaxies are not spread evenly. They gather on walls and filaments and leave empty voids between them. The long band near the middle, at about $340\,\mathrm{Mpc}$, is the Sloan Great Wall. The slice is thin, so a wall cut across shows as a line and a filament as a chain of dots, and at $400\,\mathrm{Mpc}$ its thickness is $2\times400\times\tan2.5^\circ=35\,\mathrm{Mpc}$.
 
 Two features come from how the map is made and not from the universe. The dots thin out with distance because only galaxies brighter than a fixed apparent magnitude have a measured spectrum, so far away only the most luminous are seen. A far region is not emptier, it is fainter. And the dots form thin streaks that point at us. A galaxy moving along the line of sight at $1000\,\mathrm{km\,s^{-1}}$ shifts its redshift as if it were $1000/67.4=15\,\mathrm{Mpc}$ nearer or farther (Eq.~\eqref{un:eq:hubble}), and the galaxies of a cluster, with speeds like these, are smeared along the line of sight.
-
-\paragraph{The same galaxies in three dimensions.} The wedge is a thin slice of a larger volume. Figure~\ref{ga:fig:sdss3d} shows the galaxies of a block of the northern sky, $0^\circ$ to $60^\circ$ in declination, in three dimensions. Seen this way, the walls are sheets and the filaments are threads, and the voids are bubbles between them. The volume thins with distance for the same reason as in the wedge. Far away only the brighter galaxies have a measured spectrum, so the picture is cut at $\FourteenThreeDepth\,\mathrm{Mpc}$.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\linewidth]{fig_ch14_sdss3d.pdf}
-	\caption{\FourteenThreeN{} galaxies of the Sloan Digital Sky Survey (data release 17) with right ascension $130^\circ$ to $240^\circ$ and declination $0^\circ$ to $60^\circ$, out to $\FourteenThreeDepth\,\mathrm{Mpc}$, placed by their redshifts. Every galaxy of the block is drawn, and nearer galaxies are darker. The red dot is Earth. The three arrows at the lower left show how the directions of right ascension $0^\circ$, right ascension $90^\circ$ and the north celestial pole appear in this view. The bar is $\FourteenThreeBar\,\mathrm{Mpc}$ long.}
-	\label{ga:fig:sdss3d}
-\end{figure}
 
 \paragraph{How the map is made.} The spectrum of each galaxy gives its redshift $z$ from the shift of known lines (Eq.~\eqref{un:eq:redshift}). For small $z$ the recession speed is $cz$ and Hubble's law (Eq.~\eqref{un:eq:hubble}) gives the distance $d=cz/H_0$, which is $0.1\times299\,792/67.4=445\,\mathrm{Mpc}$ at $z=0.1$. The map uses the better distance that allows for the expansion changing while the light travels. Light covers the comoving distance $c\,dt/a$ in a time $dt$ (Section~\ref{un:sec:hubble}), so
 \begin{align}
