@@ -1,0 +1,33 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\IfFileExists{results/ch16/lya_forest.dat}{\def\datadir{results/ch16/}}{\def\datadir{../results/ch16/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% A realistic Lyman-alpha forest for a quasar at z = 3 (from code/ch16/03_lya_forest.awk).
+\begin{tikzpicture}[font=\small]
+  \begin{axis}[width=12.5cm, height=4.2cm, scale only axis,
+      xmin=400, xmax=500, ymin=0, ymax=3.4, axis lines*=left,
+      xlabel={observed wavelength (nm)}, ylabel={flux (arbitrary)},
+      ytick=\empty, tick style={muted}, every axis label/.style={font=\small, text=muted}, clip=false]
+    \addplot[linecol, line width=0.8pt] table[x index=0, y index=2] {\datadir lya_forest.dat};
+    \addplot[ink, line width=0.5pt] table[x index=0, y index=1] {\datadir lya_forest.dat};
+    \draw[astroblue, dashed] (axis cs:486.27,0) -- (axis cs:486.27,3.4);
+    \draw[astroblue, dashed] (axis cs:410.29,0) -- (axis cs:410.29,3.4);
+    \node[astroblue, font=\scriptsize, anchor=south west] at (axis cs:486.8,3.0) {quasar's Ly$\alpha$};
+    \node[astroblue, font=\scriptsize, anchor=south west] at (axis cs:410.8,3.0) {quasar's Ly$\beta$};
+    \node[muted, font=\scriptsize] at (axis cs:448,3.15) {Lyman-$\alpha$ forest};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

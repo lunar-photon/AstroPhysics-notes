@@ -1,0 +1,56 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb,mathtools,physics,bm,nicefrac,wasysym}
+\usepackage{xcolor}
+
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{astroblue}{HTML}{1B4F72}
+
+\newcommand{\EoT}{\mathrm{EoT}}
+
+% Curves are computed, not sketched (STYLE_GUIDE rule 33).
+% d = days after 2000 Jan 1, 0h UT (the shape repeats each year to within a day).
+% Sun: mean longitude Lm, mean anomaly g, ecliptic longitude lam (Astronomical Almanac low-precision formulae).
+% Exact EoT  = 4 min/deg * (Lm - alpha), alpha from tan(alpha) = cos(eps) tan(lam).
+% Eccentricity term = -4*(180/pi)*2e sin g = -7.655 sin g   (e = 0.0167)
+% Obliquity term    = +4*(180/pi)*tan^2(eps/2) sin 2 lam = 9.863 sin 2 lam   (eps = 23.44 deg)
+% Checked in Wolfram: exact curve has minimum -14.25 min at d = 42 and maximum +16.42 min at d = 307;
+% the sum of the two terms stays within 0.3 min of it.
+\pgfmathdeclarefunction{Lm}{1}{\pgfmathparse{280.460+0.9856474*(#1-0.5)}}
+\pgfmathdeclarefunction{gan}{1}{\pgfmathparse{357.528+0.9856003*(#1-0.5)}}
+\pgfmathdeclarefunction{lam}{1}{\pgfmathparse{Lm(#1)+1.915*sin(gan(#1))+0.020*sin(2*gan(#1))}}
+\pgfmathdeclarefunction{eotexact}{1}{%
+  \pgfmathparse{Lm(#1)-atan2(cos(23.44)*sin(lam(#1)),cos(lam(#1)))}%
+  \pgfmathparse{4*(\pgfmathresult-360*round(\pgfmathresult/360))}}
+\pgfmathdeclarefunction{eotecc}{1}{\pgfmathparse{-7.655*sin(gan(#1))}}
+\pgfmathdeclarefunction{eotobl}{1}{\pgfmathparse{9.863*sin(2*lam(#1))}}
+
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+\begin{tikzpicture}[x=1cm, y=0.2cm, font=\sffamily]
+	% x = 12 d / 365.25 (cm), y = minutes
+	\foreach \m in {0,...,12} {\draw[gray!30] (\m,-17.5) -- (\m,17.5);}
+	\foreach \y in {-15,-10,-5,5,10,15} {\draw[gray!30] (0,\y) -- (12,\y);}
+	\draw[->, thick] (0,0) -- (12.4,0);
+	\draw[->, thick] (0,-17.5) -- (0,19) node[above] {$\EoT$ (minutes)};
+	\foreach \m [count=\i from 0] in {Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec} {
+		\node[font=\footnotesize] at (\i+0.5,-19) {\m};
+	}
+	\foreach \y in {-15,-10,-5,0,5,10,15} {
+		\draw (0.08,\y) -- (-0.08,\y) node[left, font=\footnotesize] {$\y$};
+	}
+	\draw[astroblue, thick, dashed, domain=0:365.25, samples=150, variable=\d]
+		plot ({12*\d/365.25}, {eotecc(\d)});
+	\draw[accent, thick, dotted, domain=0:365.25, samples=150, variable=\d]
+		plot ({12*\d/365.25}, {eotobl(\d)});
+	\draw[black, very thick, domain=0:365.25, samples=250, variable=\d]
+		plot ({12*\d/365.25}, {eotexact(\d)});
+	% legend, outside the curves
+	\begin{scope}[shift={(12.7,8)}]
+		\draw[black, very thick] (0,6) -- (0.7,6) node[right, black, font=\footnotesize] {total};
+		\draw[astroblue, thick, dashed] (0,3) -- (0.7,3) node[right, black, font=\footnotesize] {eccentricity};
+		\draw[accent, thick, dotted] (0,0) -- (0.7,0) node[right, black, font=\footnotesize] {obliquity};
+	\end{scope}
+\end{tikzpicture}
+\end{document}

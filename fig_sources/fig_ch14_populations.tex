@@ -1,0 +1,52 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\usepackage{graphicx}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\IfFileExists{results/ch14/cmd_m67.png}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+\input{\datadir clusters.tex}
+% CMD of three Gaia DR3 clusters (points from code/ch14/01_cluster_cmds.py). The image spans exactly
+% colour -0.4..2.0 (8.4 cm) and M_G -3..13 (9.6 cm). y is -M_G so that bright is at the top.
+\begin{tikzpicture}[x=3.5cm,y=0.6cm, >={Stealth[length=2.2mm]}, font=\small]
+  \def\xa{-0.4}\def\xb{2.0}
+  \definecolor{colpl}{HTML}{1B4F72}\definecolor{colmst}{HTML}{E8A33D}\definecolor{colngc}{HTML}{A13D2C}
+  \draw[linecol!70] (\xa,-13) grid[xstep=0.4,ystep=2] (\xb,3);
+  \node[anchor=south west, inner sep=0] at (\xa,-13)
+    {\includegraphics[width=8.4cm,height=9.6cm]{\datadir cmd_clusters.png}};
+  \draw[->, muted] (\xa,-13) -- (2.04,-13) node[right] {\((BP-RP)_0\)};
+  \draw[->, muted] (\xa,-13) -- (\xa,3.6) node[above] {\(M_G\)};
+  \foreach \c in {0,0.4,...,2.0} \node[below, muted] at (\c,-13) {\pgfmathprintnumber{\c}};
+  \foreach \m in {-2,0,2,4,6,8,10,12} \node[left, muted] at (\xa,-\m) {\m};
+  % turn-offs
+  \foreach \c/\m/\col in {\FourteenPleCTO/\FourteenPleMTO/colpl, \FourteenMstCTO/\FourteenMstMTO/colmst, \FourteenNgcCTO/\FourteenNgcMTO/colngc}
+    \draw[\col!60!black, line width=0.9pt, fill=white] (\c,-\m) circle[radius=2.6pt];
+  \node[ink, font=\footnotesize, anchor=west, align=left] (tp) at (0.0,2.4) {Pleiades turn-off};
+  \draw[ink!70] (tp.west) -- ++(-0.04,0) -- (\FourteenPleCTO,-\FourteenPleMTO);
+  \node[ink, font=\footnotesize, align=center] (tm) at (0.52,-1.2) {M67\\turn-off};
+  \draw[ink!70] (tm.south) -- (\FourteenMstCTO,-\FourteenMstMTO);
+  \node[ink, font=\footnotesize, align=center] (tn) at (0.05,-6.0) {NGC 6397\\turn-off};
+  \draw[ink!70] (tn.north east) -- (\FourteenNgcCTO,-\FourteenNgcMTO);
+  % branches
+  \node[ink, font=\footnotesize\itshape, align=left, anchor=west] (hb) at (0.05,1.5) {horizontal branch};
+  \draw[->, ink!70] (hb.south west) ++(0.25,0) -- ++(0.02,-0.65);
+  \node[ink, font=\footnotesize\itshape, align=left, anchor=west] (rg) at (1.45,-1.8) {subgiant and\\red giant branches};
+  \draw[->, ink!70] (rg.west) -- (1.1,-1.0);
+  \node[ink, font=\footnotesize\itshape, anchor=west] (ms) at (-0.3,-8.6) {main sequence};
+  \draw[->, ink!70] (ms.east) -- (1.2,-7.1);
+  % key
+  \foreach \i/\col/\txt in {0/colpl/{Pleiades, \FourteenPleDist\,pc}, 1/colmst/{M67, \FourteenMstDist\,pc}, 2/colngc/{NGC 6397, \FourteenNgcDist\,pc}} {
+    \fill[\col] (-0.33,-10.2-\i*1.1) circle[radius=1.8pt];
+    \node[ink, font=\footnotesize, anchor=west] at (-0.28,-10.2-\i*1.1) {\txt};
+  }
+\end{tikzpicture}
+\end{document}

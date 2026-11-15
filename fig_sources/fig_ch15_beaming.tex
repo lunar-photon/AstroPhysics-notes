@@ -1,0 +1,47 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Relativistic beaming, gamma_L = 3. Photons leave the emitter at equal steps of 15 deg in its own frame (left).
+% Right: the same photons in a frame where the emitter moves right; directions from fp:eq:beaming,
+% tan(theta) = sin(theta')/(gamma (cos(theta') + beta)). Each photon is drawn as a line ending in a dot at
+% the same distance (all move at c). Colour: blue if nu > nu' (gamma (1 + beta cos theta') > 1, i.e. theta' < 135 deg),
+% red if nu < nu', grey at 135 deg where nu = nu'.
+\definecolor{ink}{HTML}{1E1C1A}
+\begin{tikzpicture}[>={Stealth[length=2mm]}, font=\small]
+  \def\g{3}\pgfmathsetmacro{\b}{sqrt(1-1/(\g*\g))}\def\R{1.9}
+  \foreach \t in {0,15,...,345} {
+    \draw[muted, line width=0.5pt] (0,0) -- (\t:\R);
+    \fill[muted] (\t:\R) circle (1.3pt);
+  }
+  \fill[ink] (0,0) circle (2.2pt);
+  \node[muted, align=center] at (0,-2.6) {frame of the emitter};
+  \begin{scope}[xshift=6.2cm]
+    \draw[dashed, linecol, line width=0.6pt] (0,0) -- ({atan(1/(\g*\b))}:2.8);
+    \draw[dashed, linecol, line width=0.6pt] (0,0) -- ({-atan(1/(\g*\b))}:2.8);
+    \foreach \t in {0,15,...,345} {
+      \pgfmathsetmacro{\a}{atan2(sin(\t), \g*(cos(\t)+\b))}
+      \pgfmathsetmacro{\D}{\g*(1+\b*cos(\t))}
+      \pgfmathsetmacro{\c}{\D>1.02 ? 1 : (\D<0.98 ? -1 : 0)}
+      \ifdim\c pt>0pt \def\col{astroblue}\else\ifdim\c pt<0pt \def\col{accent}\else\def\col{muted}\fi\fi
+      \draw[\col, line width=0.5pt] (0,0) -- (\a:\R);
+      \fill[\col] (\a:\R) circle (1.3pt);
+    }
+    \fill[ink] (0,0) circle (2.2pt);
+    \draw[->, ink, line width=1.0pt] (-0.7,-2.25) -- (0.7,-2.25) node[right] {$v$};
+    \node[muted, align=center] at (0,-2.75) {frame where the emitter moves, $\gamma_L=3$};
+    \node[astroblue, anchor=west] at (1.95,1.6) {bluer};
+    \node[accent, anchor=east] at (-2.0,0.35) {redder};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

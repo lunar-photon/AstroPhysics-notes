@@ -1,0 +1,42 @@
+\documentclass[11pt]{book}
+
+% ==============================================================================
+% ASTROPHYSICS COURSE COMPANION - MASTER DOCUMENT
+% ==============================================================================
+
+\input{preamble.tex}
+
+% Title page minimal (writing template): title, one-line subtitle, name, website.
+% Credits, sources and how to read the notes go in the preface.
+\title{\sffamily\bfseries\color{accent}\Huge Astrophysics\\[10pt]
+  \normalfont\sffamily\Large\color{black!70} Sky, stars and the universe from six principles}
+\author{\large Chandra Prakash\\[0.6em]
+  \normalsize\href{https://lunar-photon.github.io}{\texttt{lunar-photon.github.io}}}
+\date{}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\input{chapters/preface.tex}
+\tableofcontents
+\mainmatter
+
+\input{chapters/ch1_time_systems.tex}
+\input{chapters/ch2_coordinates.tex}
+\input{chapters/ch3_astrometry.tex}
+\input{chapters/ch4_photometry.tex}
+\input{chapters/ch5_angular_resolution.tex}
+\input{chapters/ch6_two_body.tex}
+\input{chapters/ch7_ccd_noise.tex}
+\input{chapters/ch8_interstellar_medium.tex}
+\input{chapters/ch9_six_principles.tex}
+\input{chapters/ch10_self_gravitating_gas.tex}
+\input{chapters/ch11_radiation_in_matter.tex}
+\input{chapters/ch12_equations_of_a_star.tex}
+\input{chapters/ch13_compact_stars.tex}
+\input{chapters/ch14_galaxies.tex}
+\input{chapters/ch15_fast_particles.tex}
+\input{chapters/ch16_expanding_universe.tex}
+
+\end{document}

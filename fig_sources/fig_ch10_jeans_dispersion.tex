@@ -1,0 +1,30 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Jeans dispersion relation in units of 4 pi G rho0: omega^2 = (k/k_J)^2 - 1.
+% x tick labels sit under the bottom of the plot (y = -1), clear of the shading and the curve.
+\begin{tikzpicture}[x=3.2cm,y=1.1cm, >={Stealth[length=2.4mm]}]
+  \fill[accent!10] (0,-1) rectangle (1,0);
+  \draw[->, muted] (0,0) -- (2.15,0) node[right] {$k/k_J$};
+  \draw[->, muted] (0,-1.3) -- (0,3.4) node[above] {$\omega^2/(4\pi G\rho_0)$};
+  \foreach \x in {0.5,1,1.5,2} {
+    \draw[muted] (\x,0.06) -- (\x,-0.06);
+    \draw[linecol, dashed] (\x,-0.06) -- (\x,-1.05);
+    \node[below, muted] at (\x,-1.05) {\small \x};
+  }
+  \node[below, muted] at (0,-1.05) {\small 0};
+  \foreach \y in {-1,1,2,3} \draw[muted] (0.03,\y) -- (-0.03,\y) node[left] {\small \y};
+  \draw[astroblue, line width=1.2pt, domain=0:2, samples=100] plot (\x, {\x*\x-1});
+  \node[accent] at (0.5,-0.3) {\small growth};
+  \node[astroblue, anchor=west] at (1.62,1.0) {\small sound waves};
+\end{tikzpicture}
+\end{document}

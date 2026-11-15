@@ -1,0 +1,38 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\usepackage{graphicx}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\IfFileExists{results/ch14/cmd_m67.png}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+\input{\datadir clusters.tex}
+% M67 colour-magnitude diagram (grey points from code/ch14/01_cluster_cmds.py). The image spans exactly
+% colour -0.4..2.0 (7.2 cm) and M_G -2.5..8 (8.4 cm). y is -M_G so that bright is at the top.
+\begin{tikzpicture}[x=3cm,y=0.8cm, >={Stealth[length=2.2mm]}, font=\small]
+  \def\xa{-0.4}\def\xb{2.0}
+  \draw[linecol!70] (\xa,-8) grid[xstep=0.4,ystep=2] (\xb,2.5);
+  \node[anchor=south west, inner sep=0] at (\xa,-8)
+    {\includegraphics[width=7.2cm,height=8.4cm]{\datadir cmd_m67.png}};
+  \draw[->, muted] (\xa,-8) -- (2.04,-8) node[right] {\((BP-RP)_0\)};
+  \draw[->, muted] (\xa,-8) -- (\xa,3.0) node[above] {\(M_G\)};
+  \foreach \c in {0,0.4,...,2.0} \node[below, muted] at (\c,-8) {\pgfmathprintnumber{\c}};
+  \foreach \m in {-2,0,2,4,6,8} \node[left, muted] at (\xa,-\m) {\m};
+  \draw[accent2, dashed, line width=0.9pt] plot[smooth] file{\datadir m67_msline_xy.dat};
+  \draw[accent, only marks, mark=*, mark size=2pt] plot file{\datadir m67_bs_xy.dat};
+  \draw[ink, line width=0.9pt, fill=white] (\FourteenMstCTO,-\FourteenMstMTO) circle[radius=2.6pt];
+  \node[ink, font=\footnotesize, anchor=west] (tt) at (0.0,-6.4) {turn-off};
+  \draw[->, ink!70] (tt.north) -- (0.64,-3.15);
+  \node[accent, font=\footnotesize, align=left, anchor=west] (bs) at (-0.3,1.6) {blue stragglers,\\\FourteenMstNBS\ stars};
+  \draw[->, accent!80] (bs.south) -- (0.14,-0.75);
+  \node[accent2, font=\footnotesize, align=left, anchor=west] (ex) at (-0.37,-4.3) {main sequence,\\extended upward};
+\end{tikzpicture}
+\end{document}

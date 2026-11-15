@@ -1,0 +1,44 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Energy release per unit mass of the pp chain and the CNO cycle against temperature
+% (data from code/ch12/03_pp_cno.py: X = 0.70, X_CNO = 0.014, rho = 1e5 kg m^-3).
+% x = log10 T (K), y = log10 eps (W/kg).
+\input{\datadir pp_cno.tex}
+\begin{tikzpicture}[x=8.5cm,y=0.38cm, >={Stealth[length=2.4mm]}, font=\small]
+  \def\xa{6.60206}\def\xb{7.77815}
+  \draw[linecol] (\xa,-10) rectangle (\xb,6);
+  \foreach \lt in {6.69897,7,7.30103,7.69897} \draw[linecol] (\lt,-10) -- (\lt,6);
+  \foreach \y in {-8,-4,0,4} \draw[linecol] (\xa,\y) -- (\xb,\y);
+  \draw[->, muted] (\xa,-10) -- (7.83,-10) node[right] {$T$ (K)};
+  \draw[->, muted] (\xa,-10) -- (\xa,6.9) node[above] {$\log_{10}\big(\varepsilon/\mathrm{W\,kg^{-1}}\big)$};
+  \foreach \lt/\T in {6.69897/$5\times10^6$,7/$10^7$,7.30103/$2\times10^7$,7.69897/$5\times10^7$} \node[below, muted] at (\lt,-10) {\T};
+  \foreach \y in {-8,-4,0,4} \node[left, muted] at (\xa,\y) {\y};
+  \begin{scope}
+    \clip (\xa,-10) rectangle (\xb,6);
+    \draw[astroblue, line width=1.1pt] plot file {\datadir pp_rate.dat};
+    \draw[accent, line width=1.1pt] plot file {\datadir cno_rate.dat};
+  \end{scope}
+  \pgfmathsetmacro{\xc}{6+log10(\TwelveTcross)}
+  \draw[ink, dashed] (\xc,-10) -- (\xc,6);
+  \node[ink, rotate=90, anchor=north, font=\scriptsize] at (\xc,-6.2) {crossover, $\TwelveTcross\times10^6$\,K};
+  \pgfmathsetmacro{\xs}{6+log10(15.7)}
+  \draw[muted, dotted, thick] (\xs,-10) -- (\xs,6);
+  \node[muted, rotate=90, anchor=south, font=\scriptsize] at (\xs,-6.2) {Sun's centre};
+  \node[astroblue, font=\small\bfseries] at (7.62,-2.3) {pp chain};
+  \node[accent, font=\small\bfseries] at (7.40,2.6) {CNO cycle};
+\end{tikzpicture}
+\end{document}

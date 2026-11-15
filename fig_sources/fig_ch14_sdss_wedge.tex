@@ -1,0 +1,48 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usepackage{graphicx}
+\usetikzlibrary{calc}
+\IfFileExists{results/ch14/sdss_wedge.png}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% SDSS slice: galaxies (image from code/ch14/02_sdss_wedge.py) in the plane of the slice, observer at the origin.
+% Units are Mpc. A galaxy at right ascension RA and comoving distance r sits at x = r sin(RA-183), y = r cos(RA-183),
+% which is the polar angle 273-RA degrees. The image spans exactly x = -660..660 and y = 0..860 (13.2 cm x 8.6 cm).
+\begin{tikzpicture}[x=0.01cm,y=0.01cm, font=\small]
+  \node[anchor=south west, inner sep=0] at (-660,0)
+    {\includegraphics[width=13.2cm,height=8.6cm]{\datadir sdss_wedge.png}};
+  % wedge edges at RA = 132 and 234 deg, out to 846 Mpc
+  \draw[muted, line width=0.5pt] (0,0) -- (141:846) (0,0) -- (39:846);
+  % distance arcs
+  \foreach \r in {200,400,600,800} {
+    \draw[muted!70, dashed, line width=0.4pt] (141:\r) arc[start angle=141, end angle=39, radius=\r];
+    \node[muted, font=\footnotesize, anchor=west] at ($(39:\r)+(14,6)$) {\r\,Mpc};
+  }
+  % outer arc and right-ascension ticks
+  \draw[muted, line width=0.5pt] (141:846) arc[start angle=141, end angle=39, radius=846];
+  \foreach \ra in {132,150,180,210,234} {
+    \pgfmathsetmacro{\ang}{273-\ra}
+    \draw[muted, line width=0.5pt] (\ang:846) -- (\ang:870);
+    \node[muted, font=\footnotesize] at (\ang:905) {\ra$^\circ$};
+  }
+  \node[muted, font=\footnotesize] at (90:985) {right ascension};
+  % observer
+  \fill[accent] (0,0) circle[radius=7];
+  \node[accent, anchor=north] at (0,-14) {Earth};
+  % Sloan Great Wall and a void (positions read from the map)
+  \draw[accent, line width=0.7pt] (-540,130) -- (-18,345);
+  \fill[accent] (-18,345) circle[radius=6];
+  \node[accent, anchor=east] at (-550,130) {Sloan Great Wall};
+  \draw[accent2, line width=0.7pt, dash pattern=on 3pt off 2pt] (-300,370) circle[radius=40];
+  \draw[accent2, line width=0.7pt] (-335,385) -- (-545,430);
+  \node[accent2, anchor=east] at (-555,430) {void};
+\end{tikzpicture}
+\end{document}

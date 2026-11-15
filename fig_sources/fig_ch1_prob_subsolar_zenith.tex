@@ -1,0 +1,53 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\usetikzlibrary{calc,arrows.meta}
+
+% Meridian cross-section of the Earth. Observer at latitude 75 deg, subsolar point at 35 deg
+% (angles exaggerated). The Sun lies along the 35 deg direction from the centre, and its rays
+% are parallel, so the angle at the observer between the zenith and the Sun is 75 - 35 = 40 deg,
+% the same as the angle at the centre between the two radii.
+\newcommand{\PHI}{75}
+\newcommand{\DEC}{35}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+\begin{tikzpicture}[scale=1.3, >=Stealth, font=\sffamily]
+	\coordinate (O) at (0,0);
+	\coordinate (Sub) at (\DEC:2);
+	\coordinate (Obs) at (\PHI:2);
+	\coordinate (Sun) at (\DEC:6.4);
+	% Earth and equator
+	\draw[thick, accent2] (O) circle (2);
+	\draw[dashed, muted] (-2.4,0) -- (2.6,0) node[right] {equator};
+	\fill (O) circle (1.3pt);
+	\node[below left] at (O) {$O$};
+	% radii
+	\draw[thick] (O) -- (Sub);
+	\draw[thick] (O) -- (Obs);
+	% Sun and parallel rays
+	\fill[sunyellow] (Sun) circle (0.4);
+	\node[above=5pt] at (Sun) {Sun};
+	\draw[->, thick, sunyellow!80!black] ($(Sun)+(\DEC+180:0.45)$) -- (Sub);
+	\draw[->, thick, sunyellow!80!black] ($(Obs)+(\DEC:4.2)$) -- (Obs);
+	% observer, horizon, zenith
+	\fill (Obs) circle (2pt);
+	\node[anchor=north east] at ($(Obs)+(-0.08,-0.2)$) {observer};
+	\fill[sunyellow!80!black] (Sub) circle (2pt);
+	\node[below right] at (Sub) {subsolar point};
+	\draw[accent2] ($(Obs)+(\PHI-90:1.3)$) -- ($(Obs)+(\PHI+90:1.3)$);
+	\node[accent2, anchor=east] at ($(Obs)+(\PHI+90:1.3)$) {horizon};
+	\draw[->, thick] (Obs) -- ($(Obs)+(\PHI:1.6)$) node[above] {zenith};
+	% zenith angle at the observer
+	\draw[accent] ($(Obs)+(\DEC:0.75)$) arc[start angle=\DEC, end angle=\PHI, radius=0.75];
+	\node[accent] at ($(Obs)+({(\DEC+\PHI)/2}:1.0)$) {$z$};
+	% latitudes at the centre
+	\draw[accent2] (0.55,0) arc[start angle=0, end angle=\DEC, radius=0.55];
+	\node[accent2] at ({\DEC/2}:0.85) {$\delta_\odot$};
+	\draw[accent2] (1.15,0) arc[start angle=0, end angle=\PHI, radius=1.15];
+	\node[accent2] at ({\PHI-22}:1.4) {$\phi_0$};
+\end{tikzpicture}
+\end{document}

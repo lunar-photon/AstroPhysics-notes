@@ -1,0 +1,49 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\usepackage{graphicx}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta,plotmarks}
+\IfFileExists{results/ch12/lane_emden_n3.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Instability strip drawn over the Hipparcos/Gaia HR diagram of fig_ch12_hr.tex (same image, same axes).
+% Schematic strip edges (straight lines in log T, log L):
+%   blue (hot) edge  log10 T = 3.928 - 0.033 log10(L/Lsun),  red (cool) edge = blue edge - 0.07,
+%   drawn for 0.5 <= log10(L/Lsun) <= 4.8.  x coordinate = -log10 T so that hot is on the left.
+\begin{tikzpicture}[x=7.5cm,y=0.7cm, >={Stealth[length=2.4mm]}, font=\small]
+  \def\xa{-4.6}\def\xb{-3.4}
+  \draw[linecol!70] (\xa,-4) grid[xstep=0.2,ystep=2] (\xb,6);
+  \node[anchor=south west, inner sep=0] at (\xa,-4)
+    {\includegraphics[width=9cm,height=7cm]{\datadir hr_stars.png}};
+  \fill[white, opacity=0.55] (\xa,-4) rectangle (\xb,6);
+  \draw[->, muted] (\xa,-4) -- (-3.37,-4) node[right] {$T_{\rm eff}$ (K)};
+  \draw[->, muted] (\xa,-4) -- (\xa,6.6) node[above] {$\log_{10}(L/L_\odot)$};
+  \foreach \lt/\T in {3.477/3000,3.699/5000,4.0/10\,000,4.301/20\,000} \node[below, muted] at (-\lt,-4) {\T};
+  \foreach \y in {-4,-2,0,2,4,6} \node[left, muted] at (\xa,\y) {\y};
+  % the strip
+  \fill[accent, opacity=0.22]
+    plot[domain=0.5:4.8, samples=2] ({-(3.928-0.033*\x)}, {\x}) --
+    plot[domain=4.8:0.5, samples=2] ({-(3.858-0.033*\x)}, {\x}) -- cycle;
+  \draw[accent, line width=0.9pt] plot[domain=0.5:4.8, samples=2] ({-(3.928-0.033*\x)}, {\x});
+  \draw[accent, line width=0.9pt, dashed] plot[domain=0.5:4.8, samples=2] ({-(3.858-0.033*\x)}, {\x});
+  % labels
+  \node[ink, font=\small\bfseries, anchor=west, fill=white, fill opacity=0.8, text opacity=1, inner sep=1.5pt] at (-3.70,4.0) {Cepheids};
+  \draw[ink, line width=0.5pt] (-3.70,4.0) -- (-3.765,4.0);
+  \node[ink, font=\small\bfseries, anchor=west, fill=white, fill opacity=0.8, text opacity=1, inner sep=1.5pt] at (-3.70,2.3) {RR Lyrae};
+  \draw[ink, line width=0.5pt] (-3.70,2.3) -- (-3.83,1.7);
+  \node[ink, font=\small\bfseries, anchor=east, fill=white, fill opacity=0.8, text opacity=1, inner sep=1.5pt] at (-4.06,1.6) {$\delta$ Scuti};
+  \draw[ink, line width=0.5pt] (-4.06,1.6) -- (-3.88,0.9);
+  \node[ink, rotate=-27, font=\small\itshape] at (-3.86,-0.45) {main sequence};
+  \node[ink, font=\scriptsize\bfseries, right, fill=white, fill opacity=0.75, text opacity=1, inner sep=1pt, outer sep=3pt] at (-3.761,0) {Sun};
+  \draw[ink, fill=white, line width=0.6pt] (-3.761,0) circle[radius=2.2pt];
+\end{tikzpicture}
+\end{document}

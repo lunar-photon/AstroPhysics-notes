@@ -1,0 +1,66 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{colthree}{RGB}{60,140,80}
+\usetikzlibrary{calc,arrows.meta,plotmarks,shapes.geometric}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\IfFileExists{results/ch16/lya_three.dat}{\def\datadir{results/ch16/}}{\def\datadir{../results/ch16/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Three clouds between us and a quasar at z = 3 (spectrum from code/ch16/03_lya_forest.awk).
+% Top: each cloud and the spectrum it sees in its own frame (dip at 121.6 nm).
+% Bottom: the spectrum we receive, each dip at 121.6 (1 + z_cloud) nm.
+\input{\datadir lya.tex}
+\begin{tikzpicture}[>={Stealth[length=2.2mm]}, font=\small]
+  \begin{axis}[name=spec, width=12.5cm, height=4.6cm, scale only axis,
+      xmin=405, xmax=505, ymin=0, ymax=3.4, axis lines*=left,
+      xlabel={observed wavelength (nm)}, ylabel={flux (arbitrary)},
+      xtick={410,430,450,470,490}, ytick=\empty, tick style={muted},
+      every axis label/.style={font=\small, text=muted}, clip=false]
+    \addplot[linecol, line width=0.8pt] table[x index=0, y index=2] {\datadir lya_three.dat};
+    \addplot[ink, line width=0.9pt] table[x index=0, y index=1] {\datadir lya_three.dat};
+    \foreach \l/\n in {\SixteenLyaA/A, \SixteenLyaB/B, \SixteenLyaC/C} {
+      \edef\tmp{\noexpand\draw[accent, dashed] (axis cs:\l,0) -- (axis cs:\l,3.4);
+        \noexpand\coordinate (top\n) at (axis cs:\l,3.4);}
+      \tmp
+    }
+    \draw[astroblue, dashed] (axis cs:\SixteenLyaQSO,0) -- (axis cs:\SixteenLyaQSO,3.4);
+    \coordinate (topQ) at (axis cs:\SixteenLyaQSO,3.4);
+    \coordinate (topO) at (axis cs:405,3.4);
+    \node[accent, font=\scriptsize, fill=white, inner sep=1pt, align=center] at (axis cs:\SixteenLyaA,2.15) {$121.6\times3.55$\\$=\SixteenLyaA$\,nm};
+    \node[accent, font=\scriptsize, fill=white, inner sep=1pt, align=center] at (axis cs:\SixteenLyaB,2.15) {$121.6\times3.75$\\$=\SixteenLyaB$\,nm};
+    \node[accent, font=\scriptsize, fill=white, inner sep=1pt, align=center] at (axis cs:\SixteenLyaC,2.15) {$121.6\times3.90$\\$=\SixteenLyaC$\,nm};
+    \node[astroblue, font=\scriptsize, anchor=west, align=left] at (axis cs:488.5,2.4) {quasar's Ly$\alpha$\\$121.6\times4=\SixteenLyaQSO$\,nm};
+  \end{axis}
+  % sightline: quasar on the right, us on the left
+  \def\yc{3.1}
+  \draw[->, muted, thick] ($(topQ)+(0,\yc)$) -- ($(topO)+(0.15,\yc)$);
+  \node[muted, font=\scriptsize, above] at ($(topO)!0.5!(topA)+(0,\yc)$) {light travels toward us};
+  \node[ink, anchor=east] at ($(topO)+(0.1,\yc)$) {us};
+  \node[astroblue, star, star points=7, star point ratio=2.4, fill=astroblue, inner sep=2.2pt] at ($(topQ)+(0,\yc)$) {};
+  \node[astroblue, above=3pt] at ($(topQ)+(0,\yc)$) {quasar, $z=3$};
+  \foreach \n/\z in {A/2.55, B/2.75, C/2.90} {
+    \fill[muted!35] ($(top\n)+(0,\yc)$) ellipse (0.42 and 0.2);
+    \draw[muted] ($(top\n)+(0,\yc)$) ellipse (0.42 and 0.2);
+    \node[ink, below=4pt, font=\scriptsize] at ($(top\n)+(0,\yc)$) {cloud, $z=\z$};
+    % the spectrum this cloud sees in its own frame
+    \begin{scope}[shift={($(top\n)+(0,1.25)$)}]
+      \draw[linecol, fill=white] (-0.85,-0.45) rectangle (0.85,0.55);
+      \draw[ink, line width=0.8pt] plot[domain=-0.8:0.8, samples=80] (\x, {0.3-0.55*exp(-(\x*6)^2)});
+      \draw[accent] (0,-0.45) -- (0,-0.33);
+      \node[accent, font=\scriptsize, below] at (0,-0.45) {$121.6$\,nm};
+    \end{scope}
+    \draw[accent, dashed] ($(top\n)+(0,0.58)$) -- (top\n);
+  }
+  \node[muted, font=\scriptsize, anchor=east, align=right] at ($(topA)+(-0.95,1.3)$) {absorbed in\\its own frame};
+  \node[muted, font=\scriptsize, anchor=east, align=right] at ($(topA)+(-0.2,0.25)$) {stretched by $1+z$};
+\end{tikzpicture}
+\end{document}

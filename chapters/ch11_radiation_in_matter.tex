@@ -1,0 +1,828 @@
+\chapter{Radiation in Matter}
+\label{ch:radiation}
+
+Almost everything known about stars arrives as light. That light was made deep inside a star, fought its way out through layers of gas, crossed interstellar space (Chapter~\ref{ch:ism}) and finally reached a telescope. At each stage matter took some light away and added some of its own.
+
+One equation describes all of this. It is energy conservation along a single ray (P1), with gains and losses balanced as in P4. Where the matter is thin, the equation gives emission and absorption lines. Where it is thick, it gives a blackbody and a slow, random-walk leak of energy (P5). This one equation, in its two limits, covers most of what astronomers measure.
+
+% ==============================================================================
+\section{Specific Intensity}
+\label{rad:sec:intensity}
+
+Chapter~\ref{ch:photometry} measured light by its flux, the energy crossing a unit area per unit time, which falls as the inverse square of distance (Eq.~\eqref{eq:inverse_square_flux}).
+
+Inside a star or a cloud, light comes from every direction at once. A single flux mixes all of them together. To follow light through matter we need the light travelling in each direction separately.
+
+Look at a white wall in an evenly lit room, first from one metre away and then from five. From farther away the wall covers less of your view, but each patch of it looks just as bright. The brightness of a surface does not fade with distance. Only its size shrinks.
+
+The surface of the Sun is the same. Seen from Mars it covers a smaller patch of sky than seen from Earth, but each square degree of that patch is equally bright. The quantity that stays fixed along a ray is the energy per unit area, per unit time, per unit frequency and per unit solid angle, the specific intensity. Its constancy is energy conservation (P1) for a narrow bundle of rays.
+
+The Sun in numbers. From Earth its angular radius is $0.266^\circ$. From Mars, $1.52$ times farther, it is $0.175^\circ$. The flux falls by $1.52^2=2.3$ because the solid angle falls by that factor, while the intensity of each patch is the same.
+
+The picture is a narrow cone of rays leaving a patch of surface. Farther along, the cone is wider, but it carries the same energy in the same solid angle.
+
+The same constancy makes the surface brightness of a galaxy independent of its distance in a static space, which is what makes it a test of the expansion of the universe. It is why gravitational lensing, which bends rays but does not create or destroy light, leaves surface brightness unchanged. Radio astronomers state it as a brightness temperature. Here it gives the intensity and the three quantities built from it.
+
+\paragraph{Definition.} Light of frequency between $\nu$ and $\nu+d\nu$ crosses an area $dA$ in time $dt$, travelling within a solid angle $d\Omega$ about a direction that makes an angle $\theta$ with the normal of $dA$. The energy it carries defines the \textbf{specific intensity} $I_\nu$,
+\begin{equation}
+	dE=I_\nu\,\cos\theta\,dA\,dt\,d\nu\,d\Omega .
+	\label{rad:eq:intensity_def}
+\end{equation}
+The factor $\cos\theta$ is the area $dA$ as seen from the direction of travel.
+
+\paragraph{Constant along a ray.} Take two small areas $dA_1$ and $dA_2$, a distance $d$ apart in empty space, each facing the other. The light leaving $dA_1$ toward $dA_2$ is the light arriving at $dA_2$ from $dA_1$. Seen from $dA_1$, the area $dA_2$ subtends $d\Omega_1=dA_2/d^2$, and seen from $dA_2$, $dA_1$ subtends $d\Omega_2=dA_1/d^2$. Equating the two energies (P1),
+\begin{align}
+	I_{\nu,1}\,dA_1\,d\Omega_1
+	&= I_{\nu,2}\,dA_2\,d\Omega_2 \nonumber\\
+	\implies\quad I_{\nu,1}\,\frac{dA_1\,dA_2}{d^2}
+	&\eqby{1} I_{\nu,2}\,\frac{dA_2\,dA_1}{d^2} \nonumber\\
+	\implies\quad I_{\nu,1}
+	&= I_{\nu,2} .
+\end{align}
+\begin{explain}
+	\item The two solid angles written with the areas they subtend.
+\end{explain}
+\begin{equation}
+	\boxed{I_\nu\ \text{is constant along a ray in empty space.}}
+	\label{rad:eq:intensity_constant}
+\end{equation}
+The inverse-square fall of the flux is entirely the shrinking of the solid angle that a source covers.
+
+\paragraph{Flux, energy density and pressure.} Three quantities used throughout are moments of $I_\nu$ over direction,
+\begin{equation}
+	F_\nu=\int I_\nu\cos\theta\,d\Omega,\qquad
+	u_\nu=\frac1c\int I_\nu\,d\Omega,\qquad
+	P_\nu=\frac1c\int I_\nu\cos^2\theta\,d\Omega .
+	\label{rad:eq:moments}
+\end{equation}
+The flux $F_\nu$ is the net energy crossing a unit area. Light at speed $c$ carrying intensity $I_\nu$ through $d\Omega$ fills space with energy density $I_\nu\,d\Omega/c$, which gives $u_\nu$. Each photon carries momentum equal to its energy over $c$, and its component $\cos\theta$ across the surface, so the momentum flux, which is the pressure, is $P_\nu$. For light that is the same in every direction,
+\[
+F_\nu=0,\qquad u_\nu=\frac{4\pi}{c}I_\nu,\qquad P_\nu=\frac{u_\nu}{3},
+\]
+the same $\tfrac13$ as in the pressure integral \eqref{pr:eq:pressure_integral}, from the average of $\cos^2\theta$. With $I_\nu=B_\nu$ this is the relation $B_\nu=c\,u_\nu/4\pi$ of Eq.~\eqref{pr:eq:planck}.
+
+A surface that sends intensity $B_\nu$ outward into every direction of the outer half-space gives the flux $F_\nu=\pi B_\nu$ (Eq.~\eqref{ph:eq:flux_pi_B}), and integrated over frequency the surface flux $\sigma_{\rm SB}T^4$ of a blackbody, Eq.~\eqref{eq:surface_flux_sb}. In the language of intensity, the factor $\pi$ is the first moment of Eq.~\eqref{rad:eq:moments} taken over the outward half of the sphere.
+
+% ==============================================================================
+\section{The Transfer Equation}
+\label{rad:sec:transfer}
+
+Chapters~\ref{ch:photometry} and~\ref{ch:ism} described extinction, in which light passing through dust is dimmed by $e^{-\tau}$ (Eq.~\eqref{ph:eq:extinction_tau}).
+
+That is only half the story. Gas and dust also emit. A hot cloud glows, and a star's atmosphere both absorbs the light from below and adds its own.
+
+Think of a foggy night street. A distant lamp fades as you look at it through more fog, but the fog itself glows with the light it has scattered. Through a little fog you see the lamp. Through enough fog you see only the glowing fog, and nothing about the lamp behind it.
+
+Light travelling through matter loses a fixed fraction of itself per unit length by absorption and gains whatever the matter emits. Its intensity along the ray is a balance of the two, energy conservation (P1) with gains against losses (P4). When the matter is thick enough, the light forgets where it came from and takes on the glow of the matter.
+
+A slab in numbers. Light of intensity $I_0$ enters a uniform slab whose own glow is $S$. If the slab has optical depth $\tau=1$, a fraction $e^{-1}=0.37$ of the entering light survives and the slab adds $0.63\,S$. At $\tau=5$ only $0.7\%$ survives and the slab adds $99.3\%$ of $S$.
+
+The picture is Figure~\ref{rad:fig:slab}. Whatever enters, the light leaving a thick slab approaches the slab's own glow.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{fig_ch11_slab.pdf}
+	\caption{The intensity leaving a uniform slab against its optical depth $\tau$, in units of the source function $S$, for entering intensity $I_0=2S$ (upper curve) and $I_0=0$ (lower curve).}
+	\label{rad:fig:slab}
+\end{figure}
+
+The same equation governs radio emission from cold gas, X-rays from hot clusters, the Lyman-$\alpha$ absorption of distant quasars (hydrogen atoms lifted from $n=1$ to $n=2$ by light of $121.6\,\mathrm{nm}$, Section~\ref{sec:ism_lines}) and the cosmic microwave background. It gives the equation and its solution.
+
+\paragraph{Absorption by a thin slab.} Let a beam cross a thin slab of matter, of thickness $ds$ along the beam and area $A$ across it. The slab holds absorbers, atoms, ions, electrons or dust grains, with number density $n$. Each one blocks light of frequency $\nu$ over an area $\sigma_\nu$, its \textbf{cross-section}, which atomic physics supplies (the Thomson cross-section of Eq.~\eqref{eq:thomson_cross_section} is one). The slab is thin enough that the absorbers do not hide behind one another, so their areas simply add. Then
+\begin{align}
+	\text{absorbers in the slab}
+	&\eqby{1} nA\,ds, \nonumber\\
+	\text{area they block}
+	&\eqby{2} \sigma_\nu\,nA\,ds, \nonumber\\
+	\text{fraction of the beam absorbed}
+	&\eqby{3} \frac{\sigma_\nu\,nA\,ds}{A}=n\sigma_\nu\,ds, \nonumber\\
+	dI_\nu\big|_{\rm abs}
+	&\eqby{4} -n\sigma_\nu\,I_\nu\,ds .
+\end{align}
+\begin{explain}
+	\item Number density times the volume $A\,ds$ of the slab.
+	\item Each absorber blocks $\sigma_\nu$.
+	\item A photon crossing the area $A$ at a random point is caught if it lands on a blocked part.
+	\item Each part of the beam loses the same fraction, so the intensity drops by that fraction of itself.
+\end{explain}
+The fraction absorbed is proportional to $ds$ because the number of absorbers met is. Its inverse, $1/(n\sigma_\nu)$, is the mean free path, the $s$ of the random walk (Section~\ref{pr:sec:p5}). Light covers $ds=c\,dt$, so the same result says that a photon is absorbed at the rate $n\sigma_\nu c$ per unit time, the collision rate of a particle moving at $c$ through targets of area $\sigma_\nu$. Astronomers count absorbing area per unit mass of matter rather than per unit volume, because the mass of a star or a cloud is what is known. Dividing by the density $\rho$ defines the \textbf{opacity},
+\begin{equation}
+	\boxed{\kappa_\nu\equiv\frac{n\sigma_\nu}{\rho},\qquad dI_\nu\big|_{\rm abs}=-\kappa_\nu\rho\,I_\nu\,ds .}
+	\label{rad:eq:kappa_sigma}
+\end{equation}
+$\rho/n$ is the mass of matter that comes with each absorber, so $\kappa_\nu$ is the cross-section divided by that mass. Ionised hydrogen has one electron for each mass $m_{\rm H}$, so its electrons give $\kappa=\sigma_T/m_{\rm H}$ (Section~\ref{rad:sec:eddington}). The opacity collects all the microscopic physics, how many absorbers there are and how large each one looks, into one number per unit mass.
+
+\paragraph{Emission by a thin slab.} Let $j_\nu$ be the energy the matter emits per unit volume, time, frequency and solid angle, so that the slab sends
+\[
+dE_{\rm em}=j_\nu\,(A\,ds)\,dt\,d\nu\,d\Omega
+\]
+into the direction of the beam. By the definition of intensity, Eq.~\eqref{rad:eq:intensity_def} with $\cos\theta=1$ for an area facing the beam, the energy $dE=dI_\nu\,A\,dt\,d\nu\,d\Omega$ is carried by an extra intensity $dI_\nu$. Equating the two,
+\[
+dI_\nu\big|_{\rm em}=j_\nu\,ds .
+\]
+
+\paragraph{The equation.} Along a path element $ds$, matter of density $\rho$ removes the fraction $\kappa_\nu\rho\,ds$ of the intensity, where $\kappa_\nu$ is the opacity of Eq.~\eqref{rad:eq:kappa_sigma}, the absorbing area per unit mass. It also adds its own emission. Let $j_\nu$ be the energy it emits per unit volume, time, frequency and solid angle. Adding the two changes (P1, P4),
+\begin{equation}
+	\boxed{\dv{I_\nu}{s}=-\kappa_\nu\rho\,I_\nu+j_\nu .}
+	\label{rad:eq:transfer}
+\end{equation}
+Scattering removes light from a ray just as absorption does, so it counts in $\kappa_\nu$, and the light it sends into the ray counts in $j_\nu$.
+
+\paragraph{Optical depth and source function.} Two combinations make the equation simpler. The \textbf{optical depth} along the ray, $d\tau_\nu=\kappa_\nu\rho\,ds$, is the path length counted in mean free paths $1/(\kappa_\nu\rho)$, the same $\tau$ as in Chapter~\ref{ch:photometry}. The \textbf{source function} $S_\nu=j_\nu/(\kappa_\nu\rho)$ is the ratio of emission to absorption. Dividing Eq.~\eqref{rad:eq:transfer} by $\kappa_\nu\rho$,
+\begin{equation}
+	\dv{I_\nu}{\tau_\nu}=-I_\nu+S_\nu .
+	\label{rad:eq:transfer_tau}
+\end{equation}
+The intensity always moves toward the source function. If $I_\nu>S_\nu$ it falls, and if $I_\nu<S_\nu$ it rises.
+
+\paragraph{Formal solution.} Multiply Eq.~\eqref{rad:eq:transfer_tau} by $e^{\tau_\nu}$ and integrate from $0$, where the ray enters with $I_\nu(0)$, to $\tau_\nu$,
+\begin{align}
+	\dv{\tau_\nu}\Big(I_\nu\,e^{\tau_\nu}\Big)
+	&\eqby{1} S_\nu\,e^{\tau_\nu} \nonumber\\
+	\implies\quad I_\nu(\tau_\nu)
+	&\eqby{2} I_\nu(0)\,e^{-\tau_\nu}+\int_0^{\tau_\nu}S_\nu(\tau')\,e^{-(\tau_\nu-\tau')}\,d\tau' . \label{rad:eq:formal}
+\end{align}
+\begin{explain}
+	\item The product rule. The terms in $I_\nu$ combine into a total derivative.
+	\item Integrate, then divide by $e^{\tau_\nu}$.
+\end{explain}
+The entering light is dimmed by $e^{-\tau_\nu}$. Each layer adds its emission, dimmed by the matter between it and the end of the ray. For a uniform slab, $S_\nu$ is constant and
+\begin{equation}
+	\boxed{I_\nu=I_\nu(0)\,e^{-\tau_\nu}+S_\nu\big(1-e^{-\tau_\nu}\big).}
+	\label{rad:eq:slab}
+\end{equation}
+Two limits follow, chosen by the ratio of the size of the slab to the mean free path (P6).
+\begin{itemize}
+	\item \textbf{Optically thin}, $\tau_\nu\ll1$. Then $I_\nu\approx I_\nu(0)+S_\nu\tau_\nu$. The slab adds emission in proportion to the amount of matter. Where $\kappa_\nu$ is large, at the frequency of a line, the emission is large, so a thin glowing gas shows emission lines.
+	\item \textbf{Optically thick}, $\tau_\nu\gg1$. Then $I_\nu\to S_\nu$, whatever entered. We see only the last mean free path or so of the matter.
+\end{itemize}
+With no emission, $S_\nu=0$, this is the extinction law of Eq.~\eqref{ph:eq:flux_tau}.
+
+% ==============================================================================
+\section{Kirchhoff's Law and Local Thermodynamic Equilibrium}
+\label{rad:sec:kirchhoff}
+
+The Planck spectrum was derived by counting the states of light (Eq.~\eqref{pr:eq:planck}), and Chapter~\ref{ch:photometry} treated stars as blackbodies.
+
+A star is not a closed box at one temperature. Its temperature falls outward and light escapes. It is not obvious why its light should look like a blackbody, or why its spectrum should have dark lines.
+
+Look into a furnace. A poker left in the coals glows with exactly the colour of the coals around it, and its outline nearly disappears. Everything in the furnace glows alike, whatever it is made of. A material that absorbs well also glows well, in just the right proportion, because otherwise the poker would end up hotter or colder than the coals.
+
+The same rule holds for each small parcel of a star. Matter that absorbs strongly at some frequency also emits strongly there, and the ratio of the two is fixed by its temperature. This is detailed balance (P4) for absorption and emission, with the counted spectrum of light (P3).
+
+Two layers in numbers. Suppose the continuum at $500\,\mathrm{nm}$ reaches us from a layer at $6000\,\mathrm K$, and the centre of a strong line from a higher layer at $4500\,\mathrm K$. The intensity at line centre is then $B_\nu(4500\,\mathrm K)/B_\nu(6000\,\mathrm K)=0.20$ of the continuum. The line is dark.
+
+The picture is two depths in an atmosphere. At most frequencies we see down to a deep, hot layer. At the frequency of a line the gas is more opaque, so we see only a high, cooler layer.
+
+The same law gives the dark Fraunhofer lines of the Sun, the bright lines of glowing nebulae, the darkening of the Sun's edge, and the nearly perfect blackbody of the microwave background. It gives the source function of matter in equilibrium and the way lines form.
+
+\paragraph{Kirchhoff's law.} Inside a closed cavity in full thermodynamic equilibrium at temperature $T$, the light is the same everywhere and in every direction, and by P3 it is Planck light, $I_\nu=B_\nu(T)$. Nothing changes along a ray, so Eq.~\eqref{rad:eq:transfer} gives
+\begin{align}
+	0
+	&\eqby{1} -\kappa_\nu\rho\,B_\nu(T)+j_\nu \nonumber\\
+	\implies\quad S_\nu
+	&\eqby{2} \frac{j_\nu}{\kappa_\nu\rho}=B_\nu(T) .
+\end{align}
+\begin{explain}
+	\item $\dv*{I_\nu}{s}=0$ with $I_\nu=B_\nu$. Every process is balanced by its reverse (P4).
+	\item The definition of $S_\nu$.
+\end{explain}
+\begin{equation}
+	\boxed{j_\nu=\kappa_\nu\rho\,B_\nu(T).}
+	\label{rad:eq:kirchhoff}
+\end{equation}
+Emission and absorption are tied together by the Planck function of the matter's temperature.
+
+\paragraph{Local thermodynamic equilibrium.} The emission and absorption of a parcel depend on the parcel itself, on its atoms and how they are excited, not on the light passing through. Where collisions keep each parcel close to equilibrium inside itself, the local thermodynamic equilibrium of Section~\ref{sg:sec:rotation}, its atoms are excited as in equilibrium at the local temperature. Eq.~\eqref{rad:eq:kirchhoff} then holds point by point, even though the light passing through is not Planck light,
+\begin{equation}
+	S_\nu=B_\nu\big(T(\vecr)\big)\qquad\text{(local thermodynamic equilibrium).}
+	\label{rad:eq:lte_source}
+\end{equation}
+A thick layer at one temperature then emits Planck light, as a blackbody does, without being a closed box.
+
+\paragraph{The transfer equation in local equilibrium.} Put Eq.~\eqref{rad:eq:kirchhoff}, now at the local temperature, into the transfer equation \eqref{rad:eq:transfer},
+\begin{equation}
+	\boxed{\dv{I_\nu}{s}=-\kappa_\nu\rho\,\Big(I_\nu-B_\nu\big(T(\vecr)\big)\Big).}
+	\label{rad:eq:transfer_lte}
+\end{equation}
+Read it as a relaxation. Over each mean free path $1/(\kappa_\nu\rho)$ the light is pulled toward the Planck light of the gas it is passing through. If the temperature were the same everywhere, the light would settle at $B_\nu$ and stay there, the same in every direction, carrying no net flux. That is global thermodynamic equilibrium (Section~\ref{sg:sec:rotation}). In a star the temperature changes from place to place, so the target $B_\nu(T)$ moves along every ray, and the light never quite catches up. At each point it still carries a trace of the gas it has just come from, which was hotter or cooler than the gas here. Deep inside, that trace is tiny, but it is the whole flux of the star (Section~\ref{rad:sec:diffusion}).
+
+\paragraph{Absorption lines.} In an atmosphere the temperature falls outward. By Eq.~\eqref{rad:eq:slab} we see light from about one mean free path deep, $\tau_\nu\approx1$ along our line of sight (more exactly $\tau_\nu\approx\tfrac23$, Section~\ref{rad:sec:grey}). At the frequency of a line, $\kappa_\nu$ is large, so $\tau_\nu=1$ is reached higher up, where the gas is cooler and $B_\nu$ is smaller. The line is darker than the continuum on either side. If the temperature rose outward, as it does in the solar chromosphere, the same argument would give emission lines. The edge of the Sun looks darker than its centre for the same reason. Looking at the edge, the line of sight runs slantwise and reaches $\tau=1$ in higher, cooler layers.
+
+% ==============================================================================
+\section{Diffusion of Light}
+\label{rad:sec:diffusion}
+
+Deep inside a star the optical depth to the surface is enormous, and by the thick limit of Eq.~\eqref{rad:eq:slab} the light at each point is nearly Planck light at the local temperature.
+
+If the light were exactly Planck light, the same in every direction, it would carry no net flux (Section~\ref{rad:sec:intensity}). But the Sun does shine. A small departure from equal light in all directions must carry its whole luminosity outward.
+
+Think again of perfume in still air (Problem~\ref{pr:prob:perfume}). Each molecule wanders at random, but a little more perfume drifts away from the bottle than toward it, because there is more perfume near the bottle. A net flow appears with no push in any direction, only a gradient.
+
+Photons in a star do the same. Each is absorbed and re-emitted after a short free path, in a random direction. There is slightly more light where the gas is hotter, so a little more light drifts outward than inward. This is a random walk (P5), with the energy density of light $aT^4$ in place of the number of perfume molecules.
+
+The Sun in numbers. Near its centre a photon's free path is of order a millimetre to a centimetre. To random-walk out across a radius of $7\times10^8\,\mathrm m$ takes $R^2/(sc)$, Eq.~\eqref{pr:eq:walk_time}, which is $5\times10^3$ years for $s=1\,\mathrm{cm}$ and $5\times10^4$ years for $s=1\,\mathrm{mm}$. A straight flight would take $2.3$ seconds.
+
+The picture is the random walk of Figure~\ref{pr:fig:random_walk}, with photons in place of walkers, drifting slowly down the slope of temperature.
+
+The same diffusion carries heat through the interiors of stars, carries neutrinos out of a collapsing stellar core, and smooths the early universe on small scales before atoms form. It gives the flux of light deep inside a star, by three routes.
+
+\paragraph{Route A, the random walk.} The diffusion flux of Eq.~\eqref{pr:eq:fick} applies to anything that walks at random. For light, the walkers are photons and the quantity that flows is energy. With energy density $aT^4$ (Eq.~\eqref{pr:eq:photon_gas}) in place of $n$, speed $c$, and step length $1/(\kappa\rho)$,
+\begin{equation}
+	F=-\frac13\,c\,\frac{1}{\kappa\rho}\,\dv{(aT^4)}{r}=-\frac{c}{3\kappa\rho}\,\dv{(aT^4)}{r}.
+	\label{rad:eq:diffusion_flux}
+\end{equation}
+
+\paragraph{Route B, the momentum of light.} Multiply the transfer equation \eqref{rad:eq:transfer} by $\cos\theta/c$ and integrate over all directions. Along a radial coordinate, $\dv*{}{s}=\cos\theta\,\dv*{}{r}$ for the part of the change that matters deep inside a star, where curvature over one free path is negligible. Then
+\begin{align}
+	\dv{r}\,\frac1c\int I_\nu\cos^2\theta\,d\Omega
+	&\eqby{1} -\frac{\kappa_\nu\rho}{c}\int I_\nu\cos\theta\,d\Omega+\frac{j_\nu}{c}\int\cos\theta\,d\Omega \nonumber\\
+	\implies\quad \dv{P_\nu}{r}
+	&\eqby{2} -\frac{\kappa_\nu\rho}{c}\,F_\nu .
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{rad:eq:transfer} with $\dv*{}{s}=\cos\theta\,\dv*{}{r}$, times $\cos\theta/c$, integrated over $d\Omega$.
+	\item The moments of Eq.~\eqref{rad:eq:moments}. Emission is the same in all directions, so $\int\cos\theta\,d\Omega=0$ removes it.
+\end{explain}
+This is momentum conservation (P1) for light. The gradient of the pressure of light equals the momentum per unit volume and time that the light gives to the matter. Deep inside, $P=aT^4/3$, and with $\kappa$ a suitable average over frequency,
+\begin{equation}
+	\dv{r}\left(\frac{aT^4}{3}\right)=-\frac{\kappa\rho}{c}\,F,
+\end{equation}
+which is Eq.~\eqref{rad:eq:diffusion_flux} again. (The right average weights $1/\kappa_\nu$ by $\partial B_\nu/\partial T$, so the frequencies where matter is most transparent carry most of the flux. It is called the Rosseland mean, and Route C derives it.)
+
+\paragraph{Route C, the light that lags behind.} Routes A and B both assumed that the light deep inside is Planck light plus a small part that carries the flux. The transfer equation in local equilibrium, Eq.~\eqref{rad:eq:transfer_lte}, gives that small part directly, and shows where it comes from. Take a point at radius $r$ and a ray through it at angle $\theta$ to the outward radial direction. Measure optical depth backward along the ray from the point, $\tau'=\kappa_\nu\rho\times(\text{distance back})$. The ray has come from very deep, so the light that entered it far back is dimmed to nothing, and the formal solution \eqref{rad:eq:formal} gives
+\begin{equation}
+	I_\nu(r,\theta)=\int_0^\infty B_\nu\big(\text{at }\tau'\text{ back}\big)\,e^{-\tau'}\,d\tau' .
+	\label{rad:eq:I_lookback}
+\end{equation}
+The light at a point is the Planck light of the gas behind it along the ray, each layer dimmed by the matter in between. The weight $e^{-\tau'}$ means that most of it was emitted within about one mean free path. That place lies at radius $r-(\tau'/\kappa_\nu\rho)\cos\theta$, since the ray climbs $\cos\theta$ in radius per unit length. Over one free path the temperature changes very little, so expand to first order,
+\begin{align}
+	I_\nu(r,\theta)
+	&\eqby{1} \int_0^\infty\left[B_\nu(r)-\frac{\tau'\cos\theta}{\kappa_\nu\rho}\,\dv{B_\nu}{r}\right]e^{-\tau'}\,d\tau' \nonumber\\
+	&\eqby{2} B_\nu\big(T(r)\big)-\frac{\cos\theta}{\kappa_\nu\rho}\,\dv{B_\nu}{r} .
+\end{align}
+\begin{explain}
+	\item Taylor expansion of $B_\nu$ about $r$, with $\kappa_\nu\rho$ taken as constant over a free path.
+	\item $\int_0^\infty e^{-\tau'}d\tau'=1$ and $\int_0^\infty\tau'e^{-\tau'}d\tau'=1$.
+\end{explain}
+\begin{equation}
+	\boxed{I_\nu=B_\nu(T)+\delta I_\nu,\qquad \delta I_\nu=-\frac{\cos\theta}{\kappa_\nu\rho}\,\pdv{B_\nu}{T}\,\dv{T}{r}.}
+	\label{rad:eq:delta_I}
+\end{equation}
+$\delta I_\nu$ is the emission of neighbouring gas at a different temperature, seen from here. A ray heading outward, $\cos\theta>0$, was emitted about one free path deeper, where the gas is hotter, so it is a little brighter than the local $B_\nu$. A ray heading inward comes from the cooler gas above and is a little dimmer. The same result follows by putting $I_\nu=B_\nu+\delta I_\nu$ into Eq.~\eqref{rad:eq:transfer_lte} and dropping $\dv*{\delta I_\nu}{s}$, which is smaller by one more factor of the free path over the distance on which the temperature changes. This is the lag of Section~\ref{rad:sec:kirchhoff} in numbers.
+
+The departure from equilibrium is very small. $\delta I_\nu/B_\nu$ is about the free path divided by the distance over which $T$ changes by itself. For the Sun that is roughly $1\,\mathrm{cm}$ over $7\times10^8\,\mathrm m$, about $10^{-11}$. Each parcel is in local equilibrium at its own temperature, and the light is Planck light to eleven figures. If the temperature were the same everywhere, $\dv*{T}{r}=0$, the light would be exactly Planck light and would carry nothing. A star shines because it is not in global thermodynamic equilibrium.
+
+Now the flux. Only $\delta I_\nu$ contributes,
+\begin{align}
+	F_\nu
+	&\eqby{1} \int I_\nu\cos\theta\,d\Omega
+	\eqby{2} B_\nu\int\cos\theta\,d\Omega-\frac{1}{\kappa_\nu\rho}\,\pdv{B_\nu}{T}\,\dv{T}{r}\int\cos^2\theta\,d\Omega \nonumber\\
+	&\eqby{3} -\frac{4\pi}{3\kappa_\nu\rho}\,\pdv{B_\nu}{T}\,\dv{T}{r} .
+\end{align}
+\begin{explain}
+	\item The flux moment of Eq.~\eqref{rad:eq:moments}.
+	\item Eq.~\eqref{rad:eq:delta_I}.
+	\item $\int\cos\theta\,d\Omega=0$, the isotropic part carries nothing, and $\int\cos^2\theta\,d\Omega=4\pi/3$, the $\tfrac13$ of the pressure integral \eqref{pr:eq:pressure_integral}.
+\end{explain}
+Each frequency carries a flux in proportion to $1/\kappa_\nu$, so light leaks out mostly through the windows where matter is most transparent. Integrating over frequency defines the \textbf{Rosseland mean} opacity $\kappa_R$,
+\begin{equation}
+	\boxed{\frac{1}{\kappa_R}\equiv\frac{\displaystyle\int_0^\infty\frac{1}{\kappa_\nu}\,\pdv{B_\nu}{T}\,d\nu}{\displaystyle\int_0^\infty\pdv{B_\nu}{T}\,d\nu}.}
+	\label{rad:eq:rosseland}
+\end{equation}
+It is a harmonic mean, an average of $1/\kappa_\nu$, because transparent windows matter most, and it is weighted by $\partial B_\nu/\partial T$, the frequencies whose Planck light changes most from one layer to the next. The denominator follows from $B_\nu=c\,u_\nu/4\pi$ and $u=aT^4$ (Eq.~\eqref{pr:eq:planck}),
+\[
+\int_0^\infty B_\nu\,d\nu=\frac{acT^4}{4\pi}\quad\implies\quad\int_0^\infty\pdv{B_\nu}{T}\,d\nu=\frac{acT^3}{\pi}.
+\]
+Then
+\begin{align}
+	F
+	&\eqby{1} -\frac{4\pi}{3\rho}\,\dv{T}{r}\int_0^\infty\frac{1}{\kappa_\nu}\,\pdv{B_\nu}{T}\,d\nu \nonumber\\
+	&\eqby{2} -\frac{4\pi}{3\kappa_R\rho}\,\frac{acT^3}{\pi}\,\dv{T}{r}
+	= -\frac{4acT^3}{3\kappa_R\rho}\,\dv{T}{r}
+	= -\frac{c}{3\kappa_R\rho}\,\dv{(aT^4)}{r} .
+\end{align}
+\begin{explain}
+	\item Integrate $F_\nu$ over $\nu$. $\dv*{T}{r}$ is the same at every frequency.
+	\item Eq.~\eqref{rad:eq:rosseland} and the integral above.
+\end{explain}
+This is Eq.~\eqref{rad:eq:diffusion_flux} of Route A, with $\kappa=\kappa_R$. The three routes agree, and Route C shows what each assumed. The isotropic part $B_\nu$ of the light holds the energy density $aT^4$ and the pressure $aT^4/3$ that Route B used. The small part $\delta I_\nu$ is the flux.
+
+\paragraph{The transport equation.} Write $F=L(r)/(4\pi r^2)$, where $L(r)$ is the luminosity through the sphere of radius $r$, $\dv*{(aT^4)}{r}=4aT^3\,\dv*{T}{r}$, and $\kappa$ for the Rosseland mean $\kappa_R$. Then
+\begin{equation}
+	\boxed{\dv{T}{r}=-\frac{3\,\kappa\rho\,L(r)}{16\pi a c\,r^2T^3}.}
+	\label{rad:eq:radiative_transport}
+\end{equation}
+The temperature gradient needed to carry a luminosity grows with the opacity. Opaque matter needs a steep fall of temperature to push the same energy through. This is the radiative transport equation of a star (Section~\ref{st:sec:four_equations}).
+
+Read with Route C, the equation runs from the flux to the temperature. The luminosity a layer must pass on sets the flux. The flux sets how unequal the light going up and down must be, $\delta I_\nu$. And $\delta I_\nu$ is only produced by a difference of temperature over a free path, so the flux fixes how steeply $T$ falls. Where $L>0$, $\dv*{T}{r}<0$, and the temperature falls outward.
+
+The equation does not give $T(r)$ by itself. The opacity, the density and $L(r)$ all change with radius, so it has to be solved together with hydrostatic equilibrium, the mass and energy equations and the equation of state. Chapter~\ref{ch:structure} does this, writing it per unit mass as Eq.~\eqref{st:eq:radiative}. Its shape shows in a simple case. Over a range of radii where $\kappa$, $\rho$ and $L$ hardly change, use $T^3\,\dv*{T}{r}=\tfrac14\,\dv*{T^4}{r}$ and integrate from some radius $r_0$,
+\begin{align}
+	\dv{T^4}{r}
+	&\eqby{1} -\frac{3\kappa\rho L}{4\pi ac\,r^2} \nonumber\\
+	\implies\quad T^4(r)
+	&\eqby{2} T^4(r_0)+\frac{3\kappa\rho L}{4\pi ac}\left(\frac1r-\frac{1}{r_0}\right).
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{rad:eq:radiative_transport} times $4T^3$.
+	\item $\int_{r_0}^r dr'/r'^2=1/r_0-1/r$.
+\end{explain}
+For $r>r_0$ the bracket is negative and $T^4$ falls. It falls fastest where the opacity is largest, since there the light needs the largest difference of temperature over each free path to carry the same flux. This is only an illustration over a short range. The grey atmosphere of Section~\ref{rad:sec:grey} follows the same balance all the way out to where the light escapes.
+
+% ==============================================================================
+\section{The Eddington Luminosity}
+\label{rad:sec:eddington}
+
+The light flowing out of a star pushes on the matter it passes through, with the force found in Route B above.
+
+The brighter a star, the harder its light pushes. At some brightness the push must match gravity.
+
+Think of standing in a strong wind. A breeze does nothing, a gale pushes you over. Somewhere between, the push of the wind equals the grip your weight gives you on the ground.
+
+The matter at the surface of a star is held down by gravity and pushed out by the momentum of the light streaming past it (P1 for light, P2 for gravity). Both forces fall off as $1/r^2$, so their ratio depends only on the luminosity and the mass. Above a certain luminosity, the Eddington luminosity, no star can hold on to its outer layers.
+
+The Sun in numbers. For ionised hydrogen, where light is scattered by free electrons, the limit is $1.3\times10^{31}\,\mathrm W$, about $3.3\times10^4$ times the Sun's luminosity. The Sun is far below it.
+
+The picture is a parcel of gas with gravity pulling it inward and a stream of photons pushing it outward. The ratio of the two arrows does not depend on the radius.
+
+The same limit caps the luminosity of the most massive stars, and it caps how fast black holes can swallow gas, since infalling gas radiates and the light pushes back. A quasar shining at $10^{39}\,\mathrm W$ must hold at least $10^8$ solar masses. It gives the maximum luminosity of a body of mass $M$.
+
+\paragraph{The limit.} From Route B, light of flux $F$ gives the matter a force per unit volume $\kappa\rho F/c$, so a force per unit mass $\kappa F/c$. Gravity pulls with $GM/r^2$ per unit mass. With $F=L/(4\pi r^2)$ the two balance when
+\begin{align}
+	\frac{\kappa}{c}\,\frac{L}{4\pi r^2}
+	&= \frac{GM}{r^2} \nonumber\\
+	\implies\quad L
+	&= \frac{4\pi GMc}{\kappa} .
+\end{align}
+\begin{equation}
+	\boxed{L_{\rm Edd}=\frac{4\pi GMc}{\kappa}.}
+	\label{rad:eq:eddington}
+\end{equation}
+The radius has dropped out. In hot ionised gas the opacity is scattering by free electrons, with the Thomson cross-section $\sigma_T$ of Eq.~\eqref{eq:thomson_cross_section} per electron. For pure hydrogen there is one electron per mass $m_{\rm H}$, so by Eq.~\eqref{rad:eq:kappa_sigma} $\kappa=\sigma_T/m_{\rm H}=0.040\,\mathrm{m^2\,kg^{-1}}$ and
+\[
+L_{\rm Edd}=1.3\times10^{31}\,\mathrm W\left(\frac{M}{M_\odot}\right)=3.3\times10^4\,L_\odot\left(\frac{M}{M_\odot}\right).
+\]
+Any larger opacity lowers the limit.
+
+% ==============================================================================
+\section{Einstein Coefficients}
+\label{rad:sec:lines}
+
+Kirchhoff's law fixed the ratio of emission to absorption for matter in local thermodynamic equilibrium (Eq.~\eqref{rad:eq:kirchhoff}).
+
+It did not say what an atom actually does, or what happens when collisions are too rare to keep its levels in equilibrium, as in thin interstellar gas.
+
+Think of a ball resting at the bottom of a step. A kick can lift it onto the step, and from the step it can roll back down by itself. A kick can also knock it down sooner than it would have rolled. If the ball spends time on and off the step in the proportions the temperature demands, the three kinds of move must be related.
+
+An atom with two levels makes three kinds of transition. Light can lift it, it can drop by itself, and light can push it down sooner (stimulated emission). Detailed balance (P4) with Planck light and Boltzmann populations (P3) fixes how the three rates are related. Since the rates belong to the atom alone, the relations hold everywhere, in equilibrium or not.
+
+The $21\,\mathrm{cm}$ line in numbers. The upper level of hydrogen's ground state drops by itself at the rate $2.9\times10^{-15}\,\mathrm{s^{-1}}$ (Eq.~\eqref{is:eq:A21}), once in $11$ million years. In interstellar gas, collisions change the level far more often than that, so the populations follow the gas temperature (Section~\ref{sec:ism_hydrogen}).
+
+The picture is two levels with three arrows between them, one up and two down.
+
+The same relations give the strength of every spectral line, the gain of lasers and of the masers seen in star-forming clouds, and the condition for a line to form out of equilibrium. They give the three coefficients and the relations between them.
+
+\paragraph{Three rates.} Let level 1 (lower) and level 2 (upper) be single states separated by $h\nu$. In light of energy density $u_\nu$ at the line frequency,
+\begin{itemize}
+	\item absorption lifts an atom from 1 to 2 at the rate $B_{12}\,u_\nu$ per atom,
+	\item spontaneous emission drops it from 2 to 1 at the rate $A_{21}$ per atom,
+	\item stimulated emission drops it from 2 to 1 at the rate $B_{21}\,u_\nu$ per atom.
+\end{itemize}
+These are the \textbf{Einstein coefficients}. They belong to the atom.
+
+\paragraph{Relations.} In thermodynamic equilibrium at temperature $T$, the upward and downward flows balance (P4), the populations follow the Boltzmann factor, $N_2/N_1=e^{-h\nu/k_BT}$, and the light is Planck light (P3),
+\begin{align}
+	N_1B_{12}\,u_\nu
+	&\eqby{1} N_2\big(A_{21}+B_{21}\,u_\nu\big) \nonumber\\
+	\implies\quad u_\nu
+	&\eqby{2} \frac{A_{21}}{B_{12}\,e^{h\nu/k_BT}-B_{21}} .
+\end{align}
+\begin{explain}
+	\item Detailed balance between level 1 and level 2.
+	\item Solve for $u_\nu$ and use $N_1/N_2=e^{h\nu/k_BT}$.
+\end{explain}
+This must equal the Planck energy density, $u_\nu=(8\pi h\nu^3/c^3)/(e^{h\nu/k_BT}-1)$ from Section~\ref{pr:sec:p3}, at every temperature. That is possible only if
+\begin{equation}
+	\boxed{B_{12}=B_{21},\qquad A_{21}=\frac{8\pi h\nu^3}{c^3}\,B_{21}.}
+	\label{rad:eq:einstein}
+\end{equation}
+One coefficient fixes the other two. The relations hold for the atom in any surroundings, since the coefficients do not depend on whether the gas is in equilibrium. Stimulated emission is required by them. Without it no choice of coefficients could reproduce the Planck spectrum. (For levels with several states, each $B$ is multiplied by the number of states of its starting level.)
+
+\paragraph{When local equilibrium fails.} The populations follow the gas temperature when collisions move atoms between the levels much faster than spontaneous emission does. The ratio of the collision rate to $A_{21}$ decides (P6). In dense stellar atmospheres collisions win, and local thermodynamic equilibrium holds. In thin nebulae, light and spontaneous decay set the populations instead, and lines must be computed from the rates themselves. If some process fills the upper level faster than the lower one, $N_2>N_1$, the net absorption $(N_1-N_2)B_{12}u_\nu$ turns negative and the gas amplifies light passing through it. Such masers are seen in water and hydroxyl molecules in star-forming clouds.
+
+% ==============================================================================
+\section{Spectral Classes}
+\label{rad:sec:spectral}
+
+A star shows dark lines where cooler gas lies above hotter gas (Section~\ref{rad:sec:kirchhoff}), and the strength of a line is set by how many atoms sit in its lower level (Section~\ref{rad:sec:lines}).
+
+Real spectra differ far more than their compositions do. The Sun shows thousands of lines of iron and calcium and only weak lines of hydrogen. Vega shows strong hydrogen lines and few others. Both stars are about three quarters hydrogen by mass. Something other than composition decides which lines show.
+
+Think of a shop that sells umbrellas to people walking past. On a dry day nobody needs one. In a storm nobody walks past. The shop sells most on a day of light rain, because a sale needs two things at once, and the weather that brings one takes away the other.
+
+The visible lines of hydrogen are absorbed by atoms in level $n=2$. Heat lifts atoms into that level, and more heat strips the electron off altogether. So the hydrogen lines are strongest at one temperature in between, near $10^4\,\mathrm K$. The pattern of lines in a star measures its temperature, not its composition.
+
+In numbers, at the Sun's $5772\,\mathrm K$ only $5$ hydrogen atoms in $10^9$ are in level $2$. At $9870\,\mathrm K$ the share is $9$ in a million. At $2\times10^4\,\mathrm K$ only $3$ atoms in $10^5$ still hold their electron, and the share in level $2$ is back down to $3$ in $10^7$.
+
+The picture is Figure~\ref{rad:fig:balmer}, a curve that rises steeply, peaks and falls away slowly.
+
+The same contest between excitation and ionisation, counting states (P3) with detailed balance (P4), fixes the lines of every element in every star. It places the ionisation zones that drive pulsating stars (Section~\ref{st:sec:pulsation}). It also sets the temperature at which the universe became transparent (Section~\ref{un:sec:cmb}). The same dark-line argument, read through the edge of a planet passing in front of its star, gives the planet's air. It gives the spectral sequence, the share of hydrogen that can make the visible lines, the luminosity classes, and the spectra of planet atmospheres.
+
+\paragraph{The sequence.} Stars are sorted by the lines they show into the classes O, B, A, F, G, K and M, from hot to cool. The letters are left over from an older alphabetical order by the strength of the hydrogen lines, which was later rearranged by temperature. Each class is split into subtypes $0$ to $9$, with $0$ the hottest, so a G2 star is a little cooler than a G0 star. Table~\ref{rad:tab:classes} gives the classes. The Sun is G2.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{@{}l l p{0.5\textwidth} l@{}}
+		\toprule
+		\textbf{Class} & $T_{\rm eff}$ (K) & \textbf{Strongest lines} & \textbf{Example} \\
+		\midrule
+		O & above $30\,000$ & ionised helium (He\,II), hydrogen weak & -- \\
+		B & $10\,000$--$30\,000$ & neutral helium (He\,I), hydrogen growing & Rigel \\
+		A & $7500$--$10\,000$ & hydrogen, strongest at A0 & Vega \\
+		F & $6000$--$7500$ & hydrogen weaker, ionised calcium (Ca\,II H and K) and other ionised metals growing & Procyon \\
+		G & $5200$--$6000$ & Ca\,II H and K strong, neutral metals growing & Sun \\
+		K & $3700$--$5200$ & neutral metals, first molecular bands & Arcturus \\
+		M & below $3700$ & molecules, titanium oxide (TiO) bands & Betelgeuse \\
+		\bottomrule
+	\end{tabular}
+	\caption{The spectral classes, their effective temperatures and their strongest absorption lines.}
+	\label{rad:tab:classes}
+\end{table}
+
+Each entry follows from the competition of the opening. Ionised helium needs $24.6\,\mathrm{eV}$ to remove the first electron, so it exists only in the hottest stars, and its lines mark class O. Neutral helium absorbs only from levels about $21\,\mathrm{eV}$ above its ground state, so it needs B-star temperatures to fill them. Calcium loses its first electron at $6.1\,\mathrm{eV}$ and its second at $11.9\,\mathrm{eV}$. Its H and K lines, at $396.8$ and $393.4\,\mathrm{nm}$, start from the ground state of $\mathrm{Ca^+}$, so they need calcium ionised once but not twice, which happens in the F, G and K stars. Neutral metals survive only in cooler gas. Molecules such as TiO are broken apart by collisions above about $4000\,\mathrm K$, so their bands appear only in M stars.
+
+\paragraph{Why a line tracks a population.} By Eq.~\eqref{rad:eq:kappa_sigma}, the opacity at the frequency of a line is $n\sigma_\nu/\rho$, where $n$ is now the density of atoms that can absorb that line, the atoms in its lower level. A larger $n$ makes the gas opaque at the line higher up, where it is cooler, so the line is darker (Section~\ref{rad:sec:kirchhoff}). Comparing the same line from star to star therefore compares the density of atoms in its lower level.
+
+\paragraph{The hydrogen lines start from level 2.} A hydrogen atom has levels of energy $E_n=-13.6\,\mathrm{eV}/n^2$, where $n=1,2,3,\ldots$ is the principal quantum number. A line from level $2$ to level $n$ has photon energy $13.6\,\mathrm{eV}\,(1/4-1/n^2)$. For $n=3$ that is $1.889\,\mathrm{eV}$, a wavelength of $656\,\mathrm{nm}$, which is red light. For $n=4$ it is $486\,\mathrm{nm}$, and the series ends at $365\,\mathrm{nm}$. These are the \textbf{Balmer lines}, and they lie in visible light. Lines from level $1$ (the Lyman series, starting at $121.6\,\mathrm{nm}$) lie in the ultraviolet. So the hydrogen lines of an optical spectrum measure $n_2$, the density of atoms in level $2$.
+
+\paragraph{The share of hydrogen in level 2 (P3 + P4).} Two kinds of balance set $n_2$. Within the neutral atom, collisions share atoms among the levels by the Boltzmann factor. Between the atom and its ion, ionisation is balanced by recombination, which is the Saha equation. We want the share of all hydrogen, neutral and ionised, that sits in level $2$. Write $n_1$ and $n_2$ for the densities of atoms in levels $1$ and $2$, $n_{\rm H\,I}=n_1+n_2$ for the neutral atoms, $n_p$ for the protons, and $n_{\rm H,tot}=n_{\rm H\,I}+n_p$. Level $n$ holds $g_n=2n^2$ states (two spin directions times $n^2$ orbital states), so $g_1=2$ and $g_2=8$. Levels $3$ and above hold about $10^{-5}$ of the neutral atoms at $10^4\,\mathrm K$ and a few per cent at $2\times10^4\,\mathrm K$, so we keep only levels $1$ and $2$. The electron density $n_e$ is taken as given. In the cooler atmospheres most free electrons come from metals such as sodium, magnesium and iron, which lose an electron far more easily than hydrogen, so $n_e$ is not $n_p$. The ideal-gas law gives $n_e=P_e/k_BT$, where $P_e$ is the pressure of the electrons alone. Then
+\begin{align}
+	\frac{n_2}{n_1}
+	&\eqby{1} \frac{g_2}{g_1}\,e^{-(E_2-E_1)/k_BT}
+	\eqby{2} 4\,e^{-10.2\,\mathrm{eV}/k_BT}, \nonumber\\
+	\frac{n_p}{n_1}
+	&\eqby{3} \frac{1}{n_e}\left(\frac{2\pi m_ek_BT}{h^2}\right)^{3/2}e^{-13.6\,\mathrm{eV}/k_BT}
+	\eqby{4} \frac{k_BT}{P_e}\left(\frac{2\pi m_ek_BT}{h^2}\right)^{3/2}e^{-13.6\,\mathrm{eV}/k_BT}, \nonumber\\
+	\frac{n_2}{n_{\rm H,tot}}
+	&\eqby{5} \frac{n_2}{n_1+n_2+n_p}
+	\eqby{6} \frac{n_2/n_1}{1+n_2/n_1+n_p/n_1} .
+\end{align}
+\begin{explain}
+	\item The Boltzmann factor for two levels, with each side counted by its number of states (Eq.~\eqref{pr:eq:detailed_balance} and the remark after it).
+	\item $g_2/g_1=8/2$ and $E_2-E_1=13.6\,\mathrm{eV}\,(1-\tfrac14)=10.2\,\mathrm{eV}$.
+	\item The Saha equation \eqref{un:eq:saha} divided by $n_e$. Its $n_{\rm H}$ counts atoms in the ground state, which is $n_1$ here, and its binding energy is $13.6\,\mathrm{eV}$.
+	\item $n_e=P_e/k_BT$.
+	\item $n_{\rm H,tot}=n_1+n_2+n_p$, with only levels $1$ and $2$ kept.
+	\item Divide the top and the bottom by $n_1$.
+\end{explain}
+Read as a product, the last line is the Boltzmann share within the neutral atoms times the neutral share of all hydrogen,
+\begin{equation}
+	\boxed{\frac{n_2}{n_{\rm H,tot}}=\underbrace{\frac{n_2/n_1}{1+n_2/n_1}}_{n_2/n_{\rm H\,I}}\times\underbrace{\frac{1}{1+\dfrac{n_p/n_1}{1+n_2/n_1}}}_{n_{\rm H\,I}/n_{\rm H,tot}},}
+	\label{rad:eq:balmer_fraction}
+\end{equation}
+with $n_2/n_1$ and $n_p/n_1$ from the first two lines of the chain. With the electron pressure given, $n_p/n_1$ follows from the temperature alone. The first factor rises with $T$ for as long as $k_BT$ is well below $10.2\,\mathrm{eV}$. The second factor is close to one while hydrogen is neutral and falls toward zero once it ionises. The product rises and then falls.
+
+\paragraph{Numbers.} The constants are $(2\pi m_ek_B/h^2)^{3/2}=2.415\times10^{21}\,\mathrm{m^{-3}\,K^{-3/2}}$, $13.6\,\mathrm{eV}/k_B=1.578\times10^5\,\mathrm K$ and $10.2\,\mathrm{eV}/k_B=1.184\times10^5\,\mathrm K$. We take $P_e=20\,\mathrm{N\,m^{-2}}$, a value typical of model atmospheres of stars near $10^4\,\mathrm K$. Then
+\[
+\frac{n_2}{n_1}=4\,e^{-1.184\times10^5\,\mathrm K/T},\qquad
+\frac{n_p}{n_1}=1.667\times10^{-3}\left(\frac{T}{1\,\mathrm K}\right)^{5/2}e^{-1.578\times10^5\,\mathrm K/T}.
+\]
+At the Sun's $5772\,\mathrm K$, $n_2/n_1=5.0\times10^{-9}$ and $n_p/n_1=5.6\times10^{-6}$. Hydrogen is neutral, and almost none of it is in level $2$. Figure~\ref{rad:fig:balmer} shows Eq.~\eqref{rad:eq:balmer_fraction} from $4000$ to $25\,000\,\mathrm K$.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{fig_ch11_balmer.pdf}
+	\caption{The share of all hydrogen in level $n=2$ against temperature, Eq.~\eqref{rad:eq:balmer_fraction}, for an electron pressure of $20\,\mathrm{N\,m^{-2}}$ and levels $1$ and $2$ only. The dot marks the peak. The dashed line marks the Sun's effective temperature. The letters along the top mark the spectral classes.}
+	\label{rad:fig:balmer}
+\end{figure}
+
+\paragraph{Where the peak lies.} Near the peak $n_2/n_1$ is about $10^{-5}$, so it can be dropped next to $1$, and $n_2/n_{\rm H,tot}\approx(n_2/n_1)/(1+n_p/n_1)$. The peak is where its logarithm stops changing with $T$,
+\begin{align}
+	\dv{T}\ln\frac{n_2}{n_{\rm H,tot}}
+	&\eqby{1} \dv{T}\ln\frac{n_2}{n_1}-\frac{n_p/n_1}{1+n_p/n_1}\,\dv{T}\ln\frac{n_p}{n_1} \nonumber\\
+	&\eqby{2} \frac1T\,\frac{10.2\,\mathrm{eV}}{k_BT}-\frac{n_p/n_1}{1+n_p/n_1}\,\frac1T\left(\frac52+\frac{13.6\,\mathrm{eV}}{k_BT}\right)
+	\eqby{3} 0 .
+\end{align}
+\begin{explain}
+	\item The logarithm of a ratio, and $\dv*{\ln(1+y)}{T}=\big(y/(1+y)\big)\dv*{\ln y}{T}$ with $y=n_p/n_1$.
+	\item $\ln(n_2/n_1)=\ln4-10.2\,\mathrm{eV}/k_BT$, and $\ln(n_p/n_1)=\text{const}+\tfrac52\ln T-13.6\,\mathrm{eV}/k_BT$.
+	\item The condition for the peak.
+\end{explain}
+\begin{equation}
+	\boxed{\frac{n_p}{n_1+n_p}=\frac{10.2\,\mathrm{eV}/k_BT}{\tfrac52+13.6\,\mathrm{eV}/k_BT}\quad\text{at the peak.}}
+	\label{rad:eq:balmer_peak}
+\end{equation}
+The left side is the ionised share of the hydrogen. Since $13.6\,\mathrm{eV}/k_BT$ is much larger than $\tfrac52$, the right side is a little below $10.2/13.6=\tfrac34$. The Balmer lines are strongest when about two thirds of the hydrogen has already lost its electron. Bisection on Eq.~\eqref{rad:eq:balmer_peak} with $P_e=20\,\mathrm{N\,m^{-2}}$,
+\begin{align}
+	T_{\rm peak}
+	&\eqby{1} 9873\,\mathrm K, \nonumber\\
+	\frac{n_p}{n_1+n_p}
+	&\eqby{2} \frac{11.99}{2.5+15.98}=0.649, \nonumber\\
+	\frac{n_2}{n_{\rm H,tot}}
+	&\eqby{3} 8.74\times10^{-6} .
+\end{align}
+\begin{explain}
+	\item The difference of the two sides is $-0.420$ at $9000\,\mathrm K$ and $+0.053$ at $10\,000\,\mathrm K$. Sixty halvings of that interval end at $9873\,\mathrm K$. Bisecting instead on the slope of the full Eq.~\eqref{rad:eq:balmer_fraction}, without dropping $n_2/n_1$, gives the same $9873\,\mathrm K$.
+	\item At $9873\,\mathrm K$, $10.2\,\mathrm{eV}/k_BT=11.99$, $13.6\,\mathrm{eV}/k_BT=15.98$ and $n_p/n_1=1.846$, so both sides are $0.649$. There $n_2/n_1=2.5\times10^{-5}$, so dropping it was safe.
+	\item Eq.~\eqref{rad:eq:balmer_fraction} at $9873\,\mathrm K$, the dot in Figure~\ref{rad:fig:balmer}. The curve is above half this value from $8750$ to $11\,850\,\mathrm K$.
+\end{explain}
+This is the temperature of the A0 stars, where the Balmer lines are strongest. The electron pressure enters only through $n_p/n_1\propto1/P_e$, inside a steep exponential, so the peak moves little. The same bisection gives $8790\,\mathrm K$ for $P_e=2\,\mathrm{N\,m^{-2}}$ and $11\,230\,\mathrm K$ for $200\,\mathrm{N\,m^{-2}}$.
+
+At the peak $k_BT=0.85\,\mathrm{eV}$, only a sixteenth of the $13.6\,\mathrm{eV}$ needed to ionise. Hydrogen ionises at so low a temperature because a free electron has far more states to choose from than a bound one (P6). At $9873\,\mathrm K$ the factor $(2\pi m_ek_BT/h^2)^{3/2}/n_e$ is $1.6\times10^7$, so a Boltzmann factor $e^{-13.6\,\mathrm{eV}/k_BT}=1.1\times10^{-7}$ is already enough to free most electrons. Recombination in the early universe is the same balance, with a billion photons per atom in place of the free electron's many states (Section~\ref{un:sec:cmb}).
+
+\paragraph{Luminosity classes.} Stars of one spectral type can differ in size a hundredfold. Their spectra differ too, through the pressure in the atmosphere. Hydrostatic equilibrium (P1 + P2), Eq.~\eqref{sg:eq:hse}, with the surface gravity $g$ held constant over the thin atmosphere and with optical depth measured inward, $d\tau=-\kappa\rho\,dr$, gives
+\begin{align}
+	\dv{P}{\tau}
+	&\eqby{1} \dv{P}{r}\,\dv{r}{\tau}
+	\eqby{2} \big(-\rho g\big)\left(-\frac{1}{\kappa\rho}\right)=\frac{g}{\kappa} \nonumber\\
+	\implies\quad P(\tau)
+	&\eqby{3} \frac{g}{\kappa}\,\tau
+	\eqby{4} \frac{2g}{3\kappa}\quad\text{at the photosphere}.
+\end{align}
+\begin{explain}
+	\item The chain rule.
+	\item Eq.~\eqref{sg:eq:hse} with $Gm/r^2=g$, and $d\tau=-\kappa\rho\,dr$.
+	\item Integrate from the top, where $P=0$ and $\tau=0$, with $\kappa$ taken as constant.
+	\item The photosphere lies at $\tau=\tfrac23$ (Eq.~\eqref{rad:eq:grey}).
+\end{explain}
+At a given temperature the opacity is roughly the same, so the pressure of the layer we see scales with $g=GM/R^2$. The Sun has $g=274\,\mathrm{m\,s^{-2}}$. A giant of one solar mass and ten solar radii has $g=2.7\,\mathrm{m\,s^{-2}}$, a hundred times less, and a supergiant less again. Lower pressure changes the spectrum in two ways.
+\begin{itemize}
+	\item \textbf{More ionisation.} At lower pressure $n_e$ is lower, and by the Saha equation $n_p/n_1\propto1/n_e$, so the gas is more ionised at the same temperature. A giant reaches a given spectral type at a lower temperature than a dwarf. For the Balmer lines, the peak moves from $9870\,\mathrm K$ to $8790\,\mathrm K$ when $P_e$ falls tenfold.
+	\item \textbf{Narrower lines.} Collisions between atoms broaden lines in proportion to the density, Eq.~\eqref{is:eq:pressure_width}. In the thin atmosphere of a giant they are rarer, so its lines are narrower than a dwarf's of the same type.
+\end{itemize}
+The \textbf{luminosity class}, read from these signs of the surface gravity, is written as a Roman numeral after the type. Ia and Ib are supergiants (bright and less bright), II bright giants, III giants, IV subgiants and V main-sequence stars, also called dwarfs. The Sun is G2V. Type and class together place a star on the HR diagram, Figure~\ref{st:fig:hr}, the type along the temperature axis and the class across the luminosity axis. That is what lets a spectrum alone give a star's absolute magnitude, and so its distance (Section~\ref{as:sec:spec_parallax}).
+
+% ------------------------------------------------------------------------------
+\subsection{Planet Atmospheres in Transit}
+\label{rad:sec:transmission}
+
+A planet crossing its star blocks the fraction $(R_p/R_*)^2$ of the star's light, Eq.~\eqref{tb:eq:transit_depth}, with $R_p$ and $R_*$ the radii of planet and star. Around the dark disk of the planet lies a thin ring of air. Starlight grazing the planet crosses that ring on its way to us. At the wavelength of a line of some molecule in the air, the ring is opaque higher up, just as a star's atmosphere is (Section~\ref{rad:sec:kirchhoff}), so the planet looks larger and the transit is a little deeper. Measuring the depth wavelength by wavelength gives the planet's absorption spectrum. This is \textbf{transmission spectroscopy}.
+
+\paragraph{The grazing ray.} The calculation combines hydrostatic equilibrium (P1 + P2) with the dimming of a ray by absorption (P1, P4), and asks where the optical depth along the ray reaches one (P6). Take an isothermal atmosphere. By Eq.~\eqref{sg:eq:scale_height} its pressure falls as $e^{-z/H}$ with height $z$, and at one temperature the density falls the same way, $\rho(z)=\rho(0)\,e^{-z/H}$, with the scale height $H=k_BT/(\mu m_{\rm H}g)$. A ray passes the planet at height $z$ above the radius $R_p$. Let $x$ be the distance along the ray from its closest point. The ray is then at distance $\sqrt{(R_p+z)^2+x^2}$ from the centre, and at height
+\begin{align}
+	\sqrt{(R_p+z)^2+x^2}-R_p
+	&\eqby{1} (R_p+z)\left(1+\frac{x^2}{2(R_p+z)^2}\right)-R_p \nonumber\\
+	&\eqby{2} z+\frac{x^2}{2R_p} .
+\end{align}
+\begin{explain}
+	\item $\sqrt{1+y}\approx1+y/2$ for $x\ll R_p$, which holds where the air is dense enough to matter.
+	\item $z\ll R_p$ in the second term.
+\end{explain}
+The optical depth along the whole ray is the opacity times the mass crossed (Eq.~\eqref{rad:eq:kappa_sigma}),
+\begin{align}
+	\tau_\nu
+	&\eqby{1} \int_{-\infty}^{\infty}\kappa_\nu\,\rho(0)\,e^{-z/H}\,e^{-x^2/(2R_pH)}\,dx \nonumber\\
+	&\eqby{2} \kappa_\nu\,\rho(z)\sqrt{2\pi R_pH} .
+\end{align}
+\begin{explain}
+	\item $d\tau_\nu=\kappa_\nu\rho\,dx$, with $\rho$ at the height just found and $\kappa_\nu$ the same at all heights.
+	\item The Gaussian integral $\int_{-\infty}^\infty e^{-x^2/(2s^2)}\,dx=\sqrt{2\pi}\,s$, with $s^2=R_pH$, and $\rho(0)e^{-z/H}=\rho(z)$.
+\end{explain}
+The grazing ray crosses $\sqrt{2\pi R_p/H}$ times more air than a ray going straight down from height $z$, which crosses $\rho(z)H$ per unit area.
+
+\paragraph{How much larger.} The planet blocks the rays with $\tau_\nu$ above about one. So it looks opaque up to the height where $\tau_\nu=1$,
+\[
+z_\nu=H\ln\!\Big(\kappa_\nu\,\rho(0)\sqrt{2\pi R_pH}\Big).
+\]
+Compare a wavelength in a line, with opacity $\kappa_{\rm line}$, and one just beside it, with $\kappa_{\rm cont}$. Everything but the opacity cancels,
+\begin{equation}
+	\boxed{\Delta z=z_{\rm line}-z_{\rm cont}=H\ln\frac{\kappa_{\rm line}}{\kappa_{\rm cont}}.}
+	\label{rad:eq:transit_lift}
+\end{equation}
+The planet grows by a few scale heights. A line a hundred times more opaque than its surroundings lifts the edge by $H\ln100=4.6\,H$. A thousand times only reaches $6.9\,H$, since the opacity enters through its logarithm. By Eq.~\eqref{tb:eq:transit_depth} with $R_p+\Delta z$ in place of $R_p$,
+\begin{align}
+	\text{depth in the line}-\text{depth beside it}
+	&\eqby{1} \frac{(R_p+\Delta z)^2-R_p^2}{R_*^2}
+	= \frac{2R_p\,\Delta z+\Delta z^2}{R_*^2} \nonumber\\
+	&\eqby{2} \frac{2R_p\,H}{R_*^2}\,\ln\frac{\kappa_{\rm line}}{\kappa_{\rm cont}} .
+	\label{rad:eq:transit_signal}
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{tb:eq:transit_depth} at the two radii.
+	\item $\Delta z\ll R_p$, so $\Delta z^2$ is dropped, and Eq.~\eqref{rad:eq:transit_lift}.
+\end{explain}
+The signal is the area of a ring of width $\Delta z$ around the planet, over the area of the star.
+
+\paragraph{A hot Jupiter and the Earth.} Take a hot Jupiter with $T=1200\,\mathrm K$, $\mu=2.3$ for hydrogen and helium, $g=25\,\mathrm{m\,s^{-2}}$, and Jupiter's radius $R_p=7.15\times10^7\,\mathrm m$, in front of a star like the Sun, $R_*=6.96\times10^8\,\mathrm m$. Then
+\begin{align}
+	H
+	&= \frac{(1.381\times10^{-23})(1200)}{2.3\,(1.674\times10^{-27})(25)}\,\mathrm m
+	= 172\,\mathrm{km}, \nonumber\\
+	\frac{2R_pH}{R_*^2}
+	&= \frac{2\,(7.15\times10^{7})(1.72\times10^{5})}{(6.96\times10^{8})^2}
+	= 5.1\times10^{-5}\ \text{per scale height}, \nonumber\\
+	\text{signal}
+	&\eqby{1} 5.1\times10^{-5}\times4.6=2.3\times10^{-4} .
+\end{align}
+\begin{explain}
+	\item A line a hundred times more opaque than its surroundings, Eq.~\eqref{rad:eq:transit_signal}. The edge rises by $790\,\mathrm{km}$.
+\end{explain}
+The transit itself is $(R_p/R_*)^2=1.06\times10^{-2}$ deep, so the line deepens it by about two per cent. The air at the limb is thin, but the grazing ray crosses $\sqrt{2\pi R_p/H}=51$ times more of it than a vertical one, which is why the ring shows at all. For the Earth in front of the Sun, $H=8.4\,\mathrm{km}$ (Eq.~\eqref{sg:eq:scale_height}) and $R_p=6.37\times10^6\,\mathrm m$, and the same line gives $2.2\times10^{-7}\times4.6=1.0\times10^{-6}$, against a transit depth of $8.4\times10^{-5}$.
+
+The signal is proportional to $H=k_BT/(\mu m_{\rm H}g)$. Hot planets with light air and weak gravity show the largest features, and that is why hot Jupiters were studied first. The size of the features measures $H$, and so $\mu$. Air made of hydrogen and helium, $\mu=2.3$, gives features eight times larger than air made of water, $\mu=18$, at the same temperature and gravity. A layer of cloud adds opacity at every wavelength and flattens the features, since only the ratio $\kappa_{\rm line}/\kappa_{\rm cont}$ enters.
+
+Sodium was the first gas found this way, in 2002 with the Hubble Space Telescope, in the hot Jupiter HD~209458~b. Water has since been found in many hot Jupiters, and in 2022 the James Webb Space Telescope found carbon dioxide in WASP-39~b. A signal of $10^{-6}$ for an Earth around a Sun-like star is still out of reach. Around a small M dwarf, $R_*$ is about ten times smaller and the signal a hundred times larger (Problem~\ref{rad:prob:transmission}). No sign of life has been found in any planet's air.
+
+% ==============================================================================
+\section{The Grey Atmosphere}
+\label{rad:sec:grey}
+
+The effective temperature was defined in Chapter~\ref{ch:photometry} by $L=4\pi R^2\sigma_{\rm SB}T_{\rm eff}^4$ (Eq.~\eqref{eq:stefan_boltzmann_luminosity}), as if the star had one surface at one temperature.
+
+A star has no sharp surface. Its temperature falls continuously outward, and the light we see comes from a range of depths. Where is the effective temperature actually found?
+
+Think of looking into a pool of murky water. You see down to some depth where the water stops being clear, and no farther. The bottom you see is not a surface in the water but the depth at which the murk has added up to enough.
+
+A star's photosphere is such a depth. It lies at a fixed optical depth, and the temperature there is the effective temperature. The calculation uses momentum conservation for light (P1), the steady flow of energy through the atmosphere (P4), and Planck light at the local temperature (P3).
+
+In numbers, the result below puts the effective temperature at an optical depth of $\tfrac23$, and the topmost gas, at $\tau=0$, at $2^{-1/4}=0.84$ of it. For the Sun that is $4850\,\mathrm K$ at the top against $5772\,\mathrm K$ at the photosphere.
+
+The picture is Figure~\ref{rad:fig:grey}, a temperature that rises slowly with depth through the layers we see.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{fig_ch11_grey_atmosphere.pdf}
+	\caption{The temperature of a grey atmosphere against optical depth, in units of the effective temperature. The point at $\tau=\tfrac23$ marks $T=T_{\rm eff}$, and the point at $\tau=0$ marks $T=2^{-1/4}T_{\rm eff}$.}
+	\label{rad:fig:grey}
+\end{figure}
+
+The same calculation, with the opacity's dependence on frequency added, is the starting point of every model stellar atmosphere, and of planetary atmospheres warmed from below. It gives the temperature through the atmosphere.
+
+\paragraph{Assumptions.} Take the opacity the same at all frequencies (grey), so frequency can be integrated out. Measure the optical depth $\tau$ inward from the top. The atmosphere is thin compared with the star, so it is treated as flat, and no energy is made in it, so the flux $F$ is the same at every depth (P1, P4).
+
+\paragraph{Temperature against depth.} The momentum equation of Route B, with $d\tau=-\kappa\rho\,dr$, reads $\dv*{P_{\rm light}}{\tau}=F/c$. With $F$ constant,
+\begin{equation}
+	P_{\rm light}(\tau)=\frac Fc\,\tau+P_{\rm light}(0).
+\end{equation}
+Two approximations close it. Deep down the light is nearly the same in all directions, so $P_{\rm light}=u/3$, and Eddington took this to hold at all depths. At the top, light only leaves and none comes in. If the outgoing light is spread evenly over the outer half of directions with intensity $I^+$, then $F=\pi I^+$ and $u=2\pi I^+/c$ from Eq.~\eqref{rad:eq:moments}, so $u(0)=2F/c$. Then
+\begin{align}
+	\frac{u}{3}
+	&\eqby{1} \frac Fc\,\tau+\frac{2F}{3c} \nonumber\\
+	\implies\quad aT^4
+	&\eqby{2} \frac{3F}{c}\left(\tau+\frac23\right) \nonumber\\
+	&\eqby{3} \frac34\,aT_{\rm eff}^4\left(\tau+\frac23\right).
+\end{align}
+\begin{explain}
+	\item $P_{\rm light}=u/3$ at all depths and $P_{\rm light}(0)=u(0)/3=2F/(3c)$.
+	\item Local thermodynamic equilibrium, $u=aT^4$.
+	\item $F=\sigma_{\rm SB}T_{\rm eff}^4$ and $\sigma_{\rm SB}=ac/4$ (Section~\ref{pr:sec:p3}).
+\end{explain}
+\begin{equation}
+	\boxed{T^4=\frac34\,T_{\rm eff}^4\left(\tau+\frac23\right).}
+	\label{rad:eq:grey}
+\end{equation}
+The temperature equals $T_{\rm eff}$ at $\tau=\tfrac23$. That depth is the \textbf{photosphere}, the layer the effective temperature describes. Above it the temperature levels off at $2^{-1/4}T_{\rm eff}$, and below it the temperature keeps rising, as $\tau^{1/4}$ deep down, where the diffusion of Section~\ref{rad:sec:diffusion} takes over.
+
+% ==============================================================================
+\section{Problem Set: Radiation in Matter}
+
+\subsection{Problem 1: The Sun Seen From Mars}
+\label{rad:prob:mars}
+
+\textbf{Problem Statement}: Mars is $1.52$ times farther from the Sun than the Earth. Compare (a) the flux of sunlight and (b) the specific intensity of the solar disk seen from the two planets. (c) Why does a camera on Mars need a longer exposure for a picture of the whole landscape, but not for a picture of the Sun's disk filling the same number of pixels?
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The flux falls as $1/d^2$ (Eq.~\eqref{eq:inverse_square_flux}).
+	\item The intensity is constant along a ray (Eq.~\eqref{rad:eq:intensity_constant}).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Flux}. $F_{\rm Mars}/F_\oplus=1/1.52^2$.
+	\[
+	\boxed{F_{\rm Mars}=0.43\,F_\oplus.}
+	\]
+	\item \textbf{Intensity}. Unchanged.
+	\[
+	\boxed{I_{\rm Mars}=I_\oplus.}
+	\]
+	\item \textbf{Exposures}. A landscape is lit by the total flux, which is lower on Mars. A pixel looking at the Sun's disk collects intensity times the solid angle of one pixel, and both are the same.
+\end{enumerate}
+
+\subsection{Problem 2: How Opaque Is a Dark Cloud?}
+\label{rad:prob:cloud}
+
+\textbf{Problem Statement}: A dark cloud dims background starlight in the visual band by $A_V=10$ magnitudes, and the cloud's own glow in that band is negligible. (a) What is its optical depth? (b) What fraction of the starlight gets through? (c) At $2.2\,\mu\mathrm m$ the extinction is about $0.11$ of the visual value. What fraction gets through there?
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item With $S_\nu=0$, Eq.~\eqref{rad:eq:slab} gives $I=I_0e^{-\tau}$, and $A=2.5\log_{10}(I_0/I)=1.086\,\tau$ (Eq.~\eqref{ph:eq:extinction_tau}).
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Optical depth}. $\tau_V=10/1.086$.
+	\[
+	\boxed{\tau_V\simeq9.2.}
+	\]
+	\item \textbf{Visual transmission}. $e^{-9.2}$.
+	\[
+	\boxed{I/I_0\simeq1.0\times10^{-4}.}
+	\]
+	\item \textbf{Infrared}. $\tau=0.11\times9.2=1.0$, so $e^{-1.0}=0.36$.
+	\[
+	\boxed{I/I_0\simeq0.36.}
+	\]
+	The cloud is opaque in visible light and nearly transparent in the near infrared, which is why young stars inside such clouds are found with infrared telescopes.
+\end{enumerate}
+
+\subsection{Problem 3: How Long Light Takes to Leave the Sun}
+\label{rad:prob:escape}
+
+\textbf{Problem Statement}: Take the mean free path of a photon inside the Sun to be $s=1\,\mathrm{mm}$ throughout. Estimate the time for energy made at the centre to random-walk to the surface, $R_\odot=6.96\times10^8\,\mathrm m$. How many free paths is that?
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The random-walk time $R^2/(sc)$, Eq.~\eqref{pr:eq:walk_time}, and $N=(R/s)^2$ steps.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\[
+\boxed{t=\frac{(6.96\times10^8)^2}{10^{-3}\times3.00\times10^8}\,\mathrm s\simeq1.6\times10^{12}\,\mathrm s\simeq5\times10^4\ \text{years},\qquad N\simeq5\times10^{23}.}
+\]
+The light we see today left the core tens of thousands of years ago, as energy. The individual photons were absorbed and re-emitted along the way, about $5\times10^{23}$ times.
+
+\subsection{Problem 4: Eddington Limits}
+\label{rad:prob:eddington}
+
+\textbf{Problem Statement}: Using electron scattering in ionised hydrogen, $\kappa=0.040\,\mathrm{m^2\,kg^{-1}}$, find the Eddington luminosity of (a) a star of $100\,M_\odot$ and (b) a black hole of $10^8\,M_\odot$. (c) A quasar emits $10^{40}\,\mathrm W$. What is the least mass that can power it?
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item $L_{\rm Edd}=4\pi GMc/\kappa=1.3\times10^{31}\,\mathrm W\,(M/M_\odot)$, Eq.~\eqref{rad:eq:eddington}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Massive star}.
+	\[
+	\boxed{L_{\rm Edd}\simeq1.3\times10^{33}\,\mathrm W\simeq3\times10^6\,L_\odot.}
+	\]
+	The most massive stars shine at a good fraction of this, so they lose mass in strong winds.
+	\item \textbf{Black hole}.
+	\[
+	\boxed{L_{\rm Edd}\simeq1.3\times10^{39}\,\mathrm W.}
+	\]
+	\item \textbf{Quasar}. $M\ge L\kappa/(4\pi Gc)=10^{40}/(1.3\times10^{31})\,M_\odot$.
+	\[
+	\boxed{M\gtrsim8\times10^8\,M_\odot.}
+	\]
+\end{enumerate}
+
+\subsection{Problem 5: The Surface of a Grey Star}
+\label{rad:prob:grey}
+
+\textbf{Problem Statement}: In the grey atmosphere of Eq.~\eqref{rad:eq:grey} for a star with $T_{\rm eff}=5772\,\mathrm K$, find the temperature (a) at the top, (b) at $\tau=\tfrac23$, and (c) at $\tau=10$.
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item $T=T_{\rm eff}\,[\tfrac34(\tau+\tfrac23)]^{1/4}$.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Top}. $T=2^{-1/4}T_{\rm eff}$.
+	\[
+	\boxed{T(0)\simeq4850\,\mathrm K.}
+	\]
+	\item \textbf{Photosphere}.
+	\[
+	\boxed{T(\tfrac23)=T_{\rm eff}=5772\,\mathrm K.}
+	\]
+	\item \textbf{Deeper}. $[\tfrac34\times10.67]^{1/4}=1.68$.
+	\[
+	\boxed{T(10)\simeq9700\,\mathrm K.}
+	\]
+\end{enumerate}
+
+\subsection{Problem 6: Seeing a Planet's Air}
+\label{rad:prob:transmission}
+
+\textbf{Problem Statement}: A planet of radius $1.27$ times Jupiter's ($R_p=9.08\times10^7\,\mathrm m$) transits a star like the Sun ($R_*=6.96\times10^8\,\mathrm m$). Its air is hydrogen and helium ($\mu=2.3$) at $T=1100\,\mathrm K$, and its surface gravity is only $g=5\,\mathrm{m\,s^{-2}}$. (a) Find the scale height. (b) Find the extra transit depth in a molecular band a hundred times more opaque than its surroundings, and compare it with the transit depth. (c) Find the same signal for an Earth ($R_p=6.37\times10^6\,\mathrm m$, $H=8.4\,\mathrm{km}$) in front of an M dwarf of $0.12$ solar radii.
+
+\textbf{Essential Ideas}:
+\begin{itemize}
+	\item The scale height $H=k_BT/(\mu m_{\rm H}g)$, Eq.~\eqref{sg:eq:scale_height}.
+	\item The extra depth $(2R_pH/R_*^2)\ln(\kappa_{\rm line}/\kappa_{\rm cont})$, Eq.~\eqref{rad:eq:transit_signal}.
+\end{itemize}
+
+\textbf{Detailed Solutions}:
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{Scale height}. $H=(1.381\times10^{-23})(1100)/\big(2.3\,(1.674\times10^{-27})(5)\big)\,\mathrm m$.
+	\[
+	\boxed{H\simeq790\,\mathrm{km}.}
+	\]
+	It is about five times the $172\,\mathrm{km}$ of the hot Jupiter of Section~\ref{rad:sec:transmission}, mostly because the gravity is five times weaker.
+	\item \textbf{Signal}. $2R_pH/R_*^2=2\,(9.08\times10^7)(7.89\times10^5)/(6.96\times10^8)^2=2.96\times10^{-4}$, times $\ln100=4.6$.
+	\[
+	\boxed{\text{extra depth}\simeq1.4\times10^{-3}.}
+	\]
+	The transit depth is $(R_p/R_*)^2=1.70\times10^{-2}$, so the band deepens it by $8\%$. Planets with weak gravity and light air are the easiest to read.
+	\item \textbf{Earth and M dwarf}. $R_*=0.12\times6.96\times10^8\,\mathrm m=8.35\times10^7\,\mathrm m$, and $2R_pH/R_*^2=2\,(6.37\times10^6)(8.4\times10^3)/(8.35\times10^7)^2=1.53\times10^{-5}$, times $4.6$.
+	\[
+	\boxed{\text{extra depth}\simeq7\times10^{-5}.}
+	\]
+	The same planet in front of the Sun gives $1.0\times10^{-6}$. The star's area is $1/0.12^2=69$ times smaller, and the signal is that much larger. This is why the search for the air of rocky planets starts with small, cool stars.
+\end{enumerate}

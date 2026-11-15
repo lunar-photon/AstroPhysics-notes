@@ -1,0 +1,53 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{astroblue}{HTML}{1B4F72}
+\usetikzlibrary{calc,decorations.pathreplacing}
+% Ellipse with true geometry: a = 3, e = 0.6, so ae = 1.8, b = a*sqrt(1-e^2) = 2.4,
+% semi-latus rectum lambda = b^2/a = 1.92. Centre O at the origin, focus F at (+ae,0),
+% periapsis P at (+a,0), apoapsis A at (-a,0).
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+\begin{tikzpicture}[scale=1.15,>=stealth]
+	\def\a{3}\def\e{0.6}
+	\pgfmathsetmacro{\c}{\a*\e}
+	\pgfmathsetmacro{\b}{\a*sqrt(1-\e*\e)}
+	\pgfmathsetmacro{\lam}{\b*\b/\a}
+	% axes of the ellipse
+	\draw[muted, thin] (-\a-0.4,0) -- (\a+0.4,0);
+	\draw[muted, thin, dashed] (0,-\b-0.2) -- (0,\b+0.2);
+	% ellipse
+	\draw[astroblue, thick] (0,0) ellipse [x radius=\a, y radius=\b];
+	% lines from the end of the minor axis to both foci (each of length a)
+	\draw[ink, dotted, thick] (0,\b) -- (\c,0);
+	\draw[ink, dotted, thick] (0,\b) -- (-\c,0);
+	% semi-latus rectum at F
+	\draw[accent, very thick] (\c,0) -- (\c,\lam);
+	\node[accent, right] at (\c,{0.55*\lam}) {$\lambda$};
+	% points
+	\fill[ink] (0,0) circle (1.4pt) node[below left] {$O$};
+	\fill[accent] (\c,0) circle (1.6pt) node[below left] {$F$};
+	\fill[ink] (-\c,0) circle (1.4pt) node[below right] {$F'$};
+	\fill[ink] (\a,0) circle (1.4pt) node[above right] {P};
+	\fill[ink] (-\a,0) circle (1.4pt) node[above left] {A};
+	\fill[ink] (0,\b) circle (1.4pt);
+	% labels beside segments
+	\node[ink] at ({0.5*\c+0.25},{0.5*\b+0.25}) {$a$};
+	\node[ink, left] at (0,{0.5*\b}) {$b$};
+	% dimension braces below the major axis
+	\draw[decorate, decoration={brace, amplitude=5pt, mirror}] (-\a,-\b-0.45) -- (\c,-\b-0.45)
+		node[midway, below=6pt] {$a(1+e)$};
+	\draw[decorate, decoration={brace, amplitude=5pt, mirror}] (\c,-\b-0.45) -- (\a,-\b-0.45)
+		node[midway, below=6pt] {$a(1-e)$};
+	\draw[muted, thin] (-\a,0) -- (-\a,-\b-0.4);
+	\draw[muted, thin] (\c,0) -- (\c,-\b-0.4);
+	\draw[muted, thin] (\a,0) -- (\a,-\b-0.4);
+	% centre-to-focus distance above the axis
+	\draw[decorate, decoration={brace, amplitude=4pt}] (0,0.12) -- (\c,0.12)
+		node[midway, above=4pt] {$ae$};
+\end{tikzpicture}
+\end{document}

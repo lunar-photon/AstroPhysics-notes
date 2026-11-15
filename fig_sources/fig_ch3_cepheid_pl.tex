@@ -1,0 +1,33 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% OGLE-III fundamental-mode LMC Cepheids. Points are the catalogue mean magnitudes, lines the clipped fits
+% (code/ch3/01_cepheids.py). The star of the light-curve figure is ringed.
+\IfFileExists{results/ch3/cepheids.tex}{\def\datadir{results/ch3/}}{\def\datadir{../results/ch3/}}
+\input{\datadir cepheids.tex}
+\begin{tikzpicture}[font=\small]
+  \begin{axis}[width=11cm, height=8.5cm, scale only axis, axis lines*=left, xmin=0, xmax=2.0, ymin=11.5, ymax=19.5, y dir=reverse,
+      grid=major, grid style={linecol}, tick style={muted}, every axis label/.style={text=muted}, clip=true,
+      xlabel={$\log_{10}(P/1\,\mathrm{day})$}, ylabel={mean magnitude}]
+    \addplot[only marks, mark=*, mark size=0.6pt, accent!70, opacity=0.6] table[x index=0,y index=1] {\datadir cep_pl.dat};
+    \addplot[only marks, mark=*, mark size=0.6pt, astroblue!70, opacity=0.6] table[x index=0,y index=2] {\datadir cep_pl.dat};
+    \addplot[ink, line width=1pt] table[x index=0,y index=1] {\datadir cep_fits.dat};
+    \addplot[ink, line width=1pt] table[x index=0,y index=2] {\datadir cep_fits.dat};
+    \draw[ink] (axis cs:0.99972,\ThreeCepVbar) circle[radius=3pt];
+    \draw[ink] (axis cs:0.99972,\ThreeCepIbar) circle[radius=3pt];
+    \node[accent, anchor=west] at (axis cs:0.05,18.7) {$V$};
+    \node[astroblue, anchor=west] at (axis cs:0.05,17.7) {$I$};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

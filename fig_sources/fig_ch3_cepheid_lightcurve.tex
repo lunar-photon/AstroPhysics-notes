@@ -1,0 +1,43 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% OGLE-LMC-CEP-1252, I band. Data from results/ch3 (code/ch3/01_cepheids.py).
+% (a) raw points of the first three seasons, (b) Lomb-Scargle power against trial period, (c) folded at P over two cycles.
+\IfFileExists{results/ch3/cepheids.tex}{\def\datadir{results/ch3/}}{\def\datadir{../results/ch3/}}
+\input{\datadir cepheids.tex}
+\begin{tikzpicture}[font=\small]
+  \pgfplotsset{every axis/.append style={width=12cm, height=4.2cm, scale only axis, axis lines*=left,
+      grid=major, grid style={linecol}, tick style={muted}, every axis label/.style={text=muted}, clip=false}}
+  \begin{axis}[name=a, xmin=450, xmax=1650, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14},
+      xlabel={time (days, HJD$-2\,450\,000$)}, ylabel={$I$ (mag)}]
+    \addplot[only marks, mark=*, mark size=0.9pt, accent, restrict x to domain=450:1650] table[x index=0,y index=1] {\datadir cep_lc_raw.dat};
+    \node[muted, anchor=north west] at (rel axis cs:0.005,0.99) {(a)};
+  \end{axis}
+  \begin{axis}[name=b, at={(a.south west)}, anchor=north west, yshift=-1.5cm, xmode=log, xmin=1, xmax=100, ymin=0, ymax=0.55,
+      xtick={1,2,5,10,20,50,100}, xticklabels={1,2,5,10,20,50,100}, ytick={0,0.25,0.5},
+      xlabel={trial period (days)}, ylabel={power}]
+    \addplot[astroblue, line width=0.7pt] table[x index=0,y index=1] {\datadir cep_periodogram.dat};
+    \draw[muted, dashed] (axis cs:\ThreeCepP,0) -- (axis cs:\ThreeCepP,0.5);
+    \node[muted, anchor=west] at (axis cs:\ThreeCepP*1.12,0.46) {$P=\ThreeCepP$ d};
+    \node[muted, anchor=north west] at (rel axis cs:0.005,0.99) {(b)};
+  \end{axis}
+  \begin{axis}[name=c, at={(b.south west)}, anchor=north west, yshift=-1.5cm, xmin=0, xmax=2, ymin=13.4, ymax=14.1, y dir=reverse,
+      xtick={0,0.5,1,1.5,2}, ytick={13.5,13.75,14}, xlabel={phase}, ylabel={$I$ (mag)}]
+    \addplot[only marks, mark=*, mark size=0.9pt, accent] table[x index=0,y index=1] {\datadir cep_folded.dat};
+    \addplot[only marks, mark=*, mark size=0.9pt, accent] table[x expr=\thisrowno{0}+1,y index=1] {\datadir cep_folded.dat};
+    \draw[ink, dashed] (axis cs:0,\ThreeCepIbar) -- (axis cs:2,\ThreeCepIbar);
+    \node[muted, anchor=north west] at (rel axis cs:0.005,0.99) {(c)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}
