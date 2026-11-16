@@ -27,10 +27,10 @@
     \foreach \y in {0,1,2,3} {
       \draw[muted, line width=0.5pt] (-0.5,\y) -- (-0.54,\y); \node[muted, font=\footnotesize, anchor=east] at (-0.56,\y) {\y}; }
     \node[muted, anchor=north] at (0.75,-0.66) {$g-r$};
-    \node[muted, rotate=90, anchor=south] at (-0.88,1.5) {$u-g$};
+    \node[muted, rotate=90, anchor=south] at (-0.78,1.5) {$u-g$};
   \end{scope}
   % panel b
-  \begin{scope}[xshift=7.5cm, x=2.32cm, y=1.44444cm]
+  \begin{scope}[xshift=8.4cm, x=2.32cm, y=1.44444cm]
     \node[anchor=south west, inner sep=0] at (-0.5,-0.3) {\includegraphics[width=5.8cm,height=5.2cm]{\datadir colours_b.png}};
     \draw[muted, line width=0.5pt] (-0.5,-0.3) rectangle (2,3.3);
     \draw[ink, dashed, line width=0.6pt] (-0.5,0.15) -- (2,0.15);
@@ -39,10 +39,10 @@
     \foreach \y/\l in {0/{$0$},1/{$1$},2/{$2$},3/{$3$}} {
       \draw[muted, line width=0.5pt] (-0.5,\y) -- (-0.54,\y); \node[muted, font=\footnotesize, anchor=east] at (-0.56,\y) {\l}; }
     \node[muted, anchor=north] at (0.75,-0.66) {$g-r$};
-    \node[muted, rotate=90, anchor=south, align=center] at (-1.0,1.5) {$\mathrm{psfMag}_r-\mathrm{modelMag}_r$};
+    \node[muted, rotate=90, anchor=south, align=center] at (-0.78,1.5) {$\mathrm{psfMag}_r-\mathrm{modelMag}_r$};
   \end{scope}
   % legend
-  \foreach \c/\n/\x in {astroblue/star/1.2, accent/galaxy/3.4, colthree/quasar/5.9} {
+  \foreach \c/\n/\x in {astroblue/star/3.4, accent/galaxy/5.6, colthree/quasar/8.0} {
     \fill[\c] (\x,5.75) circle[radius=2.2pt]; \node[muted, font=\footnotesize, anchor=west] at (\x+0.2,5.75) {\n}; }
 \end{tikzpicture}
 \end{document}
