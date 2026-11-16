@@ -16,19 +16,27 @@ What makes a body a star is where its light comes from. A \textbf{star} is a bal
 \section{The Unknowns}
 \label{st:sec:unknowns}
 
-Chapter~\ref{ch:selfgrav} described a star at each radius $r$, with $m(r)$ the mass inside.
+Chapter~\ref{ch:selfgrav} described a star at each radius $r$, with $m(r)$ the mass inside. With radius as the coordinate, the temperature is a function of radius and time,
+\[
+T=T(r,t).
+\]
+But the gas inside a real star does not stay at one radius. When the star expands, the gas moves outward, and a fixed $r$ no longer holds the same gas. A thermometer held at fixed $r$ then reads two changes mixed together, the gas there heating or cooling, and hotter or cooler gas sliding past it. So we need a label that stays with the gas.
 
-Inside a real star the gas does not stay at one radius. As the star contracts or expands, a given parcel of gas moves, and the radius stops being a good label for it. What follows the gas is the mass inside it.
+Think of the rings of a tree. As the tree grows, every ring moves outward, but the ring laid down in a given year stays the same ring. Counting rings from the centre labels the wood, whatever the size of the trunk. Inside a star the mass coordinate $m$ plays the part of the ring count. The shell of gas with mass $m$ inside it keeps that label while the star contracts, expands or burns, because gas never crosses from one shell to the next. Written with this label,
+\[
+T=T(m,t),
+\]
+the temperature follows the same shell of gas as the star evolves. The time derivative at fixed $m$ is then the change that this one shell feels,
+\begin{equation}
+	\left.\pdv{T}{t}\right|_m\eqby{1}\left.\pdv{T}{t}\right|_r+v\left.\pdv{T}{r}\right|_t ,
+	\label{st:eq:mass_derivative}
+\end{equation}
+\begin{explain}
+	\item Eq.~\eqref{pr:eq:Dt} in one dimension, with the blob a whole shell and $v=\left.\partial r/\partial t\right|_m$ the speed at which the shell moves outward.
+\end{explain}
+The first term on the right is the thermometer at fixed $r$, and the second is the gas sliding past it. Writing everything with $m$ removes the second term from sight. The composition of a shell changes only by its own burning, so everything that happens to a shell happens at fixed $m$.
 
-Think of the rings of a tree. As the tree grows, every ring moves outward, but the ring laid down in a given year stays the same ring. Counting rings from the centre labels the wood, whatever the size of the trunk.
-
-Inside a star the mass coordinate $m$ plays the part of the ring count. The shell of gas with mass $m$ inside it keeps that label while the star contracts, expands or burns. Its composition changes only by its own burning, so everything that happens to a parcel happens at fixed $m$. The four equations are therefore written with $m$, from $0$ at the centre to $M$ at the surface, as the independent variable.
-
-In numbers, the Sun's radius has grown by about $10\%$ since it began to burn hydrogen, but the shell holding the inner half of its mass is still the shell with $m=M_\odot/2$.
-
-The picture is a set of nested shells labelled by the mass they enclose, not by their radius.
-
-Fluid dynamics calls this the Lagrangian description, following the fluid, as opposed to the Eulerian description at fixed points of space. It gives four unknown functions of $m$. They are the radius $r(m)$, the pressure $P(m)$, the temperature $T(m)$ and the luminosity $L(m)$ flowing out through the shell.
+In numbers, the Sun's radius has grown by about $10\%$ since it began to burn hydrogen, but the shell holding the inner half of its mass is still the shell with $m=M_\odot/2$. The picture is a set of nested shells labelled by the mass they enclose, not by their radius. Fluid dynamics calls this the Lagrangian description, following the fluid, as opposed to the Eulerian description at fixed points of space. The four equations are therefore written with $m$, from $0$ at the centre to $M$ at the surface, as the independent variable. They have four unknown functions of $m$ (and of $t$ as the star evolves). They are the radius $r(m)$, the pressure $P(m)$, the temperature $T(m)$ and the luminosity $L(m)$ flowing out through the shell.
 
 % ==============================================================================
 \section{The Four Equations}
