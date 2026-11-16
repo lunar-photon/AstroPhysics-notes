@@ -112,3 +112,4 @@ All 16 chapters complete (2026-10-16). Full notes 356 pp, clean build (no undefi
 - 2026-11-16 — st:eq:first_law redone at owner's request ('we write dV=dm/rho'): now a 3-step chain for the shell, T ds/dt dm = d(u dm)/dt + P d(dV)/dt with dV = dm/ρ and dm fixed in time; the 'one kilogram' wording removed.
 - 2026-11-16 — ch12 Momentum: added shell equation of motion st:eq:motion, r̈ = −Gm/r² − 4πr² ∂P/∂m (owner wrote Gm/r; r² is right), derived from Newton's second law for the shell; static limit gives st:eq:momentum.
 - 2026-11-16 — §12.6 opening merged from 6 short paragraphs into 3; the stray 'same scaling gives' paragraph after the HR figure folded into the first. humanizing-writing skill (~/.claude/skills) now forbids 1–2 sentence paragraphs and runs of short ones (owner request).
+- 2026-11-16 — §12.7 opening merged from 6 short paragraphs into 3 (words unchanged, checked by diff); figure now after the third paragraph.
