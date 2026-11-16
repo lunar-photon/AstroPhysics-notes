@@ -79,6 +79,22 @@ The same four accounts, with the same structure, describe the interior of a plan
 \end{equation}
 The density has dropped out. The pressure falls outward at a rate set by gravity alone.
 
+The same balance follows from Newton's second law for the shell between $m$ and $m+dm$, and that route also says what happens when the balance fails. Gravity pulls the shell inward with force $Gm\,dm/r^2$, from the mass $m$ inside it. The pressure $P(m)$ below pushes its inner face, of area $4\pi r^2$, outward, and the pressure $P(m+dm)$ above pushes its outer face inward. The two faces have the same area to first order in $dm$. Then
+\begin{align}
+	dm\,\frac{\partial^2 r}{\partial t^2}
+	&\eqby{1} -\frac{Gm\,dm}{r^2}+4\pi r^2\big[P(m)-P(m+dm)\big] \nonumber\\
+	&\eqby{2} -\frac{Gm\,dm}{r^2}-4\pi r^2\,\pdv{P}{m}\,dm \nonumber\\
+	\implies\quad \frac{\partial^2 r}{\partial t^2}
+	&\eqby{3} -\frac{Gm}{r^2}-4\pi r^2\,\pdv{P}{m} .
+	\label{st:eq:motion}
+\end{align}
+\begin{explain}
+	\item Mass times acceleration equals the sum of the forces, gravity inward and the net push of the pressure on the two faces.
+	\item To first order, $P(m+dm)-P(m)=(\partial P/\partial m)\,dm$.
+	\item Divide by $dm$.
+\end{explain}
+The minus sign in front of $4\pi r^2\,\partial P/\partial m$ says that the pressure pushes the shell toward the side where the pressure is lower. In a star the pressure falls outward, $\partial P/\partial m<0$, so this term is positive and pushes the shell outward, against gravity. The time derivative is taken at fixed $m$, so $\partial^2 r/\partial t^2$ is the acceleration of the shell itself (Eq.~\eqref{st:eq:mass_derivative}). When the shell does not accelerate, the left side is zero and Eq.~\eqref{st:eq:motion} is Eq.~\eqref{st:eq:momentum}. When the pressure is too weak to hold the shell, the gravity term wins, the shell falls inward, and the star collapses on the free-fall time of Section~\ref{sg:sec:freefall}.
+
 \paragraph{Energy.} Take the shell between $m$ and $m+dm$. Nuclear burning releases energy in it at the rate $\varepsilon\,dm$, where $\varepsilon$ is the energy released per unit mass and time. Light carries $L(m)$ in through its inner face and $L(m+dm)$ out through its outer face. Whatever is left heats the shell. With $s$ the entropy per unit mass, the heat added to the shell per unit time is $T\,(\dv*{s}{t})\,dm$, so by conservation of energy (P1)
 \begin{align}
 	T\,\dv{s}{t}\,dm
@@ -89,6 +105,20 @@ The density has dropped out. The pressure falls outward at a rate set by gravity
 	\item Heat gained by the shell equals energy released inside it minus the net energy carried out.
 	\item To first order, $L(m+dm)-L(m)=(\dv*{L}{m})\,dm$.
 \end{explain}
+The heat on the left can also be counted with the first law of thermodynamics, for the same shell. The shell has volume $dV=dm/\rho$ and internal energy $u\,dm$, where $u$ is the internal energy per unit mass (not per unit volume as in Eq.~\eqref{pr:eq:P_u}). Heat added to the shell either raises its internal energy or is spent as work $P\,dV$ when the shell expands and pushes its neighbours away. Per unit time,
+\begin{align}
+	T\,\dv{s}{t}\,dm
+	&\eqby{1} \dv{t}\big(u\,dm\big)+P\,\dv{t}\big(dV\big) \nonumber\\
+	&\eqby{2} \dv{t}\big(u\,dm\big)+P\,\dv{t}\Big(\frac{dm}{\rho}\Big) \nonumber\\
+	&\eqby{3} \Big[\dv{u}{t}+P\,\dv{t}\Big(\frac1\rho\Big)\Big]\,dm .
+	\label{st:eq:first_law}
+\end{align}
+\begin{explain}
+	\item The first law for the shell. The heat gained equals the rise of the internal energy plus the work done.
+	\item $dV=dm/\rho$.
+	\item $dm$ does not change in time, since the shell keeps its gas (Eq.~\eqref{st:eq:mass_derivative}), so it comes out of both derivatives.
+\end{explain}
+So $T\,\dv*{s}{t}=\dv*{u}{t}+P\,\dv*{(1/\rho)}{t}$, with every time derivative taken at fixed $m$. A shell that contracts has $\dv*{(1/\rho)}{t}<0$, so its neighbours do work on it and heat it.
 \begin{equation}
 	\boxed{\dv{L}{m}=\varepsilon-T\,\dv{s}{t}.}
 	\label{st:eq:energy}
