@@ -48,14 +48,22 @@ The factor $\cos\theta$ is the area $dA$ as seen from the direction of travel.
 \end{equation}
 The inverse-square fall of the flux is entirely the shrinking of the solid angle that a source covers.
 
-\paragraph{Flux, energy density and pressure.} Three quantities used throughout are moments of $I_\nu$ over direction,
+\paragraph{Flux, energy density and pressure.} Three quantities used throughout are sums of $I_\nu$ over direction. Take one beam, the light inside a small solid angle $d\Omega$ at angle $\theta$ to the normal of a unit area. Seen from along the beam the area shrinks to $\cos\theta$, so the beam carries energy across it at the rate $dF_\nu=I_\nu\cos\theta\,d\Omega$. The same light moves at speed $c$, so it fills space with energy density $I_\nu\,d\Omega/c$. Each photon carries momentum equal to its energy over $c$, pointing along the beam, and only the part $\cos\theta$ of it points across the area. The momentum the beam carries across the area per second, which is the pressure it exerts, is therefore
+\begin{equation*}
+	dP_\nu\eqby{1}\frac{\cos\theta}{c}\,dF_\nu\eqby{2}\frac1c\,I_\nu\cos^2\theta\,d\Omega ,
+\end{equation*}
+\begin{explain}
+	\item Momentum is energy over $c$, and only the part $\cos\theta$ pushes across the area.
+	\item $dF_\nu=I_\nu\cos\theta\,d\Omega$.
+\end{explain}
+so one $\cos\theta$ counts how much light crosses the area and the other how much of its push points across it. Adding all the beams gives
 \begin{equation}
 	F_\nu=\int I_\nu\cos\theta\,d\Omega,\qquad
 	u_\nu=\frac1c\int I_\nu\,d\Omega,\qquad
 	P_\nu=\frac1c\int I_\nu\cos^2\theta\,d\Omega .
 	\label{rad:eq:moments}
 \end{equation}
-The flux $F_\nu$ is the net energy crossing a unit area. Light at speed $c$ carrying intensity $I_\nu$ through $d\Omega$ fills space with energy density $I_\nu\,d\Omega/c$, which gives $u_\nu$. Each photon carries momentum equal to its energy over $c$, and its component $\cos\theta$ across the surface, so the momentum flux, which is the pressure, is $P_\nu$. For light that is the same in every direction,
+The flux $F_\nu$ is the net energy crossing a unit area, $u_\nu$ the energy density and $P_\nu$ the pressure. For light that is the same in every direction,
 \[
 F_\nu=0,\qquad u_\nu=\frac{4\pi}{c}I_\nu,\qquad P_\nu=\frac{u_\nu}{3},
 \]
