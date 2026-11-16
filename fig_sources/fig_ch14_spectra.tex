@@ -1,0 +1,36 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\IfFileExists{results/ch14/spec_star.dat}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+% a mark at an observed line: dotted guide, tick above the panel, label on row 0 or row 1
+\newcommand{\specmark}[3]{%
+  \draw[linecol, dotted, line width=0.6pt] (axis cs:#1,-0.05) -- (axis cs:#1,1.1);
+  \draw[muted, line width=0.6pt] (axis cs:#1,1.1) -- ([yshift=3pt+#2*11pt]axis cs:#1,1.1);
+  \node[muted, font=\footnotesize, anchor=south, inner sep=1pt] at ([yshift=3pt+#2*11pt]axis cs:#1,1.1) {#3};}
+% one panel: name, name of the data file, extra axis options
+\newcommand{\specpanel}[3]{%
+  \begin{axis}[width=12.5cm, height=2.3cm, scale only axis, xmin=380, xmax=920, ymin=-0.05, ymax=1.1,
+      axis lines*=left, ytick=\empty, ylabel={#1}, xtick={400,500,600,700,800,900}, restrict y to domain*=-0.2:1.1,
+      every axis label/.style={font=\small, text=muted}, tick style={muted}, clip=false, #3]
+    \addplot[ink, line width=0.4pt] table[header=false, comment chars={\#}, x index=0, y index=1] {\datadir spec_#2.dat};
+    \input{\datadir spec_ticks_#2.tex}
+  \end{axis}}
+\begin{document}
+% Four SDSS spectra on one observed-wavelength axis (data and ticks from code/ch14/05_spectra.py).
+\begin{tikzpicture}[font=\small]
+  \specpanel{star}{star}{xticklabels={}}
+  \begin{scope}[yshift=-3.9cm]\specpanel{galaxy}{galaxy}{xticklabels={}}\end{scope}
+  \begin{scope}[yshift=-7.8cm]\specpanel{nebula}{nebula}{xticklabels={}}\end{scope}
+  \begin{scope}[yshift=-11.7cm]\specpanel{quasar}{quasar}{xlabel={observed wavelength (nm)}}\end{scope}
+\end{tikzpicture}
+\end{document}

@@ -46,6 +46,7 @@ Target length about 65 pages (a guide). General ideas only. Catalogue facts get 
 | Growth of density contrast in an expanding universe | ch16 | — |
 | Already elsewhere, cite only: Planck and photon gas (ch9), Eddington luminosity (ch11), isothermal sphere (ch12), virial theorem and Jeans (ch10), Gamow tunnelling (ch12), Chandrasekhar mass (ch13), Doppler (ch3), 21 cm (ch8), Thomson cross-section (ch8), Kirchhoff (ch11) | — | — |
 | Point-lens lens equation, magnification A(u), microlensing light curve and planet spike | ch14 (`ga:eq:lens_eq`, `ga:eq:magnification`, `ga:eq:light_curve`) | ch6 (`tb:sec:planet_methods`) |
+| Telling stars, galaxies, nebulae and quasars apart (imaging shape and colour, four SDSS spectra, line widths, template χ² classification; nebula filed as GALAXY) | ch14 (`ga:sec:spectra`) | ch11 (spectral classes), ch8 (forbidden lines, HII regions), ch15 (AGN lines), ch3 (Doppler) |
 | Reverberation mass (virial + echo delay), M = 3σ²cΔt/G | ch15 (`fp:eq:reverb_mass`) | — |
 | Dust sublimation radius r ∝ L^{1/2} | ch15 (`fp:eq:dust_radius`), uses tb:eq:teq | — |
 | Doppler factor and variability size bound with (1+z) | ch15 (`fp:eq:var_size`) | — |

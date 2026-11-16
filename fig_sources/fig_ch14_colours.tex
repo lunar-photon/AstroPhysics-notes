@@ -1,0 +1,48 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{colthree}{HTML}{3C8C50}
+\usepackage{graphicx}
+\usetikzlibrary{calc}
+\IfFileExists{results/ch14/colours_a.png}{\def\datadir{results/ch14/}}{\def\datadir{../results/ch14/}}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Imaging colours and shapes of SDSS objects that have spectra (images from code/ch14/05_spectra.py).
+% Each image is 5.8 cm x 5.2 cm and spans exactly g-r = -0.5 .. 2.0 on x, u-g = -0.3 .. 3.3 (a) and
+% psfMag_r - modelMag_r = -0.3 .. 3.3 (b) on y.
+\begin{tikzpicture}[font=\small]
+  % panel a
+  \begin{scope}[x=2.32cm, y=1.44444cm]
+    \node[anchor=south west, inner sep=0] at (-0.5,-0.3) {\includegraphics[width=5.8cm,height=5.2cm]{\datadir colours_a.png}};
+    \draw[muted, line width=0.5pt] (-0.5,-0.3) rectangle (2,3.3);
+    \foreach \x/\l in {-0.5/{$-0.5$},0/{$0$},0.5/{$0.5$},1/{$1$},1.5/{$1.5$},2/{$2$}} {
+      \draw[muted, line width=0.5pt] (\x,-0.3) -- (\x,-0.35); \node[muted, font=\footnotesize, anchor=north] at (\x,-0.37) {\l}; }
+    \foreach \y in {0,1,2,3} {
+      \draw[muted, line width=0.5pt] (-0.5,\y) -- (-0.54,\y); \node[muted, font=\footnotesize, anchor=east] at (-0.56,\y) {\y}; }
+    \node[muted, anchor=north] at (0.75,-0.66) {$g-r$};
+    \node[muted, rotate=90, anchor=south] at (-0.88,1.5) {$u-g$};
+  \end{scope}
+  % panel b
+  \begin{scope}[xshift=7.5cm, x=2.32cm, y=1.44444cm]
+    \node[anchor=south west, inner sep=0] at (-0.5,-0.3) {\includegraphics[width=5.8cm,height=5.2cm]{\datadir colours_b.png}};
+    \draw[muted, line width=0.5pt] (-0.5,-0.3) rectangle (2,3.3);
+    \draw[ink, dashed, line width=0.6pt] (-0.5,0.15) -- (2,0.15);
+    \foreach \x/\l in {-0.5/{$-0.5$},0/{$0$},0.5/{$0.5$},1/{$1$},1.5/{$1.5$},2/{$2$}} {
+      \draw[muted, line width=0.5pt] (\x,-0.3) -- (\x,-0.35); \node[muted, font=\footnotesize, anchor=north] at (\x,-0.37) {\l}; }
+    \foreach \y/\l in {0/{$0$},1/{$1$},2/{$2$},3/{$3$}} {
+      \draw[muted, line width=0.5pt] (-0.5,\y) -- (-0.54,\y); \node[muted, font=\footnotesize, anchor=east] at (-0.56,\y) {\l}; }
+    \node[muted, anchor=north] at (0.75,-0.66) {$g-r$};
+    \node[muted, rotate=90, anchor=south, align=center] at (-1.0,1.5) {$\mathrm{psfMag}_r-\mathrm{modelMag}_r$};
+  \end{scope}
+  % legend
+  \foreach \c/\n/\x in {astroblue/star/1.2, accent/galaxy/3.4, colthree/quasar/5.9} {
+    \fill[\c] (\x,5.75) circle[radius=2.2pt]; \node[muted, font=\footnotesize, anchor=west] at (\x+0.2,5.75) {\n}; }
+\end{tikzpicture}
+\end{document}

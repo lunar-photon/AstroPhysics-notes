@@ -5,6 +5,7 @@
 \input{results/ch14/sdss.tex}
 \input{results/ch14/hierarchy.tex}
 \input{results/ch14/sdss3d.tex}
+\input{results/ch14/spectra.tex}
 
 A galaxy holds some $10^{11}$ stars with gas and dust between them, all bound by their own gravity. The range is wide. The smallest galaxies are about $10^3\,\mathrm{pc}$ across and hold perhaps a thousand stars, the largest are about $10^5\,\mathrm{pc}$ across and hold $10^{12}$, and their masses run from about $10^5$ to $10^{13}\,M_\odot$. In all of them most of the mass gives no light. Galaxies in turn gather into groups and into clusters of hundreds or thousands. Seen from far enough away, each star in a galaxy and each galaxy in a cluster is a point that moves in the pull of all the others.
 
@@ -699,6 +700,104 @@ This is the \textbf{Tully–Fisher relation}, $L\propto v^4$. The power four com
 the \textbf{Faber–Jackson relation} $L\propto\sigma^4$. It holds less tightly than Tully–Fisher, because the surface brightness of ellipticals is not fixed. Keeping $L/R^2$ as a third measured quantity turns the line into a plane in the space of $R$, $\sigma$ and surface brightness, the fundamental plane, on which ellipticals lie closely.
 
 \paragraph{Distances.} The $21\,\mathrm{cm}$ line of a whole spiral is broadened by its rotation. The side moving toward us and the side moving away shift the line by $\pm v\sin\iota$, where $\iota$ is the inclination of the disk to the sky ($\iota=90^\circ$ for a disk seen edge on), so the full width is $W=2v\sin\iota$. A thin round disk tilted by $\iota$ looks like an ellipse with axis ratio $\cos\iota$, which gives $\iota$. Then $v$ gives $L$ by Eq.~\eqref{ga:eq:tf}, once the constant has been fixed with galaxies of known distance. In magnitudes, $L\propto v^4$ means that the absolute magnitude changes by $-10\log_{10}$ of the ratio of rotation speeds (Eq.~\eqref{eq:pogson_difference}), and the distance follows from the distance modulus, Eq.~\eqref{eq:distance_modulus} (Problem~\ref{ga:prob:tf}). Tully–Fisher distances reach a few hundred megaparsecs, where the expansion of the universe (Chapter~\ref{ch:universe}) takes over as a measure of distance.
+% ==============================================================================
+\section{Telling Stars, Galaxies, Nebulae and Quasars Apart}
+\label{ga:sec:spectra}
+
+The redshift of a line gives a speed, Eq.~\eqref{eq:doppler_classical}. A dark line in a star marks cool gas above a hotter surface (Section~\ref{rad:sec:spectral}), a bright line marks gas lit by hot stars (Section~\ref{is:sec:clouds}), and broad and narrow lines mark the clouds near a black hole (Section~\ref{fp:sec:agn}). A survey that takes the spectra of a million points of light has all of these to read. A picture of the sky is not enough to do it. It gives each point a position and a brightness in a few colours, and a star, a quasar and a distant galaxy can look much the same. The telescope can only take a spectrum of a point it has chosen beforehand, from the picture, so the choice has to be good. After the spectrum is taken, something must still decide what the object is and how far away.
+
+Think of two people seen through a window at night. You see their height and the colour of their coats, and two people of the same height in grey coats cannot be told apart. When they speak, the voice tells more. Its pitch shifts if the speaker walks away, as a siren does. The words say what the speaker is talking about. The roughness of the voice says how much it shakes. In the same way the light of an object is spread into colours, and three things in the spread decide what the object is. They are the overall shape of the colours, the lines on it, and the width and the shift of those lines.
+
+In numbers, the four objects below have redshifts $z$ of $\FourteenSpecStarZ$, $\FourteenSpecNebZ$, $\FourteenSpecGalZ$ and $\FourteenSpecQsoZ$. A star and a nebula show lines as narrow as the spectrograph can make them. The lines of the galaxy are a few hundred $\mathrm{km\,s^{-1}}$ wide and those of the quasar are thousands wide. The picture is four spectra stacked on one wavelength axis, with the same lines marked in each (Figure~\ref{ga:fig:spectra}). Which lines appear is a balance of rates in the gas (P4). How wide they are compares a spread of speeds with the speed of light (P6), and for stars in a galaxy it is the random speed of Section~\ref{ga:sec:weighing}. The image sorts the objects roughly, the spectra read off the class, redshift and widths, and the rule of the SDSS pipeline turns them into a label, which is why a nebula is filed among the galaxies.
+
+\paragraph{What the image says first.} The Sloan survey takes its pictures in five filters, $u$, $g$, $r$, $i$ and $z$, before it takes any spectrum. Two numbers from the pictures sort the objects. The first is the shape. A star is so far away that its image is only the point spread function of the telescope (Chapter~\ref{ch:resolution}). The centre of a quasar is also too small to be seen as anything but a point. A galaxy is larger than the point spread function. The survey measures the brightness of an object twice in the $r$ filter. The PSF magnitude is the light of the best-fitting point, and the model magnitude is the light of the best-fitting smooth galaxy shape. For a point the two agree. For an extended object the point misses the outer light, so $\mathrm{psfMag}_r-\mathrm{modelMag}_r$ is large. A cut at $0.15$ works well. Among the objects below, $\FourteenColStarPoint$ per cent of the stars and $\FourteenColQsoPoint$ per cent of the quasars lie below $0.15$, and $\FourteenColGalExt$ per cent of the galaxies lie above it. The quasars above the cut are those where the light of the host galaxy adds to the point.
+
+The second number is the colour (Figure~\ref{ga:fig:colours}). A star is close to a blackbody (Eq.~\eqref{eq:planck_wavelength}), so its temperature sets all its colours at once. The stars therefore lie on a narrow curve in $u-g$ against $g-r$, the stellar locus. A quasar below $z$ of about $2.2$ is bluer in $u-g$ than a star of the same $g-r$. The median $u-g$ is $\FourteenColUGQso$ for the quasars and $\FourteenColUGStar$ for the stars with $g-r<0.4$, and $\FourteenColQsoBlue$ per cent of the quasars have $u-g<0.6$ against $\FourteenColStarBlue$ per cent of the stars. This is the ultraviolet excess of the hot disk (Section~\ref{fp:sec:accretion}). Above $z$ of about $2.2$ the Lyman~$\alpha$ line moves into the $u$ filter and the forest in front of the quasar dims it (Section~\ref{un:sec:forest}), so those quasars are red in $u-g$ and fall back onto the stellar locus. The galaxies in the figure lie among stars of the same $g-r$. Shape and colour therefore choose what gets a spectrum, and they cannot settle what an object is. The survey also chose its quasar targets partly by these colours, so the figure cannot show how many quasars hide on the stellar locus.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch14_colours.pdf}
+	\caption{Left, $u-g$ against $g-r$ from the PSF magnitudes. Right, $\mathrm{psfMag}_r-\mathrm{modelMag}_r$ against $g-r$, with a dashed line at $0.15$. The points are \FourteenColNStar{} stars, \FourteenColNGal{} galaxies and \FourteenColNQso{} quasars of SDSS data release 17, classed by the pipeline from their spectra, with clean photometry, $r<19.5$ and a random subset of each class. The sample is objects that have spectra, so its mix reflects how SDSS chose its targets.}
+	\label{ga:fig:colours}
+\end{figure}
+
+\paragraph{The spectrum decides.} The four spectra of Figure~\ref{ga:fig:spectra} are from the SDSS data release 17, all with a pipeline signal to noise of at least $\FourteenSpecNebSN$ per pixel. Their wavelengths are in vacuum, as SDSS gives them, so every rest wavelength used here is a vacuum one. Air wavelengths are shorter by $0.03$ per cent, and using them would put about $85\,\mathrm{km\,s^{-1}}$ into every speed.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch14_spectra.pdf}
+	\caption{Four SDSS spectra on one observed-wavelength axis, each binned by three pixels and divided by its own peak. From the top, a K1 star (plate 2305, MJD 54414, fibre 97), an elliptical-like galaxy (plate 564, MJD 52224, fibre 507), a giant HII region in M101 (plate 1324, MJD 53088, fibre 234) and a quasar (plate 1744, MJD 53055, fibre 630). The marks sit at the observed wavelengths of the named lines, found from the redshifts measured from the lines themselves. The dotted lines run through each panel.}
+	\label{ga:fig:spectra}
+\end{figure}
+
+\paragraph{Redshift from a line centre.} To get $z$ we fit each line with a Gaussian on a straight continuum and take its centre. Eq.~\eqref{eq:doppler_classical} then turns the shift into a speed. For the $\mathrm H\alpha$ line of the nebula,
+\begin{align}
+	z
+	&\eqby{1} \frac{\lambda_{\rm obs}-\lambda_{\rm rest}}{\lambda_{\rm rest}}
+	\eqby{2} \frac{\FourteenSpecNebHaObs-\FourteenSpecNebHaRest}{\FourteenSpecNebHaRest}
+	\eqby{3} \FourteenSpecNebHaZ,
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:doppler_classical}.
+	\item The fitted centre and the vacuum rest wavelength of $\mathrm H\alpha$, in $\mathrm{nm}$.
+	\item Arithmetic.
+\end{explain}
+and so $v_r=cz=\FourteenSpecNebHaV\,\mathrm{km\,s^{-1}}$. The other lines of the nebula give the same $z$ to within a few $10^{-5}$. Every spectrum is treated in the same way, and the redshifts of Table~\ref{ga:tab:spectra} come from the lines alone, with the pipeline value beside them as a check.
+
+\paragraph{The star.} The spectrum of the star (class STAR, subclass K1) is a continuum that rises through the blue and fades in the red, the shape of a surface at a few thousand kelvin (Eq.~\eqref{eq:wien_law}). Dark lines cut it, as expected for cool gas above a hotter layer (Section~\ref{rad:sec:spectral}). The calcium H and K lines near $393$ and $397\,\mathrm{nm}$ and the G band near $431\,\mathrm{nm}$ are deep in the blue, and $\mathrm H\beta$, the magnesium triplet Mg~b near $518\,\mathrm{nm}$, the sodium doublet Na~D near $589\,\mathrm{nm}$ and $\mathrm H\alpha$ lie further red. The lines give $z=\FourteenSpecStarZ$, which is $\FourteenSpecStarV\,\mathrm{km\,s^{-1}}$, against $\FourteenSpecStarVpipe\,\mathrm{km\,s^{-1}}$ from the pipeline. It is a star of our own Galaxy, moving at a few tens of $\mathrm{km\,s^{-1}}$ by its own motion (Chapter~\ref{ch:astrometry}). The lines are as narrow as the spectrograph makes them. The $\mathrm H\alpha$ line has $\sigma=\FourteenSpecStarSigHa\,\mathrm{km\,s^{-1}}$, only a little above the width of the instrument, which is given below.
+
+\paragraph{The galaxy.} The galaxy is a sum of many stars, mostly old ones, so its spectrum looks like the spectrum of a cool star, with a step at $430\,\mathrm{nm}$ that is the $400\,\mathrm{nm}$ break of its stars moved to the red. It shows the same dark lines as the star, Ca H and K, the G band, Mg~b and Na~D, but at other places. The calcium K line has moved from $393.5$ to $423.5\,\mathrm{nm}$, and the lines give $z=\FourteenSpecGalZ$. A speed $cz=\FourteenSpecGalV\,\mathrm{km\,s^{-1}}$ is no longer a small speed compared with $c$. For so large a shift the expansion of the universe, and not the motion through space, sets most of the redshift (Chapter~\ref{ch:universe}), and the shift is a measure of distance. The lines are also broader than the star's. Single features have $\sigma$ between $\FourteenSpecGalSigMgb$ and $\FourteenSpecGalSigCaK\,\mathrm{km\,s^{-1}}$ in our fits, against $\FourteenSpecStarSigHa\,\mathrm{km\,s^{-1}}$ for the star. Every star of the galaxy has its own line, shifted by its own speed, and the sum is a line broadened by the random speeds of the stars. Part of the width of a single feature comes from several lines lying together, as Mg~b does, and from the wide wings of the calcium lines. The pipeline fits the whole spectrum to a mix of star spectra and finds a velocity dispersion of $\FourteenSpecGalVdisp\,\mathrm{km\,s^{-1}}$. This is the $\sigma$ of Eq.~\eqref{ga:eq:Mvir}, the speed that holds the stars of the galaxy up against its own gravity.
+
+\paragraph{The nebula.} The spectrum of the nebula has almost no continuum. It is a set of narrow bright lines, $\mathrm H\beta$, $\mathrm{[O\,III]}$ at $496$ and $501\,\mathrm{nm}$ in rest wavelength, $\mathrm H\alpha$ with $\mathrm{[N\,II]}$ on both sides of it, the $\mathrm{[S\,II]}$ pair, and in the blue a row of weaker lines. The brackets mark forbidden lines, which a gas so thin that its atoms wait long between collisions can send out (Section~\ref{is:sec:21cm}). The lines give $z=\FourteenSpecNebZ$, or $\FourteenSpecNebV\,\mathrm{km\,s^{-1}}$. A tiny redshift like this is the motion of the gas inside a galaxy next door and is not a measure of distance. M101 as a whole recedes at about $240\,\mathrm{km\,s^{-1}}$, and its disk rotates. The position of the fibre, $\mathrm{RA}=211.1193^\circ$ and $\mathrm{Dec}=+54.3980^\circ$, is within $1''$ of the position that SIMBAD gives for NGC~5471, a giant HII region in the outer disk of M101, about $11'$ from the nucleus. The lines come from gas lit by the many hot stars of that region (Section~\ref{is:sec:clouds}), which is why starlight adds so little continuum. Its $\mathrm{[O\,II]}$ line at $372.7\,\mathrm{nm}$ in rest wavelength falls just short of the blue end of the spectrograph, near $380\,\mathrm{nm}$, and is not in the picture.
+
+\paragraph{The quasar.} The spectrum of the quasar has a smooth blue continuum with no absorption lines, falling toward the red. The $\mathrm H\gamma$, $\mathrm H\beta$ and $\mathrm H\alpha$ lines are broad, and a narrow $\mathrm{[O\,III]}$ stands on the red side of $\mathrm H\beta$. The narrow lines give $z=\FourteenSpecQsoZ$, and the pipeline value is $\FourteenSpecQsoZpipe$. With so large a $z$ the lines of the same atoms have moved far, the $\mathrm H\alpha$ line to $814\,\mathrm{nm}$, and the same Balmer lines can be compared in all four panels. The broad lines come from gas moving fast in the pull of the black hole, the narrow ones from gas much further out (Section~\ref{fp:sec:agn}).
+
+\paragraph{Line widths and the speed they give.} A line that is wider than the thermal motion allows records the spread of speeds of the gas, or of the stars. Each atom or star shifts the line by its own $v_r/c$, Eq.~\eqref{eq:doppler_classical}, so the width of the line in wavelength is the spread of speeds, in units of $c$, times the wavelength. For the broad $\mathrm H\beta$ of the quasar, centred at $\FourteenSpecQsoHbCentre\,\mathrm{nm}$ with a full width at half maximum of $\FourteenSpecQsoFwhmHb\,\mathrm{km\,s^{-1}}$ in our fit,
+\begin{align}
+	\Delta\lambda
+	&\eqby{1} \lambda_{\rm obs}\frac{\Delta v}{c}
+	\eqby{2} \FourteenSpecQsoHbCentre\,\mathrm{nm}\times\frac{\FourteenSpecQsoFwhmHb}{299\,792}
+	\eqby{3} \FourteenSpecQsoHbDl\,\mathrm{nm}.
+\end{align}
+\begin{explain}
+	\item Eq.~\eqref{eq:doppler_classical} applied to a spread of speeds $\Delta v$.
+	\item The fitted centre of the line and its width.
+	\item Arithmetic.
+\end{explain}
+\begin{equation}
+	\boxed{\frac{\Delta\lambda}{\lambda_{\rm obs}}=\frac{\Delta v}{c}}
+\end{equation}
+The pipeline fit of the same line gives $\FourteenSpecQsoFwhmHbPipe\,\mathrm{km\,s^{-1}}$. The two differ because the line is not a Gaussian, so its fitted width depends on the fit, and only the size of the width, thousands of $\mathrm{km\,s^{-1}}$, can be trusted. Thermal motion at $10^4\,\mathrm K$ gives only $9\,\mathrm{km\,s^{-1}}$ (Section~\ref{fp:sec:agn}), so the width is bulk motion. The narrow $\mathrm{[O\,III]}$ line has a width of $\FourteenSpecQsoFwhmOIII\,\mathrm{km\,s^{-1}}$, a few hundred as Section~\ref{fp:sec:agn} says for the narrow-line region.
+
+\paragraph{What the spectrograph itself does to a line.} A spectrograph spreads every sharp line over a small width of its own. For the files used here the resolving power is about $2000$, so the narrowest line is no narrower than $c/2000$. Its width in the files is $\FourteenSpecInstFwhm\,\mathrm{km\,s^{-1}}$, and $299\,792/\FourteenSpecInstFwhm\approx2000$. The lines of the nebula have $\FourteenSpecNebFwhmHa\,\mathrm{km\,s^{-1}}$ for $\mathrm H\alpha$ and $\FourteenSpecNebFwhmOIII\,\mathrm{km\,s^{-1}}$ for $\mathrm{[O\,III]}$, only a little above the instrument's $\FourteenSpecNebFwhmInst\,\mathrm{km\,s^{-1}}$ at those places. The widths of two independent Gaussians add in square, so taking out the instrument leaves $\FourteenSpecNebGasHa$ and $\FourteenSpecNebGasOIII\,\mathrm{km\,s^{-1}}$. These are rough, since a small error in the instrument width changes them a lot. The measured width of a narrow line is mainly the spectrograph's. It is not the $10$ to $30\,\mathrm{km\,s^{-1}}$ of a planetary nebula shell (Section~\ref{is:sec:clouds}), which is a small shell of one star, and the gas of a giant HII region, stirred by many stars, may well move faster. The narrow lines of the star are unresolved in the same way.
+
+\begin{table}[htbp]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabular}{@{}l p{2.7cm} p{2.9cm} p{2.9cm} c c@{}}
+		\toprule
+		\textbf{Kind} & \textbf{Continuum} & \textbf{Lines} & \textbf{Line width} & $z$ & $z$ (pipeline) \\
+		\midrule
+		Star & thermal, a few thousand kelvin & dark, Ca H and K, G, Mg~b, Na~D, Balmer & instrument's, $\sigma=\FourteenSpecStarSigHa\,\mathrm{km\,s^{-1}}$ & $\FourteenSpecStarZ$ & $\FourteenSpecStarZpipe$ \\
+		Galaxy & sum of old stars, break at $400\,\mathrm{nm}$ & the same dark lines, redshifted & stars' random speeds, $\FourteenSpecGalVdisp\,\mathrm{km\,s^{-1}}$ & $\FourteenSpecGalZ$ & $\FourteenSpecGalZpipe$ \\
+		Nebula & almost none & bright, narrow, forbidden and Balmer & instrument's, FWHM $\FourteenSpecNebFwhmHa\,\mathrm{km\,s^{-1}}$ & $\FourteenSpecNebZ$ & $\FourteenSpecNebZpipe$ \\
+		Quasar & blue, smooth & broad Balmer, narrow $\mathrm{[O\,III]}$ & broad FWHM $\FourteenSpecQsoFwhmHbPipe$ to $\FourteenSpecQsoFwhmHb\,\mathrm{km\,s^{-1}}$, narrow $\FourteenSpecQsoFwhmOIII$ & $\FourteenSpecQsoZ$ & $\FourteenSpecQsoZpipe$ \\
+		\bottomrule
+	\end{tabular}
+	\caption{The four spectra of Figure~\ref{ga:fig:spectra} against the clues of continuum, lines, line width and redshift. The redshift is the mean of the lines fitted here, and the last column is the pipeline's.}
+	\label{ga:tab:spectra}
+\end{table}
+
+\paragraph{How the pipeline decides.} The SDSS pipeline does not read a spectrum as a person does. It holds a set of template spectra for each of three classes, STAR, GALAXY and QSO, shifts each template to a trial redshift, scales it to the data with a smooth polynomial added, and compares the two pixel by pixel,
+\begin{equation}
+	\chi^2(z)=\sum_i\frac{\left[f_i-s\,T(\lambda_i/(1+z))\right]^2}{\sigma_i^2}.
+	\label{ga:eq:chi2}
+\end{equation}
+Here $f_i$ and $\sigma_i$ are the flux and its uncertainty in pixel $i$ at wavelength $\lambda_i$, $T$ is a template of one class, and $s$ its scale. The class and the $z$ with the least $\chi^2$ over all classes and all trial redshifts are the label of the object. The gap to the second-best fit tells how sure the label is, and a flag is set when the fit is poor. Our nebula carries a flag of $16$, which means many pixels lie far from the best fit, as they do when sharp lines meet smooth templates.
+
+SDSS has only these three classes, so a nebula is filed as GALAXY. The spectrum of our HII region in M101 is labelled GALAXY, with the subclass STARBURST. The galaxy templates are the nearest match, because they also contain emission lines from gas. The label therefore says which template fits best and does not say that the object is a galaxy. Astronomers recognise the nebula by three things the pipeline does not use. Its redshift is within a few hundred $\mathrm{km\,s^{-1}}$ of zero, so it lies in our neighbourhood. Its lines are strong and narrow. And it has almost no starlight. It is a part of M101, a galaxy of stars, and so the label is not wrong, but it is not the whole truth. The same care applies to every label, since a class is a statement about the best-matching template and the physics must still be read from the lines. For the maps that follow, the class and the redshift are what count. The redshift of a galaxy turns into a distance, and every point of the maps of the next section, the walls, the filaments and the voids, is the redshift of one spectrum read in this way.
+
 % ==============================================================================
 \section{Groups, Clusters and the Cosmic Web}
 \label{ga:sec:hierarchy}
