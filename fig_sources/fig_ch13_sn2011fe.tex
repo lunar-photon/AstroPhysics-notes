@@ -1,0 +1,51 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% SN 2011fe in M101, B (red) and V (blue) magnitudes against days since B maximum.
+% Data and fits from results/ch13 (code/ch13/02_sn2011fe.py). (a) the first 60 days, (b) the whole run.
+\IfFileExists{results/ch13/sn2011fe.tex}{\def\datadir{results/ch13/}}{\def\datadir{../results/ch13/}}
+\input{\datadir sn2011fe.tex}
+\begin{tikzpicture}[font=\small, >={Stealth[length=2mm]}]
+  \pgfplotsset{every axis/.append style={width=12cm, scale only axis, axis lines*=left,
+      grid=major, grid style={linecol}, tick style={muted}, every axis label/.style={text=muted}}}
+  % (a) the peak
+  \begin{axis}[name=a, height=4.6cm, xmin=-20, xmax=60, ymin=9.5, ymax=14.2, y dir=reverse,
+      xtick={-20,-10,0,10,20,30,40,50,60}, ytick={10,11,12,13,14},
+      xlabel={days since $B$ maximum}, ylabel={magnitude}, clip=false]
+    \addplot[only marks, mark=*, mark size=0.8pt, accent, restrict x to domain=-20:60] table[x index=0,y index=1] {\datadir sn_B.dat};
+    \addplot[only marks, mark=*, mark size=0.8pt, astroblue, restrict x to domain=-20:60] table[x index=0,y index=1] {\datadir sn_V.dat};
+    \draw[muted, dashed] (axis cs:-20,\ThirteenSnBmax) -- (axis cs:15,\ThirteenSnBmax);
+    \draw[ink, <->] (axis cs:15,\ThirteenSnBmax) -- (axis cs:15,\ThirteenSnBmax+\ThirteenSnDmB)
+      node[pos=0, anchor=west, inner sep=3pt] {$\Delta m_{15}(B)=\ThirteenSnDmB$};
+    \node[accent, anchor=west] at (axis cs:45,13.75) {$B$};
+    \node[astroblue, anchor=west] at (axis cs:46,11.7) {$V$};
+    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(a)};
+  \end{axis}
+  % (b) the whole run, with straight-line fits to the tail
+  \begin{axis}[name=b, at={(a.south west)}, anchor=north west, yshift=-1.6cm, height=5.4cm,
+      xmin=-20, xmax=680, ymin=9, ymax=22.5, y dir=reverse,
+      xtick={0,100,200,300,400,500,600}, ytick={10,12,14,16,18,20,22},
+      xlabel={days since $B$ maximum}, ylabel={magnitude}, clip=false]
+    \addplot[only marks, mark=*, mark size=0.8pt, accent] table[x index=0,y index=1] {\datadir sn_B.dat};
+    \addplot[only marks, mark=*, mark size=0.8pt, astroblue] table[x index=0,y index=1] {\datadir sn_V.dat};
+    \addplot[ink, line width=0.7pt, domain=60:300, samples=2] {\ThirteenSnVa+\ThirteenSnVk*x};
+    \addplot[ink, line width=0.7pt, dashed, domain=300:660, samples=2] {\ThirteenSnLa+\ThirteenSnLk*x};
+    \addplot[muted, line width=0.6pt, dotted, domain=60:660, samples=2] {\ThirteenSnVa+\ThirteenSnVk*60+0.0098*(x-60)};
+    \node[ink, anchor=north west, inner sep=2pt] at (axis cs:60,17.0) {$V$ fit, $\ThirteenSnSlopeV$ mag per 100 d};
+    \node[ink, anchor=north east, inner sep=2pt] at (axis cs:560,20.6) {$\ThirteenSnSlopeLate$ mag per 100 d};
+    \node[muted, anchor=north west, inner sep=2pt, align=left] at (axis cs:420,14.6) {all cobalt decay energy\\kept, $0.98$ mag per 100 d};
+    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(b)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

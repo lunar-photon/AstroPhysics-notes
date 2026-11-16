@@ -9,19 +9,11 @@ A count of electrons is a whole number, and it changes from one exposure to the 
 \section{Counting Photoelectrons}
 \label{cc:sec:counting}
 
-Chapter~\ref{ch:photometry} gave the light of a star as a flux $F$ in $\mathrm{W\,m^{-2}}$, and Chapter~\ref{ch:resolution} gave the size of its image on the detector.
+Chapter~\ref{ch:photometry} gave the light of a star as a flux $F$ in $\mathrm{W\,m^{-2}}$, and Chapter~\ref{ch:resolution} gave the size of its image on the detector. A CCD does not report watts. It reports a number of electrons in each pixel, and part of that number did not come from the star at all.
 
-A CCD does not report watts. It reports a number of electrons in each pixel, and part of that number did not come from the star at all.
+Picture a grid of buckets on a lawn, with a garden sprinkler running over one spot during a light drizzle. After ten minutes the buckets near the sprinkler hold most of its water. Every bucket also holds the same depth of drizzle, and a little water that has condensed on its inside. To read a bucket we pour it into a measuring jug and read the scale, which adds a small error of its own. To find what the sprinkler gave, we add up the buckets around it and take away what the drizzle and the condensation would have put there. The pixels are the buckets. The star is the sprinkler, the faint glow of the night sky is the drizzle, electrons freed by heat in the silicon are the condensation, and the electronics that measure each pixel's charge are the jug. The signal is the number of electrons that the star alone put into the pixels around its image.
 
-Picture a grid of buckets on a lawn, with a garden sprinkler running over one spot during a light drizzle. After ten minutes the buckets near the sprinkler hold most of its water. Every bucket also holds the same depth of drizzle, and a little water that has condensed on its inside. To read a bucket we pour it into a measuring jug and read the scale, which adds a small error of its own. To find what the sprinkler gave, we add up the buckets around it and take away what the drizzle and the condensation would have put there.
-
-The pixels are the buckets. The star is the sprinkler, the faint glow of the night sky is the drizzle, electrons freed by heat in the silicon are the condensation, and the electronics that measure each pixel's charge are the jug. The signal is the number of electrons that the star alone put into the pixels around its image.
-
-In numbers, a star that frees $50$ electrons per second in its image gives $50\times60=3000$ electrons in a one-minute exposure. If its image covers $20$ pixels and the sky frees $2$ electrons per second in each pixel, the sky adds $2\times20\times60=2400$ electrons under the star.
-
-Picture the image as a small hill of electrons standing on a wide, flat plain of sky electrons. The signal is the volume of the hill above the plain.
-
-A Geiger counter measures a radioactive sample in the same way, on top of the counts from cosmic rays and the walls of the room. So does a rain gauge in a garden that is also watered. Here we name the rates and times in which the noise of a count is written.
+In numbers, a star that frees $50$ electrons per second in its image gives $50\times60=3000$ electrons in a one-minute exposure. If its image covers $20$ pixels and the sky frees $2$ electrons per second in each pixel, the sky adds $2\times20\times60=2400$ electrons under the star. Picture the image as a small hill of electrons standing on a wide, flat plain of sky electrons. The signal is the volume of the hill above the plain. A Geiger counter measures a radioactive sample in the same way, on top of the counts from cosmic rays and the walls of the room. So does a rain gauge in a garden that is also watered. Here we name the rates and times in which the noise of a count is written.
 
 \paragraph{Photons become electrons.} A photon that enters a pixel frees one electron with a probability $\eta(\lambda)$, the \textbf{quantum efficiency} of the detector. For modern astronomical CCDs $\eta$ is about $0.5$ to $0.85$. So
 \begin{equation*}
@@ -237,19 +229,11 @@ This is a Gaussian with mean $\bar n$ and variance $\bar n$, as it must be. The 
 \section{The Noise Budget and the Signal-to-Noise Equation}
 \label{cc:sec:budget}
 
-We now know that a count with mean $\bar n$ has a standard deviation $\sqrt{\bar n}$.
+We now know that a count with mean $\bar n$ has a standard deviation $\sqrt{\bar n}$. The number we read from a CCD is not one clean count. It is the star's electrons on top of sky and dark electrons, measured by electronics that add an error of their own. We need the noise of the star's share alone, after the rest has been taken away.
 
-The number we read from a CCD is not one clean count. It is the star's electrons on top of sky and dark electrons, measured by electronics that add an error of their own. We need the noise of the star's share alone, after the rest has been taken away.
+Weigh yourself on a bathroom scale while holding a cat, then weigh yourself alone, and subtract. Each reading of the scale wanders by about $0.2\,\mathrm{kg}$. Your own weight cancels in the difference, but the wandering of the second reading does not. The cat's weight carries both. In an image, the star's electrons sit on top of the sky and dark electrons. We subtract the mean sky and dark level, but their scatter stays in the result, and the readout adds more. The idea is that the variances of independent sources of noise add.
 
-Weigh yourself on a bathroom scale while holding a cat, then weigh yourself alone, and subtract. Each reading of the scale wanders by about $0.2\,\mathrm{kg}$. Your own weight cancels in the difference, but the wandering of the second reading does not. The cat's weight carries both.
-
-In an image, the star's electrons sit on top of the sky and dark electrons. We subtract the mean sky and dark level, but their scatter stays in the result, and the readout adds more. The idea is that the variances of independent sources of noise add.
-
-In numbers, the cat's weight has an error of $\sqrt{0.2^2+0.2^2}=0.28\,\mathrm{kg}$, not $0.4\,\mathrm{kg}$. Two errors that are independent partly cancel as often as they add.
-
-Picture each source of noise as a side of a box, all at right angles to each other. The total noise is the long diagonal of the box, as in Pythagoras' theorem.
-
-Every laboratory error budget adds independent errors in this way, and so does an engineer adding noise powers in a circuit. It is the same rule that made the random walk grow as $\sqrt N$ (P5, Eq.~\eqref{pr:eq:sqrtN}), and it was proved for any independent parts in Eq.~\eqref{cc:eq:var_add}. Applied to the four sources of electrons in an aperture, it gives the signal-to-noise equation of a CCD, which every exposure time calculator evaluates.
+In numbers, the cat's weight has an error of $\sqrt{0.2^2+0.2^2}=0.28\,\mathrm{kg}$, not $0.4\,\mathrm{kg}$. Two errors that are independent partly cancel as often as they add. Picture each source of noise as a side of a box, all at right angles to each other. The total noise is the long diagonal of the box, as in Pythagoras' theorem. Every laboratory error budget adds independent errors in this way, and so does an engineer adding noise powers in a circuit. It is the same rule that made the random walk grow as $\sqrt N$ (P5, Eq.~\eqref{pr:eq:sqrtN}), and it was proved for any independent parts in Eq.~\eqref{cc:eq:var_add}. Applied to the four sources of electrons in an aperture, it gives the signal-to-noise equation of a CCD, which every exposure time calculator evaluates.
 
 \paragraph{Signal-to-noise ratio.} Let $\sigma_{\rm tot}$ be the standard deviation of the measured signal $S$, after the mean sky and dark levels have been subtracted. The measurement is reported as $S\pm\sigma_{\rm tot}$, and its \textbf{signal-to-noise ratio} is
 \begin{equation}
@@ -362,19 +346,11 @@ The dark variance per unit time is the rise in variance divided by the rise in t
 \section{Three Regimes of the Signal-to-Noise Equation}
 \label{cc:sec:regimes}
 
-Eq.~\eqref{eq:master_ccd_snr} gives the signal-to-noise ratio of any exposure.
+Eq.~\eqref{eq:master_ccd_snr} gives the signal-to-noise ratio of any exposure. As it stands it is hard to plan with. Should we take one long exposure or many short ones? Does good seeing matter? Does a larger telescope help a faint star more than a bright one? The answer depends on which of the four terms under the square root is largest.
 
-As it stands it is hard to plan with. Should we take one long exposure or many short ones? Does good seeing matter? Does a larger telescope help a faint star more than a bright one? The answer depends on which of the four terms under the square root is largest.
+Think of a taxi fare. There is a fixed charge for each ride and a charge for each minute. On one long ride the minutes dominate and the fixed charge hardly matters. Split the same trip into many short rides and the fixed charges pile up. Whether splitting matters depends on which part of the fare is larger. In the signal-to-noise equation the star, the sky and the dark current charge their variance per second, and the readout charges its variance per exposure. When one term is much larger than the others, the equation simplifies and tells us directly what to do. Which term wins is decided by comparing two numbers, principle P6 (Section~\ref{pr:sec:p6}).
 
-Think of a taxi fare. There is a fixed charge for each ride and a charge for each minute. On one long ride the minutes dominate and the fixed charge hardly matters. Split the same trip into many short rides and the fixed charges pile up. Whether splitting matters depends on which part of the fare is larger.
-
-In the signal-to-noise equation the star, the sky and the dark current charge their variance per second, and the readout charges its variance per exposure. When one term is much larger than the others, the equation simplifies and tells us directly what to do. Which term wins is decided by comparing two numbers, principle P6 (Section~\ref{pr:sec:p6}).
-
-In numbers, take a taxi that charges $50$ rupees per ride and $10$ rupees per minute. One $20$-minute ride costs $250$ rupees, while ten rides of $2$ minutes cost $700$. For a CCD with $\sigma_{\rm RON}=5\,\mathrm{e^-}$, an aperture of $20$ pixels and a sky of $2\,\mathrm{e^-\,s^{-1}}$ per pixel, each reading adds a variance of $20\times25=500\,\mathrm{e^{-2}}$ and the sky adds $40\,\mathrm{e^{-2}}$ per second. A $300\,\mathrm s$ exposure collects a sky variance of $12\,000\,\mathrm{e^{-2}}$, so its one reading hardly matters. A $10\,\mathrm s$ exposure collects only $400\,\mathrm{e^{-2}}$ of sky variance, less than the readout.
-
-Picture the four variances as bars, three that grow with time and one that grows with the number of exposures. The tallest bar sets how the signal-to-noise ratio responds to any change.
-
-Ratios of this kind choose the regime everywhere in physics, from the Reynolds number of a flow to the optical depth $\tau$ of a dust cloud (Chapter~\ref{ch:photometry}). Here they give the shortest useful exposure and the three limits of the equation, each with its own way of observing.
+In numbers, take a taxi that charges $50$ rupees per ride and $10$ rupees per minute. One $20$-minute ride costs $250$ rupees, while ten rides of $2$ minutes cost $700$. For a CCD with $\sigma_{\rm RON}=5\,\mathrm{e^-}$, an aperture of $20$ pixels and a sky of $2\,\mathrm{e^-\,s^{-1}}$ per pixel, each reading adds a variance of $20\times25=500\,\mathrm{e^{-2}}$ and the sky adds $40\,\mathrm{e^{-2}}$ per second. A $300\,\mathrm s$ exposure collects a sky variance of $12\,000\,\mathrm{e^{-2}}$, so its one reading hardly matters. A $10\,\mathrm s$ exposure collects only $400\,\mathrm{e^{-2}}$ of sky variance, less than the readout. Picture the four variances as bars, three that grow with time and one that grows with the number of exposures. The tallest bar sets how the signal-to-noise ratio responds to any change. Ratios of this kind choose the regime everywhere in physics, from the Reynolds number of a flow to the optical depth $\tau$ of a dust cloud (Chapter~\ref{ch:photometry}). Here they give the shortest useful exposure and the three limits of the equation, each with its own way of observing.
 
 \paragraph{How long one exposure should be.} For a faint star, $R_{\rm src}$ is small next to the sky and dark rates. Then the variance in Eq.~\eqref{eq:variance_addition} is
 \begin{align}
@@ -498,19 +474,11 @@ Figure~\ref{fig:nexp_comparison} shows both cases at a fixed total time.
 \section{From Signal-to-Noise to Magnitudes and Detections}
 \label{cc:sec:detection}
 
-The signal-to-noise equation tells us how well the electrons of a star are counted.
+The signal-to-noise equation tells us how well the electrons of a star are counted. Astronomers want two other things. They want the error of a magnitude, the unit in which brightness is reported. And for a faint smudge in an image they want to know whether it is a star at all, or just the noise happening to be high in one place.
 
-Astronomers want two other things. They want the error of a magnitude, the unit in which brightness is reported. And for a faint smudge in an image they want to know whether it is a star at all, or just the noise happening to be high in one place.
+Toss a coin ten times and get eight heads. It is odd, but a fair coin does it once in about $18$ tries. Toss it a hundred times and get eighty heads, and the coin is surely bent. A fair coin does that about once in two billion tries. The fraction of heads is the same. What changed is how far the result lies from the mean, measured in standard deviations. A smudge in an image is a count of electrons above the mean sky. If the excess is a few times the noise, chance can produce it. If it is many times the noise, chance almost never does. The idea is that significance is the excess in units of the standard deviation, and the Gaussian shape of the noise turns it into a probability.
 
-Toss a coin ten times and get eight heads. It is odd, but a fair coin does it once in about $18$ tries. Toss it a hundred times and get eighty heads, and the coin is surely bent. A fair coin does that about once in two billion tries. The fraction of heads is the same. What changed is how far the result lies from the mean, measured in standard deviations.
-
-A smudge in an image is a count of electrons above the mean sky. If the excess is a few times the noise, chance can produce it. If it is many times the noise, chance almost never does. The idea is that significance is the excess in units of the standard deviation, and the Gaussian shape of the noise turns it into a probability.
-
-In numbers, ten tosses have a mean of $5$ heads and a standard deviation of $\sqrt{10\times\tfrac14}=1.58$, so eight heads is $1.9$ standard deviations high, with a probability of $5.5$ per cent. A hundred tosses have a mean of $50$ and a standard deviation of $5$, so eighty heads is $6$ standard deviations high, with a probability of $5.6\times10^{-10}$.
-
-Picture the bell curve of the noise. A detection threshold is a line drawn far out on its right side, and the false alarms are the thin sliver of the curve beyond the line.
-
-The same reasoning sets the confidence of a medical test, the ``five sigma'' that particle physicists demand before announcing a new particle, and quality control in a factory. Here it gives the error of a magnitude and the threshold for believing a detection.
+In numbers, ten tosses have a mean of $5$ heads and a standard deviation of $\sqrt{10\times\tfrac14}=1.58$, so eight heads is $1.9$ standard deviations high, with a probability of $5.5$ per cent. A hundred tosses have a mean of $50$ and a standard deviation of $5$, so eighty heads is $6$ standard deviations high, with a probability of $5.6\times10^{-10}$. Picture the bell curve of the noise. A detection threshold is a line drawn far out on its right side, and the false alarms are the thin sliver of the curve beyond the line. The same reasoning sets the confidence of a medical test, the ``five sigma'' that particle physicists demand before announcing a new particle, and quality control in a factory. Here it gives the error of a magnitude and the threshold for believing a detection.
 
 \subsection{The Error of a Magnitude}
 
@@ -767,6 +735,7 @@ so four transits are needed, and an Earth at $1\,\mathrm{AU}$ makes one a year. 
 \label{cc:sec:pulsar}
 
 The variance sum of Eq.~\eqref{eq:variance_addition} used nothing particular to a CCD. Any measurement made of independent parts has a budget of the same kind, and the part that dominates decides what to improve. Timing the radio pulses of a pulsar is a second example. The measured quantity is the arrival time of a pulse instead of a number of electrons, and its total error is again a sum of independent variances.
+
 \begin{itemize}
 	\item \textbf{Radiometer noise.} The noise of the receiver and its electronics, like the read and dark noise of a CCD.
 	\item \textbf{Sky noise.} Radio emission from everything else in the beam, the radio form of $\sigma_{\rm sky}$.

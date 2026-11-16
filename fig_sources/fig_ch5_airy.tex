@@ -1,0 +1,49 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Airy pattern of a round mirror, from results/ch5/airy.dat (code/ch5/02_airy.py):
+% columns theta (lambda/D), one star at 0, a second star at +1.2197, their sum.
+% (a) one star, with the pattern x20 to show the rings; (b) two equal stars 1.22 lambda/D apart.
+\IfFileExists{results/ch5/airy.tex}{\def\datadir{results/ch5/}}{\def\datadir{../results/ch5/}}
+\input{\datadir airy.tex}
+\begin{tikzpicture}[font=\small, >={Stealth[length=2mm]}]
+  \pgfplotsset{every axis/.append style={width=6.2cm, height=4.6cm, scale only axis, axis lines*=left,
+      tick style={muted}, every axis label/.style={text=muted}, ymin=0, ymax=2.15, clip=false}}
+  % (a)
+  \begin{axis}[name=a, xmin=-3.2, xmax=3.2, xtick={-3,-2,-1,0,1,2,3}, ytick={0,0.5,1},
+      xlabel={$\theta$ in units of $\lambda/D$}, ylabel={$I/I_0$}, ymax=1.25]
+    \addplot[muted, line width=0.5pt, dashed] table[x index=0, y expr={20*\thisrowno{1}}, restrict x to domain=1.15:3.2] {\datadir airy.dat};
+    \addplot[muted, line width=0.5pt, dashed] table[x expr=-\thisrowno{0}, y expr={20*\thisrowno{1}}, restrict x to domain=-3.2:-1.15] {\datadir airy.dat};
+    \addplot[accent, line width=0.9pt, restrict x to domain=0:3.2] table[x index=0, y index=1] {\datadir airy.dat};
+    \addplot[accent, line width=0.9pt] table[x expr=-\thisrowno{0}, y index=1, restrict x to domain=-3.2:0] {\datadir airy.dat};
+    \draw[ink, dashed] (axis cs:-\FiveAiryRing,0) -- (axis cs:-\FiveAiryRing,1.05);
+    \draw[ink, dashed] (axis cs:\FiveAiryRing,0) -- (axis cs:\FiveAiryRing,1.05);
+    \draw[ink, <->] (axis cs:0,1.12) -- node[above, inner sep=2pt] {$1.22\,\lambda/D$} (axis cs:\FiveAiryRing,1.12);
+    \node[muted, anchor=south west, inner sep=1pt] at (axis cs:1.85,0.4) {$\times20$};
+    \node[muted, anchor=north west] at (rel axis cs:0.0,1.0) {(a)};
+  \end{axis}
+  % (b)
+  \begin{axis}[name=b, at={(a.east)}, anchor=west, xshift=1.6cm, xmin=-1.5, xmax=2.75, xtick={-1,0,1,2},
+      ymax=1.4, ytick={0,0.5,1}, xlabel={$\theta$ in units of $\lambda/D$}, ylabel={$I/I_0$}]
+    \addplot[accent, line width=0.6pt, dashed] table[x index=0, y index=1, restrict x to domain=-1.5:2.75] {\datadir airy.dat};
+    \addplot[astroblue, line width=0.6pt, dashed] table[x index=0, y index=2, restrict x to domain=-1.5:2.75] {\datadir airy.dat};
+    \addplot[ink, line width=0.9pt] table[x index=0, y index=3, restrict x to domain=-1.5:2.75] {\datadir airy.dat};
+    \draw[ink, <->] (axis cs:0,1.22) -- node[above, inner sep=2pt] {$1.22\,\lambda/D$} (axis cs:\FiveAiryRing,1.22);
+    \draw[muted, dotted] (axis cs:-0.3,1) -- (axis cs:1.55,1);
+    \draw[ink, <->] (axis cs:\FiveAiryRing/2,0.735) -- (axis cs:\FiveAiryRing/2,1);
+    \node[ink, anchor=south, inner sep=2pt] at (axis cs:\FiveAiryRing/2,1) {dip $\FiveAiryDip\%$};
+    \node[muted, anchor=north west] at (rel axis cs:0.0,1.0) {(b)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

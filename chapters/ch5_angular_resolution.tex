@@ -1,6 +1,7 @@
 \chapter{Angular Resolution: Baselines, Diffraction, and Pixel Sampling}
 \label{ch:resolution}
 \chaptermark{Angular Resolution}
+\input{results/ch5/airy.tex}
 
 Chapter~\ref{ch:photometry} measured how much light a star sends us, and Chapter~\ref{ch:astrometry} measured where the star is. Both took for granted that a telescope shows each star as a point. It does not. Every telescope spreads a star into a small patch, and two stars closer together than that patch merge into one.
 
@@ -10,19 +11,11 @@ The size of the patch is set by a few lengths compared with one another. The wav
 \section{Windows on the Universe}
 \label{sec:windows}
 
-Chapter~\ref{ch:photometry} measures the flux of a star in a band of wavelengths, and takes for granted that the light arrives.
+Chapter~\ref{ch:photometry} measures the flux of a star in a band of wavelengths, and takes for granted that the light arrives. Most of it does not. Above the telescope there are about $10^4\,\mathrm{kg}$ of air over every square metre, and at most wavelengths that is enough to absorb every photon.
 
-Most of it does not. Above the telescope there are about $10^4\,\mathrm{kg}$ of air over every square metre, and at most wavelengths that is enough to absorb every photon.
+Ordinary window glass shows the trick. It lets visible light through, so the room is bright, but it stops most of the ultraviolet that causes sunburn. Glass is not simply clear or dark. Light of each colour either finds something in the glass that can take its energy, or passes straight through. The air is a window of the same kind, with only a few panes open. The idea is that a photon gets through when its energy matches no transition of the molecules in the air, and a radio wave gets through when its frequency is above the plasma frequency of the ionosphere.
 
-Ordinary window glass shows the trick. It lets visible light through, so the room is bright, but it stops most of the ultraviolet that causes sunburn. Glass is not simply clear or dark. Light of each colour either finds something in the glass that can take its energy, or passes straight through.
-
-The air is a window of the same kind, with only a few panes open. The idea is that a photon gets through when its energy matches no transition of the molecules in the air, and a radio wave gets through when its frequency is above the plasma frequency of the ionosphere.
-
-A photon of wavelength $\lambda$ has the energy $hc/\lambda=1239.84\,\mathrm{eV\,nm}/\lambda$. Visible light, from $400$ to $700\,\mathrm{nm}$, carries $3.10$ to $1.77\,\mathrm{eV}$. Ozone absorbs below $300\,\mathrm{nm}$, which is above $4.13\,\mathrm{eV}$, by lifting an electron to a higher level. Water vapour absorbs in bands near $2.7$ and $6.3\,\mu\mathrm m$, at $0.46$ and $0.20\,\mathrm{eV}$, and carbon dioxide near $4.3$ and $15\,\mu\mathrm m$, at $0.29$ and $0.083\,\mathrm{eV}$, by making the molecules vibrate. Visible photons fall in the gap between the two kinds of transition.
-
-The picture is a plot of the fraction of light that crosses the air against wavelength. It is zero almost everywhere, with one open stretch around the visible, a few narrow gaps in the infrared, and a wide opening in the radio.
-
-Every material gets its colour in this way, from the photon energies its electrons and molecules can take up. The comparison is principle P6 (Section~\ref{pr:sec:p6}), a photon energy set against a transition energy, or a wave frequency set against the plasma frequency. It gives the bands that reach the ground, and the plasma frequency, which also decides how X-rays can be focused (Section~\ref{sec:optics}).
+A photon of wavelength $\lambda$ has the energy $hc/\lambda=1239.84\,\mathrm{eV\,nm}/\lambda$. Visible light, from $400$ to $700\,\mathrm{nm}$, carries $3.10$ to $1.77\,\mathrm{eV}$. Ozone absorbs below $300\,\mathrm{nm}$, which is above $4.13\,\mathrm{eV}$, by lifting an electron to a higher level. Water vapour absorbs in bands near $2.7$ and $6.3\,\mu\mathrm m$, at $0.46$ and $0.20\,\mathrm{eV}$, and carbon dioxide near $4.3$ and $15\,\mu\mathrm m$, at $0.29$ and $0.083\,\mathrm{eV}$, by making the molecules vibrate. Visible photons fall in the gap between the two kinds of transition. The picture is a plot of the fraction of light that crosses the air against wavelength. It is zero almost everywhere, with one open stretch around the visible, a few narrow gaps in the infrared, and a wide opening in the radio. Every material gets its colour in this way, from the photon energies its electrons and molecules can take up. The comparison is principle P6 (Section~\ref{pr:sec:p6}), a photon energy set against a transition energy, or a wave frequency set against the plasma frequency. It gives the bands that reach the ground, and the plasma frequency, which also decides how X-rays can be focused (Section~\ref{sec:optics}).
 
 \paragraph{Band by band.}
 \begin{itemize}
@@ -62,19 +55,11 @@ Two windows matter most for everyday astronomy, the optical and the radio. They 
 \section{Interferometric Baselines}
 \label{sec:baselines}
 
-The radio window lets waves from about $10\,\mathrm{MHz}$ to a few hundred GHz reach the ground, and Chapter~\ref{ch:coords} gives any place on a sphere a unit vector.
+The radio window lets waves from about $10\,\mathrm{MHz}$ to a few hundred GHz reach the ground, and Chapter~\ref{ch:coords} gives any place on a sphere a unit vector. A single radio dish is a poor camera. At the $21\,\mathrm{cm}$ line of hydrogen a $25\,\mathrm m$ dish blurs every source over about half a degree, the size of the full Moon.
 
-A single radio dish is a poor camera. At the $21\,\mathrm{cm}$ line of hydrogen a $25\,\mathrm m$ dish blurs every source over about half a degree, the size of the full Moon.
+Close your eyes and listen to a friend calling from one side. You know the direction at once. The sound reaches the nearer ear first, by up to $0.2\,\mathrm m/(343\,\mathrm{m\,s^{-1}})=0.58\,\mathrm{ms}$ for ears $0.2\,\mathrm m$ apart, and the brain turns that delay into an angle. A wider head would hear a smaller change of angle as the same change of delay. Two radio dishes far apart are two ears. A wave from a source off to one side reaches one dish first. The idea is that the finest angle two receivers can tell apart is the wavelength divided by their separation, and it does not depend on the size of each receiver.
 
-Close your eyes and listen to a friend calling from one side. You know the direction at once. The sound reaches the nearer ear first, by up to $0.2\,\mathrm m/(343\,\mathrm{m\,s^{-1}})=0.58\,\mathrm{ms}$ for ears $0.2\,\mathrm m$ apart, and the brain turns that delay into an angle. A wider head would hear a smaller change of angle as the same change of delay.
-
-Two radio dishes far apart are two ears. A wave from a source off to one side reaches one dish first. The idea is that the finest angle two receivers can tell apart is the wavelength divided by their separation, and it does not depend on the size of each receiver.
-
-Two dishes $1\,\mathrm{km}$ apart, observing at $21\,\mathrm{cm}$, resolve $0.21/1000=2.1\times10^{-4}\,\mathrm{rad}=43''$. One $25\,\mathrm m$ dish alone gives about $1.22\times0.21/25\,\mathrm{rad}=35'$, fifty times coarser.
-
-The picture is two dishes on the ground and a flat wavefront coming in at a slant. It touches one dish, and travels on a little further before it touches the other.
-
-Our ears do it, and so does every array of antennas, from radar to the receivers of mobile phones. The delay is a path difference compared with a wavelength, P6 once more. It gives the length of the straight line between two places on the Earth, and the sharpness that line buys. In Very Long Baseline Interferometry (VLBI), and in connected arrays such as the GMRT or ALMA, this straight line between two antennas is the \textbf{baseline}.
+Two dishes $1\,\mathrm{km}$ apart, observing at $21\,\mathrm{cm}$, resolve $0.21/1000=2.1\times10^{-4}\,\mathrm{rad}=43''$. One $25\,\mathrm m$ dish alone gives about $1.22\times0.21/25\,\mathrm{rad}=35'$, fifty times coarser. The picture is two dishes on the ground and a flat wavefront coming in at a slant. It touches one dish, and travels on a little further before it touches the other. Our ears do it, and so does every array of antennas, from radar to the receivers of mobile phones. The delay is a path difference compared with a wavelength, P6 once more. It gives the length of the straight line between two places on the Earth, and the sharpness that line buys. In Very Long Baseline Interferometry (VLBI), and in connected arrays such as the GMRT or ALMA, this straight line between two antennas is the \textbf{baseline}.
 
 \subsection{The Baseline Between Two Stations}
 
@@ -215,19 +200,11 @@ Only the ratio of the wavelength to the baseline enters. The size of each dish d
 \section{Telescope Optics}
 \label{sec:optics}
 
-A radio dish records its own wave, so dishes can stand far apart and be combined later (Section~\ref{sec:baselines}).
+A radio dish records its own wave, so dishes can stand far apart and be combined later (Section~\ref{sec:baselines}). Visible light cannot be recorded wave by wave, and above any telescope the air keeps the wavefront flat only over tens of centimetres (Section~\ref{sec:seeing}). So an optical telescope collects light with one large mirror, whole or made of segments, and brings it to a point.
 
-Visible light cannot be recorded wave by wave, and above any telescope the air keeps the wavefront flat only over tens of centimetres (Section~\ref{sec:seeing}). So an optical telescope collects light with one large mirror, whole or made of segments, and brings it to a point.
+A magnifying glass held in sunshine makes a small bright image of the Sun on a sheet of paper. Move the glass away from the paper and the image gets sharp at one distance, the focal length. The image is a disc. Its size is the angle the Sun covers, times the focal length. A telescope does the same for every star. The idea is that each direction on the sky goes to one point in the focal plane, at a distance from the axis equal to the focal length times the angle.
 
-A magnifying glass held in sunshine makes a small bright image of the Sun on a sheet of paper. Move the glass away from the paper and the image gets sharp at one distance, the focal length. The image is a disc. Its size is the angle the Sun covers, times the focal length.
-
-A telescope does the same for every star. The idea is that each direction on the sky goes to one point in the focal plane, at a distance from the axis equal to the focal length times the angle.
-
-The Sun covers $0.533^\circ=9.30\times10^{-3}\,\mathrm{rad}$. A lens of focal length $1\,\mathrm m$ makes an image $9.3\,\mathrm{mm}$ across.
-
-The picture is two bundles of parallel rays from two stars, entering at a small angle to each other and meeting at two points in the focal plane.
-
-The same mapping works in a camera lens and in the eye, whose retina is its focal plane. Only geometry enters, so no principle is used. It gives the reasons for mirrors, the ways a beam is led to a detector, how each band of the spectrum is focused, the size of the secondary mirror, and the angle on the sky covered by one pixel.
+The Sun covers $0.533^\circ=9.30\times10^{-3}\,\mathrm{rad}$. A lens of focal length $1\,\mathrm m$ makes an image $9.3\,\mathrm{mm}$ across. The picture is two bundles of parallel rays from two stars, entering at a small angle to each other and meeting at two points in the focal plane. The same mapping works in a camera lens and in the eye, whose retina is its focal plane. Only geometry enters, so no principle is used. It gives the reasons for mirrors, the ways a beam is led to a detector, how each band of the spectrum is focused, the size of the secondary mirror, and the angle on the sky covered by one pixel.
 
 \subsection{Reflectors versus Refractors}
 
@@ -414,19 +391,11 @@ For pixels $20\,\mu\mathrm m$ wide at $F=2\,\mathrm m$, $\theta_{\rm pix}=10^{-5
 \section{Diffraction}
 \label{sec:diffraction}
 
-A telescope maps each direction to a point of the focal plane, Eq.~\eqref{eq:exact_angle_position_relation}, and two antennas a distance $B$ apart resolve about $\lambda/B$, Eq.~\eqref{eq:interferometric_resolution_formula}.
+A telescope maps each direction to a point of the focal plane, Eq.~\eqref{eq:exact_angle_position_relation}, and two antennas a distance $B$ apart resolve about $\lambda/B$, Eq.~\eqref{eq:interferometric_resolution_formula}. Ray optics says a perfect mirror brings a star to a point. Every real telescope, even a perfect one in space such as Hubble or JWST, shows a star as a small disc with faint rings, the \textbf{point spread function} (PSF).
 
-Ray optics says a perfect mirror brings a star to a point. Every real telescope, even a perfect one in space such as Hubble or JWST, shows a star as a small disc with faint rings, the \textbf{point spread function} (PSF).
+Stand beside an open door and you hear people talking in the next room, though you cannot see them. Sound bends round the edge of the door and light does not. The door is about $1\,\mathrm m$ wide. Sound at $343\,\mathrm{Hz}$ has a wavelength of $1\,\mathrm m$, the size of the door, so it spreads into every direction. Light has a wavelength two million times smaller, so it spreads by only two millionths of a radian. The edge of a telescope mirror is the door frame. The idea is that a wave passing an opening of size $D$ spreads into an angle of about $\lambda/D$.
 
-Stand beside an open door and you hear people talking in the next room, though you cannot see them. Sound bends round the edge of the door and light does not. The door is about $1\,\mathrm m$ wide. Sound at $343\,\mathrm{Hz}$ has a wavelength of $1\,\mathrm m$, the size of the door, so it spreads into every direction. Light has a wavelength two million times smaller, so it spreads by only two millionths of a radian.
-
-The edge of a telescope mirror is the door frame. The idea is that a wave passing an opening of size $D$ spreads into an angle of about $\lambda/D$.
-
-For the sound, $\lambda/D=1$. For light of $500\,\mathrm{nm}$ through a $30\,\mathrm{cm}$ mirror, $\lambda/D=1.7\times10^{-6}\,\mathrm{rad}$, and the exact result for a round mirror, $1.22\lambda/D$, is $0.42''$.
-
-The picture is a flat wave meeting a wall with a hole in it. Each point of the hole sends out a small circular wave, and far behind the wall these waves add up into a pattern of bright and dark bands.
-
-The same addition of waves explains the bands from a single slit in the laboratory, the colours from a grating, X-ray diffraction by crystals, the beam of a radio dish, and the pair of antennas of Section~\ref{sec:baselines}. A photon of momentum $h/\lambda$ squeezed through the opening gets a sideways momentum of about $h/D$, by the uncertainty principle, and so the same angle $\lambda/D$. Comparing $\lambda$ with $D$ is P6. It gives the field far behind any opening as one integral, then the single slit, the grating of a spectrograph, the round mirror with its factor $1.22$, and the rules for when two stars are resolved.
+For the sound, $\lambda/D=1$. For light of $500\,\mathrm{nm}$ through a $30\,\mathrm{cm}$ mirror, $\lambda/D=1.7\times10^{-6}\,\mathrm{rad}$, and the exact result for a round mirror, $1.22\lambda/D$, is $0.42''$. The picture is a flat wave meeting a wall with a hole in it. Each point of the hole sends out a small circular wave, and far behind the wall these waves add up into a pattern of bright and dark bands. The same addition of waves explains the bands from a single slit in the laboratory, the colours from a grating, X-ray diffraction by crystals, the beam of a radio dish, and the pair of antennas of Section~\ref{sec:baselines}. A photon of momentum $h/\lambda$ squeezed through the opening gets a sideways momentum of about $h/D$, by the uncertainty principle, and so the same angle $\lambda/D$. Comparing $\lambda$ with $D$ is P6. It gives the field far behind any opening as one integral, then the single slit, the grating of a spectrograph, the round mirror with its factor $1.22$, and the rules for when two stars are resolved.
 
 \subsection{Diffraction as a Sum of Wavelets}
 
@@ -591,88 +560,21 @@ Telescope mirrors are round, of diameter $D$. We want the pattern of Eq.~\eqref{
 
 \paragraph{Why more than one.} In a slit every strip parallel to the edges has the same length, so the two halves cancel each other one to one at $\theta=\lambda/a$. In a disc the strips are short near the rim and long, up to $D$, across the middle. The middle sends more light than the edges. When the path difference between the two edges is $\lambda$, the weak wavelets of the narrow edges cannot cancel the strong ones of the wide middle. The angle must open by about $22\%$ more before the whole disc cancels.
 
-\paragraph{Polar coordinates.} Take polar coordinates in the opening, $\xi=r\cos\psi$ and $\eta=r\sin\psi$, and on the sky, $\theta_x=\theta\cos\chi$ and $\theta_y=\theta\sin\chi$ for small $\theta$. The phase needs $\xi\theta_x+\eta\theta_y$. Turn the axes of the opening by $\chi$, with the $2\times2$ upper-left block of $\mathbf R_z(\chi)$, Eq.~\eqref{eq:z_axis_rotation_matrix},
-\begin{align}
-	\begin{pmatrix}\xi'\\ \eta'\end{pmatrix}
-	&= \begin{pmatrix}\cos\chi&\sin\chi\\ -\sin\chi&\cos\chi\end{pmatrix}\begin{pmatrix}r\cos\psi\\ r\sin\psi\end{pmatrix}
-	\eqby{1} \begin{pmatrix}r\cos(\psi-\chi)\\ r\sin(\psi-\chi)\end{pmatrix}, \nonumber\\
-	\xi\theta_x+\eta\theta_y
-	&= \theta\,(\xi\cos\chi+\eta\sin\chi)
-	\eqby{2} \theta\,\xi'
-	\eqby{3} \theta\,r\cos(\psi-\chi).
-	\label{re:eq:polar_phase}
-\end{align}
-\begin{explain}
-	\item The angle-difference identities.
-	\item The top row of the matrix product.
-	\item The first line.
-\end{explain}
-The disc looks the same in the turned axes, so the integral over $\psi$ from $0$ to $2\pi$ gives the same for every $\chi$. The pattern depends on $\theta$ alone, and we may set $\chi=0$,
-\begin{equation}
-	E(\theta) = E_0\int_0^{D/2}\!\!\int_0^{2\pi} e^{-ikr\theta\cos\psi}\,d\psi\;r\,dr .
-	\label{re:eq:disc_integral}
-\end{equation}
-
-\paragraph{The angle integral and $J_0$.} The integral over $\psi$ defines the Bessel function of order zero,
-\begin{equation}
-	J_0(z) \equiv \frac{1}{2\pi}\int_0^{2\pi} e^{-i z \cos\psi}\,d\psi .
-	\label{re:eq:J0_def}
-\end{equation}
-Its power series follows by expanding the exponential,
-\begin{align}
-	J_0(z)
-	&\eqby{1} \sum_{n=0}^{\infty}\frac{(-iz)^n}{n!}\,\frac{1}{2\pi}\int_0^{2\pi}\cos^n\psi\,d\psi
-	\eqby{2} \sum_{j=0}^{\infty}\frac{(-iz)^{2j}}{(2j)!}\,\frac{(2j)!}{4^j(j!)^2} \nonumber\\
-	&\eqby{3} \sum_{j=0}^{\infty}\frac{(-1)^j}{(j!)^2}\left(\frac z2\right)^{2j}
-	= 1-\frac{z^2}{4}+\frac{z^4}{64}-\dots
-	\label{re:eq:J0_series}
-\end{align}
-\begin{explain}
-	\item The series of $e^x$, integrated term by term.
-	\item Odd powers of $\cos\psi$ average to zero. For $n=2j$, the average of $\cos^{2j}\psi$ is $(2j)!/(4^j(j!)^2)$, the middle binomial coefficient over $4^j$, from $\cos\psi=(e^{i\psi}+e^{-i\psi})/2$.
-	\item $(-i)^{2j}=(-1)^j$ and $4^j=2^{2j}$.
-\end{explain}
-So $E(\theta)=2\pi E_0\int_0^{D/2}J_0(kr\theta)\,r\,dr$.
-
-\paragraph{The radial integral and $J_1$.} The Bessel function of order one is
-\begin{equation}
-	J_1(z) \equiv \sum_{j=0}^{\infty}\frac{(-1)^j}{j!\,(j+1)!}\left(\frac z2\right)^{2j+1} = \frac z2-\frac{z^3}{16}+\dots
-	\label{re:eq:J1_series}
-\end{equation}
-Differentiating the series term by term gives the identity we need,
-\begin{align}
-	\dv{}{z}\big[zJ_1(z)\big]
-	&= \dv{}{z}\sum_{j=0}^{\infty}\frac{(-1)^j\,z^{2j+2}}{2^{2j+1}\,j!\,(j+1)!}
-	\eqby{1} \sum_{j=0}^{\infty}\frac{(-1)^j\,(2j+2)\,z^{2j+1}}{2^{2j+1}\,j!\,(j+1)!} \nonumber\\
-	&\eqby{2} z\sum_{j=0}^{\infty}\frac{(-1)^j}{(j!)^2}\left(\frac z2\right)^{2j}
-	\eqby{3} zJ_0(z).
-	\label{re:eq:bessel_identity}
-\end{align}
-\begin{explain}
-	\item The power rule on each term.
-	\item $(2j+2)/(j+1)!=2/j!$, and $2/2^{2j+1}=1/2^{2j}$.
-	\item Eq.~\eqref{re:eq:J0_series}.
-\end{explain}
-In the same way, differentiating Eq.~\eqref{re:eq:J0_series} gives $J_0'=-J_1$. Since $zJ_1(z)$ is zero at $z=0$, Eq.~\eqref{re:eq:bessel_identity} integrates to $\int_0^{u}zJ_0(z)\,dz=u\,J_1(u)$. Now change the variable in the radial integral to $z=kr\theta$. The edge $r=D/2$ becomes
-\begin{equation}
-	\beta_D \equiv k\,\frac{D}{2}\,\theta = \frac{\pi D \theta}{\lambda},
-	\label{re:eq:beta_D}
-\end{equation}
-the same kind of variable as $\beta_a$ for the slit, with the radius in place of the half-width. Then
+\paragraph{The disc integral.} Take polar coordinates in the opening, $\xi=r\cos\psi$ and $\eta=r\sin\psi$. A disc looks the same from every direction around its axis, so the pattern depends only on the angle $\theta$ from the axis, and we may look along $\theta_x=\theta$, $\theta_y=0$. Then
 \begin{align}
 	E(\theta)
-	&\eqby{1} \frac{2\pi E_0}{(k\theta)^2}\int_0^{\beta_D} zJ_0(z)\,dz
-	\eqby{2} \frac{2\pi E_0}{(k\theta)^2}\,\beta_DJ_1(\beta_D)
-	\eqby{3} 2\pi E_0\left(\frac{D}{2}\right)^2\frac{J_1(\beta_D)}{\beta_D} \nonumber\\
-	&= E_0\,\underbrace{\frac{\pi D^2}{4}}_{\text{area of the mirror}}\,\frac{2J_1(\beta_D)}{\beta_D}.
+	&\eqby{1} E_0\int_0^{D/2}\!\!\int_0^{2\pi} e^{-ikr\theta\cos\psi}\,d\psi\;r\,dr
+	\eqby{2} 2\pi E_0\int_0^{D/2} J_0(kr\theta)\,r\,dr \nonumber\\
+	&\eqby{3} E_0\,\underbrace{\frac{\pi D^2}{4}}_{\text{area of the mirror}}\,\frac{2J_1(\beta_D)}{\beta_D},
+	\qquad \beta_D\equiv\frac{\pi D\theta}{\lambda} .
 	\label{re:eq:airy_field}
 \end{align}
 \begin{explain}
-	\item $r=z/(k\theta)$ and $dr=dz/(k\theta)$.
-	\item $\int_0^{u}zJ_0\,dz=uJ_1(u)$, from Eq.~\eqref{re:eq:bessel_identity}.
-	\item $k\theta=2\beta_D/D$ from Eq.~\eqref{re:eq:beta_D}.
+	\item Eq.~\eqref{eq:fourier_optics_integral} with $d\xi\,d\eta=r\,dr\,d\psi$ and $\xi\theta_x+\eta\theta_y=r\theta\cos\psi$.
+	\item The angle integral is $2\pi J_0(z)$ with $z=kr\theta$, where $J_0(z)=(1/2\pi)\int_0^{2\pi}e^{-iz\cos\psi}\,d\psi$ is the Bessel function of order zero. Bessel functions also solve Kepler's equation in Section~\ref{sec:bessel}.
+	\item With $z=kr\theta$ the edge $r=D/2$ becomes $\beta_D=kD\theta/2$, and $\int_0^{u}zJ_0(z)\,dz=u\,J_1(u)$, a property of the Bessel function of order one that follows from their power series.
 \end{explain}
-For $\theta\to0$, $J_1(\beta_D)\approx\beta_D/2$ by Eq.~\eqref{re:eq:J1_series}, so $2J_1(\beta_D)/\beta_D\to1$. Straight ahead every wavelet is in phase, and the field is $E_0$ times the area.
+The variable $\beta_D$ is the same kind as $\beta_a$ for the slit, with the radius in place of the half-width. For $\theta\to0$, $2J_1(\beta_D)/\beta_D\to1$. Straight ahead every wavelet is in phase, and the field is $E_0$ times the area.
 
 \paragraph{The Airy pattern.} Squaring, with $I_0=E_0^2(\pi D^2/4)^2$, gives the \textbf{Airy pattern},
 \begin{equation}
@@ -683,9 +585,9 @@ Half the peak intensity is reached at $\beta_D=1.616$, so the full width at half
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.9\linewidth]{Diffraction.pdf}
-	\caption{Light from source $A$ focused by a lens of focal length $F$. Beside the focal plane, the Airy profile of source $A$ (red) and that of a second source at the angle $\theta_{\rm res}=1.22\lambda/D$ (blue), whose image lies a height $y$ away.}
-	\label{fig:diffraction_pdf_diagram}
+	\includegraphics[width=\linewidth]{fig_ch5_airy.pdf}
+	\caption{(a) The Airy pattern of a round mirror against the angle $\theta$ in units of $\lambda/D$ (red), and the same pattern twenty times higher outside the central disc (grey dashed), with the first dark ring marked. (b) Two equal stars $1.22\lambda/D$ apart, their two patterns (dashed) and the sum (black).}
+	\label{fig:airy}
 \end{figure}
 
 \paragraph{The first dark ring and the factor $1.22$.} The intensity first vanishes where $J_1(\beta_D)=0$ for $\beta_D>0$. The first positive zero of $J_1$ is $\beta_D=3.8317$. So the angular radius of the first dark ring is
@@ -696,44 +598,15 @@ Half the peak intensity is reached at $\beta_D=1.616$, so the full width at half
 This is where the factor $1.22$ comes from. A second star placed on this ring is the \textbf{Rayleigh limit} $\theta_R$ of a round telescope,
 \begin{keyresult}
 	\begin{equation}
-		\theta_R = 1.22 \frac{\lambda}{D}\ \text{rad} = 206\,265 \times 1.22\frac{\lambda}{D}\ \text{arcsec}.
+		\theta_R = 1.22 \frac{\lambda}{D}\ \mathrm{rad} = 206\,265 \times 1.22\frac{\lambda}{D}\ \mathrm{arcsec}.
 		\label{eq:rayleigh_criterion_result}
 	\end{equation}
 \end{keyresult}
 Only the ratio $\lambda/D$ enters. The focal length, the design of the telescope and the brightness of the star do not.
 
-\paragraph{How the light is shared among the rings.} The fraction of the light inside the angle $\theta_0$ is the integral of $I(\theta)\,2\pi\theta\,d\theta$ from $0$ to $\theta_0$, over the same integral to infinity. With $\theta=\lambda\beta_D/(\pi D)$, both carry the same constant, and only $\int(2J_1/\beta_D)^2\beta_D\,d\beta_D=4\int J_1^2/\beta_D\,d\beta_D$ remains. An identity does this integral,
-\begin{align}
-	\dv{}{\beta}\left[J_0^2+J_1^2\right]
-	&= 2J_0J_0'+2J_1J_1'
-	\eqby{1} -2J_0J_1+2J_1\left(J_0-\frac{J_1}{\beta}\right)
-	= -\frac{2J_1^2}{\beta},
-\end{align}
-\begin{explain}
-	\item $J_0'=-J_1$, and $J_1'=J_0-J_1/\beta$ from expanding Eq.~\eqref{re:eq:bessel_identity}, $J_1+\beta J_1'=\beta J_0$.
-\end{explain}
-so $\int_0^{\beta_0}J_1^2/\beta\,d\beta=\tfrac12[1-J_0^2(\beta_0)-J_1^2(\beta_0)]$, using $J_0(0)=1$ and $J_1(0)=0$. Both functions die away at large $\beta$, so the whole pattern gives $\tfrac12$, and the fraction inside $\beta_0$ is
-\begin{equation}
-	\boxed{\text{fraction inside }\beta_0 = 1-J_0^2(\beta_0)-J_1^2(\beta_0).}
-	\label{re:eq:encircled_energy}
-\end{equation}
-At the dark rings $J_1=0$, so only $J_0^2$ is lost. At the first, $J_0(3.8317)=-0.4028$, and the central disc holds $1-0.1622=83.8\%$ of the light. The second dark ring, at $\beta_D=7.0156$, encloses $91.0\%$, so the first bright ring holds $7.2\%$. The second ring holds $2.8\%$ and the rest goes into fainter rings. The first bright ring peaks at $\beta_D=5.136$ with only $1.75\%$ of the central intensity.
+\paragraph{How the light is shared among the rings.} Adding up $I(\theta)\,2\pi\theta\,d\theta$ gives the share of the light inside each ring. The central disc, out to the first dark ring, holds $\FiveAiryEncOne\%$ of the light, and the disc out to the second dark ring holds $\FiveAiryEncTwo\%$. So the first bright ring holds only about $7\%$, and its peak is $1.75\%$ of the central intensity, which is why Figure~\ref{fig:airy}(a) draws the rings twenty times higher. The whole pattern covers a solid angle of about $\lambda^2/(\pi D^2/4)$, the wavelength squared over the collecting area, a rule radio engineers use for the beam of any antenna.
 
-The total over the whole pattern is a check on the normalisation. It is
-\begin{equation}
-	\int_0^\infty I\,2\pi\theta\,d\theta = I_0\,2\pi\left(\frac{\lambda}{\pi D}\right)^2\times4\times\frac12 = I_0\,\frac{\lambda^2}{\pi D^2/4}=E_0^2\,\frac{\pi D^2}{4}\,\lambda^2 .
-\end{equation}
-Parseval's theorem applied to Eq.~\eqref{eq:fourier_optics_integral} gives the same, $E_0^2\lambda^2$ times the open area, for any shape of opening. The light leaving the focus equals the light entering the mirror (P1). It also says the PSF covers an effective solid angle $\lambda^2/(\pi D^2/4)$, the wavelength squared over the collecting area, a rule radio engineers use for the beam of any antenna.
-
-\paragraph{A central obstruction.} A Cassegrain secondary of diameter $b$ blocks the middle of the mirror. The open ring is the full disc minus a small disc. The integral of Eq.~\eqref{eq:fourier_optics_integral} over the ring is the integral over the big disc minus that over the small one, each given by Eq.~\eqref{re:eq:airy_field},
-\begin{equation}
-	E(\theta) = E_0\left[\frac{\pi D^2}{4}\,\frac{2J_1(\beta_D)}{\beta_D}-\frac{\pi b^2}{4}\,\frac{2J_1(\beta_b)}{\beta_b}\right],
-	\qquad \beta_b=\frac{b}{D}\,\beta_D .
-	\label{re:eq:annulus}
-\end{equation}
-The obstruction makes the central disc a little smaller but sends more light into the rings. For $b/D=0.2$ the first dark ring moves in to $1.17\lambda/D$ and the central disc holds $76.4\%$ of the light that passes, against $83.8\%$ without it. For $b/D=0.33$ these become $1.10\lambda/D$ and $65.4\%$. Brighter rings lower the contrast near a bright star, which matters when imaging faint planets beside it (Section~\ref{re:sec:direct_imaging}).
-
-\paragraph{Spider vanes and spikes.} A spider vane is a thin opaque strip of width $a$ across the opening. In the same way, the field is that of the open mirror minus that of the strip. A strip passes what a slit of the same shape would pass, so its pattern is the slit pattern, Eq.~\eqref{eq:single_slit_intensity}. Across the vane it spreads over about $\lambda/a$, wide because the vane is thin, and along the vane it is as narrow as $\lambda$ over its length. The result is a thin streak of light through the star, at right angles to the vane. Two vanes along one line give the same streak, so a cross of four vanes gives four spikes, and three vanes $120^\circ$ apart give six.
+\paragraph{A central obstruction.} A Cassegrain secondary of diameter $b$ blocks the middle of the mirror. The open ring is the full disc minus a small disc, so its field is Eq.~\eqref{re:eq:airy_field} for $D$ minus the same for $b$. The central disc becomes a little smaller and more light goes into the rings. For $b/D=0.33$ the first dark ring moves in to $1.10\lambda/D$ and the central disc holds $65\%$ of the light, against $84\%$ without it. Brighter rings lower the contrast near a bright star, which matters when imaging faint planets beside it (Section~\ref{re:sec:direct_imaging}). The vanes that hold the secondary add the spikes of Section~\ref{sec:spiders_domes}.
 
 \subsection{Resolution Criteria for Point-Source Imaging}
 \label{re:sec:criteria}
@@ -753,35 +626,15 @@ Two stars, such as the two of a binary, send light with unrelated phases. Their 
 	\label{fig:rayleigh_sparrow_comparison}
 \end{figure}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics{fig_ch5_rayleigh_diffraction_sinc.pdf}
-	\caption{Two diffraction patterns whose central maxima are $1.22\lambda/D$ apart, so that each maximum lies on the first minimum of the other.}
-	\label{fig:rayleigh_diffraction_sinc}
-\end{figure}
 
 \paragraph{The Rayleigh criterion.} Rayleigh called two stars resolved when the peak of one falls on the first dark ring of the other, $\Delta\theta=\theta_R$. At the place of each star the sum is then $I_0+0=I_0$. Midway, each pattern is at its half-separation point, and the sum is $2I(\Delta\theta/2)$.
 \begin{itemize}
 	\item For a slit, $\Delta\theta=\lambda/a$ and each pattern is at $\beta_a=\pi/2$. The middle is at $2(\sin(\pi/2)/(\pi/2))^2=8/\pi^2=0.811$ of the peak, a dip of $19\%$.
-	\item For a round mirror, $\Delta\theta=1.22\lambda/D$ and each pattern is at $\beta_D=3.8317/2=1.916$. The middle is at $2\,[2J_1(1.916)/1.916]^2=0.735$ of the peak, a dip of $26.5\%$.
+	\item For a round mirror, $\Delta\theta=1.22\lambda/D$ and each pattern is at $\beta_D=3.8317/2=1.916$. The middle is at $2\,[2J_1(1.916)/1.916]^2=0.735$ of the peak, a dip of $26.5\%$ (Figure~\ref{fig:airy}(b)).
 \end{itemize}
 Rayleigh's choice is convenient because the dark ring is easy to compute. A dip of this size is easy to see by eye at the eyepiece.
 
-\paragraph{The Sparrow criterion.} Two stars stop showing a dip at all when the sum has a flat top in the middle, with zero second derivative there. By Eq.~\eqref{re:eq:two_star_sum},
-\begin{align}
-	\left.\dv[2]{I_{\rm tot}}{\theta}\right|_{\theta=0}
-	&= I''\!\left(\frac{\Delta\theta}{2}\right)+I''\!\left(-\frac{\Delta\theta}{2}\right)
-	\eqby{1} 2\,I''\!\left(\frac{\Delta\theta}{2}\right) = 0 .
-\end{align}
-\begin{explain}
-	\item The profile is even, so its second derivative is even too.
-\end{explain}
-So the \textbf{Sparrow limit} is twice the angle at which the profile of one star has its inflection point. The slit profile bends over at $\beta_a=1.3031$, and the Airy profile at $\beta_D=1.4878$. This gives
-\begin{itemize}
-	\item for a slit, $\Delta\theta = 2\times1.3031/\pi\ \lambda/a = 0.83\,\lambda/a$,
-	\item for a round mirror, $\Delta\theta = 2\times1.4878/\pi\ \lambda/D = 0.95\,\lambda/D$.
-\end{itemize}
-Neither limit is a hard wall. With a high signal-to-noise ratio and a well-measured PSF, two overlapping stars can be separated by fitting, down to the Sparrow limit and below.
+\paragraph{The Sparrow criterion.} Two stars stop showing a dip at all when the sum has a flat top in the middle. By Eq.~\eqref{re:eq:two_star_sum} the curvature there is $2I''(\Delta\theta/2)$, since the profile is even, so the top turns flat when each profile is at its inflection point. The \textbf{Sparrow limit} is twice that angle, $0.83\,\lambda/a$ for a slit and $0.95\,\lambda/D$ for a round mirror. Neither limit is a hard wall. With a high signal-to-noise ratio and a well-measured PSF, two overlapping stars can be separated by fitting, down to the Sparrow limit and below.
 
 \begin{example}[Diffraction limit of a $30\,\mathrm{cm}$ telescope at $500\,\mathrm{nm}$]
 	For $D=0.30\,\mathrm m$ and $\lambda=500\,\mathrm{nm}$, Eq.~\eqref{eq:rayleigh_criterion_result} gives
@@ -899,19 +752,11 @@ Keeping these pixels, Nyquist sampling at $500\,\mathrm{nm}$ would need an effec
 \section{Atmospheric Seeing, PSF Profiles, and Adaptive Optics}
 \label{sec:seeing}
 
-The optical window lets visible light through the air (Section~\ref{sec:windows}), and a telescope resolves $1.22\lambda/D$ when the wavefront reaching it is flat, Eq.~\eqref{eq:rayleigh_criterion_result}.
+The optical window lets visible light through the air (Section~\ref{sec:windows}), and a telescope resolves $1.22\lambda/D$ when the wavefront reaching it is flat, Eq.~\eqref{eq:rayleigh_criterion_result}. From the ground the wavefront is not flat. Transparent air is not still air. On an ordinary night an $8\,\mathrm m$ telescope shows stars no sharper than a $10\,\mathrm{cm}$ one.
 
-From the ground the wavefront is not flat. Transparent air is not still air. On an ordinary night an $8\,\mathrm m$ telescope shows stars no sharper than a $10\,\mathrm{cm}$ one.
+Look at a coin at the bottom of a swimming pool while the surface ripples. The coin wobbles and blurs. Each ripple acts as a weak lens and bends the light a little, and the ripples keep moving. Over a hot road in summer the far cars shimmer for the same reason. The air above a telescope is a pool of warm and cool pockets, each with a slightly different refractive index. The idea is that the sharpness is set by the size $r_0$ of the patch of air over which the wavefront stays flat to about a radian, and not by the size of the mirror.
 
-Look at a coin at the bottom of a swimming pool while the surface ripples. The coin wobbles and blurs. Each ripple acts as a weak lens and bends the light a little, and the ripples keep moving. Over a hot road in summer the far cars shimmer for the same reason.
-
-The air above a telescope is a pool of warm and cool pockets, each with a slightly different refractive index. The idea is that the sharpness is set by the size $r_0$ of the patch of air over which the wavefront stays flat to about a radian, and not by the size of the mirror.
-
-At $500\,\mathrm{nm}$ with $r_0=10\,\mathrm{cm}$ the blur is about $0.98\lambda/r_0=1.0''$. An $8\,\mathrm m$ mirror could reach $1.22\lambda/D=0.016''$, sixty times sharper, if the air were still.
-
-The picture is a wrinkled wavefront falling on a large mirror. Over any patch of size $r_0$ it is nearly flat, but neighbouring patches are tilted different ways.
-
-Stars twinkle for the same reason, and so does the heat haze over a road. The ratio $D/r_0$ decides the regime, P6 again. For $D<r_0$ a telescope is limited by diffraction, and for $D>r_0$ by the air. It gives the seeing angle and how it changes with wavelength, the profile of a star seen through the air, and the way adaptive optics removes the blur.
+At $500\,\mathrm{nm}$ with $r_0=10\,\mathrm{cm}$ the blur is about $0.98\lambda/r_0=1.0''$. An $8\,\mathrm m$ mirror could reach $1.22\lambda/D=0.016''$, sixty times sharper, if the air were still. The picture is a wrinkled wavefront falling on a large mirror. Over any patch of size $r_0$ it is nearly flat, but neighbouring patches are tilted different ways. Stars twinkle for the same reason, and so does the heat haze over a road. The ratio $D/r_0$ decides the regime, P6 again. For $D<r_0$ a telescope is limited by diffraction, and for $D>r_0$ by the air. It gives the seeing angle and how it changes with wavelength, the profile of a star seen through the air, and the way adaptive optics removes the blur.
 
 \subsection{Atmospheric Seeing and the Fried Parameter}
 
@@ -1192,13 +1037,7 @@ Jupiter today is at about $125\,\mathrm K$. Around the Sun, at $5772\,\mathrm K$
 	\boxed{\theta_{\rm pix}=2.06''\ \text{per pixel}.}
 	\]
 
-	\item \textbf{Diffraction-limited resolution}.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\linewidth]{fig_ch5_prob_diffraction_sinc.pdf}
-		\caption{Two diffraction patterns whose central maxima are $1.22\lambda/D$ apart.}
-		\label{re:fig:prob_diffraction_sinc}
-	\end{figure}
+	\item \textbf{Diffraction-limited resolution}. Figure~\ref{fig:airy}(b) shows two stars at this separation.
 	With $\lambda=500\times10^{-9}\,\mathrm m$ and $D=0.30\,\mathrm m$, Eq.~\eqref{eq:rayleigh_criterion_result} gives
 	\[
 	\theta_R=1.22\times\frac{500\times10^{-9}}{0.30}\,\mathrm{rad}=2.03\times10^{-6}\,\mathrm{rad},
@@ -1207,12 +1046,6 @@ Jupiter today is at about $125\,\mathrm K$. Around the Sun, at $5772\,\mathrm K$
 	\]
 
 	\item \textbf{Comparison}.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.9\linewidth]{Diffraction.pdf}
-		\caption{The focal-plane Airy profiles of two sources $\theta_{\rm res}=1.22\lambda/D$ apart, formed by a lens of focal length $F$.}
-		\label{re:fig:prob_diffraction_diagram}
-	\end{figure}
 	The ratio of the pixel scale to the resolution is
 	\[
 	\frac{\theta_{\rm pix}}{\theta_R}=\frac{2.06''}{0.42''}=4.9 .

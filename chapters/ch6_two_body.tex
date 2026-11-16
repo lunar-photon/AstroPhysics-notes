@@ -6,19 +6,11 @@
 \section{Central Force Problem and Conservation Laws}
 \label{tb:sec:central}
 
-We know how to solve Newton's equations for one body in a given force. A stone thrown across a field, or a mass on a spring, moves in a force that does not care where anything else is.
+We know how to solve Newton's equations for one body in a given force. A stone thrown across a field, or a mass on a spring, moves in a force that does not care where anything else is. Two stars are different. Each one pulls the other, so each moves the source of the other's force. Newton's laws then give six coupled second-order equations, and neither star can be followed alone.
 
-Two stars are different. Each one pulls the other, so each moves the source of the other's force. Newton's laws then give six coupled second-order equations, and neither star can be followed alone.
+Think of two skaters on ice holding the ends of a rope and pulling on it. Seen from the side, both move in complicated loops. But the rope pulls them with equal and opposite forces, so the balance point between them, nearer the heavier skater, never speeds up. And the rope only pulls along itself, so it cannot change how fast the pair turns about that point. Only the length of the rope and the direction it points are left to work out. A binary star is the pair of skaters, with gravity as the rope. The idea is to split off the motion of the balance point and then use the conserved energy and angular momentum, so that the two-body problem becomes one body moving in a fixed central force.
 
-Think of two skaters on ice holding the ends of a rope and pulling on it. Seen from the side, both move in complicated loops. But the rope pulls them with equal and opposite forces, so the balance point between them, nearer the heavier skater, never speeds up. And the rope only pulls along itself, so it cannot change how fast the pair turns about that point. Only the length of the rope and the direction it points are left to work out.
-
-A binary star is the pair of skaters, with gravity as the rope. The idea is to split off the motion of the balance point and then use the conserved energy and angular momentum, so that the two-body problem becomes one body moving in a fixed central force.
-
-The skaters in numbers. Let them weigh $60\,\mathrm{kg}$ and $40\,\mathrm{kg}$ and stand $5\,\mathrm m$ apart. The balance point is $5\times40/100=2\,\mathrm m$ from the heavier skater and $3\,\mathrm m$ from the lighter one. Their separation moves like one body of mass $60\times40/100=24\,\mathrm{kg}$ on the end of the rope.
-
-The picture is a dumbbell whose centre drifts along a straight line while the two weights swing round it.
-
-The same split gives the reduced mass of the electron in the hydrogen atom. It also makes the Earth wobble round a point $4700\,\mathrm{km}$ from its centre each month, as the Earth and the Moon turn about their common centre of mass. Conservation of energy and angular momentum is principle P1 (Chapter~\ref{ch:principles}). Treating each star as a point is P2, since outside a sphere its pull is that of a point at the centre. The split and the conserved quantities together fix all twelve constants of the motion.
+The skaters in numbers. Let them weigh $60\,\mathrm{kg}$ and $40\,\mathrm{kg}$ and stand $5\,\mathrm m$ apart. The balance point is $5\times40/100=2\,\mathrm m$ from the heavier skater and $3\,\mathrm m$ from the lighter one. Their separation moves like one body of mass $60\times40/100=24\,\mathrm{kg}$ on the end of the rope. The picture is a dumbbell whose centre drifts along a straight line while the two weights swing round it. The same split gives the reduced mass of the electron in the hydrogen atom. It also makes the Earth wobble round a point $4700\,\mathrm{km}$ from its centre each month, as the Earth and the Moon turn about their common centre of mass. Conservation of energy and angular momentum is principle P1 (Chapter~\ref{ch:principles}). Treating each star as a point is P2, since outside a sphere its pull is that of a point at the centre. The split and the conserved quantities together fix all twelve constants of the motion.
 
 \subsection{Central force problem}
 	A central force acts along the line joining two particles and depends only on their separation $r=|\vecx_1-\vecx_2|$. Such a force comes from a scalar potential $V(r)$. We write $\nabla$ for the gradient with respect to $\vecr=\vecx_1-\vecx_2$, so that $\nabla V=V'(r)\,\rhat$ with $V'\equiv dV/dr$. The force on particle 1 is $-\nabla V$, and by Newton's third law the force on particle 2 is $+\nabla V$. Newton's equations for the pair are
@@ -108,19 +100,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Coordinate Systems and Orbital Elements}
 	\label{sec:coord_orbital_elements}
 
-	The angular momentum fixes a plane in space, and the body stays in it.
+	The angular momentum fixes a plane in space, and the body stays in it. 	A telescope does not see that plane face on. It sees the orbit squashed onto the sky, and to compare the two we must know how the orbital plane sits relative to the line of sight.
 
-	A telescope does not see that plane face on. It sees the orbit squashed onto the sky, and to compare the two we must know how the orbital plane sits relative to the line of sight.
+	Take a hoop and tilt it in front of a wall. Seen from the front, the round hoop looks like an ellipse. To say how it is tilted, we name the line on the wall about which it was turned, like a hinge, and the angle of the turn. To say where a mark on the hoop is, we give one more angle measured round the hoop from the hinge. 	An orbit is the hoop and the plane of the sky is the wall. The idea is that the orbit's own frame is the sky frame turned twice, first by $\Omega$ about the line of sight and then by $\iota$ about the hinge, the line of nodes. One more angle, $\omega$, places the ellipse within its plane.
 
-	Take a hoop and tilt it in front of a wall. Seen from the front, the round hoop looks like an ellipse. To say how it is tilted, we name the line on the wall about which it was turned, like a hinge, and the angle of the turn. To say where a mark on the hoop is, we give one more angle measured round the hoop from the hinge.
-
-	An orbit is the hoop and the plane of the sky is the wall. The idea is that the orbit's own frame is the sky frame turned twice, first by $\Omega$ about the line of sight and then by $\iota$ about the hinge, the line of nodes. One more angle, $\omega$, places the ellipse within its plane.
-
-	The hoop in numbers. A circle of radius $1$ tilted by $\iota=60^\circ$ about a line through its centre appears as an ellipse with semi-axes $1$ and $\cos60^\circ=0.5$. Lengths along the hinge stay the same and lengths across it shrink by $\cos\iota$.
-
-	The picture is two planes, the orbit and the sky, joined at a hinge along the line of nodes.
-
-	The same two turns build the ecliptic and Galactic frames of Chapter~\ref{ch:coords}, and in rigid-body mechanics they are the Euler angles. Only geometry enters here, so none of the six principles is used. The two turns give the matrix from the sky frame to the orbital frame, the orbit as projected on the sky, and the six orbital elements.
+	The hoop in numbers. A circle of radius $1$ tilted by $\iota=60^\circ$ about a line through its centre appears as an ellipse with semi-axes $1$ and $\cos60^\circ=0.5$. Lengths along the hinge stay the same and lengths across it shrink by $\cos\iota$. 	The picture is two planes, the orbit and the sky, joined at a hinge along the line of nodes. 	The same two turns build the ecliptic and Galactic frames of Chapter~\ref{ch:coords}, and in rigid-body mechanics they are the Euler angles. Only geometry enters here, so none of the six principles is used. The two turns give the matrix from the sky frame to the orbital frame, the orbit as projected on the sky, and the six orbital elements.
 
 	\paragraph{The sky frame.} Fix an equatorial (reference) frame with the vernal equinox $\hat\gamma$ along $X$ and celestial north $\hat N$ along $Z$, and let $\hat Y$ complete the right-handed triad. For a source at right ascension $\alpha$ and declination $\delta$, the line of sight from the observer to the source is (Chapter~\ref{ch:coords}, Eq.~\eqref{eq:unit_vector_eq})
 	\[
@@ -237,19 +221,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Planar Motion and Kepler's Second Law}
 	\label{tb:sec:planar}
 
-	We have a conserved angular momentum, and with it an orbit that stays in one plane.
+	We have a conserved angular momentum, and with it an orbit that stays in one plane. 	Conservation alone does not say how fast the body moves at each point of its path.
 
-	Conservation alone does not say how fast the body moves at each point of its path.
+	A ball slides on a smooth table, tied to a string that passes down through a small hole. Pull the string from below and the ball circles faster as its circle shrinks. The string pulls only towards the hole, so it never pushes the ball sideways. What stays fixed is the distance from the hole times the sideways speed. 	A planet does the same. It moves fastest where it is nearest the Sun. The idea is that the area swept by the line from the Sun to the planet grows at a fixed rate, $L/(2\mu)$.
 
-	A ball slides on a smooth table, tied to a string that passes down through a small hole. Pull the string from below and the ball circles faster as its circle shrinks. The string pulls only towards the hole, so it never pushes the ball sideways. What stays fixed is the distance from the hole times the sideways speed.
-
-	A planet does the same. It moves fastest where it is nearest the Sun. The idea is that the area swept by the line from the Sun to the planet grows at a fixed rate, $L/(2\mu)$.
-
-	The Earth in numbers. It is $0.983\,\mathrm{AU}$ from the Sun at perihelion in January and $1.017\,\mathrm{AU}$ at aphelion in July. At both points the velocity is perpendicular to the radius, so the distance times the speed is the same at both. The Earth is therefore $1.017/0.983=1.035$ times faster in January, about $3.5$ per cent.
-
-	The picture is a fan of thin triangles with a common tip at the Sun, long and narrow far away and short and wide nearby, all of the same area.
-
-	The same conservation of angular momentum (P1) spins up a skater who pulls in her arms, and spins up a collapsing cloud until it flattens into a disk (Section~\ref{sg:sec:rotation}). It holds for any central force, not only gravity. It gives Kepler's second law and the single radial equation that the rest of the chapter solves.
+	The Earth in numbers. It is $0.983\,\mathrm{AU}$ from the Sun at perihelion in January and $1.017\,\mathrm{AU}$ at aphelion in July. At both points the velocity is perpendicular to the radius, so the distance times the speed is the same at both. The Earth is therefore $1.017/0.983=1.035$ times faster in January, about $3.5$ per cent. 	The picture is a fan of thin triangles with a common tip at the Sun, long and narrow far away and short and wide nearby, all of the same area. 	The same conservation of angular momentum (P1) spins up a skater who pulls in her arms, and spins up a collapsing cloud until it flattens into a disk (Section~\ref{sg:sec:rotation}). It holds for any central force, not only gravity. It gives Kepler's second law and the single radial equation that the rest of the chapter solves.
 
 	\paragraph{Areal velocity.} In a time $dt$ the radius vector moves from $\vecr$ to $\vecr+\dot{\vecr}\,dt$ and sweeps a thin triangle. Its area is half the size of the cross product of its two sides,
 	\begin{equation}
@@ -282,8 +258,8 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	The same rates follow from the Christoffel symbols of polar coordinates, $\nabla_{\mu}\mathbf{e}_{\nu}=\Gamma^{\alpha}_{\mu\nu}\mathbf{e}_{\alpha}$. With $\Gamma^{\phi}_{\phi r}=1/r$ and the coordinate basis vector $\mathbf e_\phi=r\phihat$, we get $\dot{\rhat}=\dot{\phi}\,\Gamma_{\phi r}^{\mu}\mathbf{e}_{\mu}=\dot{\phi}\,\mathbf{e}_{\phi}/r=\dot{\phi}\,\phihat$.
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=0.5\linewidth]{3D_Spherical.png}
-		\caption{Spherical polar coordinates and their unit vectors.}
+		\includegraphics{fig_ch6_polar_plane.pdf}
+		\caption{The orbit plane, with $X$ along $\hatn$ and $Z$ along $\vec L$ out of the page, the body at distance $r$ and angle $\phi$ on a piece of its orbit (grey), and the unit vectors $\rhat$ and $\phihat$ at the body.}
 		\label{fig:3D_spherical}
 	\end{figure}
 	Equation \eqref{eq:relEOM}, with $\nabla V=V'(r)\rhat$, splits into radial and tangential parts,
@@ -308,19 +284,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{The Orbit Equation}
 	\label{tb:sec:orbit_equation}
 
-	We have one radial equation, \eqref{eq:radial_reduced}, with time as the variable.
+	We have one radial equation, \eqref{eq:radial_reduced}, with time as the variable. 	For a closed orbit the first thing we want is its shape, the curve $r(\phi)$. Time only gets in the way.
 
-	For a closed orbit the first thing we want is its shape, the curve $r(\phi)$. Time only gets in the way.
+	A hiker's track drawn on a map shows the whole route without saying how fast she walked. Each point of the route is named by where it is, not by when she was there. 	The angle $\phi$ of an orbit grows steadily, since $\dot\phi=L/(\mu r^2)>0$ whenever $L\ne0$. So $\phi$ can replace $t$ as the clock. The idea is to change the variable from $t$ to $\phi$ and to write $\rho=1/r$. For gravity the equation then becomes linear.
 
-	A hiker's track drawn on a map shows the whole route without saying how fast she walked. Each point of the route is named by where it is, not by when she was there.
-
-	The angle $\phi$ of an orbit grows steadily, since $\dot\phi=L/(\mu r^2)>0$ whenever $L\ne0$. So $\phi$ can replace $t$ as the clock. The idea is to change the variable from $t$ to $\phi$ and to write $\rho=1/r$. For gravity the equation then becomes linear.
-
-	The smallest example is a circle, where $\rho$ is constant and $d^2\rho/d\phi^2=0$. For gravity the orbit equation \eqref{eq:orbiteq} below then gives $\rho=GM\mu^2/L^2$, a circle of radius $(L/\mu)^2/GM$. For the Earth, $L/\mu=r\,|\dot{\vecr}|=1.496\times10^{11}\,\mathrm m\times29.78\,\mathrm{km\,s^{-1}}=4.455\times10^{15}\,\mathrm{m^2\,s^{-1}}$, and with $GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$ the radius is $1.000\,\mathrm{AU}$, as it must be.
-
-	The picture is the orbit drawn on paper with no clock marks along it.
-
-	The same change of variable, Binet's, gives the bending of light and the turning of Mercury's orbit in general relativity. Here it uses only the conservation of $L$ (P1). It gives an equation for the shape of the orbit in any central potential.
+	The smallest example is a circle, where $\rho$ is constant and $d^2\rho/d\phi^2=0$. For gravity the orbit equation \eqref{eq:orbiteq} below then gives $\rho=GM\mu^2/L^2$, a circle of radius $(L/\mu)^2/GM$. For the Earth, $L/\mu=r\,|\dot{\vecr}|=1.496\times10^{11}\,\mathrm m\times29.78\,\mathrm{km\,s^{-1}}=4.455\times10^{15}\,\mathrm{m^2\,s^{-1}}$, and with $GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$ the radius is $1.000\,\mathrm{AU}$, as it must be. 	The picture is the orbit drawn on paper with no clock marks along it. 	The same change of variable, Binet's, gives the bending of light and the turning of Mercury's orbit in general relativity. Here it uses only the conservation of $L$ (P1). It gives an equation for the shape of the orbit in any central potential.
 
 	\paragraph{From time to angle.} Using Eq.~\eqref{eq:phidot}, $\dfrac{dr}{dt}=\dot\phi\dfrac{dr}{d\phi}=\dfrac{L}{\mu r^2}\dfrac{dr}{d\phi}$, and
 	\begin{align}
@@ -359,19 +327,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Keplerian Orbits}
 	\label{tb:sec:kepler_orbits}
 
-	The orbit equation \eqref{eq:orbiteq} holds for any central force.
+	The orbit equation \eqref{eq:orbiteq} holds for any central force. 	For gravity we want the actual shape, and we want to know whether the orbit closes on itself.
 
-	For gravity we want the actual shape, and we want to know whether the orbit closes on itself.
+	Hang a weight on a spring. Gravity pulls it down with a constant force, and the weight bobs up and down exactly as it would without gravity. The only change is that it bobs about a lower rest point. A constant force on an oscillator just moves the centre of the oscillation. 	For gravity the orbit equation is that spring, with $\phi$ as the time. The idea is that $\rho=1/r$ oscillates about a constant value, once per turn of $\phi$, so the orbit closes and is a conic section.
 
-	Hang a weight on a spring. Gravity pulls it down with a constant force, and the weight bobs up and down exactly as it would without gravity. The only change is that it bobs about a lower rest point. A constant force on an oscillator just moves the centre of the oscillation.
-
-	For gravity the orbit equation is that spring, with $\phi$ as the time. The idea is that $\rho=1/r$ oscillates about a constant value, once per turn of $\phi$, so the orbit closes and is a conic section.
-
-	The spring in numbers. A mass of $1\,\mathrm{kg}$ on a spring of stiffness $100\,\mathrm{N\,m^{-1}}$ hangs $9.8\,\mathrm{cm}$ lower than the unstretched spring would put it, and oscillates about that point with the same period, $2\pi\sqrt{1/100}\,\mathrm s=0.63\,\mathrm s$, as it would in free space.
-
-	The picture is $\rho$ plotted against $\phi$, a cosine wave riding on a constant level, with one wave per turn.
-
-	Only the $1/r$ potential and the harmonic potential give closed orbits for every bound motion (Bertrand's theorem). In the hydrogen atom the same fact shows up as the equal energies of states with the same principal quantum number. The pull of a spherical star or planet is that of a point at its centre (P2), so the result holds for real stars and planets, not only for points. It gives the conic $r(\phi)$, its axes, and Kepler's first law.
+	The spring in numbers. A mass of $1\,\mathrm{kg}$ on a spring of stiffness $100\,\mathrm{N\,m^{-1}}$ hangs $9.8\,\mathrm{cm}$ lower than the unstretched spring would put it, and oscillates about that point with the same period, $2\pi\sqrt{1/100}\,\mathrm s=0.63\,\mathrm s$, as it would in free space. 	The picture is $\rho$ plotted against $\phi$, a cosine wave riding on a constant level, with one wave per turn. 	Only the $1/r$ potential and the harmonic potential give closed orbits for every bound motion (Bertrand's theorem). In the hydrogen atom the same fact shows up as the equal energies of states with the same principal quantum number. The pull of a spherical star or planet is that of a point at its centre (P2), so the result holds for real stars and planets, not only for points. It gives the conic $r(\phi)$, its axes, and Kepler's first law.
 
 	\paragraph{The conic.} For Newtonian gravity $V(r)=-GM\mu/r$, so $V'(r)=GM\mu/r^2=GM\mu\rho^2$. Equation \eqref{eq:orbiteq} becomes
 	\[
@@ -438,19 +398,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Energy and Angular Momentum in Terms of \texorpdfstring{$a,e$}{a,e}}
 	\label{tb:sec:EL_ae}
 
-	We have the shape of the orbit, with constants $\lambda$ and $e$, and two conserved numbers, $E$ and $L$.
+	We have the shape of the orbit, with constants $\lambda$ and $e$, and two conserved numbers, $E$ and $L$. 	The shape constants came out of solving a differential equation. We do not yet know how they depend on $E$ and $L$.
 
-	The shape constants came out of solving a differential equation. We do not yet know how they depend on $E$ and $L$.
+	A child on a swing stops for a moment at the top of each swing. There all of the energy is height, so the height of the swing tells us the energy without any need to know the speed elsewhere. 	An orbit has two such turning points of $r$, the periapsis and the apoapsis, where $\dot r=0$. The idea is to evaluate the conserved $E$ at a turning point. The size $a$ then depends on $E$ alone, and $e$ on $E$ and $L$.
 
-	A child on a swing stops for a moment at the top of each swing. There all of the energy is height, so the height of the swing tells us the energy without any need to know the speed elsewhere.
-
-	An orbit has two such turning points of $r$, the periapsis and the apoapsis, where $\dot r=0$. The idea is to evaluate the conserved $E$ at a turning point. The size $a$ then depends on $E$ alone, and $e$ on $E$ and $L$.
-
-	The swing in numbers. A child of $20\,\mathrm{kg}$ who rises $0.5\,\mathrm m$ has $E=20\times9.8\times0.5=98\,\mathrm J$ more than at rest, and passes the bottom at $\sqrt{2\times9.8\times0.5}=3.1\,\mathrm{m\,s^{-1}}$.
-
-	The picture is the two ends of the ellipse, where the body moves straight across the radius.
-
-	The same turning points are the roots of the effective potential in Problem~5. In the hydrogen atom the energy depends only on the principal quantum number, the quantum form of $E$ depending only on $a$. The whole calculation is P1. It gives $E$, $L$ and the speed in terms of $a$ and $e$, and the inverse.
+	The swing in numbers. A child of $20\,\mathrm{kg}$ who rises $0.5\,\mathrm m$ has $E=20\times9.8\times0.5=98\,\mathrm J$ more than at rest, and passes the bottom at $\sqrt{2\times9.8\times0.5}=3.1\,\mathrm{m\,s^{-1}}$. 	The picture is the two ends of the ellipse, where the body moves straight across the radius. 	The same turning points are the roots of the effective potential in Problem~5. In the hydrogen atom the energy depends only on the principal quantum number, the quantum form of $E$ depending only on $a$. The whole calculation is P1. It gives $E$, $L$ and the speed in terms of $a$ and $e$, and the inverse.
 
 	\subsection{Energy}
 	Writing the energy in polar coordinates,
@@ -533,19 +485,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{True and Eccentric Anomaly; Kepler's Equation}
 	\label{tb:sec:anomalies}
 
-	We have the shape $r(\phi)$ and the size of the orbit from its energy.
+	We have the shape $r(\phi)$ and the size of the orbit from its energy. 	The shape alone does not say where the body is at a given time, and that is what an observer needs to point a telescope or predict an eclipse.
 
-	The shape alone does not say where the body is at a given time, and that is what an observer needs to point a telescope or predict an eclipse.
+	Draw a clock face on a rubber sheet and stretch the sheet in one direction. The hour marks move, and the angles measured on the stretched sheet are no longer $30^\circ$ apart. But each mark can still be named by its old angle on the unstretched face, and with that name the arithmetic stays simple. 	An ellipse is a circle of radius $a$ squashed by the factor $b/a$ across its major axis. A point on the ellipse at $(a\cos u,\,b\sin u)$ from the centre is named by the angle $u$ on that circle, the \textbf{eccentric anomaly}. The idea is that with $r=a(1-e\cos u)$ the time integral of the orbit becomes elementary.
 
-	Draw a clock face on a rubber sheet and stretch the sheet in one direction. The hour marks move, and the angles measured on the stretched sheet are no longer $30^\circ$ apart. But each mark can still be named by its old angle on the unstretched face, and with that name the arithmetic stays simple.
-
-	An ellipse is a circle of radius $a$ squashed by the factor $b/a$ across its major axis. A point on the ellipse at $(a\cos u,\,b\sin u)$ from the centre is named by the angle $u$ on that circle, the \textbf{eccentric anomaly}. The idea is that with $r=a(1-e\cos u)$ the time integral of the orbit becomes elementary.
-
-	The ellipse in numbers. For $e=0.5$ and $u=90^\circ$, the body is at $r=a(1-0)=a$. Its true anomaly follows from Eq.~\eqref{tb:eq:cosv} below, $\cos v=(0-0.5)/(1-0)=-0.5$, so $v=120^\circ$. Seen from the focus the body is $120^\circ$ round from periapsis, while on the circle it is $90^\circ$ round.
-
-	The picture is the ellipse inside its circumscribed circle, with a line across the major axis joining the body to the circle and the angle $u$ drawn at the centre.
-
-	The same parameter $x=a\cos u$, $y=b\sin u$ describes any ellipse in geometry, and in calculus the same substitution removes the square root of a quadratic from an integral. For a hyperbola $\cosh$ and $\sinh$ take the place of $\cos$ and $\sin$. The integrand comes from $E$ and $L$ (P1). The result is the time $t(u)$, the true anomaly $v(u)$, and the same for hyperbolic orbits.
+	The ellipse in numbers. For $e=0.5$ and $u=90^\circ$, the body is at $r=a(1-0)=a$. Its true anomaly follows from Eq.~\eqref{tb:eq:cosv} below, $\cos v=(0-0.5)/(1-0)=-0.5$, so $v=120^\circ$. Seen from the focus the body is $120^\circ$ round from periapsis, while on the circle it is $90^\circ$ round. 	The picture is the ellipse inside its circumscribed circle, with a line across the major axis joining the body to the circle and the angle $u$ drawn at the centre. 	The same parameter $x=a\cos u$, $y=b\sin u$ describes any ellipse in geometry, and in calculus the same substitution removes the square root of a quadratic from an integral. For a hyperbola $\cosh$ and $\sinh$ take the place of $\cos$ and $\sin$. The integrand comes from $E$ and $L$ (P1). The result is the time $t(u)$, the true anomaly $v(u)$, and the same for hyperbolic orbits.
 
 	\paragraph{The time integral.} We now want $r(t)$, and hence $\phi(t)$, not just $r(\phi)$. Solving the energy \eqref{tb:eq:energy_polar} for $\dot r$,
 	\begin{align}
@@ -643,19 +587,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Kepler's Third Law}
 	\label{tb:sec:kepler3}
 
-	We have the time $t(u)$ along an elliptical orbit, Eq.~\eqref{tb:eq:t_of_u}.
+	We have the time $t(u)$ along an elliptical orbit, Eq.~\eqref{tb:eq:t_of_u}. 	What we usually measure first for a binary or a planet is the period, the one time scale of the orbit.
 
-	What we usually measure first for a binary or a planet is the period, the one time scale of the orbit.
+	A pendulum clock is set by the length of its pendulum alone. A longer pendulum swings more slowly, in a fixed way, whatever the size of its swing. 	An orbit is set the same way by its semi-major axis alone. The idea is that one full turn of $u$ is one period, and the eccentricity drops out.
 
-	A pendulum clock is set by the length of its pendulum alone. A longer pendulum swings more slowly, in a fixed way, whatever the size of its swing.
-
-	An orbit is set the same way by its semi-major axis alone. The idea is that one full turn of $u$ is one period, and the eccentricity drops out.
-
-	The Earth in numbers. With $a=1\,\mathrm{AU}$ and $GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$, the period $2\pi\sqrt{a^3/GM}$ below is $365.26$ days. Mars, at $a=1.524\,\mathrm{AU}$, takes $1.524^{3/2}=1.881$ years.
-
-	The picture is two ellipses with the same major axis, one round and one thin, that are run round in the same time.
-
-	The same law weighs the Earth from the Moon's orbit, the stars of a binary (Problem~9) and the dark halo of a galaxy (Problem~10). With zero angular momentum it gives the free-fall time of a collapsing cloud (Section~\ref{sg:sec:freefall}). It combines P1 and P2. It gives the mean motion $n$ and $n^2a^3=GM$.
+	The Earth in numbers. With $a=1\,\mathrm{AU}$ and $GM_\odot=1.327\times10^{20}\,\mathrm{m^3\,s^{-2}}$, the period $2\pi\sqrt{a^3/GM}$ below is $365.26$ days. Mars, at $a=1.524\,\mathrm{AU}$, takes $1.524^{3/2}=1.881$ years. 	The picture is two ellipses with the same major axis, one round and one thin, that are run round in the same time. 	The same law weighs the Earth from the Moon's orbit, the stars of a binary (Problem~9) and the dark halo of a galaxy (Problem~10). With zero angular momentum it gives the free-fall time of a collapsing cloud (Section~\ref{sg:sec:freefall}). It combines P1 and P2. It gives the mean motion $n$ and $n^2a^3=GM$.
 
 	\paragraph{The period.} In one complete orbit $u$ advances by $2\pi$, while $t$ advances by the orbital period $P$. We define the \textbf{mean motion} $n\equiv2\pi/P$, the mean angular rate. From Eq.~\eqref{tb:eq:t_of_u},
 	\begin{equation}
@@ -668,19 +604,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Kepler's Equation}
 	\label{sec:kepler_equation}
 
-	We have $t$ as a function of $u$, and the mean motion $n$.
+	We have $t$ as a function of $u$, and the mean motion $n$. 	An observer has the time $t$ and needs the position, so the relation must be run the other way.
 
-	An observer has the time $t$ and needs the position, so the relation must be run the other way.
+	Two runners start together on a circular track. One keeps a steady pace. The other speeds up on one side of the track and slows down on the other, and both finish the lap together. The steady runner's position is easy to give at any time, and the other's position can be named by how far ahead or behind the steady one she is. 	For an orbit the steady runner is a fictitious body moving round at the mean rate $n$, like the mean Sun of Chapter~\ref{ch:time}. Its angle is the \textbf{mean anomaly} $\ell=n(t-t_0)$. The idea is that Kepler's equation ties $\ell$ to the real body's eccentric anomaly $u$.
 
-	Two runners start together on a circular track. One keeps a steady pace. The other speeds up on one side of the track and slows down on the other, and both finish the lap together. The steady runner's position is easy to give at any time, and the other's position can be named by how far ahead or behind the steady one she is.
-
-	For an orbit the steady runner is a fictitious body moving round at the mean rate $n$, like the mean Sun of Chapter~\ref{ch:time}. Its angle is the \textbf{mean anomaly} $\ell=n(t-t_0)$. The idea is that Kepler's equation ties $\ell$ to the real body's eccentric anomaly $u$.
-
-	The runners in numbers. For $e=0.5$, a quarter of a period after periapsis the mean anomaly is $\ell=90^\circ$. Solving $u-0.5\sin u=\pi/2$ gives $u=115.8^\circ$, and Eq.~\eqref{tb:eq:cosv} gives $v=140.2^\circ$. The real body is $50^\circ$ ahead of the mean one.
-
-	The picture is the steady runner and the real one on the same track, the real one ahead in the first half of the lap and behind in the second.
-
-	The same mean body gives the equation of time in Chapter~\ref{ch:time}. Nothing new enters beyond P1, through Kepler's second law. It gives Kepler's equation for ellipses and hyperbolas.
+	The runners in numbers. For $e=0.5$, a quarter of a period after periapsis the mean anomaly is $\ell=90^\circ$. Solving $u-0.5\sin u=\pi/2$ gives $u=115.8^\circ$, and Eq.~\eqref{tb:eq:cosv} gives $v=140.2^\circ$. The real body is $50^\circ$ ahead of the mean one. 	The picture is the steady runner and the real one on the same track, the real one ahead in the first half of the lap and behind in the second. 	The same mean body gives the equation of time in Chapter~\ref{ch:time}. Nothing new enters beyond P1, through Kepler's second law. It gives Kepler's equation for ellipses and hyperbolas.
 
 	\paragraph{Mean anomaly.} Defining the \textbf{mean anomaly} $\ell\equiv n(t-t_0)$,
 	\begin{equation}
@@ -752,6 +680,7 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	A body that passes a planet or a star once, on an unbound orbit with $e>1$, is described by a few numbers read off the hyperbola. We find the speed far away, the angle of the asymptotes, the closest approach, the miss distance and the angle of the velocity. Problem~12 uses them for a flyby of Jupiter.
 
 	\textbf{Hyperbolic excess speed} $v_\infty$. Far away $r\to\infty$ and $V\to0$, so the energy is all kinetic. From $\tfrac12\mu\dot{\vecr}_\infty^2 = E=-GM\mu/(2a)$, with $a<0$,
+
 	\begin{equation}
 		v_\infty\equiv|\dot{\vecr}_\infty| = \sqrt{-\frac{GM}{a}}. \label{eq:vinf}
 	\end{equation}
@@ -785,19 +714,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Fourier Solution of Kepler's Equation}
 	\label{sec:bessel}
 
-	Kepler's equation gives $\ell$ from $u$ in one line, but going from $\ell$ to $u$ takes an iteration (Problem~3).
+	Kepler's equation gives $\ell$ from $u$ in one line, but going from $\ell$ to $u$ takes an iteration (Problem~3). 	For work by hand, in perturbation theory or for small $e$, we want $u$ as an explicit function of $\ell$.
 
-	For work by hand, in perturbation theory or for small $e$, we want $u$ as an explicit function of $\ell$.
+	A musician who hears a steady beat that is slightly uneven can describe it as the beat plus a few overtones. Anything that repeats can be written as a sum of sines of the repeat frequency and its multiples. 	The difference $u-\ell=e\sin u$ repeats every orbit, and it changes sign with $\ell$. So it is a sum of $\sin(s\ell)$. The idea is to find the coefficients by changing the variable of the integral from $\ell$ to $u$, where Kepler's equation makes it simple.
 
-	A musician who hears a steady beat that is slightly uneven can describe it as the beat plus a few overtones. Anything that repeats can be written as a sum of sines of the repeat frequency and its multiples.
-
-	The difference $u-\ell=e\sin u$ repeats every orbit, and it changes sign with $\ell$. So it is a sum of $\sin(s\ell)$. The idea is to find the coefficients by changing the variable of the integral from $\ell$ to $u$, where Kepler's equation makes it simple.
-
-	The series in numbers. For $e=0.1$, the first term below is $2J_1(0.1)\sin\ell=0.0999\sin\ell$, close to $e\sin\ell$. The second is $J_2(0.2)\sin2\ell=0.0050\sin2\ell$, close to $\tfrac12e^2\sin2\ell$. The terms fall off as powers of $e$.
-
-	The picture is the straight line $u=\ell$ with a small wave on top of it, one wave per orbit.
-
-	The same Bessel functions give the sidebands of a frequency-modulated radio signal and the diffraction pattern of a circular aperture (Chapter~\ref{ch:resolution}). Here they come from pure analysis, with $e$ as the small number (P6). The result is $u(\ell)$ as a series.
+	The series in numbers. For $e=0.1$, the first term below is $2J_1(0.1)\sin\ell=0.0999\sin\ell$, close to $e\sin\ell$. The second is $J_2(0.2)\sin2\ell=0.0050\sin2\ell$, close to $\tfrac12e^2\sin2\ell$. The terms fall off as powers of $e$. 	The picture is the straight line $u=\ell$ with a small wave on top of it, one wave per orbit. 	The same Bessel functions give the sidebands of a frequency-modulated radio signal and the diffraction pattern of a circular aperture (Chapter~\ref{ch:resolution}). Here they come from pure analysis, with $e$ as the small number (P6). The result is $u(\ell)$ as a series.
 
 	\paragraph{The coefficients.} Kepler's equation $u-\ell=e\sin u$ is solved as a Fourier series in $\ell$,
 	\[
@@ -827,20 +748,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{The Laplace--Runge--Lenz Vector}
 	\label{tb:sec:runge_lenz}
 	
-	The energy and the angular momentum fix four of the six elements, $a$, $e$, $\iota$ and $\Omega$.
-	
-	They do not say where the periapsis points within the plane. The angle $\omega$ came out of solving the orbit equation, not from anything conserved. Yet the ellipse of a $1/r$ potential does not turn, so something must hold its long axis in place.
-	
-	A marble rolling round the inside of a salad bowl traces a loop that slowly turns, a rosette. In a bowl where the restoring force is exactly proportional to the distance from the centre, the loop closes on itself and its long axis stays put. Energy and angular momentum are the same in both bowls, so in the second something more is conserved.
-	
-	The Kepler ellipse does not turn either. The idea is that a conserved vector $\vecA$ points from the focus to the periapsis, and its direction gives $\omega$.
-	
-	The Earth in numbers. Its orbit has $e=0.0167$. In units of $GM\mu^2$ the vector $\vecA$ is an arrow of length $0.0167$ pointing to the perihelion, which the Earth passes in early January.
-	
-	The picture is an arrow from the focus to the periapsis that stays fixed while the body goes round.
-	
-	In the hydrogen atom the same vector, made into an operator, explains why states of equal principal quantum number have equal energy. A small extra force turns $\vecA$ slowly, which is the precession of an orbit (Section~\ref{sec:perturbed_orbits}). Its conservation is P1 together with the $1/r^2$ law (P2). It gives a fifth conserved quantity, its direction and size, and a count of the new information it carries.
-	
+	The energy and the angular momentum fix four of the six elements, $a$, $e$, $\iota$ and $\Omega$. 	They do not say where the periapsis points within the plane. The angle $\omega$ came out of solving the orbit equation, not from anything conserved. Yet the ellipse of a $1/r$ potential does not turn, so something must hold its long axis in place.
+
+	A marble rolling round the inside of a salad bowl traces a loop that slowly turns, a rosette. In a bowl where the restoring force is exactly proportional to the distance from the centre, the loop closes on itself and its long axis stays put. Energy and angular momentum are the same in both bowls, so in the second something more is conserved. 	The Kepler ellipse does not turn either. The idea is that a conserved vector $\vecA$ points from the focus to the periapsis, and its direction gives $\omega$.
+
+	The Earth in numbers. Its orbit has $e=0.0167$. In units of $GM\mu^2$ the vector $\vecA$ is an arrow of length $0.0167$ pointing to the perihelion, which the Earth passes in early January. 	The picture is an arrow from the focus to the periapsis that stays fixed while the body goes round. 	In the hydrogen atom the same vector, made into an operator, explains why states of equal principal quantum number have equal energy. A small extra force turns $\vecA$ slowly, which is the precession of an orbit (Section~\ref{sec:perturbed_orbits}). Its conservation is P1 together with the $1/r^2$ law (P2). It gives a fifth conserved quantity, its direction and size, and a count of the new information it carries.
+
 	\paragraph{Conservation.} Define $\vecA \equiv \vecp\times\vecL - GM\mu^2\rhat$, with $\vecp=\mu\dot{\vecr}$. For the pure Kepler problem,
 	\begin{align}
 	\dot{\vecA}
@@ -918,20 +831,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Perturbed Orbits}
 	\label{sec:perturbed_orbits}
 	
-	The Kepler orbit is exact for two point masses alone in space.
-	
-	Real orbits feel other forces as well. The other planets tug on each one, a flattened planet pulls its satellites off the inverse square, gas drags on low satellites, an engine pushes a spacecraft, and general relativity adds a small extra pull. The orbit is then no longer a fixed ellipse.
-	
-	A navigator on a ship in a slow current plots, each hour, the course the ship would follow in still water from where it is now and how it is moving now. The current shifts that course a little from one hour to the next. The ship's true track is a chain of these still-water courses, each one touching the track for a moment.
-	
-	A planet tugged by the others is the ship. At each instant it moves on some Kepler ellipse that fits its present position and velocity, and the elements of that ellipse drift. The idea is to describe the true path by a Kepler ellipse whose elements change, at rates set by the extra force.
-	
-	Mercury in numbers. Its perihelion turns by about $575''$ per century against the stars. About $532''$ of this comes from the pull of the other planets and $43''$ from general relativity. Mercury makes about $415$ orbits in a century, so the ellipse turns by about $1.4''$ per orbit, while its size and shape barely change.
-	
-	The picture is an ellipse that turns slowly, so that the path traced over many orbits is a rosette.
-	
-	The same method is the variation of constants for a forced oscillator, and in quantum mechanics it is the interaction picture, where the constants of the free motion change slowly under a weak perturbation. The rates come from conservation (P1). That the extra force is small, and that its effects can be ordered by powers of it, is P6. It gives exact rates for $E$, $\vecL$ and $\vecA$, and the osculating orbit that turns them into rates of the elements.
-	
+	The Kepler orbit is exact for two point masses alone in space. 	Real orbits feel other forces as well. The other planets tug on each one, a flattened planet pulls its satellites off the inverse square, gas drags on low satellites, an engine pushes a spacecraft, and general relativity adds a small extra pull. The orbit is then no longer a fixed ellipse.
+
+	A navigator on a ship in a slow current plots, each hour, the course the ship would follow in still water from where it is now and how it is moving now. The current shifts that course a little from one hour to the next. The ship's true track is a chain of these still-water courses, each one touching the track for a moment. 	A planet tugged by the others is the ship. At each instant it moves on some Kepler ellipse that fits its present position and velocity, and the elements of that ellipse drift. The idea is to describe the true path by a Kepler ellipse whose elements change, at rates set by the extra force.
+
+	Mercury in numbers. Its perihelion turns by about $575''$ per century against the stars. About $532''$ of this comes from the pull of the other planets and $43''$ from general relativity. Mercury makes about $415$ orbits in a century, so the ellipse turns by about $1.4''$ per orbit, while its size and shape barely change. 	The picture is an ellipse that turns slowly, so that the path traced over many orbits is a rosette. 	The same method is the variation of constants for a forced oscillator, and in quantum mechanics it is the interaction picture, where the constants of the free motion change slowly under a weak perturbation. The rates come from conservation (P1). That the extra force is small, and that its effects can be ordered by powers of it, is P6. It gives exact rates for $E$, $\vecL$ and $\vecA$, and the osculating orbit that turns them into rates of the elements.
+
 	\paragraph{Equation of motion.} We add a force $\vec F$ to the relative equation of motion,
 	\begin{equation}
 		\boxed{
@@ -1269,20 +1174,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Planar perturbations}
 	\label{tb:sec:planar_pert}
 	
-	We have exact rates for $E$, $\vecL$ and $\vecA$ under any extra force.
-	
-	To follow an orbit we need the rates of the elements $a$, $e$ and $\omega$ themselves, written with the parts of the force along and across the radius.
-	
-	Pushing a child on a swing adds energy only if the push is along the motion. A push at the top of the swing, where the child is at rest, does no work at all. When and in which direction we push decides what changes.
-	
-	An orbit is the same. A push along the motion changes the energy and so the size $a$. A push along the radius at the periapsis, where $\dot r=0$, does no work, but it still changes the shape and turns the ellipse. The idea is to split $\vec F$ into its radial and angular parts and read off $\dot a$, $\dot e$ and $\dot\omega$ from the exact rates. These are the planar \textbf{Gauss equations}.
-	
-	A thruster in numbers. A spacecraft on a circular orbit of radius $a=2.03\times10^{4}\,\mathrm{km}$ about the Earth fires an engine giving $0.2\,\mathrm{m\,s^{-2}}$ along its motion (Problem~8). Eq.~\eqref{eq:gauss_planar_a} below with $e=0$ gives $\dot a=2\,(F_\phi/\mu)\sqrt{a^3/GM_\oplus}=1.8\,\mathrm{km\,s^{-1}}$, so the orbit starts to grow by almost $2\,\mathrm{km}$ every second.
-	
-	The picture is the force arrow at one point of the orbit, split into a part along the radius and a part across it.
-	
-	The same equations follow satellite drag, the push of sunlight on a solar sail, and the slow shrinking of a binary pulsar's orbit as it radiates gravitational waves (Section~\ref{cs:sec:hulse_taylor}). They combine the conservation laws (P1) with the smallness of the force (P6). They give $\dot a$, $\dot e$, $\dot\omega$ and $\dot v$ for any force in the plane.
-	
+	We have exact rates for $E$, $\vecL$ and $\vecA$ under any extra force. 	To follow an orbit we need the rates of the elements $a$, $e$ and $\omega$ themselves, written with the parts of the force along and across the radius.
+
+	Pushing a child on a swing adds energy only if the push is along the motion. A push at the top of the swing, where the child is at rest, does no work at all. When and in which direction we push decides what changes. 	An orbit is the same. A push along the motion changes the energy and so the size $a$. A push along the radius at the periapsis, where $\dot r=0$, does no work, but it still changes the shape and turns the ellipse. The idea is to split $\vec F$ into its radial and angular parts and read off $\dot a$, $\dot e$ and $\dot\omega$ from the exact rates. These are the planar \textbf{Gauss equations}.
+
+	A thruster in numbers. A spacecraft on a circular orbit of radius $a=2.03\times10^{4}\,\mathrm{km}$ about the Earth fires an engine giving $0.2\,\mathrm{m\,s^{-2}}$ along its motion (Problem~8). Eq.~\eqref{eq:gauss_planar_a} below with $e=0$ gives $\dot a=2\,(F_\phi/\mu)\sqrt{a^3/GM_\oplus}=1.8\,\mathrm{km\,s^{-1}}$, so the orbit starts to grow by almost $2\,\mathrm{km}$ every second. 	The picture is the force arrow at one point of the orbit, split into a part along the radius and a part across it. 	The same equations follow satellite drag, the push of sunlight on a solar sail, and the slow shrinking of a binary pulsar's orbit as it radiates gravitational waves (Section~\ref{cs:sec:hulse_taylor}). They combine the conservation laws (P1) with the smallness of the force (P6). They give $\dot a$, $\dot e$, $\dot\omega$ and $\dot v$ for any force in the plane.
+
 	\paragraph{Force in the plane.} We take a perturbing force confined to the orbital plane,
 	\begin{equation}
 		\boxed{
@@ -1856,20 +1753,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Orbit-averaged evolution}
 	\label{tb:sec:averaged}
 	
-	The Gauss equations give the rates of the elements at each instant.
-	
-	Over one orbit most of that change goes forward and then back again. Over many orbits only the net drift matters, and the instantaneous rates hide it.
-	
-	The sea rises and falls twice a day with the tides. To see the sea level creep up over decades, we average over each day and watch how the daily average changes.
-	
-	The elements of an orbit wobble within each orbit in the same way. The idea is to average the rates over one unperturbed Kepler orbit. To first order in the force, what is left is the slow, \textbf{secular} drift.
-	
-	The example below in numbers. A small extra radial force $\chi/r^3$ with $\chi\mu/L^2=0.01$ turns the periapsis by $-\pi\times0.01=-0.031\,\mathrm{rad}=-1.8^\circ$ per orbit, while $a$ and $e$ return to their starting values after each orbit.
-	
-	The picture is a rate that swings up and down within each orbit around a small offset. The offset is the drift.
-	
-	The same averaging gives the mean Sun of Chapter~\ref{ch:time}, the adiabatic invariants of mechanics and the slow precession of the Earth's axis. It works because the orbital period is short compared with the time over which the elements change (P6). It gives the averaging rule and a worked example, checked against an exact solution.
-	
+	The Gauss equations give the rates of the elements at each instant. 	Over one orbit most of that change goes forward and then back again. Over many orbits only the net drift matters, and the instantaneous rates hide it.
+
+	The sea rises and falls twice a day with the tides. To see the sea level creep up over decades, we average over each day and watch how the daily average changes. 	The elements of an orbit wobble within each orbit in the same way. The idea is to average the rates over one unperturbed Kepler orbit. To first order in the force, what is left is the slow, \textbf{secular} drift.
+
+	The example below in numbers. A small extra radial force $\chi/r^3$ with $\chi\mu/L^2=0.01$ turns the periapsis by $-\pi\times0.01=-0.031\,\mathrm{rad}=-1.8^\circ$ per orbit, while $a$ and $e$ return to their starting values after each orbit. 	The picture is a rate that swings up and down within each orbit around a small offset. The offset is the drift. 	The same averaging gives the mean Sun of Chapter~\ref{ch:time}, the adiabatic invariants of mechanics and the slow precession of the Earth's axis. It works because the orbital period is short compared with the time over which the elements change (P6). It gives the averaging rule and a worked example, checked against an exact solution.
+
 	\paragraph{The average.} For any quantity $X$,
 	\begin{equation}
 		\boxed{
@@ -2430,20 +2319,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Nearly circular orbits}
 	\label{sec:nearly_circular}
 	
-	The Gauss equation \eqref{eq:gauss_planar_omega} for $\dot\omega$ carries a factor $1/e$.
-	
-	As $e\to0$ the periapsis loses its meaning, because a circle has no nearest point. Then $\dot\omega$ blows up, although nothing physical does.
-	
-	Ask which point of a round table is nearest the wall. For a table almost centred in the room the answer swings right round with the smallest nudge, while the nudge itself is tiny. It is better to give how far the table's centre has moved east and north. Those two numbers are always well defined and change smoothly.
-	
-	For an orbit the two numbers are the components of the eccentricity vector \eqref{tb:eq:ecc_vector}. The idea is to use $e_x=e\cos\omega$ and $e_y=e\sin\omega$ in place of $e$ and $\omega$. They go smoothly to zero with $e$, and the factor $1/e$ disappears.
-	
-	The table in numbers. Take $e=0.001$ and $\omega=0$, so $(e_x,e_y)=(0.001,0)$. A kick that adds $0.001$ to $e_y$ turns $\omega$ by $45^\circ$ and raises $e$ only to $0.0014$, while neither component changed by more than $0.001$.
-	
-	The picture is the tip of the vector $\vec e$ wandering near the origin of a plane. Its angle swings about wildly, but its position does not.
-	
-	The same trouble is the meaningless longitude at the Earth's pole (Chapter~\ref{ch:coords}), cured the same way by Cartesian components. Here $e$ is the small number and terms are kept to first order in it (P6). The result is $r$ and $\phi$ to first order in $e$, and the Gauss equations in $e_x$ and $e_y$.
-	
+	The Gauss equation \eqref{eq:gauss_planar_omega} for $\dot\omega$ carries a factor $1/e$. 	As $e\to0$ the periapsis loses its meaning, because a circle has no nearest point. Then $\dot\omega$ blows up, although nothing physical does.
+
+	Ask which point of a round table is nearest the wall. For a table almost centred in the room the answer swings right round with the smallest nudge, while the nudge itself is tiny. It is better to give how far the table's centre has moved east and north. Those two numbers are always well defined and change smoothly. 	For an orbit the two numbers are the components of the eccentricity vector \eqref{tb:eq:ecc_vector}. The idea is to use $e_x=e\cos\omega$ and $e_y=e\sin\omega$ in place of $e$ and $\omega$. They go smoothly to zero with $e$, and the factor $1/e$ disappears.
+
+	The table in numbers. Take $e=0.001$ and $\omega=0$, so $(e_x,e_y)=(0.001,0)$. A kick that adds $0.001$ to $e_y$ turns $\omega$ by $45^\circ$ and raises $e$ only to $0.0014$, while neither component changed by more than $0.001$. 	The picture is the tip of the vector $\vec e$ wandering near the origin of a plane. Its angle swings about wildly, but its position does not. 	The same trouble is the meaningless longitude at the Earth's pole (Chapter~\ref{ch:coords}), cured the same way by Cartesian components. Here $e$ is the small number and terms are kept to first order in it (P6). The result is $r$ and $\phi$ to first order in $e$, and the Gauss equations in $e_x$ and $e_y$.
+
 	\paragraph{The orbit to first order in $e$.} The components of the eccentricity vector along $\hatn$ and $\hat y$ are
 	\begin{equation}
 		\boxed{
@@ -2681,20 +2562,12 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 	\section{Rømer delay for a Keplerian binary}
 	\label{sec:romer}
 	
-	We have the position of each star in its orbit, and its distance along the line of sight, the $Z$ of Eq.~\eqref{tb:eq:sky_xyz}.
-	
-	For a pulsar in a binary we cannot see the position at all. What we measure is the arrival time of each pulse.
-	
-	A drummer marching to and fro along the line between us and a distant field beats a perfectly steady rhythm. We hear the beats bunch up as he comes towards us and spread out as he goes away, because the sound from the far end has farther to travel.
-	
-	A pulsar in a binary is the drummer, and its pulses are the beats. The idea is that each pulse arrives late by the extra light-travel distance $\vecx_1\cdot\hat R/c$, so the timing measures the line-of-sight coordinate of the orbit.
-	
-	The Earth in numbers. Light crosses $1\,\mathrm{AU}$ in $499\,\mathrm s$. A source in the plane of the Earth's orbit has its signals arrive up to $499\,\mathrm s$ early or late over a year, as the Earth moves towards it and away. R{\o}mer found the speed of light in 1676 from this delay in the eclipses of Jupiter's moon Io.
-	
-	The picture is the orbit seen edge on, with the pulsar moving nearer to us and farther away.
-	
-	The same delay, for the Earth's own orbit, is part of correcting every pulse arrival time to the centre of mass of the Solar System, and in a pulsar's timing it reveals planets around the pulsar. The orbit comes from P1 and P2, and the rest is geometry. It gives the delay in terms of the eccentric anomaly, and with it the masses of neutron stars in Chapter~\ref{ch:compact}.
-	
+	We have the position of each star in its orbit, and its distance along the line of sight, the $Z$ of Eq.~\eqref{tb:eq:sky_xyz}. 	For a pulsar in a binary we cannot see the position at all. What we measure is the arrival time of each pulse.
+
+	A drummer marching to and fro along the line between us and a distant field beats a perfectly steady rhythm. We hear the beats bunch up as he comes towards us and spread out as he goes away, because the sound from the far end has farther to travel. 	A pulsar in a binary is the drummer, and its pulses are the beats. The idea is that each pulse arrives late by the extra light-travel distance $\vecx_1\cdot\hat R/c$, so the timing measures the line-of-sight coordinate of the orbit.
+
+	The Earth in numbers. Light crosses $1\,\mathrm{AU}$ in $499\,\mathrm s$. A source in the plane of the Earth's orbit has its signals arrive up to $499\,\mathrm s$ early or late over a year, as the Earth moves towards it and away. R{\o}mer found the speed of light in 1676 from this delay in the eclipses of Jupiter's moon Io. 	The picture is the orbit seen edge on, with the pulsar moving nearer to us and farther away. 	The same delay, for the Earth's own orbit, is part of correcting every pulse arrival time to the centre of mass of the Solar System, and in a pulsar's timing it reveals planets around the pulsar. The orbit comes from P1 and P2, and the rest is geometry. It gives the delay in terms of the eccentric anomaly, and with it the masses of neutron stars in Chapter~\ref{ch:compact}.
+
 	\paragraph{The delay.} For a binary of component masses $m_1$ and $m_2$, $M=m_1+m_2$. Let $\vecr$ be the relative separation. The primary's position relative to the centre of mass is, by Section~\ref{sec:com_separation},
 	\begin{equation}
 		\vecx_1
@@ -2779,17 +2652,11 @@ The same split gives the reduced mass of the electron in the hydrogen atom. It a
 \section{Radial Velocities and Planets}
 \label{tb:sec:rv_planets}
 
-Problems~\ref{prob:sb2} and~\ref{tb:prob:los} found the velocity along the line of sight of a star in a binary. A star with a planet is a binary whose second member is too faint to see.
+Problems~\ref{prob:sb2} and~\ref{tb:prob:los} found the velocity along the line of sight of a star in a binary. A star with a planet is a binary whose second member is too faint to see. We see only the star, and only the part of its motion along our line of sight. The planet's own light is lost in the glare, a billion times fainter in visible light for a Jupiter beside a Sun, Eq.~\eqref{re:eq:reflect_ratio}.
 
-We see only the star, and only the part of its motion along our line of sight. The planet's own light is lost in the glare, a billion times fainter in visible light for a Jupiter beside a Sun, Eq.~\eqref{re:eq:reflect_ratio}.
+Think of a hammer thrower spinning with the hammer at arm's length. The thrower does not turn about their own middle. They lean back and circle a point between themselves and the hammer. Watching only the thrower from far away, you can still tell how heavy the hammer is, from how far and how fast the thrower swings. The star circles the centre of mass on a small copy of the relative orbit, Eq.~\eqref{tb:eq:body_paths}. As it swings toward and away from us its spectral lines shift back and forth (Chapter~\ref{ch:astrometry}). The shifts give its velocity along the line of sight against time. The shape of that curve fixes the period, the eccentricity, the orientation of the ellipse in its plane and the time of periapsis. Its height, with the star's own mass, fixes the planet's mass times $\sin\iota$.
 
-Think of a hammer thrower spinning with the hammer at arm's length. The thrower does not turn about their own middle. They lean back and circle a point between themselves and the hammer. Watching only the thrower from far away, you can still tell how heavy the hammer is, from how far and how fast the thrower swings.
-
-The star circles the centre of mass on a small copy of the relative orbit, Eq.~\eqref{tb:eq:body_paths}. As it swings toward and away from us its spectral lines shift back and forth (Chapter~\ref{ch:astrometry}). The shifts give its velocity along the line of sight against time. The shape of that curve fixes the period, the eccentricity, the orientation of the ellipse in its plane and the time of periapsis. Its height, with the star's own mass, fixes the planet's mass times $\sin\iota$.
-
-In numbers, Jupiter swings the Sun at $\SixKJup\,\mathrm{m\,s^{-1}}$ and the Earth at only $\SixKEarth\,\mathrm{cm\,s^{-1}}$. A speed of $\SixKJup\,\mathrm{m\,s^{-1}}$ stretches each wavelength by a fraction $\SixJupShift$.
-
-The picture is Figure~\ref{tb:fig:rv_curves}, a curve that repeats once per orbit, a smooth wave for a circle and a lopsided one for an ellipse.
+In numbers, Jupiter swings the Sun at $\SixKJup\,\mathrm{m\,s^{-1}}$ and the Earth at only $\SixKEarth\,\mathrm{cm\,s^{-1}}$. A speed of $\SixKJup\,\mathrm{m\,s^{-1}}$ stretches each wavelength by a fraction $\SixJupShift$. The picture is Figure~\ref{tb:fig:rv_curves}, a curve that repeats once per orbit, a smooth wave for a circle and a lopsided one for an ellipse.
 
 \begin{figure}[htbp]
 	\centering
@@ -2862,19 +2729,11 @@ A heavier planet swings its star harder, and a closer one, with a shorter period
 \section{Other Ways to Find Planets}
 \label{tb:sec:planet_methods}
 
-The radial velocity of Section~\ref{tb:sec:rv_planets} weighs a planet but leaves its size, its orbit's tilt and its nature unknown.
+The radial velocity of Section~\ref{tb:sec:rv_planets} weighs a planet but leaves its size, its orbit's tilt and its nature unknown. A planet sends almost no light of its own, so every method must catch its effect on something bright, its star or a star behind it. Each effect is tiny, and each method is blind to some planets the others see.
 
-A planet sends almost no light of its own, so every method must catch its effect on something bright, its star or a star behind it. Each effect is tiny, and each method is blind to some planets the others see.
+Think of guessing what is in a dark room from outside. You can listen for footsteps, watch for a shadow passing the window, or wait for a lamp behind it to flicker. Each tells you something different, and together they tell you a lot. The same orbit leaves several marks. The star wobbles, which shifts its lines (radial velocity), moves it on the sky (astrometry) and changes the arrival time of any regular signal it sends (timing). If the orbit is seen nearly edge-on, the planet blocks part of the star once per orbit (transit). And its gravity can bend the light of a more distant star (microlensing).
 
-Think of guessing what is in a dark room from outside. You can listen for footsteps, watch for a shadow passing the window, or wait for a lamp behind it to flicker. Each tells you something different, and together they tell you a lot.
-
-The same orbit leaves several marks. The star wobbles, which shifts its lines (radial velocity), moves it on the sky (astrometry) and changes the arrival time of any regular signal it sends (timing). If the orbit is seen nearly edge-on, the planet blocks part of the star once per orbit (transit). And its gravity can bend the light of a more distant star (microlensing).
-
-In numbers, Jupiter crossing the Sun would dim it by $1\%$, and the Earth by $0.008\%$. The Earth's pull on a pulsar of $1.4\,M_\odot$ would shift its pulses by about a millisecond, where pulses are timed to a microsecond.
-
-The picture is a star seen almost exactly edge-on to a planet's orbit, its light dipping each time the small dark disk of the planet crosses it.
-
-The same marks are how all the known planets were found. Up to October 2026 they number $6451$, in $4850$ planetary systems, $1070$ of them with more than one planet, and about $100$ of the planets may be habitable. The section gives the words, the methods, and where a planet can hold liquid water.
+In numbers, Jupiter crossing the Sun would dim it by $1\%$, and the Earth by $0.008\%$. The Earth's pull on a pulsar of $1.4\,M_\odot$ would shift its pulses by about a millisecond, where pulses are timed to a microsecond. The picture is a star seen almost exactly edge-on to a planet's orbit, its light dipping each time the small dark disk of the planet crosses it. The same marks are how all the known planets were found. Up to October 2026 they number $6451$, in $4850$ planetary systems, $1070$ of them with more than one planet, and about $100$ of the planets may be habitable. The section gives the words, the methods, and where a planet can hold liquid water.
 
 \paragraph{Words.} A \textbf{planet} orbits a star, is massive enough for its gravity to pull it nearly round and to clear its orbit of smaller bodies, and is not massive enough to burn hydrogen or deuterium by fusion (Chapter~\ref{ch:structure}). An \textbf{exoplanet} orbits a star other than the Sun. A \textbf{gas giant}, like Jupiter and Saturn, is mostly hydrogen and helium. A \textbf{rocky} or terrestrial planet, like the Earth and Mars, is mostly silicate rock and metal, and in the Solar System these lie close to the Sun. A \textbf{super-Earth} is a rocky planet heavier than the Earth but lighter than the gas giants. The Solar System has no example, and they turn out to be common.
 

@@ -2,6 +2,7 @@
 \label{ch:compact}
 
 \input{results/ch13/mass_radius.tex}
+\IfFileExists{results/ch13/sn2011fe.tex}{\input{results/ch13/sn2011fe.tex}}{}
 
 When a star has burned what it can, its core is left without a source of heat. It contracts, and by Section~\ref{sg:sec:negheat} it heats, until something other than heat holds it up. Two things can. The degeneracy pressure of electrons holds up white dwarfs, and that of neutrons holds up neutron stars. When neither suffices, nothing does, and the core becomes a black hole.
 
@@ -11,19 +12,11 @@ The word relativistic is used here in two separate senses, and keeping them apar
 \section{Compactness}
 \label{cs:sec:compactness}
 
-The equations of Chapter~\ref{ch:structure} used Newtonian gravity throughout.
+The equations of Chapter~\ref{ch:structure} used Newtonian gravity throughout. They cannot hold for every star. A body compact enough must be described by general relativity, and the question is where the line falls.
 
-They cannot hold for every star. A body compact enough must be described by general relativity, and the question is where the line falls.
+Think of a ball thrown up from the surface of a small asteroid. A gentle throw sends it away for good. On the Earth the same throw brings it straight back. How hard gravity grips a body at the surface depends on how much mass is packed into how small a radius. The grip of gravity, measured against the speed of light, is the ratio $GM/(Rc^2)$, the \textbf{compactness}. It compares the escape energy per unit mass at the surface with $c^2$. Every correction that general relativity makes to the structure of a star is of this size, so it decides whether Newtonian gravity is good enough (P6).
 
-Think of a ball thrown up from the surface of a small asteroid. A gentle throw sends it away for good. On the Earth the same throw brings it straight back. How hard gravity grips a body at the surface depends on how much mass is packed into how small a radius.
-
-The grip of gravity, measured against the speed of light, is the ratio $GM/(Rc^2)$, the \textbf{compactness}. It compares the escape energy per unit mass at the surface with $c^2$. Every correction that general relativity makes to the structure of a star is of this size, so it decides whether Newtonian gravity is good enough (P6).
-
-In numbers, the Sun has $GM/(Rc^2)=2.1\times10^{-6}$, the white dwarf Sirius B $2.6\times10^{-4}$, and a neutron star of $1.4\,M_\odot$ and $12\,\mathrm{km}$ radius $0.17$.
-
-The picture is a scale running from $0$ to $\tfrac12$. The Sun sits at the bottom, white dwarfs a little above, neutron stars a third of the way up, and a black hole at the top.
-
-The same ratio sets the gravitational redshift of light leaving a surface, the bending of starlight, and the share of rest mass released when matter falls onto a compact object. It gives the size of every relativistic correction.
+In numbers, the Sun has $GM/(Rc^2)=2.1\times10^{-6}$, the white dwarf Sirius B $2.6\times10^{-4}$, and a neutron star of $1.4\,M_\odot$ and $12\,\mathrm{km}$ radius $0.17$. The picture is a scale running from $0$ to $\tfrac12$. The Sun sits at the bottom, white dwarfs a little above, neutron stars a third of the way up, and a black hole at the top. The same ratio sets the gravitational redshift of light leaving a surface, the bending of starlight, and the share of rest mass released when matter falls onto a compact object. It gives the size of every relativistic correction.
 
 \begin{table}[htbp]
 	\centering
@@ -47,17 +40,11 @@ The redshift of Sirius B, $z=2.6\times10^{-4}$, shifts its spectral lines as a r
 \section{White Dwarfs}
 \label{cs:sec:wd}
 
-The pressure of degenerate electrons is a power of the density alone, $\rho^{5/3}$ for slow electrons and $\rho^{4/3}$ for fast ones (Eq.~\eqref{st:eq:degenerate_P}). A star held up by it is therefore a polytrope (Section~\ref{st:sec:polytropes}).
+The pressure of degenerate electrons is a power of the density alone, $\rho^{5/3}$ for slow electrons and $\rho^{4/3}$ for fast ones (Eq.~\eqref{st:eq:degenerate_P}). A star held up by it is therefore a polytrope (Section~\ref{st:sec:polytropes}). A white dwarf of the Sun's mass is the size of the Earth. As its mass grows, its electrons are squeezed harder and move faster. The polytrope of slow electrons cannot describe the heaviest ones.
 
-A white dwarf of the Sun's mass is the size of the Earth. As its mass grows, its electrons are squeezed harder and move faster. The polytrope of slow electrons cannot describe the heaviest ones.
+Think of a crowd in a hall, pressed toward the front by a slope. Each person's push on the person behind grows the harder they are squeezed, at first. If everyone is already pushing as hard as they can, adding more people down the slope only crushes the front, and no new push appears to stop it. Electrons near the speed of light behave like that crowd. Their momentum can keep growing, but their speed cannot exceed $c$, so their pressure grows more slowly with density, $\gamma\to\tfrac43$. By the virial theorem (Section~\ref{sg:sec:virial}), a star with $\gamma=\tfrac43$ is barely bound, and by the mass–radius relation \eqref{st:eq:mass_radius} only one mass fits. Above that mass, degenerate electrons cannot hold a star up. Counting states (P3) and the virial balance of a sphere (P1, P2) give that mass.
 
-Think of a crowd in a hall, pressed toward the front by a slope. Each person's push on the person behind grows the harder they are squeezed, at first. If everyone is already pushing as hard as they can, adding more people down the slope only crushes the front, and no new push appears to stop it.
-
-Electrons near the speed of light behave like that crowd. Their momentum can keep growing, but their speed cannot exceed $c$, so their pressure grows more slowly with density, $\gamma\to\tfrac43$. By the virial theorem (Section~\ref{sg:sec:virial}), a star with $\gamma=\tfrac43$ is barely bound, and by the mass–radius relation \eqref{st:eq:mass_radius} only one mass fits. Above that mass, degenerate electrons cannot hold a star up. Counting states (P3) and the virial balance of a sphere (P1, P2) give that mass.
-
-In numbers, the limit is $\ThirteenMchFormula\,M_\odot$ for the carbon and oxygen of white dwarfs, with two atomic mass units per electron, $\mu_e=2$.
-
-The picture is Figure~\ref{cs:fig:wd}, the radius of white dwarfs shrinking as their mass grows, down to zero at the limit.
+In numbers, the limit is $\ThirteenMchFormula\,M_\odot$ for the carbon and oxygen of white dwarfs, with two atomic mass units per electron, $\mu_e=2$. The picture is Figure~\ref{cs:fig:wd}, the radius of white dwarfs shrinking as their mass grows, down to zero at the limit.
 
 \begin{figure}[htbp]
 	\centering
@@ -139,6 +126,22 @@ The burning releases more than the star's binding energy, so the whole star flie
 \end{equation}
 The light has to diffuse out through the debris (Section~\ref{rad:sec:diffusion}), which takes about three weeks, so the light curve peaks then. The peak luminosity is close to the heating at that moment, from nickel and cobalt together, about $10^{36}\,\mathrm W$, or $3\times10^9\,L_\odot$. One star outshines its whole galaxy for weeks. After the peak the light follows the cobalt. If all the decay energy stayed in the debris, the light would fall by $1.0857\times100/111=0.98$ magnitudes per 100 days (the factor $1.0857$ of Eq.~\eqref{ph:eq:extinction_tau}). Real tails fall a little faster, because the debris thins and more of the gamma rays escape without being absorbed.
 
+\paragraph{A measured light curve.} Figure~\ref{cs:fig:sn2011fe} shows the light of SN~2011fe, a type Ia supernova in the nearby spiral galaxy M101, found in August 2011 within about a day of the explosion and followed in the $B$ and $V$ bands for $\ThirteenSnLast$ days after its peak. The $B$ light peaks at $B=\ThirteenSnBmax$, and the $V$ light $\ThirteenSnVlag$ days later, as the debris cools and its light shifts to the red. In the first $15$ days after the peak the $B$ light falls by $\Delta m_{15}(B)=\ThirteenSnDmB$ magnitudes, the measure of how fast a supernova fades that the next paragraph uses. From $60$ to $300$ days after the peak the light falls on a straight line. A magnitude is a logarithm of the flux, so a straight line in magnitude is an exponential decay of the luminosity, the signature of one radioactive nucleus. A straight-line fit gives $\ThirteenSnSlopeV$ magnitudes per $100$ days in $V$ and $\ThirteenSnSlopeB$ in $B$, faster than the $0.98$ of cobalt-56 with all its decay energy kept, because more of the gamma rays escape the thinning debris. After about $300$ days the fall slows to $\ThirteenSnSlopeLate$ magnitudes per $100$ days, closer to the cobalt rate. By then most of the gamma rays escape, and the light comes mainly from the positrons that some cobalt decays emit, which stop inside the debris and keep their share of the energy there. Peak brightness also gives the distance. With the peak $M_B\approx-19.3$ of the next paragraph and the Milky Way's dust in front of M101, $A_B=A_V+E(B-V)=4.1\,E(B-V)=\ThirteenSnAB$ for $E(B-V)=0.0077$ (Eq.~\eqref{ph:eq:RV}), Eq.~\eqref{eq:dereddened_distance_modulus} gives
+\begin{equation*}
+	m-M\eqby{1}B_{\rm max}-A_B-M_B=\ThirteenSnBmax-\ThirteenSnAB+19.3=\ThirteenSnMu,
+\end{equation*}
+\begin{explain}
+	\item Eq.~\eqref{eq:dereddened_distance_modulus}, the measured peak with the dust removed.
+\end{explain}
+a distance of $\ThirteenSnDist\,\mathrm{Mpc}$.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch13_sn2011fe.pdf}
+	\caption{$B$ (red) and $V$ (blue) magnitudes of SN~2011fe against days since $B$ maximum, $\ThirteenSnN$ measurements from Munari et al.\ (2013) and Tsvetkov et al.\ (2013), taken from the Open Supernova Catalog. (a) The first $60$ days, with the drop $\Delta m_{15}(B)$ marked. (b) The whole run, with straight-line fits to $V$ from $60$ to $300$ days (solid) and from $300$ days on (dashed), and the slope of cobalt-56 decay with all its energy kept (dotted).}
+	\label{cs:fig:sn2011fe}
+\end{figure}
+
 \paragraph{A standard candle.} Every such explosion starts from a white dwarf of carbon and oxygen close to the same mass, so it makes a similar amount of nickel and reaches a similar peak, $M_B\approx-19.3$ (Section~\ref{as:sec:ladder}). The peaks still spread by a few tenths of a magnitude. The spread follows the shape of the light curve. Brighter explosions fade more slowly (the Phillips relation), because more nickel makes hotter, more opaque debris from which light leaks out more slowly. Once each peak is corrected by the width of its light curve, the spread falls to about $0.15$ magnitudes, $7\%$ in distance.
 
 No type Ia supernova is close enough for a parallax, so the peak luminosity is calibrated in galaxies that have hosted a type Ia supernova and also contain Cepheids, whose distances come from the parallax of nearby Cepheids (Section~\ref{as:sec:ladder}). At its peak it is $10^5$ to $10^6$ times more luminous than a Cepheid and is seen $500$ to $1000$ times farther, Eq.~\eqref{as:eq:reach}. Cepheids reach about $30\,\mathrm{Mpc}$, and type Ia supernovae reach redshifts of one and more, far enough to show that the expansion of the universe is speeding up (Section~\ref{un:sec:acceleration}).
@@ -147,19 +150,11 @@ No type Ia supernova is close enough for a parallax, so the peak luminosity is c
 \section{The Relativistic Structure Equations}
 \label{cs:sec:relativistic}
 
-The four structure equations of Section~\ref{st:sec:four_equations} assumed Newtonian gravity.
+The four structure equations of Section~\ref{st:sec:four_equations} assumed Newtonian gravity. A neutron star has $GM/(Rc^2)\approx0.2$. Corrections of that size cannot be dropped, and each equation must be replaced by its general-relativistic form.
 
-A neutron star has $GM/(Rc^2)\approx0.2$. Corrections of that size cannot be dropped, and each equation must be replaced by its general-relativistic form.
+Think of weighing a box of hot gas. Heat the gas and the box gets heavier, because energy has mass. Squeeze the gas and its pressure adds to the weight as well. In everyday life the extra weight is far too small to notice. In a neutron star it is not small. The pressure that holds the star up is itself a source of gravity, so pushing harder also pulls harder. General relativity, with conservation of energy and momentum (P1) in curved space-time, gives the equations. They are quoted here from general relativity, not derived again.
 
-Think of weighing a box of hot gas. Heat the gas and the box gets heavier, because energy has mass. Squeeze the gas and its pressure adds to the weight as well. In everyday life the extra weight is far too small to notice.
-
-In a neutron star it is not small. The pressure that holds the star up is itself a source of gravity, so pushing harder also pulls harder. General relativity, with conservation of energy and momentum (P1) in curved space-time, gives the equations. They are quoted here from general relativity, not derived again.
-
-In numbers, the pressure at the centre of a neutron star is between about a tenth and a half of its energy density $\rho c^2$. At the centre of the Sun the same ratio is about $2\times10^{-6}$.
-
-The picture is the Newtonian structure equations of Section~\ref{st:sec:four_equations}, each with a few correction factors, every one of them close to one when $GM/(rc^2)$ and $P/(\rho c^2)$ are small.
-
-The same equations, in the form given by Thorne (1977), are used for neutron stars, for the hottest proto-neutron stars just after a supernova, and for any star compact enough. They give the full relativistic set, side by side with the Newtonian one.
+In numbers, the pressure at the centre of a neutron star is between about a tenth and a half of its energy density $\rho c^2$. At the centre of the Sun the same ratio is about $2\times10^{-6}$. The picture is the Newtonian structure equations of Section~\ref{st:sec:four_equations}, each with a few correction factors, every one of them close to one when $GM/(rc^2)$ and $P/(\rho c^2)$ are small. The same equations, in the form given by Thorne (1977), are used for neutron stars, for the hottest proto-neutron stars just after a supernova, and for any star compact enough. They give the full relativistic set, side by side with the Newtonian one.
 
 \paragraph{The metric.} A static spherical star has the metric
 \begin{equation}
@@ -208,17 +203,11 @@ This is the Tolman–Ehrenfest relation. In a gravitational field, a body in ful
 \section{Computing a Neutron Star}
 \label{cs:sec:ns}
 
-Table~\ref{cs:tab:relativistic} gives the equations, and the core of a collapsed star gives the material, neutrons packed to nuclear density.
+Table~\ref{cs:tab:relativistic} gives the equations, and the core of a collapsed star gives the material, neutrons packed to nuclear density. How are the mass and radius of a neutron star actually found, and what does general relativity do to them?
 
-How are the mass and radius of a neutron star actually found, and what does general relativity do to them?
+Think of stacking sand into a cone. Pour more and the cone grows wider and taller. With dry sand the slope holds, and the cone can grow as large as the sand allows. With wet sand the weight of the top crushes the bottom past some height. Then the pile only spreads, and adding sand does not make it taller. A neutron star is built in the same spirit, one central density at a time. Each central density gives one star, with its own mass and radius. Going to higher central density gives heavier stars, up to a point beyond which the extra gravity of the extra pressure wins and the mass falls. That point is the maximum mass. Finding it is the TOV equation (P1 and P2 in general relativity) solved with the pressure of degenerate neutrons (P3).
 
-Think of stacking sand into a cone. Pour more and the cone grows wider and taller. With dry sand the slope holds, and the cone can grow as large as the sand allows. With wet sand the weight of the top crushes the bottom past some height. Then the pile only spreads, and adding sand does not make it taller.
-
-A neutron star is built in the same spirit, one central density at a time. Each central density gives one star, with its own mass and radius. Going to higher central density gives heavier stars, up to a point beyond which the extra gravity of the extra pressure wins and the mass falls. That point is the maximum mass. Finding it is the TOV equation (P1 and P2 in general relativity) solved with the pressure of degenerate neutrons (P3).
-
-In numbers, an ideal gas of neutrons in general relativity reaches at most $\ThirteenMovMax\,M_\odot$, at a radius of $\ThirteenRovMax\,\mathrm{km}$. The same gas in Newtonian gravity reaches about $\ThirteenMnsNewtonLargest\,M_\odot$, eight times more.
-
-The picture is Figure~\ref{cs:fig:ns}, two mass–radius curves for the same neutron gas, one turning over at a small mass.
+In numbers, an ideal gas of neutrons in general relativity reaches at most $\ThirteenMovMax\,M_\odot$, at a radius of $\ThirteenRovMax\,\mathrm{km}$. The same gas in Newtonian gravity reaches about $\ThirteenMnsNewtonLargest\,M_\odot$, eight times more. The picture is Figure~\ref{cs:fig:ns}, two mass–radius curves for the same neutron gas, one turning over at a small mass.
 
 \begin{figure}[htbp]
 	\centering
@@ -253,19 +242,11 @@ The collapse continues until the matter has passed inside its own Schwarzschild 
 \section{Gravitational Waves from Compact Binaries}
 \label{cs:sec:gw}
 
-Two stars in a binary move on a Kepler ellipse, and their orbital energy never changes. With the reduced mass written out as $m_1m_2/M$, Eq.~\eqref{eq:visviva_E} gives it as $E=-Gm_1m_2/(2a)$.
+Two stars in a binary move on a Kepler ellipse, and their orbital energy never changes. With the reduced mass written out as $m_1m_2/M$, Eq.~\eqref{eq:visviva_E} gives it as $E=-Gm_1m_2/(2a)$. General relativity says this is not quite true. Masses that move send out waves in the geometry of space, and the waves carry energy away. For the Earth and the Sun the loss is far too small to matter. For two neutron stars or black holes close together it decides how the binary ends.
 
-General relativity says this is not quite true. Masses that move send out waves in the geometry of space, and the waves carry energy away. For the Earth and the Sun the loss is far too small to matter. For two neutron stars or black holes close together it decides how the binary ends.
+Think of two children holding hands and whirling round in the middle of a pool. Ripples run out from them to the edge and rock a toy boat floating there. Every ripple carries away a little energy, and that energy comes from the whirling children. A binary of compact stars is the pair of children, space is the water, and the ripples are \textbf{gravitational waves}, small changes in the distances between free bodies that travel outward at the speed of light. Einstein predicted them from general relativity in 1916 and 1918. The idea is that the energy they carry is taken from the orbit. The orbit shrinks, and a bound orbit that loses energy speeds up, just as a star that loses energy heats up (Section~\ref{sg:sec:negheat}). So the waves rise in frequency and in strength until the two bodies merge. The rising tone is called a \textbf{chirp}.
 
-Think of two children holding hands and whirling round in the middle of a pool. Ripples run out from them to the edge and rock a toy boat floating there. Every ripple carries away a little energy, and that energy comes from the whirling children.
-
-A binary of compact stars is the pair of children, space is the water, and the ripples are \textbf{gravitational waves}, small changes in the distances between free bodies that travel outward at the speed of light. Einstein predicted them from general relativity in 1916 and 1918. The idea is that the energy they carry is taken from the orbit. The orbit shrinks, and a bound orbit that loses energy speeds up, just as a star that loses energy heats up (Section~\ref{sg:sec:negheat}). So the waves rise in frequency and in strength until the two bodies merge. The rising tone is called a \textbf{chirp}.
-
-In numbers, the Earth going round the Sun radiates $196\,\mathrm W$ in gravitational waves, and at that rate its orbit would take $10^{23}$ years to shrink to nothing. Two black holes of $36$ and $29\,M_\odot$, seen in 2015 as GW150914, radiated about $3\,M_\odot c^2$ in a fraction of a second, with a peak power of about $4\times10^{49}\,\mathrm W$.
-
-The picture is Figure~\ref{cs:fig:gw_ring}, a ring of free particles that the passing wave stretches in one direction and squeezes in the other.
-
-The same energy balance shrinks the orbits of satellites through drag (Section~\ref{tb:sec:planar_pert}). What can radiate is decided by conservation (P1). The orbit and its frequency come from the gravity of a sphere through Kepler's third law (P2). The orbit changes slowly compared with one turn, and the mass of the binary sets the frequency of its waves (P6). The same waves give the masses of black holes, a speed of gravity, and distances to galaxies without any ladder. It gives the reason the waves need a changing quadrupole, how they stretch space, the power of a binary, the shrinking orbit and the chirp, and how the waves have been seen.
+In numbers, the Earth going round the Sun radiates $196\,\mathrm W$ in gravitational waves, and at that rate its orbit would take $10^{23}$ years to shrink to nothing. Two black holes of $36$ and $29\,M_\odot$, seen in 2015 as GW150914, radiated about $3\,M_\odot c^2$ in a fraction of a second, with a peak power of about $4\times10^{49}\,\mathrm W$. The picture is Figure~\ref{cs:fig:gw_ring}, a ring of free particles that the passing wave stretches in one direction and squeezes in the other. The same energy balance shrinks the orbits of satellites through drag (Section~\ref{tb:sec:planar_pert}). What can radiate is decided by conservation (P1). The orbit and its frequency come from the gravity of a sphere through Kepler's third law (P2). The orbit changes slowly compared with one turn, and the mass of the binary sets the frequency of its waves (P6). The same waves give the masses of black holes, a speed of gravity, and distances to galaxies without any ladder. It gives the reason the waves need a changing quadrupole, how they stretch space, the power of a binary, the shrinking orbit and the chirp, and how the waves have been seen.
 
 \subsection{Why a Quadrupole}
 

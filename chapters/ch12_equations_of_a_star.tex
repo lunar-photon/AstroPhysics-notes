@@ -17,6 +17,7 @@ What makes a body a star is where its light comes from. A \textbf{star} is a bal
 \label{st:sec:unknowns}
 
 Chapter~\ref{ch:selfgrav} described a star at each radius $r$, with $m(r)$ the mass inside. With radius as the coordinate, the temperature is a function of radius and time,
+
 \[
 T=T(r,t).
 \]
@@ -42,19 +43,11 @@ In numbers, the Sun's radius has grown by about $10\%$ since it began to burn hy
 \section{The Four Equations}
 \label{st:sec:four_equations}
 
-Hydrostatic equilibrium (Eq.~\eqref{sg:eq:hse}) and the flow of light (Eq.~\eqref{rad:eq:radiative_transport}) have been derived already.
+Hydrostatic equilibrium (Eq.~\eqref{sg:eq:hse}) and the flow of light (Eq.~\eqref{rad:eq:radiative_transport}) have been derived already. They are two of the four equations, and both are written with $r$. A complete model needs the other two, how the mass relates to the radius and how the luminosity builds up, and needs all four with $m$ as the variable.
 
-They are two of the four equations, and both are written with $r$. A complete model needs the other two, how the mass relates to the radius and how the luminosity builds up, and needs all four with $m$ as the variable.
+Think of a household budget kept month by month. One line records the money coming in. Another records the money going out. The balance at the end of each month follows from the balance before plus the difference. Nothing else is needed, and nothing can be left out. A star keeps four such accounts, shell by shell, for space, momentum, energy and the flow of heat. Each one says how a quantity changes from one shell to the next. Mass and energy are conservation (P1). Momentum is conservation with the gravity of a sphere (P1 and P2). The flow of heat is a random walk of light (P5), or, where that is too slow, the bulk motion of the gas itself.
 
-Think of a household budget kept month by month. One line records the money coming in. Another records the money going out. The balance at the end of each month follows from the balance before plus the difference. Nothing else is needed, and nothing can be left out.
-
-A star keeps four such accounts, shell by shell, for space, momentum, energy and the flow of heat. Each one says how a quantity changes from one shell to the next. Mass and energy are conservation (P1). Momentum is conservation with the gravity of a sphere (P1 and P2). The flow of heat is a random walk of light (P5), or, where that is too slow, the bulk motion of the gas itself.
-
-In numbers, the Sun's luminosity of $3.83\times10^{26}\,\mathrm W$ is built up almost entirely in the inner quarter of its radius, where the burning happens, and then carried unchanged through the outer three quarters.
-
-The picture is a stack of shells, with each equation stepping one quantity from a shell to the next.
-
-The same four accounts, with the same structure, describe the interior of a planet (with no burning), the core of a white dwarf (with no burning and degenerate gas) and the envelope of an accreting neutron star. They give the four equations of stellar structure.
+In numbers, the Sun's luminosity of $3.83\times10^{26}\,\mathrm W$ is built up almost entirely in the inner quarter of its radius, where the burning happens, and then carried unchanged through the outer three quarters. The picture is a stack of shells, with each equation stepping one quantity from a shell to the next. The same four accounts, with the same structure, describe the interior of a planet (with no burning), the core of a white dwarf (with no burning and degenerate gas) and the envelope of an accreting neutron star. They give the four equations of stellar structure.
 
 \paragraph{Mass.} Inverting the definition of $m(r)$, Eq.~\eqref{pr:eq:mass_inside},
 \begin{equation}
@@ -173,17 +166,11 @@ Four unknown functions, four first-order equations. The right side needs three p
 \section{Pressure, Opacity and Burning}
 \label{st:sec:eos}
 
-The pressure of an ideal gas and of light were found by counting states (Eqs.~\eqref{pr:eq:ideal_gas} and~\eqref{pr:eq:photon_gas}). The flow of light needs an opacity (Section~\ref{rad:sec:diffusion}), and the energy equation needs a burning rate.
+The pressure of an ideal gas and of light were found by counting states (Eqs.~\eqref{pr:eq:ideal_gas} and~\eqref{pr:eq:photon_gas}). The flow of light needs an opacity (Section~\ref{rad:sec:diffusion}), and the energy equation needs a burning rate. The system \eqref{st:eq:system} cannot be solved without these three. They depend on the composition and on the state of the gas, and in white dwarfs the pressure takes a form not yet met.
 
-The system \eqref{st:eq:system} cannot be solved without these three. They depend on the composition and on the state of the gas, and in white dwarfs the pressure takes a form not yet met.
+Think of a crowded lift. When there is room, people move about freely, and the more energetic they are, the harder they push on the walls. When the lift is packed, nobody can move whatever their mood, and the push on the walls comes only from being squeezed. The push no longer depends on how energetic people feel. Electrons in very dense gas are the packed lift. Each quantum state holds at most one electron, so once the low states are full the electrons are forced into states of high momentum, and they push however cold the gas is. Counting states (P3) gives this degeneracy pressure, the opacity follows from counting absorbers (P3) along a random walk of light (P5), and the burning rate from counting fast particles (P3) that tunnel through the electric barrier of the nucleus.
 
-Think of a crowded lift. When there is room, people move about freely, and the more energetic they are, the harder they push on the walls. When the lift is packed, nobody can move whatever their mood, and the push on the walls comes only from being squeezed. The push no longer depends on how energetic people feel.
-
-Electrons in very dense gas are the packed lift. Each quantum state holds at most one electron, so once the low states are full the electrons are forced into states of high momentum, and they push however cold the gas is. Counting states (P3) gives this degeneracy pressure, the opacity follows from counting absorbers (P3) along a random walk of light (P5), and the burning rate from counting fast particles (P3) that tunnel through the electric barrier of the nucleus.
-
-In numbers, the Sun's centre has a Fermi energy about half its thermal energy $k_BT$, so it is only mildly degenerate. The centre of a white dwarf, at $10^9\,\mathrm{kg\,m^{-3}}$ and $10^7\,\mathrm K$, has a Fermi energy $190$ times its thermal energy (Problem~\ref{st:prob:degeneracy}).
-
-The picture is Figure~\ref{st:fig:rho_T}, the plane of density and temperature divided into the regions where gas, light and degenerate electrons supply most of the pressure.
+In numbers, the Sun's centre has a Fermi energy about half its thermal energy $k_BT$, so it is only mildly degenerate. The centre of a white dwarf, at $10^9\,\mathrm{kg\,m^{-3}}$ and $10^7\,\mathrm K$, has a Fermi energy $190$ times its thermal energy (Problem~\ref{st:prob:degeneracy}). The picture is Figure~\ref{st:fig:rho_T}, the plane of density and temperature divided into the regions where gas, light and degenerate electrons supply most of the pressure.
 
 \begin{figure}[htbp]
 	\centering
@@ -310,19 +297,11 @@ A body that never gets hot enough for deuterium never burns anything. Detailed m
 \section{Boundary Conditions and How Stars Are Computed}
 \label{st:sec:computing}
 
-The system \eqref{st:eq:system} has four unknowns and four first-order equations, now closed by the properties of the gas.
+The system \eqref{st:eq:system} has four unknowns and four first-order equations, now closed by the properties of the gas. Four first-order equations need four conditions to fix a solution, and here they are split between the two ends. Two are known at the centre and two at the surface, and neither end alone fixes the star.
 
-Four first-order equations need four conditions to fix a solution, and here they are split between the two ends. Two are known at the centre and two at the surface, and neither end alone fixes the star.
+Think of building a bridge from both banks. Each team starts from its own bank with a guess for the height and slope of its half. The halves meet in the middle only if the guesses were right, and the gap between them says how to correct the guesses. A star is computed the same way. Two conditions hold at the centre, two at the surface, and the solution must satisfy all four. Integrating from both ends and closing the gap in the middle, or adjusting the whole profile at once until every equation and every condition holds, gives the star. The method is conservation, applied numerically.
 
-Think of building a bridge from both banks. Each team starts from its own bank with a guess for the height and slope of its half. The halves meet in the middle only if the guesses were right, and the gap between them says how to correct the guesses.
-
-A star is computed the same way. Two conditions hold at the centre, two at the surface, and the solution must satisfy all four. Integrating from both ends and closing the gap in the middle, or adjusting the whole profile at once until every equation and every condition holds, gives the star. The method is conservation, applied numerically.
-
-In numbers, a modern stellar model divides the star into about a thousand shells, so it solves for four thousand numbers at once, and repeats this for each of thousands of time steps over the star's life.
-
-The picture is the bridge, two halves built toward each other until they meet.
-
-The same two-ended problem appears in the interior of planets, in the structure of accretion disks and in many boundary-value problems of physics. It gives the boundary conditions, two ways to solve the system, and how a star is evolved in time.
+In numbers, a modern stellar model divides the star into about a thousand shells, so it solves for four thousand numbers at once, and repeats this for each of thousands of time steps over the star's life. The picture is the bridge, two halves built toward each other until they meet. The same two-ended problem appears in the interior of planets, in the structure of accretion disks and in many boundary-value problems of physics. It gives the boundary conditions, two ways to solve the system, and how a star is evolved in time.
 
 \paragraph{Four boundary conditions.} At the centre there is no radius and no luminosity yet,
 \begin{equation}
@@ -350,17 +329,11 @@ where the $4\times4$ matrix of derivatives is found by repeating the integration
 \section{Polytropes and the Isothermal Sphere}
 \label{st:sec:polytropes}
 
-The full system \eqref{st:eq:system} needs a computer.
+The full system \eqref{st:eq:system} needs a computer. Insight often comes from a model simple enough to solve by hand, where the effect of each ingredient can be seen. Hydrostatic equilibrium and the mass equation alone involve only $P$, $\rho$ and $r$. They become solvable if the pressure depends on the density alone.
 
-Insight often comes from a model simple enough to solve by hand, where the effect of each ingredient can be seen. Hydrostatic equilibrium and the mass equation alone involve only $P$, $\rho$ and $r$. They become solvable if the pressure depends on the density alone.
+Think of a soft pillow and a firm one, each stacked with books. The firmness of the filling, how much its push grows when squeezed, decides how much the pillow flattens under a given weight. Nothing else about the pillow matters. In a star the same is true when $P=\mathcal K\rho^\gamma$ for some constant $\mathcal K$. Then the stiffness $\gamma$ alone decides how the star's mass is spread out, and the mass equation with hydrostatic equilibrium (P1 and P2), closed by a pressure from counting states (P3), give one equation for the density. This happens for degenerate gas, where Eq.~\eqref{st:eq:degenerate_P} has exactly this form, and for gas that is convective throughout, where $P\propto\rho^\gamma$ along the adiabat.
 
-Think of a soft pillow and a firm one, each stacked with books. The firmness of the filling, how much its push grows when squeezed, decides how much the pillow flattens under a given weight. Nothing else about the pillow matters.
-
-In a star the same is true when $P=\mathcal K\rho^\gamma$ for some constant $\mathcal K$. Then the stiffness $\gamma$ alone decides how the star's mass is spread out, and the mass equation with hydrostatic equilibrium (P1 and P2), closed by a pressure from counting states (P3), give one equation for the density. This happens for degenerate gas, where Eq.~\eqref{st:eq:degenerate_P} has exactly this form, and for gas that is convective throughout, where $P\propto\rho^\gamma$ along the adiabat.
-
-In numbers, the model with $\gamma=\tfrac43$ scaled to the Sun's mass and radius gives a central density $\TwelveSunRhoC\,\mathrm{kg\,m^{-3}}$, a central pressure $\TwelveSunPC\,\mathrm{Pa}$ and a central temperature $\TwelveSunTC\,\mathrm K$, against $1.5\times10^5\,\mathrm{kg\,m^{-3}}$, $2.5\times10^{16}\,\mathrm{Pa}$ and $1.57\times10^7\,\mathrm K$ in detailed solar models.
-
-The picture is Figure~\ref{st:fig:lane_emden}. A stiffer gas spreads the mass more evenly. A softer one concentrates it at the centre.
+In numbers, the model with $\gamma=\tfrac43$ scaled to the Sun's mass and radius gives a central density $\TwelveSunRhoC\,\mathrm{kg\,m^{-3}}$, a central pressure $\TwelveSunPC\,\mathrm{Pa}$ and a central temperature $\TwelveSunTC\,\mathrm K$, against $1.5\times10^5\,\mathrm{kg\,m^{-3}}$, $2.5\times10^{16}\,\mathrm{Pa}$ and $1.57\times10^7\,\mathrm K$ in detailed solar models. The picture is Figure~\ref{st:fig:lane_emden}. A stiffer gas spreads the mass more evenly. A softer one concentrates it at the centre.
 
 \begin{figure}[htbp]
 	\centering
