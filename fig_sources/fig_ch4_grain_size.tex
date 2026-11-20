@@ -1,0 +1,85 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\definecolor{sunyellow}{HTML}{E8A33D}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% Why the B-to-V step of the extinction depends on grain size.
+% (a) a particle much smaller than, near, and much larger than the wavelength, with the B (0.44 um) and
+%     V (0.55 um) waves drawn to the scale of each particle (the three panels are not to one scale).
+% (b) extinction efficiency Q = sigma_ext/(pi a^2) of a sphere with refractive index 1.5 against 2 pi a/lambda,
+%     Mie series, from results/ch4/mie.dat (code/ch4/01_mie_extinction.py).
+% (c) the step Q(1.25 x)/Q(x) = sigma(B)/sigma(V), x = 2 pi a / lambda_V, same file; dotted lines at the
+%     heights 2.44, 1.25 and 1 read off Figure "spectral_filters_bands".
+\IfFileExists{results/ch4/mie.dat}{\def\datadir{results/ch4/}}{\def\datadir{../results/ch4/}}
+\input{\datadir mie.tex}
+\begin{tikzpicture}[font=\small, >={Stealth[length=2mm]}]
+  % ---------- (a) three particles and the two waves ----------
+  \newcommand{\waves}[1]{% #1 = V wavelength in cm
+    \draw[astroblue, line width=0.8pt, domain=0:2.2, samples=160] plot (\x,{0.55+0.14*sin(360*\x/(0.8*#1))});
+    \draw[sunyellow!85!black, line width=0.8pt, domain=0:2.2, samples=160] plot (\x,{-0.55+0.14*sin(360*\x/#1)});
+    \node[astroblue, font=\footnotesize, anchor=east] at (0,0.55) {$B$};
+    \node[sunyellow!85!black, font=\footnotesize, anchor=east] at (0,-0.55) {$V$};
+    \draw[->, muted] (2.25,0) -- (2.7,0);}
+  \begin{scope}[shift={(0.4,0)}]
+    \waves{1.0}
+    \fill[ink] (3.2,0) circle (1.2pt);
+    \node[ink] at (1.6,-1.25) {$a\ll\lambda$};
+    \node[accent, font=\footnotesize] at (1.6,-1.75) {$\sigma(B)/\sigma(V)=2.44$};
+  \end{scope}
+  \begin{scope}[shift={(4.9,0)}]
+    \waves{1.0}
+    \fill[ink!60] (3.2,0) circle (0.18);
+    \node[ink] at (1.6,-1.25) {$2\pi a/\lambda\approx1$};
+    \node[accent2, font=\footnotesize] at (1.6,-1.75) {$\FourMieSzeroone$ for $a=0.1\,\mu\mathrm m$};
+  \end{scope}
+  \begin{scope}[shift={(9.4,0)}]
+    \waves{0.22}
+    \fill[ink!60] (3.55,0) circle (0.7);
+    \node[muted] at (4.4,1.0) {(a)};
+    \node[ink] at (1.6,-1.25) {$a\gg\lambda$};
+    \node[muted, font=\footnotesize] at (1.6,-1.75) {$\approx1$};
+  \end{scope}
+  \pgfplotsset{every axis/.append style={scale only axis, axis lines*=left, tick style={muted},
+      every axis label/.style={text=muted}, xmode=log, xmin=0.05, xmax=100, width=11.4cm,
+      log basis x=10, xticklabel style={/pgf/number format/fixed}, clip mode=individual}}
+  % ---------- (b) extinction efficiency ----------
+  \begin{axis}[name=b, at={(1.0cm,-6.3cm)}, height=3.4cm, ymode=log, ymin=1e-6, ymax=10,
+      ytick={1e-6,1e-4,1e-2,1}, xticklabels={}, ylabel={$\sigma_{\rm ext}/\pi a^2$}]
+    \addplot[ink, line width=1pt, each nth point=3] table[x index=0, y index=1] {\datadir mie.dat};
+    \addplot[muted, dashed, domain=0.05:0.5, samples=2] {2*x^4*0.0865*4/3};
+    \addplot[muted, dashed, domain=8:100, samples=2] {2};
+    \node[muted, anchor=north west, font=\footnotesize] at (axis cs:0.2,1e-4) {slope 4};
+    \node[accent, font=\footnotesize] at (axis cs:0.25,1) {Rayleigh};
+    \node[accent2, font=\footnotesize] at (axis cs:1.7,0.02) {Mie};
+    \node[muted, font=\footnotesize] at (axis cs:25,0.2) {geometric};
+    \node[muted, anchor=north, font=\footnotesize] at (axis cs:60,1.6) {$2$};
+    \node[muted, anchor=north east] at (rel axis cs:1,1.12) {(b)};
+  \end{axis}
+  % ---------- (c) the B-to-V step ----------
+  \begin{axis}[name=c, at={(b.south west)}, anchor=north west, yshift=-0.7cm, height=3.4cm,
+      ymin=0.55, ymax=2.65, ytick={1,1.5,2,2.5},
+      xtick={0.1,1,10,100}, xticklabels={$0.1$,$1$,$10$,$100$},
+      xlabel={$2\pi a/\lambda$ in $V$}, ylabel={$\sigma(B)/\sigma(V)$}]
+    \addplot[accent, dotted, line width=0.9pt, domain=0.05:100, samples=2] {2.4414};
+    \addplot[astroblue, dotted, line width=0.9pt, domain=0.05:100, samples=2] {1.25};
+    \addplot[muted, dotted, line width=0.9pt, domain=0.05:100, samples=2] {1};
+    \addplot[ink, line width=1pt, each nth point=3] table[x index=0, y index=2] {\datadir mie.dat};
+    \fill[accent2] (axis cs:\FourMieXzeroone,\FourMieSzeroone) circle (2pt);
+    \node[accent2, anchor=east, font=\footnotesize] at (axis cs:1.05,\FourMieSzeroone) {$a=0.1\,\mu\mathrm m$};
+    \node[accent, anchor=south, font=\footnotesize] at (axis cs:20,2.44) {$2.44$, $\lambda^{-4}$};
+    \node[astroblue, anchor=south, font=\footnotesize] at (axis cs:50,1.25) {$1.25$, $\lambda^{-1}$};
+    \node[muted, anchor=north east, font=\footnotesize] at (axis cs:100,0.98) {$1$, flat};
+    \node[muted, anchor=north east] at (rel axis cs:1,1.12) {(c)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,7 +1,8 @@
 \chapter{Stellar Photometry: Flux, Magnitudes, and Radii}
 \label{ch:photometry}
+\input{results/ch4/mie.tex}
 
-Chapter~\ref{ch:astrometry} found the distances of nearby stars from their parallax and used magnitudes to reach further. Photometry is the measurement of how much light arrives from a star. Together with the distance, the light gives the power of the star. Its colour gives the temperature of the surface. Power and temperature together give the size of a star that no telescope shows as a disc.
+Parallax gives a star's distance, but does not tell us what the star itself is like. Photometry measures the light that reaches us. Once we know the distance, the received light gives the star's total power. The way that light is divided among colours gives its surface temperature; power and temperature together then reveal a radius even when the star looks like a point.
 
 On its way to us the light spreads out with distance, and dust in space dims it and makes it redder. Each effect is undone by one formula, and astronomers record the result on a logarithmic scale of magnitudes.
 
@@ -13,7 +14,7 @@ Chapter~\ref{ch:astrometry} gave the distance $d$ of a nearby star from its para
 
 Stand under a street lamp at night with a book, then walk away until you are twice as far. The page is much dimmer. The lamp sends out the same light every second as before. At twice the distance that light is spread over a sphere with four times the area, so the page gets a quarter of it. A star is such a lamp, and the Earth holds the page. The power of a star is shared out over a sphere centred on it, so the light per square metre falls as one over the square of the distance.
 
-Suppose the lamp sends out $100\,\mathrm W$ of light, equally in all directions. At $2\,\mathrm m$ the sphere has area $4\pi(2\,\mathrm m)^2=50.3\,\mathrm m^2$, and each square metre gets $100/50.3=1.99\,\mathrm{W\,m^{-2}}$. At $4\,\mathrm m$ the area is $201\,\mathrm m^2$, and each square metre gets $0.497\,\mathrm{W\,m^{-2}}$, a quarter as much. Picture the star inside a set of nested spheres, like the skins of an onion. The same power passes through every skin, and the outer skins are larger. This is energy conservation, principle P1 (Section~\ref{pr:sec:p1}). Counting what crosses a closed surface in the same way gives the $1/r^2$ of Coulomb's law and of the gravity of a point mass. In Section~\ref{pr:sec:p2} it gives the gravity of a sphere, P2. It also sets how the sound of a loudspeaker fades in open air. Here it gives the flux at any distance from the power of the star, and the power from a measured flux and a known distance.
+Suppose the lamp radiates $100\,\mathrm W$ equally in all directions. At $2\,\mathrm m$ its light crosses a sphere of area $4\pi(2\,\mathrm m)^2=50.3\,\mathrm m^2$, giving $100/50.3=1.99\,\mathrm{W\,m^{-2}}$. At $4\,\mathrm m$ the area is $201\,\mathrm m^2$ and the flux is $0.497\,\mathrm{W\,m^{-2}}$, a quarter as much. The total power has not changed; it is spread over four times the area. We will use that conservation of energy to connect a star's luminosity, its measured flux and its distance.
 
 \paragraph{Luminosity and flux.} The \textbf{luminosity} $L$ of a star is the total power it sends out, over all wavelengths, in watts. The \textbf{flux} $F$ at a point is the power that crosses one square metre facing the star, in $\mathrm{W\,m^{-2}}$. A flux summed over all wavelengths is called \textbf{bolometric}.
 
@@ -60,7 +61,7 @@ We can now give the light of a star as a flux in $\mathrm{W\,m^{-2}}$. Fluxes of
 
 Our ears face the same problem. They judge loudness roughly by ratios, not by differences. Going from one violin to ten sounds like one step, and going from ten to a hundred sounds like another step of the same size. Sound engineers therefore count in decibels, ten times the logarithm of a ratio of powers. Ten decibels is a factor of 10 in power, and twenty decibels a factor of 100, whatever the level we start from. The eye also judges brightness roughly by ratios (the Weber--Fechner law). In the 2nd century BCE Hipparchus sorted the stars seen by the naked eye into six classes, from first magnitude for the brightest to sixth for the faintest. In 1856 Norman Pogson noticed that a first-magnitude star gives about 100 times the light of a sixth-magnitude one, and made this exact. A magnitude is a logarithm of a ratio of two fluxes, with five magnitudes set equal to a factor of 100.
 
-Two stars differ by 5 magnitudes when one gives 100 times the flux of the other. One magnitude is then a factor of $100^{1/5}=2.512$, and $2.5$ magnitudes a factor of $10$. Five steps of $2.512$ make $2.512^5=100$. Picture a ruler whose marks are equally spaced, where each mark means ``multiply by $2.512$''. It runs backwards, with brighter stars at smaller numbers, as in the ranking of Hipparchus. Decibels, the pH of a solution and the Richter scale of earthquakes are the same device. A magnitude never says how much light a star sends. It says only how the star compares with another, so it is the comparison of two scales, P6 (Section~\ref{pr:sec:p6}), in its plainest form. It gives Pogson's formula, the absolute magnitude, and the distance modulus, which turns a difference of magnitudes into a distance.
+Pogson's rule makes a difference of 5 magnitudes equal to a factor of 100 in flux. One magnitude therefore means a factor of $100^{1/5}=2.512$, and $2.5$ magnitudes a factor of $10$. Brighter stars have smaller magnitude numbers, retaining Hipparchus's original ranking. A magnitude is always a comparison with a reference flux. Once the reference is fixed, differences of magnitudes can be used to compare stars at the same distance or to infer a distance from a known luminosity.
 
 \subsection{Apparent Magnitude and Pogson's Formula}
 
@@ -168,7 +169,7 @@ We can now find the luminosity of a star from its flux and its distance. The lum
 
 Watch the coil of an electric stove as it heats. At first it gives warmth but no glow. Then it glows dull red, then orange. A blacksmith's iron, hotter still, turns yellow and then almost white. Two things change together. The colour moves from red toward blue, and the heat felt on the face grows very fast. Stars do the same. In Orion, Betelgeuse is orange-red and Rigel is blue-white, because Rigel's surface is hotter. A dense hot body that absorbs all the light falling on it, a \textbf{blackbody}, gives off a spectrum fixed by its temperature alone, and the surface of a star is close to one.
 
-A stove coil at $1000\,\mathrm K$ is brightest at $2.9\,\mu\mathrm m$, in the infrared, so we see only the red tail of its light. The Sun's surface, at $5772\,\mathrm K$, is brightest at $502\,\mathrm{nm}$, in the middle of the visible. Each square metre of the Sun gives off $6.29\times10^7\,\mathrm W$, which is $1110$ times as much as a square metre of the coil, although the Sun is only $5.77$ times hotter. The factor is $5.772^4$. Picture a hump-shaped curve of brightness against wavelength. As the temperature rises, the hump grows taller at every wavelength and its peak slides toward the blue. The shape of the hump comes from counting the quantum states of light and filling them at temperature $T$, principle P3. It is derived that way in Section~\ref{pr:sec:p3}. The same curve describes the glow of a lamp filament, the picture in a thermal camera, and the radiation left over from the early universe at $2.7\,\mathrm K$. Here it gives the wavelength of the peak, Wien's law, and the total power of a hot surface, the Stefan--Boltzmann law. The second defines the temperature of a star.
+At $1000\,\mathrm K$, a stove coil emits most strongly at $2.9\,\mu\mathrm m$ in the infrared, leaving only the red tail visible. The Sun's $5772\,\mathrm K$ surface peaks at $502\,\mathrm{nm}$ and radiates $6.29\times10^7\,\mathrm W$ per square metre. That is $1110$ times the coil's power per unit area, even though the Sun is only $5.77$ times hotter: the power grows as the fourth power of temperature, $5.772^4$. We will obtain both this total power and the wavelength of the peak from the blackbody spectrum.
 
 \subsection{The Planck Function}
 
@@ -343,7 +344,7 @@ A magnitude through one filter measures one flux, and the Planck function says h
 
 The setting Sun shows both problems at once. Its light crosses a long path of air near the horizon. The air removes blue light from the beam more than red, so the Sun looks fainter and redder than at noon. Someone who did not know about the air might think the Sun had cooled. Comparing its brightness through a blue glass and a red glass shows the change, and knowing how the air treats each colour undoes it. Astronomers measure each star through a blue filter $B$ and a yellow-green filter $V$. The difference of the two magnitudes, the colour, measures the temperature without needing the distance, because distance dims both filters alike. Dust between the stars removes blue light faster than yellow, like the air at sunset, so a dimmed star also looks redder. A colour and a magnitude, together with the spectral type of the star (Section~\ref{rad:sec:spectral}), separate temperature, dust and distance, which one magnitude alone cannot do.
 
-For blackbodies at $5000\,\mathrm K$ and $10\,000\,\mathrm K$, the values of $B-V$ differ by $0.71$ magnitudes (Eq.~\eqref{ph:eq:colour_temperature} below). A dust cloud that dims a star by one magnitude in $V$ makes it $0.32$ magnitudes redder in $B-V$ (Eq.~\eqref{ph:eq:RV} below). Picture the spectrum seen through two windows, one blue and one yellow. A hotter star tips the spectrum toward the blue window. Dust tips it back toward the yellow window and dims both. A colour compares two fluxes. Whether dust scatters light strongly is decided by comparing the size of a grain with the wavelength. The optical depth, which measures the dimming, compares the length of the path with the mean distance between grains. All three are comparisons of two scales, P6 (Section~\ref{pr:sec:p6}). The same law of dimming gives the airmass correction for the Earth's air (Section~\ref{co:sec:airmass}), and it returns in the transfer of light through a star (Chapter~\ref{ch:radiation}). Here it gives the colour as a thermometer, the extinction from the optical depth, and the distance modulus corrected for dust.
+Temperature and dust can both change the measured colour, but in different ways. Blackbodies at $5000\,\mathrm K$ and $10\,000\,\mathrm K$ differ by $0.71$ magnitudes in $B-V$ (Eq.~\eqref{ph:eq:colour_temperature}). Dust that dims a star by one magnitude in $V$ also makes it $0.32$ magnitudes redder in $B-V$ (Eq.~\eqref{ph:eq:RV}). We will first use colour as a thermometer, then describe how extinction changes that colour and corrects the distance inferred from brightness.
 
 \subsection{Passbands and the Colour Index}
 
@@ -451,7 +452,7 @@ One magnitude of extinction is close to one optical depth. The extinction is pro
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\linewidth]{fig_ch4_spectral_filters_bands.pdf}
-	\caption{Cross-sections that vary as $\lambda^{-4}$, as $\lambda^{-1}$ and not at all, each divided by its value at $\lambda_V=0.55\,\mu\mathrm m$, against wavelength from $0.3$ to $0.9\,\mu\mathrm m$. The shaded strips mark the $U$, $B$, $V$, $R$ and $I$ passbands, with dotted lines at their central wavelengths.}
+	\caption{Cross-sections that vary as $\lambda^{-4}$, as $\lambda^{-1}$ and not at all, each divided by its value at $\lambda_V=0.55\,\mu\mathrm m$, against wavelength from $0.3$ to $0.9\,\mu\mathrm m$. The shaded strips mark the $U$, $B$, $V$, $R$ and $I$ passbands, with dotted lines at their central wavelengths. The dots mark the heights of the $\lambda^{-1}$ and $\lambda^{-4}$ curves at the $B$ line, carried to the vertical axis by dotted lines.}
 	\label{fig:scattering_rayleigh_mie_comparison}
 \end{figure}
 
@@ -483,23 +484,34 @@ and the intrinsic colour is recovered as
 \end{equation}
 In practice it is used the other way round. The intrinsic colour of a star is known from its spectral type, so its measured colour gives $E(B-V)$.
 
-\paragraph{From reddening to dimming.} The distance needs the dimming $A_V$, but what we measure is the reddening $E(B-V)$. Their ratio is
+\paragraph{From reddening to dimming.} The distance needs the dimming $A_V$, but what we measure is the reddening $E(B-V)$. The reddening that comes with each magnitude of dimming is
 \begin{align}
-	\frac{A_V}{E(B-V)}
-	&\eqby{1} \frac{1.086\,N_d\,\sigma_{\rm ext}(\lambda_V)}{1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)\right]} \nonumber\\
-	&= \frac{\sigma_{\rm ext}(\lambda_V)}{\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)} \nonumber\\
-	&\eqby{2} \frac{1}{\lambda_V/\lambda_B-1}=\frac{1}{550/440-1}=4.0 .
+	\frac{E(B-V)}{A_V}
+	&\eqby{1} \frac{A_B-A_V}{A_V}
+	\eqby{2} \frac{1.086\,N_d\left[\sigma_{\rm ext}(\lambda_B)-\sigma_{\rm ext}(\lambda_V)\right]}{1.086\,N_d\,\sigma_{\rm ext}(\lambda_V)}
+	=\frac{\sigma_{\rm ext}(\lambda_B)}{\sigma_{\rm ext}(\lambda_V)}-1 \nonumber\\
+	&\eqby{3} \frac{\lambda_V}{\lambda_B}-1=\frac{550}{440}-1=0.25 .
 \end{align}
 \begin{explain}
-	\item Eq.~\eqref{ph:eq:extinction_tau} in the $V$ and $B$ bands.
+	\item The definition of the colour excess.
+	\item Eq.~\eqref{ph:eq:extinction_tau} in the $B$ and $V$ bands.
 	\item An extinction cross-section proportional to $1/\lambda$.
 \end{explain}
-The column of dust cancels, so the ratio depends on the kind of grains and not on how many there are. Measured along many lines of sight in the diffuse Milky Way, the ratio is
+Each curve of Figure~\ref{fig:scattering_rayleigh_mie_comparison} is divided by its value at $\lambda_V$, so its height at the $B$ line is $\sigma_{\rm ext}(\lambda_B)/\sigma_{\rm ext}(\lambda_V)$, and its height there minus one is the excess per magnitude of dimming. The $1/\lambda$ curve stands at $1.25$, which gives $A_V/E(B-V)=1/0.25=4.0$. The $\lambda^{-4}$ curve of particles much smaller than the wavelength stands at $(550/440)^4=2.44$, so such particles give $1.44$ magnitudes of excess for each magnitude of dimming, and this strong reddening is why the sky is blue and the setting Sun is red. Grains much larger than the wavelength have a flat curve at height $1$. They dim every colour equally and give no excess, which is why clouds are white. The column of dust cancels in the ratio, so it depends on the kind of grains and not on how many there are. Measured along many lines of sight in the diffuse Milky Way, the ratio is
 \begin{equation}
 	\boxed{A_V=3.1\,E(B-V).}
 	\label{ph:eq:RV}
 \end{equation}
 The ratio $3.1$ is often called $R_V$. It is smaller than the $4.0$ of a pure $1/\lambda$ law, so between $B$ and $V$ the extinction falls a little faster than $1/\lambda$. A law $\lambda^{-\beta}$ with $(550/440)^\beta=1+1/3.1$ fits it, which gives $\beta=1.25$.
+
+\paragraph{What sets the step.} Going from $V$ to $B$ shortens the wavelength by the factor $550/440=1.25$, so for a particle of any size it multiplies $2\pi a/\lambda$ by $1.25$. The step $\sigma(B)/\sigma(V)$ is how much the cross-section grows over that change, and it depends on where the particle sits on the curve of Figure~\ref{ph:fig:grain_size}. A particle much smaller than the wavelength feels the same field across its whole body, so all its electrons are shaken in step and radiate together. Its cross-section grows as $(2\pi a/\lambda)^4$ (Eq.~\eqref{eq:rayleigh_scattering_cross_section}), and the step is $1.25^4=2.44$. When $2\pi a/\lambda$ nears one, the field changes across the grain and its parts radiate out of step, so the growth slows. The cross-section peaks at about $\FourMiePeakQ$ times the grain's area near $2\pi a/\lambda=\FourMiePeakX$ and then settles at twice the area for every colour (Section~\ref{is:sec:grains}). On the way the step falls from $2.44$ through $1.25$, near $2\pi a/\lambda=\FourMieXonetwofive$, to $1$. Just past the peak the cross-section falls as $2\pi a/\lambda$ grows, and grains of that size block red light a little more than blue. A single grain of radius $0.1\,\mu\mathrm m$ is at $2\pi a/\lambda=\FourMieXzeroone$ in $V$ and gives a step of $\FourMieSzeroone$. Real dust is a mix of sizes and of materials that also absorb light, and the measured step of $1.32$ is the average over that mix. Over the short range from $V$ to $B$, a cross-section that rises as $\lambda^{-\beta}$ gives the step $1.25^\beta$, which is how the $\beta=1.25$ above was found.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch4_grain_size.pdf}
+	\caption{(a) A particle much smaller than, near, and much larger than the wavelength, with the $B$ and $V$ waves drawn to the scale of each particle. (b) The extinction cross-section of a sphere of refractive index $1.5$, in units of its area $\pi a^2$, against $2\pi a/\lambda$, from the Mie series averaged over a $\pm15\%$ spread in size. (c) The step $\sigma(B)/\sigma(V)$ for the same spheres against $2\pi a/\lambda$ in $V$, with dotted lines at $2.44$, $1.25$ and $1$, the heights of the curves of Figure~\ref{fig:scattering_rayleigh_mie_comparison} at the $B$ line. The dot marks a grain of radius $0.1\,\mu\mathrm m$.}
+	\label{ph:fig:grain_size}
+\end{figure}
 
 \paragraph{The distance corrected for dust.} Eq.~\eqref{ph:eq:mag_with_dust} in the $V$ band gives the distance.
 \begin{align}
@@ -527,7 +539,7 @@ We now have the luminosity of a star, from its flux and its distance, and its ef
 
 Two electric room heaters glow the same orange. Their surfaces are then at the same temperature, and each square centimetre gives off the same power. If one heater warms the room twice as much as the other, it must have twice the glowing area. Its size follows from its power and its colour, and nobody has to measure it. A star is such a heater. Its temperature fixes the power per square metre, $\sigma_{\rm SB}T_{\rm eff}^4$, and its luminosity is the total. The area of the star is the luminosity divided by the power per unit area.
 
-A star as hot as the Sun with 100 times its luminosity has 100 times its area, so 10 times its radius. Aldebaran gives off 439 times the Sun's power, but it is cooler, at $3900\,\mathrm K$. Each square metre of it gives $(3900/5772)^4=0.208$ of what a square metre of the Sun gives. Its area is therefore $439/0.208=2106$ times the Sun's, and its radius is $46$ times the Sun's. Picture the surface of the star tiled with square metres, each giving off $\sigma_{\rm SB}T_{\rm eff}^4$. Counting the tiles is the same as counting the luminosity. This is energy conservation (P1) with the power per area that counting states gives (P3). The same relation draws the lines of equal radius on the Hertzsprung--Russell diagram (Section~\ref{st:sec:scaling}). Here it gives the radius from $L$ and $T_{\rm eff}$, the angular size of the star on the sky, and a second route to that angle from the flux alone.
+A star at the Sun's temperature with 100 times its luminosity must have 100 times its emitting area and hence 10 times its radius. Aldebaran is cooler, at $3900\,\mathrm K$, so each square metre gives only $(3900/5772)^4=0.208$ of the Sun's power per square metre. Yet its total power is 439 times the Sun's. Its area must therefore be $439/0.208=2106$ times larger, giving a radius $46$ times the Sun's. This link between temperature, area and luminosity will give us the radii of stars and their tiny angular sizes on the sky.
 
 \subsection{Radius from Luminosity and Temperature}
 
