@@ -144,3 +144,4 @@ All 16 chapters complete (2026-10-16). Full notes 356 pp, clean build (no undefi
 - 2026-11-20: Problem 11.9.1 essential idea: flux is defined at each point, so each planet is a point at distance d; ratio (d_E/d_M)^2.
 - 2026-11-20: New Fig 5.11 (re:fig:nyquist, fig_ch5_nyquist.tex) at the start of §5.5.2. (a) mirror D with copy shifted by λu, (b) overlap vs u ending at D/λ (closed form in pgf), (c)/(d) sampled spectrum copies for fine and coarse pixels. Referenced from §5.5.1 (a,b) and §5.5.2 (c,d). No new symbols.
 - 2026-11-20: §5.4.5 new paragraph "A point or a disc." (unresolved object = Airy pattern of a point; disc resolved when angular DIAMETER > θ_R). Jupiter at opposition 46.9" vs 5 mm pupil θ_R 27.7" (radius 23.5" would wrongly say point); retina 30"/cone, eye ~1′, so Jupiter looks like a star.
+- 2026-11-20: Fig 8.1 (FRB sweep) gains a dotted vertical no-dispersion line at t=0; xmin -45 for its label; caption updated.
