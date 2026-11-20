@@ -3,19 +3,19 @@
 
 \input{results/ch15/synchrotron.tex}
 
-Stars shine because they are hot and opaque, and their light is close to the light of a blackbody (Chapter~\ref{ch:radiation}). Much of the sky does not shine that way. The gas between the galaxies of a cluster glows in X-rays, though it is far too thin to be opaque. Radio galaxies send out spectra that fall smoothly as a power of the frequency over many decades, which no single temperature can make. A quasar outshines its whole galaxy from a region a few light-days across.
+Hot, opaque stars shine nearly as blackbodies (Chapter~\ref{ch:radiation}). Many other sources do not. Thin gas between the galaxies of a cluster glows in X-rays. Radio galaxies shine across many decades of frequency with no single temperature that could explain their spectra. A quasar can outshine its host galaxy from a region only a few light-days across.
 
-All of this light comes from charges that are pushed about, by ions, by magnetic fields, or by collisions with fast electrons. One formula from electromagnetism, the power radiated by an accelerated charge, gives every spectrum in the chapter when it is combined with the six principles. Fast particles need one more tool, the Lorentz transformation, which we write as a matrix.
+Charged particles make this light when ions, magnetic fields, or other particles accelerate them. We start with the power radiated by an accelerated charge and use the six principles to build the spectra. For particles moving near the speed of light, we also need the Lorentz transformation in matrix form.
 
 % ==============================================================================
 \section{An Accelerated Charge Radiates}
 \label{fp:sec:larmor}
 
-Chapter~\ref{ch:ism} used the power radiated by a shaken electron to find the Thomson cross-section, Eq.~\eqref{eq:thomson_cross_section}. There the electron was driven gently by a passing wave and always moved slowly. In hot gas and in jets, electrons are flung about by ions, spun round magnetic field lines, and move close to the speed of light. We need to know how much they radiate, and how motion near $c$ changes what an observer sees.
+In Chapter~\ref{ch:ism}, a passing wave shook a slow electron. Its radiation gave the Thomson cross-section of Eq.~\eqref{eq:thomson_cross_section}. Ions and magnetic fields can accelerate electrons much more strongly, and electrons in jets can move close to $c$. Their radiation depends on both the acceleration and the motion of the source toward the observer.
 
-Hold one end of a long rope lying on the floor. If you keep your hand still, or move it at a steady speed, nothing travels down the rope. If you jerk your hand, a pulse runs away along it, and the pulse carries energy that your arm supplied. A harder jerk sends a bigger pulse. What matters is how suddenly the hand changes its speed, not how fast it moves. A charge does the same with its electric field. An electron passing close to a proton is jerked sideways once. An electron in a magnetic field is jerked all the time, as it is turned round in a circle. Each jerk sends out a pulse of electromagnetic field that carries energy away (P1). The power depends on the square of the acceleration, and for an electron it is a small loss per turn unless the acceleration is extreme (P6).
+Shake the end of a long rope and a pulse runs away from your hand. A sharper jerk sends a stronger pulse. The charge's electric field behaves in the same way when its motion changes. An electron passing a proton gets one sideways kick. In a magnetic field it turns continuously. In each case, its changing field carries energy away (P1). The radiated power rises with the square of the acceleration. We will compare that loss with the energy of the motion before treating radiation as a small correction (P6).
 
-The classical hydrogen atom in numbers. An electron circling a proton at the Bohr radius $5.29\times10^{-11}\,\mathrm m$ has an acceleration of $9.0\times10^{22}\,\mathrm{m\,s^{-2}}$ and would radiate $4.7\times10^{-8}\,\mathrm W$. Its energy of $13.6\,\mathrm{eV}$ would last $4.7\times10^{-11}\,\mathrm s$, while one orbit takes $1.5\times10^{-16}\,\mathrm s$. It would lose only $1.6\times10^{-6}$ of its energy per orbit. Quantum mechanics stops the real atom from radiating at all, but the ratio shows that radiation drains a moving charge slowly compared with its own motion. The picture is a shell of field spreading out from the charge at the speed of light, strongest at right angles to the acceleration and zero along it. The same formula runs radio antennas, X-ray tubes and the synchrotron light sources of laboratories. It gave the Rayleigh and Thomson scattering of Chapter~\ref{ch:ism}. It uses P1 (the field carries energy) and P6 (the rate of radiation compared with the rate of motion). It gives the radiated power, how large it is, and how it changes when the charge moves near the speed of light.
+Consider a classical electron circling a proton at the Bohr radius, $5.29\times10^{-11}\,\mathrm m$. Its acceleration is $9.0\times10^{22}\,\mathrm{m\,s^{-2}}$, so it would radiate $4.7\times10^{-8}\,\mathrm W$. At that rate, its $13.6\,\mathrm{eV}$ of energy would last $4.7\times10^{-11}\,\mathrm s$. One orbit takes only $1.5\times10^{-16}\,\mathrm s$, so the loss per orbit is $1.6\times10^{-6}$ of its energy. A real hydrogen atom is stable because of quantum mechanics. The classical comparison shows why radiation can often be calculated after finding the particle's motion. The escaping field is strongest at right angles to the acceleration and vanishes along it. The same rule describes radio antennas, X-ray tubes, laboratory synchrotrons, and the scattering in Chapter~\ref{ch:ism}.
 
 \paragraph{The Larmor formula.} A charge $e$ moving slowly, $v\ll c$, with acceleration $\dot{\vec v}$ radiates the power
 \begin{equation}
@@ -23,9 +23,9 @@ The classical hydrogen atom in numbers. An electron circling a proton at the Boh
 	\dv{\mathcal P}{\Omega}=\frac{e^2\,|\dot{\vec v}|^2}{16\pi^2\varepsilon_0c^3}\,\sin^2\Theta ,
 	\label{fp:eq:larmor}
 \end{equation}
-where $\Theta$ is the angle between the acceleration and the direction of emission. These are quoted from electromagnetism. The second form integrates to the first, since $\int\sin^2\Theta\,d\Omega=8\pi/3$. The pattern is the same in a direction and in the opposite direction, so the radiation carries away energy but no net momentum.
+Here $\Theta$ is the angle between the acceleration and the direction of emission. These results come from electromagnetism. Integrating the angular pattern gives the total power, since $\int\sin^2\Theta\,d\Omega=8\pi/3$. Equal power goes in opposite directions, so the radiation carries energy but no net momentum in this frame.
 
-\paragraph{How fast a charge loses its energy.} To compare the radiated energy with the energy of the motion, take an electron of mass $m_e$ oscillating as $x=x_0\cos\omega t$ (P6). Its acceleration is $\dot v=-\omega^2x$, its energy is $\tfrac12m_e\omega^2x_0^2$, and in one radian of its motion, a time $1/\omega$, it radiates $\avg{\mathcal P}/\omega$.
+\paragraph{How fast a charge loses its energy.} Take an electron of mass $m_e$ oscillating as $x=x_0\cos\omega t$. We compare the energy it radiates in one radian of motion with the energy it has (P6). Its acceleration is $\dot v=-\omega^2x$, its energy is $\tfrac12m_e\omega^2x_0^2$, and a time $1/\omega$ lets it radiate $\avg{\mathcal P}/\omega$.
 \begin{align}
 	\frac{\text{energy radiated per radian}}{\text{energy of the motion}}
 	&\eqby{1} \frac{e^2\,\omega^4x_0^2/(12\pi\varepsilon_0c^3)}{\omega\cdot\tfrac12m_e\omega^2x_0^2} \nonumber\\
@@ -41,18 +41,18 @@ where $\Theta$ is the angle between the acceleration and the direction of emissi
 	\boxed{t_e=\frac{e^2}{6\pi\varepsilon_0m_ec^3}=\frac23\,\frac{r_e}{c}=6.27\times10^{-24}\,\mathrm s .}
 	\label{fp:eq:tau_e}
 \end{equation}
-Here $r_e$ is the classical electron radius of Eq.~\eqref{eq:thomson_cross_section}, so $t_e$ is two thirds of the time light takes to cross it. An electron loses the fraction $\omega t_e$ of its energy per radian, and $\omega t_e\ll1$ for any motion short of $10^{23}$ turns per second. We may therefore work out the motion of a charge as if it did not radiate, and then add Larmor's power. This is how every spectrum below is found.
+Here $r_e$ is the classical electron radius of Eq.~\eqref{eq:thomson_cross_section}. Light takes only a little longer than $t_e$ to cross it. The electron loses a fraction $\omega t_e$ of its energy per radian, and $\omega t_e\ll1$ below about $10^{23}$ turns per second. We can first find the motion as though the charge did not radiate, then use Larmor's formula to calculate its light.
 
-\paragraph{Fast charges and the boost matrix.} Let a frame move with the charge at speed $\beta c$ along $x$ relative to the frame of the observer. We call the first the charge's frame (primed) and the second the lab. The lab components of an event or of a four-momentum follow from those in the charge's frame by the boost
+\paragraph{Fast charges and the boost matrix.} Let the charge move along $x$ at speed $\beta c$ in the observer's frame, which we call the lab. The charge's own frame is primed. To turn a position, time, energy, or momentum from the charge's frame into lab quantities, use the boost
 \begin{equation}
 	\begin{pmatrix}ct\\x\\y\end{pmatrix}=\Lambda(\beta)\begin{pmatrix}ct'\\x'\\y'\end{pmatrix},\qquad
 	\Lambda(\beta)=\begin{pmatrix}\gamma_L&\gamma_L\beta&0\\ \gamma_L\beta&\gamma_L&0\\0&0&1\end{pmatrix},\qquad
 	\gamma_L=\frac{1}{\sqrt{1-\beta^2}} ,
 	\label{fp:eq:boost}
 \end{equation}
-with the $z$ component unchanged and left out. The same matrix acts on an energy and momentum written as $(E/c,\ \text{momentum along }x,\ \text{momentum along }y)$. Its inverse is $\Lambda(-\beta)$, the boost from the lab into the charge's frame. Here $\gamma_L$ is the \textbf{Lorentz factor}, with the subscript to keep it apart from the adiabatic exponent $\gamma$.
+The $z$ component is unchanged and omitted. The same matrix transforms four-momentum, with components $E/c$, momentum along $x$, and momentum along $y$. To go from the lab to the charge's frame, use its inverse $\Lambda(-\beta)$. The subscript on the \textbf{Lorentz factor} $\gamma_L$ distinguishes it from the adiabatic exponent $\gamma$.
 
-\paragraph{The power is the same in both frames.} In its own frame the charge is momentarily at rest, so Larmor's formula holds there. In a time $dt'$ it radiates an energy $dE'$ and, by the symmetry of Eq.~\eqref{fp:eq:larmor}, no net momentum. The emissions happen at the charge, $x'=y'=0$. Boosting the energy-momentum and the time interval to the lab,
+\paragraph{The power is the same in both frames.} At one instant, the charge is at rest in its own frame, where Larmor's formula applies. During $dt'$ it radiates energy $dE'$ but no net momentum, by the symmetry of Eq.~\eqref{fp:eq:larmor}. The radiation is emitted at the charge, $x'=y'=0$. Boost the radiated energy and the time interval to the lab,
 \begin{align}
 	\Lambda(\beta)\begin{pmatrix}dE'/c\\0\\0\end{pmatrix}
 	&\eqby{1} \begin{pmatrix}\gamma_L\,dE'/c\\ \gamma_L\beta\,dE'/c\\0\end{pmatrix},
@@ -69,7 +69,7 @@ The factors $\gamma_L$ cancel in the ratio,
 	\boxed{\mathcal P=\dv{E}{t}=\dv{E'}{t'}=\frac{e^2\,|\dot{\vec v}'|^2}{6\pi\varepsilon_0c^3},}
 	\label{fp:eq:power_invariant}
 \end{equation}
-where $\dot{\vec v}'$ is the acceleration in the charge's own frame. To find the power of a fast charge we find its acceleration in its own frame and use Larmor's formula there. The power that an observer receives is a different thing, since the observer also sees the pulses squeezed together in time. That squeezing sets the frequencies of synchrotron light in Section~\ref{fp:sec:sync}.
+Here $\dot{\vec v}'$ is the acceleration in the charge's frame. We can find the power of a fast charge by calculating that acceleration and applying Larmor's formula there. An observer may receive the light in a shorter burst because the source moves toward them. That arrival-time effect sets the frequencies of synchrotron light in Section~\ref{fp:sec:sync}.
 
 \paragraph{Beaming.} A photon of frequency $\nu'$ emitted in the charge's frame at angle $\theta'$ to the direction of motion has four-momentum $(h\nu'/c)(1,\cos\theta',\sin\theta')$. In the lab it has frequency $\nu$ and angle $\theta$,
 \begin{align}
@@ -87,11 +87,11 @@ where $\dot{\vec v}'$ is the acceleration in the charge's own frame. To find the
 	\item The third row divided by the second.
 	\item The first row.
 \end{explain}
-A photon sent sideways in the charge's frame, $\theta'=\pi/2$, has $\tan\theta=1/(\gamma_L\beta)$ in the lab. All the light of the forward half of the charge's frame, which is half of all its light, lands within this angle,
+A photon emitted sideways in the charge's frame, $\theta'=\pi/2$, appears at $\tan\theta=1/(\gamma_L\beta)$ in the lab. The entire forward hemisphere of emission fits inside this angle,
 \[
 \boxed{\theta\lesssim\frac{1}{\gamma_L}\qquad(\gamma_L\gg1).}
 \]
-An electron with $\gamma_L=10$ throws half its photons into a cone of half-angle $6^\circ$ about its velocity (Figure~\ref{fp:fig:beaming}). Those photons are also shifted to higher frequency by the second result of Eq.~\eqref{fp:eq:beaming}, so they carry more than half of the energy. Each photon's energy is multiplied by $\gamma_L(1+\beta\cos\theta')$. Averaged over all directions of the emitter's frame this factor is $\gamma_L$, and the photons of the forward half contribute $\gamma_L(1+\beta/2)/2$ of that average, so the forward half holds the fraction $\tfrac12+\tfrac\beta4$ of the energy, $0.74$ for $\gamma_L=3$ and nearly $\tfrac34$ for any fast charge. The frequency in Eq.~\eqref{fp:eq:beaming} at $\theta'=0$ is $\gamma_L(1+\beta)\nu'=\sqrt{(1+\beta)/(1-\beta)}\,\nu'$, the exact Doppler shift of an approaching source, Eq.~\eqref{eq:doppler_relativistic}, as it must be.
+For $\gamma_L=10$, that cone has a half-angle of about $6^\circ$ (Figure~\ref{fp:fig:beaming}). The forward photons are also shifted to higher frequencies. Their energy rises by $\gamma_L(1+\beta\cos\theta')$, compared with the all-direction average of $\gamma_L$. The forward half therefore carries the fraction $\tfrac12+\tfrac\beta4$ of the radiated energy, $0.74$ at $\gamma_L=3$ and nearly $\tfrac34$ at high speed. At $\theta'=0$, Eq.~\eqref{fp:eq:beaming} gives $\gamma_L(1+\beta)\nu'=\sqrt{(1+\beta)/(1-\beta)}\,\nu'$, the Doppler shift of an approaching source (Eq.~\eqref{eq:doppler_relativistic}).
 
 \begin{figure}[htbp]
 	\centering
@@ -104,13 +104,22 @@ An electron with $\gamma_L=10$ throws half its photons into a cone of half-angle
 \section{Bremsstrahlung}
 \label{fp:sec:brems}
 
-The hot gas that fills a cluster of galaxies is at about $7\times10^7\,\mathrm K$, set by the depth of the cluster's gravitational well (Problem~\ref{sg:prob:cluster}), and the gas is fully ionised. It is also so thin that light crosses it freely, so by Eq.~\eqref{rad:eq:slab} it does not shine as a blackbody. Fully ionised gas has no bound electrons to make lines. Something else must make its light.
+The gas between the galaxies of a cluster is hot, about $7\times10^7\,\mathrm K$, because it lies deep in the cluster's gravitational well (Problem~\ref{sg:prob:cluster}). It is fully ionised, so it has no bound electrons to make spectral lines. It is also thin enough for light to escape without reaching blackbody equilibrium (Eq.~\eqref{rad:eq:slab}). What makes its X-rays?
 
-Think of rain on the roof of a car. Each drop makes a short click, and a short click contains every pitch up to about one over its length. The sound inside the car is the number of drops striking per second times the energy of each click. Heavier rain is louder, and the sharpest clicks give the highest pitches. In hot gas the drops are electrons and the roof is the ions. Each electron that passes an ion is jerked once and sends out one pulse of light, as in Section~\ref{fp:sec:larmor}. The gas glows with the sum of countless such pulses. The idea is to find the spectrum of one encounter and then count the encounters, over impact parameters (P6) and over the Maxwell distribution of speeds (P3).
+Think of a car rounding a bend. Even if its speed stays steady, it accelerates sideways because its direction changes. An electron passing an ion also turns. The ion's electric field pulls it inward for a short time, and the accelerating electron sends out a pulse of light (Section~\ref{fp:sec:larmor}). A closer pass gives a stronger, shorter pulse. The combined light of many such encounters is \textbf{bremsstrahlung}, or braking radiation. We find the spectrum of one pulse, count passes at different distances (P6), then average over electron speeds (P3).
 
-The cluster in numbers. Its electrons have $k_BT=6.0\,\mathrm{keV}$. No photon can carry more energy than the electron that made it (P1), so the spectrum must end near $6\,\mathrm{keV}$, at $1.5\times10^{18}\,\mathrm{Hz}$, in X-rays. The picture is an electron flying past an ion, its path bent slightly near closest approach, with a flash of light sent out at the bend. The same process is the braking radiation (\emph{Bremsstrahlung}) of an X-ray tube. It makes the radio glow of ionised hydrogen around hot stars, the X-rays of solar flares and of clusters. Run backwards, as absorption, it is the opacity of stellar interiors. It uses P1, P3, P6 and, for absorption, the detailed balance of P4. It gives the emissivity of a hot plasma, its cooling rate and cooling time, and its absorption.
+For the cluster gas, $k_BT=6.0\,\mathrm{keV}$, corresponding to $1.5\times10^{18}\,\mathrm{Hz}$. Its spectrum begins to fall steeply near this X-ray energy. Electrons in the fast tail of the Maxwell distribution can still make higher-energy photons, but each photon must draw its energy from the electron that made it (P1). The same process makes X-rays in an X-ray tube and solar flares, and radio light in ionised gas around hot stars. In reverse, a free electron can absorb a photon while passing an ion. That process contributes to the opacity of stellar interiors (P4).
 
-\paragraph{A gas of free charges.} Before counting encounters one at a time, we check that each is a meeting of two particles and not a crowd. Put an ion of charge $Z_ie$ at the origin, in gas of electron density $n_e$ at temperature $T$. Electrons gather near it with the Boltzmann weight $e^{e\phi/k_BT}$, where $\phi$ is the electric potential (P3). Poisson's equation, the electric version of Eq.~\eqref{pr:eq:poisson}, then reads, away from the ion,
+The ion is much heavier than the passing electron, so we treat it as fixed. The ion's electric field pulls the electron toward it and bends its path (Figure~\ref{fp:fig:brems_dipole}). The pair's electric dipole moment changes as the electron moves. With the ion fixed, $\boldsymbol p=-e\boldsymbol r_e+\text{constant}$, so $\ddot{\boldsymbol p}=-e\boldsymbol a_e$. The acceleration produces the dipole radiation of Eq.~\eqref{fp:eq:larmor}, strongest across the direction of the kick and absent along it.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{fig_ch15_brems_dipole.pdf}
+	\caption{A free electron passes a heavy ion and curves toward it (left). The lobes show the angular pattern of its radiation at low speed (right).}
+	\label{fp:fig:brems_dipole}
+\end{figure}
+
+\paragraph{A gas of free charges.} We can count separate electron--ion encounters only if an electron feels one ion more strongly than the surrounding charges during a close pass. Put an ion of charge $Z_ie$ at the origin, in gas of electron density $n_e$ and temperature $T$. Its electric potential $\phi$ draws in electrons. Their density rises by the Boltzmann factor $e^{e\phi/k_BT}$ (P3). Away from the ion, Poisson's equation gives
 \begin{align}
 	\nabla^2\phi
 	&\eqby{1} -\frac{e}{\varepsilon_0}\Big(Z_in_i-n_e\,e^{e\phi/k_BT}\Big) \nonumber\\
@@ -129,9 +138,9 @@ The cluster in numbers. Its electrons have $k_BT=6.0\,\mathrm{keV}$. No photon c
 	\boxed{\lambda_D=\sqrt{\frac{\varepsilon_0k_BT}{n_ee^2}}=\frac{\sqrt{k_BT/m_e}}{2\pi\nu_p} .}
 	\label{fp:eq:debye}
 \end{equation}
-The second form uses the plasma frequency of Eq.~\eqref{re:eq:plasma_frequency}. The Debye length is the distance a thermal electron covers in one plasma oscillation. Beyond it, the field of any charge is cancelled by the cloud it gathers. In cluster gas, $n_e=10^3\,\mathrm{m^{-3}}$ and $T=7\times10^7\,\mathrm K$ give $\lambda_D=18\,\mathrm{km}$, with $2.5\times10^{16}$ electrons inside a sphere of that radius. Gas round a hot star, $n_e=10^8\,\mathrm{m^{-3}}$ and $T=10^4\,\mathrm K$, gives $\lambda_D=0.7\,\mathrm m$ and $1.4\times10^8$ electrons (P6). With so many charges inside each Debye sphere, the screening is a smooth average, and an electron feels one ion strongly only when it passes far closer than $\lambda_D$. Such a gas is a \textbf{plasma}. It behaves as an ideal gas, its encounters can be counted one at a time, and by Chapter~\ref{ch:resolution} it lets no radiation below $\nu_p$ through.
+The second form uses the plasma frequency of Eq.~\eqref{re:eq:plasma_frequency}. The \textbf{Debye length} is roughly the distance a thermal electron travels during one plasma oscillation. Beyond this distance, the cloud of electrons around an ion screens its field. In cluster gas, $n_e=10^3\,\mathrm{m^{-3}}$ and $T=7\times10^7\,\mathrm K$ give $\lambda_D=18\,\mathrm{km}$, with $2.5\times10^{16}$ electrons inside a sphere of that radius. Gas around a hot star, $n_e=10^8\,\mathrm{m^{-3}}$ and $T=10^4\,\mathrm K$, gives $\lambda_D=0.7\,\mathrm m$ and $1.4\times10^8$ electrons (P6). Each screening cloud thus contains many electrons. Its average effect is smooth, while a passing electron feels the nearest ion strongly when it gets much closer than $\lambda_D$. We can count such encounters one at a time. The gas is a \textbf{plasma}, and it blocks radiation below the plasma frequency $\nu_p$ (Chapter~\ref{ch:resolution}).
 
-\paragraph{One encounter.} An electron of speed $v$ passes an ion of charge $Z_ie$ at impact parameter $b$. Its path bends only slightly, so we take it as a straight line, with closest approach at $t=0$. The force across the path is $Z_ie^2b/[4\pi\varepsilon_0(b^2+v^2t^2)^{3/2}]$. The total sideways kick is
+\paragraph{One encounter.} An electron approaches an ion of charge $Z_ie$ at speed $v$ and impact parameter $b$. If the deflection is small, its nearly straight path is enough to calculate the force. Set $t=0$ at closest approach. The sideways force is $Z_ie^2b/[4\pi\varepsilon_0(b^2+v^2t^2)^{3/2}]$. Integrating it over the passage gives the sideways change in speed,
 \begin{align}
 	\Delta v
 	&\eqby{1} \frac{Z_ie^2b}{4\pi\varepsilon_0m_e}\int_{-\infty}^{\infty}\frac{dt}{(b^2+v^2t^2)^{3/2}}
@@ -142,7 +151,7 @@ The second form uses the plasma frequency of Eq.~\eqref{re:eq:plasma_frequency}.
 	\item Newton's law across the path, integrated over the passage.
 	\item $\int_{-\infty}^\infty dt/(b^2+v^2t^2)^{3/2}=2/(b^2v)$.
 \end{explain}
-To find how the radiated energy is spread over frequency, write the acceleration through its Fourier transform $\tilde{\dot v}(\omega)=\int\dot v\,e^{i\omega t}dt$. For a real signal, Parseval's theorem gives $\int\dot v^2dt=\tfrac1\pi\int_0^\infty|\tilde{\dot v}|^2d\omega$, so the total energy $W$ of the pulse is
+The kick tells us the total change in velocity, but the spectrum also depends on how long the kick lasts. We describe the acceleration at each angular frequency $\omega$ by its Fourier transform $\tilde{\dot v}(\omega)=\int\dot v\,e^{i\omega t}dt$. For a real signal, Parseval's theorem gives $\int\dot v^2dt=\tfrac1\pi\int_0^\infty|\tilde{\dot v}|^2d\omega$. Applying it to Larmor's power, the pulse energy $W$ becomes
 \begin{align}
 	W
 	&\eqby{1} \frac{e^2}{6\pi\varepsilon_0c^3}\int_{-\infty}^\infty\dot v^2\,dt
@@ -155,14 +164,14 @@ To find how the radiated energy is spread over frequency, write the acceleration
 	\item Parseval's theorem.
 	\item The transform of the force law above is $\tilde{\dot v}=\Delta v\,uK_1(u)$, with $K_1$ a modified Bessel function. The component of the acceleration along the path changes sign during the passage and adds much less at low frequency, so it is dropped.
 \end{explain}
-The factor $uK_1(u)$ is $1$ for $u\ll1$ and falls as $e^{-u}$ for $u\gg1$. So
+The factor $uK_1(u)$ is close to $1$ when $u\ll1$ and falls rapidly, as $e^{-u}$, when $u\gg1$. We can therefore keep the low-frequency part and cut the spectrum off near $\omega=v/b$,
 \begin{equation}
 	\boxed{\dv{W}{\omega}\approx\frac{e^2}{6\pi^2\varepsilon_0c^3}\left(\frac{2Z_ie^2}{4\pi\varepsilon_0m_e\,bv}\right)^2\quad\text{for }\omega\lesssim\frac vb,\qquad\approx0\ \text{above}.}
 	\label{fp:eq:one_encounter}
 \end{equation}
-The pulse lasts about $b/v$, and a pulse holds every frequency up to the inverse of its length (P6). Below that the spectrum is flat. This is the click on the roof.
+The electron spends about $b/v$ near the ion. A shorter encounter makes a shorter pulse and reaches higher frequencies (P6). Below the cutoff, each encounter contributes nearly the same energy per unit frequency.
 
-\paragraph{Counting encounters.} In a unit volume, electrons of speed $v$ meet ions with impact parameters between $b$ and $b+db$ at the rate $n_en_iv\,2\pi b\,db$. Each such encounter gives Eq.~\eqref{fp:eq:one_encounter} at the frequencies $\omega<v/b$, that is for $b<v/\omega$.
+\paragraph{Counting encounters.} A single pulse is faint. To get the light from a gas, count how often electrons of speed $v$ pass ions at each impact parameter. In a unit volume, encounters between $b$ and $b+db$ occur at the rate $n_en_iv\,2\pi b\,db$. At frequency $\omega$, only encounters with $b<v/\omega$ contribute appreciably, by Eq.~\eqref{fp:eq:one_encounter}.
 \begin{align}
 	\frac{dW}{dt\,dV\,d\omega}
 	&\eqby{1} n_en_iv\int_{b_{\min}}^{b_{\max}}2\pi b\,\dv{W}{\omega}\,db \nonumber\\
@@ -175,9 +184,9 @@ The pulse lasts about $b/v$, and a pulse holds every frequency up to the inverse
 	\item Eq.~\eqref{fp:eq:one_encounter}. Its $b^{-2}$ against the $b$ of the ring leaves $db/b$.
 	\item Collect constants. $2\pi\times4/(6\pi^2)=4/(3\pi)$, and $e^2/\varepsilon_0=4\pi e^2/(4\pi\varepsilon_0)$.
 \end{explain}
-Distant encounters stop counting at $b_{\max}=v/\omega$, where the pulse becomes too slow to make the frequency $\omega$. Close ones stop at the larger of two lengths, the distance $Z_ie^2/(4\pi\varepsilon_0m_ev^2)$ where the kick is no longer small, and the electron's quantum wavelength $\hbar/(m_ev)$. The logarithm changes slowly. The full quantum calculation replaces $\ln(b_{\max}/b_{\min})$ by $(\pi/\sqrt3)\,\bar g$, where the \textbf{Gaunt factor} $\bar g$ is of order one. Slow electrons radiate more, as $1/v$, because they spend longer near each ion.
+The upper limit is $b_{\max}=v/\omega$. Beyond it, the encounter is too slow to radiate much at frequency $\omega$. The lower limit is the larger of two distances. At $Z_ie^2/(4\pi\varepsilon_0m_ev^2)$ the deflection ceases to be small, and below the quantum wavelength $\hbar/(m_ev)$ the classical path ceases to be a good description. Because the result depends on their ratio only through a logarithm, the exact limits have a modest effect. A full quantum calculation replaces $\ln(b_{\max}/b_{\min})$ by $(\pi/\sqrt3)\,\bar g$. The \textbf{Gaunt factor} $\bar g$ is of order one. The $1/v$ dependence remains: a slower electron spends longer near the ion and radiates more.
 
-\paragraph{Averaging over the Maxwell distribution.} In gas at temperature $T$ the electrons have the Maxwell distribution of Eq.~\eqref{pr:eq:ideal_gas}, with $4\pi v^2e^{-m_ev^2/2k_BT}dv$ electrons per speed interval (P3). Only electrons with $\tfrac12m_ev^2\ge h\nu$ can make a photon of energy $h\nu$ (P1). The average of $1/v$ that Eq.~\eqref{fp:eq:brems_v} needs is
+\paragraph{Averaging over electron speeds.} Electrons in gas at temperature $T$ have the Maxwell distribution of Eq.~\eqref{pr:eq:ideal_gas}. Their speed intervals carry the weight $4\pi v^2e^{-m_ev^2/2k_BT}dv$ (P3). A photon of energy $h\nu$ requires an electron with at least that much kinetic energy, so $\tfrac12m_ev^2\ge h\nu$ (P1). We therefore average the $1/v$ in Eq.~\eqref{fp:eq:brems_v} over electrons above this threshold,
 \begin{align}
 	\avg{\frac1v}
 	&\eqby{1} \frac{\int_{v_{\min}}^\infty v\,e^{-m_ev^2/2k_BT}\,dv}{\int_0^\infty v^2\,e^{-m_ev^2/2k_BT}\,dv}
@@ -189,13 +198,13 @@ Distant encounters stop counting at $b_{\max}=v/\omega$, where the pulse becomes
 	\item The two Gaussian integrals, with $m_ev_{\min}^2/2k_BT=h\nu/k_BT$.
 	\item Simplify.
 \end{explain}
-Putting this into Eq.~\eqref{fp:eq:brems_v}, using $d\omega=2\pi\,d\nu$, and writing the result as $4\pi j_\nu$ with $j_\nu$ the emissivity per steradian of Chapter~\ref{ch:radiation},
+Substitute this average into Eq.~\eqref{fp:eq:brems_v} and change from angular frequency to frequency with $d\omega=2\pi\,d\nu$. We write the power per unit volume and frequency as $4\pi j_\nu$, where $j_\nu$ is the emissivity per steradian of Chapter~\ref{ch:radiation}.
 \begin{equation}
 	\boxed{4\pi j_\nu=\frac{32\pi^2}{3\sqrt3}\,\frac{Z_i^2e^6}{(4\pi\varepsilon_0)^3c^3m_e^2}\sqrt{\frac{2m_e}{\pi k_BT}}\;\bar g\,n_en_i\,e^{-h\nu/k_BT}
 	=6.8\times10^{-51}\,Z_i^2\,\bar g\,\frac{n_en_i}{\sqrt T}\,e^{-h\nu/k_BT},}
 	\label{fp:eq:brems_jnu}
 \end{equation}
-in $\mathrm{W\,m^{-3}\,Hz^{-1}}$, with $n_e,n_i$ in $\mathrm{m^{-3}}$ and $T$ in kelvin. The spectrum is flat, apart from the slow change of $\bar g$, up to $h\nu\approx k_BT$, and then falls exponentially (Figure~\ref{fp:fig:brems}). The place where it turns down measures the temperature of the gas directly. At low frequencies hotter gas is fainter, as $T^{-1/2}$, because its electrons are faster and spend less time near each ion.
+The units are $\mathrm{W\,m^{-3}\,Hz^{-1}}$ when $n_e,n_i$ are in $\mathrm{m^{-3}}$ and $T$ is in kelvin. The spectrum is nearly flat below $h\nu\approx k_BT$, apart from the slow change of $\bar g$. Above that energy, it falls exponentially because fast electrons are rare (Figure~\ref{fp:fig:brems}). The bend thus measures the gas temperature. At low frequencies, hotter gas is fainter at fixed density, as $T^{-1/2}$, because faster electrons spend less time near each ion.
 
 \begin{figure}[htbp]
 	\centering
@@ -204,18 +213,18 @@ in $\mathrm{W\,m^{-3}\,Hz^{-1}}$, with $n_e,n_i$ in $\mathrm{m^{-3}}$ and $T$ in
 	\label{fp:fig:brems}
 \end{figure}
 
-\paragraph{Cooling.} Integrating over frequency, $\int_0^\infty e^{-h\nu/k_BT}d\nu=k_BT/h$, so the power radiated per unit volume is
+\paragraph{Cooling.} The spectrum tells us how much energy the gas loses. Integrating over all frequencies, with $\int_0^\infty e^{-h\nu/k_BT}d\nu=k_BT/h$, gives the radiated power per unit volume,
 \begin{equation}
 	\boxed{4\pi\int_0^\infty j_\nu\,d\nu=6.8\times10^{-51}\,\frac{k_B}{h}\,Z_i^2\,\bar g\,n_en_i\sqrt T=1.4\times10^{-40}\,Z_i^2\,\bar g\,n_en_i\sqrt T\ \ \mathrm{W\,m^{-3}} .}
 	\label{fp:eq:brems_total}
 \end{equation}
-The rate goes as the square of the density, since it counts pairs, and as $\sqrt T$, the speed of the electrons. A hydrogen plasma with $n_e=n_i=n$ holds thermal energy $\tfrac32(n_e+n_i)k_BT=3nk_BT$ per unit volume. Its cooling time is that energy over the power,
+The power rises with $n_en_i$ because an electron must pass an ion to radiate. It also rises as $\sqrt T$ after we add all frequencies. A hydrogen plasma with $n_e=n_i=n$ holds thermal energy $\tfrac32(n_e+n_i)k_BT=3nk_BT$ per unit volume. Dividing that energy by the radiated power gives its cooling time,
 \[
 t_{\rm cool}=\frac{3nk_BT}{1.4\times10^{-40}\,\bar g\,n^2\sqrt T}=\frac{3k_B\sqrt T}{1.4\times10^{-40}\,\bar g\,n} .
 \]
-For cluster gas, $n=10^3\,\mathrm{m^{-3}}$ and $T=7\times10^7\,\mathrm K$, this is $2.4\times10^{18}\,\mathrm s$, or $8\times10^{10}$ years with $\bar g=1$. That is longer than the age of the universe (Chapter~\ref{ch:universe}), so the gas has not had time to cool since it was heated and still shines in X-rays (P6). A sphere of such gas $1\,\mathrm{Mpc}$ in radius radiates $1.5\times10^{38}\,\mathrm W$, which is the X-ray luminosity of a rich cluster. Only in the dense centres of some clusters is the cooling time shorter than the age.
+For cluster gas with $n=10^3\,\mathrm{m^{-3}}$ and $T=7\times10^7\,\mathrm K$, this is $2.4\times10^{18}\,\mathrm s$, or $8\times10^{10}$ years when $\bar g=1$. That exceeds the age of the universe (Chapter~\ref{ch:universe}). Most cluster gas therefore remains hot and emits X-rays long after it was heated (P6). A sphere of this gas $1\,\mathrm{Mpc}$ in radius radiates $1.5\times10^{38}\,\mathrm W$, comparable to the X-ray luminosity of a rich cluster. Dense cluster centres cool faster, and in some of them the cooling time is shorter than the age of the universe.
 
-\paragraph{Free-free absorption and Kramers opacity.} The reverse process, an electron absorbing a photon while it passes an ion, follows from Kirchhoff's law, Eq.~\eqref{rad:eq:kirchhoff}, $\kappa_\nu\rho=j_\nu/B_\nu$ (P4).
+\paragraph{Free-free absorption and Kramers opacity.} A free electron can also absorb a photon while passing an ion. In thermal equilibrium, Kirchhoff's law relates this reverse process to the emission we have just found (P4). Equation~\eqref{rad:eq:kirchhoff} gives $\kappa_\nu\rho=j_\nu/B_\nu$.
 \begin{align}
 	\kappa_\nu\rho
 	&\eqby{1} \frac{6.8\times10^{-51}}{4\pi}\,Z_i^2\bar g\,\frac{n_en_i}{\sqrt T}\,e^{-h\nu/k_BT}\;\frac{c^2\big(e^{h\nu/k_BT}-1\big)}{2h\nu^3} \nonumber\\
@@ -226,28 +235,28 @@ For cluster gas, $n=10^3\,\mathrm{m^{-3}}$ and $T=7\times10^7\,\mathrm K$, this 
 	\item Eq.~\eqref{fp:eq:brems_jnu} divided by $4\pi$, over the Planck function \eqref{pr:eq:planck}.
 	\item $e^{-h\nu/k_BT}(e^{h\nu/k_BT}-1)=1-e^{-h\nu/k_BT}$.
 \end{explain}
-At radio frequencies, $h\nu\ll k_BT$, the last factor is $h\nu/k_BT$, and the absorption becomes $1.8\times10^{-12}\,Z_i^2\bar g\,n_en_iT^{-3/2}\nu^{-2}\ \mathrm{m^{-1}}$. Ionised gas round hot stars is therefore opaque at low radio frequencies and transparent at high ones. By Eq.~\eqref{rad:eq:slab} its spectrum rises as $\nu^2$, the Rayleigh–Jeans part of $B_\nu(T)$, where it is thick, and is nearly flat where it is thin, $I_\nu\approx\tau_\nu B_\nu\propto\nu^{-2}\nu^2$.
+At radio frequencies, $h\nu\ll k_BT$, so the last factor approaches $h\nu/k_BT$. The absorption then becomes $1.8\times10^{-12}\,Z_i^2\bar g\,n_en_iT^{-3/2}\nu^{-2}\ \mathrm{m^{-1}}$. Ionised gas around hot stars absorbs low-frequency radio light strongly but lets higher-frequency radio light through. Where the gas is opaque, its spectrum rises as $\nu^2$, the Rayleigh–Jeans part of $B_\nu(T)$ (Eq.~\eqref{rad:eq:slab}). Where it is transparent, $I_\nu\approx\tau_\nu B_\nu\propto\nu^{-2}\nu^2$ is nearly flat.
 
-Inside a star the light that carries the flux has $h\nu$ of a few $k_BT$ (the Rosseland weighting of Section~\ref{rad:sec:diffusion}). Writing $\nu=x\,k_BT/h$ in Eq.~\eqref{fp:eq:ff_absorption},
+Inside a star, photons with $h\nu$ of a few $k_BT$ carry most of the radiative flux (Section~\ref{rad:sec:diffusion}). To see how the opacity changes with temperature, write $\nu=x\,k_BT/h$ in Eq.~\eqref{fp:eq:ff_absorption}.
 \[
 \kappa_\nu\rho\propto\frac{n_en_i}{\sqrt T}\,\frac{1-e^{-x}}{x^3}\left(\frac{h}{k_BT}\right)^3\propto n_en_i\,T^{-7/2}\,\frac{1-e^{-x}}{x^3} .
 \]
-The average over $x$ is a pure number, the same at every temperature, and $n_en_i\propto\rho^2$. So
+The Rosseland average over $x$ changes the coefficient but adds no temperature dependence. Since $n_en_i\propto\rho^2$, the opacity per unit mass obeys
 \begin{equation}
 	\boxed{\kappa_{\rm ff}\propto\rho\,T^{-7/2}.}
 	\label{fp:eq:kramers}
 \end{equation}
-This is Kramers' law of Section~\ref{st:sec:eos}. The $T^{-7/2}$ is the $\nu^{-3}$ of one encounter, the $T^{-1/2}$ of the Maxwell average, and the shift of the important frequencies with temperature. Absorption by electrons bound to ions has the same $\nu^{-3}$ and gives the same law with a larger coefficient in gas with heavy elements.
+This is the free--free part of Kramers' law (Section~\ref{st:sec:eos}). Its $T^{-7/2}$ comes from the $T^{-1/2}$ in the emission and the $\nu^{-3}$ in the absorption, evaluated at frequencies that rise with $T$. Bound electrons also absorb light. Their contribution has the same density and temperature powers, but a larger coefficient in gas rich in heavy elements.
 
 % ==============================================================================
 \section{Synchrotron Radiation}
 \label{fp:sec:sync}
 
-The power of a fast charge comes from its acceleration in its own frame (Eq.~\eqref{fp:eq:power_invariant}), and its light is thrown forward into a cone of angle $1/\gamma_L$ (Eq.~\eqref{fp:eq:beaming}). Hot gas makes a spectrum that is flat and then cut off, and a blackbody one that rises and then cuts off. The radio light of the Milky Way and of radio galaxies is neither. It falls smoothly as about $\nu^{-0.7}$ over many decades of frequency, and it is strongly polarised. No single temperature makes such light.
+We know how to find the power of a fast charge from its acceleration in its own frame (Eq.~\eqref{fp:eq:power_invariant}). We also know that its light is beamed into an angle of about $1/\gamma_L$ (Eq.~\eqref{fp:eq:beaming}). The radio light of the Milky Way and radio galaxies has a different shape from thermal light. It falls roughly as $\nu^{-0.7}$ across many decades of frequency and is strongly polarised. A single temperature cannot produce that spectrum.
 
-Think of a lighthouse. Its lamp turns slowly, once every few seconds, but a ship far out sees only a brief flash each turn, when the narrow beam sweeps past. The narrower the beam, the shorter the flash. If the lamp were also rushing toward the ship, each flash would be squeezed shorter still. An electron moving near the speed of light in a magnetic field circles the field lines. Its light is beamed into a narrow cone along its velocity, so a distant observer sees a short flash once per turn, made shorter because the electron nearly keeps up with its own light. A short flash means high frequencies. The idea is that each electron radiates near $\gamma_L^2$ times its circling frequency, with a power proportional to $\gamma_L^2B^2$, and that a power law of electron energies gives a power law of light, whose slope comes from counting electrons (P3).
+Think of a lighthouse. A distant ship sees a flash only while the beam points toward it. A narrower beam makes a shorter flash, even when the lamp turns at the same rate. A fast electron turning in a magnetic field sends most of its light along its velocity, so an observer sees brief flashes as the beam sweeps past. The electron also moves toward the observer during each flash, shortening its arrival time further. Short flashes reach high frequencies. Each electron radiates near $\gamma_L^2$ times its slow gyration frequency, with power proportional to $\gamma_L^2B^2$. Counting electrons of different energies then gives the broad radio spectrum (P3).
 
-In numbers, the magnetic field of the Galaxy is about $0.5\,\mathrm{nT}$. Electrons in it circle at $14\,\mathrm{Hz}$ when slow. An electron with $\gamma_L=10^4$, an energy of $5\,\mathrm{GeV}$, circles $10^4$ times more slowly, once every twelve minutes, but its light comes out near $10^8\times14\,\mathrm{Hz}=1.4\,\mathrm{GHz}$, in the radio. The picture is a helix wound round a field line, with a narrow searchlight pointing along the electron's velocity and sweeping past us once per turn. The same light comes from the electron rings of laboratory light sources, from the nebulae round young pulsars, from the jets and lobes of radio galaxies and from the afterglows of gamma-ray bursts. It uses P1 (a magnetic field does no work), P3 (counting electrons) and P6 (the length of the flash). It gives the motion, the power, the frequency of synchrotron light, and the spectrum of a power law of electrons.
+The Galactic magnetic field is about $0.5\,\mathrm{nT}$. A slow electron circles in it at $14\,\mathrm{Hz}$. An electron with $\gamma_L=10^4$ has an energy of $5\,\mathrm{GeV}$ and circles $10^4$ times more slowly, about once every twelve minutes. Yet it radiates near $10^8\times14\,\mathrm{Hz}=1.4\,\mathrm{GHz}$, in the radio. Picture a helix around a field line and a narrow beam sweeping with the electron's velocity. Synchrotron light also comes from laboratory electron rings, pulsar nebulae, radio jets and lobes, and gamma-ray burst afterglows. The field turns the electron without doing work (P1). The flash length sets the frequency (P6), while the number of electrons at each energy sets the spectrum (P3).
 
 \paragraph{Gyration.} An electron of charge $-e$ and velocity $\vec v$ in a field $\vec B$ obeys
 \begin{align}
@@ -261,14 +270,14 @@ In numbers, the magnetic field of the Galaxy is about $0.5\,\mathrm{nT}$. Electr
 	\item $\vec a\cdot\dot{\vec a}=\tfrac12\,d(a^2)/dt$ with $\vec a=\gamma_Lm_e\vec v$.
 	\item $\vec v\times\vec B$ is perpendicular to $\vec v$. Since $\gamma_L^2v^2=c^2(\gamma_L^2-1)$, a constant $\gamma_L^2v^2$ means a constant $\gamma_L$.
 \end{explain}
-The magnetic force does no work (P1). With $\gamma_L$ constant the equation becomes $\gamma_Lm_e\dot{\vec v}=-e\,\vec v\times\vec B$. The velocity along $\vec B$ stays fixed, and the velocity across $\vec B$ turns round at the angular frequency
+The magnetic force is perpendicular to the velocity, so it changes the direction but not the energy (P1). With $\gamma_L$ constant, the equation becomes $\gamma_Lm_e\dot{\vec v}=-e\,\vec v\times\vec B$. Motion along $\vec B$ continues unchanged. Across the field, the velocity turns at the angular frequency
 \begin{equation}
 	\boxed{\frac{eB}{\gamma_Lm_e}=\frac{2\pi\nu_g}{\gamma_L},\qquad \nu_g=\frac{eB}{2\pi m_e}=2.80\times10^{10}\,\mathrm{Hz}\times\frac{B}{1\,\mathrm T} ,}
 	\label{fp:eq:gyro}
 \end{equation}
-where $\nu_g$ is the \textbf{gyrofrequency} of a slow electron. The path is a helix. A fast electron circles more slowly than a slow one, by $\gamma_L$. Its light comes out higher than $\nu_g$, by $\gamma_L^2$ (Eq.~\eqref{fp:eq:sync_freq}).
+Here $\nu_g$ is the \textbf{gyrofrequency} of a slow electron. The combined motion is a helix. A fast electron takes $\gamma_L$ times longer to circle, though its observed radiation reaches frequencies about $\gamma_L^2$ above $\nu_g$ (Eq.~\eqref{fp:eq:sync_freq}).
 
-\paragraph{Power.} Take the electron moving along $x$, across a field $B$ along $z$, with no electric field in the lab. In the electron's frame the fields are different. The pair $(E_y,cB_z)$ transforms under a boost along $x$ with the same matrix as $(ct,x)$, a result quoted from electromagnetism. Into the electron's frame the boost is $\Lambda(-\beta)$,
+\paragraph{Power.} Let the electron move along $x$ through a magnetic field $B$ along $z$. There is no electric field in the lab, but there is one in the electron's frame. Electromagnetism gives the boost of the field pair $(E_y,cB_z)$ by the same matrix as $(ct,x)$. To enter the electron's frame, use $\Lambda(-\beta)$,
 \begin{align}
 	\begin{pmatrix}E'_y\\ cB'_z\end{pmatrix}
 	&= \begin{pmatrix}\gamma_L&-\gamma_L\beta\\-\gamma_L\beta&\gamma_L\end{pmatrix}\begin{pmatrix}0\\ cB\end{pmatrix}
@@ -277,7 +286,7 @@ where $\nu_g$ is the \textbf{gyrofrequency} of a slow electron. The path is a he
 \begin{explain}
 	\item The second column of the matrix times $cB$.
 \end{explain}
-The electron at rest in its own frame feels the electric field $E'=\gamma_LvB$. The magnetic field exerts no force on a charge at rest. Its acceleration there is $eE'/m_e$, and by Eq.~\eqref{fp:eq:power_invariant}
+The electron is momentarily at rest in this frame, so only the electric field $E'=\gamma_LvB$ pushes it. Its acceleration has magnitude $eE'/m_e$. Equation~\eqref{fp:eq:power_invariant} then gives
 \begin{align}
 	\mathcal P
 	&\eqby{1} \frac{e^2}{6\pi\varepsilon_0c^3}\left(\frac{e\gamma_LvB}{m_e}\right)^2
@@ -291,20 +300,20 @@ The electron at rest in its own frame feels the electric field $E'=\gamma_LvB$. 
 	\item The Thomson cross-section of Eq.~\eqref{eq:thomson_cross_section} is $\sigma_T=e^4/(6\pi\varepsilon_0^2m_e^2c^4)$, and $\varepsilon_0c^2=1/\mu_0$.
 	\item The magnetic energy density $u_B=B^2/(2\mu_0)$.
 \end{explain}
-For a velocity at an angle to the field, only the part of $\vec v$ across $\vec B$ makes $\vec v\times\vec B$, and $\beta^2$ becomes the square of that part over $c^2$. Averaged over all directions of the velocity this is $\tfrac23\beta^2$, so
+For an electron moving at an angle to the field, only the velocity across $\vec B$ produces the force. The average square of that part over all velocity directions is $\tfrac23\beta^2c^2$, so
 \begin{equation}
 	\boxed{\mathcal P=\frac43\,\sigma_Tc\,\gamma_L^2\beta^2\,u_B .}
 	\label{fp:eq:sync_power}
 \end{equation}
-The power grows as the square of the electron's energy and is proportional to the energy density of the field. The electron enters only through $\gamma_L$, and the field only through $u_B$.
+The power rises with the square of the electron's energy and with the field energy density $u_B$. This form will make the comparison with inverse Compton scattering direct.
 
-\paragraph{How long the electrons last.} An electron with $\beta\approx1$ radiates its energy $\gamma_Lm_ec^2$ in the time
+\paragraph{How long the electrons last.} For $\beta\approx1$, divide the electron's energy $\gamma_Lm_ec^2$ by its radiated power to find its cooling time,
 \[
 t_{\rm sync}=\frac{\gamma_Lm_ec^2}{\mathcal P}=\frac{3m_ec}{4\sigma_T\gamma_Lu_B},
 \]
-shorter for faster electrons. The Crab Nebula is the debris of the supernova of the year 1054. With a field of about $10\,\mathrm{nT}$, the electrons that make its X-rays at $1\,\mathrm{keV}$ have $\gamma_L\approx2.4\times10^7$ (by Eq.~\eqref{fp:eq:sync_freq} below) and last about $100$ years. That is far shorter than the age of the nebula (P6), so these electrons were not made in the explosion. The pulsar at the centre must supply them now. The electrons that make its radio light at $1\,\mathrm{GHz}$ have $\gamma_L\approx1.5\times10^3$ and last over a million years, so they have built up over the whole life of the nebula.
+Faster electrons cool sooner. The Crab Nebula is the debris of the supernova seen in 1054. In a field of about $10\,\mathrm{nT}$, its $1\,\mathrm{keV}$ X-rays come from electrons with $\gamma_L\approx2.4\times10^7$ (Eq.~\eqref{fp:eq:sync_freq}). They last only about $100$ years, much less than the nebula's age (P6). The central pulsar must keep supplying them. Electrons making $1\,\mathrm{GHz}$ radio light have $\gamma_L\approx1.5\times10^3$ and last over a million years, so they can accumulate throughout the nebula's life.
 
-\paragraph{The frequency, route A, the length of the flash.} Take an electron moving across the field. The observer sees its light only while its velocity points within $1/\gamma_L$ of the line of sight (Eq.~\eqref{fp:eq:beaming}), so the velocity turns through $2/\gamma_L$ during the flash. At the angular frequency of Eq.~\eqref{fp:eq:gyro} this takes the lab time $\Delta t=(2/\gamma_L)\big/(2\pi\nu_g/\gamma_L)=2/(2\pi\nu_g)$. Meanwhile the electron moves a distance $\beta c\,\Delta t$ toward the observer, so the light from the end of the flash starts that much closer and arrives sooner (P6).
+\paragraph{The frequency from the flash length.} Consider an electron moving across the field. We see it only while its velocity lies within about $1/\gamma_L$ of our line of sight (Eq.~\eqref{fp:eq:beaming}). During that flash, its velocity turns through $2/\gamma_L$. Equation~\eqref{fp:eq:gyro} gives the lab duration $\Delta t=(2/\gamma_L)\big/(2\pi\nu_g/\gamma_L)=2/(2\pi\nu_g)$. The electron also approaches us by $\beta c\,\Delta t$. Light sent at the end of the flash has less distance to travel and catches up with the light sent at the start (P6).
 \begin{align}
 	\Delta t_{\rm obs}
 	&\eqby{1} \Delta t-\frac{\beta c\,\Delta t}{c}=\Delta t\,(1-\beta) \nonumber\\
@@ -316,16 +325,16 @@ shorter for faster electrons. The Crab Nebula is the debris of the supernova of 
 	\item $1-\beta=(1-\beta^2)/(1+\beta)=1/[\gamma_L^2(1+\beta)]$.
 	\item $\Delta t=2/(2\pi\nu_g)$ and $1+\beta\approx2$.
 \end{explain}
-The flash is $\gamma_L^2$ times shorter than a turn of a slow electron, so it holds frequencies up to about $\gamma_L^2\nu_g$.
+The received flash is about $\gamma_L^2$ times shorter than a turn of a slow electron. Its spectrum therefore reaches frequencies near $\gamma_L^2\nu_g$.
 
-\paragraph{Route B, the slow clock and the Doppler shift.} In the electron's own frame the same interval lasts only $\Delta t'=\Delta t/\gamma_L$, by the time row of Eq.~\eqref{fp:eq:boost}. The light it sends forward is raised in frequency, and shortened in time, by the factor $\gamma_L(1+\beta)$ of Eq.~\eqref{fp:eq:beaming} at $\theta'=0$. So $\Delta t_{\rm obs}=\Delta t'/[\gamma_L(1+\beta)]=\Delta t/[\gamma_L^2(1+\beta)]$, the second line of route A exactly. The two routes are the same physics seen from two frames, light chasing in the lab, time dilation and Doppler shift in the electron's frame. Both give
+\paragraph{The frequency from the electron's frame.} In the electron's frame, the same interval lasts $\Delta t'=\Delta t/\gamma_L$, by Eq.~\eqref{fp:eq:boost}. Its forward light is shortened again by the Doppler factor $\gamma_L(1+\beta)$ of Eq.~\eqref{fp:eq:beaming}. Thus $\Delta t_{\rm obs}=\Delta t'/[\gamma_L(1+\beta)]=\Delta t/[\gamma_L^2(1+\beta)]$, exactly as in the lab-frame calculation. Both routes give
 \begin{equation}
 	\boxed{\nu_c\approx\gamma_L^2\,\nu_g .}
 	\label{fp:eq:sync_freq}
 \end{equation}
-The full calculation of the radiated fields, quoted here, puts the \textbf{critical frequency} at $\nu_c=\tfrac32\gamma_L^2\nu_g$ for motion across the field (for other angles $\nu_g$ is multiplied by the sine of the angle between $\vec v$ and $\vec B$). The spectrum of one electron is $F(\nu/\nu_c)$, with $F(x)=x\int_x^\infty K_{5/3}(t)\,dt$. It rises as $\nu^{1/3}$, peaks at $\nu=\FifteenSyncXpeak\,\nu_c$, and falls as $e^{-\nu/\nu_c}$ (Figure~\ref{fp:fig:sync}, top). The Galactic electrons of the opening, $\gamma_L=10^4$ in $0.5\,\mathrm{nT}$, have $\nu_c=2.1\,\mathrm{GHz}$.
+The full field calculation gives the \textbf{critical frequency} $\nu_c=\tfrac32\gamma_L^2\nu_g$ for motion across the field. At other angles, multiply $\nu_g$ by the sine of the angle between $\vec v$ and $\vec B$. One electron has the spectrum $F(\nu/\nu_c)$, with $F(x)=x\int_x^\infty K_{5/3}(t)\,dt$. It rises as $\nu^{1/3}$, peaks at $\nu=\FifteenSyncXpeak\,\nu_c$, then falls as $e^{-\nu/\nu_c}$ (Figure~\ref{fp:fig:sync}, top). For the Galactic example, $\gamma_L=10^4$ in $0.5\,\mathrm{nT}$ gives $\nu_c=2.1\,\mathrm{GHz}$.
 
-\paragraph{A power law of electrons.} Electrons accelerated in shocks reach a distribution of energies that is a power law, $n(\gamma_L)\,d\gamma_L\propto\gamma_L^{-p}\,d\gamma_L$ between some $\gamma_{\min}$ and $\gamma_{\max}$, with $p$ typically between $2$ and $3$. Each electron sends nearly all its power near its own $\nu=\gamma_L^2\nu_g$, so the power at $\nu$ comes from the electrons with $\gamma_L=(\nu/\nu_g)^{1/2}$. Counting them (P3),
+\paragraph{A power law of electrons.} Shocks can give electrons a power-law distribution, $n(\gamma_L)\,d\gamma_L\propto\gamma_L^{-p}\,d\gamma_L$, between $\gamma_{\min}$ and $\gamma_{\max}$. Often $p$ lies between $2$ and $3$. Each electron radiates most strongly near $\nu=\gamma_L^2\nu_g$. At a given $\nu$, the main contributors thus have $\gamma_L=(\nu/\nu_g)^{1/2}$. Count their power (P3),
 \begin{align}
 	4\pi j_\nu
 	&\eqby{1} \mathcal P(\gamma_L)\,n(\gamma_L)\,\dv{\gamma_L}{\nu} \nonumber\\
@@ -343,7 +352,7 @@ The full calculation of the radiated fields, quoted here, puts the \textbf{criti
 	\boxed{j_\nu\propto\nu^{-(p-1)/2}.}
 	\label{fp:eq:sync_index}
 \end{equation}
-The slope of the light comes from the slope of the electrons alone. The shape of the one-electron spectrum sets only the two ends. As a check by a second route, the exact $F(x)$ summed over electrons with $p=\FifteenSyncP$ and $\gamma_{\max}=1000\,\gamma_{\min}$ gives a slope of $\FifteenSyncSlope$ in the middle of the range, against $-0.75$ from Eq.~\eqref{fp:eq:sync_index}. Below $\gamma_{\min}^2\nu_c$ it rises with the slope $\FifteenSyncSlopeLow$ of a single electron, and above $\gamma_{\max}^2\nu_c$ it falls exponentially (Figure~\ref{fp:fig:sync}, bottom).
+The electron distribution sets the slope of the light between its two ends. The one-electron spectrum shapes those ends. Summing the exact $F(x)$ over electrons with $p=\FifteenSyncP$ and $\gamma_{\max}=1000\,\gamma_{\min}$ gives a middle slope of $\FifteenSyncSlope$, close to the $-0.75$ from Eq.~\eqref{fp:eq:sync_index}. Below $\gamma_{\min}^2\nu_c$ the spectrum rises with the single-electron slope $\FifteenSyncSlopeLow$. Above $\gamma_{\max}^2\nu_c$ it falls exponentially (Figure~\ref{fp:fig:sync}, bottom).
 
 \begin{figure}[htbp]
 	\centering
@@ -352,19 +361,19 @@ The slope of the light comes from the slope of the electrons alone. The shape of
 	\label{fp:fig:sync}
 \end{figure}
 
-Most radio galaxies have $\alpha\approx0.7$ to $0.8$ in $j_\nu\propto\nu^{-\alpha}$, so their electrons have $p\approx2.4$ to $2.6$. The radio spectrum of the Crab is flatter, $\alpha\approx0.3$, so $p\approx1.6$ there. Where the fastest electrons cool before they escape, the balance of supply and loss (P4) steepens the spectrum. Electrons supplied at a rate $\propto\gamma_L^{-p}$ each survive a time $t_{\rm sync}\propto1/\gamma_L$, so the number present goes as $\gamma_L^{-(p+1)}$, and above that energy $\alpha$ is larger by $\tfrac12$. The frequency of the break gives the age of a radio source. Synchrotron light is also linearly polarised, across the direction of the field projected on the sky, so maps of its polarisation are maps of cosmic magnetic fields. The strong polarisation of the Crab's optical light is what identified it as synchrotron light.
+Most radio galaxies have $\alpha\approx0.7$ to $0.8$ in $j_\nu\propto\nu^{-\alpha}$, corresponding to electron slopes $p\approx2.4$ to $2.6$. The Crab's radio spectrum is flatter, with $\alpha\approx0.3$ and $p\approx1.6$. Cooling can steepen either spectrum (P4). Electrons supplied at a rate $\propto\gamma_L^{-p}$ survive for $t_{\rm sync}\propto1/\gamma_L$, leaving a population $\propto\gamma_L^{-(p+1)}$ where cooling is fast. Above the resulting break, $\alpha$ increases by $\tfrac12$. Its frequency can reveal the age of a radio source. Synchrotron light is linearly polarised across the magnetic field projected on the sky. Polarisation maps therefore trace cosmic magnetic fields; the strong optical polarisation of the Crab helped identify its light as synchrotron radiation.
 
 % ==============================================================================
 \section{Compton and Inverse Compton Scattering}
 \label{fp:sec:compton}
 
-A free electron scatters light with the Thomson cross-section, Eq.~\eqref{eq:thomson_cross_section}, and Table~\ref{tab:scattering_regimes} listed Compton and inverse Compton scattering among the processes that change the photon's energy. The Thomson result assumes that the electron stays where it is and that the photon leaves with the energy it came with. A hard X-ray photon knocks the electron back. A fast electron throws the photon forward. We need to know how much energy changes hands, and what many such exchanges do to a spectrum.
+Equation~\eqref{eq:thomson_cross_section} gives the cross-section for light scattered by a free electron. In the Thomson limit, the photon leaves with almost the energy it arrived with. A hard X-ray can instead recoil from the electron and lose energy. A fast electron can give energy to the photon. These are Compton and inverse Compton scattering, the energy-changing processes listed in Table~\ref{tab:scattering_regimes}.
 
-Think of a tennis ball. Thrown at a fixed wall, it comes back at the speed it arrived. Thrown at a racket swinging toward it, it comes back much faster. To find how much faster, the easiest way is to stand on the racket. There the racket is a wall, the ball bounces back at its arrival speed, and we then add the racket's motion back. A photon meeting an electron is the ball. If the electron is at rest, a hard photon gives it a kick and loses energy, the Compton effect. If the electron moves fast, the photon in the electron's frame is blue-shifted by about $\gamma_L$, bounces as in Thomson scattering, and is blue-shifted by another $\gamma_L$ on the way back to the lab. The idea is to do the scattering in the electron's frame, where it is plain Thomson scattering, and to carry the photon there and back with the boost matrix of Eq.~\eqref{fp:eq:boost}.
+Think of a ball hitting a racket. A still racket sends it back with nearly its arrival speed. A racket moving toward it sends it back faster. The motion is easiest to describe from the racket, where the ball arrives faster, then to translate back to the court. A photon meeting a fast electron behaves similarly. It is blueshifted by about $\gamma_L$ on the way into the electron's frame and again on the way out. In that frame the scattering is nearly Thomson scattering. The boost matrix of Eq.~\eqref{fp:eq:boost} carries the photon there and back.
 
-In numbers, a photon of the microwave background, with a mean energy of $6.3\times10^{-4}\,\mathrm{eV}$, meeting an electron with $\gamma_L=10^4$ comes out on average at $85\,\mathrm{keV}$, a hard X-ray. The picture is a slow photon struck head on and sent back along the electron's path. The same exchange is the gravity assist of Chapter~\ref{ch:twobody}. In the planet's frame a spacecraft leaves at its arrival speed, and in the Sun's frame it has gained the planet's motion. Inverse Compton scattering makes the X-rays of radio lobes, the gamma rays of pulsar nebulae and blazars, and the X-ray glow of the hot coronae above accretion disks. It uses P1 (conservation of energy and momentum), the boost matrices, P3 for thermal electrons and P5 for the random walk of a photon's energy over many scatterings. It gives the Compton shift, the energy gain and power of inverse Compton scattering, the Compton $y$ parameter and the Sunyaev–Zel'dovich effect.
+A microwave-background photon has a mean energy of $6.3\times10^{-4}\,\mathrm{eV}$. After meeting an electron with $\gamma_L=10^4$, its average energy can be $85\,\mathrm{keV}$, a hard X-ray. The same exchange of energy between frames appears in the spacecraft gravity assist of Chapter~\ref{ch:twobody}. Inverse Compton scattering makes X-rays in radio lobes, gamma rays in pulsar nebulae and blazars, and X-rays above accretion disks. We use conservation of energy and momentum (P1) for one encounter, a thermal distribution for hot gas (P3), and a random walk in photon energy for many encounters (P5). These lead to the Compton shift, inverse Compton power, the Compton $y$ parameter, and the Sunyaev–Zel'dovich effect.
 
-\paragraph{The Compton shift.} A photon of frequency $\nu$ meets an electron at rest and leaves at angle $\psi$ with frequency $\nu_1$. Write four-momenta as (energy over $c$, momentum), with the dot product $A\cdot B=A^0B^0-\vec A\cdot\vec B$. The photon has $k=(h\nu/c)(1,\hat n)$ before and $k_1=(h\nu_1/c)(1,\hat n_1)$ after, and the electron has $q=(m_ec,\vec0)$ before and $q_1$ after. Conservation (P1) is $q+k=q_1+k_1$.
+\paragraph{The Compton shift.} First let the electron be at rest. A photon of frequency $\nu$ leaves the encounter at angle $\psi$ with frequency $\nu_1$. Write a four-momentum as (energy over $c$, momentum), with dot product $A\cdot B=A^0B^0-\vec A\cdot\vec B$. The photon has $k=(h\nu/c)(1,\hat n)$ before and $k_1=(h\nu_1/c)(1,\hat n_1)$ after. The electron has $q=(m_ec,\vec0)$ before and $q_1$ after. Conservation (P1) gives $q+k=q_1+k_1$.
 \begin{align}
 	m_e^2c^2
 	&\eqby{1} q_1\cdot q_1=(q+k-k_1)\cdot(q+k-k_1) \nonumber\\
@@ -384,9 +393,9 @@ In numbers, a photon of the microwave background, with a mean energy of $6.3\tim
 	\boxed{\lambda_1-\lambda=\lambda_C\,(1-\cos\psi),\qquad h\nu_1=\frac{h\nu}{1+(h\nu/m_ec^2)(1-\cos\psi)},}
 	\label{fp:eq:compton_shift}
 \end{equation}
-with the Compton wavelength $\lambda_C=h/(m_ec)=2.43\times10^{-12}\,\mathrm m$ and $m_ec^2=511\,\mathrm{keV}$. The shift in wavelength does not depend on the wavelength. It matters only when $\lambda$ is not much longer than $\lambda_C$, that is when $h\nu$ approaches $m_ec^2$. For $h\nu\ll m_ec^2$ the photon keeps its energy, the Thomson limit. A $10\,\mathrm{keV}$ X-ray scattered by cold electrons loses about $2\%$ of its energy each time.
+Here the Compton wavelength is $\lambda_C=h/(m_ec)=2.43\times10^{-12}\,\mathrm m$, and $m_ec^2=511\,\mathrm{keV}$. The wavelength shift depends on the scattering angle, not the incoming wavelength. It becomes important when $\lambda$ approaches $\lambda_C$, or $h\nu$ approaches $m_ec^2$. At $h\nu\ll m_ec^2$, recoil is small and we recover the Thomson limit. A $10\,\mathrm{keV}$ X-ray loses about $2\%$ of its energy per scattering from cold electrons.
 
-\paragraph{Inverse Compton, there and back.} Now let the electron move with $\gamma_L$ along $x$, and let a photon of frequency $\nu$ arrive at angle $\theta$ to the electron's velocity. Into the electron's frame, with $\Lambda(-\beta)$,
+\paragraph{Inverse Compton, there and back.} Now let the electron move along $x$ with Lorentz factor $\gamma_L$. A photon of frequency $\nu$ approaches at angle $\theta$ to its velocity. Boost the photon into the electron's frame with $\Lambda(-\beta)$,
 \begin{align}
 	\frac{h\nu'}{c}\begin{pmatrix}1\\ \cos\theta'\\ \sin\theta'\end{pmatrix}
 	&\eqby{1} \begin{pmatrix}\gamma_L&-\gamma_L\beta&0\\-\gamma_L\beta&\gamma_L&0\\0&0&1\end{pmatrix}\frac{h\nu}{c}\begin{pmatrix}1\\ \cos\theta\\ \sin\theta\end{pmatrix}
@@ -399,14 +408,14 @@ with the Compton wavelength $\lambda_C=h/(m_ec)=2.43\times10^{-12}\,\mathrm m$ a
 	\item The inverse boost of Eq.~\eqref{fp:eq:boost} applied to the photon's four-momentum.
 	\item The first row.
 \end{explain}
-If $h\nu'\ll m_ec^2$, the scattering in the electron's frame is Thomson scattering. The photon keeps the frequency $\nu'$ and leaves at some angle $\theta'_1$. Back to the lab, with $\Lambda(\beta)$, the first row of Eq.~\eqref{fp:eq:beaming} gives
+When $h\nu'\ll m_ec^2$, recoil is small in the electron's frame. The photon keeps frequency $\nu'$ and leaves at angle $\theta'_1$. Boosting it back to the lab with $\Lambda(\beta)$ gives, from Eq.~\eqref{fp:eq:beaming},
 \begin{equation}
 	\boxed{\nu_1=\gamma_L(1+\beta\cos\theta'_1)\,\nu'=\gamma_L^2\,(1-\beta\cos\theta)(1+\beta\cos\theta'_1)\,\nu .}
 	\label{fp:eq:ic_boost}
 \end{equation}
-A photon met head on, $\theta=\pi$, and sent back forward, $\theta'_1=0$, gains the most, $\nu_1=\gamma_L^2(1+\beta)^2\nu\approx4\gamma_L^2\nu$. One factor $\gamma_L$ comes from each boost. The condition $h\nu'\approx\gamma_Lh\nu\ll m_ec^2$ must hold in the electron's frame. When it fails, the recoil of Eq.~\eqref{fp:eq:compton_shift} takes over in that frame, and the photon can gain at most about the electron's own energy $\gamma_Lm_ec^2$.
+The largest gain occurs when the photon arrives head on, $\theta=\pi$, and leaves forward, $\theta'_1=0$. Then $\nu_1=\gamma_L^2(1+\beta)^2\nu\approx4\gamma_L^2\nu$. Each boost supplies one factor of $\gamma_L$. This Thomson result requires $h\nu'\approx\gamma_Lh\nu\ll m_ec^2$ in the electron's frame. At higher energies, recoil matters (Eq.~\eqref{fp:eq:compton_shift}), and the photon cannot gain more than about the electron's energy $\gamma_Lm_ec^2$.
 
-\paragraph{The power.} Let the electron move through photons of energy density $u_{\rm rad}$, coming equally from all directions. Photons from angle $\theta$ meet the electron at the closing speed $c(1-\beta\cos\theta)$, so a fraction $d\Omega/4\pi$ of them, carrying energy density $u_{\rm rad}\,d\Omega/4\pi$, is scattered at the rate $\sigma_Tc(1-\beta\cos\theta)$ per unit of photon density. The Thomson pattern sends as much forward as backward in the electron's frame, so $\cos\theta'_1$ averages to zero in Eq.~\eqref{fp:eq:ic_boost}. The power that leaves in scattered photons, minus the power those photons brought in, is
+\paragraph{The power.} Let the electron cross a photon field of energy density $u_{\rm rad}$, equal in all directions. Photons arriving at angle $\theta$ meet it at the closing speed $c(1-\beta\cos\theta)$. The share arriving within $d\Omega$ carries energy density $u_{\rm rad}\,d\Omega/4\pi$ and scatters at a rate proportional to $\sigma_Tc(1-\beta\cos\theta)$. In the electron's frame, Thomson scattering is symmetric forward and backward, so the average $\cos\theta'_1$ in Eq.~\eqref{fp:eq:ic_boost} is zero. Subtract the incoming photon power from the outgoing power,
 \begin{align}
 	\mathcal P
 	&\eqby{1} \sigma_Tc\int\frac{d\Omega}{4\pi}\,u_{\rm rad}\,(1-\beta\cos\theta)\Big[\gamma_L^2(1-\beta\cos\theta)-1\Big] \nonumber\\
@@ -422,33 +431,33 @@ A photon met head on, $\theta=\pi$, and sent back forward, $\theta'_1=0$, gains 
 	\boxed{\mathcal P=\frac43\,\sigma_Tc\,\gamma_L^2\beta^2\,u_{\rm rad} .}
 	\label{fp:eq:ic_power}
 \end{equation}
-This has the form of the synchrotron power, Eq.~\eqref{fp:eq:sync_power}, with the energy density of light in place of that of the field. A fast electron loses energy to the two in the ratio $u_{\rm rad}/u_B$. Since photons are scattered at the rate $\sigma_Tc\,u_{\rm rad}/\avg{h\nu}$, the mean energy of a scattered photon is $\tfrac43\gamma_L^2\avg{h\nu}$.
+This is the synchrotron power of Eq.~\eqref{fp:eq:sync_power} with photon energy density in place of magnetic energy density. The electron's losses to the two processes have the ratio $u_{\rm rad}/u_B$. Dividing the scattered power by the photon scattering rate $\sigma_Tc\,u_{\rm rad}/\avg{h\nu}$ gives the mean scattered energy $\tfrac43\gamma_L^2\avg{h\nu}$.
 
-The microwave background fills all space with $u_{\rm rad}=a_{\rm rad}T^4=4.2\times10^{-14}\,\mathrm{J\,m^{-3}}$, using Eq.~\eqref{pr:eq:photon_gas} at $2.725\,\mathrm K$. That equals the energy density of a field of $0.32\,\mathrm{nT}$. In radio lobes, with fields of order $1\,\mathrm{nT}$, scattering the background costs the electrons a tenth or more of what synchrotron light costs them, and the scattered photons come out as X-rays. In the Crab the electrons scatter their own synchrotron photons up to gamma rays.
+At $2.725\,\mathrm K$, the microwave background has $u_{\rm rad}=a_{\rm rad}T^4=4.2\times10^{-14}\,\mathrm{J\,m^{-3}}$ (Eq.~\eqref{pr:eq:photon_gas}). A magnetic field of $0.32\,\mathrm{nT}$ has the same energy density. In radio lobes, where fields are of order $1\,\mathrm{nT}$, scattering the background can take a tenth or more as much electron energy as synchrotron emission and produce X-rays. In the Crab, electrons scatter their own synchrotron photons up to gamma-ray energies.
 
-\paragraph{Many scatterings in hot gas.} Now let the electrons be thermal, with $\beta\ll1$, and let the photons have $h\nu\ll k_BT$. Two numbers describe one scattering. The mean fractional gain follows from Eq.~\eqref{fp:eq:ic_power} divided by the scattering rate, with $\avg{\gamma_L^2\beta^2}\approx\avg{v^2}/c^2=3k_BT/m_ec^2$ from the Maxwell distribution (P3). Write $\Delta\nu=\nu_1-\nu$ for the change of frequency in one scattering, after minus before. The spread follows from Eq.~\eqref{fp:eq:ic_boost} at first order in $\beta$, $\Delta\nu/\nu=\beta(\cos\theta'_1-\cos\theta)$, where the incoming and outgoing directions are unrelated to the electron's velocity and each has $\avg{\cos^2}=\tfrac13$,
+\paragraph{Many scatterings in hot gas.} Consider slow, thermal electrons with $\beta\ll1$ and photons with $h\nu\ll k_BT$. We need the mean gain and the spread of frequency changes in one scattering. The mean follows from Eq.~\eqref{fp:eq:ic_power} divided by the scattering rate. For Maxwellian electrons, $\avg{\gamma_L^2\beta^2}\approx\avg{v^2}/c^2=3k_BT/m_ec^2$ (P3). Let $\Delta\nu=\nu_1-\nu$ mean after minus before one scattering. To first order in $\beta$, Eq.~\eqref{fp:eq:ic_boost} gives $\Delta\nu/\nu=\beta(\cos\theta'_1-\cos\theta)$. The two directions are independent of the electron velocity and each has $\avg{\cos^2}=\tfrac13$,
 \begin{equation}
 	\avg{\frac{\Delta\nu}{\nu}}=\frac43\cdot\frac{3k_BT}{m_ec^2}=\frac{4k_BT}{m_ec^2},\qquad
 	\avg{\Big(\frac{\Delta\nu}{\nu}\Big)^2}=\frac{3k_BT}{m_ec^2}\Big(\frac13+\frac13\Big)=\frac{2k_BT}{m_ec^2} .
 	\label{fp:eq:ic_moments}
 \end{equation}
-The recoil of Eq.~\eqref{fp:eq:compton_shift}, a loss of $h\nu/m_ec^2$, is negligible for $h\nu\ll k_BT$. Each scattering counts as a step of size $k_BT/m_ec^2$, so the effect of a cloud is measured by the \textbf{Compton $y$ parameter},
+Recoil would remove a fraction $h\nu/m_ec^2$ of the photon energy (Eq.~\eqref{fp:eq:compton_shift}). It is small here because $h\nu\ll k_BT$. The cloud's effect depends on the number of scatterings multiplied by the small gain per scattering. That product is the \textbf{Compton $y$ parameter},
 \begin{equation}
 	\boxed{y=\int\frac{k_BT}{m_ec^2}\,n_e\sigma_T\,dl ,}
 	\label{fp:eq:compton_y}
 \end{equation}
-the number of scatterings times $k_BT/m_ec^2$. A thin cloud scatters a photon about $\tau=\int n_e\sigma_Tdl$ times, and a thick one about $\tau^2$ times by the random walk of Eq.~\eqref{pr:eq:walk_time} (P5).
+the optical depth weighted by $k_BT/m_ec^2$. A thin cloud gives about $\tau=\int n_e\sigma_Tdl$ scatterings per photon. In a thick cloud, the photon wanders and scatters about $\tau^2$ times (Eq.~\eqref{pr:eq:walk_time}, P5).
 
-\paragraph{The random walk in frequency.} Each photon takes a random walk in $x=h\nu/k_BT_\gamma$, where $T_\gamma$ is any fixed reference temperature. Since $T_\gamma$ is fixed, $x$ is just the frequency in other units. The moments of Eq.~\eqref{fp:eq:ic_moments} are per scattering. Two steps lead from them to an equation for the photons. The first turns them into moments per unit $y$. The second uses those to find how the number of photons at each $x$ changes.
+\paragraph{The random walk in frequency.} Let $x=h\nu/k_BT_\gamma$, with $T_\gamma$ fixed. Then $x$ is simply frequency in chosen units. Each scattering changes it by a small, random amount. Equation~\eqref{fp:eq:ic_moments} gives the moments of that change per scattering. We first express them per unit $y$, then track how photons move between frequency intervals.
 
-\paragraph{What $\Delta x$ means.} Follow one photon through the cloud, and use $y$ of Eq.~\eqref{fp:eq:compton_y}, counted from where it entered, as its clock. Let $x(y)$ be its frequency variable when the clock reads $y$. Over the next short stretch $dy$ its change is
+\paragraph{What $\Delta x$ means.} Follow one photon through the cloud, using $y$ of Eq.~\eqref{fp:eq:compton_y} as a clock that starts at entry. Let $x(y)$ be its frequency variable at that point. Over a short stretch $dy$, it changes by
 \begin{equation}
 	\Delta x=x(y+dy)-x(y) .
 	\label{fp:eq:delta_x}
 \end{equation}
-The symbol $\Delta$ means after minus before in both places, but over different spans. $\Delta\nu=\nu_1-\nu$ is the change in one scattering. $\Delta x$ is the change over the stretch $dy$, whatever happens in it. This change is random. In the stretch $dy$ the photon may scatter or not, and a scattering moves $x$ by an amount that depends on the electron it meets. So $\Delta x$ has no single value. What can be known are its averages over many photons that all start at the same $x$, the mean step $\avg{\Delta x}$ and the mean square step $\avg{(\Delta x)^2}$.
+The two $\Delta$ symbols cover different intervals. $\Delta\nu=\nu_1-\nu$ is the change in one scattering, while $\Delta x$ covers the whole stretch $dy$. A photon might not scatter during that stretch. If it does, the size of the change depends on the electron it meets. We therefore average over many photons starting at the same $x$ to find $\avg{\Delta x}$ and $\avg{(\Delta x)^2}$.
 
-\paragraph{From one scattering to a stretch of $y$.} Let $n_{\rm sc}$ be the expected number of scatterings of the photon so far. Along a path $dl$ it grows by $dn_{\rm sc}=n_e\sigma_T\,dl$, and by Eq.~\eqref{fp:eq:compton_y} $dy$ is the same thing times $k_BT/m_ec^2$, so $dn_{\rm sc}=(m_ec^2/k_BT)\,dy$. In a short stretch $dy$ the photon scatters once with chance $dn_{\rm sc}$. Two scatterings have a chance of order $dn_{\rm sc}^2$, which is dropped. With no scattering $\Delta x=0$. With one, the whole change over the stretch is the change in that one scattering, and $x$ changes by the same fraction as $\nu$, so $\Delta x=x\,\Delta\nu/\nu$. Averaging,
+\paragraph{From one scattering to a stretch of $y$.} Let $n_{\rm sc}$ count the expected scatterings. Along $dl$, it grows by $dn_{\rm sc}=n_e\sigma_T\,dl$. Equation~\eqref{fp:eq:compton_y} then gives $dn_{\rm sc}=(m_ec^2/k_BT)\,dy$. In a sufficiently short stretch, the photon scatters once with probability $dn_{\rm sc}$ and twice only with probability of order $dn_{\rm sc}^2$. With no scattering, $\Delta x=0$. With one, $\Delta x=x\,\Delta\nu/\nu$, since $x$ and $\nu$ change by the same fraction. Averaging these possibilities gives
 \begin{align}
 	\avg{\Delta x}
 	&\eqby{1} dn_{\rm sc}\;x\avg{\frac{\Delta\nu}{\nu}} \nonumber\\
@@ -470,9 +479,9 @@ The symbol $\Delta$ means after minus before in both places, but over different 
 	\boxed{\frac{\avg{\Delta x}}{dy}=4x,\qquad \frac{\avg{(\Delta x)^2}}{dy}=2x^2 .}
 	\label{fp:eq:x_moments}
 \end{equation}
-Per unit $y$, a photon at $x$ drifts up by $4x$ on average and spreads with a mean square step $2x^2$. Both are measured over a short stretch from a fixed start $x$. The second is the mean square of one small step, not the spread built up over a long walk.
+Per unit $y$, a photon starting at $x$ moves upward by $4x$ on average, with a mean square step of $2x^2$. These are local rates, measured over a short stretch. The second is the mean square of one step; it is not the width of the full photon spectrum.
 
-\paragraph{How the photon numbers change.} Let $N(x,y)\,dx$ be the number of photons between $x$ and $x+dx$. To turn the steps of single photons into a law for $N$, pick any smooth function $w(x)$ that is zero outside some finite range of $x$, and add up its value over all the photons, $W=\int N\,w\,dx$. Over the stretch $dy$ each photon moves from $x$ to $x+\Delta x$, so
+\paragraph{How the photon numbers change.} Let $N(x,y)\,dx$ count photons between $x$ and $x+dx$. To connect single-photon steps to this distribution, choose a smooth test function $w(x)$ that vanishes outside a finite range. Sum its value over all photons, $W=\int N\,w\,dx$. When each photon moves from $x$ to $x+\Delta x$ during $dy$, the sum changes by
 \begin{align}
 	dW
 	&\eqby{1} \sum_{\rm photons}\big[w(x+\Delta x)-w(x)\big] \nonumber\\
@@ -489,12 +498,12 @@ Per unit $y$, a photon at $x$ drifts up by $4x$ on average and spreads with a me
 	\item Divide by $dy$. The function $w$ does not depend on $y$, so $dW/dy=\int w\,\partial N/\partial y\,dx$.
 	\item Integrate by parts, once in the first term and twice in the second. The end terms vanish because $w$ and $w'$ are zero at the ends of its range.
 \end{explain}
-The last line holds for every choice of $w$, so the two brackets must be equal at each $x$,
+Because the last line holds for every smooth $w$, the expressions it weighs must agree at each $x$,
 \begin{equation}
 	\pdv{N}{y}=-\pdv{x}\Big[4xN-\pdv{x}\big(x^2N\big)\Big] .
 	\label{fp:eq:fokker_planck}
 \end{equation}
-This is a continuity equation in $x$ (P1). Photons are neither made nor destroyed, and the bracket is their flux upward in $x$. The first part, $4xN$, is the steady drift to higher frequency. The second is the random walk (P5), which carries photons from where they are crowded to where they are few, as in Eq.~\eqref{pr:eq:fick} but with a step that grows with $x$. Now write $N=x^2f$, where $f$ is the photon occupation number of Section~\ref{pr:sec:p3},
+This is a continuity equation in frequency space (P1). Scattering moves photons between frequencies without creating or destroying them. The bracket is the flux toward higher $x$. Its first term, $4xN$, describes the average upward drift. The second describes random spreading (P5), like diffusion in Eq.~\eqref{pr:eq:fick}, with larger steps at higher $x$. Write $N=x^2f$, where $f$ is the photon occupation number of Section~\ref{pr:sec:p3},
 \begin{align}
 	\pdv{N}{y}
 	&\eqby{1} -\pdv{x}\Big[4x^3f-\pdv{x}\big(x^4f\big)\Big] \nonumber\\
@@ -508,9 +517,9 @@ This is a continuity equation in $x$ (P1). Photons are neither made nor destroye
 	\boxed{\pdv{\big(x^2f\big)}{y}=\pdv{x}\Big(x^4\pdv{f}{x}\Big).}
 	\label{fp:eq:kompaneets}
 \end{equation}
-This is the Kompaneets equation, in the limit where recoil can be neglected. Multiplying by $x$ and integrating over all $x$ by parts twice gives $d\avg{x}/dy=4\avg{x}$, so the mean photon energy grows as $e^{4y}$. Where $y\gtrsim1$, photons from a cool source are lifted into a power law of X-rays, which is how the hot coronae above accretion disks make their X-rays.
+This is the Kompaneets equation in the limit of negligible recoil. Multiply by $x$ and integrate over frequency to get $d\avg{x}/dy=4\avg{x}$. The mean photon energy then grows as $e^{4y}$ while the approximation holds. In a hot corona above an accretion disk, repeated scattering can lift cooler seed photons into an X-ray spectrum.
 
-\paragraph{The Sunyaev–Zel'dovich effect.} Light of the microwave background crossing the hot gas of a cluster has $y\ll1$. Take $T_\gamma$ to be its temperature, so before the cluster $f_0=1/(e^x-1)$. To first order in $y$, Eq.~\eqref{fp:eq:kompaneets} gives
+\paragraph{The Sunyaev–Zel'dovich effect.} Microwave-background photons crossing a hot galaxy cluster have $y\ll1$. Choose $T_\gamma$ as the background temperature. Before the cluster, their occupation number is $f_0=1/(e^x-1)$. To first order in $y$, Eq.~\eqref{fp:eq:kompaneets} gives
 \begin{align}
 	\frac{\Delta f}{f_0}
 	&\eqby{1} \frac{y}{x^2f_0}\,\dv{x}\Big(x^4\dv{f_0}{x}\Big) \nonumber\\
@@ -522,11 +531,11 @@ This is the Kompaneets equation, in the limit where recoil can be neglected. Mul
 	\item Integrate Eq.~\eqref{fp:eq:kompaneets} across the cluster with the right-hand side evaluated on $f_0$.
 	\item $df_0/dx=-e^x/(e^x-1)^2$, differentiated once more. For $x\ll1$ the first factor tends to $1$ and the bracket to $2-4$.
 \end{explain}
-At low frequencies, where the intensity is proportional to the temperature, the background seen through the cluster looks colder,
+At low frequencies, intensity is proportional to temperature. The background seen through the cluster therefore appears cooler,
 \[
 \boxed{\frac{\Delta T}{T_{\rm CMB}}=-2y\qquad(h\nu\ll k_BT_{\rm CMB}).}
 \]
-Photons are moved up in frequency, and none is lost, so the dip at low frequency is paid for by an excess at high frequency. The change is zero at $x=3.83$, $217\,\mathrm{GHz}$ (Figure~\ref{fp:fig:sz}). A cluster with $n_e=10^3\,\mathrm{m^{-3}}$ and $k_BT=6\,\mathrm{keV}$ across $1\,\mathrm{Mpc}$ has $\tau=2.1\times10^{-3}$, $k_BT/m_ec^2=0.012$ and $y=2.4\times10^{-5}$, so the background dims by $130\,\mu\mathrm K$. The dip is a fixed fraction of the background itself, so it does not fade with the distance of the cluster (P6). Surveys find clusters by it out to great distances.
+Scattering shifts photons upward in frequency without removing them. A deficit at low frequencies therefore comes with an excess at high frequencies. The change crosses zero at $x=3.83$, or $217\,\mathrm{GHz}$ (Figure~\ref{fp:fig:sz}). For a cluster with $n_e=10^3\,\mathrm{m^{-3}}$, $k_BT=6\,\mathrm{keV}$, and a path length of $1\,\mathrm{Mpc}$, we have $\tau=2.1\times10^{-3}$, $k_BT/m_ec^2=0.012$, and $y=2.4\times10^{-5}$. The low-frequency background appears dimmer by $130\,\mu\mathrm K$. This fractional distortion does not fade with the cluster's distance (P6), which lets surveys find distant clusters.
 
 \begin{figure}[htbp]
 	\centering
@@ -539,13 +548,13 @@ Photons are moved up in frequency, and none is lost, so the dip at low frequency
 \section{Accretion and Active Galaxies}
 \label{fp:sec:accretion}
 
-The compactness $GM/(Rc^2)$ measures how deep the gravitational well at the surface of a body is, against $c^2$ (Section~\ref{cs:sec:compactness}). The Eddington luminosity caps how brightly a mass $M$ can shine (Eq.~\eqref{rad:eq:eddington}). A quasar shines at about $10^{40}\,\mathrm W$, a thousand times a large galaxy of $10^{10}$ to $10^{11}$ Suns, and it changes in brightness within days, so the light comes from a region a few light-days across. Nuclear burning releases only $0.7\%$ of the rest mass of its fuel (Section~\ref{st:sec:eos}). The fuel needed by nuclear burning would not fit in so small a region, and it would take too long to burn. Something more powerful is at work.
+A quasar can shine at $10^{40}\,\mathrm W$, about a thousand times a large galaxy of $10^{10}$ to $10^{11}$ Suns, while its observed brightness rises or falls noticeably over a few days. The region producing that variable light can be only a few light-days across. Hydrogen burning releases nuclear binding energy because the fusion products have slightly less mass than the fuel. That mass difference is about $0.7\%$ of the fuel's rest mass (Section~\ref{st:sec:eos}), too little to power a quasar from so small a region. Accretion draws on a different source, gravitational energy. As gas spirals inward, its gravitational potential energy falls even as its orbital speed rises. Friction between disk rings turns the decrease in total orbital energy into heat, which the gas radiates.
 
-Think of water flowing over a dam. Each kilogram that falls turns the turbines with an energy set by the height of the fall. A taller dam gives more energy from each kilogram, and the power is that energy times the kilograms per second. Gas falling onto a compact object falls down a very deep well. Each kilogram releases $GM/R$, which is $c^2$ times the compactness. The idea is that the share of rest mass released by accretion equals the compactness, up to tens of percent, and that the gas, spiralling in through a disk, radiates the energy locally as heat (P1, P4).
+Water falling over a dam turns a turbine. The power depends on both the height of the fall and how much water flows each second. Accreting gas follows the same energy accounting. The depth of the gravitational well sets the energy available per kilogram, while the inflow rate sets how many kilograms arrive. In a disk, friction transfers orbital energy between rings and heats the gas, which radiates that heat (P1, P4).
 
-In numbers, matter falling onto a neutron star releases $0.17$ of its rest mass, $25$ times more per kilogram than burning hydrogen. A quasar shining at $10^{40}\,\mathrm W$ with an efficiency of $0.1$ swallows $1.1\times10^{24}\,\mathrm{kg\,s^{-1}}$, $18$ solar masses a year. The picture is gas spiralling slowly inward in a thin, flat disk, hotter toward the centre, with narrow jets leaving along the axis. The same process powers X-ray binaries, the outbursts of white dwarfs in binaries, the disks round young stars, and the nuclei of active galaxies. It uses P1 for energy and for angular momentum, P2, P4 for the local balance of heating and cooling, and P6 for light-travel times. It gives the luminosity and efficiency of accretion, black-hole masses, the temperature and spectrum of a thin disk, and the apparent speeds of jets.
+Falling onto a neutron star can release gravitational energy equal to $0.17$ of the gas's rest-mass energy, $25$ times the yield per kilogram from burning hydrogen. A quasar shining at $10^{40}\,\mathrm W$ with efficiency $0.1$ needs $1.1\times10^{24}\,\mathrm{kg\,s^{-1}}$, or $18$ solar masses a year. Picture a thin disk growing hotter toward the centre, sometimes with narrow jets along its axis. Accretion also powers X-ray binaries, white-dwarf outbursts, and disks around young stars. Energy and angular momentum conservation (P1), gravity (P2), local heating and cooling balance (P4), and light-travel times (P6) give the luminosity, disk spectrum, and apparent jet speeds.
 
-\paragraph{Accretion luminosity.} Let matter fall from far away onto the surface of a body of mass $M$ and radius $R$, at the rate $\dot M$ kilograms per second. Outside a sphere the gravitational potential, the potential energy per kilogram, is $\Phi(r)=-GM/r$ (P2). The matter starts far away, nearly at rest, with $\Phi\approx0$. It falls, speeding up, and at the surface it is stopped, so the kinetic energy it gained is turned into heat. In a steady state the gas cannot keep getting hotter, so the heat leaves as light at the same rate it is made (P4). As for the dam, the power is the energy per kilogram times the kilograms per second,
+\paragraph{Accretion luminosity.} Let gas fall from far away onto a body of mass $M$ and radius $R$ at a rate $\dot M$. Outside the body, the gravitational potential energy per kilogram is $\Phi(r)=-GM/r$ (P2). The gas starts nearly at rest, where $\Phi\approx0$, and gains speed as it falls. When it reaches the surface, that motion turns to heat. In steady state the heat leaves as radiation at the rate it is made (P4). Multiply the energy released per kilogram by $\dot M$,
 \begin{align}
 	L
 	&\eqby{1} \big[\Phi(\infty)-\Phi(R)\big]\,\dot M \nonumber\\
@@ -557,16 +566,16 @@ In numbers, matter falling onto a neutron star releases $0.17$ of its rest mass,
 	\item $\Phi(r)=-GM/r$ outside the body, so $\Phi(\infty)=0$ and $\Phi(R)=-GM/R$.
 	\item The two minus signs cancel.
 \end{explain}
-To compare with nuclear burning, divide by $\dot Mc^2$, the rest-mass energy that flows in each second. The ratio is the share of the rest mass turned into light, the \textbf{efficiency} $\eta$,
+Divide the radiated power by $\dot Mc^2$, the rest-mass energy carried in each second. This defines the \textbf{efficiency} $\eta$. The denominator sets a scale for comparison. The light comes from gravitational energy lost during infall, and the ratio is
 \begin{equation}
 	\boxed{L=\frac{GM\dot M}{R},\qquad \eta\equiv\frac{L}{\dot Mc^2}=\frac{GM}{Rc^2} .}
 	\label{fp:eq:accretion_L}
 \end{equation}
-This $\eta$ is the compactness of Table~\ref{cs:tab:compactness}, $2.6\times10^{-4}$ for a white dwarf like Sirius B and $0.17$ for a neutron star. A black hole has no surface. Gas radiates while it spirals down to the last stable circular orbit, which general relativity puts at $6GM/c^2$ for a black hole without spin. The efficiency is then $1-\sqrt{8/9}=0.057$, and it rises to $0.42$ for the fastest spin allowed. These two numbers are quoted from general relativity. The Newtonian estimate, half of $GM/R$ at $R=6GM/c^2$ (the half is explained below), gives $1/12=0.083$.
+This $\eta$ equals the compactness in Table~\ref{cs:tab:compactness}. It is $2.6\times10^{-4}$ for a white dwarf like Sirius B and $0.17$ for a neutron star. A black hole has no surface, so gas radiates as it spirals toward the last stable orbit. For a black hole without spin, general relativity puts that orbit at $6GM/c^2$ and gives efficiency $1-\sqrt{8/9}=0.057$. For the fastest allowed spin, it can reach $0.42$. These efficiencies come from general relativity. The Newtonian disk estimate below releases half of $GM/R$ by $R=6GM/c^2$, giving $1/12=0.083$.
 
-\paragraph{The Eddington limit and black-hole masses.} Light from the infalling gas pushes it back. By Eq.~\eqref{rad:eq:eddington} a steady source of mass $M$ shines at most at $1.26\times10^{31}\,\mathrm W\,(M/M_\odot)$. A quasar at $10^{40}\,\mathrm W$ therefore holds at least $8\times10^8\,M_\odot$ (Problem~\ref{rad:prob:eddington}). A change in brightness within a day limits its size to the distance light travels in a day, $2.6\times10^{13}\,\mathrm m$, since the far side of a larger source would not hear in time that it should brighten (P6). The Schwarzschild radius of $10^9\,M_\odot$ is $3\times10^{12}\,\mathrm m$. So the mass is packed into a few tens of Schwarzschild radii at most, and only a black hole fits.
+\paragraph{The Eddington limit and black-hole masses.} Radiation pushes back on the infalling gas. Equation~\eqref{rad:eq:eddington} limits the steady luminosity of mass $M$ to $1.26\times10^{31}\,\mathrm W\,(M/M_\odot)$. A quasar at $10^{40}\,\mathrm W$ therefore needs at least $8\times10^8\,M_\odot$ (Problem~\ref{rad:prob:eddington}). If it brightens within one day, the emitting region cannot be much larger than one light-day, $2.6\times10^{13}\,\mathrm m$ (P6). The Schwarzschild radius of $10^9\,M_\odot$ is $3\times10^{12}\,\mathrm m$. The source thus holds roughly a billion solar masses within only a few tens of Schwarzschild radii, pointing to a black hole.
 
-\paragraph{The thin disk, angular momentum.} Gas does not fall straight in. It has angular momentum, and it settles into a thin disk where each ring circles at the Kepler angular velocity $\sqrt{GM/r^3}$, with angular momentum $\sqrt{GMr}$ per unit mass. A ring can move inward only by handing angular momentum outward, which friction between neighbouring rings does. Let $\mathcal T(r)$ be the torque that the gas inside $r$ exerts on the gas outside. In a steady disk the angular momentum carried inward through $r$ by the gas, minus that carried outward by the torque, is the same at every radius (P1). At the inner edge $R_{\rm in}$ the gas falls freely into the hole, so the torque there is zero.
+\paragraph{The thin disk, angular momentum.} Gas approaching the hole has angular momentum, so it settles into a disk rather than falling straight in. At radius $r$, a ring orbits at angular speed $\sqrt{GM/r^3}$ and has angular momentum $\sqrt{GMr}$ per unit mass. It can move inward only by passing angular momentum to outer rings. Let $\mathcal T(r)$ be the torque exerted by gas inside $r$ on gas outside. In steady flow, the inward angular momentum carried by gas minus the outward amount carried by the torque is constant with radius (P1). At the inner edge $R_{\rm in}$, the gas plunges toward the hole and we take the torque to vanish.
 \begin{align}
 	\dot M\sqrt{GMr}-\mathcal T(r)
 	&\eqby{1} \dot M\sqrt{GMR_{\rm in}}-0 \nonumber\\
@@ -578,7 +587,7 @@ This $\eta$ is the compactness of Table~\ref{cs:tab:compactness}, $2.6\times10^{
 	\item The constant evaluated at the inner edge, where $\mathcal T=0$.
 \end{explain}
 
-\paragraph{The thin disk, energy.} The energy flowing outward through radius $r$ has two parts. The gas, moving inward, carries its orbital energy $-GM/2r$ per unit mass, which is an outward flow of $\dot MGM/2r$. The torque does work on the outer gas at the rate $\mathcal T\sqrt{GM/r^3}$. What the ring between $r$ and $r+dr$ takes from this flow, it radiates (P1). Both faces radiate as blackbodies at the local temperature $T(r)$ (P4, Eq.~\eqref{eq:surface_flux_sb}).
+\paragraph{The thin disk, energy.} Energy also flows between rings. Gas moving inward carries orbital energy $-GM/2r$ per kilogram, equivalent to an outward energy flow $\dot MGM/2r$. The torque does work on outer gas at a rate $\mathcal T\sqrt{GM/r^3}$. A ring between $r$ and $r+dr$ radiates the energy it takes from these flows (P1). Both faces emit locally as blackbodies at temperature $T(r)$ (P4, Eq.~\eqref{eq:surface_flux_sb}).
 \begin{align}
 	2\cdot2\pi r\,dr\;\sigma_{\rm SB}T^4
 	&\eqby{1} -\dv{r}\Big[\frac{GM\dot M}{2r}+\mathcal T\sqrt{\frac{GM}{r^3}}\,\Big]dr \nonumber\\
@@ -595,15 +604,15 @@ This $\eta$ is the compactness of Table~\ref{cs:tab:compactness}, $2.6\times10^{
 	\boxed{\sigma_{\rm SB}T^4=\frac{3GM\dot M}{8\pi r^3}\Big(1-\sqrt{\frac{R_{\rm in}}{r}}\Big),\qquad T\propto r^{-3/4}\ \text{for }r\gg R_{\rm in}.}
 	\label{fp:eq:disk_T}
 \end{equation}
-The mass and the accretion rate set the temperature together, as $M\dot M$. Far out, a ring radiates three times the orbital energy that its own gas gives up. The extra two thirds is energy carried outward by the torque from the rings inside.
+The product $M\dot M$ sets the temperature at a given radius. Far from the inner edge, a ring radiates three times the energy released locally by gas moving through it. The torque transports the other two thirds from smaller radii.
 
-As a check by energy alone, the whole disk radiates
+Integrating over the disk checks the energy budget,
 \[
 \int_{R_{\rm in}}^\infty\frac{3GM\dot M}{2r^2}\Big(1-\sqrt{\frac{R_{\rm in}}{r}}\Big)dr=\frac{GM\dot M}{2R_{\rm in}},
 \]
-half of the energy $GM\dot M/R_{\rm in}$ released by the fall. The other half is the orbital kinetic energy the gas still has at $R_{\rm in}$, as the virial theorem requires for a circular orbit (Section~\ref{sg:sec:virial}). On a star it is released where the gas meets the surface, and a black hole swallows it.
+This is half the energy $GM\dot M/R_{\rm in}$ available from the fall. The gas still carries the other half as orbital kinetic energy at $R_{\rm in}$, as required for a circular orbit (Section~\ref{sg:sec:virial}). A star releases that energy where the gas reaches its surface. A black hole swallows it.
 
-Writing $T_*=(3GM\dot M/8\pi\sigma_{\rm SB}R_{\rm in}^3)^{1/4}$, the temperature is $T=T_*(R_{\rm in}/r)^{3/4}(1-\sqrt{R_{\rm in}/r})^{1/4}$. It peaks at $r=\tfrac{49}{36}R_{\rm in}$, where $T=0.488\,T_*$ (Figure~\ref{fp:fig:disk}). For a black hole of $10^8\,M_\odot$ fed $1\,M_\odot$ a year, with $R_{\rm in}=6GM/c^2$, the hottest ring is at $1.1\times10^5\,\mathrm K$ and the disk shines in the ultraviolet with $4.7\times10^{38}\,\mathrm W$. For a black hole of $10\,M_\odot$ fed $10^{-8}\,M_\odot$ a year it is at $3.5\times10^6\,\mathrm K$, $k_BT=0.30\,\mathrm{keV}$, in X-rays. With $R_{\rm in}\propto M$, $T_*\propto(\dot M/M^2)^{1/4}$, and at a fixed fraction of the Eddington limit $\dot M\propto M$, so $T_*\propto M^{-1/4}$. Small black holes have hotter disks.
+Define $T_*=(3GM\dot M/8\pi\sigma_{\rm SB}R_{\rm in}^3)^{1/4}$. Then $T=T_*(R_{\rm in}/r)^{3/4}(1-\sqrt{R_{\rm in}/r})^{1/4}$, with a peak at $r=\tfrac{49}{36}R_{\rm in}$ and $T=0.488\,T_*$ (Figure~\ref{fp:fig:disk}). A $10^8\,M_\odot$ black hole fed $1\,M_\odot$ a year, with $R_{\rm in}=6GM/c^2$, has a hottest ring at $1.1\times10^5\,\mathrm K$. Its disk shines mainly in the ultraviolet with $4.7\times10^{38}\,\mathrm W$. For a $10\,M_\odot$ black hole fed $10^{-8}\,M_\odot$ a year, the peak is $3.5\times10^6\,\mathrm K$, or $k_BT=0.30\,\mathrm{keV}$, in X-rays. Because $R_{\rm in}\propto M$, we have $T_*\propto(\dot M/M^2)^{1/4}$. At a fixed fraction of the Eddington limit, $\dot M\propto M$ and $T_*\propto M^{-1/4}$. Smaller black holes therefore have hotter disks.
 
 \begin{figure}[htbp]
 	\centering
@@ -612,7 +621,7 @@ Writing $T_*=(3GM\dot M/8\pi\sigma_{\rm SB}R_{\rm in}^3)^{1/4}$, the temperature
 	\label{fp:fig:disk}
 \end{figure}
 
-\paragraph{The spectrum of the disk.} By Eq.~\eqref{ph:eq:flux_pi_B}, each face of a ring sends out the flux $\pi B_\nu(T(r))$. Far from the inner edge, $T=T_*(R_{\rm in}/r)^{3/4}$. To add up the rings at a frequency $\nu$, change the variable from $r$ to $u=h\nu/k_BT(r)=(h\nu/k_BT_*)(r/R_{\rm in})^{3/4}$, so that $r=R_{\rm in}(uk_BT_*/h\nu)^{4/3}$.
+\paragraph{The spectrum of the disk.} Each face of a ring emits flux $\pi B_\nu(T(r))$ (Eq.~\eqref{ph:eq:flux_pi_B}). Far from the inner edge, $T=T_*(R_{\rm in}/r)^{3/4}$. To add the rings at one frequency $\nu$, use $u=h\nu/k_BT(r)=(h\nu/k_BT_*)(r/R_{\rm in})^{3/4}$ in place of radius. Then $r=R_{\rm in}(uk_BT_*/h\nu)^{4/3}$.
 \begin{align}
 	L_\nu
 	&\eqby{1} \int 2\cdot2\pi r\;\pi B_\nu\big(T(r)\big)\,dr \nonumber\\
@@ -626,9 +635,9 @@ Writing $T_*=(3GM\dot M/8\pi\sigma_{\rm SB}R_{\rm in}^3)^{1/4}$, the temperature
 	\item The Planck function \eqref{pr:eq:planck} with $h\nu/k_BT(r)=u$.
 	\item $r\,dr=\tfrac43R_{\rm in}^2(k_BT_*/h\nu)^{8/3}u^{5/3}du$. For $k_BT(\text{outer edge})\ll h\nu\ll k_BT_*$ the limits of $u$ are $0$ and $\infty$, and the integral is the number $\Gamma(\tfrac83)\zeta(\tfrac83)=1.93$.
 \end{explain}
-Between the temperatures of the outer and inner edges a disk is neither a blackbody nor the power law of fast electrons. It is a blackbody stretched over many temperatures, $L_\nu\propto\nu^{1/3}$, cut off at the frequency of its hottest ring. In quasars this hump appears in the ultraviolet.
+Each ring is nearly a blackbody, but the whole disk contains many temperatures. Between the outer and inner disk frequencies, their sum follows $L_\nu\propto\nu^{1/3}$. It cuts off near the frequency of the hottest ring. In quasars, this broad hump appears in the ultraviolet.
 
-\paragraph{Faster than light.} Jets from active nuclei carry blobs of radio-emitting plasma outward, and radio interferometers (Chapter~\ref{ch:resolution}) follow them across the sky. Many seem to move faster than light. Let a blob leave the core at $t=0$ with speed $\beta c$ at angle $\theta$ to the line of sight. At time $t$ it has moved $\beta ct\cos\theta$ toward us and $\beta ct\sin\theta$ across the sky. Its light set out from a point $\beta ct\cos\theta$ nearer to us, so the light from the two moments arrives separated by less than $t$ (P6).
+\paragraph{Faster than light.} Radio interferometers track bright knots moving along jets from active nuclei (Chapter~\ref{ch:resolution}). Some appear to cross the sky faster than light. Let a knot leave the core at $t=0$ with speed $\beta c$ at angle $\theta$ to our line of sight. After time $t$, it has moved $\beta ct\cos\theta$ toward us and $\beta ct\sin\theta$ across the sky. Its later light starts closer to us, so the observed interval between the two positions is shorter than $t$ (P6).
 \begin{align}
 	\Delta t_{\rm obs}
 	&\eqby{1} t-\frac{\beta ct\cos\theta}{c}=t\,(1-\beta\cos\theta) \nonumber\\
@@ -643,7 +652,7 @@ Between the temperatures of the outer and inner edges a disk is neither a blackb
 	\boxed{\beta_{\rm app}=\frac{\beta\sin\theta}{1-\beta\cos\theta}.}
 	\label{fp:eq:superluminal}
 \end{equation}
-Its derivative with respect to $\theta$ is $\beta(\cos\theta-\beta)/(1-\beta\cos\theta)^2$, which is zero at $\cos\theta=\beta$. There $\sin\theta=1/\gamma_L$ and $\beta_{\rm app}=\beta\gamma_L$, which exceeds $1$ for $\beta>1/\sqrt2$ (Figure~\ref{fp:fig:superluminal}). Nothing moves faster than light. The blob nearly keeps up with its own light, so a long time of travel is squeezed into a short time of observation, the same squeezing as in the synchrotron flash. Since $\beta_{\rm app}\le\beta\gamma_L<\gamma_L$, a measured apparent speed gives a lower limit on the Lorentz factor of the jet. The jet of M87 shows features moving at about $6c$, so its Lorentz factor is at least $6$ (Problem~\ref{fp:prob:m87}). By Eq.~\eqref{fp:eq:beaming}, light from the approaching jet is raised in frequency and thrown forward, and light from the receding jet is lowered and thrown away from us. That is why most jets look one-sided.
+The apparent speed peaks where the derivative $\beta(\cos\theta-\beta)/(1-\beta\cos\theta)^2$ vanishes, at $\cos\theta=\beta$. There $\sin\theta=1/\gamma_L$ and $\beta_{\rm app}=\beta\gamma_L$, which exceeds $1$ for $\beta>1/\sqrt2$ (Figure~\ref{fp:fig:superluminal}). The knot itself still moves below $c$; its later light has less distance to travel. This is the same arrival-time compression that shortened the synchrotron flash. Since $\beta_{\rm app}\le\beta\gamma_L<\gamma_L$, an apparent speed gives a lower limit on the jet's Lorentz factor. Features in M87's jet move at about $6c$, implying $\gamma_L\ge6$ (Problem~\ref{fp:prob:m87}). Beaming also brightens the approaching jet and dims the receding one (Eq.~\eqref{fp:eq:beaming}), making many jets look one-sided.
 
 \begin{figure}[htbp]
 	\centering
@@ -656,11 +665,11 @@ Its derivative with respect to $\theta$ is $\beta(\cos\theta-\beta)/(1-\beta\cos
 \section{Active Nuclei Seen From Different Angles}
 \label{fp:sec:agn}
 
-A black hole fed through a thin disk, with jets along its axis, explains the power of a quasar (Section~\ref{fp:sec:accretion}). Astronomers sorted active galaxies into kinds long before they knew this. Some show broad emission lines and narrow ones, some only narrow ones. Some are bright radio sources with lobes far outside the galaxy. Some flicker within hours at every wavelength from radio to gamma rays. We need to know what surrounds the hole, how large each part is, and why one engine looks so different from one galaxy to the next.
+Accretion onto a black hole explains the power of a quasar (Section~\ref{fp:sec:accretion}). Yet active galaxies look different from one another. Some show both broad and narrow emission lines; others show only narrow lines. Some have vast radio lobes, while others flicker within hours from radio to gamma rays. The difference depends on what surrounds the hole, how large those parts are, and the angle from which we see them.
 
-Think of a lamp with a ring-shaped shade, open at the top and the bottom, in a room with a high ceiling. Someone looking down from above sees the bright bulb. Someone at the side sees only the shade and the light it throws on the ceiling. Both look at the same lamp. When the lamp is switched on, the ceiling lights up a moment later, and the delay gives the height of the ceiling. In an active nucleus the bulb is the hot disk and the fast gas just round it. The shade is a thick ring of dust, and the ceiling is slower gas much farther out. The idea is that the sizes of these parts follow from light-travel times, from the virial theorem and from the temperature at which dust survives, and that the name we give a galaxy depends mostly on how bright its nucleus is and on the angle we see it from.
+Imagine a lamp inside a thick, ring-shaped shade, open at the top and bottom. From above, the bulb is visible. From the side, the shade hides it, though light still reaches a distant wall. If the bulb flashes, the wall brightens later, and the delay tells us how far away it is. In an active nucleus, the hot disk is the bulb, a ring of dust is the shade, and more distant gas catches the light. Delays locate the gas. Its speed weighs the black hole, and the temperature at which dust survives locates the ring. The view changes with the sight line and with the brightness of the engine.
 
-In numbers, take a nucleus that shines at $10^{37}\,\mathrm W$. A broad emission line in its spectrum follows the changes of the continuum $20$ days late, so the gas that makes the line is about $20$ light-days from the centre. The line spreads the speeds of that gas over about $1500\,\mathrm{km\,s^{-1}}$ along the line of sight, and holding gas that fast at that distance needs a black hole of $2.6\times10^7\,M_\odot$. Dust closer than $32$ light-days would be heated above $1500\,\mathrm K$ and would boil away, so the dusty ring starts outside the fast gas. The picture is a cut through the nucleus along its axis (Figure~\ref{fp:fig:agn}). The hole and the disk sit at the centre, fast clouds lie just above and below, the dusty ring surrounds them, slow clouds lie farther out in two cones, and the jets run along the axis. The light echo is the radar echo that measures the astronomical unit, Eq.~\eqref{as:eq:echo}, with a flash of the disk in place of the radar pulse (P6). The weighing is the virial theorem that weighs clusters of galaxies, Eq.~\eqref{ga:eq:Mvir} (P2). The edge of the dust is set by the balance of absorbed and radiated power that sets the temperature of a planet, Eq.~\eqref{tb:eq:teq} (P4). The limit on size from variability is the light-travel argument already used for quasars (P6). Together these give the sizes of the parts of an active nucleus and the mass of its black hole, the kinds of active galaxies, the largest size a varying source can have, and the gravitational waves of pairs of black holes.
+Take a nucleus shining at $10^{37}\,\mathrm W$. Its broad emission line follows changes in the continuum $20$ days later, placing the line-making gas about $20$ light-days from the centre. The line width gives a line-of-sight speed spread of $1500\,\mathrm{km\,s^{-1}}$. Holding gas that fast at that distance requires a black hole of $2.6\times10^7\,M_\odot$. Dust inside $32$ light-days would rise above $1500\,\mathrm K$ and evaporate, so the dusty ring begins beyond the fast gas. Figure~\ref{fp:fig:agn} shows the disk and hole at the centre, fast clouds nearby, slower clouds farther out, and jets along the axis. The delay uses the light-travel argument of the radar echo (Eq.~\eqref{as:eq:echo}, P6). The line width uses the virial theorem (Eq.~\eqref{ga:eq:Mvir}, P2). Dust temperature follows radiative balance (Eq.~\eqref{tb:eq:teq}, P4). Together, these measurements reveal the structure and mass of the nucleus.
 
 \begin{figure}[htbp]
 	\centering
@@ -669,15 +678,15 @@ In numbers, take a nucleus that shines at $10^{37}\,\mathrm W$. A broad emission
 	\label{fp:fig:agn}
 \end{figure}
 
-\paragraph{The light of an active nucleus.} A normal galaxy (Chapter~\ref{ch:galaxies}) shines with the light of its stars. In an active galaxy a nucleus of a few light-days adds light from a hot disk, from bremsstrahlung, from synchrotron light and from inverse Compton scattering. The accretion disk gives the ultraviolet hump of Eq.~\eqref{fp:eq:disk_spectrum}. Hot electrons above the disk scatter its photons up into X-rays with $y\gtrsim1$. Jets and the lobes they feed shine by synchrotron light in the radio, with spectra like Eq.~\eqref{fp:eq:sync_index}, and by inverse Compton scattering in X-rays and gamma rays. Every active nucleus draws its power from gas falling into a black hole of $10^6$ to $10^{10}\,M_\odot$, with the efficiency of Eq.~\eqref{fp:eq:accretion_L}. We take the parts in turn from the inside out, all for the nucleus of the opening, of $10^{37}\,\mathrm W$ and $2.6\times10^7\,M_\odot$.
+\paragraph{The light of an active nucleus.} Starlight fills a normal galaxy (Chapter~\ref{ch:galaxies}). An active nucleus adds radiation from a hot disk, free electrons, and jets. The disk makes the ultraviolet hump of Eq.~\eqref{fp:eq:disk_spectrum}. Hot electrons above it can scatter disk photons into X-rays when $y\gtrsim1$. Jets and lobes make radio synchrotron light with spectra like Eq.~\eqref{fp:eq:sync_index}; inverse Compton scattering can add X-rays and gamma rays. Gas falling toward a black hole of $10^6$ to $10^{10}\,M_\odot$ supplies the energy with the efficiency of Eq.~\eqref{fp:eq:accretion_L}. For the size estimates below, use the $10^{37}\,\mathrm W$, $2.6\times10^7\,M_\odot$ example.
 
-\paragraph{The hole and the disk.} The Schwarzschild radius of $2.6\times10^7\,M_\odot$ is $2GM/c^2=7.8\times10^{10}\,\mathrm m$, four light-minutes. With an efficiency of $0.1$, the luminosity $10^{37}\,\mathrm W$ needs $\dot M=L/(0.1c^2)=1.1\times10^{21}\,\mathrm{kg\,s^{-1}}$, or $0.018\,M_\odot$ a year, by Eq.~\eqref{fp:eq:accretion_L}. Far from the inner edge, Eq.~\eqref{fp:eq:disk_T} gives the radius where the disk has the temperature $T$,
+\paragraph{The hole and the disk.} For $2.6\times10^7\,M_\odot$, the Schwarzschild radius is $2GM/c^2=7.8\times10^{10}\,\mathrm m$, or four light-minutes. At efficiency $0.1$, a luminosity of $10^{37}\,\mathrm W$ requires $\dot M=L/(0.1c^2)=1.1\times10^{21}\,\mathrm{kg\,s^{-1}}$, or $0.018\,M_\odot$ a year (Eq.~\eqref{fp:eq:accretion_L}). Far from the disk's inner edge, Eq.~\eqref{fp:eq:disk_T} gives the radius at temperature $T$,
 \[
 r=\left(\frac{3GM\dot M}{8\pi\sigma_{\rm SB}T^4}\right)^{1/3}.
 \]
-The disk is at $10^4\,\mathrm K$, and shines in visible light, at $9.4\times10^{12}\,\mathrm m$. That is $0.36$ light-days, or $120$ Schwarzschild radii. Its hottest ring, with $R_{\rm in}=6GM/c^2$, is at $7.8\times10^4\,\mathrm K$ and shines in the ultraviolet. The disk that makes the ultraviolet and visible light is less than a light-day across.
+The disk reaches $10^4\,\mathrm K$ at $9.4\times10^{12}\,\mathrm m$, or $0.36$ light-days and $120$ Schwarzschild radii, where it shines in visible light. Its hottest ring, for $R_{\rm in}=6GM/c^2$, reaches $7.8\times10^4\,\mathrm K$ and shines in the ultraviolet. The visible and ultraviolet emitting disk fits within about a light-day.
 
-\paragraph{The broad-line region, weighed.} The spectra of many nuclei show emission lines of hydrogen and other atoms that are thousands of $\mathrm{km\,s^{-1}}$ wide. By the Doppler shift, Eq.~\eqref{eq:doppler_classical}, the width measures the spread of speeds along the line of sight, which we call $\sigma$ as in Chapter~\ref{ch:galaxies}. Thermal motion at $10^4\,\mathrm K$ gives only $\sqrt{k_BT/m_{\rm H}}=9\,\mathrm{km\,s^{-1}}$ (Eq.~\eqref{eq:thermal_doppler_width}). So the width comes from clouds of gas moving in bulk, in orbit about the hole. Let the clouds have masses $m_i$, speeds $v_i$ and distances $r_i$ from a hole of mass $M$ (P2).
+\paragraph{The broad-line region, weighed.} Many active nuclei have emission lines thousands of $\mathrm{km\,s^{-1}}$ wide. The Doppler shift turns that width into a spread of line-of-sight speeds $\sigma$ (Eq.~\eqref{eq:doppler_classical}). Thermal motion at $10^4\,\mathrm K$ gives only $\sqrt{k_BT/m_{\rm H}}=9\,\mathrm{km\,s^{-1}}$ (Eq.~\eqref{eq:thermal_doppler_width}). The much larger observed width comes from clouds orbiting the hole. Let their masses, speeds, and distances from a hole of mass $M$ be $m_i$, $v_i$, and $r_i$ (P2).
 \begin{align}
 	\sum_i m_i\avg{v_i^2}
 	&\eqby{1} \sum_i GMm_i\avg{\frac{1}{r_i}} \nonumber\\
@@ -694,9 +703,9 @@ The disk is at $10^4\,\mathrm K$, and shines in visible light, at $9.4\times10^{
 	\boxed{M=\frac{3\sigma^2r}{G}.}
 	\label{fp:eq:blr_mass}
 \end{equation}
-Only the speed and the size enter. The hole is weighed by its own clouds, with no assumption about the gas other than that it is bound.
+Only cloud speed and distance enter. The clouds weigh the hole as long as they are gravitationally bound to it.
 
-\paragraph{The size from the echo.} The distance $r$ is far too small to see, a few hundredths of a parsec in a galaxy tens of megaparsecs away. It is found from time instead. The disk changes in brightness, and the clouds, lit by the disk, change their line brightness later. Let the disk flash at $t=0$, and take a cloud at distance $r$ from the hole, at angle $\theta$ from the direction toward us. Its light reaches us later than the light that left the hole directly.
+\paragraph{The size from the echo.} These clouds lie only a few hundredths of a parsec from the hole, too close to resolve in a distant galaxy. A time delay measures their distance instead. When the disk brightens, the line-making clouds brighten after its light reaches them. Let the disk flash at $t=0$. A cloud at distance $r$ and angle $\theta$ from our line of sight sends us the delayed light.
 \begin{align}
 	\Delta t(\theta)
 	&\eqby{1} \frac rc-\frac{r\cos\theta}{c}=\frac rc\,(1-\cos\theta) , \nonumber\\
@@ -709,14 +718,14 @@ Only the speed and the size enter. The hole is weighed by its own clouds, with n
 	\item Clouds spread evenly over a shell. A fraction $2\pi\sin\theta\,d\theta/4\pi$ of them lies between $\theta$ and $\theta+d\theta$.
 	\item $\int_0^\pi\sin\theta\,d\theta=2$ and $\int_0^\pi\cos\theta\sin\theta\,d\theta=0$.
 \end{explain}
-The delays run from $0$ for clouds in front of the hole to $2r/c$ for clouds behind it, and their mean is $r/c$. Measuring the lag $\Delta t$ of a line behind the continuum is called \textbf{reverberation mapping}. With $r=c\,\Delta t$ in Eq.~\eqref{fp:eq:blr_mass},
+The delay ranges from $0$ for a cloud in front of the hole to $2r/c$ for one behind it. For clouds spread around the hole, the mean is $r/c$. Measuring the lag $\Delta t$ between continuum and line light is \textbf{reverberation mapping}. Put $r=c\,\Delta t$ into Eq.~\eqref{fp:eq:blr_mass},
 \begin{equation}
 	\boxed{M=\frac{3\sigma^2c\,\Delta t}{G}.}
 	\label{fp:eq:reverb_mass}
 \end{equation}
-For the opening's nucleus, $\Delta t=20$ days gives $r=c\,\Delta t=5.2\times10^{14}\,\mathrm m=0.017\,\mathrm{pc}$, and $\sigma=1500\,\mathrm{km\,s^{-1}}$ gives $M=3\times(1.5\times10^6)^2\times5.2\times10^{14}/(6.67\times10^{-11})\,\mathrm{kg}=5.2\times10^{37}\,\mathrm{kg}=2.6\times10^7\,M_\odot$. As a check, a circular orbit at $r$ has the speed $\sqrt{GM/r}=2600\,\mathrm{km\,s^{-1}}$, which is $\sqrt3\,\sigma$, as it must be. By Eq.~\eqref{rad:eq:eddington} the nucleus shines at $3\%$ of its Eddington limit. The factor $3$ is the weakest part of the result. The lag gives the mean of $r$, while the virial theorem needs the mean of $1/r$, and the clouds may move in a flattened layer rather than in all directions. Each changes the factor by an amount of order one.
+For the example nucleus, a lag of $\Delta t=20$ days gives $r=c\,\Delta t=5.2\times10^{14}\,\mathrm m=0.017\,\mathrm{pc}$. With $\sigma=1500\,\mathrm{km\,s^{-1}}$, the mass is $M=3\times(1.5\times10^6)^2\times5.2\times10^{14}/(6.67\times10^{-11})\,\mathrm{kg}=5.2\times10^{37}\,\mathrm{kg}=2.6\times10^7\,M_\odot$. A circular orbit at that radius has speed $\sqrt{GM/r}=2600\,\mathrm{km\,s^{-1}}=\sqrt3\,\sigma$, as expected. Equation~\eqref{rad:eq:eddington} puts the luminosity at $3\%$ of the Eddington limit. The main uncertainty lies in the factor $3$. The lag measures a mean radius, while the virial relation uses a mean inverse radius. Flattened cloud orbits would also change the factor by order unity.
 
-\paragraph{The dusty torus.} Farther out, the light of the nucleus meets dust. A grain absorbs the flux $L/(4\pi r^2)$ on its cross-section and radiates from its whole surface, the balance that gave the temperature of a planet in the chain before Eq.~\eqref{tb:eq:teq}. Dust survives only where this balance keeps it below about $1500\,\mathrm K$. Above that the grains boil away, so the dust starts at the radius where it reaches that temperature (P4).
+\paragraph{The dusty torus.} Farther from the hole, dust absorbs light from the nucleus. A grain intercepts flux $L/(4\pi r^2)$ across its cross-section and radiates from its whole surface, as a planet does in the balance before Eq.~\eqref{tb:eq:teq}. Dust survives only where its temperature stays below about $1500\,\mathrm K$. The inner edge therefore lies where absorbed and radiated power balance at that temperature (P4).
 \begin{align}
 	T
 	&\eqby{1} \left(\frac{L}{16\pi\sigma_{\rm SB}r^2}\right)^{1/4} \nonumber\\
@@ -731,13 +740,13 @@ For the opening's nucleus, $\Delta t=20$ days gives $r=c\,\Delta t=5.2\times10^{
 	\boxed{r_{\rm dust}=\sqrt{\frac{L}{16\pi\sigma_{\rm SB}\,(1500\,\mathrm K)^4}}\ \propto\ L^{1/2}.}
 	\label{fp:eq:dust_radius}
 \end{equation}
-For $10^{37}\,\mathrm W$, $16\pi\sigma_{\rm SB}(1500\,\mathrm K)^4=1.44\times10^7\,\mathrm{W\,m^{-2}}$ and $r_{\rm dust}=8.3\times10^{14}\,\mathrm m=0.027\,\mathrm{pc}$, or $32$ light-days. That is outside the broad-line clouds at $20$ light-days. For a quasar of $10^{40}\,\mathrm W$ it is $0.85\,\mathrm{pc}$. Small grains radiate the infrared poorly, so they run hotter than a blackbody at the same place and the real edge lies a few times farther out. The dust takes in the ultraviolet and gives it out again in the infrared, near $2\,\mu\mathrm m$ by Wien's law, Eq.~\eqref{eq:wien_law}, at the hot inner edge. The ring of dust is thick enough to hide the centre from the side, and it is called the \textbf{torus}. The radius of the broad-line region is also set by the flux of the centre, which must keep the clouds ionised to the same degree, so it should grow as $L^{1/2}$ too. Measured lags grow with luminosity roughly in this way.
+For $L=10^{37}\,\mathrm W$, the denominator is $16\pi\sigma_{\rm SB}(1500\,\mathrm K)^4=1.44\times10^7\,\mathrm{W\,m^{-2}}$. It gives $r_{\rm dust}=8.3\times10^{14}\,\mathrm m=0.027\,\mathrm{pc}$, or $32$ light-days, outside the broad-line clouds at $20$ light-days. For a $10^{40}\,\mathrm W$ quasar, the blackbody estimate is $0.85\,\mathrm{pc}$. Small grains radiate infrared light less efficiently than blackbodies and run hotter, placing the real inner edge a few times farther out. Dust absorbs ultraviolet light and reradiates it in the infrared, near $2\,\mu\mathrm m$ at the hot inner edge (Eq.~\eqref{eq:wien_law}). A thick ring of this dust, the \textbf{torus}, hides the centre when seen from the side. The central flux also sets the ionisation of the broad-line clouds, so their distance should grow roughly as $L^{1/2}$. Measured lags show about that trend.
 
-\paragraph{The narrow-line region.} Beyond the torus, out to hundreds of parsecs, gas lit through the two open cones makes lines only a few hundred $\mathrm{km\,s^{-1}}$ wide. The hole's pull is weak there. At $100\,\mathrm{pc}$ a hole of $2.6\times10^7\,M_\odot$ holds orbits at only $\sqrt{GM/r}=34\,\mathrm{km\,s^{-1}}$, so the speeds are set by the stars of the central part of the galaxy and by gas pushed out from the nucleus. This gas is thin, about $10^9$ to $10^{10}$ particles per cubic metre. By Eq.~\eqref{is:eq:level_balance} the ratio of decay rate to collision rate decides how a level empties. Below the critical density of Section~\ref{is:sec:21cm}, an ion excited by a collision waits and decays by sending out a photon, even through a slow, forbidden transition. So the narrow-line region shines in forbidden lines, the strongest being that of doubly ionised oxygen at $500.7\,\mathrm{nm}$. In the broad-line clouds the density is near $10^{15}$ to $10^{16}\,\mathrm{m^{-3}}$, far above the critical density of these lines, and collisions empty the levels before they can decay, so the broad lines are all allowed lines. The narrow-line region lies outside the torus and is seen from every angle.
+\paragraph{The narrow-line region.} Beyond the torus, gas in two illuminated cones extends hundreds of parsecs and makes lines only a few hundred $\mathrm{km\,s^{-1}}$ wide. The hole's pull is weak at those distances. At $100\,\mathrm{pc}$, a $2.6\times10^7\,M_\odot$ hole gives an orbital speed of only $\sqrt{GM/r}=34\,\mathrm{km\,s^{-1}}$. Stars in the central galaxy and outflowing gas set the larger speeds. The gas is thin, with about $10^9$ to $10^{10}$ particles per cubic metre. Equation~\eqref{is:eq:level_balance} compares radiative decay with collisions. Below the critical density of Section~\ref{is:sec:21cm}, an excited ion can emit even through a slow, forbidden transition before another collision reaches it. Thus the narrow-line region shows forbidden lines, especially the line of doubly ionised oxygen at $500.7\,\mathrm{nm}$. Broad-line clouds are much denser, near $10^{15}$ to $10^{16}\,\mathrm{m^{-3}}$. Collisions empty these levels before they radiate, leaving allowed lines. The narrow-line region sits outside the torus and remains visible from every angle.
 
-\paragraph{Jets and lobes.} Some nuclei send jets out along the axis of the disk at nearly the speed of light, with apparent speeds of several $c$ (Eq.~\eqref{fp:eq:superluminal}). They shine by synchrotron light, Eq.~\eqref{fp:eq:sync_index}, and end in lobes that can lie hundreds of kiloparsecs from the galaxy. Radio galaxies come in two shapes, the \textbf{Fanaroff--Riley} classes. In class I the jets are brightest near the core and fade into wide plumes. M84 (3C~272.1) in the Virgo cluster is one, about $14\,\mathrm{kpc}$ across on the sky. Its jets slow down and spread while still close to the galaxy. In class II the jets stay narrow and fast and are brightest at their far ends, the hot spots, where they strike the gas between the galaxies. Class II sources are on average the more powerful ones in the radio.
+\paragraph{Jets and lobes.} Some nuclei launch jets along the disk axis at nearly the speed of light. Their knots can show apparent speeds of several $c$ (Eq.~\eqref{fp:eq:superluminal}). Synchrotron light makes the jets bright in radio (Eq.~\eqref{fp:eq:sync_index}); the lobes they feed can reach hundreds of kiloparsecs beyond the galaxy. The two \textbf{Fanaroff--Riley} classes describe where a radio source is brightest. In class I, jets brighten near the core and spread into fading plumes. M84 (3C~272.1) in Virgo is one example, about $14\,\mathrm{kpc}$ across on the sky. In class II, the jets stay narrow and end in bright hot spots where they meet the surrounding gas. Class II sources are, on average, more powerful radio emitters.
 
-\paragraph{One engine, many names.} The parts above, seen from different angles, make the kinds of Table~\ref{fp:tab:agn}. Seen through the opening of the torus, the nucleus shows the broad lines, the narrow lines and the hot disk. Seen from the side, the torus hides the disk and the broad-line clouds, and only the narrow lines and the infrared of the dust remain. Where a jet points almost at us, its light is beamed and boosted (Eq.~\eqref{fp:eq:beaming}), and the source, a blazar, can change within hours. Its beamed synchrotron light swamps the lines, so its spectrum is a smooth continuum from radio waves to gamma rays, with the gamma rays made by inverse Compton scattering (Eq.~\eqref{fp:eq:ic_boost}).
+\paragraph{One engine, many names.} Table~\ref{fp:tab:agn} shows how the view changes with the sight line. Through the torus opening, we see the hot disk and both broad and narrow lines. From the side, the torus hides the disk and broad-line clouds; narrow lines and dust infrared remain. When a jet points nearly toward us, beaming brightens and compresses its light in time (Eq.~\eqref{fp:eq:beaming}). Such a source is a blazar. Its synchrotron continuum can overwhelm the lines, while inverse Compton scattering supplies gamma rays (Eq.~\eqref{fp:eq:ic_boost}).
 \begin{table}[htbp]
 	\centering
 	\small
@@ -756,11 +765,18 @@ For $10^{37}\,\mathrm W$, $16\pi\sigma_{\rm SB}(1500\,\mathrm K)^4=1.44\times10^
 	\label{fp:tab:agn}
 \end{table}
 
-Seyfert galaxies, quasars, radio galaxies and blazars differ mainly in luminosity and in the angle from which we see them. A third difference is whether the nucleus has strong jets. Most nuclei do not. Those that do appear as radio galaxies from the side, as radio-loud quasars from closer to the axis and as blazars down the jet.
+Luminosity and viewing angle account for many of the names in the table. Jet strength matters too. Most nuclei lack strong jets. A nucleus with one can appear as a radio galaxy from the side, a radio-loud quasar from closer to its axis, or a blazar when the jet points toward us. Figure~\ref{fp:fig:agn_tree} sorts the names by asking three questions in turn. The first is whether the nucleus has a strong jet. Without one, the luminosity separates a Seyfert from a quasar, and for a Seyfert the sight line separates type 1 from type 2. With a jet, the angle between the jet and our sight line decides the name.
 
-The test of the picture is whether a Seyfert 2 really hides broad lines. Some light of the broad-line clouds escapes up through the opening of the torus and is scattered toward us by free electrons above it. By Eq.~\eqref{fp:eq:larmor} an electron sends no light along the direction in which it is shaken. A wave arriving along the axis shakes the electron across the axis, and the light it scatters sideways to us comes only from the part of the shaking that is across our line of sight as well. That is a single direction, so the scattered light is linearly polarised. In polarised light, some Seyfert 2s, the first being NGC~1068, show broad lines just like those of a Seyfert 1.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch15_agn_tree.pdf}
+	\caption{The kinds of active nucleus as a tree, sorted by jet strength, then by luminosity or by the angle between the jet and our sight line, and for a Seyfert by whether the sight line passes through the opening of the torus. Each leaf gives what is seen.}
+	\label{fp:fig:agn_tree}
+\end{figure}
 
-\paragraph{Size from variability.} Section~\ref{fp:sec:accretion} limited a quasar to a light-day across because it changes within a day. Two corrections enter for real sources. The light is stretched by the expansion of the universe on its way to us, and in a jet it comes from a blob moving toward us. Let a blob of radius $R$ move at speed $\beta c$ at angle $\theta$ to the line of sight, in a galaxy at redshift $z$. In the blob's own frame no change can spread across it faster than light crosses it, so a change there lasts at least $\Delta t'\approx R/c$ (P6). The two moments of the change are a time $\Delta t_{\rm lab}$ apart in the frame of the host galaxy, and arrive at our telescope $\Delta t_{\rm obs}$ apart.
+A Seyfert 2 should hide the broad-line clouds behind its torus. Some of their light can still escape through the opening and scatter toward us from free electrons above the torus. Scattering selects the component of the electron's motion across our line of sight (Eq.~\eqref{fp:eq:larmor}), making the scattered light linearly polarised. Broad lines appear in this polarised light in some Seyfert 2s, including NGC~1068, even though they are hidden in direct light.
+
+\paragraph{Size from variability.} A source that changes within a day cannot be much larger than a light-day across (Section~\ref{fp:sec:accretion}). For a distant jet, cosmic expansion lengthens the observed interval, while motion toward us shortens it. Let a blob of radius $R$ move at speed $\beta c$ at angle $\theta$ in a galaxy at redshift $z$. A change takes at least $\Delta t'\approx R/c$ to cross the blob in its own frame (P6). Call the interval in the host galaxy $\Delta t_{\rm lab}$ and the interval at our telescope $\Delta t_{\rm obs}$.
 \begin{align}
 	\frac{\Delta t_{\rm obs}}{1+z}
 	&\eqby{1} (1-\beta\cos\theta)\,\Delta t_{\rm lab} \nonumber\\
@@ -778,11 +794,11 @@ The test of the picture is whether a Seyfert 2 really hides broad lines. Some li
 	\boxed{\mathcal D=\frac{1}{\gamma_L(1-\beta\cos\theta)},\qquad R\lesssim\frac{c\,\Delta t_{\rm obs}\,\mathcal D}{1+z}.}
 	\label{fp:eq:var_size}
 \end{equation}
-As a second route, Eq.~\eqref{fp:eq:to_electron_frame} gives the frequency of a photon in the frame of a moving charge, $\nu'=\gamma_L(1-\beta\cos\theta)\,\nu$, so $\nu=\mathcal D\,\nu'$. The same factor raises frequencies and shortens times, as it must, since the crests of a wave are the ticks of a clock. A source at rest has $\mathcal D=1$ and gives back the bound of Section~\ref{fp:sec:accretion}. At $\cos\theta=\beta$, $\mathcal D=\gamma_L$, and along the line of sight $\mathcal D=\gamma_L(1+\beta)\approx2\gamma_L$. A blazar at $z=0.5$ that changes within an hour, with $\mathcal D=10$, has $R\lesssim3.0\times10^8\times3600\times10/1.5\,\mathrm m=7.2\times10^{12}\,\mathrm m=48\,\mathrm{AU}$. Without beaming the bound would be $4.8\,\mathrm{AU}$, smaller than the Schwarzschild radius of $10^9\,M_\odot$, $20\,\mathrm{AU}$. Fast changes of blazars are one reason to think their jets are beamed.
+The frequency transformation offers a check. Equation~\eqref{fp:eq:to_electron_frame} gives $\nu'=\gamma_L(1-\beta\cos\theta)\,\nu$, or $\nu=\mathcal D\,\nu'$. The same factor raises frequencies and shortens time intervals. For a source at rest, $\mathcal D=1$ and we recover the ordinary light-crossing bound. At $\cos\theta=\beta$, $\mathcal D=\gamma_L$; directly along the motion, $\mathcal D=\gamma_L(1+\beta)\approx2\gamma_L$. A blazar at $z=0.5$ varying within an hour, with $\mathcal D=10$, has $R\lesssim3.0\times10^8\times3600\times10/1.5\,\mathrm m=7.2\times10^{12}\,\mathrm m=48\,\mathrm{AU}$. Without beaming, the bound would be $4.8\,\mathrm{AU}$, smaller than the $20\,\mathrm{AU}$ Schwarzschild radius of a $10^9\,M_\odot$ hole. The rapid changes therefore support a beamed jet.
 
-Nuclei vary for several reasons. Fresh gas changes the accretion rate, and the disk is itself unstable and flickers. In a jet a small change of speed or direction changes $\mathcal D$, and the observed brightness rises as a high power of $\mathcal D$.
+Fresh gas can change the accretion rate, and an unstable disk can flicker. In a jet, even a small change of speed or direction changes $\mathcal D$. Because the observed brightness depends on a high power of $\mathcal D$, this can make the jet vary strongly.
 
-\paragraph{Pairs of black holes.} Galaxies merge, and each brings its central black hole. The two holes sink toward the middle of the new galaxy as they give orbital energy to the stars and gas round them, and they form a bound pair. Once they are close enough, gravitational waves carry off the rest of the energy (Section~\ref{cs:sec:gw}). Take a pair of total mass $M=10^9\,M_\odot$ on a circular orbit with a separation of $0.01\,\mathrm{pc}$.
+\paragraph{Pairs of black holes.} When galaxies merge, their central black holes can form a bound pair. Interactions with surrounding stars and gas drain orbital energy and draw the holes inward. At smaller separations, gravitational waves carry off energy (Section~\ref{cs:sec:gw}). Consider a circular pair of total mass $M=10^9\,M_\odot$ separated by $0.01\,\mathrm{pc}$.
 \begin{align}
 	f_{\rm GW}
 	&\eqby{1} 2\times\frac{1}{2\pi}\sqrt{\frac{GM}{(0.01\,\mathrm{pc})^3}}
@@ -795,7 +811,7 @@ Nuclei vary for several reasons. Fresh gas changes the accretion rate, and the d
 	\item $GM=6.674\times10^{-11}\times1.989\times10^{39}=1.33\times10^{29}\,\mathrm{m^3\,s^{-2}}$, and $(0.01\,\mathrm{pc})^3=(3.086\times10^{14}\,\mathrm m)^3=2.94\times10^{43}\,\mathrm{m^3}$.
 	\item $\sqrt{4.52\times10^{-15}}=6.72\times10^{-8}$.
 \end{explain}
-The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $21$ nanohertz. For two equal holes, Eq.~\eqref{cs:eq:t_merge} gives the time left before they merge as $(5/256)\,c^5(0.01\,\mathrm{pc})^4/(G^3m_1m_2M)$, with $c^5=2.42\times10^{42}$, $(0.01\,\mathrm{pc})^4=9.07\times10^{57}$, $G^3=2.97\times10^{-31}$ and $m_1m_2M=1.97\times10^{117}$ in SI units, which is $7.3\times10^{11}\,\mathrm s$, about $2\times10^4$ years. Pairs spend tens of thousands of years at such periods, so across the universe many of them radiate at once, and their waves add to a random background. Waves of years-long period are found by pulsar timing arrays (Section~\ref{cs:sec:gw_detectors}). In 2023 several arrays reported evidence for such a background. Whether it comes from pairs of supermassive black holes, and in what numbers, is still being worked out.
+The orbit takes $3.0$ years, so the wave period is $1.5$ years and its frequency is $21$ nanohertz. For two equal holes, Eq.~\eqref{cs:eq:t_merge} gives a remaining time of $(5/256)\,c^5(0.01\,\mathrm{pc})^4/(G^3m_1m_2M)$. Using $c^5=2.42\times10^{42}$, $(0.01\,\mathrm{pc})^4=9.07\times10^{57}$, $G^3=2.97\times10^{-31}$, and $m_1m_2M=1.97\times10^{117}$ in SI units gives $7.3\times10^{11}\,\mathrm s$, about $2\times10^4$ years. Many pairs can radiate at such periods at once, adding to a background of low-frequency gravitational waves. Pulsar timing arrays search for waves with periods of years (Section~\ref{cs:sec:gw_detectors}). Several arrays reported evidence for a background in 2023; its sources and their numbers remain under study.
 
 % ==============================================================================
 \section{Problem Set: Radiation from Hot and Fast Particles}
@@ -803,7 +819,7 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 \subsection{Problem 1: X-rays From a Cluster of Galaxies}
 \label{fp:prob:cluster}
 
-\textbf{Problem Statement}: A cluster of galaxies holds ionised hydrogen with $n_e=n_i=10^3\,\mathrm{m^{-3}}$ at $T=7\times10^7\,\mathrm K$, filling a sphere of radius $1\,\mathrm{Mpc}=3.09\times10^{22}\,\mathrm m$. Take $\bar g=1$. Find (a) the power radiated per unit volume, (b) the X-ray luminosity, (c) the cooling time, compared with the age of the universe, $1.4\times10^{10}$ years, and (d) the photon energy at which the spectrum has fallen to $1/e$ of its low-frequency value.
+\textbf{Problem Statement}: Ionised hydrogen fills a galaxy cluster out to radius $1\,\mathrm{Mpc}=3.09\times10^{22}\,\mathrm m$. Its density is $n_e=n_i=10^3\,\mathrm{m^{-3}}$, its temperature is $T=7\times10^7\,\mathrm K$, and $\bar g=1$. Find (a) the radiated power per unit volume, (b) the total X-ray luminosity, (c) the cooling time compared with the universe's age of $1.4\times10^{10}$ years, and (d) the photon energy where the spectrum falls to $1/e$ of its low-frequency value.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -825,18 +841,18 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{t_{\rm cool}\simeq2.4\times10^{18}\,\mathrm s\simeq8\times10^{10}\ \text{years}.}
 	\]
-	This is more than five times the age of the universe, so the gas has kept its heat since the cluster formed.
-	\item \textbf{Cut-off}. The spectrum falls by $e$ at $h\nu=k_BT$.
+	The cooling time exceeds the age of the universe by more than a factor of five. Most of the gas can still hold the heat it gained when the cluster formed.
+	\item \textbf{Turn-down energy}. The spectrum falls by $e$ at $h\nu=k_BT$.
 	\[
 	\boxed{h\nu=6.0\,\mathrm{keV},\qquad \nu=1.5\times10^{18}\,\mathrm{Hz}.}
 	\]
-	Fitting the turn-down of a measured X-ray spectrum gives the gas temperature, and with Eq.~\eqref{sg:eq:hse} the mass of the cluster.
+	The energy where the X-ray spectrum turns down measures the gas temperature. Together with Eq.~\eqref{sg:eq:hse}, that temperature helps determine the cluster mass.
 \end{enumerate}
 
 \subsection{Problem 2: Electrons in a Radio Lobe}
 \label{fp:prob:lobe}
 
-\textbf{Problem Statement}: A radio lobe has a field $B=1\,\mathrm{nT}$ and is observed at $1.4\,\mathrm{GHz}$. Its spectrum is $j_\nu\propto\nu^{-0.75}$. Find (a) the Lorentz factor of the electrons that radiate at $1.4\,\mathrm{GHz}$, taking $\nu=\tfrac32\gamma_L^2\nu_g$, (b) their synchrotron lifetime, (c) the index $p$ of the electrons, and (d) how much the scattering of the microwave background ($u_{\rm rad}=4.2\times10^{-14}\,\mathrm{J\,m^{-3}}$) shortens their life.
+\textbf{Problem Statement}: A radio lobe has magnetic field $B=1\,\mathrm{nT}$. At $1.4\,\mathrm{GHz}$ its spectrum follows $j_\nu\propto\nu^{-0.75}$. Find (a) the Lorentz factor of electrons radiating at that frequency, using $\nu=\tfrac32\gamma_L^2\nu_g$, (b) their synchrotron lifetime, (c) the electron index $p$, and (d) the effect of scattering the microwave background, whose energy density is $u_{\rm rad}=4.2\times10^{-14}\,\mathrm{J\,m^{-3}}$.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -863,13 +879,13 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{t\simeq3.8\times10^7\ \text{years}.}
 	\]
-	Synchrotron losses dominate in this field. In a lobe with a field below $0.32\,\mathrm{nT}$ the scattering of the background would dominate, and the lobe would shine more brightly in X-rays than its radio light suggests.
+	Synchrotron cooling dominates at $1\,\mathrm{nT}$. Below $0.32\,\mathrm{nT}$, scattering the background would dominate and produce more X-rays relative to the lobe's radio light.
 \end{enumerate}
 
 \subsection{Problem 3: Photons Kicked and Thrown}
 \label{fp:prob:compton}
 
-\textbf{Problem Statement}: (a) A gamma ray of $511\,\mathrm{keV}$ is scattered through $90^\circ$ by an electron at rest. What is its energy afterwards? (b) Electrons with $\gamma_L=10^4$ scatter photons of the microwave background, of mean energy $6.3\times10^{-4}\,\mathrm{eV}$. What is the mean energy of the scattered photons, and the largest energy for a photon of that mean energy? (c) Is the Thomson limit valid in (b)? (d) For the cluster of Problem~\ref{fp:prob:cluster}, find $y$ along a path of $1\,\mathrm{Mpc}$ and the dip in the temperature of the background at low frequency ($T_{\rm CMB}=2.725\,\mathrm K$).
+\textbf{Problem Statement}: (a) A $511\,\mathrm{keV}$ gamma ray scatters through $90^\circ$ from a stationary electron. Find its outgoing energy. (b) Electrons with $\gamma_L=10^4$ scatter microwave-background photons of mean energy $6.3\times10^{-4}\,\mathrm{eV}$. Find the mean outgoing energy and the maximum for a photon that began at the mean energy. (c) Check the Thomson limit for part (b). (d) For the cluster of Problem~\ref{fp:prob:cluster}, find $y$ across $1\,\mathrm{Mpc}$ and the low-frequency temperature dip of the background, taking $T_{\rm CMB}=2.725\,\mathrm K$.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -896,13 +912,13 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{y\simeq2.4\times10^{-5},\qquad \Delta T=-2yT_{\rm CMB}\simeq-130\,\mu\mathrm K.}
 	\]
-	The same gas makes both the X-rays of Problem~\ref{fp:prob:cluster}, which go as $n_e^2$, and this dip, which goes as $n_e$. Measuring both gives the density and the size of the gas, and with the angular size, the distance of the cluster.
+	The gas produces both the X-rays of Problem~\ref{fp:prob:cluster}, proportional to $n_e^2$, and this microwave dip, proportional to $n_e$. Together the signals constrain gas density and depth. The angular size then helps determine the cluster distance.
 \end{enumerate}
 
 \subsection{Problem 4: Feeding Compact Stars}
 \label{fp:prob:accretion}
 
-\textbf{Problem Statement}: (a) A neutron star of $1.4\,M_\odot$ and radius $12\,\mathrm{km}$ accretes. What is the efficiency, and how does it compare with burning hydrogen? (b) Find its luminosity for $\dot M=10^{-9}\,M_\odot\,\mathrm{yr^{-1}}$, as a fraction of its Eddington luminosity. (c) If this is radiated as a blackbody from the whole surface, what is the temperature? (d) A black hole of $10\,M_\odot$ accretes at $10^{-8}\,M_\odot\,\mathrm{yr^{-1}}$ through a thin disk with $R_{\rm in}=6GM/c^2$. What is the temperature of its hottest ring?
+\textbf{Problem Statement}: A neutron star has mass $1.4\,M_\odot$, radius $12\,\mathrm{km}$, and accretes gas. Find (a) its efficiency compared with hydrogen burning, (b) its luminosity at $\dot M=10^{-9}\,M_\odot\,\mathrm{yr^{-1}}$ as a fraction of the Eddington limit, and (c) its temperature if the whole surface radiates as a blackbody. (d) A $10\,M_\odot$ black hole accretes at $10^{-8}\,M_\odot\,\mathrm{yr^{-1}}$ through a thin disk with $R_{\rm in}=6GM/c^2$. Find the temperature of its hottest ring.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -930,13 +946,13 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{T_{\max}=0.488\,T_*\simeq3.5\times10^6\,\mathrm K,\qquad k_BT\simeq0.3\,\mathrm{keV}.}
 	\]
-	A stellar black hole and a neutron star fed at similar rates both glow in soft X-rays, while the far larger disks of quasars glow in the ultraviolet.
+	Both the stellar black hole and the neutron star glow in soft X-rays at these inflow rates. The much larger disks around quasar black holes are cooler and glow in the ultraviolet.
 \end{enumerate}
 
 \subsection{Problem 5: The Jet of M87}
 \label{fp:prob:m87}
 
-\textbf{Problem Statement}: Features in the jet of the galaxy M87 move across the sky at an apparent speed of about $6c$. (a) What are the smallest Lorentz factor and speed that allow this? (b) What is the largest angle to the line of sight the jet can have? (c) If the jet has $\beta=0.99$, at what angles does it show $\beta_{\rm app}=6$?
+\textbf{Problem Statement}: Knots in M87's jet appear to move across the sky at about $6c$. Find (a) the smallest Lorentz factor and true speed consistent with this apparent speed, (b) the largest angle the jet can make with our line of sight, and (c) the two viewing angles that give $\beta_{\rm app}=6$ if $\beta=0.99$.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -958,13 +974,13 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{\theta\simeq4.6^\circ\ \text{or}\ \theta\simeq14.4^\circ.}
 	\]
-	Each apparent speed below the peak $\beta\gamma_L=7.0$ is reached at two angles, one on each side of $\cos\theta=\beta$. The apparent speed alone fixes a lower limit on $\gamma_L$ and an upper limit on $\theta$, and the brightness ratio of jet and counter-jet is needed to pin them down.
+	Below the peak $\beta\gamma_L=7.0$, the same apparent speed occurs at two angles, one on either side of $\cos\theta=\beta$. The motion alone limits $\gamma_L$ from below and $\theta$ from above. The brightness ratio of the approaching and receding jets helps narrow them further.
 \end{enumerate}
 
 \subsection{Problem 6: Weighing a Black Hole by its Echo}
 \label{fp:prob:echo}
 
-\textbf{Problem Statement}: The broad hydrogen lines of a Seyfert 1 nucleus follow the changes of its continuum $12$ days late. The lines show a spread of speeds along the line of sight of $\sigma=2000\,\mathrm{km\,s^{-1}}$, and the nucleus shines at $4\times10^{37}\,\mathrm W$. Find (a) the distance of the broad-line clouds from the hole, (b) the mass of the hole, (c) the luminosity as a fraction of the Eddington limit, and (d) the inner edge of the dusty torus for dust that survives up to $1500\,\mathrm K$, compared with the result of (a).
+\textbf{Problem Statement}: In a Seyfert 1 nucleus, broad hydrogen lines follow continuum changes $12$ days later. Their line-of-sight speed spread is $\sigma=2000\,\mathrm{km\,s^{-1}}$, and the nucleus shines at $4\times10^{37}\,\mathrm W$. Find (a) the cloud distance, (b) the black-hole mass, (c) the Eddington fraction, and (d) the inner edge of dust that survives below $1500\,\mathrm K$. Compare the dust edge with the cloud distance.
 
 \textbf{Essential Ideas}:
 \begin{itemize}
@@ -991,6 +1007,5 @@ The orbit takes $3.0$ years and the wave period is $1.5$ years, a frequency of $
 	\[
 	\boxed{r_{\rm dust}=\sqrt{\frac{4\times10^{37}}{1.44\times10^7}}\,\mathrm m\simeq1.7\times10^{15}\,\mathrm m\simeq64\ \text{light-days}.}
 	\]
-	That is about $5$ times the distance of the broad-line clouds.
-	The broad-line clouds lie inside the dust, so a torus seen from the side can hide them while the narrow-line gas farther out stays in view. This is the order of the parts that the unified picture needs.
+	The dust edge is about $5$ times farther out than the broad-line clouds. From the side, the torus can therefore hide those clouds while the more distant narrow-line gas remains visible.
 \end{enumerate}

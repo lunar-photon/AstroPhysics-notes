@@ -152,3 +152,4 @@ All 16 chapters complete (2026-10-16). Full notes 356 pp, clean build (no undefi
 - 2026-11-20: Fig 4.2(b) label "slope 4" replaced by ∝(2πa/λ)^4, placed above the line.
 - 2026-11-20: Fig 4.2(b) "geometric" → σ_ext → 2πa² (separate "2" label dropped); (c) "1, flat" → "1, λ^0".
 - 2026-11-21: §11.7 umbrella paragraph: Balmer lines framed as transitions from higher levels to n=2 (owner wording), then absorption = upward jumps from n=2 so needs atoms in n=2.
+- 2026-11-21: New Fig 15.9 (fp:fig:agn_tree, fig_ch15_agn_tree.tex): AGN tree, strong jet? → no: luminosity (Seyfert → opening/torus = 1/2; quasar) / yes: jet angle (blazar, radio-loud quasar, radio galaxy). Referenced from the "Luminosity and viewing angle" paragraph after Table 15.1.
