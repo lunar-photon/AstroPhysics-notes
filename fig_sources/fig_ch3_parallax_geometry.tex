@@ -131,12 +131,13 @@
 				(O) -- (S);
 
 				\node[
-				ink!70,
-				rotate=90,
+				ink,
+				right=1pt,
 				fill=white,
 				inner sep=1pt
 				]
-				at ($(O)!0.5!(S)$) {$d$};
+				at ($(O)!0.42!(S)$) {$d$};
+				\path (E1) -- (S) node[pos=0.6, sloped, above, astroblue, inner sep=2pt] {$d/\cos p$};
 
 				\draw[ink, thick] (O) -- (E1);
 				\draw[ink, thick] (O) -- (E2);
@@ -263,6 +264,8 @@
 				{angle=S2--E--M};
 
 				\node[left=4pt] at ($(E)!0.5!(M)$) {$d$};
+				\path (E) -- (S1) node[pos=0.5, sloped, above, astroblue, inner sep=2pt] {$d/\cos p$};
+				\node[ink, align=center] at (9,-1.0) {$p$ is tiny, so $d/\cos p\approx d$};
 
 				\fill[astroblue] (E) circle (4pt);
 				\node[below right] at (E) {Earth};

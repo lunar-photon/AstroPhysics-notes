@@ -5,7 +5,7 @@
 
 Chapter~\ref{ch:coords} gives each star a direction on the sky, the two angles $(\alpha,\delta)$. To place the star in space we also need its distance, and to follow it in time we need its velocity. That makes six numbers, three for the position $\vecr$ and three for the velocity $\vec v$.
 
-Each of the six comes from its own measurement. The direction gives two. The \textbf{parallax}, the small yearly shift of the star as the Earth goes round the Sun, gives the distance. The \textbf{proper motion}, the slow drift of the star across the sky, gives two components of the velocity. The Doppler shift of the star's spectral lines gives the third, the speed along the line of sight. Six measurements for six unknowns, so the count closes, as the twelve constants of the two-body problem did in Chapter~\ref{ch:twobody}. Astrometry is the measurement of these small angles on the sky. With the six numbers we can map where the stars of the Galaxy are and where they are going.
+The direction supplies two position coordinates. A star's small yearly shift, its \textbf{parallax}, supplies the distance and completes its position. Its slow drift across the sky, the \textbf{proper motion}, gives two components of velocity once the distance is known. A Doppler shift gives the third component, toward or away from us. These measurements therefore build a star's position and velocity one component at a time, letting us map both the structure and motion of the Galaxy.
 
 % ==============================================================================
 \section{Trigonometric Parallax and the Parsec}
@@ -15,14 +15,14 @@ Chapter~\ref{ch:coords} gives each star a direction, the unit vector $\hat{\math
 
 Hold a thumb up at arm's length and look at it with the left eye, then with the right. The thumb jumps against the far wall, and the wall does not move. The eyes are about $6.5\,\mathrm{cm}$ apart and the thumb is about $65\,\mathrm{cm}$ away, so the jump is $0.065/0.65=0.1$ radian, about $6^\circ$. Bring the thumb closer and the jump grows. The jump and the gap between the eyes together give the distance to the thumb. The Earth's orbit gives the astronomer two eyes. In January and in July the Earth is on opposite sides of the Sun, $2\,\mathrm{AU}$ apart. A nearby star then jumps against the far background stars, which hardly move at all. The idea is that a distance is a baseline divided by an angle.
 
-The angles are far smaller than for the thumb. One second of arc is $1/206\,265$ of a radian, so a star at $206\,265\,\mathrm{AU}$ shifts by $1''$ when the observer moves sideways by $1\,\mathrm{AU}$. Sirius, one of the nearest stars, shifts by only $0.38''$. The picture is a very long and thin triangle. Its short side is the radius of the Earth's orbit, and the star sits at its far corner (Figure~\ref{fig:parallax_geometry}). In the left panel the two lines of sight start at two places, the Earth in January and in July, and their heads meet at the star. In the right panel we move each line parallel to itself until both tails sit at the same point. Moving a direction parallel to itself does not change it, so the angle between the two lines is still $2p$. This is the sky as the observer sees it. The Earth seems to stay still, and the star jumps by $2p$ against the far background. A surveyor finds the distance to a far peak from the two ends of a measured line in the same way, and our two eyes judge depth by it. The angle is so small that its tangent can be replaced by the angle itself. That is P6, since the ratio $1\,\mathrm{AU}/d$ is far below one. The triangle gives the parallax, the parsec, and a rule for turning a noisy parallax into a distance.
+For stars, the triangle is extremely narrow. One second of arc is only $1/206\,265$ of a radian, so a star $206\,265\,\mathrm{AU}$ away shifts by $1''$ across a $1\,\mathrm{AU}$ baseline. Even Sirius, one of the nearest stars, has a parallax of only $0.38''$. Figure~\ref{fig:parallax_geometry} shows the Earth at opposite points in its orbit and the star's two lines of sight. Their angular separation is $2p$, while $p$ is the angle subtended by one orbital radius. Because $1\,\mathrm{AU}/d$ is so small, the triangle gives the simple distance rule below.
 
 \begin{figure}[htbp]
 	\centering
 	\resizebox{\textwidth}{!}{%
 		\includegraphics{fig_ch3_parallax_geometry.pdf}%
 	}
-	\caption{Left, the Sun, the Earth in January and in July, a nearby star at distance $d$, and the star's two apparent positions on the far sky. Right, the two lines of sight of the left panel, each moved parallel to itself so that their tails meet at one point, the Earth, instead of their heads meeting at the star. The baseline is $1\,\mathrm{AU}$ and the angle at the star is the parallax $p$. The angles are drawn far larger than real ones.}
+	\caption{Left, the Sun, the Earth in January and in July, a nearby star at distance $d$ from the Sun and $d/\cos p$ from the Earth, and the star's two apparent positions on the far sky. Right, the two lines of sight of the left panel, each moved parallel to itself so that their tails meet at one point, the Earth, instead of their heads meeting at the star, with the dashed line of length $d$ and the line of sight of length $d/\cos p$. The baseline is $1\,\mathrm{AU}$ and the angle at the star is the parallax $p$. The angles are drawn far larger than real ones.}
 	\label{fig:parallax_geometry}
 \end{figure}
 
@@ -37,7 +37,7 @@ The angles are far smaller than for the thumb. One second of arc is $1/206\,265$
 	\item The series $\cot p=1/p-p/3-p^3/45-\dots$, with $p$ in radians.
 	\item Taking $1/p$ out of the bracket.
 \end{explain}
-For $p=1''$ the correction $p^2/3$ is $7.8\times10^{-12}$, and every star has $p<1''$. So, with $p$ in radians,
+The distance $d$ is measured from the Sun. From the Earth the star is the hypotenuse away, $d/\cos p$, which is longer by a fraction of about $p^2/2$. For $p=1''$ that fraction is $1.2\times10^{-11}$ and the correction $p^2/3$ above is $7.8\times10^{-12}$, and every star has $p<1''$. So $d$ is the distance from the Earth as well, and, with $p$ in radians,
 \begin{equation}
 	p = \frac{1\,\mathrm{AU}}{d}.
 	\label{eq:parallax_def}
@@ -142,7 +142,7 @@ The parallax gives the distance $d$, and Chapter~\ref{ch:coords} gives the direc
 
 On the Earth every town has its own up, north and east. They differ from town to town, but in each town they are at right angles to each other. A pilot reports a speed as so much north and so much east, at the place where the plane is. A point on the sky has the same three directions. Up is outward along the line of sight, north is the way of increasing declination, and east is the way of increasing right ascension. The idea is that the three local directions, written in equatorial components, are the rows of a rotation matrix.
 
-At $\alpha=0$, $\delta=0$ the three directions are the $x$, $y$ and $z$ axes themselves, and the matrix is the identity. The picture is three arrows at right angles planted at the star, one pointing away from us. In mechanics these are the unit vectors of spherical polar coordinates, with north along minus the polar unit vector. Chapter~\ref{ch:coords} built local axes in the same way for the observer's horizon, Eq.~\eqref{eq:basis_e}. Only geometry enters, so no principle is used. The local axes give the position vector, the matrix between local and equatorial components, and the yearly parallax ellipse.
+At $\alpha=0$, $\delta=0$, these three local directions coincide with the equatorial $x$, $y$ and $z$ axes. Elsewhere they turn with the star's position. We will first use the line-of-sight direction to write the position vector, then construct the other two directions to describe its motion across the sky.
 
 \paragraph{The position.} The star is at distance $d$ along $\hat{\mathbf r}_{\rm eq}$, Eq.~\eqref{eq:unit_vector_eq}, so its position relative to the Sun is
 \begin{equation}
@@ -230,7 +230,7 @@ The parallax and the direction give the star's position $\vecr=d\,\hat{\mathbf r
 
 Stand by a straight road and watch two cars, both at $30\,\mathrm{m/s}$. The one $300\,\mathrm m$ away crosses your view at $0.1$ radian, about $6^\circ$, per second. The one $3\,\mathrm{km}$ away crosses at only $0.6^\circ$ per second. The angle swept per second is the sideways speed divided by the distance. A star moving across the line of sight drifts across the sky in the same way. The drift is its \textbf{proper motion}. The idea is that the sideways speed is the proper motion times the distance.
 
-A star $1\,\mathrm{pc}$ away moving sideways at $4.74\,\mathrm{km/s}$ covers $1\,\mathrm{AU}$ a year, so by the definition of the parsec it drifts by $1''$ a year. The picture is the velocity arrow of the star split into a part along the line of sight and a part across it. Only the part across shows as a drift on the sky. Angular speed equals sideways speed over distance in every branch of mechanics. Here it is the parallax again, with the baseline of $1\,\mathrm{AU}$ replaced by the distance the star itself moves in a year. It gives the two components of the proper motion, why one of them carries $\cos\delta$, and the constant $4.74$.
+The parsec makes the conversion easy to remember. A star $1\,\mathrm{pc}$ away that moves sideways at $4.74\,\mathrm{km/s}$ crosses $1\,\mathrm{AU}$ in a year and shifts by $1''$ on the sky. A more distant star with the same sideways speed shifts less. We will resolve that angular drift into the directions of increasing right ascension and declination, then multiply by distance to recover its transverse speed.
 
 \paragraph{How the direction changes.} As the star moves, its $\alpha$ and $\delta$ change with time, and so does $\hat{\mathbf r}(\alpha,\delta)$. By the chain rule,
 \begin{align}
@@ -308,7 +308,7 @@ Proper motion and parallax give the two components of the velocity across the li
 
 Picture a friend who walks away from you at $1\,\mathrm{m/s}$ and throws you a ball every second, each at $10\,\mathrm{m/s}$. Each ball starts $1\,\mathrm m$ further away than the one before, so it needs an extra $0.1\,\mathrm s$ to arrive. The balls reach you every $1.1$ seconds, not every second. Walking toward you, the friend would send them every $0.9$ seconds. A star sends wave crests instead of balls. If it moves away, each crest starts a little further off, and the crests arrive further apart. The light is shifted to longer wavelengths. The idea is that the fractional stretch of the wavelength is $v_r/c$.
 
-Sirius approaches at $5.5\,\mathrm{km/s}$. Its $\mathrm H\alpha$ line, at $656.46\,\mathrm{nm}$ in the laboratory, arrives shortened by $656.46\times5.5/299\,792\,\mathrm{nm}=0.012\,\mathrm{nm}$. The picture is a row of wave crests bunched up in front of a moving source and spread out behind it. The same stretch lowers the pitch of a passing siren and lets a radar gun time a car. It gives the radial-velocity curves of spectroscopic binaries in Chapter~\ref{ch:twobody} and the line widths and Galactic rotation of the gas in Chapter~\ref{ch:ism}. For stars $v_r/c\sim10^{-5}$, so the first-order formula is enough (P6). We derive that formula, the exact one, and the correction for the Earth's own motion.
+Sirius approaches at $5.5\,\mathrm{km/s}$, so its laboratory $\mathrm H\alpha$ wavelength of $656.46\,\mathrm{nm}$ is shortened by $656.46\times5.5/299\,792\,\mathrm{nm}=0.012\,\mathrm{nm}$. The shift is small because stellar speeds are typically only $v_r/c\sim10^{-5}$. We will derive the relation between this fractional wavelength shift and radial speed, then account for the Earth's own motion when measuring it.
 
 \paragraph{The stretched period.} Take a source that emits crests one period $T_0=\lambda_0/c$ apart in its own frame, and moves straight away from the observer at $v_r\ll c$.
 \begin{align}
@@ -373,7 +373,7 @@ Eq.~\eqref{as:eq:velocity_local} gives the star's velocity as three components $
 
 A ship's log gives the current as so much ahead and so much to starboard. To draw it on a chart the navigator turns those two numbers through the ship's heading into north and east. The current itself has not changed, only the axes it is written on. A star's velocity is written on its own local axes, and the fixed frame is the equatorial one. The idea is that the local components turn into equatorial ones with the transpose of $\mathbf Q$, Eq.~\eqref{as:eq:Q}.
 
-At $\alpha=\delta=0$ the local axes are the equatorial ones, $\mathbf Q$ is the identity, and $(v_x,v_y,v_z)=(v_r,v_\alpha,v_\delta)$. The picture is the same arrow drawn twice, once on the star's local axes and once on the fixed axes. It is the change of basis of Chapter~\ref{ch:coords}, applied to a velocity. It gives the velocity in fixed components and the total speed.
+At $\alpha=\delta=0$ the local and equatorial axes coincide, so $\mathbf Q$ is the identity and $(v_x,v_y,v_z)=(v_r,v_\alpha,v_\delta)$. For any other direction we turn the same velocity vector into the fixed equatorial axes with the matrix already built for the star's local frame.
 
 \paragraph{Turning to the equatorial frame.} Stacking the three local directions of Eq.~\eqref{eq:equatorial_basis_vectors} as columns,
 \begin{align}
@@ -428,7 +428,7 @@ Eq.~\eqref{eq:cartesian_velocity_transform} gives every star's velocity in one f
 
 A wind gauge on a moving train reads the wind relative to the train. To get the wind over the ground we first turn the reading to compass directions and then add the train's own velocity. The Sun is the train. We turn $(v_x,v_y,v_z)$ to Galactic axes with the matrix of Chapter~\ref{ch:coords}, and then add the Sun's own motion relative to its neighbours. The idea is that a velocity turns with the same matrix as a position, and that velocities relative to moving frames add.
 
-For Sirius the result is $12.96\,\mathrm{km/s}$ toward the Galactic centre, $1.89\,\mathrm{km/s}$ against the Galactic rotation and $11.79\,\mathrm{km/s}$ toward the south Galactic pole. Relative to the Sun's neighbours it moves at $24.1$, $10.3$ and $-4.5\,\mathrm{km/s}$ along the same three axes. The picture is the disk of the Galaxy seen from above, with the Sun on its circle and an arrow for the star's motion drawn from the Sun. The same two steps, turn the axes and then add the frame's velocity, take any measured velocity to a frame that moves. The rotation is a change of basis (Chapter~\ref{ch:coords}), and the addition is Galilean, since every speed here is far below $c$. They give the velocity components $(U,V,W)$ and their values relative to the local standard of rest.
+For Sirius the heliocentric components are $12.96\,\mathrm{km/s}$ toward the Galactic centre, $1.89\,\mathrm{km/s}$ against Galactic rotation and $11.79\,\mathrm{km/s}$ toward the south Galactic pole. After accounting for the Sun's motion, its components relative to nearby stars are $24.1$, $10.3$ and $-4.5\,\mathrm{km/s}$ on the same axes. We will make those two steps explicit: rotate the measured vector and then change the velocity reference frame.
 
 \paragraph{The axes.} Galactic velocities are given in a right-handed Cartesian frame centred on the Sun,
 \begin{itemize}
@@ -513,7 +513,7 @@ The picture is a ladder whose bottom rung stands on the Earth's orbit and whose 
 	\label{as:fig:ladder}
 \end{figure}
 
-Every rung that uses a known luminosity turns a flux into a distance with the inverse-square law, Eq.~\eqref{eq:inverse_square_flux}, which is energy conservation through a sphere (P1). Whether a parallax or a magnitude can be trusted is a ratio of the error to the signal, P6. When several rungs are stacked, their independent errors add like the steps of a random walk, P5. The ladder gives the AU in metres, the distances from the HR diagram and from standard candles, a rung that needs no ladder at all, and the way the errors build up from rung to rung.
+Each luminosity-based rung uses the inverse-square law (Eq.~\eqref{eq:inverse_square_flux}) to turn measured flux into distance. Its calibration comes from objects whose distances are already known on a lower rung. We will follow that chain from the AU to stellar and galactic distances, then see how uncertainty in one calibration carries upward.
 
 % ------------------------------------------------------------------------------
 \subsection{The Bottom Rung, the Astronomical Unit in Metres}
