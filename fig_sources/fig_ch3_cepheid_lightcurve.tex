@@ -15,7 +15,7 @@
 % OGLE-LMC-CEP-1252, I band. Data from results/ch3 (code/ch3/01_cepheids.py).
 % (a) raw points of the first three seasons, with the well-covered first stretch shaded; (b) that stretch
 % enlarged, with the maxima marked; (c) Lomb-Scargle power against trial period; (d) all points folded at
-% a period 2% too short (9.80 d); (e) folded at the period of the peak. Folding for (d) is in
+% a period 0.14% too short (9.98 d), coloured by time; (e) folded at the period of the peak. Folding for (d) is in
 % phase = frac(t/P), file results/ch3/cep_fold_wrong.dat.
 \IfFileExists{results/ch3/cepheids.tex}{\def\datadir{results/ch3/}}{\def\datadir{../results/ch3/}}
 \input{\datadir cepheids.tex}
@@ -53,8 +53,10 @@
   % (d) folded at a wrong period, (e) at the right one
   \begin{axis}[name=d, at={(c.south west)}, anchor=north west, yshift=-1.5cm, width=5.4cm, height=3.4cm,
       xmin=0, xmax=1, ymin=13.4, ymax=14.1, y dir=reverse,
-      xtick={0,0.5,1}, ytick={13.5,13.75,14}, xlabel={phase for $P=9.80$ d}, ylabel={$I$ (mag)}]
-    \addplot[only marks, mark=*, mark size=0.7pt, accent] table[x index=0, y index=1] {\datadir cep_fold_wrong.dat};
+      xtick={0,0.5,1}, ytick={13.5,13.75,14}, xlabel={phase for $P=9.98$ d}, ylabel={$I$ (mag)}]
+    \addplot[scatter, only marks, mark=*, mark size=0.8pt, point meta=\thisrowno{2}, colormap={time}{color=(astroblue) color=(accent)}, scatter/use mapped color={draw=mapped color, fill=mapped color}] table[x index=0, y index=1] {\datadir cep_fold_wrong.dat};
+    \node[astroblue, anchor=south west, inner sep=1pt] at (rel axis cs:0.0,1.0) {first year};
+    \node[accent, anchor=south east, inner sep=1pt] at (rel axis cs:1.0,1.0) {eleventh year};
     \node[muted, anchor=north east, fill=white, inner sep=1pt] at (rel axis cs:0.995,0.99) {(d)};
   \end{axis}
   \begin{axis}[name=e, at={(d.east)}, anchor=west, xshift=1.2cm, width=5.4cm, height=3.4cm,
