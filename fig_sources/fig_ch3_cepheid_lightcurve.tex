@@ -12,59 +12,81 @@
 \usepackage{pgfplots}\pgfplotsset{compat=1.18}
 \usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
 \begin{document}
-% OGLE-LMC-CEP-1252, I band. Data from results/ch3 (code/ch3/01_cepheids.py).
-% (a) raw points of the first three seasons, with the well-covered first stretch shaded; (b) that stretch
-% enlarged, with the maxima marked; (c) Lomb-Scargle power against trial period; (d) all points folded at
-% a period 0.14% too short (9.98 d), coloured by time; (e) folded at the period of the peak. Folding for (d) is in
-% phase = frac(t/P), file results/ch3/cep_fold_wrong.dat.
+% OGLE-LMC-CEP-1252, I band. Data from results/ch3 (code/ch3/01_cepheids.py; the cut and fold files made with awk).
+% (a) raw points of the first three seasons, nightly stretch shaded; (b) that stretch cut every P (dashed),
+% with two pieces laid over one another in the inset; (c) the same cut every 8 d; (d) Lomb-Scargle power;
+% (e) all points folded at 9.98 d (0.14% too short), coloured by time; (f) folded at P.
 \IfFileExists{results/ch3/cepheids.tex}{\def\datadir{results/ch3/}}{\def\datadir{../results/ch3/}}
 \input{\datadir cepheids.tex}
 \begin{tikzpicture}[font=\small, >={Stealth[length=2mm]}]
   \pgfplotsset{every axis/.append style={scale only axis, axis lines*=left,
       grid=major, grid style={linecol}, tick style={muted}, every axis label/.style={text=muted}, clip=false}}
-  % (a) everything
   \begin{axis}[name=a, width=12cm, height=3.0cm, xmin=450, xmax=1650, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14},
       xlabel={time (days, HJD$-2\,450\,000$)}, ylabel={$I$ (mag)}]
     \fill[accent2!12] (axis cs:455,13.4) rectangle (axis cs:520,14.1);
     \addplot[only marks, mark=*, mark size=0.8pt, accent, restrict x to domain=450:1650] table[x index=0,y index=1] {\datadir cep_lc_raw.dat};
-    \node[accent2, anchor=south, inner sep=1pt] at (axis cs:487,13.4) {(b)};
+    \node[accent2, anchor=south, inner sep=1pt] at (axis cs:487,13.4) {(b), (c)};
     \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(a)};
   \end{axis}
-  % (b) one well-covered stretch
-  \begin{axis}[name=b, at={(a.south west)}, anchor=north west, yshift=-1.5cm, width=12cm, height=3.4cm,
-      xmin=455, xmax=520, ymin=13.2, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14},
+  \begin{axis}[name=b, at={(a.south west)}, anchor=north west, yshift=-1.9cm, width=8.6cm, height=3.0cm,
+      xmin=455, xmax=520, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14},
       xlabel={time (days, HJD$-2\,450\,000$)}, ylabel={$I$ (mag)}]
-    \addplot[accent!45, line width=0.4pt] table[x index=0,y index=1, restrict x to domain=455:520] {\datadir cep_lc_raw.dat};
-    \addplot[only marks, mark=*, mark size=1.1pt, accent, restrict x to domain=455:520] table[x index=0,y index=1] {\datadir cep_lc_raw.dat};
-    \pgfplotsinvokeforeach{470.8,480.6,490.6,500.5,510.5}{\draw[ink, ->] (axis cs:#1,13.36) -- (axis cs:#1,13.46);}
-    \draw[ink, <->] (axis cs:470.8,13.3) -- node[above, inner sep=2pt, fill=white] {four cycles in $39.7$ days, so $P\approx9.9$ days} (axis cs:510.5,13.3);
-    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(b)};
+    \pgfplotsinvokeforeach{-1,...,5}{\draw[accent2, dashed, line width=0.6pt] (axis cs:{466+#1*\ThreeCepP},13.4) -- (axis cs:{466+#1*\ThreeCepP},14.1);}
+    \addplot[muted!60, line width=0.4pt] table[x index=0,y index=1] {\datadir cep_cuts_right.dat};
+    \addplot[only marks, mark=*, mark size=0.9pt, muted] table[x index=0,y index=1] {\datadir cep_cuts_right.dat};
+    \addplot[only marks, mark=*, mark size=1.2pt, astroblue, restrict expr to domain={\thisrowno{2}}{0:0}] table[x index=0,y index=1] {\datadir cep_cuts_right.dat};
+    \addplot[only marks, mark=*, mark size=1.2pt, accent, restrict expr to domain={\thisrowno{2}}{1:1}] table[x index=0,y index=1] {\datadir cep_cuts_right.dat};
+    \node[ink, anchor=south west, inner sep=1pt] at (rel axis cs:0,1) {cut every $P=\ThreeCepP$ days};
+    \node[muted, anchor=north east, fill=white, inner sep=1pt] at (rel axis cs:0.995,0.99) {(b)};
   \end{axis}
-  % (c) periodogram
-  \begin{axis}[name=c, at={(b.south west)}, anchor=north west, yshift=-1.5cm, width=12cm, height=3.4cm,
+  \begin{axis}[name=bi, at={(b.east)}, anchor=west, xshift=0.5cm, width=2.6cm, height=3.0cm,
+      xmin=0, xmax=\ThreeCepP, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14}, yticklabels={},
+      xtick={0,5}, xlabel={days into the piece}]
+    \addplot[astroblue, line width=0.6pt, mark=*, mark size=1.2pt, restrict expr to domain={\thisrowno{2}}{0:0}] table[x index=3,y index=1] {\datadir cep_cuts_right.dat};
+    \addplot[accent, line width=0.6pt, mark=*, mark size=1.2pt, restrict expr to domain={\thisrowno{2}}{1:1}] table[x index=3,y index=1] {\datadir cep_cuts_right.dat};
+    \node[ink, anchor=south, inner sep=1pt, align=center] at (rel axis cs:0.5,1) {the two pieces\\match};
+  \end{axis}
+  \begin{axis}[name=c, at={(b.south west)}, anchor=north west, yshift=-1.9cm, width=8.6cm, height=3.0cm,
+      xmin=455, xmax=520, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14},
+      xlabel={time (days, HJD$-2\,450\,000$)}, ylabel={$I$ (mag)}]
+    \pgfplotsinvokeforeach{-1,...,6}{\draw[accent2, dashed, line width=0.6pt] (axis cs:{466+#1*8.0},13.4) -- (axis cs:{466+#1*8.0},14.1);}
+    \addplot[muted!60, line width=0.4pt] table[x index=0,y index=1] {\datadir cep_cuts_wrong.dat};
+    \addplot[only marks, mark=*, mark size=0.9pt, muted] table[x index=0,y index=1] {\datadir cep_cuts_wrong.dat};
+    \addplot[only marks, mark=*, mark size=1.2pt, astroblue, restrict expr to domain={\thisrowno{2}}{0:0}] table[x index=0,y index=1] {\datadir cep_cuts_wrong.dat};
+    \addplot[only marks, mark=*, mark size=1.2pt, accent, restrict expr to domain={\thisrowno{2}}{1:1}] table[x index=0,y index=1] {\datadir cep_cuts_wrong.dat};
+    \node[ink, anchor=south west, inner sep=1pt] at (rel axis cs:0,1) {cut every $8.0$ days};
+    \node[muted, anchor=north east, fill=white, inner sep=1pt] at (rel axis cs:0.995,0.99) {(c)};
+  \end{axis}
+  \begin{axis}[name=ci, at={(c.east)}, anchor=west, xshift=0.5cm, width=2.6cm, height=3.0cm,
+      xmin=0, xmax=8.0, ymin=13.4, ymax=14.1, y dir=reverse, ytick={13.5,13.75,14}, yticklabels={},
+      xtick={0,5}, xlabel={days into the piece}]
+    \addplot[astroblue, line width=0.6pt, mark=*, mark size=1.2pt, restrict expr to domain={\thisrowno{2}}{0:0}] table[x index=3,y index=1] {\datadir cep_cuts_wrong.dat};
+    \addplot[accent, line width=0.6pt, mark=*, mark size=1.2pt, restrict expr to domain={\thisrowno{2}}{1:1}] table[x index=3,y index=1] {\datadir cep_cuts_wrong.dat};
+    \node[ink, anchor=south, inner sep=1pt, align=center] at (rel axis cs:0.5,1) {the two pieces\\do not match};
+  \end{axis}
+  \begin{axis}[name=d, at={(c.south west)}, anchor=north west, yshift=-1.6cm, width=12cm, height=3.0cm,
       xmode=log, xmin=1, xmax=100, ymin=0, ymax=0.55,
       xtick={1,2,5,10,20,50,100}, xticklabels={1,2,5,10,20,50,100}, ytick={0,0.25,0.5},
       xlabel={trial period (days)}, ylabel={power}]
     \addplot[astroblue, line width=0.7pt] table[x index=0,y index=1] {\datadir cep_periodogram.dat};
     \draw[muted, dashed] (axis cs:\ThreeCepP,0) -- (axis cs:\ThreeCepP,0.5);
     \node[muted, anchor=west] at (axis cs:\ThreeCepP*1.12,0.46) {$P=\ThreeCepP$ d};
-    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(c)};
+    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(d)};
   \end{axis}
-  % (d) folded at a wrong period, (e) at the right one
-  \begin{axis}[name=d, at={(c.south west)}, anchor=north west, yshift=-1.5cm, width=5.4cm, height=3.4cm,
+  \begin{axis}[name=e, at={(d.south west)}, anchor=north west, yshift=-1.9cm, width=5.4cm, height=3.2cm,
       xmin=0, xmax=1, ymin=13.4, ymax=14.1, y dir=reverse,
       xtick={0,0.5,1}, ytick={13.5,13.75,14}, xlabel={phase for $P=9.98$ d}, ylabel={$I$ (mag)}]
     \addplot[scatter, only marks, mark=*, mark size=0.8pt, point meta=\thisrowno{2}, colormap={time}{color=(astroblue) color=(accent)}, scatter/use mapped color={draw=mapped color, fill=mapped color}] table[x index=0, y index=1] {\datadir cep_fold_wrong.dat};
     \node[astroblue, anchor=south west, inner sep=1pt] at (rel axis cs:0.0,1.0) {first year};
     \node[accent, anchor=south east, inner sep=1pt] at (rel axis cs:1.0,1.0) {eleventh year};
-    \node[muted, anchor=north east, fill=white, inner sep=1pt] at (rel axis cs:0.995,0.99) {(d)};
+    \node[muted, anchor=north east, fill=white, inner sep=1pt] at (rel axis cs:0.995,0.99) {(e)};
   \end{axis}
-  \begin{axis}[name=e, at={(d.east)}, anchor=west, xshift=1.2cm, width=5.4cm, height=3.4cm,
+  \begin{axis}[name=f, at={(e.east)}, anchor=west, xshift=1.2cm, width=5.4cm, height=3.2cm,
       xmin=0, xmax=1, ymin=13.4, ymax=14.1, y dir=reverse,
       xtick={0,0.5,1}, ytick={13.5,13.75,14}, yticklabels={}, xlabel={phase for $P=\ThreeCepP$ d}]
     \addplot[only marks, mark=*, mark size=0.7pt, accent] table[x index=0,y index=1] {\datadir cep_folded.dat};
     \draw[ink, dashed] (axis cs:0,\ThreeCepIbar) -- (axis cs:1,\ThreeCepIbar);
-    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(e)};
+    \node[muted, anchor=north east] at (rel axis cs:0.995,0.99) {(f)};
   \end{axis}
 \end{tikzpicture}
 \end{document}
