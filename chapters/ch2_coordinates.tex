@@ -1,19 +1,19 @@
 \chapter{Coordinate Systems on the Celestial Sphere}
 \label{ch:coords}
 
-Every direction in the sky is a point on the celestial sphere of Section~\ref{sec:celestial_sphere_primer}. Two angles fix such a point, in the same way that latitude and longitude fix a town on the Earth. The two angles depend on a choice of pole and of a zero point on the equator around that pole. An observer on the ground uses the zenith as the pole. A star catalogue uses the celestial pole. The planets move most simply about the pole of the Earth's orbit, and the Milky Way is simplest about the pole of its own disk.
+Chapter~\ref{ch:time} gave us the celestial sphere and a clock tied to its rotation. To point a telescope, we must locate a direction on that sphere with two angles. Those angles depend on the reference plane we choose: the horizon is natural for an observer, the Earth's equator for a star catalogue, the orbital plane for planets, and the Milky Way's disk for Galactic objects.
 
-All four systems describe the same direction. Going from one to another is a turn of the axes, written as a matrix acting on a unit vector. Two physical effects then move a star away from where the geometry puts it. The air bends its light, and the motion of the Earth tilts it.
+The star's direction is the same in every system; only its coordinates change. We will represent that direction by a unit vector and transform it by turning the axes. Once the geometry is settled, we will account for two shifts in the direction seen by a telescope: bending by the air and aberration from the Earth's motion.
 
 % ==============================================================================
 \section{The Equatorial Coordinate System}
 \label{co:sec:equatorial}
 
-Chapter~\ref{ch:time} introduced the celestial poles, the celestial equator and the vernal equinox $\hat\gamma$, and built a sidereal clock from them (Section~\ref{sec:celestial_sphere_primer}, Eq.~\eqref{eq:lst_def}). Words like ``north of the equator'' or ``east of the equinox'' cannot yet be computed with. To find the angle between two stars, or to turn to another frame, a direction has to be a vector.
+Chapter~\ref{ch:time} introduced the celestial poles, the celestial equator and the vernal equinox $\hat\gamma$, and built a sidereal clock from them (Section~\ref{sec:celestial_sphere_primer}, Eq.~\eqref{eq:lst_def}). These define the equatorial grid in which a catalogue gives a star's right ascension $\alpha$ and declination $\delta$. The grid does not rotate with the Earth over a night; the observer's meridian rotates through it. To compute angles and change frames, we first turn each catalogued direction into a vector.
 
 Think of a town on a globe. Its latitude says how far north of the equator it lies. Its longitude says how far east of Greenwich it lies, counted along the equator. An arrow from the centre of the globe to the town is fixed by these two angles. Its height above the plane of the equator is the sine of the latitude. Its shadow on that plane has the cosine of the latitude as its length, and it points in the direction given by the longitude. The sky uses the same two angles. Declination plays the part of latitude, and right ascension plays the part of longitude, with $\hat\gamma$ in place of Greenwich. A direction on the sky is a unit vector whose three components are products of sines and cosines of these two angles.
 
-Vega is at right ascension $18^{\rm h}36^{\rm m}56^{\rm s}=279.23^\circ$ and declination $+38.78^\circ$. Its arrow rises $\sin38.78^\circ=0.626$ above the plane of the equator. Its shadow has length $\cos38.78^\circ=0.779$ and points $279.23^\circ$ round from $\hat\gamma$. The two components in the plane are $0.779\cos279.23^\circ=0.125$ and $0.779\sin279.23^\circ=-0.769$. The picture is an arrow from the centre of a ball to a dot on its surface, with the arrow's shadow on the equatorial plane. The same construction is the spherical polar coordinates of mechanics, with polar angle $90^\circ-\delta$. It gave the line of sight to a binary in Chapter~\ref{ch:twobody} (Section~\ref{sec:coord_orbital_elements}), and it gives the local directions on the sky used for proper motions in Chapter~\ref{ch:astrometry}. It is pure geometry, so none of the six principles enters. What it gives is the unit vector on which every later formula acts.
+For Vega, right ascension is $18^{\rm h}36^{\rm m}56^{\rm s}=279.23^\circ$ and declination is $+38.78^\circ$. Its direction has a component $\sin38.78^\circ=0.626$ above the equatorial plane. The projection onto that plane has length $\cos38.78^\circ=0.779$ and points $279.23^\circ$ around from $\hat\gamma$, giving components $0.779\cos279.23^\circ=0.125$ and $0.779\sin279.23^\circ=-0.769$. This split between height and projection gives the unit vector used in every coordinate transformation below.
 
 \paragraph{The two angles.} The \textbf{declination} $\delta\in[-90^\circ,+90^\circ]$ is the angle of a direction north ($+$) or south ($-$) of the celestial equator. The great circle through the two poles and a star is the star's \textbf{hour circle}. The \textbf{right ascension} $\alpha$ is the angle along the celestial equator from $\hat\gamma$ eastward to the hour circle. It runs from $0^{\rm h}$ to $24^{\rm h}$, with $1^{\rm h}=15^\circ$ (Eq.~\eqref{eq:time_angle_conversion}). Both are shown in Figure~\ref{fig:declination}.
 
@@ -116,9 +116,7 @@ The lamp in numbers. The friend's axes are $(\cos30^\circ,\sin30^\circ)$ and $(-
 \begin{pmatrix}\cos30^\circ&\sin30^\circ\\-\sin30^\circ&\cos30^\circ\end{pmatrix}\begin{pmatrix}3\\0\end{pmatrix}=\begin{pmatrix}2.60\\-1.50\end{pmatrix}.
 \]
 
-The picture is two sets of axes with one origin, one turned against the other, and a single fixed arrow.
-
-The same matrix is the passive rotation of mechanics and the change of basis of quantum mechanics. Chapter~\ref{ch:twobody} used two such turns to place an orbit in space, Eq.~\eqref{eq:orbital_frame_rotation}. It gives the two turns every frame of the sky is built from, and the fact that undoing a turn costs only a transpose.
+The lamp has stayed in place; its numbers change because the axes have turned. We will use this same rule for sky coordinates. It also explains why the inverse transformation is the transpose of the original rotation matrix.
 
 \paragraph{The rule.} Let a new frame have orthonormal axes $\hat{\mathbf x}',\hat{\mathbf y}',\hat{\mathbf z}'$, each written by its components in the old frame. The new components of the direction $\hat{\mathbf r}$ are
 \begin{align}
@@ -139,6 +137,43 @@ The entries of $\mathbf M\mathbf M^{T}$ are the dot products of the new axes wit
 	\label{co:eq:orthogonal}
 \end{equation}
 Going back to the old frame multiplies by the transpose, whose columns are the new axes. The determinant of $\mathbf M$ is $+1$ when the new axes are right-handed, and then $\mathbf M$ is a rotation. It is $-1$ when they are left-handed. The horizontal frame of Section~\ref{co:sec:horizontal} is such a case.
+
+\paragraph{Axes and components turn with the same matrix.} The rows of $\mathbf M$ are the new axes written in the old ones, so the same matrix also gives the axes themselves. Write the old axes as $\mathbf e_x,\mathbf e_y,\mathbf e_z$ (the $\hat{\mathbf x},\hat{\mathbf y},\hat{\mathbf z}$ above) and the new ones with primes. For a turn by the angle $\epsilon$ about the $x$ axis, the turn that takes the equatorial frame to the ecliptic frame of Section~\ref{co:sec:ecliptic},
+\[
+\begin{pmatrix}
+\mathbf e'_x\\
+\mathbf e'_y\\
+\mathbf e'_z
+\end{pmatrix}
+=
+\begin{pmatrix}
+1&0&0\\
+0&\cos\epsilon&\sin\epsilon\\
+0&-\sin\epsilon&\cos\epsilon
+\end{pmatrix}
+\begin{pmatrix}
+\mathbf e_x\\
+\mathbf e_y\\
+\mathbf e_z
+\end{pmatrix}.
+\]
+This is a \textbf{passive} rotation matrix. It turns the axes and leaves the vector where it is. An \textbf{active} rotation would instead turn the vector by $\epsilon$ and keep the axes fixed, and its matrix is the transpose of this one. Every matrix in this chapter is passive, because changing frames moves the axes and never the stars. One thing looks odd at first. The axes and the components of one vector should change in opposite ways, so that the vector itself stays where it is, yet Eq.~\eqref{co:eq:rows_rule} turns the components with the same matrix. Indices settle it. Let $R_i{}^j$ be the entry in row $i$ and column $j$ of the matrix, so that $\mathbf e'_i=R_i{}^j\mathbf e_j$, and drop the summation sign over a repeated index, so that $V^j\mathbf e_j$ means $\sum_jV^j\mathbf e_j$. A vector $\mathbf V$ with components $V^j$ in the old frame and $V'^i$ in the new one then gives
+\begin{align}
+	V^j\mathbf e_j
+	&\eqby{1} V'^i\mathbf e'_i
+	\eqby{2} V'^iR_i{}^j\mathbf e_j \nonumber\\
+	\implies\quad V^j &\eqby{3} R_i{}^jV'^i
+	\quad\implies\quad V\eqby{4}\mathbf R^{T}V'
+	\quad\implies\quad V'\eqby{5}\big(\mathbf R^{T}\big)^{-1}V=\mathbf R\,V .
+\end{align}
+\begin{explain}
+	\item The vector $\mathbf V$ is the same in both frames. Only its components and its axes differ.
+	\item $\mathbf e'_i=R_i{}^j\mathbf e_j$.
+	\item The old axes are independent, so the coefficients of each $\mathbf e_j$ agree on the two sides.
+	\item The sum runs over $i$, the first index of $\mathbf R$, its row. Summing over the row index is a product with the transpose. $V$ and $V'$ are the columns of components.
+	\item $\mathbf R^{-1}=\mathbf R^{T}$ for a rotation, Eq.~\eqref{co:eq:orthogonal}.
+\end{explain}
+The axes go forward with $\mathbf R$ and the components go back with $\mathbf R^{T}$, the inverse law that keeps the vector fixed. The difference sits only in where the summed index stands. The sum over the row index brings in a transpose, and solving for the new components turns $\mathbf R^{T}$ back into $\mathbf R$, so the two laws are written with the same matrix.
 
 \paragraph{Turning about the $z$ axis.} Turn the $x$ and $y$ axes by $\theta$ about $z$, anticlockwise as seen from $+z$. The new axes are $\hat{\mathbf x}'=\cos\theta\,\hat{\mathbf x}+\sin\theta\,\hat{\mathbf y}$, $\hat{\mathbf y}'=-\sin\theta\,\hat{\mathbf x}+\cos\theta\,\hat{\mathbf y}$ and $\hat{\mathbf z}'=\hat{\mathbf z}$. Stacked as rows by Eq.~\eqref{co:eq:rows_rule},
 \begin{equation}
@@ -186,11 +221,11 @@ A turn by $\theta$ about the pole subtracts $\theta$ from every right ascension 
 \section{Horizontal Coordinates}
 \label{co:sec:horizontal}
 
-The equatorial frame gives each star a fixed column, Eq.~\eqref{eq:unit_vector_eq}, and Section~\ref{co:sec:rotation} gives the matrix for any change of frame. A star's $(\alpha,\delta)$ does not say whether the star is above the horizon now, or where to point. That needs a frame tied to the ground.
+The equatorial frame gives a star an almost fixed direction over a night, Eq.~\eqref{eq:unit_vector_eq}. The horizon frame is attached to the observer and rotates with the Earth. A star's $(\alpha,\delta)$ alone therefore cannot say whether it is above the horizon now. We need the observer's latitude and the current orientation of the meridian, supplied by local sidereal time. Their difference $H=\LST-\alpha$ is the star's hour angle: it changes as the Earth turns even while $\alpha$ and $\delta$ stay nearly fixed.
 
 Think of pointing out an aeroplane to a friend. You say ``thirty degrees up, toward the east-north-east''. One angle is the height above the horizon. The other is the compass direction, counted round from north. Neither needs any knowledge of the sky, only of the ground. The answer changes from minute to minute because the plane moves. For a star it is the ground that moves. The \textbf{altitude} and \textbf{azimuth} use the zenith as their pole and turn with the Earth. The hour angle measures how far the sky has turned since the star crossed the meridian. The idea is that the horizontal frame is the equatorial frame turned about the pole to the meridian, and then tipped about the east--west line so that the zenith takes the place of the pole.
 
-A star on the celestial equator crossing the meridian of IISER TVM, at latitude $\phi_0=8.68^\circ\mathrm N$, stands at altitude $90^\circ-8.68^\circ=81.32^\circ$, due south. The pole is $8.68^\circ$ above the northern horizon, so the equator, $90^\circ$ from the pole, passes $8.68^\circ$ south of the zenith. The picture is a dome over flat ground. The zenith is overhead, the horizon is the rim, and the meridian is the arc from the north point through the zenith to the south point. The east--north--up frame of surveying and of radar is the same frame. The hour angle is the clock of Chapter~\ref{ch:time} read for one star. It gives the matrix between the equatorial and horizontal frames, in both directions.
+At IISER TVM, latitude is $\phi_0=8.68^\circ\mathrm N$. The north celestial pole is therefore $8.68^\circ$ above the northern horizon. A star on the celestial equator crosses the meridian $8.68^\circ$ south of the zenith, at altitude $90^\circ-8.68^\circ=81.32^\circ$. The transformation below extends this meridian geometry to any hour angle, so we can find where to point at any time.
 
 \paragraph{The angles.} The \textbf{altitude} $h\in[-90^\circ,+90^\circ]$ is the angle of a star above the horizon, $+90^\circ$ at the zenith and $-90^\circ$ at the nadir. The \textbf{zenith angle} is its distance from the zenith,
 \begin{equation}
@@ -365,7 +400,7 @@ Eq.~\eqref{eq:sinh_master} gives the altitude of a star at any hour angle. To pl
 
 Think of a big wheel at a fair whose lower part dips behind a fence. Seats near the hub may never go behind the fence. Seats on the rim spend part of each turn hidden. How much of each turn a seat is hidden depends on its distance from the hub and on how high the fence is compared with the hub. Each star moves once a sidereal day on a circle of constant $\delta$ around the pole. The horizon cuts that circle, and the height of the pole above the horizon is the latitude. The idea is to set $h=0$ in Eq.~\eqref{eq:sinh_master} and solve for the hour angle.
 
-On the equator, $\phi_0=0$, Eq.~\eqref{eq:sinh_master} reads $\sin h=\cos\delta\cos H$. Every star is on the horizon at $H=\pm90^\circ=\pm6^{\rm h}$, so every star is up for exactly half a sidereal day. The picture is a set of parallel circles tilted to the horizon by $90^\circ-\phi_0$ and cut by it (Figure~\ref{fig:rising_setting}). With the Sun's declination in place of the star's, the same formula gives the length of the day, the midnight Sun near the poles and the polar night. It gives the hour angles of rising and setting and the conditions for a star never to set or never to rise.
+At the Earth's equator, $\phi_0=0$, Eq.~\eqref{eq:sinh_master} becomes $\sin h=\cos\delta\cos H$. Every star reaches the horizon at $H=\pm90^\circ=\pm6^{\rm h}$ and spends half a sidereal day above it. Away from the equator, the horizon cuts each star's daily circle differently (Figure~\ref{fig:rising_setting}). Setting $h=0$ will tell us whether that circle crosses the horizon at all and, if it does, at which hour angles.
 
 \paragraph{The rising and setting hour angle.} A star rises or sets when its centre crosses the horizon, $h=0$. In Eq.~\eqref{eq:sinh_master},
 \begin{align}
@@ -457,7 +492,7 @@ Each star has a unit vector, Eq.~\eqref{eq:unit_vector_eq}. The angle between tw
 
 Think of two towns at latitude $60^\circ\mathrm N$ on opposite sides of the globe, $180^\circ$ apart in longitude. Walking west along the parallel covers $180^\circ\times\cos60^\circ=90^\circ$ of arc. Going straight over the pole covers only $30^\circ+30^\circ=60^\circ$. The shortest way is the great circle, and its angle is the angle between the two arrows from the centre of the Earth. Two stars are two such arrows. The idea is that the cosine of the angle between them is the dot product of their unit vectors.
 
-For the two towns, with $\delta_1=\delta_2=60^\circ$ and $\alpha_1-\alpha_2=180^\circ$, the formula derived below gives $\cos\theta=\sin^260^\circ+\cos^260^\circ\cos180^\circ=0.75-0.25=0.5$, so $\theta=60^\circ$, the route over the pole. The picture is two arrows from the centre of a ball, with the short arc between their tips. In navigation this is the great-circle distance, and in spherical trigonometry it is the cosine rule. The scattering angle between two directions in physics is found the same way. It gives the separation of two stars, a form of it that keeps its accuracy for small angles, and the small-angle limit used for proper motions.
+For the two towns, $\delta_1=\delta_2=60^\circ$ and $\alpha_1-\alpha_2=180^\circ$. Their direction vectors give $\cos\theta=\sin^260^\circ+\cos^260^\circ\cos180^\circ=0.75-0.25=0.5$, hence $\theta=60^\circ$: the shortest route goes over the pole. The same dot product gives the angular separation of two stars. We will derive it and then rewrite it in a form that remains accurate when the separation is small.
 
 \paragraph{The cosine rule.} For two unit vectors, $\cos\theta=\hat{\mathbf r}_1\cdot\hat{\mathbf r}_2$. With Eq.~\eqref{eq:unit_vector_eq},
 \begin{align}
@@ -515,7 +550,7 @@ Section~\ref{co:sec:rotation} gives the matrix for a turn about any axis. The Su
 
 Think of a model railway laid on a tilted table. Measured from the floor, the train rises and falls as it goes round. Measured from the table top, it stays at height zero. Choosing the table as the reference plane removes the rising and falling. The ecliptic is the table, tilted by the obliquity $\epsilon=23.44^\circ$, and the Sun is the train. In ecliptic coordinates its latitude is always zero. The idea is that the ecliptic frame is the equatorial frame turned by $\epsilon$ about the line to $\hat\gamma$, which lies in both planes.
 
-At the June solstice the Sun is at ecliptic longitude $90^\circ$, a quarter of the way round from $\hat\gamma$. That is where the tilted table stands highest above the floor, so the Sun's declination is the full tilt, $\delta_\odot=+\epsilon=+23.44^\circ$, at $\alpha=6^{\rm h}$. The picture is two great circles that cross at $\hat\gamma$ at the angle $\epsilon$ (Figure~\ref{fig:equator_elliptic}). The ecliptic is the plane of the Earth's orbit, so $\epsilon$ is the inclination of the Earth's equator to its orbit. The turn is the same $\mathbf R_x$ that tilted an orbital plane by its inclination in Chapter~\ref{ch:twobody}, Eq.~\eqref{eq:orbital_frame_rotation}. It gives the transformation in both directions and the Sun's declination through the year.
+At the June solstice the Sun is at ecliptic longitude $90^\circ$, a quarter turn from $\hat\gamma$. There the tilt puts it at declination $\delta_\odot=+\epsilon=+23.44^\circ$ and right ascension $\alpha=6^{\rm h}$. Figure~\ref{fig:equator_elliptic} shows the two great circles meeting at the equinox. We now express their tilt as a rotation matrix, which will let us convert any direction between equatorial and ecliptic coordinates.
 
 \paragraph{The angles.} The \textbf{ecliptic longitude} $\lambda\in[0^\circ,360^\circ)$ is measured eastward along the ecliptic from $\hat\gamma$. The \textbf{ecliptic latitude} $\beta\in[-90^\circ,+90^\circ]$ is the angle north or south of the ecliptic (Figure~\ref{co:fig:ecliptic_coords}). By the split of Eq.~\eqref{eq:unit_vector_eq}, a star has the ecliptic column
 \[
@@ -602,7 +637,7 @@ The ecliptic frame was one turn about one axis, because the two planes share the
 
 Think of a camera on a tripod. Any way the camera can point is reached by three turns of the tripod head. The head pans about the vertical, tilts about a horizontal axis, and then the camera rolls about its own lens axis. The Galactic frame is reached from the equatorial frame by the same three turns. A pan about the celestial pole brings the $x$ axis to the line where the Galactic equator crosses the celestial equator. A tilt about that line carries the $z$ axis to the north Galactic pole. A roll about the new pole brings the $x$ axis to the Galactic centre. The idea is that the Galactic frame is the equatorial frame turned by three known angles.
 
-In numbers the pan is $282.86^\circ$, the tilt is $62.87^\circ$ and the roll is $-32.93^\circ$. All three come from the pole's position and one longitude, given below. The picture is the band of the Milky Way as a great circle tilted steeply to the celestial equator and crossing it twice. Chapter~\ref{ch:twobody} placed an orbit in space by the same turns, the node longitude $\Omega$, the inclination $\iota$ and the argument of periapsis, Eq.~\eqref{eq:orbital_frame_rotation}. In rigid-body mechanics the three angles are the Euler angles. The matrix found here turns stellar velocities into Galactic ones in Chapter~\ref{ch:astrometry}, Eq.~\eqref{eq:uvw_transform}.
+The three angles are a pan of $282.86^\circ$, a tilt of $62.87^\circ$ and a roll of $-32.93^\circ$. Their values follow from the Galactic pole and the longitude of one reference direction. Once combined into a matrix, these turns convert both stellar positions and stellar velocities into the Galactic frame used in Chapter~\ref{ch:astrometry}.
 
 \paragraph{The angles and the pole.} The \textbf{Galactic latitude} $b\in[-90^\circ,+90^\circ]$ is the angle north ($+$) or south ($-$) of the Galactic plane. The \textbf{Galactic longitude} $l\in[0^\circ,360^\circ)$ is measured along the Galactic equator from the direction of the Galactic centre, toward the direction of the Galaxy's rotation at $l=90^\circ$. The radio source Sagittarius A*, at the centre, lies within $0.1^\circ$ of $l=b=0$. By IAU convention the north Galactic pole and the longitude of the north celestial pole are fixed at the J2000.0 values
 \begin{align}
@@ -674,7 +709,7 @@ Every formula so far gives the true direction of a star from the centre of the E
 
 Think of a straw in a glass of water. It looks bent where it enters the water, because light changes direction when it crosses into a medium with a different refractive index. Now think of running through rain that falls straight down. The drops seem to come at you from in front, and you tilt your umbrella forward. The faster you run, the more you tilt it. Starlight entering the air bends toward the vertical, so a star looks higher than it is. Starlight met by the moving Earth seems to come from a little ahead of the Earth's motion. The idea is that refraction lifts a star by $(n-1)\tan z$ and aberration tilts it forward by $v/c$.
 
-With $n-1=2.82\times10^{-4}$ for air, a star at $z=45^\circ$ is lifted by $2.82\times10^{-4}\,\mathrm{rad}=58''$. The Earth moves round the Sun at $v=29.78\,\mathrm{km\,s^{-1}}$, so $v/c=0.99\times10^{-4}$ and the tilt is $20.5''$. The picture is a ray bending a little at each layer of air, and a stream of slanted raindrops. Refraction is Snell's law, and it also makes mirages. Aberration is the low-speed limit of the relativistic aberration of light. Both formulas hold only in a range, and that range is set by comparing two lengths (P6). The flat-layer picture of the air works while the height of the air is small compared with the distance over which the ground curves away. These effects are what move a star from its computed place by arcseconds, and near the horizon by half a degree.
+With $n-1=2.82\times10^{-4}$ for air, refraction lifts a star at $z=45^\circ$ by $2.82\times10^{-4}\,\mathrm{rad}=58''$. Earth's orbital speed is $v=29.78\,\mathrm{km\,s^{-1}}$, so $v/c=0.99\times10^{-4}$ gives an aberration angle of $20.5''$. Both shifts matter for accurate pointing, but they have different causes. We derive refraction from the bending of a ray through air and aberration from the observer's motion.
 
 \subsection{Atmospheric Refraction}
 
@@ -791,7 +826,7 @@ The zenith angle of a star is known from Eq.~\eqref{eq:sinh_master}, and refract
 
 Think of crossing a road $10\,\mathrm m$ wide. Walking straight across covers $10\,\mathrm m$. Walking at $60^\circ$ to the straight line covers $10/\cos60^\circ=20\,\mathrm m$. Now think of a prism. It bends blue light more than red, so white light fans out into colours along the direction of bending. Light from a star at zenith angle $z$ crosses the air on a slant. Air also bends blue light a little more than red, so every star is drawn out into a short spectrum pointing at the zenith. The idea is that the path through flat layers grows as $1/\cos z$, and the parallactic angle gives the direction of the zenith as seen at the star.
 
-A star at $z=60^\circ$ shines through twice as much air as one at the zenith, as on the road. The picture is a slanted ray through a stack of flat slabs. Any slanted ray through flat layers gains the same factor $1/\cos z$. The optical depth of Chapter~\ref{ch:photometry} grows with it, so the dimming of a star in magnitudes grows in proportion to the airmass. Looking slantwise into the Sun's atmosphere reaches higher, cooler layers for the same reason, which is why the edge of the Sun looks darker (Chapter~\ref{ch:radiation}). The flat picture holds while the comparison of lengths in Eq.~\eqref{co:eq:flat_ratio} is small (P6). It gives the airmass and the parallactic angle, and with them the angle at which to set a spectrograph slit.
+At $z=60^\circ$, a ray crosses twice as much air as one arriving from the zenith because its path through each flat layer is longer by $1/\cos z$. Its optical depth and extinction therefore grow with the same factor. We call this relative column of air the airmass. Air also refracts different colours by different amounts; the parallactic angle tells us the direction of that colour spread on the sky and how to align a spectrograph slit with it.
 
 \subsection{Airmass}
 
