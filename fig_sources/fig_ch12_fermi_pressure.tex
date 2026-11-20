@@ -1,0 +1,56 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{A13D2C}
+\definecolor{accent2}{HTML}{2B5F6B}
+\definecolor{muted}{HTML}{5A564F}
+\definecolor{panel}{HTML}{F8F6F0}
+\definecolor{linecol}{HTML}{D8D2C4}
+\definecolor{astroblue}{HTML}{1B4F72}
+\definecolor{ink}{HTML}{1E1C1A}
+\usetikzlibrary{calc,arrows.meta}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}\usepackage{newpxtext,newpxmath}  % same fonts as the notes
+\begin{document}
+% One gas pressure for thin and for dense fermion gases at the same temperature.
+% x = p / sqrt(2 m k_B T). Thin gas: f = 1/(exp(x^2+2)+1) (f << 1, the Maxwell-Boltzmann shape).
+% Dense gas: f = 1/(exp(x^2-25)+1) (every state full up to x_F = 5, the Fermi momentum).
+% (a) occupation number; (b) the pressure integrand x^4 f, each scaled to its own peak;
+% (c) P against n at fixed T from results/ch12/fermi_pressure.dat (code/ch12/04_fermi_pressure.py).
+\IfFileExists{results/ch12/fermi_pressure.dat}{\def\datadir{results/ch12/}}{\def\datadir{../results/ch12/}}
+\begin{tikzpicture}[font=\small,
+  declare function={fthin(\x)=1/(exp(\x*\x+2)+1); fdense(\x)=1/(exp(\x*\x-25)+1);}]
+  \pgfplotsset{every axis/.append style={scale only axis, axis lines*=left, tick style={muted},
+      every axis label/.style={text=muted}, clip=false, samples=300}}
+  \begin{axis}[name=a, width=5.2cm, height=3.4cm, xmin=0, xmax=6.5, ymin=0, ymax=1.15,
+      xtick={0,5}, xticklabels={0,$p_F$}, ytick={0,1}, xlabel={momentum $p$}, ylabel={occupation $f(p)$}]
+    \addplot[astroblue, line width=1pt, domain=0:6.5] {fthin(x)};
+    \addplot[accent, line width=1pt, domain=0:6.5] {fdense(x)};
+    \node[astroblue, anchor=south west, align=left, font=\footnotesize] at (axis cs:0.9,0.15) {thin gas, $f\ll1$};
+    \node[accent, anchor=south, align=center, font=\footnotesize] at (axis cs:2.5,1.0) {dense gas, every state full};
+    \node[muted, anchor=north east] at (rel axis cs:1,1.12) {(a)};
+  \end{axis}
+  \begin{axis}[name=b, at={(a.east)}, anchor=west, xshift=1.5cm, width=5.2cm, height=3.4cm,
+      xmin=0, xmax=6.5, ymin=0, ymax=1.15, xtick={0,5}, xticklabels={0,$p_F$}, ytick={0,1},
+      xlabel={momentum $p$}, ylabel={integrand, scaled}]
+    \addplot[astroblue, line width=1pt, fill=astroblue!15, domain=0:6.5] {x^4*fthin(x)/(4*fthin(sqrt(2)))} \closedcycle;
+    \addplot[accent, line width=1pt, fill=accent!12, domain=0:6.5] {x^4*fdense(x)/468} \closedcycle;
+    \node[astroblue, anchor=south, font=\footnotesize] at (axis cs:1.41,1.02) {thin};
+    \node[accent, anchor=south, font=\footnotesize] at (axis cs:5.0,1.02) {dense};
+    \node[muted, anchor=north east] at (rel axis cs:1,1.12) {(b)};
+  \end{axis}
+  \begin{axis}[name=c, at={(a.south west)}, anchor=north west, yshift=-1.9cm, width=11.9cm, height=4.6cm,
+      xmin=-4, xmax=2.2, ymin=-4, ymax=3.6, xtick={-4,-3,-2,-1,0,1,2}, ytick={-4,-2,0,2},
+      xlabel={$\log_{10}$ density},
+      ylabel={$\log_{10}$ pressure}]
+    \addplot[astroblue, dashed, line width=0.8pt, domain=-4:2.2, samples=2] {x};
+    \addplot[accent, dashed, line width=0.8pt, domain=-1.2:2.2, samples=2] {log10(2/15)+5/3*(x+log10(3))};
+    \addplot[ink, line width=1.2pt, restrict x to domain=-4:2.2] table[x index=0, y index=1] {\datadir fermi_pressure.dat};
+    \draw[muted, dotted] (axis cs:-0.47,-4) -- (axis cs:-0.47,1.2);
+    \node[muted, anchor=south, font=\footnotesize] at (axis cs:-0.47,1.2) {$E_F=k_BT$};
+    \node[astroblue, anchor=north west, font=\footnotesize] at (axis cs:-3.8,-0.7) {$P=nk_BT$, slope 1};
+    \node[accent, anchor=south east, font=\footnotesize] at (axis cs:1.75,2.75) {$P\propto n^{5/3}$, slope $\tfrac53$};
+    \node[muted, anchor=north west] at (rel axis cs:0.01,1.0) {(c)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}
