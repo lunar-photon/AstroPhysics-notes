@@ -156,3 +156,4 @@ Rules (template STYLE_GUIDE §5.17, plus the owner's "fewest symbols" rule of 20
 | 2026-11-16 | ch12 | mass coordinate | — | v = ∂r/∂t at fixed m, the outward speed of a shell (local to st:eq:mass_derivative); T(r,t), T(m,t) | st:eq:mass_derivative |
 | 2026-11-16 | ch12 | first law | u per unit mass here (u is energy per unit volume in pr:eq:P_u and u_ν in ch11); stated where it is introduced | u internal energy per unit mass, 1/ρ volume per unit mass (local to st:eq:first_law) | st:eq:first_law |
 | 2026-11-20 | ch2 | basis vs components | e_x,e_y,e_z = the axes x̂,ŷ,ẑ (stated in text) | e_j, e'_i axes; R_i^j entry row i column j; V^j, V'^i components of a vector V; repeated index summed (local to §2.2 paragraph 'Axes and components turn with the same matrix') | unlabelled eq (2.5) |
+| 2026-11-20 | ch8 | 21 cm perturbation | — | H_0, H' = −μ_e·B_p (is:eq:hyperfine_H), E^(1) first-order shift (local to is:sec:21cm) | is:eq:hyperfine_H |

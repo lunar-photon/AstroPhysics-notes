@@ -3,9 +3,7 @@
 
 \input{results/ch9/random_walk.tex}
 
-Astrophysics can look like a long list of formulas. The Jeans mass, the Eddington luminosity, the free-fall time, the Chandrasekhar mass and the Planck spectrum are usually met one at a time, each with its own derivation. The list grows with every new object.
-
-The list does not have to be remembered. Almost every formula about stars and gas comes from six general principles, applied with the classical and quantum physics the reader already knows. Each result is then a short calculation that can be redone whenever the formula itself is forgotten.
+The chapters so far have used the same ideas in different settings. Conserved energy linked a star's luminosity to its flux, counting statistics set the noise of a CCD, and competing timescales decided whether an effect mattered. The formulas ahead may look more specialised, but many come from combining these familiar ideas. We collect six of them here so that, when a new result appears, we can see why it follows and when it applies.
 
 \begin{table}[htbp]
 	\centering
@@ -35,7 +33,7 @@ The Kepler problem of Chapter~\ref{ch:twobody} was solved by two conserved quant
 
 Think of a water tank in a house. Water comes in through one pipe and leaves through another. To know how much water the tank holds a minute from now, nobody follows single molecules. One watches the two pipes. The water inside changes by what flows in minus what flows out, and nothing that happens inside the tank can change that. A star can be treated the same way. Take any fixed region inside it. The mass in that region changes only by gas flowing across its boundary. Its momentum changes by the momentum that gas carries across the boundary and by the forces acting on the region. This is conservation written for a fixed region instead of a single particle, principle P1.
 
-The tank in numbers. It holds $200\,\mathrm{L}$, water flows in at $3\,\mathrm{L/min}$ and out at $5\,\mathrm{L/min}$. The volume changes at $3-5=-2\,\mathrm{L/min}$, so the tank is empty after $100$ minutes. Only the two flows were needed. The picture to keep is a box with arrows crossing its faces. Arrows pointing in add to what is inside, arrows pointing out take away. The same bookkeeping is the continuity equation for charge in electromagnetism, the probability current in quantum mechanics, and the conservation of energy and angular momentum in Chapter~\ref{ch:twobody}. For stars it gives hydrostatic equilibrium (Chapter~\ref{ch:selfgrav}), the change of light along a ray (Chapter~\ref{ch:radiation}) and the energy equation of a star (Chapter~\ref{ch:structure}). For a gas it gives two equations, one for mass and one for momentum.
+If the tank holds $200\,\mathrm{L}$ while water enters at $3\,\mathrm{L/min}$ and leaves at $5\,\mathrm{L/min}$, its volume changes at $3-5=-2\,\mathrm{L/min}$ and it empties after $100$ minutes. We need only the flows across its boundary to predict that change. For a region of gas, the same accounting gives one equation for its mass and another for its momentum. Those equations will later describe how pressure supports a star and how its energy changes.
 
 \paragraph{Mass.} Let a gas have density $\rho(\vecr,t)$ and velocity $\vec v(\vecr,t)$. Take a fixed volume $V$ with surface $S$, and let $d\vec A$ be an outward-pointing element of $S$. Gas crossing $d\vec A$ carries mass out at the rate $\rho\,\vec v\cdot d\vec A$. The mass inside therefore changes as
 \begin{align}
@@ -186,14 +184,21 @@ Newton's law of gravity between two points, $GMm/r^2$, ran the whole of Chapter~
 
 Imagine a well dug straight down to the centre of the Earth, and suppose for now that the Earth has the same density everywhere. At the surface you have your usual weight. Halfway down you weigh half as much. The rock above your head forms a shell around you, and the pulls from its different sides cancel exactly. Only the ball of rock below you counts, and it is smaller. Inside a spherical star the same is true. A small blob of gas at radius $r$ feels only the mass inside $r$, and feels it as if that mass sat at the centre. Everything outside $r$, however it is arranged in shells, pulls with zero net force. That is principle P2.
 
-The well in numbers. For the uniform Earth the mass inside radius $r$ is $M(r/R)^3$, so the pull is
-
+The well in numbers. Treat the Earth as a uniform sphere of density $\rho$. The pull at radius $r$ comes only from the ball inside $r$, whose mass $m(r)$ is its volume times the density, so
+\begin{equation*}
+	g(r)\eqby{1}\frac{G\,m(r)}{r^2}\eqby{2}\frac{G}{r^2}\,\frac{4\pi}{3}r^3\rho=\frac{4\pi}{3}\,G\rho\,r ,
+\end{equation*}
+\begin{explain}
+	\item Only the mass inside $r$ pulls, and it pulls as if it sat at the centre.
+	\item $m(r)=\tfrac43\pi r^3\rho$ for a constant density.
+\end{explain}
+which falls linearly to zero at the centre. The Earth's mean density is its mass over its volume, $\rho=5.972\times10^{24}\,\mathrm{kg}/(\tfrac43\pi(6.371\times10^6\,\mathrm m)^3)=5513\,\mathrm{kg\,m^{-3}}$. Halfway down, at $r=R/2=3.186\times10^6\,\mathrm m$,
 \[
-g(r)=\frac{G\,M(r/R)^3}{r^2}=\frac{GM}{R^2}\,\frac rR ,
+g=\frac{4\pi}{3}\times6.674\times10^{-11}\times5513\times3.186\times10^{6}\,\mathrm{m\,s^{-2}}=4.91\,\mathrm{m\,s^{-2}},
 \]
-which falls linearly to zero at the centre. Halfway down, at $r=R/2$, it is $9.8/2=4.9\,\mathrm{m\,s^{-2}}$.
+half of the $9.82\,\mathrm{m\,s^{-2}}$ that the same formula gives at the surface.
 
-The picture is Figure~\ref{pr:fig:shell_gauss}. Draw a sphere of radius $r$ through the blob. The mass inside it sets the pull, and the shell outside it does nothing.
+Figure~\ref{pr:fig:shell_gauss} separates the mass inside radius $r$ from the outer shell. Only the inner mass contributes to the net pull on the blob at that radius.
 
 \begin{figure}[htbp]
 	\centering
@@ -202,7 +207,7 @@ The picture is Figure~\ref{pr:fig:shell_gauss}. Draw a sphere of radius $r$ thro
 	\label{pr:fig:shell_gauss}
 \end{figure}
 
-The same law with charge in place of mass is Gauss's law of electrostatics. In astrophysics it fixes the rotation speed of stars in a galaxy by the mass inside their orbit, it gives the expansion of the universe from a single shell of matter, and in general relativity it survives as Birkhoff's theorem. It gives the gravity at every radius from one number, the mass inside.
+This shell result turns a complicated spherical distribution into one number, the mass enclosed at radius $r$. We will repeatedly use that number to find the pull on gas inside a star and the orbital speed of matter in a galaxy.
 
 \paragraph{Gauss's law for gravity.} A point mass $m$ at the origin produces $\vec g=-Gm\,\rhat/r^2$. Through a sphere of radius $r$ around it, with $d\vec A=r^2\,d\Omega\,\rhat$,
 \begin{align}
@@ -270,9 +275,7 @@ P=nk_BT=(2.50\times10^{25})(1.381\times10^{-23})(293)\,\mathrm{Pa}=1.01\times10^
 \]
 the pressure we live in. The light in the same room, at the same temperature, pushes with $aT^4/3=1.9\times10^{-6}\,\mathrm{Pa}$ (Eq.~\eqref{pr:eq:photon_gas} below), about $10^{-11}$ of the air. In the core of the Sun the share of light rises to about $5\times10^{-4}$ (Problem~\ref{pr:prob:prad}), and in the most massive stars light carries most of the pressure.
 
-The picture is position and momentum together, as one six-dimensional space cut into cells of volume $h^3$. Each cell holds one quantum state for each spin direction. Particles sit in cells, and the pressure is the momentum they carry across a surface.
-
-The same counting gives the Maxwell, Planck and Fermi–Dirac distributions. It gives the ideal-gas law, blackbody radiation (Chapter~\ref{ch:photometry}), the degeneracy pressure that holds up white dwarfs (Chapters~\ref{ch:structure} and~\ref{ch:compact}), the ionisation of hydrogen, and the radiation left over from the early universe. Here it gives one formula for the pressure that works for every kind of particle.
+We count states in the combined space of position and momentum, with one quantum state per cell of volume $h^3$ for each spin direction. How particles fill those cells determines how much momentum they carry across a surface and hence their pressure. Changing the occupancy rule will take us from ordinary gas to photons and then to degenerate electrons.
 
 \paragraph{How many states.} Put one particle in a cube of side $b$ and volume $V=b^3$, with periodic boundary conditions. Its wavefunction $e^{i\vec p\cdot\vecr/\hbar}$ must repeat after a distance $b$ in each direction, so $p_xb/\hbar=2\pi$ times an integer, and the same for $y$ and $z$,
 \begin{equation}
@@ -401,7 +404,7 @@ The temperature of interstellar gas was set by matching heating to cooling (Sect
 
 Think of two rooms joined by a door, with people walking through it both ways. After a while the number in each room stops changing. People have not stopped walking. As many walk one way as the other. If one room is more pleasant, people leave it more slowly, and it ends up holding more of them. Atoms in a gas move between energy levels in the same way, kicked up and down by collisions. In a steady state the rate into each level equals the rate out. In full equilibrium each process is balanced by its own reverse. That is principle P4.
 
-The rooms in numbers. Ninety people. Each person in room A leaves once a minute on average, and each person in room B leaves twice a minute. In the steady state the flows through the door are equal, $1\times N_A=2\times N_B$, so $N_A=60$ and $N_B=30$. Room A is the pleasant one. The rooms reach this split within about $20\,\mathrm s$ (Eq.~\eqref{pr:eq:relax} below). The picture is two boxes with flows between them. The boxes stop changing when the flows match, not when they stop. The same principle is the law of mass action in chemistry. In astrophysics it gives Kirchhoff's law of radiation and the Einstein coefficients (Chapter~\ref{ch:radiation}), the ionisation balance of hydrogen, and the moment in the early universe when a reaction becomes too slow to keep up with the expansion. It gives the steady state, the time to reach it, and a link between the rates of a process and its reverse.
+Suppose ninety people move between two rooms. Each person in A leaves once a minute on average, while each person in B leaves twice a minute. Equal flows require $1\times N_A=2\times N_B$, so the steady populations are $N_A=60$ and $N_B=30$. The people keep moving even though the numbers stop changing. The rooms approach that split in about $20\,\mathrm s$ (Eq.~\eqref{pr:eq:relax}). In a gas, the same distinction between steady populations and ongoing transitions will let us derive both equilibrium ratios and the time needed to reach them.
 
 \paragraph{Steady state.} Let $N$ be a number of particles, supplied at a constant rate $S$ per unit time and each lost at the rate $1/\tau$, so that it survives for a time $\tau$ on average. Then
 \begin{equation}
@@ -480,7 +483,7 @@ In numbers, $100$ steps of $1\,\mathrm m$ in random directions leave a walker ab
 	\label{pr:fig:random_walk}
 \end{figure}
 
-The same walk is diffusion, Brownian motion, the conduction of heat and the friction inside a gas. In astrophysics it is the slow escape of light from the Sun (Chapter~\ref{ch:radiation}), of neutrinos from a collapsing stellar core, and of cosmic rays from the Galaxy's magnetic field. It gives the $\sqrt N$ law and the flux that flows down any gradient.
+The $\sqrt N$ rule explains why repeated scattering slows the escape of light from a star and the movement of particles through gas. When many walkers start in a region of high concentration, more leave it than enter, giving a net flux down the concentration gradient. We will derive that flux after establishing the distance reached in $N$ steps.
 
 \paragraph{The $\sqrt N$ law.} Let a particle take $N$ steps $\vec s_1,\dots,\vec s_N$, each of length $s$ and each in a random direction independent of the others. Its displacement is $\vec R=\sum_i\vec s_i$. Averaging over many walks,
 \begin{align}
@@ -536,7 +539,7 @@ Chapter~\ref{ch:resolution} decided whether two stars are resolved by comparing 
 
 Think of crossing a road. If you can cross before the car reaches you, you are safe, however fast the car is. If the car arrives first, you are not. Only the ratio of the two times matters, and when it is close to one, small changes decide. In a gas cloud, sound tries to smooth out a squeeze while gravity tries to deepen it. Whichever acts faster wins. Every regime in astrophysics is chosen in this way. That is principle P6.
 
-The smallest example uses only gravity and density. The constant $G$ has units $\mathrm{m^3\,kg^{-1}\,s^{-2}}$ and a density $\rho$ has units $\mathrm{kg\,m^{-3}}$. Their product $G\rho$ has units $\mathrm{s^{-2}}$, so $(G\rho)^{-1/2}$ is the only time that can be built from them. For the Earth's mean density, $5514\,\mathrm{kg\,m^{-3}}$, it is $27$ minutes. Any process driven by gravity alone must run on a time of this order. A ratio of exactly this kind appears in fluid mechanics as the Reynolds number and the Mach number, in kinetic theory as the Knudsen number, and in the chapters before this one as the optical depth $\tau$ (Chapters~\ref{ch:photometry} and~\ref{ch:ism}). It gives a quick way to find the right ratio, by its units, and a rule for reading it.
+Gravity and density give a simple example. The constant $G$ has units $\mathrm{m^3\,kg^{-1}\,s^{-2}}$ and density $\rho$ has units $\mathrm{kg\,m^{-3}}$, so $G\rho$ has units $\mathrm{s^{-2}}$. A time made from these quantities must therefore scale as $(G\rho)^{-1/2}$. At the Earth's mean density, $5514\,\mathrm{kg\,m^{-3}}$, that scale is $27$ minutes. The units reveal the dependence, but not the numerical factor. We can find that factor in a concrete gravitational problem and then compare its time with other timescales.
 
 \paragraph{A time from units, checked against Kepler.} The orbit of a satellite that skims the surface of a uniform sphere of density $\rho$ and radius $a$ gives the same time. Kepler's third law, Eq.~\eqref{eq:kepler3}, sets the orbital angular speed to $\sqrt{GM/a^3}$, so the period is
 \begin{align}

@@ -6,9 +6,7 @@
 \input{results/ch12/pp_cno.tex}
 \input{results/ch14/clusters.tex}
 
-A star is a ball of gas in hydrostatic equilibrium (Section~\ref{sg:sec:hse}), heated inside by nuclear burning and losing energy from its surface as light (Chapter~\ref{ch:radiation}). Its whole structure, the density, pressure, temperature and luminosity at every depth, follows from four equations. Each equation is one of the principles at work. Three properties of the gas, its pressure, its opacity and its rate of burning, close the four equations, and each of those is again one of the principles.
-
-The same four equations, with their boundary conditions, are what stellar-evolution codes solve. Understanding them is understanding how a star is computed.
+A star is held together by gravity, supported by pressure, heated by nuclear burning and cooled by the light escaping its surface. To describe it, we need to know how its radius, pressure, temperature and luminosity change from the centre outward. Four equations connect those quantities shell by shell. The gas's pressure, opacity and burning rate supply the material properties needed to solve them. Together with conditions at the centre and surface, these are the equations solved by stellar-evolution codes.
 
 What makes a body a star is where its light comes from. A \textbf{star} is a ball of gas held together by its own gravity that shines for a long time by nuclear fusion in its core, hydrogen for most of its life and heavier fuels later. Other bodies shine for other reasons. Planets, moons, asteroids and comets reflect the light of a star. Protostars and brown dwarfs shine by slow contraction, the Kelvin–Helmholtz source of Section~\ref{sg:sec:freefall}, helped for a while by burning deuterium (Eq.~\eqref{st:eq:deuterium}). White dwarfs shine by cooling, giving away heat they already have. Neutron stars shine by losing spin, by gas falling onto them or by the slow decay of their magnetic field, and black holes only by the gas falling in (Section~\ref{fp:sec:accretion}).
 
@@ -37,17 +35,17 @@ the temperature follows the same shell of gas as the star evolves. The time deri
 \end{explain}
 The first term on the right is the thermometer at fixed $r$, and the second is the gas sliding past it. Writing everything with $m$ removes the second term from sight. The composition of a shell changes only by its own burning, so everything that happens to a shell happens at fixed $m$.
 
-In numbers, the Sun's radius has grown by about $10\%$ since it began to burn hydrogen, but the shell holding the inner half of its mass is still the shell with $m=M_\odot/2$. The picture is a set of nested shells labelled by the mass they enclose, not by their radius. Fluid dynamics calls this the Lagrangian description, following the fluid, as opposed to the Eulerian description at fixed points of space. The four equations are therefore written with $m$, from $0$ at the centre to $M$ at the surface, as the independent variable. They have four unknown functions of $m$ (and of $t$ as the star evolves). They are the radius $r(m)$, the pressure $P(m)$, the temperature $T(m)$ and the luminosity $L(m)$ flowing out through the shell.
+The Sun's radius has grown by about $10\%$ since it began to burn hydrogen. Its shell enclosing half the mass has moved outward too, but it is still labelled $m=M_\odot/2$. Following shells in this way is the Lagrangian description of a fluid; watching fixed positions is the Eulerian description. We will use $m$ as our coordinate, from $0$ at the centre to $M$ at the surface. At each $m$ we seek four quantities: the radius $r(m)$, pressure $P(m)$, temperature $T(m)$ and luminosity $L(m)$ passing through that shell.
 
 % ==============================================================================
 \section{The Four Equations}
 \label{st:sec:four_equations}
 
-Hydrostatic equilibrium (Eq.~\eqref{sg:eq:hse}) and the flow of light (Eq.~\eqref{rad:eq:radiative_transport}) have been derived already. They are two of the four equations, and both are written with $r$. A complete model needs the other two, how the mass relates to the radius and how the luminosity builds up, and needs all four with $m$ as the variable.
+We already have equations for hydrostatic balance (Eq.~\eqref{sg:eq:hse}) and for the flow of light (Eq.~\eqref{rad:eq:radiative_transport}). Both use radius as the coordinate. To follow the mass shells introduced above, we must rewrite them in terms of $m$. We also need to track the radius of each shell and the energy added to the luminosity as we move outward.
 
 Think of a household budget kept month by month. One line records the money coming in. Another records the money going out. The balance at the end of each month follows from the balance before plus the difference. Nothing else is needed, and nothing can be left out. A star keeps four such accounts, shell by shell, for space, momentum, energy and the flow of heat. Each one says how a quantity changes from one shell to the next. Mass and energy are conservation (P1). Momentum is conservation with the gravity of a sphere (P1 and P2). The flow of heat is a random walk of light (P5), or, where that is too slow, the bulk motion of the gas itself.
 
-In numbers, the Sun's luminosity of $3.83\times10^{26}\,\mathrm W$ is built up almost entirely in the inner quarter of its radius, where the burning happens, and then carried unchanged through the outer three quarters. The picture is a stack of shells, with each equation stepping one quantity from a shell to the next. The same four accounts, with the same structure, describe the interior of a planet (with no burning), the core of a white dwarf (with no burning and degenerate gas) and the envelope of an accreting neutron star. They give the four equations of stellar structure.
+In the Sun, burning builds nearly all of its $3.83\times10^{26}\,\mathrm W$ luminosity within the inner quarter of the radius. The outer shells then pass that energy on without adding much. This is why luminosity must be followed from shell to shell alongside radius, pressure and temperature. The same equations can describe other self-gravitating bodies when we supply the appropriate source of energy and form of pressure.
 
 \paragraph{Mass.} Inverting the definition of $m(r)$, Eq.~\eqref{pr:eq:mass_inside},
 \begin{equation}
@@ -166,11 +164,11 @@ Four unknown functions, four first-order equations. The right side needs three p
 \section{Pressure, Opacity and Burning}
 \label{st:sec:eos}
 
-The pressure of an ideal gas and of light were found by counting states (Eqs.~\eqref{pr:eq:ideal_gas} and~\eqref{pr:eq:photon_gas}). The flow of light needs an opacity (Section~\ref{rad:sec:diffusion}), and the energy equation needs a burning rate. The system \eqref{st:eq:system} cannot be solved without these three. They depend on the composition and on the state of the gas, and in white dwarfs the pressure takes a form not yet met.
+The four structure equations tell us how a star changes from shell to shell, but they need three inputs from the material in each shell. Pressure determines how the gas resists gravity. Opacity determines how readily light crosses it (Section~\ref{rad:sec:diffusion}). The burning rate determines how much energy it adds. All three depend on the gas's composition and state; at the densities of white dwarfs, even the form of the pressure changes.
 
 Think of a crowded lift. When there is room, people move about freely, and the more energetic they are, the harder they push on the walls. When the lift is packed, nobody can move whatever their mood, and the push on the walls comes only from being squeezed. The push no longer depends on how energetic people feel. Electrons in very dense gas are the packed lift. Each quantum state holds at most one electron, so once the low states are full the electrons are forced into states of high momentum, and they push however cold the gas is. Counting states (P3) gives this degeneracy pressure, the opacity follows from counting absorbers (P3) along a random walk of light (P5), and the burning rate from counting fast particles (P3) that tunnel through the electric barrier of the nucleus.
 
-In numbers, the Sun's centre has a Fermi energy about half its thermal energy $k_BT$, so it is only mildly degenerate. The centre of a white dwarf, at $10^9\,\mathrm{kg\,m^{-3}}$ and $10^7\,\mathrm K$, has a Fermi energy $190$ times its thermal energy (Problem~\ref{st:prob:degeneracy}). The picture is Figure~\ref{st:fig:rho_T}, the plane of density and temperature divided into the regions where gas, light and degenerate electrons supply most of the pressure.
+The contrast appears in the ratio of Fermi energy to thermal energy $k_BT$. At the Sun's centre, the Fermi energy is about half as large, so degeneracy is mild. At a white dwarf's centre, with density $10^9\,\mathrm{kg\,m^{-3}}$ and temperature $10^7\,\mathrm K$, it is $190$ times larger (Problem~\ref{st:prob:degeneracy}). Figure~\ref{st:fig:rho_T} shows where ordinary gas, radiation and degenerate electrons each dominate the pressure.
 
 \begin{figure}[htbp]
 	\centering
@@ -179,7 +177,7 @@ In numbers, the Sun's centre has a Fermi energy about half its thermal energy $k
 	\label{st:fig:rho_T}
 \end{figure}
 
-The same counting gives the interiors of giant planets, the electron pressure of white dwarfs and neutron-star crusts, and, with nuclear physics, the burning in the Big Bang. It gives the composition, the degenerate pressure, the opacity and the burning rate.
+We now supply these three material properties to the structure equations, beginning with composition and the pressure it produces.
 
 \paragraph{Composition and mean molecular weight.} Let $X$, $Y$ and $Z$ be the mass fractions of hydrogen, helium and everything heavier, with $X+Y+Z=1$. In a fully ionised gas, a mass $m_{\rm H}$ of hydrogen gives two particles (a proton and an electron), a mass $4m_{\rm H}$ of helium gives three (a nucleus and two electrons), and a heavy atom of mass $Am_{\rm H}$ gives about $A/2$ particles (it has about $A/2$ electrons, and the one nucleus can be neglected). The number of particles per mass $m_{\rm H}$ is therefore
 \begin{equation}
@@ -301,7 +299,7 @@ The system \eqref{st:eq:system} has four unknowns and four first-order equations
 
 Think of building a bridge from both banks. Each team starts from its own bank with a guess for the height and slope of its half. The halves meet in the middle only if the guesses were right, and the gap between them says how to correct the guesses. A star is computed the same way. Two conditions hold at the centre, two at the surface, and the solution must satisfy all four. Integrating from both ends and closing the gap in the middle, or adjusting the whole profile at once until every equation and every condition holds, gives the star. The method is conservation, applied numerically.
 
-In numbers, a modern stellar model divides the star into about a thousand shells, so it solves for four thousand numbers at once, and repeats this for each of thousands of time steps over the star's life. The picture is the bridge, two halves built toward each other until they meet. The same two-ended problem appears in the interior of planets, in the structure of accretion disks and in many boundary-value problems of physics. It gives the boundary conditions, two ways to solve the system, and how a star is evolved in time.
+A modern model may divide a star into about a thousand shells and solve for roughly four thousand values at each time step. It repeats that calculation as burning changes the composition. First, though, we need to specify what the solution must satisfy at the centre and surface.
 
 \paragraph{Four boundary conditions.} At the centre there is no radius and no luminosity yet,
 \begin{equation}
@@ -329,11 +327,11 @@ where the $4\times4$ matrix of derivatives is found by repeating the integration
 \section{Polytropes and the Isothermal Sphere}
 \label{st:sec:polytropes}
 
-The full system \eqref{st:eq:system} needs a computer. Insight often comes from a model simple enough to solve by hand, where the effect of each ingredient can be seen. Hydrostatic equilibrium and the mass equation alone involve only $P$, $\rho$ and $r$. They become solvable if the pressure depends on the density alone.
+The full structure equations usually require a computer. To see what controls a star's shape, we can set aside its luminosity and use only the mass and hydrostatic equations. These two equations become a closed problem when pressure is specified as a function of density.
 
 Think of a soft pillow and a firm one, each stacked with books. The firmness of the filling, how much its push grows when squeezed, decides how much the pillow flattens under a given weight. Nothing else about the pillow matters. In a star the same is true when $P=\mathcal K\rho^\gamma$ for some constant $\mathcal K$. Then the stiffness $\gamma$ alone decides how the star's mass is spread out, and the mass equation with hydrostatic equilibrium (P1 and P2), closed by a pressure from counting states (P3), give one equation for the density. This happens for degenerate gas, where Eq.~\eqref{st:eq:degenerate_P} has exactly this form, and for gas that is convective throughout, where $P\propto\rho^\gamma$ along the adiabat.
 
-In numbers, the model with $\gamma=\tfrac43$ scaled to the Sun's mass and radius gives a central density $\TwelveSunRhoC\,\mathrm{kg\,m^{-3}}$, a central pressure $\TwelveSunPC\,\mathrm{Pa}$ and a central temperature $\TwelveSunTC\,\mathrm K$, against $1.5\times10^5\,\mathrm{kg\,m^{-3}}$, $2.5\times10^{16}\,\mathrm{Pa}$ and $1.57\times10^7\,\mathrm K$ in detailed solar models. The picture is Figure~\ref{st:fig:lane_emden}. A stiffer gas spreads the mass more evenly. A softer one concentrates it at the centre.
+For example, a $\gamma=\tfrac43$ model scaled to the Sun's mass and radius gives central density $\TwelveSunRhoC\,\mathrm{kg\,m^{-3}}$, pressure $\TwelveSunPC\,\mathrm{Pa}$ and temperature $\TwelveSunTC\,\mathrm K$. Detailed solar models give $1.5\times10^5\,\mathrm{kg\,m^{-3}}$, $2.5\times10^{16}\,\mathrm{Pa}$ and $1.57\times10^7\,\mathrm K$. Figure~\ref{st:fig:lane_emden} shows how changing $\gamma$ changes the density profile: stiffer gas spreads mass more evenly, while softer gas concentrates it toward the centre.
 
 \begin{figure}[htbp]
 	\centering
@@ -457,11 +455,11 @@ So the star is a polytrope with $\gamma=\tfrac43$, whose single mass is fixed by
 \section{Scaling Laws and the HR Diagram}
 \label{st:sec:scaling}
 
-Polytropes gave the shape of a star, but the full equations are needed for its luminosity. Solving them for each mass is the work of a code. Yet the way luminosity and lifetime depend on mass can be read from the equations without solving them. The same reading gives the mass–luminosity relation, the smallest mass of a star and the layout of the HR diagram. Later it gives the relation between the speeds of stars in galaxies and the galaxies' luminosities, and the scaling relations of galaxy clusters.
+Polytropes show how pressure shapes a star, but leave out the energy flowing through it. For luminosity we return to the full equations. We can first replace each quantity by a typical value to see how luminosity changes with mass, without solving a separate model for every star. The same estimates help explain stellar lifetimes and the main sequence in the HR diagram.
 
 Think of model ships. A model built at half size, with everything in proportion, behaves in a way that can be predicted from the scale alone, without testing each new size from scratch. Stars of different mass are close to scaled copies of each other in the same way. If every quantity in the four equations is replaced by its typical size, each equation becomes a relation between powers of $M$ and $R$. This is the comparison of scales (P6) applied to the equations themselves.
 
-In numbers, the result $L\propto M^3$ for constant opacity, and the observed $L\propto M^{3.5}$ near the Sun, give a lifetime that falls as $M^{-2.5}$. A star of ten solar masses lives about $3\times10^7$ years, against $10^{10}$ for the Sun (Problem~\ref{st:prob:lifetimes}). The picture is the HR diagram of Figure~\ref{st:fig:hr}, where stars of the same radius lie along straight lines, and where the mass of a star sets its place on the main sequence.
+With constant opacity, the estimate below gives $L\propto M^3$; near the Sun, the observed relation is closer to $L\propto M^{3.5}$. A more massive star therefore has more fuel but spends it much faster, giving a lifetime that falls roughly as $M^{-2.5}$. A ten-solar-mass star lives about $3\times10^7$ years, compared with $10^{10}$ years for the Sun (Problem~\ref{st:prob:lifetimes}). Figure~\ref{st:fig:hr} shows how luminosity and temperature place these stars on the main sequence.
 
 \begin{figure}[htbp]
 	\centering
@@ -569,7 +567,7 @@ In a colour--magnitude diagram a blue straggler is a star that lies on the line 
 \section{Pulsating Stars}
 \label{st:sec:pulsation}
 
-A star in hydrostatic equilibrium that is pushed returns to balance within about a free-fall time (Section~\ref{sg:sec:freefall}), and the thermostat of Section~\ref{sg:sec:negheat} holds it there over longer times. Some stars do not stay still. The star $\delta$~Cephei brightens and fades every $5.37$ days, and the Doppler shift of its spectral lines shows its surface moving out and in over the same cycle. A disturbed star should settle back, as a pendulum's swing dies away by friction. Something must feed these stars a little energy in each cycle.
+Hydrostatic balance does not mean a star cannot move. If its surface is displaced, gravity and pressure can make it oscillate on roughly the free-fall timescale (Section~\ref{sg:sec:freefall}). Such motion should die away unless some process replaces the energy lost each cycle. In $\delta$~Cephei, the surface moves in and out while the star brightens and fades every $5.37$ days. What keeps the motion going?
 
 Think of the engine of a car. The fuel burns when the piston is at the top and the gas is squeezed hardest. The hot gas then pushes harder on the way out than it resisted on the way in, and each cycle leaves some work over to turn the wheels. If the cylinder instead lost heat at the top, through a leak to cold walls, the gas would push less on the way out than on the way in, and the piston would stop. The layers of a star move in and out like the piston. In most layers a squeeze heats the gas and lowers its opacity, so heat leaks out at the top of the cycle and the motion dies away. In a layer where helium is partly ionised, the squeeze goes into ionising helium instead of heating it, the opacity rises, and the layer holds back the light at the top of the cycle. That layer is the engine. It is called the $\kappa$ mechanism, after the symbol for opacity.
 
@@ -577,8 +575,8 @@ In numbers, Kramers' law gives $\kappa\propto\rho\,T^{-7/2}$. In gas that heats 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics{fig_ch12_valve.pdf}
-	\caption{One cycle of a layer of partly ionised helium, as four stages joined by arrows in the order they happen.}
+	\includegraphics[width=\linewidth]{fig_ch12_valve.pdf}
+	\caption{One cycle of a layer of partly ionised helium, as four stages joined by arrows in the order they happen. In each picture the grey bar is the star below, the dashed line is the rest radius, and the coloured band is the helium layer, drawn below the line when squeezed, above it when stretched, and darker for a higher density. Wavy arrows are light rising from below, black arrows show which way the layer moves or pushes, the labels on the cycle arrows give what happens between the stages, and the symbols give what rises ($\uparrow$) and what falls ($\downarrow$).}
 	\label{st:fig:valve}
 \end{figure}
 
@@ -647,7 +645,21 @@ The first term is the change without heat, which integrates to $P\propto V^{-\ga
 \end{equation}
 Ordinary ionised gas has $\gamma=\tfrac53$, so $\kappa\propto\rho^{-4/3}$. A squeezed layer becomes both hotter and more transparent, and both let more light out. It loses heat at the top of the cycle, like the leaking cylinder. Every layer of ordinary gas damps the swing.
 
-A layer where an element is partly ionised behaves differently. Helium loses its second electron, $\mathrm{He^+}\to\mathrm{He^{++}}$, with a binding energy of $54.4\,\mathrm{eV}$. The weights of the states give the same factor of one as for hydrogen, so the Saha equation \eqref{un:eq:saha} holds with $B=54.4\,\mathrm{eV}$. Setting $n_{\rm He^{++}}=n_{\rm He^+}$ in it and solving for $T$ gives the temperature at which helium is half ionised. For electron densities from $10^{20}$ to $10^{24}\,\mathrm m^{-3}$ it is $3.4\times10^4$ to $6.0\times10^4\,\mathrm K$, with $B/k_BT$ from $19$ to $10.5$. So the zone lies near $4\times10^4\,\mathrm K$ in any star, whatever the density there. In this zone a squeeze pushes the balance toward ionisation, and most of the work done on the gas goes into removing electrons, $54.4\,\mathrm{eV}$ each, instead of into heat. The temperature rises little, which is what a $\gamma$ close to one means. Detailed models give $\gamma$ of about $1.1$ to $1.2$ there, below $\tfrac97$. The squeezed zone becomes more opaque and barely hotter, so it holds back the light at the top of the cycle. This is the valve. The zone of hydrogen ionisation, near $10^4\,\mathrm K$ by the same equation with $B=13.6\,\mathrm{eV}$, works the same way, but it lies closer to the surface. A low $\gamma$ also makes $(\gamma-1)/\gamma$ small, so by the Schwarzschild criterion \eqref{st:eq:schwarzschild} these zones tend to convect, which sets the cool edge of the instability strip.
+A layer where an element is partly ionised behaves differently. Helium loses its second electron, $\mathrm{He^+}\to\mathrm{He^{++}}$, with a binding energy of $54.4\,\mathrm{eV}$. The weights of the states give the same factor of one as for hydrogen, so the Saha equation \eqref{un:eq:saha} holds with $B=54.4\,\mathrm{eV}$. Setting $n_{\rm He^{++}}=n_{\rm He^+}$ in it and solving for $T$ gives the temperature at which helium is half ionised. For electron densities from $10^{20}$ to $10^{24}\,\mathrm m^{-3}$ it is $3.4\times10^4$ to $6.0\times10^4\,\mathrm K$, with $B/k_BT$ from $19$ to $10.5$. So the zone lies near $4\times10^4\,\mathrm K$ in any star, whatever the density there. A squeeze ionises this gas, and the reason takes two steps. First, the squeeze heats the gas. The layer above falls in and does work on the gas below, and a pulsation is too quick for heat to leak away, so the work $-P\,dV$ all stays in the gas. In ordinary gas it all goes into the motion of the particles. A particle that bounces off a wall moving toward it comes back faster, and on average that is the rise of the temperature, $T\propto\rho^{\gamma-1}$, which with $\gamma=\tfrac53$ is $6.6\%$ for a $10\%$ squeeze. Second, a small warming shifts the helium balance a lot. Taking the logarithm of the Saha equation for helium and letting $T$ and $n_e$ change a little,
+\begin{align}
+	\ln\frac{n_{\rm He^{++}}}{n_{\rm He^+}}
+	&\eqby{1} \tfrac32\ln T-\frac{B}{k_BT}-\ln n_e+\text{constant} \nonumber\\
+	\implies\quad d\ln\frac{n_{\rm He^{++}}}{n_{\rm He^+}}
+	&\eqby{2} \left(\frac32+\frac{B}{k_BT}\right)d\ln T-d\ln n_e .
+	\label{st:eq:saha_shift}
+\end{align}
+\begin{explain}
+	\item The logarithm of Eq.~\eqref{un:eq:saha} with $n_{\rm He^{++}}$, $n_{\rm He^+}$ in place of $n_p$, $n_{\rm H}$ and $B=54.4\,\mathrm{eV}$.
+	\item Change each term a little. $d(-B/k_BT)=(B/k_BT)\,d\ln T$.
+\end{explain}
+In this zone $B/k_BT$ is $10.5$ to $19$, so a $1\%$ rise of the temperature raises the share of $\mathrm{He^{++}}$ by $12$ to $20\%$, while a $1\%$ rise of the density lowers it by only $1\%$. A denser gas on its own would recombine more, but the warming wins, and the squeeze pushes the balance toward ionisation. Most of the work done on the gas then goes into removing electrons, $54.4\,\mathrm{eV}$ each, instead of into heat. The temperature rises little, which is what a $\gamma$ close to one means. Detailed models give $\gamma$ of about $1.1$ to $1.2$ there, below $\tfrac97$. The squeezed zone becomes more opaque and barely hotter, so it holds back the light at the top of the cycle. This is the valve. The zone of hydrogen ionisation, near $10^4\,\mathrm K$ by the same equation with $B=13.6\,\mathrm{eV}$, works the same way, but it lies closer to the surface. A low $\gamma$ also makes $(\gamma-1)/\gamma$ small, so by the Schwarzschild criterion \eqref{st:eq:schwarzschild} these zones tend to convect, which sets the cool edge of the instability strip.
+
+\paragraph{One cycle.} Figure~\ref{st:fig:valve} follows the layer around one swing. Its rest radius is the one place where the pressure below balances gravity. Anywhere else the net force points back toward it, outward when the layer is squeezed and inward when it is stretched, so the equilibrium is stable and the layer swings about it like a pendulum. Any small disturbance starts a tiny swing. At the outer turning point the pressure below is too weak to hold the layer, and gravity pulls it in. It speeds up, passes the rest radius still moving, and squeezes the gas below. The squeeze heats the gas, the heat goes mostly into ionising helium, and the gas comes out denser but hardly hotter, so its opacity rises and it absorbs the light rising from below. The absorbed light heats the gas further, and the gas pressure climbs above what the squeeze alone would give. At the inner turning point this extra pressure stops the fall and throws the layer outward, past the rest radius. As the layer expands it cools, helium recombines, the gas turns clear, the trapped heat escapes, and the pressure falls below normal. Gravity takes over again at the outer turning point. The gas takes in heat while squeezed and gives it out while stretched, so each swing is pushed outward a little harder than it is pulled inward, and the swing grows. A contracting star (Section~\ref{sg:sec:negheat}) loses energy for good and passes slowly from one equilibrium to the next. The pulsating layer swings about one equilibrium, and the energy it takes from gravity on the way in, as motion and then as heat and ionisation, it hands back on the way out.
 
 \paragraph{Growth of the swing.} To see what the valve does to the swing, write it as $L_{\rm in}-L_{\rm out}=-\mathcal H\,\delta R$. A valve has $\mathcal H>0$, gaining heat while squeezed ($\delta R<0$). A leaking layer has $\mathcal H<0$. Over one swing, $\delta R=A\cos\omega t$ with amplitude $A$, so
 \begin{align}
