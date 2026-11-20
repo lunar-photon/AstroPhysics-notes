@@ -142,3 +142,4 @@ All 16 chapters complete (2026-10-16). Full notes 356 pp, clean build (no undefi
 - 2026-11-20: Fig 12.2 decluttered. Units and "area ∝ P" moved to the caption, (b) curves labelled thin/dense, Fermi–Dirac note dropped (the caption says black), slope-1 label moved off the line.
 - 2026-11-20: Fig 15.7 β=0.98 and β=0.9 labels moved off the curves (above the 0.98 peak, below the 0.9 peak).
 - 2026-11-20: Problem 11.9.1 essential idea: flux is defined at each point, so each planet is a point at distance d; ratio (d_E/d_M)^2.
+- 2026-11-20: New Fig 5.11 (re:fig:nyquist, fig_ch5_nyquist.tex) at the start of §5.5.2. (a) mirror D with copy shifted by λu, (b) overlap vs u ending at D/λ (closed form in pgf), (c)/(d) sampled spectrum copies for fine and coarse pixels. Referenced from §5.5.1 (a,b) and §5.5.2 (c,d). No new symbols.

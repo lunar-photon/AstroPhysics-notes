@@ -685,7 +685,7 @@ We want the finest ripple in the image of a telescope. Describe the image by its
 	\item $\int e^{-2\pi i\vec\theta\cdot\vec q}\,d^2\theta=\delta^2(\vec q)$, and $\delta^2(\vec x/\lambda)=\lambda^2\delta^2(\vec x)$ in two dimensions.
 	\item The delta function sets $\vecr'=\vecr+\lambda\vec u$.
 \end{explain}
-Since $t$ is $1$ or $0$, the last integral is the area where the opening overlaps a copy of itself shifted by $\lambda\vec u$. Two discs of diameter $D$ stop overlapping once their centres are $D$ apart. So the image of any scene through a round mirror contains no ripple finer than
+Since $t$ is $1$ or $0$, the last integral is the area where the opening overlaps a copy of itself shifted by $\lambda\vec u$ (Figure~\ref{re:fig:nyquist}a). Two discs of diameter $D$ stop overlapping once their centres are $D$ apart, so the overlap falls to zero at $u=D/\lambda$ (Figure~\ref{re:fig:nyquist}b). So the image of any scene through a round mirror contains no ripple finer than
 \begin{equation}
 	\boxed{u_{\max}=\frac{D}{\lambda}\ \text{cycles per radian}.}
 	\label{re:eq:u_max}
@@ -693,6 +693,13 @@ Since $t$ is $1$ or $0$, the last integral is the area where the opening overlap
 Each pair of points in the mirror a distance $\lambda u$ apart acts as the pair of antennas of Eq.~\eqref{re:eq:correlator_sky}, with baseline $\lambda u$. A mirror measures every baseline inside it at once, up to its diameter $D$. An interferometer measures only the few its antennas give, but out to the full $B$.
 
 \subsection{The Nyquist Sampling Criterion}
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig_ch5_nyquist.pdf}
+	\caption{(a) A round mirror of diameter $D$ (solid) and a copy of it shifted by $\lambda u$ (dashed), with their overlap shaded. (b) The overlap area against the spatial frequency $u$, for the image of a star. (c) The spectrum of the sampled image, with copies of (b) every $1/\theta_{\rm pix}$, for pixels finer than $\lambda/2D$. (d) The same for pixels coarser than $\lambda/2D$, with the overlap of neighbouring copies shaded.}
+	\label{re:fig:nyquist}
+\end{figure}
+
 
 Take one row of pixels along $\theta$, a distance $\theta_{\rm pix}$ apart. The recorded image is the true one times a row of spikes at the pixel centres, $I(\theta)\sum_j\delta(\theta-j\theta_{\rm pix})$. The row of spikes repeats every $\theta_{\rm pix}$, so it is a Fourier series,
 \begin{equation}
@@ -710,12 +717,12 @@ where each coefficient is $(1/\theta_{\rm pix})\int_{-\theta_{\rm pix}/2}^{\thet
 	\item Eq.~\eqref{re:eq:comb}, and the two exponentials combined.
 	\item The definition of $\tilde I$, shifted by $j'/\theta_{\rm pix}$.
 \end{explain}
-Sampling makes copies of the true spectrum, spaced $1/\theta_{\rm pix}$ apart. Each copy runs from $-u_{\max}$ to $+u_{\max}$. They do not overlap if $1/\theta_{\rm pix}\ge2u_{\max}$. Then the copy with $j'=0$ is the true spectrum, untouched, between $\pm1/(2\theta_{\rm pix})$, and the image can be rebuilt exactly. Keeping only that copy and transforming back gives
+Sampling makes copies of the true spectrum, spaced $1/\theta_{\rm pix}$ apart. Each copy runs from $-u_{\max}$ to $+u_{\max}$. They do not overlap if $1/\theta_{\rm pix}\ge2u_{\max}$ (Figure~\ref{re:fig:nyquist}c). Then the copy with $j'=0$ is the true spectrum, untouched, between $\pm1/(2\theta_{\rm pix})$, and the image can be rebuilt exactly. Keeping only that copy and transforming back gives
 \begin{equation}
 	I(\theta)=\sum_j I(j\theta_{\rm pix})\,\frac{\sin\left(\pi(\theta-j\theta_{\rm pix})/\theta_{\rm pix}\right)}{\pi(\theta-j\theta_{\rm pix})/\theta_{\rm pix}},
 	\label{re:eq:sinc_interpolation}
 \end{equation}
-since a flat band of width $1/\theta_{\rm pix}$ transforms into the slit pattern of Eq.~\eqref{re:eq:slit_field}. If the copies overlap, a ripple at a frequency $u$ just above $1/(2\theta_{\rm pix})$ is recorded as one at $u-1/\theta_{\rm pix}$. At every pixel, $\cos(2\pi uj\theta_{\rm pix})=\cos(2\pi(u-1/\theta_{\rm pix})j\theta_{\rm pix})$, because the two phases differ by $2\pi j$, a whole number of turns. This false ripple is \textbf{aliasing}, the backward wagon wheel. Real pixels collect light over their whole width rather than at a point. That multiplies the spectrum by a slit pattern, which lowers the fine ripples a little but does not change the condition.
+since a flat band of width $1/\theta_{\rm pix}$ transforms into the slit pattern of Eq.~\eqref{re:eq:slit_field}. If the copies overlap, a ripple at a frequency $u$ just above $1/(2\theta_{\rm pix})$ is recorded as one at $u-1/\theta_{\rm pix}$. At every pixel, $\cos(2\pi uj\theta_{\rm pix})=\cos(2\pi(u-1/\theta_{\rm pix})j\theta_{\rm pix})$, because the two phases differ by $2\pi j$, a whole number of turns. This false ripple is \textbf{aliasing}, the backward wagon wheel (Figure~\ref{re:fig:nyquist}d). Real pixels collect light over their whole width rather than at a point. That multiplies the spectrum by a slit pattern, which lowers the fine ripples a little but does not change the condition.
 
 With $u_{\max}=D/\lambda$ from Eq.~\eqref{re:eq:u_max}, the \textbf{Nyquist--Shannon} condition $\theta_{\rm pix}\le1/(2u_{\max})$ becomes
 \begin{keyresult}
