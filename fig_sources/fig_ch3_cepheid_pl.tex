@@ -19,13 +19,17 @@
 \begin{tikzpicture}[font=\small]
   \begin{axis}[width=11cm, height=8.5cm, scale only axis, axis lines*=left, xmin=0, xmax=2.0, ymin=11.5, ymax=19.5, y dir=reverse,
       grid=major, grid style={linecol}, tick style={muted}, every axis label/.style={text=muted}, clip=true,
-      xlabel={$\log_{10}(P/1\,\mathrm{day})$}, ylabel={mean magnitude}]
+      xlabel={$\log_{10}(P/1\,\mathrm{day})$}, ylabel={mean magnitude},
+      extra y ticks={\ThreeCepVone}, extra y tick labels={$\ThreeCepVone$},
+      extra y tick style={grid=none, tick style={accent}, yticklabel style={accent, font=\footnotesize}}]
     \addplot[only marks, mark=*, mark size=0.6pt, accent!70, opacity=0.6] table[x index=0,y index=1] {\datadir cep_pl.dat};
     \addplot[only marks, mark=*, mark size=0.6pt, astroblue!70, opacity=0.6] table[x index=0,y index=2] {\datadir cep_pl.dat};
     \addplot[ink, line width=1pt] table[x index=0,y index=1] {\datadir cep_fits.dat};
     \addplot[ink, line width=1pt] table[x index=0,y index=2] {\datadir cep_fits.dat};
     \draw[ink] (axis cs:0.99972,\ThreeCepVbar) circle[radius=3pt];
     \draw[ink] (axis cs:0.99972,\ThreeCepIbar) circle[radius=3pt];
+    \draw[accent, line width=0.9pt, dotted] (axis cs:0,\ThreeCepVone) -- (axis cs:1,\ThreeCepVone);
+    \fill[accent] (axis cs:1,\ThreeCepVone) circle[radius=1.6pt];
     \node[accent, anchor=west] at (axis cs:0.05,18.7) {$V$};
     \node[astroblue, anchor=west] at (axis cs:0.05,17.7) {$I$};
   \end{axis}
