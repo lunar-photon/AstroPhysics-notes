@@ -1,19 +1,19 @@
 \chapter{Radiation in Matter}
 \label{ch:radiation}
 
-Almost everything known about stars arrives as light. That light was made deep inside a star, fought its way out through layers of gas, crossed interstellar space (Chapter~\ref{ch:ism}) and finally reached a telescope. At each stage matter took some light away and added some of its own.
+Most of what we know about stars comes from their light. Before reaching a telescope, that light passes through the star's own gas and sometimes through interstellar matter (Chapter~\ref{ch:ism}). Along the way, matter can absorb some of it and emit more.
 
-One equation describes all of this. It is energy conservation along a single ray (P1), with gains and losses balanced as in P4. Where the matter is thin, the equation gives emission and absorption lines. Where it is thick, it gives a blackbody and a slow, random-walk leak of energy (P5). This one equation, in its two limits, covers most of what astronomers measure.
+Tracking those gains and losses along one ray gives the transfer equation (P1 and P4). In thin gas it explains bright and dark lines. In thick gas repeated absorption and emission make the light nearly thermal, while a small imbalance lets energy leak outward by a random walk (P5).
 
 % ==============================================================================
 \section{Specific Intensity}
 \label{rad:sec:intensity}
 
-Chapter~\ref{ch:photometry} measured light by its flux, the energy crossing a unit area per unit time, which falls as the inverse square of distance (Eq.~\eqref{eq:inverse_square_flux}). Inside a star or a cloud, light comes from every direction at once. A single flux mixes all of them together. To follow light through matter we need the light travelling in each direction separately.
+Flux measures the net light crossing an area and falls with distance as in Eq.~\eqref{eq:inverse_square_flux} (Chapter~\ref{ch:photometry}). Inside a star, rays travel in many directions. Their opposing flows can nearly cancel in the flux even while the radiation field remains strong. To track what matter does to each ray, we need a directional measure of light.
 
-Look at a white wall in an evenly lit room, first from one metre away and then from five. From farther away the wall covers less of your view, but each patch of it looks just as bright. The brightness of a surface does not fade with distance. Only its size shrinks. The surface of the Sun is the same. Seen from Mars it covers a smaller patch of sky than seen from Earth, but each square degree of that patch is equally bright. The quantity that stays fixed along a ray is the energy per unit area, per unit time, per unit frequency and per unit solid angle, the specific intensity. Its constancy is energy conservation (P1) for a narrow bundle of rays.
+Look at an evenly lit wall from one metre away, then from five. It covers less of your view at the greater distance, but each small patch appears just as bright. The Sun behaves the same way: from Mars it covers less sky than from Earth, while each patch of its surface keeps the same brightness. Distance reduces the total flux because the source subtends a smaller solid angle. The light carried along one ray is measured by \textbf{specific intensity}, energy per area, time, frequency, and solid angle. In empty space, energy conservation keeps that intensity constant (P1).
 
-The Sun in numbers. From Earth its angular radius is $0.266^\circ$. From Mars, $1.52$ times farther, it is $0.175^\circ$. The flux falls by $1.52^2=2.3$ because the solid angle falls by that factor, while the intensity of each patch is the same. The picture is a narrow cone of rays leaving a patch of surface. Farther along, the cone is wider, but it carries the same energy in the same solid angle. The same constancy makes the surface brightness of a galaxy independent of its distance in a static space, which is what makes it a test of the expansion of the universe. It is why gravitational lensing, which bends rays but does not create or destroy light, leaves surface brightness unchanged. Radio astronomers state it as a brightness temperature. Here it gives the intensity and the three quantities built from it.
+The Sun's angular radius is $0.266^\circ$ from Earth and $0.175^\circ$ from Mars, which is $1.52$ times farther away. Its solid angle and total flux fall by $1.52^2=2.3$, while the intensity of a surface patch stays the same. Think of a narrow cone of rays leaving that patch: the cone widens, but its energy spreads over area and solid angle together. This conservation also explains why lensing preserves surface brightness. In a static space, a galaxy's surface brightness would likewise be independent of distance; departures from that rule reveal cosmic expansion.
 
 \paragraph{Definition.} Light of frequency between $\nu$ and $\nu+d\nu$ crosses an area $dA$ in time $dt$, travelling within a solid angle $d\Omega$ about a direction that makes an angle $\theta$ with the normal of $dA$. The energy it carries defines the \textbf{specific intensity} $I_\nu$,
 \begin{equation}
@@ -67,11 +67,11 @@ A surface that sends intensity $B_\nu$ outward into every direction of the outer
 \section{The Transfer Equation}
 \label{rad:sec:transfer}
 
-Chapters~\ref{ch:photometry} and~\ref{ch:ism} described extinction, in which light passing through dust is dimmed by $e^{-\tau}$ (Eq.~\eqref{ph:eq:extinction_tau}). That is only half the story. Gas and dust also emit. A hot cloud glows, and a star's atmosphere both absorbs the light from below and adds its own.
+Extinction removes light from a ray by the factor $e^{-\tau}$ (Eq.~\eqref{ph:eq:extinction_tau}). But matter can add light too. A hot cloud emits its own glow, and a stellar atmosphere both absorbs light from below and emits into the same ray. We therefore need an equation that tracks both changes together.
 
-Think of a foggy night street. A distant lamp fades as you look at it through more fog, but the fog itself glows with the light it has scattered. Through a little fog you see the lamp. Through enough fog you see only the glowing fog, and nothing about the lamp behind it. Light travelling through matter loses a fixed fraction of itself per unit length by absorption and gains whatever the matter emits. Its intensity along the ray is a balance of the two, energy conservation (P1) with gains against losses (P4). When the matter is thick enough, the light forgets where it came from and takes on the glow of the matter.
+On a foggy street, a distant lamp fades behind the fog while the fog scatters light into your view. Through a thin patch, the lamp still dominates. Through enough fog, you mainly see the fog's own glow. Along a ray, matter removes a fraction of the passing light and adds its own emission. The transfer equation balances these changes (P1 and P4). Once enough matter lies in the way, the emerging light reflects the nearby matter rather than the distant lamp.
 
-A slab in numbers. Light of intensity $I_0$ enters a uniform slab whose own glow is $S$. If the slab has optical depth $\tau=1$, a fraction $e^{-1}=0.37$ of the entering light survives and the slab adds $0.63\,S$. At $\tau=5$ only $0.7\%$ survives and the slab adds $99.3\%$ of $S$. The picture is Figure~\ref{rad:fig:slab}. Whatever enters, the light leaving a thick slab approaches the slab's own glow.
+The slab's optical depth decides how much of its own glow replaces the entering light. For incident intensity $I_0$ and source function $S$, a slab with $\tau=1$ transmits $e^{-1}=0.37$ of $I_0$ and adds $0.63\,S$. At $\tau=5$, it transmits only $0.7\%$ and adds $99.3\%$ of $S$. Figure~\ref{rad:fig:slab} shows this approach to the slab's own glow as it becomes optically thick.
 
 \begin{figure}[htbp]
 	\centering
@@ -80,7 +80,7 @@ A slab in numbers. Light of intensity $I_0$ enters a uniform slab whose own glow
 	\label{rad:fig:slab}
 \end{figure}
 
-The same equation governs radio emission from cold gas, X-rays from hot clusters, the Lyman-$\alpha$ absorption of distant quasars (hydrogen atoms lifted from $n=1$ to $n=2$ by light of $121.6\,\mathrm{nm}$, Section~\ref{sec:ism_lines}) and the cosmic microwave background. It gives the equation and its solution.
+We now derive the transfer equation that produces this result. It applies to cold gas seen in radio light, hot clusters seen in X-rays and the Lyman-$\alpha$ absorption of distant quasars (Section~\ref{sec:ism_lines}).
 
 \paragraph{Absorption by a thin slab.} Let a beam cross a thin slab of matter, of thickness $ds$ along the beam and area $A$ across it. The slab holds absorbers, atoms, ions, electrons or dust grains, with number density $n$. Each one blocks light of frequency $\nu$ over an area $\sigma_\nu$, its \textbf{cross-section}, which atomic physics supplies (the Thomson cross-section of Eq.~\eqref{eq:thomson_cross_section} is one). The slab is thin enough that the absorbers do not hide behind one another, so their areas simply add. Then
 \begin{align}
@@ -156,11 +156,11 @@ With no emission, $S_\nu=0$, this is the extinction law of Eq.~\eqref{ph:eq:flux
 \section{Kirchhoff's Law and Local Thermodynamic Equilibrium}
 \label{rad:sec:kirchhoff}
 
-The Planck spectrum was derived by counting the states of light (Eq.~\eqref{pr:eq:planck}), and Chapter~\ref{ch:photometry} treated stars as blackbodies. A star is not a closed box at one temperature. Its temperature falls outward and light escapes. It is not obvious why its light should look like a blackbody, or why its spectrum should have dark lines.
+The Planck spectrum describes light in equilibrium with matter at one temperature (Eq.~\eqref{pr:eq:planck}). A star has no single temperature: its outer layers are cooler, and light escapes through them. Why, then, is its spectrum close to a blackbody, and why do dark lines interrupt it?
 
 Look into a furnace. A poker left in the coals glows with exactly the colour of the coals around it, and its outline nearly disappears. Everything in the furnace glows alike, whatever it is made of. A material that absorbs well also glows well, in just the right proportion, because otherwise the poker would end up hotter or colder than the coals. The same rule holds for each small parcel of a star. Matter that absorbs strongly at some frequency also emits strongly there, and the ratio of the two is fixed by its temperature. This is detailed balance (P4) for absorption and emission, with the counted spectrum of light (P3).
 
-Two layers in numbers. Suppose the continuum at $500\,\mathrm{nm}$ reaches us from a layer at $6000\,\mathrm K$, and the centre of a strong line from a higher layer at $4500\,\mathrm K$. The intensity at line centre is then $B_\nu(4500\,\mathrm K)/B_\nu(6000\,\mathrm K)=0.20$ of the continuum. The line is dark. The picture is two depths in an atmosphere. At most frequencies we see down to a deep, hot layer. At the frequency of a line the gas is more opaque, so we see only a high, cooler layer. The same law gives the dark Fraunhofer lines of the Sun, the bright lines of glowing nebulae, the darkening of the Sun's edge, and the nearly perfect blackbody of the microwave background. It gives the source function of matter in equilibrium and the way lines form.
+An atmosphere lets us see to different depths at different frequencies. At most frequencies, the continuum comes from a deeper, hotter layer. At a strong spectral line, greater opacity hides that layer and exposes cooler gas above it. For example, if the continuum at $500\,\mathrm{nm}$ comes from gas at $6000\,\mathrm K$ and the line centre from gas at $4500\,\mathrm K$, the line intensity is $B_\nu(4500\,\mathrm K)/B_\nu(6000\,\mathrm K)=0.20$ of the continuum. The line appears dark because we see cooler gas there. This connection between absorption, emission and temperature also explains the Sun's Fraunhofer lines and the darkening of its edge.
 
 \paragraph{Kirchhoff's law.} Inside a closed cavity in full thermodynamic equilibrium at temperature $T$, the light is the same everywhere and in every direction, and by P3 it is Planck light, $I_\nu=B_\nu(T)$. Nothing changes along a ray, so Eq.~\eqref{rad:eq:transfer} gives
 \begin{align}
@@ -199,11 +199,11 @@ Read it as a relaxation. Over each mean free path $1/(\kappa_\nu\rho)$ the light
 \section{Diffusion of Light}
 \label{rad:sec:diffusion}
 
-Deep inside a star the optical depth to the surface is enormous, and by the thick limit of Eq.~\eqref{rad:eq:slab} the light at each point is nearly Planck light at the local temperature. If the light were exactly Planck light, the same in every direction, it would carry no net flux (Section~\ref{rad:sec:intensity}). But the Sun does shine. A small departure from equal light in all directions must carry its whole luminosity outward.
+Deep inside a star, light is absorbed and re-emitted many times before it reaches the surface. It is therefore nearly Planck light at the local temperature, as the thick limit of Eq.~\eqref{rad:eq:slab} predicts. Exactly Planck light would be equally bright in every direction and carry no net flux (Section~\ref{rad:sec:intensity}). The star shines because the outward light is just a little brighter than the inward light.
 
 Think again of perfume in still air (Problem~\ref{pr:prob:perfume}). Each molecule wanders at random, but a little more perfume drifts away from the bottle than toward it, because there is more perfume near the bottle. A net flow appears with no push in any direction, only a gradient. Photons in a star do the same. Each is absorbed and re-emitted after a short free path, in a random direction. There is slightly more light where the gas is hotter, so a little more light drifts outward than inward. This is a random walk (P5), with the energy density of light $aT^4$ in place of the number of perfume molecules.
 
-The Sun in numbers. Near its centre a photon's free path is of order a millimetre to a centimetre. To random-walk out across a radius of $7\times10^8\,\mathrm m$ takes $R^2/(sc)$, Eq.~\eqref{pr:eq:walk_time}, which is $5\times10^3$ years for $s=1\,\mathrm{cm}$ and $5\times10^4$ years for $s=1\,\mathrm{mm}$. A straight flight would take $2.3$ seconds. The picture is the random walk of Figure~\ref{pr:fig:random_walk}, with photons in place of walkers, drifting slowly down the slope of temperature. The same diffusion carries heat through the interiors of stars, carries neutrinos out of a collapsing stellar core, and smooths the early universe on small scales before atoms form. It gives the flux of light deep inside a star, by three routes.
+The difference between a straight flight and a random walk is enormous. Near the Sun's centre, a photon's free path is of order a millimetre to a centimetre. To cross a radius of $7\times10^8\,\mathrm m$ by random walking takes $R^2/(sc)$ (Eq.~\eqref{pr:eq:walk_time}): $5\times10^3$ years for $s=1\,\mathrm{cm}$ or $5\times10^4$ years for $s=1\,\mathrm{mm}$. A straight flight would take $2.3$ seconds. Figure~\ref{pr:fig:random_walk} shows why so many short steps are needed. We can derive the small outward flux produced by this walk in three ways.
 
 \paragraph{Route A, the random walk.} The diffusion flux of Eq.~\eqref{pr:eq:fick} applies to anything that walks at random. For light, the walkers are photons and the quantity that flows is energy. With energy density $aT^4$ (Eq.~\eqref{pr:eq:photon_gas}) in place of $n$, speed $c$, and step length $1/(\kappa\rho)$,
 \begin{equation}
@@ -312,11 +312,11 @@ For $r>r_0$ the bracket is negative and $T^4$ falls. It falls fastest where the 
 \section{The Eddington Luminosity}
 \label{rad:sec:eddington}
 
-The light flowing out of a star pushes on the matter it passes through, with the force found in Route B above. The brighter a star, the harder its light pushes. At some brightness the push must match gravity.
+The outward flux that carries a star's energy also transfers momentum to its gas, as Route B showed. Increasing the luminosity strengthens this outward push. Eventually it can balance the inward pull of gravity.
 
 Think of standing in a strong wind. A breeze does nothing, a gale pushes you over. Somewhere between, the push of the wind equals the grip your weight gives you on the ground. The matter at the surface of a star is held down by gravity and pushed out by the momentum of the light streaming past it (P1 for light, P2 for gravity). Both forces fall off as $1/r^2$, so their ratio depends only on the luminosity and the mass. Above a certain luminosity, the Eddington luminosity, no star can hold on to its outer layers.
 
-The Sun in numbers. For ionised hydrogen, where light is scattered by free electrons, the limit is $1.3\times10^{31}\,\mathrm W$, about $3.3\times10^4$ times the Sun's luminosity. The Sun is far below it. The picture is a parcel of gas with gravity pulling it inward and a stream of photons pushing it outward. The ratio of the two arrows does not depend on the radius. The same limit caps the luminosity of the most massive stars, and it caps how fast black holes can swallow gas, since infalling gas radiates and the light pushes back. A quasar shining at $10^{39}\,\mathrm W$ must hold at least $10^8$ solar masses. It gives the maximum luminosity of a body of mass $M$.
+For ionised hydrogen around one solar mass, the limiting luminosity is $1.3\times10^{31}\,\mathrm W$, or about $3.3\times10^4$ times the Sun's luminosity. The Sun is well below this limit. The same balance matters for gas falling onto a black hole: as the gas radiates, its light pushes against the incoming material. A quasar shining at $10^{39}\,\mathrm W$ therefore needs at least $10^8$ solar masses if its luminosity is below this limit.
 
 \paragraph{The limit.} From Route B, light of flux $F$ gives the matter a force per unit volume $\kappa\rho F/c$, so a force per unit mass $\kappa F/c$. Gravity pulls with $GM/r^2$ per unit mass. With $F=L/(4\pi r^2)$ the two balance when
 \begin{align}
@@ -343,7 +343,7 @@ Kirchhoff's law fixed the ratio of emission to absorption for matter in local th
 
 Think of a ball resting at the bottom of a step. A kick can lift it onto the step, and from the step it can roll back down by itself. A kick can also knock it down sooner than it would have rolled. If the ball spends time on and off the step in the proportions the temperature demands, the three kinds of move must be related. An atom with two levels makes three kinds of transition. Light can lift it, it can drop by itself, and light can push it down sooner (stimulated emission). Detailed balance (P4) with Planck light and Boltzmann populations (P3) fixes how the three rates are related. Since the rates belong to the atom alone, the relations hold everywhere, in equilibrium or not.
 
-The $21\,\mathrm{cm}$ line in numbers. The upper level of hydrogen's ground state drops by itself at the rate $2.9\times10^{-15}\,\mathrm{s^{-1}}$ (Eq.~\eqref{is:eq:A21}), once in $11$ million years. In interstellar gas, collisions change the level far more often than that, so the populations follow the gas temperature (Section~\ref{sec:ism_hydrogen}). The picture is two levels with three arrows between them, one up and two down. The same relations give the strength of every spectral line, the gain of lasers and of the masers seen in star-forming clouds, and the condition for a line to form out of equilibrium. They give the three coefficients and the relations between them.
+The hydrogen $21\,\mathrm{cm}$ line shows why the competing rates matter. Its upper level drops spontaneously at only $2.9\times10^{-15}\,\mathrm{s^{-1}}$ (Eq.~\eqref{is:eq:A21}), about once in $11$ million years. In interstellar gas, collisions change the level much more often, so the populations usually follow the gas temperature (Section~\ref{sec:ism_hydrogen}). We will describe absorption and both ways an excited atom can emit with three coefficients, then use equilibrium to relate them.
 
 \paragraph{Three rates.} Let level 1 (lower) and level 2 (upper) be single states separated by $h\nu$. In light of energy density $u_\nu$ at the line frequency,
 \begin{itemize}
@@ -381,7 +381,7 @@ A star shows dark lines where cooler gas lies above hotter gas (Section~\ref{rad
 
 Think of a shop that sells umbrellas to people walking past. On a dry day nobody needs one. In a storm nobody walks past. The shop sells most on a day of light rain, because a sale needs two things at once, and the weather that brings one takes away the other. The visible lines of hydrogen are absorbed by atoms in level $n=2$. Heat lifts atoms into that level, and more heat strips the electron off altogether. So the hydrogen lines are strongest at one temperature in between, near $10^4\,\mathrm K$. The pattern of lines in a star measures its temperature, not its composition.
 
-In numbers, at the Sun's $5772\,\mathrm K$ only $5$ hydrogen atoms in $10^9$ are in level $2$. At $9870\,\mathrm K$ the share is $9$ in a million. At $2\times10^4\,\mathrm K$ only $3$ atoms in $10^5$ still hold their electron, and the share in level $2$ is back down to $3$ in $10^7$. The picture is Figure~\ref{rad:fig:balmer}, a curve that rises steeply, peaks and falls away slowly. The same contest between excitation and ionisation, counting states (P3) with detailed balance (P4), fixes the lines of every element in every star. It places the ionisation zones that drive pulsating stars (Section~\ref{st:sec:pulsation}). It also sets the temperature at which the universe became transparent (Section~\ref{un:sec:cmb}). The same dark-line argument, read through the edge of a planet passing in front of its star, gives the planet's air. It gives the spectral sequence, the share of hydrogen that can make the visible lines, the luminosity classes, and the spectra of planet atmospheres.
+The rise and fall is large enough to see in the numbers. At the Sun's $5772\,\mathrm K$, only $5$ hydrogen atoms in $10^9$ are in level $2$. At $9870\,\mathrm K$, the share is $9$ in a million. By $2\times10^4\,\mathrm K$, only $3$ atoms in $10^5$ still hold their electron, and the share in level $2$ has fallen to $3$ in $10^7$. Figure~\ref{rad:fig:balmer} shows the resulting peak. We will use the same competition between excitation and ionisation to read the sequence of stellar spectra.
 
 \paragraph{The sequence.} Stars are sorted by the lines they show into the classes O, B, A, F, G, K and M, from hot to cool. The letters are left over from an older alphabetical order by the strength of the hydrogen lines, which was later rearranged by temperature. Each class is split into subtypes $0$ to $9$, with $0$ the hottest, so a G2 star is a little cooler than a G0 star. Table~\ref{rad:tab:classes} gives the classes. The Sun is G2.
 
@@ -582,11 +582,11 @@ Sodium was the first gas found this way, in 2002 with the Hubble Space Telescope
 \section{The Grey Atmosphere}
 \label{rad:sec:grey}
 
-The effective temperature was defined in Chapter~\ref{ch:photometry} by $L=4\pi R^2\sigma_{\rm SB}T_{\rm eff}^4$ (Eq.~\eqref{eq:stefan_boltzmann_luminosity}), as if the star had one surface at one temperature. A star has no sharp surface. Its temperature falls continuously outward, and the light we see comes from a range of depths. Where is the effective temperature actually found?
+The effective temperature is defined by $L=4\pi R^2\sigma_{\rm SB}T_{\rm eff}^4$ (Eq.~\eqref{eq:stefan_boltzmann_luminosity}), as though a star radiated from one surface at one temperature. In reality, its temperature falls continuously outward, and the escaping light comes from a range of depths. We can still ask where in that atmosphere the local temperature equals $T_{\rm eff}$.
 
 Think of looking into a pool of murky water. You see down to some depth where the water stops being clear, and no farther. The bottom you see is not a surface in the water but the depth at which the murk has added up to enough. A star's photosphere is such a depth. It lies at a fixed optical depth, and the temperature there is the effective temperature. The calculation uses momentum conservation for light (P1), the steady flow of energy through the atmosphere (P4), and Planck light at the local temperature (P3).
 
-In numbers, the result below puts the effective temperature at an optical depth of $\tfrac23$, and the topmost gas, at $\tau=0$, at $2^{-1/4}=0.84$ of it. For the Sun that is $4850\,\mathrm K$ at the top against $5772\,\mathrm K$ at the photosphere. The picture is Figure~\ref{rad:fig:grey}, a temperature that rises slowly with depth through the layers we see.
+The model below places that depth at $\tau=\tfrac23$. At the top, where $\tau=0$, the temperature is $2^{-1/4}=0.84$ times as high. For the Sun, this gives $4850\,\mathrm K$ at the top and $5772\,\mathrm K$ at the photosphere. Figure~\ref{rad:fig:grey} shows the gradual rise in temperature with depth.
 
 \begin{figure}[htbp]
 	\centering
@@ -632,7 +632,7 @@ The temperature equals $T_{\rm eff}$ at $\tau=\tfrac23$. That depth is the \text
 
 \textbf{Essential Ideas}:
 \begin{itemize}
-	\item The flux falls as $1/d^2$ (Eq.~\eqref{eq:inverse_square_flux}).
+	\item The flux is defined at each point, as the power crossing unit area there. The planets are tiny next to their distances from the Sun, so each one counts as a point at distance $d$. The Sun's power spreads over a sphere of radius $d$ through that point, so $F=L_\odot/4\pi d^2$ falls as $1/d^2$ (Eq.~\eqref{eq:inverse_square_flux}). Each planet then receives one flux, and the two are compared through $F_{\rm Mars}/F_\oplus=(d_\oplus/d_{\rm Mars})^2$.
 	\item The intensity is constant along a ray (Eq.~\eqref{rad:eq:intensity_constant}).
 \end{itemize}
 
